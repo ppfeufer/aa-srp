@@ -68,11 +68,11 @@ class AaSrpLink(models.Model):
     srp_name = models.CharField(max_length=254, default="")
     srp_status = models.CharField(max_length=254, default="")
     srp_code = models.CharField(max_length=254, default="")
-    fleet_doctrine = models.CharField(max_length=254, default="")
-    fleet_time = models.DateTimeField()
     fleet_commander = models.ForeignKey(
         EveCharacter, null=True, on_delete=models.SET_NULL
     )
+    fleet_doctrine = models.CharField(max_length=254, default="")
+    fleet_time = models.DateTimeField()
     aar_link = models.CharField(max_length=254, default="")
 
     def __str__(self):
@@ -113,6 +113,9 @@ class AaSrpRequest(models.Model):
     SRP Request model
     """
 
+    request_code = models.CharField(max_length=254, default="")
+    character = models.ForeignKey(EveCharacter, null=True, on_delete=models.SET_NULL)
+    ship_name = models.CharField(max_length=254, default="")
     killboard_link = models.CharField(max_length=254, default="")
     additional_info = models.TextField(null=True, blank=True)
     request_status = models.CharField(
@@ -121,12 +124,9 @@ class AaSrpRequest(models.Model):
         default=AaSrpRequestStatus.PENDING,
     )
     payout_amount = models.BigIntegerField(default=0)
-    character = models.ForeignKey(EveCharacter, null=True, on_delete=models.SET_NULL)
     srp_link = models.ForeignKey(AaSrpLink, on_delete=models.CASCADE)
     loss_amount = models.BigIntegerField(default=0)
-    ship_name = models.CharField(max_length=254, default="")
     post_time = models.DateTimeField(default=timezone.now)
-    request_code = models.CharField(max_length=254, default="")
 
     def __str__(self):
         return self.character.character_name + " SRP request for " + self.ship_name
