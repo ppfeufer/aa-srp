@@ -1,0 +1,8 @@
+include LICENSE
+include README.md
+include CHANGELOG.md
+include MANIFEST.in
+graft aasrp
+
+global-exclude __pycache__
+global-exclude *.py[co]
