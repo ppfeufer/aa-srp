@@ -6,27 +6,108 @@
 {% block details %}
 {#    <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre>#}
 
-    <div class="text-right">
-        {% if perms.aasrp.srp_management %}
-            <a href="{% url 'aasrp:all' %}" class="btn btn-primary">
+    <div class="pull-right">
+        {% if perms.aasrp.manage_srp %}
+            <a href="{% url 'aasrp:all' %}" class="btn btn-primary btn-tabs">
                 {% translate "View All" %}
             </a>
         {% endif %}
 
-        {% if perms.aasrp.create_srp or perms.aasrp.aasrp_management %}
-            <a href="{% url 'aasrp:add_srp_link' %}" class="btn btn-success">
+        {% if perms.aasrp.create_srp or perms.aasrp.manage_srp %}
+            <a href="{% url 'aasrp:add_srp_link' %}" class="btn btn-success btn-tabs">
                 {% translate "Add SRP Link" %}
             </a>
         {% endif %}
     </div>
-{% endblock %}
 
-{% block extra_javascript %}
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#active_srp_links" aria-controls="home" role="tab" data-toggle="tab">{% translate 'Active SRP Links' %}</a></li>
+        <li role="presentation"><a href="#pending_user_srp_requests" aria-controls="profile" role="tab" data-toggle="tab">{% translate 'Your SRP Requests' %}</a></li>
+    </ul>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="tab-content">
+                {% include 'aasrp/partials/dashboard/active_srp_links.html' with tab_name='active_srp_links' %}
+                {% include 'aasrp/partials/dashboard/pending_user_srp_requests.html' with tab_name='pending_user_srp_requests' %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block extra_css %}
+    {% include 'bundles/datatables-css.html' %}
+
     <link rel="stylesheet" href="{% static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
+{% endblock %}
+
+{% block extra_javascript %}
+    {% include 'bundles/datatables-js.html' %}
+    {% include 'bundles/moment-js.html' with locale=True %}
+
+    <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/dataTables.rowGroup.min.js' %}"></script>
+    <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/datetime.js' %}"></script>
+    <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}"></script>
+
+{#    <script type="application/javascript" src="{% static 'aasrp/js/aa-srp.min.js' %}"></script>#}
+
+    <script type="application/javascript">
+    const DATETIME_FORMAT = 'YYYY-MMM-DD HH:mm'
+
+    $(document).ready(function () {
+        console.log('document loaded');
+
+        $('#tab_aasrp_active_srp_links').DataTable({
+            ajax: {
+                url: "{% url 'aasrp:active_srp_links_data' %}",
+                dataSrc: '',
+                cache: false
+            },
+            columns: [
+                {data: 'srp_name'},
+                {data: 'fleet_time',render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)},
+                {data: 'fleet_commander'},
+                {data: 'fleet_doctrine'},
+                {data: 'aar_link'},
+                {data: 'srp_status'},
+                {data: 'pending_requests'},
+            ],
+            order: [[1, "asc"]],
+        });
+
+        $('#tab_aasrp_pending_user_srp_requests').DataTable({
+            ajax: {
+                url: "{% url 'aasrp:pending_user_srp_requests_data' %}",
+                dataSrc: '',
+                cache: false
+            },
+            columns: [
+                {data: 'request_time',render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)},
+                {data: 'fleet_name'},
+                {data: 'srp_code'},
+                {data: 'ship'},
+                {data: 'zkb_link'},
+                {data: 'zbk_loss_amount', render: $.fn.dataTable.render.number( ',', '.', 2 ), className: "text-right"},
+                {data: 'payout_amount', render: $.fn.dataTable.render.number( ',', '.', 2 ), className: "text-right"},
+                {data: 'request_status'},
+            ],
+            order: [[0, "desc"]],
+            filterDropDown: {
+                columns: [
+                    {
+                        idx: 3,
+                    },
+                    {
+                        idx: 7,
+                    }
+                ],
+                autoSize: false,
+                bootstrap: true
+            },
+        });
+    });
+    </script>
 {% endblock %}
 
 {% block extra_script %}

@@ -1,0 +1,23 @@
+{% load i18n %}
+{% load humanize %}
+
+<!-- active srp links tab -->
+<div role="tabpanel" class="tab-pane active" id="{{ tab_name }}">
+    <div class="table-responsive">
+        <table class="table table-aa table_timers" id="tab_aasrp_{{ tab_name }}" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>{% trans "SRP Link Name" %}</th>
+                    <th>{% trans "Fleet Time" %}</th>
+                    <th>{% trans "Fleet Commander" %}</th>
+                    <th>{% trans "Doctrine" %}</th>
+                    <th>{% trans "AAR Link" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th>{% trans "Pendung Requests" %}</th>
+                    <th>{% translate 'Actions' %}</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>

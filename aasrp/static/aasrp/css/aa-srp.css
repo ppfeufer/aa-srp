@@ -1,0 +1,42 @@
+@media all {
+    .template-light-mode .aa-srp .nav-tabs > li.active > a {
+        background-color: rgb(236, 240, 241) !important;
+        color: rgb(0, 0, 0) !important;
+    }
+
+    .template-dark-mode .aa-srp .nav-tabs > li.active > a {
+        background-color: rgb(70, 69, 69) !important;
+        color: rgb(255, 255, 255) !important;
+    }
+
+    .aa-srp .btn-tabs {
+        border-width: 1px;
+    }
+}
+
+/* DataTables
+--------------------------------------------------------------------------------------------------------------------- */
+@media all {
+    .dataTables_wrapper > .form-inline {
+        margin-bottom: 1rem;
+    }
+
+    .dataTables_wrapper > .form-inline select {
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .dataTables_wrapper > .form-inline select:last-child {
+        margin-right: 0;
+    }
+
+    .dataTables_length select {
+        margin: 0 1rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .dataTables_wrapper > .form-inline select:first-child {
+        margin-left: 1rem;
+    }
+}
