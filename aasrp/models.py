@@ -20,6 +20,16 @@ def get_sentinel_user():
     return User.objects.get_or_create(username="deleted")[0]
 
 
+class AaSrpStatus(models.TextChoices):
+    """
+    Choices for SRP Status
+    """
+
+    ACTIVE = "Active", _("Active")
+    CLOSED = "Closed", _("Closed")
+    COMPLETED = "Completed", _("Completed")
+
+
 class AaSrpRequestStatus(models.TextChoices):
     """
     Choices for SRP Request Status
@@ -66,8 +76,12 @@ class AaSrpLink(models.Model):
     """
 
     srp_name = models.CharField(max_length=254, default="")
-    srp_status = models.CharField(max_length=254, default="")
-    srp_code = models.CharField(max_length=254, default="")
+    srp_status = models.CharField(
+        max_length=9,
+        choices=AaSrpStatus.choices,
+        default=AaSrpStatus.ACTIVE,
+    )
+    srp_code = models.CharField(max_length=16, default="")
     fleet_commander = models.ForeignKey(
         EveCharacter, null=True, on_delete=models.SET_NULL
     )
