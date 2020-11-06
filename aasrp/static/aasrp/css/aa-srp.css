@@ -1,12 +1,12 @@
 @media all {
     .template-light-mode .aa-srp .nav-tabs > li.active > a {
-        background-color: rgb(236, 240, 241) !important;
-        color: rgb(0, 0, 0) !important;
+        background-color: rgb(236, 240, 241);
+        color: rgb(0, 0, 0);
     }
 
     .template-dark-mode .aa-srp .nav-tabs > li.active > a {
-        background-color: rgb(70, 69, 69) !important;
-        color: rgb(255, 255, 255) !important;
+        background-color: rgb(70, 69, 69);
+        color: rgb(255, 255, 255);
     }
 
     .aa-srp .btn-tabs {
