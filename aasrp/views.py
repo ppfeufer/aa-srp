@@ -97,6 +97,7 @@ def pending_user_srp_requests_data(request) -> JsonResponse:
                 "request_time": srp_request.post_time,
                 "fleet_name": srp_request.srp_link.srp_name,
                 "srp_code": srp_request.srp_link.srp_code,
+                "request_code": srp_request.request_code,
                 "ship": srp_request.ship_name,
                 "zkb_link": killboard_link,
                 "zbk_loss_amount": srp_request.loss_amount,
