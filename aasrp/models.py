@@ -109,7 +109,7 @@ class AaSrpLink(models.Model):
         """
 
         return self.aasrprequest_set.filter(
-            srp_status=AaSrpRequestStatus.PENDING
+            request_status=AaSrpRequestStatus.PENDING
         ).count()
 
     class Meta:
