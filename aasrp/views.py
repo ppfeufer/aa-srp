@@ -4,11 +4,12 @@
 the views
 """
 
-from aasrp.models import AaSrpLink, AaSrpStatus, AaSrpRequest, AaSrpRequestStatus
+from aasrp.models import AaSrpLink, AaSrpStatus, AaSrpRequest
 from aasrp.utils import LoggerAddTag
 
 from django.contrib.auth.decorators import login_required, permission_required
-from django.db.models import Sum
+
+# from django.db.models import Sum
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
@@ -23,7 +24,7 @@ logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 @login_required
 @permission_required("aasrp.basic_access")
-def dashboard(request, all=False):
+def dashboard(request):
     """
     Index view
     """
@@ -39,17 +40,23 @@ def dashboard(request, all=False):
 
 @login_required
 @permission_required("aasrp.basic_access")
-def active_srp_links_data(request, all=False) -> JsonResponse:
+def active_srp_links_data(request) -> JsonResponse:
     data = list()
 
     srp_links = (
         AaSrpLink.objects.select_related("fleet_commander")
         .prefetch_related("aasrprequest_set")
-        .all()
+        .filter(srp_status=AaSrpStatus.ACTIVE)
     )
 
-    if not all:
-        srp_links = srp_links.filter(srp_status=AaSrpStatus.ACTIVE)
+    # srp_links = (
+    #     AaSrpLink.objects.select_related("fleet_commander")
+    #     .prefetch_related("aasrprequest_set")
+    #     .all()
+    # )
+
+    # if not all:
+    #     srp_links = srp_links.filter(srp_status=AaSrpStatus.ACTIVE)
 
     # total_cost = srp_links.aggregate(total_cost=Sum("aasrprequest__payout_amount")).get(
     #     "total_cost", 0
