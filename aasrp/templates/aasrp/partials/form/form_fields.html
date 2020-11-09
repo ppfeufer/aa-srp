@@ -1,0 +1,16 @@
+{% for field in form %}
+    <div class="form-group clearfix">
+        <div class="row clearfix">
+            <label class="col-md-3 control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <div class="col-md-9">
+                <input id="{{ field.id_for_label }}" name="{{ field.html_name }}" type="text" class="form-control input-md" value="{% if field.value %}{{ field.value }}{% endif %}">
+            </div>
+        </div>
+
+        {% if field.errors %}
+            <div class="clearfix">
+                {{ field.errors }}
+            </div>
+        {% endif %}
+    </div>
+{% endfor %}
