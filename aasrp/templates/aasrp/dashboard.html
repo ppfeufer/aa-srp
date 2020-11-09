@@ -34,8 +34,6 @@
     const DATETIME_FORMAT = 'YYYY-MMM-DD HH:mm'
 
     $(document).ready(function () {
-        console.log('document loaded');
-
         $('#tab_aasrp_active_srp_links').DataTable({
             ajax: {
                 url: "{% url 'aasrp:active_srp_links_data' %}",
@@ -44,6 +42,7 @@
             },
             columns: [
                 {data: 'srp_name'},
+                {data: 'creator'},
                 {data: 'fleet_time',render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)},
                 {data: 'fleet_commander'},
                 {data: 'fleet_doctrine'},
@@ -63,6 +62,7 @@
             },
             columns: [
                 {data: 'request_time',render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)},
+                {data: 'character'},
                 {data: 'fleet_name'},
                 {data: 'srp_code'},
                 {data: 'request_code'},

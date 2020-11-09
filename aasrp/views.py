@@ -72,6 +72,7 @@ def active_srp_links_data(request) -> JsonResponse:
 
         data.append(
             {
+                "creator": srp_link.creator.profile.main_character.character_name,
                 "srp_name": srp_link.srp_name,
                 "srp_status": srp_link.srp_status,
                 "srp_code": srp_link.srp_code,
@@ -89,7 +90,7 @@ def active_srp_links_data(request) -> JsonResponse:
 def pending_user_srp_requests_data(request) -> JsonResponse:
     data = list()
 
-    requests = AaSrpRequest.objects.filter(character_id=request.user.pk)
+    requests = AaSrpRequest.objects.filter(creator=request.user)
 
     for srp_request in requests:
         killboard_link = ""
@@ -102,6 +103,7 @@ def pending_user_srp_requests_data(request) -> JsonResponse:
 
         data.append(
             {
+                "character": srp_request.character.character_name,
                 "request_time": srp_request.post_time,
                 "fleet_name": srp_request.srp_link.srp_name,
                 "srp_code": srp_request.srp_link.srp_code,
@@ -139,6 +141,7 @@ def srp_link_add(request):
             srp_link.fleet_doctrine = fleet_doctrine
             srp_link.srp_code = get_random_string(length=16)
             srp_link.fleet_commander = request.user.profile.main_character
+            srp_link.creator = request.user
             srp_link.save()
 
             request.session["msg"] = [

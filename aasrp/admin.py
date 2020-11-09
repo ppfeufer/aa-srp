@@ -34,6 +34,7 @@ def custom_filter(title):
 class AaSrpLinkAdmin(admin.ModelAdmin):
     list_display = (
         "srp_code",
+        "_creator",
         "srp_name",
         "srp_status",
         "fleet_doctrine",
@@ -41,16 +42,24 @@ class AaSrpLinkAdmin(admin.ModelAdmin):
         "fleet_commander",
     )
     ordering = ("fleet_time",)
-    # list_filter = ("is_enabled",)
+
+    list_filter = ("creator", "srp_status", "fleet_commander", "fleet_doctrine")
+
+    def _creator(self, obj):
+        return obj.creator.profile.main_character.character_name
+
+    # _creator.short_description = "Creator"
+    _creator.admin_order_field = "creator"
 
 
 @admin.register(AaSrpRequest)
 class AaSrpRequestAdmin(admin.ModelAdmin):
     list_display = (
         "request_code",
+        "_creator",
+        "character",
         "srp_link",
         "post_time",
-        "character",
         "ship_name",
         "loss_amount",
         "payout_amount",
@@ -58,3 +67,11 @@ class AaSrpRequestAdmin(admin.ModelAdmin):
         "request_status",
     )
     ordering = ("post_time",)
+
+    list_filter = ("creator", "character", "ship_name", "request_status")
+
+    def _creator(self, obj):
+        return obj.creator.profile.main_character.character_name
+
+    # _creator.short_description = "Creator"
+    _creator.admin_order_field = "creator"
