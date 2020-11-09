@@ -3,7 +3,7 @@
 """
 the views
 """
-
+from aasrp.form import AaSrpLinkForm
 from aasrp.models import AaSrpLink, AaSrpStatus, AaSrpRequest
 from aasrp.utils import LoggerAddTag
 
@@ -11,7 +11,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 # from django.db.models import Sum
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 from aasrp import __title__
@@ -121,8 +122,36 @@ def pending_user_srp_requests_data(request) -> JsonResponse:
 def srp_link_add(request):
     logger.info("Add link called by %s", request.user)
 
-    context = {
-        "avoidCdn": avoid_cdn(),
-    }
+    # if this is a POST request we need to process the form data
+    if request.method == "POST":
+        # create a form instance and populate it with data from the request:
+        form = AaSrpLinkForm(request.POST)
+
+        # check whether it's valid:
+        if form.is_valid():
+            srp_name = form.cleaned_data["srp_name"]
+            fleet_time = form.cleaned_data["fleet_time"]
+            fleet_doctrine = form.cleaned_data["fleet_doctrine"]
+
+            srp_link = AaSrpLink()
+            srp_link.srp_name = srp_name
+            srp_link.fleet_time = fleet_time
+            srp_link.fleet_doctrine = fleet_doctrine
+            srp_link.srp_code = get_random_string(length=16)
+            srp_link.fleet_commander = request.user.profile.main_character
+            srp_link.save()
+
+            request.session["msg"] = [
+                "success",
+                "SRP Link created",
+            ]
+
+            return redirect("aasrp:dashboard")
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = AaSrpLinkForm()
+
+    context = {"avoidCdn": avoid_cdn(), "form": form}
 
     return render(request, "aasrp/link_add.html", context)
