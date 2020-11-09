@@ -7,13 +7,11 @@
 {% block content %}
     <div class="aa-srp">
         <div class="aa-srp-header">
-            <header>
-                <h1 class="page-header text-center">{% translate "Ship Replacement" %}</h1>
-            </header>
+            {% block aasrp_header %}{% endblock %}
         </div>
 
         <div class="aa-srp-body">
-            {% block details %}{% endblock %}
+            {% block aasrp_body %}{% endblock %}
         </div>
     </div>
 {% endblock %}

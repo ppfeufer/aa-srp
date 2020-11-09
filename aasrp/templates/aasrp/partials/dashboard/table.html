@@ -1,0 +1,16 @@
+
+{% load i18n %}
+
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#active_srp_links" aria-controls="home" role="tab" data-toggle="tab">{% translate 'Active SRP Links' %}</a></li>
+    <li role="presentation"><a href="#pending_user_srp_requests" aria-controls="profile" role="tab" data-toggle="tab">{% translate 'Your SRP Requests' %}</a></li>
+</ul>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="tab-content">
+            {% include 'aasrp/partials/dashboard/active_srp_links.html' with tab_name='active_srp_links' %}
+            {% include 'aasrp/partials/dashboard/pending_user_srp_requests.html' with tab_name='pending_user_srp_requests' %}
+        </div>
+    </div>
+</div>

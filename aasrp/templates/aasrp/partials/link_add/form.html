@@ -1,0 +1,33 @@
+{% load i18n %}
+
+<form action="{% url 'aasrp:add_srp_link' %}" method="post">
+    {% csrf_token %}
+
+    <fieldset class="aa-srp-add-link-form col-md-4 col-md-offset-4">
+        <div class="form-group clearfix">
+            <label class="col-md-3 control-label" for="{{ form.srp_name.id_for_label }}">{{ form.srp_name.label }}</label>
+            <div class="col-md-9">
+                <input id="{{ form.srp_name.id_for_label }}" name="{{ form.srp_name.html_name }}" type="text" class="form-control input-md" value="{% if form.srp_name.value %}{{ form.srp_name.value }}{% endif %}">
+            </div>
+            {{ form.srp_name.errors }}
+        </div>
+
+        <div class="form-group clearfix">
+            <label class="col-md-3 control-label" for="{{ form.fleet_time.id_for_label }}">{{ form.fleet_time.label }}</label>
+            <div class="col-md-9">
+                <input id="{{ form.fleet_time.id_for_label }}" name="{{ form.fleet_time.html_name }}" type="text" class="form-control input-md" value="{% if form.fleet_time.value %}{{ form.fleet_time.value }}{% endif %}">
+            </div>
+            {{ form.fleet_time.errors }}
+        </div>
+
+        <div class="form-group clearfix">
+            <label class="col-md-3 control-label" for="{{ form.fleet_doctrine.id_for_label }}">{{ form.fleet_doctrine.label }}</label>
+            <div class="col-md-9">
+                <input id="{{ form.fleet_doctrine.id_for_label }}" name="{{ form.fleet_doctrine.html_name }}" type="text" class="form-control input-md" value="{% if form.fleet_doctrine.value %}{{ form.fleet_doctrine.value }}{% endif %}">
+            </div>
+            {{ form.fleet_doctrine.errors }}
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{% translate 'Create SRP Link' %}</button>
+    </fieldset>
+</form>

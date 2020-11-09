@@ -3,36 +3,14 @@
 {% load i18n %}
 {% load static %}
 
-{% block details %}
-{#    <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre>#}
+{% block aasrp_header %}
+    {% translate "Ship Replacement" as translated_header %}
+    {% include 'aasrp/partials/header/h1.html' with header_text=translated_header %}
+{% endblock %}
 
-    <div class="pull-right">
-        {% if perms.aasrp.manage_srp %}
-            <a href="{% url 'aasrp:all' %}" class="btn btn-primary btn-tabs">
-                {% translate "View All" %}
-            </a>
-        {% endif %}
-
-        {% if perms.aasrp.create_srp or perms.aasrp.manage_srp %}
-            <a href="{% url 'aasrp:add_srp_link' %}" class="btn btn-success btn-tabs">
-                {% translate "Add SRP Link" %}
-            </a>
-        {% endif %}
-    </div>
-
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#active_srp_links" aria-controls="home" role="tab" data-toggle="tab">{% translate 'Active SRP Links' %}</a></li>
-        <li role="presentation"><a href="#pending_user_srp_requests" aria-controls="profile" role="tab" data-toggle="tab">{% translate 'Your SRP Requests' %}</a></li>
-    </ul>
-
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="tab-content">
-                {% include 'aasrp/partials/dashboard/active_srp_links.html' with tab_name='active_srp_links' %}
-                {% include 'aasrp/partials/dashboard/pending_user_srp_requests.html' with tab_name='pending_user_srp_requests' %}
-            </div>
-        </div>
-    </div>
+{% block aasrp_body %}
+    {% include 'aasrp/partials/dashboard/buttons.html' %}
+    {% include 'aasrp/partials/dashboard/table.html' %}
 {% endblock %}
 
 {% block extra_css %}
