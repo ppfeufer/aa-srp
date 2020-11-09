@@ -45,7 +45,8 @@ class AaSrpLinkAdmin(admin.ModelAdmin):
 
     list_filter = ("creator", "srp_status", "fleet_commander", "fleet_doctrine")
 
-    def _creator(self, obj):
+    @classmethod
+    def _creator(cls, obj):
         return obj.creator.profile.main_character.character_name
 
     # _creator.short_description = "Creator"
@@ -70,7 +71,8 @@ class AaSrpRequestAdmin(admin.ModelAdmin):
 
     list_filter = ("creator", "character", "ship_name", "request_status")
 
-    def _creator(self, obj):
+    @classmethod
+    def _creator(cls, obj):
         return obj.creator.profile.main_character.character_name
 
     # _creator.short_description = "Creator"
