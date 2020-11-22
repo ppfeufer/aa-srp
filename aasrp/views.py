@@ -12,7 +12,6 @@ from django.contrib.auth.decorators import login_required, permission_required
 # from django.db.models import Sum
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
