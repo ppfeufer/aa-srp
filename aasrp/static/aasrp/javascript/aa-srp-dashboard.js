@@ -1,4 +1,4 @@
-/* global aaSrpSettings */
+/* global aaSrpSettings, moment */
 
 $(document).ready(function () {
     /**
@@ -13,16 +13,25 @@ $(document).ready(function () {
         columns: [
             {data: 'srp_name'},
             {data: 'creator'},
-            {data: 'fleet_time',render: $.fn.dataTable.render.moment(moment.ISO_8601, aaSrpSettings.datetimeFormat)},
+            {
+                data: 'fleet_time',
+                render: $.fn.dataTable.render.moment(
+                    moment.ISO_8601,
+                    aaSrpSettings.datetimeFormat
+                )
+            },
             {data: 'fleet_commander'},
             {data: 'fleet_doctrine'},
-            {data: 'aar_link', className: "text-center"},
+            {
+                data: 'aar_link',
+                className: 'text-center'
+            },
             {data: 'srp_code'},
             {data: 'srp_status'},
             {data: 'pending_requests'},
             {data: 'actions'},
         ],
-        order: [[2, "asc"]],
+        order: [[2, 'asc']]
     });
 
     /**
@@ -35,18 +44,40 @@ $(document).ready(function () {
             cache: false
         },
         columns: [
-            {data: 'request_time',render: $.fn.dataTable.render.moment(moment.ISO_8601, aaSrpSettings.datetimeFormat)},
+            {
+                data: 'request_time',
+                render: $.fn.dataTable.render.moment(
+                    moment.ISO_8601,
+                    aaSrpSettings.datetimeFormat
+                )
+            },
             {data: 'character'},
             {data: 'fleet_name'},
             {data: 'srp_code'},
             {data: 'request_code'},
             {data: 'ship'},
             {data: 'zkb_link'},
-            {data: 'zbk_loss_amount', render: $.fn.dataTable.render.number( ',', '.', 2 ), className: "text-right"},
-            {data: 'payout_amount', render: $.fn.dataTable.render.number( ',', '.', 2 ), className: "text-right"},
+            {
+                data: 'zbk_loss_amount',
+                render: $.fn.dataTable.render.number(
+                    ',',
+                    '.',
+                    2
+                ),
+                className: 'text-right'
+            },
+            {
+                data: 'payout_amount',
+                render: $.fn.dataTable.render.number(
+                    ',',
+                    '.',
+                    2
+                ),
+                className: 'text-right'
+            },
             {data: 'request_status'},
         ],
-        order: [[0, "desc"]],
+        order: [[0, 'desc']],
         filterDropDown: {
             columns: [
                 {
@@ -58,6 +89,6 @@ $(document).ready(function () {
             ],
             autoSize: false,
             bootstrap: true
-        },
+        }
     });
 });
