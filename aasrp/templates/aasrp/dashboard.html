@@ -28,67 +28,18 @@
     <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/datetime.js' %}"></script>
     <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}"></script>
 
-{#    <script type="application/javascript" src="{% static 'aasrp/js/aa-srp.min.js' %}"></script>#}
-
     <script type="application/javascript">
-    const DATETIME_FORMAT = 'YYYY-MMM-DD HH:mm'
-
-    $(document).ready(function () {
-        $('#tab_aasrp_active_srp_links').DataTable({
-            ajax: {
-                url: "{% url 'aasrp:active_srp_links_data' %}",
-                dataSrc: '',
-                cache: false
-            },
-            columns: [
-                {data: 'srp_name'},
-                {data: 'creator'},
-                {data: 'fleet_time',render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)},
-                {data: 'fleet_commander'},
-                {data: 'fleet_doctrine'},
-                {data: 'aar_link'},
-                {data: 'srp_code'},
-                {data: 'srp_status'},
-                {data: 'pending_requests'},
-            ],
-            order: [[1, "asc"]],
-        });
-
-        $('#tab_aasrp_pending_user_srp_requests').DataTable({
-            ajax: {
-                url: "{% url 'aasrp:pending_user_srp_requests_data' %}",
-                dataSrc: '',
-                cache: false
-            },
-            columns: [
-                {data: 'request_time',render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)},
-                {data: 'character'},
-                {data: 'fleet_name'},
-                {data: 'srp_code'},
-                {data: 'request_code'},
-                {data: 'ship'},
-                {data: 'zkb_link'},
-                {data: 'zbk_loss_amount', render: $.fn.dataTable.render.number( ',', '.', 2 ), className: "text-right"},
-                {data: 'payout_amount', render: $.fn.dataTable.render.number( ',', '.', 2 ), className: "text-right"},
-                {data: 'request_status'},
-            ],
-            order: [[0, "desc"]],
-            filterDropDown: {
-                columns: [
-                    {
-                        idx: 3,
-                    },
-                    {
-                        idx: 7,
-                    }
-                ],
-                autoSize: false,
-                bootstrap: true
-            },
-        });
-    });
+    var aaSrpSettings = {
+        datetimeFormat: 'YYYY-MM-DD HH:mm',
+        url: {
+            {% if show_all_links %}
+                activeSrpLinks: "{% url 'aasrp:active_srp_links_all_data' %}",
+            {% else %}
+                activeSrpLinks: "{% url 'aasrp:active_srp_links_data' %}",
+            {% endif %}
+            userSrpRequests: "{% url 'aasrp:user_srp_requests_data' %}"
+        }
+    };
     </script>
+    <script type="application/javascript" src="{% static 'aasrp/javascript/aa-srp-dashboard.min.js' %}"></script>
 {% endblock %}
-
-{% block extra_script %}
-{% endblock extra_script %}

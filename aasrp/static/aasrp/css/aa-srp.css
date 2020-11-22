@@ -12,6 +12,12 @@
     .aa-srp .btn-tabs {
         border-width: 1px;
     }
+
+    .btn-aasrp {
+        margin: 0.1rem;
+        width: 35px;
+        height: 35px;
+    }
 }
 
 /* DataTables

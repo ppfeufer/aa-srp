@@ -12,11 +12,13 @@ from django.contrib.auth.decorators import login_required, permission_required
 # from django.db.models import Sum
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 from aasrp import __title__
 from aasrp.app_settings import avoid_cdn
+from aasrp.view_helper import get_dashboard_action_buttons
 
 from allianceauth.services.hooks import get_extension_logger
 
@@ -25,39 +27,37 @@ logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 @login_required
 @permission_required("aasrp.basic_access")
-def dashboard(request):
+def dashboard(request, show_all_links=False):
     """
     Index view
     """
 
     logger.info("Module called by %s", request.user)
 
-    context = {
-        "avoidCdn": avoid_cdn(),
-    }
+    context = {"avoid_cdn": avoid_cdn(), "show_all_links": show_all_links}
 
     return render(request, "aasrp/dashboard.html", context)
 
 
 @login_required
 @permission_required("aasrp.basic_access")
-def active_srp_links_data(request) -> JsonResponse:
+def active_srp_links_data(request, show_all_links=False) -> JsonResponse:
     data = list()
 
+    # srp_links = srp_links.filter(srp_status=AaSrpStatus.ACTIVE)
     srp_links = (
         AaSrpLink.objects.select_related("fleet_commander")
         .prefetch_related("aasrprequest_set")
-        .filter(srp_status=AaSrpStatus.ACTIVE)
+        .all()
     )
-
     # srp_links = (
     #     AaSrpLink.objects.select_related("fleet_commander")
     #     .prefetch_related("aasrprequest_set")
-    #     .all()
+    #     .filter(srp_status=AaSrpStatus.ACTIVE)
     # )
 
-    # if not all:
-    #     srp_links = srp_links.filter(srp_status=AaSrpStatus.ACTIVE)
+    if not show_all_links:
+        srp_links = srp_links.filter(srp_status=AaSrpStatus.ACTIVE)
 
     # total_cost = srp_links.aggregate(total_cost=Sum("aasrprequest__payout_amount")).get(
     #     "total_cost", 0
@@ -70,6 +70,8 @@ def active_srp_links_data(request) -> JsonResponse:
                 aar_link=srp_link.aar_link, link_text=_("Link")
             )
 
+        actions = get_dashboard_action_buttons(request=request, srp_link=srp_link)
+
         data.append(
             {
                 "creator": srp_link.creator.profile.main_character.character_name,
@@ -81,13 +83,14 @@ def active_srp_links_data(request) -> JsonResponse:
                 "fleet_time": srp_link.fleet_time,
                 "aar_link": aar_link,
                 "pending_requests": srp_link.pending_requests,
+                "actions": actions,
             }
         )
 
     return JsonResponse(data, safe=False)
 
 
-def pending_user_srp_requests_data(request) -> JsonResponse:
+def user_srp_requests_data(request) -> JsonResponse:
     data = list()
 
     requests = AaSrpRequest.objects.filter(creator=request.user)
@@ -155,6 +158,20 @@ def srp_link_add(request):
     else:
         form = AaSrpLinkForm()
 
-    context = {"avoidCdn": avoid_cdn(), "form": form}
+    context = {"avoid_cdn": avoid_cdn(), "form": form}
 
     return render(request, "aasrp/link_add.html", context)
+
+
+def request_srp(request, srp_code: str):
+    """
+    Request SRP view
+    :param request:
+    :param srp_code:
+    """
+
+    form = ""
+
+    context = {"avoidCdn": avoid_cdn(), "form": form}
+
+    return render(request, "aasrp/request_srp.html", context)
