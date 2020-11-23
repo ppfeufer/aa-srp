@@ -166,7 +166,7 @@ def srp_link_add(request) -> HttpResponse:
 
 @login_required
 @permission_required("aasrp.manage_srp")
-def srp_link_edit(request, srp_code) -> HttpResponse:
+def srp_link_edit(request, srp_code: str) -> HttpResponse:
     logger.info("Edit link called by %s", request.user)
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
