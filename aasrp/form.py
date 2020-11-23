@@ -12,6 +12,7 @@ class AaSrpLinkForm(forms.Form):
     srp_name = forms.CharField(required=True, label=_("Fleet Name"))
     fleet_time = forms.DateTimeField(required=True, label=_("Fleet Time"))
     fleet_doctrine = forms.CharField(required=True, label=_("Fleet Doctrine"))
+    aar_link = forms.CharField(required=False, label=_("AAR Link"))
 
 
 class AaSrpLinkUpdateForm(forms.Form):
