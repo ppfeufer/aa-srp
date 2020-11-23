@@ -8,7 +8,7 @@
         color: rgb(255, 0, 0);
     }
 
-    .field-required {
+    .field-required > span {
         font-weight: bold;
     }
 
