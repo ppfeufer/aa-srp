@@ -43,17 +43,11 @@ def dashboard(request, show_all_links=False) -> HttpResponse:
 def active_srp_links_data(request, show_all_links=False) -> JsonResponse:
     data = list()
 
-    # srp_links = srp_links.filter(srp_status=AaSrpStatus.ACTIVE)
     srp_links = (
         AaSrpLink.objects.select_related("fleet_commander")
         .prefetch_related("aasrprequest_set")
         .all()
     )
-    # srp_links = (
-    #     AaSrpLink.objects.select_related("fleet_commander")
-    #     .prefetch_related("aasrprequest_set")
-    #     .filter(srp_status=AaSrpStatus.ACTIVE)
-    # )
 
     if not show_all_links:
         srp_links = srp_links.filter(srp_status=AaSrpStatus.ACTIVE)
@@ -128,7 +122,7 @@ def srp_link_add(request) -> HttpResponse:
 
     # if this is a POST request we need to process the form data
     if request.method == "POST":
-        # create a form instance and populate it with data from the request:
+        # create a form instance and populate it with data from the request
         form = AaSrpLinkForm(request.POST)
 
         # check whether it's valid:
