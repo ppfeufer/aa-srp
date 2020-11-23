@@ -15,6 +15,7 @@ urlpatterns = [
     url(r"^$", views.dashboard, name="dashboard"),
     url(r"^all/$", views.dashboard, {"show_all_links": True}, name="all"),
     url(r"^add/$", views.srp_link_add, name="add_srp_link"),
+    url(r"^srp-link/(\w+)/edit/$", views.srp_link_edit, name="edit_srp_link"),
     url(r"^srp-link/(\w+)/request/$", views.request_srp, name="request_srp"),
     # ajax calls
     url(

@@ -35,11 +35,11 @@ def get_dashboard_action_buttons(request, srp_link):
         )
 
         if request.user.has_perm("aasrp.manage_srp"):
-            button_edit_url = "#"
+            button_edit_url = reverse("aasrp:edit_srp_link", args=[srp_link.srp_code])
             actions += '<a href="{btn_link}" class="btn btn-aasrp btn-info btn-sm" title="{btn_title}">{btn_icon}</a>'.format(
                 btn_link=button_edit_url,
-                btn_icon='<i class="fas fa-pencil-alt"></i>',
-                btn_title=_("Edit SRP Link"),
+                btn_icon='<i class="far fa-newspaper"></i>',
+                btn_title=_("Add/Edit AAR Link"),
             )
 
             if srp_link.srp_status == "Active":
