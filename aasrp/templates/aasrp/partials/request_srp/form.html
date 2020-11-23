@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<form autocomplete="off" action="{% url 'aasrp:request_srp' srp_code %}" method="post">
+    {% csrf_token %}
+
+    <fieldset class="aa-srp-request-form col-md-6 col-md-offset-3">
+        {% include "aasrp/partials/form/form_fields.html" with form=form %}
+
+        <div class="form-group aasrp-form-group text-right clearfix">
+            <button class="btn btn-primary" type="submit">{% translate 'Submit SRP Request' %}</button>
+        </div>
+    </fieldset>
+</form>

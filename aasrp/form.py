@@ -57,7 +57,7 @@ class AaSrpRequestForm(ModelForm):
     )
 
     additional_info = forms.CharField(
-        widget=forms.Textarea(attrs={"rows": 5, "cols": 20}),
+        widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
         label=_("Additional Info"),
     )

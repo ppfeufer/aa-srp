@@ -3,7 +3,7 @@
 """
 the views
 """
-from aasrp.form import AaSrpLinkForm, AaSrpLinkUpdateForm
+from aasrp.form import AaSrpLinkForm, AaSrpLinkUpdateForm, AaSrpRequestForm
 from aasrp.models import AaSrpLink, AaSrpStatus, AaSrpRequest
 from aasrp.utils import LoggerAddTag
 
@@ -198,8 +198,41 @@ def request_srp(request, srp_code: str) -> HttpResponse:
     :param srp_code:
     """
 
-    form = ""
+    logger.info("SRP Request link called by %s", request.user)
 
-    context = {"avoid_cdn": avoid_cdn(), "form": form}
+    # if this is a POST request we need to process the form data
+    if request.method == "POST":
+        # create a form instance and populate it with data from the request
+        form = AaSrpRequestForm(request.POST)
+
+        # check whether it's valid:
+        if form.is_valid():
+            srp_name = form.cleaned_data["srp_name"]
+            fleet_time = form.cleaned_data["fleet_time"]
+            fleet_doctrine = form.cleaned_data["fleet_doctrine"]
+            aar_link = form.cleaned_data["aar_link"]
+
+            srp_link = AaSrpLink()
+            srp_link.srp_name = srp_name
+            srp_link.fleet_time = fleet_time
+            srp_link.fleet_doctrine = fleet_doctrine
+            srp_link.aar_link = aar_link
+            srp_link.srp_code = get_random_string(length=16)
+            srp_link.fleet_commander = request.user.profile.main_character
+            srp_link.creator = request.user
+            srp_link.save()
+
+            request.session["msg"] = [
+                "success",
+                "SRP Link created",
+            ]
+
+            return redirect("aasrp:dashboard")
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = AaSrpRequestForm()
+
+    context = {"avoid_cdn": avoid_cdn(), "srp_code": srp_code, "form": form}
 
     return render(request, "aasrp/request_srp.html", context)

@@ -144,7 +144,7 @@ class AaSrpRequest(models.Model):
     character = models.ForeignKey(EveCharacter, null=True, on_delete=models.SET_NULL)
     ship_name = models.CharField(max_length=254, default="")
     killboard_link = models.CharField(max_length=254, default="")
-    additional_info = models.TextField(null=True, blank=True)
+    additional_info = models.TextField(blank=True, default="")
     request_status = models.CharField(
         max_length=8,
         choices=AaSrpRequestStatus.choices,
