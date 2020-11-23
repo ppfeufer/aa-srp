@@ -1,16 +1,37 @@
-{% for field in form %}
-    <div class="form-group clearfix">
-        <div class="row clearfix">
-            <label class="col-md-3 control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-            <div class="col-md-9">
-                <input id="{{ field.id_for_label }}" name="{{ field.html_name }}" type="text" class="form-control input-md" value="{% if field.value %}{{ field.value }}{% endif %}">
-            </div>
-        </div>
+{% load i18n %}
 
-        {% if field.errors %}
-            <div class="clearfix">
-                {{ field.errors }}
+{% if form.errors %}
+    <div class="aasrp-form-errors clearfix">
+        {% for error in form.non_field_errors %}
+            <div class="aasrp-form-error clearfix">
+                <strong>{{ error|escape }}</strong>
             </div>
-        {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% for field in form %}
+    <div class="form-group aasrp-form-group clearfix">
+        <label class="form-label aasrp-form-label{% if field.field.required %} field-required{% endif %}" for="{{ field.id_for_label }}">
+            <span class="aasrp-form-label-text">
+                {{ field.label }}
+            </span>
+
+            <input id="{{ field.id_for_label }}" name="{{ field.html_name }}" type="text" class="form-control input-md" value="{% if field.value %}{{ field.value }}{% endif %}">
+
+            {% if field.errors %}
+                <div class="aasrp-form-field-errors clearfix">
+                    {% for error in field.errors %}
+                        <div class="aasrp-form-field-error clearfix">
+                            {{ error|escape }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </label>
     </div>
 {% endfor %}
+
+<div class="form-group aasrp-form-group text-right clearfix">
+    <p>{% translate 'Fields marked with an asterisk (*) are mandatory' %}</p>
+</div>
