@@ -87,7 +87,7 @@ class AaSrpLink(models.Model):
     )
     fleet_doctrine = models.CharField(max_length=254, default="")
     fleet_time = models.DateTimeField()
-    aar_link = models.CharField(max_length=254, default="")
+    aar_link = models.CharField(max_length=254, blank=True, default="")
 
     creator = models.ForeignKey(
         User,
