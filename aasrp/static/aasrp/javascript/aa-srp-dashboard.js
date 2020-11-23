@@ -4,7 +4,7 @@ $(document).ready(function () {
     /**
      * Table :: SRP Links
      */
-    $('#tab_aasrp_active_srp_links').DataTable({
+    $('#tab_aasrp_srp_links').DataTable({
         ajax: {
             url: aaSrpSettings.url.activeSrpLinks,
             dataSrc: '',
