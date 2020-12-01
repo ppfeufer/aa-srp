@@ -158,14 +158,22 @@ def get_formatted_character_name(character: EveCharacter) -> str:
     """
 
     character_name = character.character_name
-    character__corporation_ticker = character.corporation.corporation_ticker
+
+    character__corporation_ticker = ""
+    if character.corporation_ticker:
+        character__corporation_ticker = "[{corporation_ticker}] ".format(
+            corporation_ticker=character.corporation_ticker
+        )
+
     character__alliance_ticker = ""
-    if character.corporation.alliance:
-        character__alliance_ticker = character.corporation.alliance.alliance_ticker
+    if character.alliance_ticker:
+        character__alliance_ticker = "{alliance_ticker} ".format(
+            alliance_ticker=character.alliance_ticker
+        )
 
     character_name_formatted = (
-        "{alliance_ticker}[{corporation_ticker}] {character_name}".format(
-            alliance_ticker=character__alliance_ticker + " ",
+        "{alliance_ticker}{corporation_ticker}{character_name}".format(
+            alliance_ticker=character__alliance_ticker,
             corporation_ticker=character__corporation_ticker,
             character_name=character_name,
         )
