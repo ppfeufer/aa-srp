@@ -6,7 +6,7 @@ the views
 
 from aasrp import __title__
 from aasrp.app_settings import avoid_cdn
-from aasrp.view_helper import get_dashboard_action_buttons
+from aasrp.view_helper import get_dashboard_action_buttons, get_srp_request_status_icon
 from aasrp.form import AaSrpLinkForm, AaSrpLinkUpdateForm, AaSrpRequestForm
 from aasrp.managers import AaSrpManager
 from aasrp.models import AaSrpLink, AaSrpStatus, AaSrpRequest
@@ -121,6 +121,8 @@ def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
                 )
             )
 
+        srp_request_status_icon = get_srp_request_status_icon(srp_request=srp_request)
+
         data.append(
             {
                 "request_time": srp_request.post_time.replace(tzinfo=None),
@@ -132,6 +134,7 @@ def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
                 "zkb_link": killboard_link,
                 "zbk_loss_amount": srp_request.loss_amount,
                 "payout_amount": srp_request.payout_amount,
+                "request_status_icon": srp_request_status_icon,
                 "request_status": srp_request.request_status,
             }
         )
@@ -450,6 +453,8 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
         if srp_request.creator.profile.main_character is not None:
             requester = srp_request.creator.profile.main_character.character_name
 
+        srp_request_status_icon = get_srp_request_status_icon(srp_request=srp_request)
+
         data.append(
             {
                 "request_time": srp_request.post_time.replace(tzinfo=None),
@@ -461,6 +466,8 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
                 "zkb_link": killboard_link,
                 "zbk_loss_amount": srp_request.loss_amount,
                 "payout_amount": srp_request.payout_amount,
+                "request_status_icon": srp_request_status_icon,
+                "actions": "",
                 "request_status": srp_request.request_status,
             }
         )
@@ -594,3 +601,13 @@ def delete_srp_link(request, srp_code: str):
     )
 
     return redirect("aasrp:dashboard")
+
+
+def ajax_srp_request_additional_information(
+    request, srp_request_code: str
+) -> JsonResponse:
+    """
+
+    :param request:
+    :param srp_request_code:
+    """

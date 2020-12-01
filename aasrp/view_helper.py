@@ -4,7 +4,7 @@
 some helper functions
 so we don't mess up views.py too much
 """
-
+from aasrp.models import AaSrpRequestStatus
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -108,3 +108,40 @@ def get_dashboard_action_buttons(request, srp_link):
             )
 
     return actions
+
+
+def get_srp_request_status_icon(srp_request):
+    """
+    get status icon for srp request
+    :param srp_request:
+    :return:
+    """
+    srp_request_status_icon = (
+        '<button class="btn btn-warning btn-sm" title="{request_status_icon_title}">'
+        "{request_status_icon}"
+        "</button>".format(
+            request_status_icon='<i class="fas fa-clock"></i>',
+            request_status_icon_title=_("Pending"),
+        )
+    )
+    if srp_request.request_status == AaSrpRequestStatus.APPROVED:
+        srp_request_status_icon = (
+            '<button class="btn btn-success btn-sm" title="{request_status_icon_title}">'
+            "{request_status_icon}"
+            "</button>".format(
+                request_status_icon='<i class="fas fa-thumbs-up"></i>',
+                request_status_icon_title=_("Approved"),
+            )
+        )
+
+    if srp_request.request_status == AaSrpRequestStatus.REJECTED:
+        srp_request_status_icon = (
+            '<button class="btn btn-danger btn-sm" title="{request_status_icon_title}">'
+            "{request_status_icon}"
+            "</button>".format(
+                request_status_icon='<i class="fas fa-thumbs-down"></i>',
+                request_status_icon_title=_("Rejected"),
+            )
+        )
+
+    return srp_request_status_icon
