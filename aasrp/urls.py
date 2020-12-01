@@ -47,4 +47,9 @@ urlpatterns = [
         views.ajax_srp_link_view_requests_data,
         name="ajax_srp_link_view_requests_data",
     ),
+    url(
+        r"^srp-request/(\w+)/view-additional-information-data/$",
+        views.ajax_srp_request_additional_information,
+        name="ajax_srp_request_additional_information",
+    ),
 ]
