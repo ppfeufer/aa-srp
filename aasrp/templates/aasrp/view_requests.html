@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load static %}
+{% load humanize %}
 
 {% block aasrp_header %}
     {% translate "SRP Requests" as translated_header %}
@@ -9,28 +10,7 @@
 {% endblock %}
 
 {% block aasrp_body %}
-    <div class="row">
-        <div class="col-md-2">
-            <dt>{% translate "Fleet Name" %}:</dt>
-            <dd>{{ srp_link.srp_name }}</dd>
-        </div>
-        <div class="col-md-2">
-            <dt>{% translate "SRP Code" %}:</dt>
-            <dd>{{ srp_link.srp_code }}</dd>
-        </div>
-        <div class="col-md-2">
-            <dt>{% translate "SRP Cost" %}:</dt>
-            <dd>{{ srp_link.total_cost }} ISK</dd>
-        </div>
-        <div class="col-md-2">
-            <dt>{% translate "Total Requests" %}:</dt>
-            <dd>{{ srp_link.total_requests }}</dd>
-        </div>
-        <div class="col-md-2">
-            <dt>{% translate "Pending Requests" %}:</dt>
-            <dd>{{ srp_link.pending_requests }}</dd>
-        </div>
-    </div>
+    {% include 'aasrp/partials/view_requests/overview.html' %}
 {% endblock %}
 
 {% block extra_css %}

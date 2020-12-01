@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load humanize %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">{% translate "Overview" %}</div>
+    <div class="panel-body">
+        <div class="col-md-3">
+            <dt>{% translate "Requests" %}:</dt>
+            <dd>{% translate "Total" %}: {{ srp_link.total_requests }}</dd>
+            <dd>{% translate "Pending" %}: {{ srp_link.pending_requests }}</dd>
+            <dd>{% translate "Approved" %}: {{ srp_link.approved_requests }}</dd>
+            <dd>{% translate "Rejected" %}: {{ srp_link.rejected_requests }}</dd>
+        </div>
+        <div class="col-md-3">
+            <dt>{% translate "Fleet Name" %}:</dt>
+            <dd>{{ srp_link.srp_name }}</dd>
+        </div>
+        <div class="col-md-3">
+            <dt>{% translate "SRP Code" %}:</dt>
+            <dd>{{ srp_link.srp_code }}</dd>
+        </div>
+        <div class="col-md-3">
+            <dt>{% translate "SRP Cost" %}:</dt>
+            <dd>{{ srp_link.total_cost|intcomma }} ISK</dd>
+        </div>
+    </div>
+</div>
