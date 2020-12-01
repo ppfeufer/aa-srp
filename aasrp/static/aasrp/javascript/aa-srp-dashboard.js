@@ -24,6 +24,23 @@ $(document).ready(function() {
             {data: 'fleet_doctrine'},
             {data: 'aar_link'},
             {data: 'srp_code'},
+            {
+                data: 'srp_costs',
+                render: function(data, type, row, meta) {
+                    if(type === 'display'){
+                        var currency = 'ISK';
+                        var iskValue = $.fn.dataTable.render.number(
+                            ',',
+                            '.'
+                        ).display(data);
+
+                        return iskValue + ' ' + currency;
+                    } else {
+                        return data;
+                    }
+                },
+                className: 'text-right'
+            },
             {data: 'srp_status'},
             {data: 'pending_requests'},
             {data: 'actions'},

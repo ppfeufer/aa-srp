@@ -88,6 +88,7 @@ def active_srp_links_data(request, show_all_links=False) -> JsonResponse:
                 "fleet_doctrine": srp_link.fleet_doctrine,
                 "aar_link": aar_link,
                 "srp_code": srp_link.srp_code,
+                "srp_costs": srp_link.total_cost,
                 "srp_status": srp_link.srp_status,
                 "pending_requests": srp_link.pending_requests,
                 "actions": actions,
