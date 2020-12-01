@@ -15,9 +15,27 @@
 {% endblock %}
 
 {% block extra_javascript %}
+    {% include 'bundles/jquery-datetimepicker-js.html' %}
+
+    <script type="application/javascript">
+    $('#id_fleet_time').datetimepicker({
+        setlocale: '{{ LANGUAGE_CODE }}',
+        {% if NIGHT_MODE %}
+            theme: 'dark',
+        {% else %}
+            theme: 'default',
+        {% endif %}
+        maskInput: true,
+        format: 'Y-m-d H:i',
+        dayOfWeekStart: 1,
+        step: 15
+    });
+    </script>
 {% endblock %}
 
 {% block extra_css %}
+    {% include 'bundles/jquery-datetimepicker-css.html' %}
+
     <link rel="stylesheet" href="{% static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp-form.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
