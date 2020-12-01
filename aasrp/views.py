@@ -6,7 +6,11 @@ the views
 
 from aasrp import __title__
 from aasrp.app_settings import avoid_cdn
-from aasrp.view_helper import get_dashboard_action_buttons, get_srp_request_status_icon
+from aasrp.view_helper import (
+    get_dashboard_action_buttons,
+    get_srp_request_status_icon,
+    get_formatted_character_name,
+)
 from aasrp.form import AaSrpLinkForm, AaSrpLinkUpdateForm, AaSrpRequestForm
 from aasrp.managers import AaSrpManager
 from aasrp.models import AaSrpLink, AaSrpStatus, AaSrpRequest
@@ -122,11 +126,12 @@ def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
             )
 
         srp_request_status_icon = get_srp_request_status_icon(srp_request=srp_request)
+        character = get_formatted_character_name(character=srp_request.character)
 
         data.append(
             {
                 "request_time": srp_request.post_time.replace(tzinfo=None),
-                "character": srp_request.character.character_name,
+                "character": character,
                 "fleet_name": srp_request.srp_link.srp_name,
                 "srp_code": srp_request.srp_link.srp_code,
                 "request_code": srp_request.request_code,
@@ -454,12 +459,13 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
             requester = srp_request.creator.profile.main_character.character_name
 
         srp_request_status_icon = get_srp_request_status_icon(srp_request=srp_request)
+        character = get_formatted_character_name(character=srp_request.character)
 
         data.append(
             {
                 "request_time": srp_request.post_time.replace(tzinfo=None),
                 "requester": requester,
-                "character": srp_request.character.character_name,
+                "character": character,
                 "request_code": srp_request.request_code,
                 "srp_code": srp_request.srp_link.srp_code,
                 "ship": srp_request.ship_name,

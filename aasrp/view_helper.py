@@ -4,12 +4,16 @@
 some helper functions
 so we don't mess up views.py too much
 """
-from aasrp.models import AaSrpRequestStatus
+
+from aasrp.models import AaSrpRequestStatus, AaSrpLink, AaSrpRequest
+
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from allianceauth.eveonline.models import EveCharacter
 
-def get_dashboard_action_buttons(request, srp_link):
+
+def get_dashboard_action_buttons(request, srp_link: AaSrpLink) -> str:
     """
     getting the action buttons for the dashboard view
     :param request:
@@ -110,7 +114,7 @@ def get_dashboard_action_buttons(request, srp_link):
     return actions
 
 
-def get_srp_request_status_icon(srp_request):
+def get_srp_request_status_icon(srp_request: AaSrpRequest) -> str:
     """
     get status icon for srp request
     :param srp_request:
@@ -145,3 +149,26 @@ def get_srp_request_status_icon(srp_request):
         )
 
     return srp_request_status_icon
+
+
+def get_formatted_character_name(character: EveCharacter) -> str:
+    """
+    get character name with alliance and corp ticker
+    :param character:
+    """
+
+    character_name = character.character_name
+    character__corporation_ticker = character.corporation.corporation_ticker
+    character__alliance_ticker = ""
+    if character.corporation.alliance:
+        character__alliance_ticker = character.corporation.alliance.alliance_ticker
+
+    character_name_formatted = (
+        "{alliance_ticker}[{corporation_ticker}] {character_name}".format(
+            alliance_ticker=character__alliance_ticker + " ",
+            corporation_ticker=character__corporation_ticker,
+            character_name=character_name,
+        )
+    )
+
+    return character_name_formatted
