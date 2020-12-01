@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load static %}
 
-{% block page_title %}{% translate "SRP Link Create" %}{% endblock %}
+{% block page_title %}{% translate "Create SRP Link" %}{% endblock %}
 
 {% block aasrp_header %}
     {% translate "Create SRP Link" as translated_header %}
@@ -12,6 +12,14 @@
 
 {% block aasrp_body %}
     {% include 'aasrp/partials/link_add/form.html' %}
+{% endblock %}
+
+{% block extra_css %}
+    {% include 'bundles/jquery-datetimepicker-css.html' %}
+
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp-form.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
 {% endblock %}
 
 {% block extra_javascript %}
@@ -32,14 +40,3 @@
     });
     </script>
 {% endblock %}
-
-{% block extra_css %}
-    {% include 'bundles/jquery-datetimepicker-css.html' %}
-
-    <link rel="stylesheet" href="{% static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp-form.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
-{% endblock %}
-
-{% block extra_script %}
-{% endblock extra_script %}
