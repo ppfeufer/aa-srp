@@ -70,14 +70,14 @@ def active_srp_links_data(request, show_all_links=False) -> JsonResponse:
 
         data.append(
             {
-                "creator": srp_link.creator.profile.main_character.character_name,
                 "srp_name": srp_link.srp_name,
-                "srp_status": srp_link.srp_status,
-                "srp_code": srp_link.srp_code,
+                "creator": srp_link.creator.profile.main_character.character_name,
+                "fleet_time": srp_link.fleet_time,
                 "fleet_commander": srp_link.fleet_commander.character_name,
                 "fleet_doctrine": srp_link.fleet_doctrine,
-                "fleet_time": srp_link.fleet_time,
                 "aar_link": aar_link,
+                "srp_code": srp_link.srp_code,
+                "srp_status": srp_link.srp_status,
                 "pending_requests": srp_link.pending_requests,
                 "actions": actions,
             }
@@ -104,16 +104,16 @@ def user_srp_requests_data(request) -> JsonResponse:
 
         data.append(
             {
-                "character": srp_request.character.character_name,
                 "request_time": srp_request.post_time,
+                "character": srp_request.character.character_name,
                 "fleet_name": srp_request.srp_link.srp_name,
                 "srp_code": srp_request.srp_link.srp_code,
                 "request_code": srp_request.request_code,
                 "ship": srp_request.ship_name,
                 "zkb_link": killboard_link,
                 "zbk_loss_amount": srp_request.loss_amount,
-                "request_status": srp_request.request_status,
                 "payout_amount": srp_request.payout_amount,
+                "request_status": srp_request.request_status,
             }
         )
 
