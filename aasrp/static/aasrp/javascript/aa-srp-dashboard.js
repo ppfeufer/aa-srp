@@ -22,9 +22,7 @@ $(document).ready(function() {
             },
             {data: 'fleet_commander'},
             {data: 'fleet_doctrine'},
-            {
-                data: 'aar_link'
-            },
+            {data: 'aar_link'},
             {data: 'srp_code'},
             {data: 'srp_status'},
             {data: 'pending_requests'},

@@ -16,9 +16,7 @@
                     <th>{% trans "SRP Code" %}</th>
                     <th>{% trans "Status" %}</th>
                     <th>{% trans "Requests" %}</th>
-                    {% if perms.aasrp.manage_srp or perms.aasrp.manage_srp_requests %}
-                        <th>{% translate 'Actions' %}</th>
-                    {% endif %}
+                    <th>{% translate 'Actions' %}</th>
                 </tr>
             </thead>
             <tbody></tbody>
