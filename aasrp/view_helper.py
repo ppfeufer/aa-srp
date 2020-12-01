@@ -27,11 +27,11 @@ def get_dashboard_action_buttons(request, srp_link):
     if request.user.has_perm("aasrp.manage_srp") or request.user.has_perm(
         "aasrp.manage_srp_requests"
     ):
-        button_view_url = "#"
+        button_view_url = reverse("aasrp:view_srp_requests", args=[srp_link.srp_code])
         actions += '<a href="{btn_link}" class="btn btn-aasrp btn-primary btn-sm" title="{btn_title}">{btn_icon}</a><br>'.format(
             btn_link=button_view_url,
             btn_icon='<i class="fas fa-eye"></i>',
-            btn_title=_("View SRP Link"),
+            btn_title=_("View SRP Requests"),
         )
 
         if request.user.has_perm("aasrp.manage_srp"):

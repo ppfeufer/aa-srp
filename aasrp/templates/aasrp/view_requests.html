@@ -1,0 +1,59 @@
+{% extends 'aasrp/base.html' %}
+
+{% load i18n %}
+{% load static %}
+
+{% block aasrp_header %}
+    {% translate "SRP Requests" as translated_header %}
+    {% include 'aasrp/partials/header/h1.html' with header_text=translated_header %}
+{% endblock %}
+
+{% block aasrp_body %}
+    <div class="row">
+        <div class="col-md-2">
+            <dt>{% translate "Fleet Name" %}:</dt>
+            <dd>{{ srp_link.srp_name }}</dd>
+        </div>
+        <div class="col-md-2">
+            <dt>{% translate "SRP Code" %}:</dt>
+            <dd>{{ srp_link.srp_code }}</dd>
+        </div>
+        <div class="col-md-2">
+            <dt>{% translate "SRP Cost" %}:</dt>
+            <dd>{{ srp_link.total_cost }} ISK</dd>
+        </div>
+        <div class="col-md-2">
+            <dt>{% translate "Total Requests" %}:</dt>
+            <dd>{{ srp_link.total_requests }}</dd>
+        </div>
+        <div class="col-md-2">
+            <dt>{% translate "Pending Requests" %}:</dt>
+            <dd>{{ srp_link.pending_requests }}</dd>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    {% include 'bundles/datatables-css.html' %}
+
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
+{% endblock %}
+
+{% block extra_javascript %}
+    {% include 'bundles/datatables-js.html' %}
+    {% include 'bundles/moment-js.html' with locale=True %}
+
+    <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/dataTables.rowGroup.min.js' %}"></script>
+    <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/datetime.js' %}"></script>
+    <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}"></script>
+
+    <script type="application/javascript">
+    var aaSrpSettings = {
+        datetimeFormat: 'YYYY-MM-DD HH:mm',
+        url: {
+        }
+    };
+    </script>
+    <script type="application/javascript" src="{% static 'aasrp/javascript/aa-srp-view-requests.min.js' %}"></script>
+{% endblock %}

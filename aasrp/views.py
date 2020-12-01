@@ -328,3 +328,34 @@ def request_srp(request, srp_code: str) -> HttpResponse:
     context = {"avoid_cdn": avoid_cdn(), "srp_code": srp_code, "form": form}
 
     return render(request, "aasrp/request_srp.html", context)
+
+
+@login_required
+@permission_required("aasrp.manage_srp", "manage_srp_requests")
+def srp_link_view_requests(request, srp_code: str) -> HttpResponse:
+    """
+    view srp requests for a specific srp code
+    :param request:
+    :param srp_code:
+    """
+
+    logger.info(
+        "View SRP request for SRP code {srp_code} called by {user}".format(
+            user=request.user, srp_code=srp_code
+        )
+    )
+
+    srp_link = AaSrpLink.objects.get(srp_code=srp_code)
+
+    context = {"avoid_cdn": avoid_cdn(), "srp_link": srp_link}
+
+    return render(request, "aasrp/view_requests.html", context)
+
+
+@login_required
+@permission_required("aasrp.basic_access")
+def srp_link_view_requests_data(request) -> JsonResponse:
+    """
+    get datatable data
+    :param request:
+    """

@@ -106,7 +106,16 @@ class AaSrpLink(models.Model):
         :return:
         """
 
-        return sum([int(r.srp_total_amount) for r in self.aasrprequest_set.all()])
+        return sum([int(r.payout_amount) for r in self.aasrprequest_set.all()])
+
+    @property
+    def total_requests(self):
+        """
+        Number of total SRP requests
+        :return:
+        """
+
+        return self.aasrprequest_set.count()
 
     @property
     def pending_requests(self):
@@ -117,6 +126,28 @@ class AaSrpLink(models.Model):
 
         return self.aasrprequest_set.filter(
             request_status=AaSrpRequestStatus.PENDING
+        ).count()
+
+    @property
+    def approved_requests(self):
+        """
+        Number of approved SRP requests
+        :return:
+        """
+
+        return self.aasrprequest_set.filter(
+            request_status=AaSrpRequestStatus.APPROVED
+        ).count()
+
+    @property
+    def rejected_requests(self):
+        """
+        Number of rejected SRP requests
+        :return:
+        """
+
+        return self.aasrprequest_set.filter(
+            request_status=AaSrpRequestStatus.REJECTED
         ).count()
 
     class Meta:
