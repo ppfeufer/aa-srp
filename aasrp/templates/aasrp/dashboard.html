@@ -38,11 +38,11 @@
             datetimeFormat: 'YYYY-MM-DD HH:mm',
             url: {
                 {% if show_all_links %}
-                    activeSrpLinks: "{% url 'aasrp:active_srp_links_all_data' %}",
+                    activeSrpLinks: "{% url 'aasrp:ajax_dashboard_srp_links_all_data' %}",
                 {% else %}
-                    activeSrpLinks: "{% url 'aasrp:active_srp_links_data' %}",
+                    activeSrpLinks: "{% url 'aasrp:ajax_dashboard_srp_links_data' %}",
                 {% endif %}
-                userSrpRequests: "{% url 'aasrp:user_srp_requests_data' %}"
+                userSrpRequests: "{% url 'aasrp:ajax_dashboard_user_srp_requests_data' %}"
             }
         };
     </script>

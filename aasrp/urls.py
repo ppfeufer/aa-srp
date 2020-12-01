@@ -28,23 +28,23 @@ urlpatterns = [
     # ajax calls
     url(
         r"^active-srp-links-data/$",
-        views.active_srp_links_data,
-        name="active_srp_links_data",
+        views.ajax_dashboard_srp_links_data,
+        name="ajax_dashboard_srp_links_data",
     ),
     url(
         r"^active-srp-links-data/all/$",
-        views.active_srp_links_data,
+        views.ajax_dashboard_srp_links_data,
         {"show_all_links": True},
-        name="active_srp_links_all_data",
+        name="ajax_dashboard_srp_links_all_data",
     ),
     url(
         r"^user-srp-requests-data/$",
-        views.user_srp_requests_data,
-        name="user_srp_requests_data",
+        views.ajax_dashboard_user_srp_requests_data,
+        name="ajax_dashboard_user_srp_requests_data",
     ),
     url(
         r"^srp-link/(\w+)/view-srp-requests-data/$",
-        views.srp_link_view_requests_data,
-        name="srp_link_view_requests_data",
+        views.ajax_srp_link_view_requests_data,
+        name="ajax_srp_link_view_requests_data",
     ),
 ]

@@ -46,7 +46,7 @@ def dashboard(request, show_all_links=False) -> HttpResponse:
 
 @login_required
 @permission_required("aasrp.basic_access")
-def active_srp_links_data(request, show_all_links=False) -> JsonResponse:
+def ajax_dashboard_srp_links_data(request, show_all_links=False) -> JsonResponse:
     """
     ajax request
     get all active srp links
@@ -100,7 +100,7 @@ def active_srp_links_data(request, show_all_links=False) -> JsonResponse:
 
 @login_required
 @permission_required("aasrp.basic_access")
-def user_srp_requests_data(request) -> JsonResponse:
+def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
     """
     ajax request
     get user srp requests
@@ -426,7 +426,7 @@ def srp_link_view_requests(request, srp_code: str) -> HttpResponse:
 
 @login_required
 @permission_required("aasrp.basic_access")
-def srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
+def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
     """
     ajax request
     get datatable data
