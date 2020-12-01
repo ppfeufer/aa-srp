@@ -45,7 +45,8 @@ $(document).ready(function() {
             {data: 'pending_requests'},
             {data: 'actions'},
         ],
-        order: [[2, 'asc']]
+        order: [[2, 'asc']],
+        paging: false
     });
 
     /**
