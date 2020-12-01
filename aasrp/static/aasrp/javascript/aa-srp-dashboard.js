@@ -58,20 +58,38 @@ $(document).ready(function() {
             {data: 'zkb_link'},
             {
                 data: 'zbk_loss_amount',
-                render: $.fn.dataTable.render.number(
-                    ',',
-                    '.',
-                    2
-                ),
+                render: function(data, type, row, meta) {
+                    if(type === 'display'){
+                        var currency = "ISK";
+                        var iskValue = $.fn.dataTable.render.number(
+                            ',',
+                            '.'
+                        ).display(data);
+
+                        return iskValue + ' ' + currency;
+
+                    } else {
+                        return data;
+                    }
+                },
                 className: 'text-right'
             },
             {
                 data: 'payout_amount',
-                render: $.fn.dataTable.render.number(
-                    ',',
-                    '.',
-                    2
-                ),
+                render: function(data, type, row, meta) {
+                    if(type === 'display'){
+                        var currency = "ISK";
+                        var iskValue = $.fn.dataTable.render.number(
+                            ',',
+                            '.'
+                        ).display(data);
+
+                        return iskValue + ' ' + currency;
+
+                    } else {
+                        return data;
+                    }
+                },
                 className: 'text-right'
             },
             {data: 'request_status'},
