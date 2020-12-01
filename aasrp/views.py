@@ -223,6 +223,17 @@ def request_srp(request, srp_code: str) -> HttpResponse:
             request,
             _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
         )
+
+        return redirect("aasrp:dashboard")
+
+    srp_link = AaSrpLink.objects.get(srp_code=srp_code)
+
+    # check if the SRP link is still open
+    if srp_link.srp_status != AaSrpStatus.ACTIVE:
+        messages.error(
+            request, _("This SRP link is no longer available for SRP requests.")
+        )
+
         return redirect("aasrp:dashboard")
 
     # if this is a POST request we need to process the form data
@@ -245,10 +256,10 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                 messages.error(
                     request, _("There is already a SRP request for this killmail.")
                 )
+
                 return redirect("aasrp:dashboard")
 
             creator = request.user
-            srp_link = AaSrpLink.objects.get(srp_code=srp_code)
             post_time = timezone.now()
 
             srp_request = AaSrpRequest()
@@ -279,6 +290,7 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                         "Your SRP request Killmail link is invalid. Please make sure you are using zKillboard."
                     ),
                 )
+
                 return redirect("aasrp:dashboard")
 
             if request.user.character_ownerships.filter(
@@ -305,6 +317,7 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                         ship=srp_request.ship_name
                     ),
                 )
+
                 return redirect("aasrp:dashboard")
             else:
                 messages.error(
@@ -354,7 +367,7 @@ def srp_link_view_requests(request, srp_code: str) -> HttpResponse:
 
 @login_required
 @permission_required("aasrp.basic_access")
-def srp_link_view_requests_data(request) -> JsonResponse:
+def srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
     """
     get datatable data
     :param request:
