@@ -284,12 +284,11 @@ def request_srp(request, srp_code: str) -> HttpResponse:
             if request.user.character_ownerships.filter(
                 character__character_id=str(victim_id)
             ).exists():
-                character = EveCharacter.objects.get_character_by_id(victim_id)
+                srp_request__character = EveCharacter.objects.get_character_by_id(
+                    victim_id
+                )
 
-                # srp_request.character = request.user.character_ownerships.filter(
-                #     character__character_id=str(victim_id)
-                # )
-                srp_request.character = character
+                srp_request.character = srp_request__character
                 srp_request.ship_name = provider.get_itemtype(ship_type_id).name
                 srp_request.loss_amount = ship_value
                 srp_request.post_time = post_time
