@@ -43,6 +43,9 @@
                     activeSrpLinks: "{% url 'aasrp:ajax_dashboard_srp_links_data' %}",
                 {% endif %}
                 userSrpRequests: "{% url 'aasrp:ajax_dashboard_user_srp_requests_data' %}"
+            },
+            translation: {
+                filterRequestStatus: "{% translate 'Request Status' %}"
             }
         };
     </script>

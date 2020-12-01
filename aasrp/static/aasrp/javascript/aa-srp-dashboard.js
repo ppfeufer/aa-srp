@@ -43,7 +43,13 @@ $(document).ready(function() {
             },
             {data: 'srp_status'},
             {data: 'pending_requests'},
-            {data: 'actions'},
+            {data: 'actions'}
+        ],
+        columnDefs: [
+            {
+                orderable: false,
+                targets: [10]
+            }
         ],
         order: [[2, 'asc']],
         paging: false
@@ -106,7 +112,22 @@ $(document).ready(function() {
                 },
                 className: 'text-right'
             },
-            {data: 'request_status'},
+            {
+                data: 'request_status_icon',
+                className: 'text-center'
+            },
+            // hidden columns
+            {data: 'request_status'}
+        ],
+        columnDefs: [
+            {
+                orderable: false,
+                targets: [6, 9]
+            },
+            {
+                visible: false,
+                targets: [10]
+            }
         ],
         order: [[0, 'desc']],
         filterDropDown: {
@@ -115,7 +136,8 @@ $(document).ready(function() {
                     idx: 1,
                 },
                 {
-                    idx: 9,
+                    idx: 10,
+                    title: aaSrpSettings.translation.filterRequestStatus
                 }
             ],
             autoSize: false,
