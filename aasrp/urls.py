@@ -40,7 +40,7 @@ urlpatterns = [
         name="user_srp_requests_data",
     ),
     url(
-        r"^^srp-link/(\w+)/view-srp-requests-data/$",
+        r"^srp-link/(\w+)/view-srp-requests-data/$",
         views.srp_link_view_requests_data,
         name="srp_link_view_requests_data",
     ),

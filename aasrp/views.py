@@ -358,6 +358,20 @@ def srp_link_view_requests(request, srp_code: str) -> HttpResponse:
         )
     )
 
+    # check if the provided SRP code is valid
+    if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
+        logger.error(
+            "Unable to locate SRP Fleet using code {srp_code} for user {user}".format(
+                srp_code=srp_code, user=request.user
+            )
+        )
+
+        messages.error(
+            request,
+            _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
+        )
+        return redirect("aasrp:dashboard")
+
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
 
     context = {"avoid_cdn": avoid_cdn(), "srp_link": srp_link}
@@ -372,3 +386,37 @@ def srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
     get datatable data
     :param request:
     """
+
+    data = list()
+
+    srp_requests = AaSrpRequest.objects.filter(srp_link_id__srp_code=srp_code)
+
+    for srp_request in srp_requests:
+        killboard_link = ""
+        if srp_request.killboard_link:
+            killboard_link = (
+                '<a href="{zkb_link}" target="_blank">{zkb_link_text}</a>'.format(
+                    zkb_link=srp_request.killboard_link, zkb_link_text=_("Link")
+                )
+            )
+
+        requester = srp_request.creator.username
+        if srp_request.creator.profile.main_character is not None:
+            requester = srp_request.creator.profile.main_character.character_name
+
+        data.append(
+            {
+                "request_time": srp_request.post_time,
+                "requester": requester,
+                "character": srp_request.character.character_name,
+                "request_code": srp_request.request_code,
+                "srp_code": srp_request.srp_link.srp_code,
+                "ship": srp_request.ship_name,
+                "zkb_link": killboard_link,
+                "zbk_loss_amount": srp_request.loss_amount,
+                "payout_amount": srp_request.payout_amount,
+                "request_status": srp_request.request_status,
+            }
+        )
+
+    return JsonResponse(data, safe=False)
