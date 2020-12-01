@@ -248,7 +248,6 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                 return redirect("aasrp:dashboard")
 
             creator = request.user
-            main_character = request.user.profile.main_character
             srp_link = AaSrpLink.objects.get(srp_code=srp_code)
             post_time = timezone.now()
 
@@ -256,7 +255,6 @@ def request_srp(request, srp_code: str) -> HttpResponse:
             srp_request.killboard_link = form.cleaned_data["killboard_link"]
             srp_request.additional_info = form.cleaned_data["additional_info"]
             srp_request.creator = creator
-            # srp_request.character = main_character
             srp_request.srp_link = srp_link
 
             # parse zkillboard killmail
