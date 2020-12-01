@@ -72,7 +72,7 @@ def active_srp_links_data(request, show_all_links=False) -> JsonResponse:
             {
                 "srp_name": srp_link.srp_name,
                 "creator": srp_link.creator.profile.main_character.character_name,
-                "fleet_time": srp_link.fleet_time,
+                "fleet_time": srp_link.fleet_time.replace(tzinfo=None),
                 "fleet_commander": srp_link.fleet_commander.character_name,
                 "fleet_doctrine": srp_link.fleet_doctrine,
                 "aar_link": aar_link,
@@ -104,7 +104,7 @@ def user_srp_requests_data(request) -> JsonResponse:
 
         data.append(
             {
-                "request_time": srp_request.post_time,
+                "request_time": srp_request.post_time.replace(tzinfo=None),
                 "character": srp_request.character.character_name,
                 "fleet_name": srp_request.srp_link.srp_name,
                 "srp_code": srp_request.srp_link.srp_code,
@@ -406,7 +406,7 @@ def srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
 
         data.append(
             {
-                "request_time": srp_request.post_time,
+                "request_time": srp_request.post_time.replace(tzinfo=None),
                 "requester": requester,
                 "character": srp_request.character.character_name,
                 "request_code": srp_request.request_code,
