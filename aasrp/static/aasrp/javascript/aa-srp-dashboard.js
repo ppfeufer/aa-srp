@@ -23,8 +23,7 @@ $(document).ready(function () {
             {data: 'fleet_commander'},
             {data: 'fleet_doctrine'},
             {
-                data: 'aar_link',
-                className: 'text-center'
+                data: 'aar_link'
             },
             {data: 'srp_code'},
             {data: 'srp_status'},
