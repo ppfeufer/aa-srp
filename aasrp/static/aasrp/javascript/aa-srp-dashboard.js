@@ -67,7 +67,6 @@ $(document).ready(function() {
                         ).display(data);
 
                         return iskValue + ' ' + currency;
-
                     } else {
                         return data;
                     }
@@ -85,7 +84,6 @@ $(document).ready(function() {
                         ).display(data);
 
                         return iskValue + ' ' + currency;
-
                     } else {
                         return data;
                     }
