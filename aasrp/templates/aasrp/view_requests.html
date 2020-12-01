@@ -34,6 +34,9 @@
         datetimeFormat: 'YYYY-MM-DD HH:mm',
         url: {
             requestsForSrpLink: "{% url 'aasrp:ajax_srp_link_view_requests_data' srp_link.srp_code %}"
+        },
+        translation: {
+            filterRequestStatus: "{% translate 'Request Status' %}"
         }
     };
     </script>

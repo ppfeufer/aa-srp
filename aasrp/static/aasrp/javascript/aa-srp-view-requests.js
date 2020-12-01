@@ -57,8 +57,45 @@ $(document).ready(function() {
                 },
                 className: 'text-right'
             },
+            {
+                data: 'request_status_icon',
+                className: 'text-center'
+            },
+            {data: 'actions'},
+            // hidden columns
+            {data: 'request_status'},
         ],
-        order: [[0, 'desc']]
+        columnDefs: [
+            {
+                orderable: false,
+                targets: [5, 8, 9]
+            },
+            {
+                visible: false,
+                targets: [10]
+            }
+        ],
+        order: [[0, 'asc']],
+        filterDropDown: {
+            columns: [
+                {
+                    idx: 1,
+                },
+                {
+                    idx: 2,
+                },
+                {
+                    idx: 4,
+                },
+                {
+                    idx: 10,
+                    title: aaSrpSettings.translation.filterRequestStatus
+                }
+            ],
+            autoSize: false,
+            bootstrap: true
+        },
+        paging: false
     });
 
     srpRequestsTable.rows().every(function() {
