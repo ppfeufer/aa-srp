@@ -31,7 +31,10 @@ logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 @permission_required("aasrp.basic_access")
 def dashboard(request, show_all_links=False) -> HttpResponse:
     """
-    Index view
+    srp dasboard
+    :param request:
+    :param show_all_links:
+    :return:
     """
 
     logger.info("Module called by {user}".format(user=request.user))
@@ -44,6 +47,14 @@ def dashboard(request, show_all_links=False) -> HttpResponse:
 @login_required
 @permission_required("aasrp.basic_access")
 def active_srp_links_data(request, show_all_links=False) -> JsonResponse:
+    """
+    ajax request
+    get all active srp links
+    :param request:
+    :param show_all_links:
+    :return:
+    """
+
     data = list()
 
     srp_links = (
@@ -89,6 +100,13 @@ def active_srp_links_data(request, show_all_links=False) -> JsonResponse:
 @login_required
 @permission_required("aasrp.basic_access")
 def user_srp_requests_data(request) -> JsonResponse:
+    """
+    ajax request
+    get user srp requests
+    :param request:
+    :return:
+    """
+
     data = list()
 
     requests = AaSrpRequest.objects.filter(creator=request.user)
@@ -123,6 +141,12 @@ def user_srp_requests_data(request) -> JsonResponse:
 @login_required
 @permission_required("aasrp.manage_srp", "aasrp.create_srp")
 def srp_link_add(request) -> HttpResponse:
+    """
+    add a srp link
+    :param request:
+    :return:
+    """
+
     logger.info("Add link called by %s", request.user)
 
     # if this is a POST request we need to process the form data
@@ -147,10 +171,10 @@ def srp_link_add(request) -> HttpResponse:
             srp_link.creator = request.user
             srp_link.save()
 
-            request.session["msg"] = [
-                "success",
-                "SRP Link created",
-            ]
+            messages.success(
+                request,
+                _('SRP link "{srp_code}" created').format(srp_code=srp_link.srp_code),
+            )
 
             return redirect("aasrp:dashboard")
 
@@ -166,7 +190,29 @@ def srp_link_add(request) -> HttpResponse:
 @login_required
 @permission_required("aasrp.manage_srp")
 def srp_link_edit(request, srp_code: str) -> HttpResponse:
-    logger.info("Edit link called by %s", request.user)
+    """
+    add or edit AAR link
+    :param request:
+    :param srp_code:
+    :return:
+    """
+
+    logger.info("Edit link called by {user}".format(user=request.user))
+
+    # check if the provided SRP code is valid
+    if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
+        logger.error(
+            "Unable to locate SRP Fleet using code {srp_code} for user {user}".format(
+                srp_code=srp_code, user=request.user
+            )
+        )
+
+        messages.error(
+            request,
+            _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
+        )
+
+        return redirect("aasrp:dashboard")
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
 
@@ -182,10 +228,7 @@ def srp_link_edit(request, srp_code: str) -> HttpResponse:
             srp_link.aar_link = aar_link
             srp_link.save()
 
-            request.session["msg"] = [
-                "success",
-                "SRP Link created",
-            ]
+            messages.success(request, _("AAR link changed"))
 
             return redirect("aasrp:dashboard")
     else:
@@ -200,7 +243,7 @@ def srp_link_edit(request, srp_code: str) -> HttpResponse:
 @permission_required("aasrp.basic_access")
 def request_srp(request, srp_code: str) -> HttpResponse:
     """
-    Request SRP view
+    srp request
     :param request:
     :param srp_code:
     """
@@ -370,6 +413,7 @@ def srp_link_view_requests(request, srp_code: str) -> HttpResponse:
             request,
             _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
         )
+
         return redirect("aasrp:dashboard")
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
@@ -383,6 +427,7 @@ def srp_link_view_requests(request, srp_code: str) -> HttpResponse:
 @permission_required("aasrp.basic_access")
 def srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
     """
+    ajax request
     get datatable data
     :param request:
     """
@@ -420,3 +465,131 @@ def srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
         )
 
     return JsonResponse(data, safe=False)
+
+
+@login_required
+@permission_required("aasrp.manage_srp")
+def enable_srp_link(request, srp_code: str):
+    """
+    disable SRP link
+    :param request:
+    :param srp_code:
+    """
+
+    logger.info(
+        "Disable SRP link {srp_code} called by {user}".format(
+            user=request.user, srp_code=srp_code
+        )
+    )
+
+    # check if the provided SRP code is valid
+    if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
+        logger.error(
+            "Unable to locate SRP Fleet using code {srp_code} for user {user}".format(
+                srp_code=srp_code, user=request.user
+            )
+        )
+
+        messages.error(
+            request,
+            _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
+        )
+
+        return redirect("aasrp:dashboard")
+
+    srp_link = AaSrpLink.objects.get(srp_code=srp_code)
+
+    srp_link.srp_status = AaSrpStatus.ACTIVE
+    srp_link.save()
+
+    messages.success(
+        request,
+        _("SRP link {srp_code} (re-)activated.").format(srp_code=srp_code),
+    )
+
+    return redirect("aasrp:dashboard")
+
+
+@login_required
+@permission_required("aasrp.manage_srp")
+def disable_srp_link(request, srp_code: str):
+    """
+    disable SRP link
+    :param request:
+    :param srp_code:
+    """
+
+    logger.info(
+        "Disable SRP link {srp_code} called by {user}".format(
+            user=request.user, srp_code=srp_code
+        )
+    )
+
+    # check if the provided SRP code is valid
+    if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
+        logger.error(
+            "Unable to locate SRP Fleet using code {srp_code} for user {user}".format(
+                srp_code=srp_code, user=request.user
+            )
+        )
+
+        messages.error(
+            request,
+            _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
+        )
+
+        return redirect("aasrp:dashboard")
+
+    srp_link = AaSrpLink.objects.get(srp_code=srp_code)
+
+    srp_link.srp_status = AaSrpStatus.CLOSED
+    srp_link.save()
+
+    messages.success(
+        request,
+        _("SRP link {srp_code} disabled.").format(srp_code=srp_code),
+    )
+
+    return redirect("aasrp:dashboard")
+
+
+@login_required
+@permission_required("aasrp.manage_srp")
+def delete_srp_link(request, srp_code: str):
+    """
+    disable SRP link
+    :param request:
+    :param srp_code:
+    """
+
+    logger.info(
+        "Delete SRP link {srp_code} called by {user}".format(
+            user=request.user, srp_code=srp_code
+        )
+    )
+
+    # check if the provided SRP code is valid
+    if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
+        logger.error(
+            "Unable to locate SRP Fleet using code {srp_code} for user {user}".format(
+                srp_code=srp_code, user=request.user
+            )
+        )
+
+        messages.error(
+            request,
+            _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
+        )
+
+        return redirect("aasrp:dashboard")
+
+    srp_link = AaSrpLink.objects.get(srp_code=srp_code)
+
+    srp_link.delete()
+
+    messages.success(
+        request,
+        _("SRP link {srp_code} deleted.").format(srp_code=srp_code),
+    )
+
+    return redirect("aasrp:dashboard")

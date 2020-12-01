@@ -11,6 +11,11 @@
 {% block aasrp_body %}
     {% include 'aasrp/partials/dashboard/buttons.html' %}
     {% include 'aasrp/partials/dashboard/table.html' %}
+
+    <!-- modals -->
+    {% include 'aasrp/modals/dashboard/enable_srp_link.html' %}
+    {% include 'aasrp/modals/dashboard/disable_srp_link.html' %}
+    {% include 'aasrp/modals/dashboard/delete_srp_link.html' %}
 {% endblock %}
 
 {% block extra_css %}
@@ -29,17 +34,61 @@
     <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}"></script>
 
     <script type="application/javascript">
-    var aaSrpSettings = {
-        datetimeFormat: 'YYYY-MM-DD HH:mm',
-        url: {
-            {% if show_all_links %}
-                activeSrpLinks: "{% url 'aasrp:active_srp_links_all_data' %}",
-            {% else %}
-                activeSrpLinks: "{% url 'aasrp:active_srp_links_data' %}",
-            {% endif %}
-            userSrpRequests: "{% url 'aasrp:user_srp_requests_data' %}"
-        }
-    };
+        var aaSrpSettings = {
+            datetimeFormat: 'YYYY-MM-DD HH:mm',
+            url: {
+                {% if show_all_links %}
+                    activeSrpLinks: "{% url 'aasrp:active_srp_links_all_data' %}",
+                {% else %}
+                    activeSrpLinks: "{% url 'aasrp:active_srp_links_data' %}",
+                {% endif %}
+                userSrpRequests: "{% url 'aasrp:user_srp_requests_data' %}"
+            }
+        };
     </script>
     <script type="application/javascript" src="{% static 'aasrp/javascript/aa-srp-dashboard.min.js' %}"></script>
+
+    <script type="application/javascript">
+        $('#enable-srp-link').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var url = button.data('url'); // Extract info from data-* attributes
+            var name = button.data('name');
+            var modal = $(this);
+
+            modal.find('#modal-button-confirm-enable-srp-link').attr('href', url);
+            modal.find('.modal-body').html('{% translate "Are you sure you want to (re-)activate the following SRP Link?" %}<br>"' + name + '"');
+        }).on('hide.bs.modal', function() {
+            var modal = $(this);
+
+            modal.find('.modal-body').html('');
+        });
+
+        $('#disable-srp-link').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var url = button.data('url'); // Extract info from data-* attributes
+            var name = button.data('name');
+            var modal = $(this);
+
+            modal.find('#modal-button-confirm-disable-srp-link').attr('href', url);
+            modal.find('.modal-body').html('{% translate "Are you sure you want to disable the following SRP Link?" %}<br>"' + name + '"');
+        }).on('hide.bs.modal', function() {
+            var modal = $(this);
+
+            modal.find('.modal-body').html('');
+        });
+
+        $('#delete-srp-link').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var url = button.data('url'); // Extract info from data-* attributes
+            var name = button.data('name');
+            var modal = $(this);
+
+            modal.find('#modal-button-confirm-delete-srp-link').attr('href', url);
+            modal.find('.modal-body').html('{% translate "Are you sure you want to delete the following SRP Link and all SRP requests tied to it?" %}<br>"' + name + '"');
+        }).on('hide.bs.modal', function() {
+            var modal = $(this);
+
+            modal.find('.modal-body').html('');
+        });
+    </script>
 {% endblock %}

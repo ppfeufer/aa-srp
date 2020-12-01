@@ -43,26 +43,68 @@ def get_dashboard_action_buttons(request, srp_link):
             )
 
             if srp_link.srp_status == "Active":
-                button_disable_url = "#"
-                actions += '<a href="{btn_link}" class="btn btn-aasrp btn-warning btn-sm" title="{btn_title}">{btn_icon}</a>'.format(
-                    btn_link=button_disable_url,
-                    btn_icon='<i class="fas fa-ban"></i>',
-                    btn_title=_("Disable SRP Link"),
+                button_disable_url = reverse(
+                    "aasrp:disable_srp_link", args=[srp_link.srp_code]
+                )
+
+                data_name = srp_link.srp_name + " (" + srp_link.srp_code + ")"
+
+                actions += (
+                    '<a class="btn btn-aasrp btn-warning btn-sm" '
+                    'title="{btn_title}" '
+                    'data-toggle="modal" '
+                    'data-target="#{modal_id}" '
+                    'data-url="{data_url}" '
+                    'data-name="{data_name}">{btn_icon}</a>'.format(
+                        data_url=button_disable_url,
+                        data_name=data_name,
+                        btn_icon='<i class="fas fa-ban"></i>',
+                        btn_title=_("Disable SRP Link"),
+                        modal_id="disable-srp-link",
+                    )
                 )
 
             if srp_link.srp_status == "Closed":
-                button_disable_url = "#"
-                actions += '<a href="{btn_link}" class="btn btn-aasrp btn-success btn-sm" title="{btn_title}">{btn_icon}</a>'.format(
-                    btn_link=button_disable_url,
-                    btn_icon='<i class="fas fa-check"></i>',
-                    btn_title=_("Enable SRP Link"),
+                button_enable_url = reverse(
+                    "aasrp:enable_srp_link", args=[srp_link.srp_code]
                 )
 
-            button_remove_url = "#"
-            actions += '<a href="{btn_link}" class="btn btn-aasrp btn-danger btn-sm" title="{btn_title}">{btn_icon}</a>'.format(
-                btn_link=button_remove_url,
-                btn_icon='<i class="far fa-trash-alt"></i>',
-                btn_title=_("Remove SRP Link"),
+                data_name = srp_link.srp_name + " (" + srp_link.srp_code + ")"
+
+                actions += (
+                    '<a class="btn btn-aasrp btn-success btn-sm" '
+                    'title="{btn_title}" '
+                    'data-toggle="modal" '
+                    'data-target="#{modal_id}" '
+                    'data-url="{data_url}" '
+                    'data-name="{data_name}">{btn_icon}</a>'.format(
+                        data_url=button_enable_url,
+                        data_name=data_name,
+                        btn_icon='<i class="fas fa-check"></i>',
+                        btn_title=_("Enable SRP Link"),
+                        modal_id="enable-srp-link",
+                    )
+                )
+
+            button_remove_url = reverse(
+                "aasrp:delete_srp_link", args=[srp_link.srp_code]
+            )
+
+            data_name = srp_link.srp_name + " (" + srp_link.srp_code + ")"
+
+            actions += (
+                '<a class="btn btn-aasrp btn-danger btn-sm" '
+                'title="{btn_title}" '
+                'data-toggle="modal" '
+                'data-target="#{modal_id}" '
+                'data-url="{data_url}" '
+                'data-name="{data_name}">{btn_icon}</a>'.format(
+                    data_url=button_remove_url,
+                    data_name=data_name,
+                    btn_icon='<i class="far fa-trash-alt"></i>',
+                    btn_title=_("Remove SRP Link"),
+                    modal_id="delete-srp-link",
+                )
             )
 
     return actions
