@@ -10,7 +10,7 @@ from django.utils.crypto import get_random_string
 from aasrp.view_helper import get_user_for_character
 from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpStatus, AaSrpRequestStatus
 
-from allianceauth.srp.models import SrpFleetMain, SrpUserRequest
+from allianceauth.srp.models import SrpFleetMain
 
 
 def get_input(text):
@@ -100,7 +100,6 @@ class Command(BaseCommand):
             for srp_userrequest in srp_userrequests:
                 srp_userrequest_killboard_link = srp_userrequest.killboard_link
                 srp_userrequest_additional_info = srp_userrequest.additional_info
-                srp_userrequest_status = srp_userrequest.srp_status
                 srp_userrequest_payout = srp_userrequest.srp_total_amount
                 srp_userrequest_loss_amount = srp_userrequest.kb_total_loss
                 srp_userrequest_ship_name = srp_userrequest.srp_ship_name
@@ -112,8 +111,15 @@ class Command(BaseCommand):
                 )
                 srp_userrequest_srp_link = srp_link
 
+                srp_userrequest_status = AaSrpRequestStatus.PENDING
+                if srp_userrequest.srp_status == "Approved":
+                    srp_userrequest_status = AaSrpRequestStatus.APPROVED
+
+                if srp_userrequest.srp_status == "Rejected":
+                    srp_userrequest_status = AaSrpRequestStatus.REJECTED
+
                 try:
-                    srp_request = AaSrpRequest.objects.get(
+                    AaSrpRequest.objects.get(
                         killboard_link=srp_userrequest_killboard_link
                     )
 
