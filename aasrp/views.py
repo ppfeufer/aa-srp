@@ -4,7 +4,6 @@
 the views
 """
 
-from aasrp import __title__
 from aasrp.app_settings import avoid_cdn
 from aasrp.view_helper import (
     get_dashboard_action_buttons,
@@ -14,7 +13,7 @@ from aasrp.view_helper import (
 from aasrp.form import AaSrpLinkForm, AaSrpLinkUpdateForm, AaSrpRequestForm
 from aasrp.managers import AaSrpManager
 from aasrp.models import AaSrpLink, AaSrpStatus, AaSrpRequest
-from aasrp.utils import LoggerAddTag
+from aasrp.utils import logger
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
@@ -26,9 +25,6 @@ from django.utils.translation import gettext_lazy as _
 
 from allianceauth.eveonline.models import EveCharacter
 from allianceauth.eveonline.providers import provider
-from allianceauth.services.hooks import get_extension_logger
-
-logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
 @login_required
@@ -41,7 +37,15 @@ def dashboard(request, show_all_links=False) -> HttpResponse:
     :return:
     """
 
-    logger.info("Module called by {user}".format(user=request.user))
+    logger_message = "Dashboard with available SRP links called by {user}".format(
+        user=request.user
+    )
+    if show_all_links is True:
+        logger_message = "Dashboard with all SRP links called by {user}".format(
+            user=request.user
+        )
+
+    logger.info(logger_message)
 
     context = {"avoid_cdn": avoid_cdn(), "show_all_links": show_all_links}
 
@@ -156,7 +160,7 @@ def srp_link_add(request) -> HttpResponse:
     :return:
     """
 
-    logger.info("Add link called by %s", request.user)
+    logger.info("Add SRP link form called by %s", request.user)
 
     # if this is a POST request we need to process the form data
     if request.method == "POST":
@@ -206,7 +210,11 @@ def srp_link_edit(request, srp_code: str) -> HttpResponse:
     :return:
     """
 
-    logger.info("Edit link called by {user}".format(user=request.user))
+    logger.info(
+        "Edit SRP link form for SRP code {srp_code} called by {user}".format(
+            srp_code=srp_code, user=request.user
+        )
+    )
 
     # check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
@@ -258,7 +266,7 @@ def request_srp(request, srp_code: str) -> HttpResponse:
     """
 
     logger.info(
-        "SRP Request for SRP code {srp_code} called by {user}".format(
+        "SRP request form for SRP code {srp_code} called by {user}".format(
             user=request.user, srp_code=srp_code
         )
     )
@@ -266,14 +274,16 @@ def request_srp(request, srp_code: str) -> HttpResponse:
     # check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
-            "Unable to locate SRP Fleet using code {srp_code} for user {user}".format(
+            "Unable to locate SRP Fleet using SRP code {srp_code} for user {user}".format(
                 srp_code=srp_code, user=request.user
             )
         )
 
         messages.error(
             request,
-            _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
+            _("Unable to locate SRP Fleet using SRP code {srp_code} ").format(
+                srp_code=srp_code
+            ),
         )
 
         return redirect("aasrp:dashboard")
@@ -306,7 +316,11 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                 killboard_link=form.cleaned_data["killboard_link"]
             ).exists():
                 messages.error(
-                    request, _("There is already a SRP request for this killmail.")
+                    request,
+                    _(
+                        "There is already a SRP request for this killmail. "
+                        "Please check if you got the right one."
+                    ),
                 )
 
                 return redirect("aasrp:dashboard")
@@ -339,7 +353,8 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                 messages.error(
                     request,
                     _(
-                        "Your SRP request Killmail link is invalid. Please make sure you are using zKillboard."
+                        "Your SRP request Killmail link is invalid. "
+                        "Please make sure you are using zKillboard."
                     ),
                 )
 
@@ -360,8 +375,13 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                 srp_request.save()
 
                 logger.info(
-                    "Created SRP Request on behalf of user %s for fleet name %s"
-                    % (request.user, srp_link.srp_name)
+                    "Created SRP request on behalf of user {user_name} (character: {character_name}) "
+                    "for fleet name {srp_name} with SRP code {srp_code}".format(
+                        user_name=request.user,
+                        character_name=srp_request__character,
+                        srp_name=srp_link.srp_name,
+                        srp_code=srp_request.request_code,
+                    )
                 )
                 messages.success(
                     request,
@@ -376,7 +396,7 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                     request,
                     _(
                         "Character {character_id} does not belong to your Auth account. "
-                        "Please add the API key for this character and try again"
+                        "Please add this character as an alt to your main and try again."
                     ).format(character_id=victim_id),
                 )
 
@@ -491,7 +511,7 @@ def enable_srp_link(request, srp_code: str):
     """
 
     logger.info(
-        "Disable SRP link {srp_code} called by {user}".format(
+        "Enable SRP link {srp_code} called by {user}".format(
             user=request.user, srp_code=srp_code
         )
     )

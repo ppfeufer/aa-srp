@@ -4,18 +4,15 @@
 SRP Manager
 """
 
-import logging
-
 import requests
 
 from django.contrib.auth.models import User
 
 from aasrp import __user_agent__
 from aasrp.models import AaSrpRequest, AaSrpRequestStatus
+from aasrp.utils import logger
 
 from allianceauth.eveonline.providers import provider
-
-logger = logging.getLogger(__name__)
 
 
 class AaSrpManager:

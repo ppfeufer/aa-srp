@@ -11,7 +11,33 @@ from django.conf import settings
 from django.utils.functional import lazy
 from django.utils.html import format_html
 
-from aasrp.tasks import logger
+from allianceauth.services.hooks import get_extension_logger
+
+from aasrp import __title__
+
+
+class LoggerAddTag(logging.LoggerAdapter):
+    """
+    add custom tag to a logger
+    """
+
+    def __init__(self, my_logger, prefix):
+        super().__init__(my_logger, {})
+        self.prefix = prefix
+
+    def process(self, msg, kwargs):
+        """
+        process log items
+        :param msg:
+        :param kwargs:
+        :return:
+        """
+
+        return "[%s] %s" % (self.prefix, msg), kwargs
+
+
+# logger = LoggerAddTag(get_extension_logger(__name__), __package__)
+logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
 def clean_setting(
@@ -65,29 +91,6 @@ def clean_setting(
 DATETIME_FORMAT = "%Y-%m-%d %H:%M"
 
 format_html_lazy = lazy(format_html, str)
-
-
-class LoggerAddTag(logging.LoggerAdapter):
-    """
-    add custom tag to a logger
-    """
-
-    def __init__(self, my_logger, prefix):
-        super().__init__(my_logger, {})
-        self.prefix = prefix
-
-    def process(self, msg, kwargs):
-        """
-        process log items
-        :param msg:
-        :param kwargs:
-        :return:
-        """
-
-        return "[%s] %s" % (self.prefix, msg), kwargs
-
-
-logger = LoggerAddTag(logging.getLogger(__name__), __package__)
 
 
 def get_swagger_spec_path() -> str:
