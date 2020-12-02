@@ -8,11 +8,15 @@ import requests
 
 from django.contrib.auth.models import User
 
-from aasrp import __user_agent__
+from aasrp import __user_agent__, __title__
 from aasrp.models import AaSrpRequest, AaSrpRequestStatus
-from aasrp.utils import logger
+from aasrp.utils import LoggerAddTag
 
 from allianceauth.eveonline.providers import provider
+from allianceauth.services.hooks import get_extension_logger
+
+
+logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
 class AaSrpManager:

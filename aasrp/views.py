@@ -4,6 +4,9 @@
 the views
 """
 
+from allianceauth.services.hooks import get_extension_logger
+
+from aasrp import __title__
 from aasrp.app_settings import avoid_cdn
 from aasrp.view_helper import (
     get_dashboard_action_buttons,
@@ -13,7 +16,7 @@ from aasrp.view_helper import (
 from aasrp.form import AaSrpLinkForm, AaSrpLinkUpdateForm, AaSrpRequestForm
 from aasrp.managers import AaSrpManager
 from aasrp.models import AaSrpLink, AaSrpStatus, AaSrpRequest
-from aasrp.utils import logger
+from aasrp.utils import LoggerAddTag
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
@@ -25,6 +28,9 @@ from django.utils.translation import gettext_lazy as _
 
 from allianceauth.eveonline.models import EveCharacter
 from allianceauth.eveonline.providers import provider
+
+
+logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
 @login_required
