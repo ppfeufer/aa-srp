@@ -26,7 +26,7 @@ $(document).ready(function() {
             {
                 data: 'zbk_loss_amount',
                 render: function(data, type, row, meta) {
-                    if(type === 'display'){
+                    if(type === 'display') {
                         var currency = 'ISK';
                         var iskValue = $.fn.dataTable.render.number(
                             ',',
@@ -43,7 +43,7 @@ $(document).ready(function() {
             {
                 data: 'payout_amount',
                 render: function(data, type, row, meta) {
-                    if(type === 'display'){
+                    if(type === 'display') {
                         var currency = 'ISK';
                         var iskValue = $.fn.dataTable.render.number(
                             ',',

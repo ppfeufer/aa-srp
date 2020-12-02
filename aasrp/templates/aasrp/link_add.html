@@ -26,17 +26,19 @@
     {% include 'bundles/jquery-datetimepicker-js.html' %}
 
     <script type="application/javascript">
-    $('#id_fleet_time').datetimepicker({
-        setlocale: '{{ LANGUAGE_CODE }}',
+        let theme = 'default';
         {% if NIGHT_MODE %}
-            theme: 'dark',
-        {% else %}
-            theme: 'default',
+            // override for night mode
+            theme = 'dark';
         {% endif %}
-        maskInput: true,
-        format: 'Y-m-d H:i',
-        dayOfWeekStart: 1,
-        step: 15
-    });
+
+        $('#id_fleet_time').datetimepicker({
+            setlocale: '{{ LANGUAGE_CODE }}',
+            theme: theme,
+            maskInput: true,
+            format: 'Y-m-d H:i',
+            dayOfWeekStart: 1,
+            step: 15
+        });
     </script>
 {% endblock %}

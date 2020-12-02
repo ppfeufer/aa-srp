@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 
 """
-pages url config
+aasrp url config
 """
 
 from django.conf.urls import url

@@ -32,29 +32,40 @@ def custom_filter(title):
 
 @admin.register(AaSrpLink)
 class AaSrpLinkAdmin(admin.ModelAdmin):
+    """
+    AaSrpLinkAdmin
+    """
+
     list_display = (
         "srp_code",
+        "fleet_time",
         "_creator",
         "srp_name",
         "srp_status",
         "fleet_doctrine",
-        "fleet_time",
-        "fleet_commander",
     )
     ordering = ("fleet_time",)
 
-    list_filter = ("creator", "srp_status", "fleet_commander", "fleet_doctrine")
+    list_filter = ("creator", "srp_status", "fleet_doctrine")
 
     @classmethod
     def _creator(cls, obj):
-        return obj.creator.profile.main_character.character_name
+        creator_name = obj.creator
+        if obj.creator.profile.main_character:
+            creator_name = obj.creator.profile.main_character.character_name
 
-    # _creator.short_description = "Creator"
+        return creator_name
+
+    _creator.short_description = "Creator"
     _creator.admin_order_field = "creator"
 
 
 @admin.register(AaSrpRequest)
 class AaSrpRequestAdmin(admin.ModelAdmin):
+    """
+    AaSrpRequestAdmin
+    """
+
     list_display = (
         "request_code",
         "_creator",
@@ -73,7 +84,11 @@ class AaSrpRequestAdmin(admin.ModelAdmin):
 
     @classmethod
     def _creator(cls, obj):
-        return obj.creator.profile.main_character.character_name
+        creator_name = obj.creator
+        if obj.creator.profile.main_character:
+            creator_name = obj.creator.profile.main_character.character_name
 
-    # _creator.short_description = "Creator"
+        return creator_name
+
+    _creator.short_description = "Creator"
     _creator.admin_order_field = "creator"

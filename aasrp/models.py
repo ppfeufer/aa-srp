@@ -17,6 +17,7 @@ def get_sentinel_user():
     get user or create one
     :return:
     """
+
     return User.objects.get_or_create(username="deleted")[0]
 
 

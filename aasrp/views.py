@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 
 """
 the views
@@ -15,7 +15,6 @@ from aasrp.form import AaSrpLinkForm, AaSrpLinkUpdateForm, AaSrpRequestForm
 from aasrp.managers import AaSrpManager
 from aasrp.models import AaSrpLink, AaSrpStatus, AaSrpRequest
 from aasrp.utils import LoggerAddTag
-from allianceauth.eveonline.models import EveCharacter
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
@@ -25,8 +24,9 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
-from allianceauth.services.hooks import get_extension_logger
+from allianceauth.eveonline.models import EveCharacter
 from allianceauth.eveonline.providers import provider
+from allianceauth.services.hooks import get_extension_logger
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 
 """
 utilities
@@ -32,6 +32,7 @@ def clean_setting(
 
     Returns cleaned value for setting
     """
+
     if default_value is None and not required_type:
         raise ValueError("You must specify a required_type for None defaults")
 
@@ -82,6 +83,7 @@ class LoggerAddTag(logging.LoggerAdapter):
         :param kwargs:
         :return:
         """
+
         return "[%s] %s" % (self.prefix, msg), kwargs
 
 
@@ -92,6 +94,7 @@ def get_swagger_spec_path() -> str:
     """
     returns the path to the current swagger spec file
     """
+
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), "swagger.json")
 
 
@@ -99,4 +102,5 @@ def make_logger_prefix(tag: str):
     """
     creates a function to add logger prefix, which returns tag when used empty
     """
+
     return lambda text="": "{}{}".format(tag, (": " + text) if text else "")

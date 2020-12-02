@@ -30,15 +30,20 @@
     <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}"></script>
 
     <script type="application/javascript">
-    var aaSrpSettings = {
-        datetimeFormat: 'YYYY-MM-DD HH:mm',
-        url: {
-            requestsForSrpLink: "{% url 'aasrp:ajax_srp_link_view_requests_data' srp_link.srp_code %}"
-        },
-        translation: {
-            filterRequestStatus: "{% translate 'Request Status' %}"
-        }
-    };
+        /**
+         * passing some setting to our JS
+         */
+        let urlRequestsForSrpLink = "{% url 'aasrp:ajax_srp_link_view_requests_data' srp_link.srp_code %}";
+
+        let aaSrpSettings = {
+            datetimeFormat: 'YYYY-MM-DD HH:mm',
+            url: {
+                requestsForSrpLink: urlRequestsForSrpLink
+            },
+            translation: {
+                filterRequestStatus: "{% translate 'Request Status' %}"
+            }
+        };
     </script>
     <script type="application/javascript" src="{% static 'aasrp/javascript/aa-srp-view-requests.min.js' %}"></script>
 {% endblock %}

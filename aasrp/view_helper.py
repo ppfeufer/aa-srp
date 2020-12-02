@@ -21,7 +21,6 @@ def get_dashboard_action_buttons(request, srp_link: AaSrpLink) -> str:
     """
 
     button_request_url = reverse("aasrp:request_srp", args=[srp_link.srp_code])
-    # button_request_url = "#"
     actions = '<a href="{btn_link}" class="btn btn-aasrp btn-success btn-sm" title="{btn_title}">{btn_icon}</a>'.format(
         btn_link=button_request_url,
         btn_icon='<i class="fas fa-hand-holding-usd"></i>',
@@ -120,6 +119,7 @@ def get_srp_request_status_icon(srp_request: AaSrpRequest) -> str:
     :param srp_request:
     :return:
     """
+
     srp_request_status_icon = (
         '<button class="btn btn-warning btn-sm" title="{request_status_icon_title}">'
         "{request_status_icon}"

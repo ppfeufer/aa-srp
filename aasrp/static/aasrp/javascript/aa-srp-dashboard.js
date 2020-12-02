@@ -6,7 +6,7 @@ $(document).ready(function() {
      */
     $('#tab_aasrp_srp_links').DataTable({
         ajax: {
-            url: aaSrpSettings.url.activeSrpLinks,
+            url: aaSrpSettings.url.availableSrpLinks,
             dataSrc: '',
             cache: false
         },
@@ -27,7 +27,7 @@ $(document).ready(function() {
             {
                 data: 'srp_costs',
                 render: function(data, type, row, meta) {
-                    if(type === 'display'){
+                    if(type === 'display') {
                         var currency = 'ISK';
                         var iskValue = $.fn.dataTable.render.number(
                             ',',
@@ -81,7 +81,7 @@ $(document).ready(function() {
             {
                 data: 'zbk_loss_amount',
                 render: function(data, type, row, meta) {
-                    if(type === 'display'){
+                    if(type === 'display') {
                         var currency = 'ISK';
                         var iskValue = $.fn.dataTable.render.number(
                             ',',
@@ -98,7 +98,7 @@ $(document).ready(function() {
             {
                 data: 'payout_amount',
                 render: function(data, type, row, meta) {
-                    if(type === 'display'){
+                    if(type === 'display') {
                         var currency = 'ISK';
                         var iskValue = $.fn.dataTable.render.number(
                             ',',

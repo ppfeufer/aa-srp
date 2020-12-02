@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 
 """
 SRP Manager
@@ -10,9 +10,9 @@ import requests
 
 from django.contrib.auth.models import User
 
+from aasrp import __user_agent__
 from aasrp.models import AaSrpRequest, AaSrpRequestStatus
 
-from allianceauth import NAME
 from allianceauth.eveonline.providers import provider
 
 logger = logging.getLogger(__name__)
@@ -44,10 +44,12 @@ class AaSrpManager:
         :return:
         """
 
-        url = "https://zkillboard.com/api/killID/%s/" % kill_id
+        url = "https://zkillboard.com/api/killID/{killmail_id}/".format(
+            killmail_id=kill_id
+        )
 
         headers = {
-            "User-Agent": NAME,
+            "User-Agent": __user_agent__,
             "Content-Type": "application/json",
         }
 
