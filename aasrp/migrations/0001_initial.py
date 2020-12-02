@@ -31,9 +31,9 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={
-                "verbose_name": "AA SRP",
+                "verbose_name": "AA-SRP",
                 "permissions": (
-                    ("basic_access", "Can access the AA SRP module"),
+                    ("basic_access", "Can access the AA-SRP module"),
                     ("create_srp", "Can create new SRP links"),
                     ("manage_srp", "Can manage SRP"),
                     ("manage_srp_requests", "Can manage SRP requests"),

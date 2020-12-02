@@ -8,7 +8,7 @@ default_app_config: str = "aasrp.apps.AaSrpConfig"
 
 __version__ = "0.0.1-aplha.1"
 __title__ = "Ship Replacement"
-__verbose_name__ = "AA SRP - A ship replacement module for Alliance Auth"
+__verbose_name__ = "AA-SRP - A ship replacement module for Alliance Auth"
 __user_agent__ = "{verbose_name} - v{version} - {github_url}".format(
     verbose_name=__verbose_name__,
     version=__version__,

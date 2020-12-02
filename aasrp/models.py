@@ -56,12 +56,12 @@ class AaSrp(models.Model):
     """
 
     class Meta:
-        verbose_name = "AA SRP"
+        verbose_name = "AA-SRP"
         managed = False
         default_permissions = ()
         permissions = (
             # can open the SRP app and submit SRP requests
-            ("basic_access", "Can access the AA SRP module"),
+            ("basic_access", "Can access the AA-SRP module"),
             # can create SRP links
             ("create_srp", "Can create new SRP links"),
             # can manage the complete SRP module
