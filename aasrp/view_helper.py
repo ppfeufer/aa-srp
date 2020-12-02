@@ -7,6 +7,7 @@ so we don't mess up views.py too much
 
 from aasrp.models import AaSrpRequestStatus, AaSrpLink, AaSrpRequest
 
+from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -21,28 +22,40 @@ def get_dashboard_action_buttons(request, srp_link: AaSrpLink) -> str:
     """
 
     button_request_url = reverse("aasrp:request_srp", args=[srp_link.srp_code])
-    actions = '<a href="{btn_link}" class="btn btn-aasrp btn-success btn-sm" title="{btn_title}">{btn_icon}</a>'.format(
-        btn_link=button_request_url,
-        btn_icon='<i class="fas fa-hand-holding-usd"></i>',
-        btn_title=_("Request SRP"),
+    actions = (
+        '<a href="{btn_link}" '
+        'class="btn btn-aasrp btn-success btn-sm" '
+        'title="{btn_title}">{btn_icon}</a>'.format(
+            btn_link=button_request_url,
+            btn_icon='<i class="fas fa-hand-holding-usd"></i>',
+            btn_title=_("Request SRP"),
+        )
     )
 
     if request.user.has_perm("aasrp.manage_srp") or request.user.has_perm(
         "aasrp.manage_srp_requests"
     ):
         button_view_url = reverse("aasrp:view_srp_requests", args=[srp_link.srp_code])
-        actions += '<a href="{btn_link}" class="btn btn-aasrp btn-primary btn-sm" title="{btn_title}">{btn_icon}</a><br>'.format(
-            btn_link=button_view_url,
-            btn_icon='<i class="fas fa-eye"></i>',
-            btn_title=_("View SRP Requests"),
+        actions += (
+            '<a href="{btn_link}" '
+            'class="btn btn-aasrp btn-primary btn-sm" '
+            'title="{btn_title}">{btn_icon}</a><br>'.format(
+                btn_link=button_view_url,
+                btn_icon='<i class="fas fa-eye"></i>',
+                btn_title=_("View SRP Requests"),
+            )
         )
 
         if request.user.has_perm("aasrp.manage_srp"):
             button_edit_url = reverse("aasrp:edit_srp_link", args=[srp_link.srp_code])
-            actions += '<a href="{btn_link}" class="btn btn-aasrp btn-info btn-sm" title="{btn_title}">{btn_icon}</a>'.format(
-                btn_link=button_edit_url,
-                btn_icon='<i class="far fa-newspaper"></i>',
-                btn_title=_("Add/Edit AAR Link"),
+            actions += (
+                '<a href="{btn_link}" '
+                'class="btn btn-aasrp btn-info btn-sm" '
+                'title="{btn_title}">{btn_icon}</a>'.format(
+                    btn_link=button_edit_url,
+                    btn_icon='<i class="far fa-newspaper"></i>',
+                    btn_title=_("Add/Edit AAR Link"),
+                )
             )
 
             if srp_link.srp_status == "Active":
@@ -180,3 +193,22 @@ def get_formatted_character_name(character: EveCharacter) -> str:
     )
 
     return character_name_formatted
+
+
+def get_main_for_character(character: EveCharacter) -> EveCharacter:
+    """
+    get themain character for a given eve character
+    :param character:
+    """
+
+    return character.userprofile.main_character
+
+
+def get_user_for_character(character: EveCharacter) -> User:
+    """
+    get the user for a character
+    :param character:
+    :return:
+    """
+
+    return character.userprofile.user
