@@ -27,13 +27,15 @@ $(document).ready(function() {
                 data: 'zbk_loss_amount',
                 render: function(data, type, row, meta) {
                     if(type === 'display') {
-                        var currency = 'ISK';
-                        var iskValue = $.fn.dataTable.render.number(
-                            ',',
-                            '.'
-                        ).display(data);
+                        // var currency = 'ISK';
+                        // var iskValue = $.fn.dataTable.render.number(
+                        //     ',',
+                        //     '.'
+                        // ).display(data);
+                        //
+                        // return iskValue + ' ' + currency;
 
-                        return iskValue + ' ' + currency;
+                        return data.toLocaleString() + " ISK";
                     } else {
                         return data;
                     }
@@ -44,13 +46,15 @@ $(document).ready(function() {
                 data: 'payout_amount',
                 render: function(data, type, row, meta) {
                     if(type === 'display') {
-                        var currency = 'ISK';
-                        var iskValue = $.fn.dataTable.render.number(
-                            ',',
-                            '.'
-                        ).display(data);
+                        // var currency = 'ISK';
+                        // var iskValue = $.fn.dataTable.render.number(
+                        //     ',',
+                        //     '.'
+                        // ).display(data);
+                        //
+                        // return iskValue + ' ' + currency;
 
-                        return iskValue + ' ' + currency;
+                        return data.toLocaleString() + " ISK";
                     } else {
                         return data;
                     }
@@ -95,7 +99,46 @@ $(document).ready(function() {
             autoSize: false,
             bootstrap: true
         },
-        paging: false
+        paging: false,
+        createdRow: function(row, data, displayIndex) {
+            // Row id attr
+            $(row).attr('data-row-id', displayIndex);
+
+            // add class and data attribute to the payout cell
+            $(row).find('td:eq(7)').attr('data-params', '{csrfmiddlewaretoken:\''+  aaSrpSettings.csrfToken + '\'}');
+
+            $(row).find('td:eq(7)').editable({
+                url: aaSrpSettings.url.changeSrpAmount.replace(
+                    'SRP_REQUEST_CODE',
+                    data.request_code
+                ),
+                mode: 'inline',
+                highlight: 'rgb(170,255,128)',
+                placement: 'top',
+                pk: data.request_code,
+                type: 'number',
+                title: aaSrpSettings.translation.changeSrpPayoutHeader,
+                value: '',
+                success: function(response, newValue) {
+                    var currency = 'ISK';
+                    // var iskValue = $.fn.dataTable.render.number(
+                    //     ',',
+                    //     '.'
+                    // ).display(newValue)
+
+                    var iskValue = newValue.toLocaleString() + " ISK";
+
+                    $(row).find('td:eq(7)').html(iskValue);
+
+                    srpRequestsTable.ajax.reload();
+                },
+                validate: function(value) {
+                    if (value === null || value === '') {
+                        return 'Empty values not allowed';
+                    }
+                }
+            });
+        }
     });
 
     srpRequestsTable.rows().every(function() {

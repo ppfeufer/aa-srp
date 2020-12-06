@@ -16,6 +16,7 @@
 
 {% block extra_css %}
     {% include 'bundles/datatables-css.html' %}
+    {% include 'aasrp/bundles/bootstrap3-editable-css.html' %}
 
     <link rel="stylesheet" href="{% static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
@@ -24,6 +25,7 @@
 {% block extra_javascript %}
     {% include 'bundles/datatables-js.html' %}
     {% include 'bundles/moment-js.html' with locale=True %}
+    {% include 'aasrp/bundles/bootstrap3-editable-js.html' %}
 
     <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/dataTables.rowGroup.min.js' %}"></script>
     <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/datetime.js' %}"></script>
@@ -31,17 +33,22 @@
 
     <script type="application/javascript">
         /**
-         * passing some setting to our JS
+         * passing some settings to our JS
          */
-        let urlRequestsForSrpLink = "{% url 'aasrp:ajax_srp_link_view_requests_data' srp_link.srp_code %}";
+        let urlRequestsForSrpLink = '{% url "aasrp:ajax_srp_link_view_requests_data" srp_link.srp_code %}';
+        let urlChangeSrpAmount = '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}';
 
         let aaSrpSettings = {
             datetimeFormat: 'YYYY-MM-DD HH:mm',
+            srpCode: '{{ srp_link.srp_code }}',
+            csrfToken: '{{ csrf_token }}',
             url: {
-                requestsForSrpLink: urlRequestsForSrpLink
+                requestsForSrpLink: urlRequestsForSrpLink,
+                changeSrpAmount: urlChangeSrpAmount
             },
             translation: {
-                filterRequestStatus: "{% translate 'Request Status' %}"
+                filterRequestStatus: '{% translate "Request Status" %}',
+                changeSrpPayoutHeader: '{% translate "Enter new SRP payout value" %}'
             }
         };
     </script>

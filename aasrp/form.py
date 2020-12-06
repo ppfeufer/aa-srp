@@ -82,3 +82,7 @@ class AaSrpRequestForm(ModelForm):
             raise forms.ValidationError(_("Invalid Link. Please use zKillboard.com"))
 
         return data
+
+
+class AaSrpRequestPayoutForm(forms.Form):
+    value = forms.CharField(label=_("SRP payout value"), max_length=254, required=True)

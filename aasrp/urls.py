@@ -27,29 +27,39 @@ urlpatterns = [
     url(r"^srp-link/(\w+)/request-srp/$", views.request_srp, name="request_srp"),
     # ajax calls
     url(
+        # get active srp links
         r"^call/active-srp-links-data/$",
         views.ajax_dashboard_srp_links_data,
         name="ajax_dashboard_srp_links_data",
     ),
     url(
+        # get all srp links
         r"^call/active-srp-links-data/all/$",
         views.ajax_dashboard_srp_links_data,
         {"show_all_links": True},
         name="ajax_dashboard_srp_links_all_data",
     ),
     url(
+        # get all srp request for the current user
         r"^call/user-srp-requests-data/$",
         views.ajax_dashboard_user_srp_requests_data,
         name="ajax_dashboard_user_srp_requests_data",
     ),
     url(
+        # get all srp requests for the current srp link
         r"^call/srp-link/(\w+)/view-srp-requests-data/$",
         views.ajax_srp_link_view_requests_data,
         name="ajax_srp_link_view_requests_data",
     ),
     url(
-        r"^call/srp-request/(\w+)/view-additional-information-data/$",
+        # get addition information for the current srp request
+        r"^call/srp-link/(\w+)/srp-request/(\w+)/view-additional-information-data/$",
         views.ajax_srp_request_additional_information,
         name="ajax_srp_request_additional_information",
+    ),
+    url(
+        r"^call/srp-link/(\w+)/srp-request/(\w+)/change-srp-payout/$",
+        views.ajax_srp_request_change_payout,
+        name="ajax_srp_request_change_payout",
     ),
 ]

@@ -13,7 +13,12 @@ from aasrp.view_helper import (
     get_srp_request_status_icon,
     get_formatted_character_name,
 )
-from aasrp.form import AaSrpLinkForm, AaSrpLinkUpdateForm, AaSrpRequestForm
+from aasrp.form import (
+    AaSrpLinkForm,
+    AaSrpLinkUpdateForm,
+    AaSrpRequestForm,
+    AaSrpRequestPayoutForm,
+)
 from aasrp.managers import AaSrpManager
 from aasrp.models import AaSrpLink, AaSrpStatus, AaSrpRequest
 from aasrp.utils import LoggerAddTag
@@ -280,7 +285,8 @@ def request_srp(request, srp_code: str) -> HttpResponse:
     # check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
-            "Unable to locate SRP Fleet using SRP code {srp_code} for user {user}".format(
+            "Unable to locate SRP Fleet "
+            "using SRP code {srp_code} for user {user}".format(
                 srp_code=srp_code, user=request.user
             )
         )
@@ -381,8 +387,9 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                 srp_request.save()
 
                 logger.info(
-                    "Created SRP request on behalf of user {user_name} (character: {character_name}) "
-                    "for fleet name {srp_name} with SRP code {srp_code}".format(
+                    "Created SRP request on behalf of user {user_name} "
+                    "(character: {character_name}) for fleet name {srp_name} "
+                    "with SRP code {srp_code}".format(
                         user_name=request.user,
                         character_name=srp_request__character,
                         srp_name=srp_link.srp_name,
@@ -635,11 +642,50 @@ def delete_srp_link(request, srp_code: str):
     return redirect("aasrp:dashboard")
 
 
+@login_required
 def ajax_srp_request_additional_information(
-    request, srp_request_code: str
+    request, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
     """
 
     :param request:
+    :param srp_code:
     :param srp_request_code:
     """
+
+
+@login_required
+@permission_required("aasrp.manage_srp")
+def ajax_srp_request_change_payout(
+    request, srp_code: str, srp_request_code: str
+) -> JsonResponse:
+    """
+
+    :param request:
+    :param srp_code:
+    :param srp_request_code:
+    """
+
+    data = list()
+
+    if request.method == "POST":
+        try:
+            srp_request = AaSrpRequest.objects.get(
+                request_code=srp_request_code, srp_link__srp_code=srp_code
+            )
+
+            # check whether it's valid:
+            form = AaSrpRequestPayoutForm(request.POST)
+            if form.is_valid():
+                srp_payout = form.cleaned_data["value"]
+
+                srp_request.payout_amount = srp_payout
+                srp_request.save()
+
+                data.append({"success": True})
+            else:
+                data.append({"success": False})
+        except AaSrpRequest.DoesNotExist:
+            data.append({"success": False})
+
+    return JsonResponse(data, safe=False)
