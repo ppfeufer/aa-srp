@@ -35,7 +35,7 @@ $(document).ready(function() {
                         //
                         // return iskValue + ' ' + currency;
 
-                        return data.toLocaleString() + " ISK";
+                        return data.toLocaleString() + ' ISK';
                     } else {
                         return data;
                     }
@@ -54,7 +54,7 @@ $(document).ready(function() {
                         //
                         // return iskValue + ' ' + currency;
 
-                        return data.toLocaleString() + " ISK";
+                        return data.toLocaleString() + ' ISK';
                     } else {
                         return data;
                     }
@@ -126,7 +126,7 @@ $(document).ready(function() {
                     //     '.'
                     // ).display(newValue)
 
-                    var iskValue = newValue.toLocaleString() + " ISK";
+                    var iskValue = newValue.toLocaleString() + ' ISK';
 
                     $(row).find('td:eq(7)').html(iskValue);
 
