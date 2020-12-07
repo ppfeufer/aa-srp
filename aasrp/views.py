@@ -8,11 +8,8 @@ from allianceauth.services.hooks import get_extension_logger
 
 from aasrp import __title__
 from aasrp.app_settings import avoid_cdn
-from aasrp.view_helper import (
-    get_dashboard_action_buttons,
-    get_srp_request_status_icon,
-    get_formatted_character_name,
-)
+from aasrp.helper.character import get_formatted_character_name
+from aasrp.helper.icons import get_dashboard_action_icons, get_srp_request_status_icon
 from aasrp.form import (
     AaSrpLinkForm,
     AaSrpLinkUpdateForm,
@@ -96,7 +93,7 @@ def ajax_dashboard_srp_links_data(request, show_all_links=False) -> JsonResponse
                 aar_link=srp_link.aar_link, link_text=_("Link")
             )
 
-        actions = get_dashboard_action_buttons(request=request, srp_link=srp_link)
+        actions = get_dashboard_action_icons(request=request, srp_link=srp_link)
 
         data.append(
             {

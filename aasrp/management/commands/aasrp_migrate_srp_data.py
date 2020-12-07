@@ -7,7 +7,7 @@ Migrate srp data from the built-in SRP module
 from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
 
-from aasrp.view_helper import get_user_for_character
+from aasrp.helper.character import get_user_for_character
 from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpStatus, AaSrpRequestStatus
 
 from allianceauth.srp.models import SrpFleetMain
