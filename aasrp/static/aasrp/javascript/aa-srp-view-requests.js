@@ -21,8 +21,14 @@ $(document).ready(function() {
             {data: 'requester'},
             {data: 'character'},
             {data: 'request_code'},
-            {data: 'ship'},
-            {data: 'zkb_link'},
+            {
+                data: 'ship_html',
+                render: {
+                    display: 'display',
+                    _: 'sort'
+                }
+            },
+            // {data: 'zkb_link'},
             {
                 data: 'zbk_loss_amount',
                 render: function(data, type, row, meta) {
@@ -45,6 +51,7 @@ $(document).ready(function() {
             {
                 data: 'payout_amount',
                 render: function(data, type, row, meta) {
+                    // console.log(type);
                     if(type === 'display') {
                         // var currency = 'ISK';
                         // var iskValue = $.fn.dataTable.render.number(
@@ -54,7 +61,7 @@ $(document).ready(function() {
                         //
                         // return iskValue + ' ' + currency;
 
-                        return data.toLocaleString() + ' ISK';
+                        return '<span class="srp-payout-amount">' + data.toLocaleString() + ' ISK</span>';
                     } else {
                         return data;
                     }
@@ -67,16 +74,22 @@ $(document).ready(function() {
             },
             {data: 'actions'},
             // hidden columns
+            {data: 'ship'},
             {data: 'request_status'},
         ],
         columnDefs: [
             {
                 orderable: false,
-                targets: [5, 8, 9]
+                // targets: [5, 8, 9]
+                targets: [7, 8]
             },
             {
                 visible: false,
-                targets: [10]
+                targets: [9, 10]
+            },
+            {
+                width: 115,
+                targets: [8]
             }
         ],
         order: [[0, 'asc']],
@@ -89,7 +102,8 @@ $(document).ready(function() {
                     idx: 2,
                 },
                 {
-                    idx: 4,
+                    idx: 9,
+                    title: aaSrpSettings.translation.filterRequestShip
                 },
                 {
                     idx: 10,
@@ -105,20 +119,20 @@ $(document).ready(function() {
             $(row).attr('data-row-id', displayIndex);
 
             // add class and data attribute to the payout cell
-            $(row).find('td:eq(7)').attr('data-params', '{csrfmiddlewaretoken:\''+  aaSrpSettings.csrfToken + '\'}');
+            $(row).find('span.srp-payout-amount').attr('data-params', '{csrfmiddlewaretoken:\''+  aaSrpSettings.csrfToken + '\'}');
 
-            $(row).find('td:eq(7)').editable({
+            $(row).find('span.srp-payout-amount').editable({
                 url: aaSrpSettings.url.changeSrpAmount.replace(
                     'SRP_REQUEST_CODE',
                     data.request_code
                 ),
-                mode: 'inline',
+                // mode: 'inline',
                 highlight: 'rgb(170,255,128)',
                 placement: 'top',
                 pk: data.request_code,
                 type: 'number',
                 title: aaSrpSettings.translation.changeSrpPayoutHeader,
-                value: '',
+                value: data.payout_amount,
                 success: function(response, newValue) {
                     var currency = 'ISK';
                     // var iskValue = $.fn.dataTable.render.number(
@@ -128,7 +142,7 @@ $(document).ready(function() {
 
                     var iskValue = newValue.toLocaleString() + ' ISK';
 
-                    $(row).find('td:eq(7)').html(iskValue);
+                    // $(row).find('span.srp-payout-amount').html(iskValue);
 
                     srpRequestsTable.ajax.reload();
                 },

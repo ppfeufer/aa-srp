@@ -7,10 +7,15 @@ so we don't mess up other files too much
 
 from aasrp.models import AaSrpRequestStatus, AaSrpLink, AaSrpRequest
 
+from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 
+@login_required
+@permission_required(
+    "aasrp.basic_access", "aasrp.manage_srp_requests", "aasrp.manage_srp"
+)
 def get_dashboard_action_icons(request, srp_link: AaSrpLink) -> str:
     """
     getting the action buttons for the dashboard view
@@ -123,9 +128,12 @@ def get_dashboard_action_icons(request, srp_link: AaSrpLink) -> str:
     return actions
 
 
-def get_srp_request_status_icon(srp_request: AaSrpRequest) -> str:
+@login_required
+@permission_required("aasrp.basic_access")
+def get_srp_request_status_icon(request, srp_request: AaSrpRequest) -> str:
     """
     get status icon for srp request
+    :param request:
     :param srp_request:
     :return:
     """
@@ -159,3 +167,58 @@ def get_srp_request_status_icon(srp_request: AaSrpRequest) -> str:
         )
 
     return srp_request_status_icon
+
+
+@login_required
+@permission_required("aasrp.manage_srp_requests", "aasrp.manage_srp")
+def get_srp_request_action_icons(request, srp_request: AaSrpRequest) -> str:
+    """
+    get action icons for srp requests
+    :param request:
+    :param srp_request:
+    """
+
+    # accept
+    button_request_accept_url = reverse(
+        "aasrp:request_srp", args=[srp_request.request_code]
+    )
+    actions = (
+        '<a href="{btn_link}" '
+        'class="btn btn-aasrp btn-success btn-sm" '
+        'title="{btn_title}">{btn_icon}</a>'.format(
+            btn_link=button_request_accept_url,
+            btn_icon='<i class="fas fa-check"></i>',
+            btn_title=_("Accept SRP Request"),
+        )
+    )
+
+    # reject
+    button_request_reject_url = reverse(
+        "aasrp:request_srp", args=[srp_request.request_code]
+    )
+    actions += (
+        '<a href="{btn_link}" '
+        'class="btn btn-aasrp btn-warning btn-sm" '
+        'title="{btn_title}">{btn_icon}</a>'.format(
+            btn_link=button_request_reject_url,
+            btn_icon='<i class="fas fa-ban"></i>',
+            btn_title=_("Reject SRP Request"),
+        )
+    )
+
+    # delete
+    if request.user.has_perm("aasrp.manage_srp"):
+        button_request_delete_url = reverse(
+            "aasrp:request_srp", args=[srp_request.request_code]
+        )
+        actions += (
+            '<a href="{btn_link}" '
+            'class="btn btn-aasrp btn-danger btn-sm" '
+            'title="{btn_title}">{btn_icon}</a>'.format(
+                btn_link=button_request_delete_url,
+                btn_icon='<i class="fas fa-trash-alt"></i>',
+                btn_title=_("Remove SRP Request"),
+            )
+        )
+
+    return actions

@@ -49,6 +49,10 @@ $(document).ready(function() {
             {
                 orderable: false,
                 targets: [10]
+            },
+            {
+                width: 115,
+                targets: [10]
             }
         ],
         order: [[2, 'asc']],

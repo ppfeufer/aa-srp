@@ -9,7 +9,11 @@ from allianceauth.services.hooks import get_extension_logger
 from aasrp import __title__
 from aasrp.app_settings import avoid_cdn
 from aasrp.helper.character import get_formatted_character_name
-from aasrp.helper.icons import get_dashboard_action_icons, get_srp_request_status_icon
+from aasrp.helper.icons import (
+    get_dashboard_action_icons,
+    get_srp_request_status_icon,
+    get_srp_request_action_icons,
+)
 from aasrp.form import (
     AaSrpLinkForm,
     AaSrpLinkUpdateForm,
@@ -137,7 +141,9 @@ def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
                 )
             )
 
-        srp_request_status_icon = get_srp_request_status_icon(srp_request=srp_request)
+        srp_request_status_icon = get_srp_request_status_icon(
+            request=request, srp_request=srp_request
+        )
         character = get_formatted_character_name(character=srp_request.character)
 
         data.append(
@@ -480,7 +486,8 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
         if srp_request.killboard_link:
             killboard_link = (
                 '<a href="{zkb_link}" target="_blank">{zkb_link_text}</a>'.format(
-                    zkb_link=srp_request.killboard_link, zkb_link_text=_("Link")
+                    zkb_link=srp_request.killboard_link,
+                    zkb_link_text=srp_request.ship_name,
                 )
             )
 
@@ -488,7 +495,12 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
         if srp_request.creator.profile.main_character is not None:
             requester = srp_request.creator.profile.main_character.character_name
 
-        srp_request_status_icon = get_srp_request_status_icon(srp_request=srp_request)
+        srp_request_status_icon = get_srp_request_status_icon(
+            request=request, srp_request=srp_request
+        )
+        srp_request_action_icons = get_srp_request_action_icons(
+            request=request, srp_request=srp_request
+        )
         character = get_formatted_character_name(character=srp_request.character)
 
         data.append(
@@ -498,12 +510,13 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
                 "character": character,
                 "request_code": srp_request.request_code,
                 "srp_code": srp_request.srp_link.srp_code,
+                "ship_html": {"display": killboard_link, "sort": srp_request.ship_name},
                 "ship": srp_request.ship_name,
                 "zkb_link": killboard_link,
                 "zbk_loss_amount": srp_request.loss_amount,
                 "payout_amount": srp_request.payout_amount,
                 "request_status_icon": srp_request_status_icon,
-                "actions": "",
+                "actions": srp_request_action_icons,
                 "request_status": srp_request.request_status,
             }
         )

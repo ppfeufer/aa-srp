@@ -19,7 +19,19 @@
         height: 36px;
     }
 
-    .editable-buttons {
+    .srp-payout-amount {
+        display: inline-block;
+    }
+}
+
+/* Editable Popup
+------------------------------------------------------------------------------------- */
+@media all {
+    .editable-popup .arrow {
+        display: none;
+    }
+
+    .editable-popup .editable-buttons {
         margin-top: 7px;
     }
 }
