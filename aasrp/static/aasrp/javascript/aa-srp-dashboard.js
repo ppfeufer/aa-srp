@@ -74,8 +74,14 @@ $(document).ready(function() {
             {data: 'fleet_name'},
             {data: 'srp_code'},
             {data: 'request_code'},
-            {data: 'ship'},
-            {data: 'zkb_link'},
+            {
+                data: 'ship_html',
+                render: {
+                    display: 'display',
+                    _: 'sort'
+                }
+            },
+            // {data: 'zkb_link'},
             {
                 data: 'zbk_loss_amount',
                 render: function(data, type, row, meta) {
@@ -103,16 +109,17 @@ $(document).ready(function() {
                 className: 'text-center'
             },
             // hidden columns
-            {data: 'request_status'}
+            {data: 'request_status'},
+            {data: 'ship'},
         ],
         columnDefs: [
             {
                 orderable: false,
-                targets: [6, 9]
+                targets: [8]
             },
             {
                 visible: false,
-                targets: [10]
+                targets: [9, 10]
             }
         ],
         order: [[0, 'desc']],

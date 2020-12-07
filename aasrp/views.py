@@ -137,7 +137,8 @@ def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
         if srp_request.killboard_link:
             killboard_link = (
                 '<a href="{zkb_link}" target="_blank">{zkb_link_text}</a>'.format(
-                    zkb_link=srp_request.killboard_link, zkb_link_text=_("Link")
+                    zkb_link=srp_request.killboard_link,
+                    zkb_link_text=srp_request.ship_name,
                 )
             )
 
@@ -153,6 +154,7 @@ def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
                 "fleet_name": srp_request.srp_link.srp_name,
                 "srp_code": srp_request.srp_link.srp_code,
                 "request_code": srp_request.request_code,
+                "ship_html": {"display": killboard_link, "sort": srp_request.ship_name},
                 "ship": srp_request.ship_name,
                 "zkb_link": killboard_link,
                 "zbk_loss_amount": srp_request.loss_amount,
