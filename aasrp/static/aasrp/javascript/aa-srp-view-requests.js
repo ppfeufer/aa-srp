@@ -33,14 +33,6 @@ $(document).ready(function() {
                 data: 'zbk_loss_amount',
                 render: function(data, type, row, meta) {
                     if(type === 'display') {
-                        // var currency = 'ISK';
-                        // var iskValue = $.fn.dataTable.render.number(
-                        //     ',',
-                        //     '.'
-                        // ).display(data);
-                        //
-                        // return iskValue + ' ' + currency;
-
                         return data.toLocaleString() + ' ISK';
                     } else {
                         return data;
@@ -53,14 +45,6 @@ $(document).ready(function() {
                 render: function(data, type, row, meta) {
                     // console.log(type);
                     if(type === 'display') {
-                        // var currency = 'ISK';
-                        // var iskValue = $.fn.dataTable.render.number(
-                        //     ',',
-                        //     '.'
-                        // ).display(data);
-                        //
-                        // return iskValue + ' ' + currency;
-
                         return '<span class="srp-payout-amount">' + data.toLocaleString() + ' ISK</span>';
                     } else {
                         return data;
@@ -134,12 +118,6 @@ $(document).ready(function() {
                 title: aaSrpSettings.translation.changeSrpPayoutHeader,
                 value: data.payout_amount,
                 success: function(response, newValue) {
-                    var currency = 'ISK';
-                    // var iskValue = $.fn.dataTable.render.number(
-                    //     ',',
-                    //     '.'
-                    // ).display(newValue)
-
                     var iskValue = newValue.toLocaleString() + ' ISK';
 
                     // $(row).find('span.srp-payout-amount').html(iskValue);
@@ -153,14 +131,5 @@ $(document).ready(function() {
                 }
             });
         }
-    });
-
-    srpRequestsTable.rows().every(function() {
-        var d = this.data();
-
-        d['zbk_loss_amount'] = d['zbk_loss_amount']  + 'ISK';
-        d['payout_amount'] = d['payout_amount']  + 'ISK';
-
-        srpRequestsTable.row(this).data(d);
     });
 });
