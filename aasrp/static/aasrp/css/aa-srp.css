@@ -18,6 +18,10 @@
         width: 36px;
         height: 36px;
     }
+
+    .editable-buttons {
+        margin-top: 7px;
+    }
 }
 
 /* DataTables
