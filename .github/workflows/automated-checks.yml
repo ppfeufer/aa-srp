@@ -13,21 +13,25 @@ jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-    - uses: pre-commit/action@v2.0.0
-      name: Run Pre Commit Checks
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+
+      - name: Run Pre Commit Checks
+        uses: pre-commit/action@v2.0.0
 
   # black formatter
   black-format:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        name: Checkout
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - uses: Ahuge/black-action@master
-        name: Run Black Formatter Checks
+      - name: Run Black Formatter Checks
+        uses: Ahuge/black-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BLACK_ARGS: "."
@@ -37,15 +41,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
+
       - name: Install Tools
         run: |
           python -m pip install --upgrade pip
           pip install setuptools wheel
+
       - name: Package Build
         env:
           STACKMANAGER_VERSION: 9999
