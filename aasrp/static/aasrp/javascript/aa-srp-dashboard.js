@@ -37,7 +37,10 @@ $(document).ready(function() {
             },
             {data: 'srp_status'},
             {data: 'pending_requests'},
-            {data: 'actions'}
+            {
+                data: 'actions',
+                className: 'srp-link-actions'
+            }
         ],
         columnDefs: [
             {
@@ -130,6 +133,10 @@ $(document).ready(function() {
                 },
                 {
                     idx: 10,
+                    title: aaSrpSettings.translation.filterRequestShip
+                },
+                {
+                    idx: 9,
                     title: aaSrpSettings.translation.filterRequestStatus
                 }
             ],
