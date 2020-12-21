@@ -107,7 +107,7 @@ $(document).ready(function() {
         serverSide: true,
         createdRow: function(row, data, rowIndex) {
             // Row id attr
-            // $(row).attr('data-row-id', rowIndex);
+            $(row).attr('data-row-id', rowIndex);
 
             // add class and data attribute to the payout span
             $(row).find('span.srp-payout-amount').addClass('srp-request-' + data.request_code);
@@ -133,9 +133,20 @@ $(document).ready(function() {
         success: function(response, newValue) {
             newValue = parseInt(newValue);
 
+            // update data-attribute
+            $(this).attr('data-value', newValue);
+
+            // update payout value formatted
             var newValuewFormatted = newValue.toLocaleString() + ' ISK';
             $(this).addClass('srp-payout-amount-changed');
             $(this).html(newValuewFormatted);
+
+            // update fleet total srp amount
+            var totalSrpAmount = 0;
+            $('#tab_aasrp_srp_requests .srp-payout-amount').each(function() {
+                totalSrpAmount += parseInt($(this).attr('data-value'));
+            });
+            $('.srp-fleet-total-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
         },
         validate: function(value) {
             if (value === null || value === '') {
