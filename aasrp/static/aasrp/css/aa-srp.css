@@ -22,17 +22,14 @@
     .srp-payout-amount {
         display: inline-block;
     }
-}
 
-/* Editable Popup
-------------------------------------------------------------------------------------- */
-@media all {
-    .editable-popup .arrow {
-        display: none;
+    .srp-payout-amount-changed {
+        font-weight: bold;
     }
 
-    .editable-popup .editable-buttons {
-        margin-top: 7px;
+    .srp-link-actions,
+    .srp-request-actions {
+        white-space: nowrap;
     }
 }
 
@@ -60,5 +57,13 @@
 @media (min-width: 768px) {
     .dataTables_wrapper > .form-inline select:first-child {
         margin-left: 1rem;
+    }
+}
+
+/* Editable Popup
+------------------------------------------------------------------------------------- */
+@media all {
+    .editable-popup .arrow {
+        display: none;
     }
 }

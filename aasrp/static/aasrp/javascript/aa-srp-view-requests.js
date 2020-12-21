@@ -1,6 +1,8 @@
 /* global aaSrpSettings, moment */
 
 $(document).ready(function() {
+    "use strict";
+
     /**
      * Table :: SRP Requests
      */
@@ -56,7 +58,10 @@ $(document).ready(function() {
                 data: 'request_status_icon',
                 className: 'text-center'
             },
-            {data: 'actions'},
+            {
+                data: 'actions',
+                className: 'srp-request-actions'
+            },
             // hidden columns
             {data: 'ship'},
             {data: 'request_status'},
@@ -98,38 +103,44 @@ $(document).ready(function() {
             bootstrap: true
         },
         paging: false,
-        createdRow: function(row, data, displayIndex) {
+        processing: true,
+        serverSide: true,
+        createdRow: function(row, data, rowIndex) {
             // Row id attr
-            $(row).attr('data-row-id', displayIndex);
+            // $(row).attr('data-row-id', rowIndex);
 
-            // add class and data attribute to the payout cell
+            // add class and data attribute to the payout span
+            $(row).find('span.srp-payout-amount').addClass('srp-request-' + data.request_code);
             $(row).find('span.srp-payout-amount').attr('data-params', '{csrfmiddlewaretoken:\''+  aaSrpSettings.csrfToken + '\'}');
+            $(row).find('span.srp-payout-amount').attr('data-pk', data.request_code);
+            $(row).find('span.srp-payout-amount').attr('data-value', data.payout_amount);
+            $(row).find('span.srp-payout-amount').attr('data-url', aaSrpSettings.url.changeSrpAmount.replace(
+                'SRP_REQUEST_CODE',
+                data.request_code
+            ));
+        },
+    });
 
-            $(row).find('span.srp-payout-amount').editable({
-                url: aaSrpSettings.url.changeSrpAmount.replace(
-                    'SRP_REQUEST_CODE',
-                    data.request_code
-                ),
-                // mode: 'inline',
-                highlight: 'rgb(170,255,128)',
-                placement: 'top',
-                pk: data.request_code,
-                type: 'number',
-                title: aaSrpSettings.translation.changeSrpPayoutHeader,
-                value: data.payout_amount,
-                success: function(response, newValue) {
-                    var iskValue = newValue.toLocaleString() + ' ISK';
+    $('#tab_aasrp_srp_requests').editable({
+        container: 'body',
+        selector: '.srp-payout-amount',
+        title: aaSrpSettings.translation.changeSrpPayoutHeader,
+        type: 'number',
+        placement: 'top',
+        display: function(value, response) {
+            return false;
+        },
+        success: function(response, newValue) {
+            newValue = parseInt(newValue);
 
-                    // $(row).find('span.srp-payout-amount').html(iskValue);
-
-                    srpRequestsTable.ajax.reload();
-                },
-                validate: function(value) {
-                    if (value === null || value === '') {
-                        return 'Empty values not allowed';
-                    }
-                }
-            });
+            var newValuewFormatted = newValue.toLocaleString() + ' ISK';
+            $(this).addClass('srp-payout-amount-changed');
+            $(this).html(newValuewFormatted);
+        },
+        validate: function(value) {
+            if (value === null || value === '') {
+                return 'Empty values not allowed';
+            }
         }
     });
 });
