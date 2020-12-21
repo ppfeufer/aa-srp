@@ -1,6 +1,8 @@
 /* global aaSrpSettings, moment */
 
 $(document).ready(function() {
+    'use strict';
+
     /**
      * Table :: SRP Links
      */

@@ -1,7 +1,7 @@
 /* global aaSrpSettings, moment */
 
 $(document).ready(function() {
-    "use strict";
+    'use strict';
 
     /**
      * Table :: SRP Requests
