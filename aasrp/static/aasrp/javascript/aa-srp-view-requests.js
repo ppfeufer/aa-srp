@@ -149,8 +149,8 @@ $(document).ready(function() {
             $('.srp-fleet-total-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
         },
         validate: function(value) {
-            if (value === null || value === '') {
-                return 'Empty values not allowed';
+            if(value === null || value === '') {
+                return aaSrpSettings.translation.editableValidate;
             }
         }
     });
