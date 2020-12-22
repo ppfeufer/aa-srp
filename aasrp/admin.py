@@ -4,7 +4,7 @@
 Django admin declarations
 """
 
-from aasrp.models import AaSrpLink, AaSrpRequest
+from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpRequestComment
 
 from django.contrib import admin
 
@@ -48,6 +48,8 @@ class AaSrpLinkAdmin(admin.ModelAdmin):
 
     list_filter = ("creator", "srp_status", "fleet_doctrine")
 
+    search_fields = ("srp_code", "fleet_doctrine", "srp_name")
+
     @classmethod
     def _creator(cls, obj):
         creator_name = obj.creator
@@ -82,6 +84,13 @@ class AaSrpRequestAdmin(admin.ModelAdmin):
 
     list_filter = ("creator", "character", "ship_name", "request_status")
 
+    search_fields = (
+        "request_code",
+        "character__character_name",
+        "ship_name",
+        "srp_link__srp_code",
+    )
+
     @classmethod
     def _creator(cls, obj):
         creator_name = obj.creator
@@ -92,3 +101,13 @@ class AaSrpRequestAdmin(admin.ModelAdmin):
 
     _creator.short_description = "Creator"
     _creator.admin_order_field = "creator"
+
+
+@admin.register(AaSrpRequestComment)
+class AaSrpRequestCommentAdmin(admin.ModelAdmin):
+    """
+    AaSrpRequestCommentAdmin
+    """
+
+    list_display = ("id", "comment_type", "creator")
+    ordering = ("id",)
