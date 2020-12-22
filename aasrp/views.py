@@ -86,10 +86,6 @@ def ajax_dashboard_srp_links_data(request, show_all_links=False) -> JsonResponse
     if not show_all_links:
         srp_links = srp_links.filter(srp_status=AaSrpStatus.ACTIVE)
 
-    # total_cost = srp_links.aggregate(total_cost=Sum("aasrprequest__payout_amount")).get(
-    #     "total_cost", 0
-    # )
-
     for srp_link in srp_links:
         aar_link = ""
         if srp_link.aar_link:
@@ -655,6 +651,7 @@ def delete_srp_link(request, srp_code: str):
 
 
 @login_required
+@permission_required("aasrp.manage_srp")
 def ajax_srp_request_additional_information(
     request, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
