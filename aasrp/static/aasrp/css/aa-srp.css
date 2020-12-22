@@ -36,6 +36,24 @@
     .srp-dashboard-total-isk-cost {
         font-weight: bold;
     }
+
+    .panel-srp-request-overview-column {
+        margin-bottom: 1rem;
+    }
+
+    .panel-srp-request-overview-cell {
+        margin-bottom: 1rem;
+    }
+
+    .panel-srp-request-overview-cell:last-child {
+        margin-bottom: 0;
+    }
+}
+
+@media all and (min-width: 992px) {
+    .panel-srp-request-overview-column {
+        margin-bottom: 0;
+    }
 }
 
 /* DataTables
