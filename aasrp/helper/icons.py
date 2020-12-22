@@ -51,22 +51,22 @@ def get_dashboard_action_icons(request, srp_link: AaSrpLink) -> str:
             )
         )
 
-        if srp_link.srp_status == AaSrpStatus.ACTIVE:
+        if srp_link.srp_status != AaSrpStatus.COMPLETED:
             if request.user.has_perm("aasrp.manage_srp"):
-                button_edit_url = reverse(
-                    "aasrp:edit_srp_link", args=[srp_link.srp_code]
-                )
-                actions += (
-                    '<a href="{btn_link}" '
-                    'class="btn btn-info btn-sm btn-icon-aasrp" '
-                    'title="{btn_title}">{btn_icon}</a>'.format(
-                        btn_link=button_edit_url,
-                        btn_icon='<i class="far fa-newspaper"></i>',
-                        btn_title=_("Add/Edit AAR Link"),
+                if srp_link.srp_status == AaSrpStatus.ACTIVE:
+                    button_edit_url = reverse(
+                        "aasrp:edit_srp_link", args=[srp_link.srp_code]
                     )
-                )
+                    actions += (
+                        '<a href="{btn_link}" '
+                        'class="btn btn-info btn-sm btn-icon-aasrp" '
+                        'title="{btn_title}">{btn_icon}</a>'.format(
+                            btn_link=button_edit_url,
+                            btn_icon='<i class="far fa-newspaper"></i>',
+                            btn_title=_("Add/Edit AAR Link"),
+                        )
+                    )
 
-                if srp_link.srp_status == "Active":
                     button_disable_url = reverse(
                         "aasrp:disable_srp_link", args=[srp_link.srp_code]
                     )
@@ -88,7 +88,7 @@ def get_dashboard_action_icons(request, srp_link: AaSrpLink) -> str:
                         )
                     )
 
-                if srp_link.srp_status == "Closed":
+                if srp_link.srp_status == AaSrpStatus.CLOSED:
                     button_enable_url = reverse(
                         "aasrp:enable_srp_link", args=[srp_link.srp_code]
                     )
@@ -220,6 +220,11 @@ def get_srp_request_action_icons(
         button_request_accept_url = reverse(
             "aasrp:request_srp", args=[srp_request.request_code]
         )
+
+        button_request_accept_state = ""
+        if srp_request.request_status == AaSrpRequestStatus.APPROVED:
+            button_request_accept_state = ' disabled="disabled"'
+
         actions += (
             '<button data-link="{link}" '
             'data-toggle="modal" '
@@ -230,7 +235,7 @@ def get_srp_request_action_icons(
             'data-modal-button-cancel="{modal_button_cancel}" '
             'data-modal-button-confirm="{modal_button_confirm}" '
             'class="btn btn-success btn-sm btn-icon-aasrp" '
-            'title="{title}">{icon}</button>'.format(
+            'title="{title}"{button_state}>{icon}</button>'.format(
                 link=button_request_accept_url,
                 icon='<i class="fas fa-check"></i>',
                 title=_("Accept SRP Request"),
@@ -239,6 +244,7 @@ def get_srp_request_action_icons(
                     fa_icon="<i class='far fa-hand-paper'></i>"
                 ),
                 modal_button_confirm=_("Accept SRP Request"),
+                button_state=button_request_accept_state,
             )
         )
 
@@ -246,6 +252,11 @@ def get_srp_request_action_icons(
         button_request_reject_url = reverse(
             "aasrp:request_srp", args=[srp_request.request_code]
         )
+
+        button_request_reject_state = ""
+        if srp_request.request_status == AaSrpRequestStatus.REJECTED:
+            button_request_reject_state = ' disabled="disabled"'
+
         actions += (
             '<button data-link="{link}" '
             'data-toggle="modal" '
@@ -256,7 +267,7 @@ def get_srp_request_action_icons(
             'data-modal-button-cancel="{modal_button_cancel}" '
             'data-modal-button-confirm="{modal_button_confirm}" '
             'class="btn btn-warning btn-sm btn-icon-aasrp" '
-            'title="{title}">{icon}</button>'.format(
+            'title="{title}"{button_state}>{icon}</button>'.format(
                 link=button_request_reject_url,
                 icon='<i class="fas fa-ban"></i>',
                 title=_("Reject SRP Request"),
@@ -265,6 +276,7 @@ def get_srp_request_action_icons(
                     fa_icon="<i class='far fa-hand-paper'></i>"
                 ),
                 modal_button_confirm=_("Reject SRP Request"),
+                button_state=button_request_reject_state,
             )
         )
 
