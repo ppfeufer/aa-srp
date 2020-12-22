@@ -18,9 +18,15 @@
         <div class="col-md-3">
             <dt>{% translate "Fleet Name" %}:</dt>
             <dd>{{ srp_link.srp_name }}</dd>
+            <br>
+            <dt>{% translate "Fleet Commander" %}</dt>
+            <dd>{{ srp_link.fleet_commander }}</dd>
         </div>
 
         <div class="col-md-3">
+            <dt>{% translate "Fleet Time" %}:</dt>
+            <dd>{{ srp_link.fleet_time|date:"Y-m-d H:i" }}</dd>
+            <br>
             <dt>{% translate "SRP Code" %}:</dt>
             <dd>{{ srp_link.srp_code }}</dd>
         </div>
