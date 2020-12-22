@@ -33,6 +33,15 @@ $(document).ready(function() {
             // {data: 'zkb_link'},
             {
                 data: 'zbk_loss_amount',
+                /**
+                 * render callback
+                 *
+                 * @param data
+                 * @param type
+                 * @param row
+                 * @param meta
+                 * @returns {string|*}
+                 */
                 render: function(data, type, row, meta) {
                     if(type === 'display') {
                         return data.toLocaleString() + ' ISK';
@@ -44,8 +53,16 @@ $(document).ready(function() {
             },
             {
                 data: 'payout_amount',
+                /**
+                 * render callback
+                 *
+                 * @param data
+                 * @param type
+                 * @param row
+                 * @param meta
+                 * @returns {string|*}
+                 */
                 render: function(data, type, row, meta) {
-                    // console.log(type);
                     if(type === 'display') {
                         return '<span class="srp-payout-amount">' + data.toLocaleString() + ' ISK</span>';
                     } else {
@@ -62,14 +79,16 @@ $(document).ready(function() {
                 data: 'actions',
                 className: 'srp-request-actions'
             },
-            // hidden columns
+
+            /**
+             * hidden columns
+             */
             {data: 'ship'},
             {data: 'request_status'},
         ],
         columnDefs: [
             {
                 orderable: false,
-                // targets: [5, 8, 9]
                 targets: [7, 8]
             },
             {
@@ -105,6 +124,13 @@ $(document).ready(function() {
         paging: false,
         processing: true,
         serverSide: true,
+        /**
+         * when ever a row is created ...
+         *
+         * @param row
+         * @param data
+         * @param rowIndex
+         */
         createdRow: function(row, data, rowIndex) {
             // Row id attr
             $(row).attr('data-row-id', rowIndex);
@@ -121,15 +147,29 @@ $(document).ready(function() {
         },
     });
 
+    /**
+     * make srp payout field editable
+     */
     $('#tab_aasrp_srp_requests').editable({
         container: 'body',
         selector: '.srp-payout-amount',
         title: aaSrpSettings.translation.changeSrpPayoutHeader,
         type: 'number',
         placement: 'top',
+        /**
+         * @param value
+         * @param response
+         * @returns {boolean}
+         */
         display: function(value, response) {
             return false;
         },
+        /**
+         * on success ...
+         *
+         * @param response
+         * @param newValue
+         */
         success: function(response, newValue) {
             newValue = parseInt(newValue);
 
@@ -148,6 +188,12 @@ $(document).ready(function() {
             });
             $('.srp-fleet-total-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
         },
+        /**
+         * check if input is not empty
+         *
+         * @param {string} value
+         * @returns {string}
+         */
         validate: function(value) {
             if(value === null || value === '') {
                 return aaSrpSettings.translation.editableValidate;
