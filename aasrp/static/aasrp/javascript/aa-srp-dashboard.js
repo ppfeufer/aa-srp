@@ -16,19 +16,38 @@ $(document).ready(function() {
             cache: false
         },
         columns: [
-            {data: 'srp_name'},
-            {data: 'creator'},
+            {
+                data: 'srp_name',
+                className: 'srp-link-fleet-name'
+            },
+            {
+                data: 'creator',
+                className: 'srp-link-creator'
+            },
             {
                 data: 'fleet_time',
                 render: $.fn.dataTable.render.moment(
                     moment.ISO_8601,
                     aaSrpSettings.datetimeFormat
-                )
+                ),
+                className: 'srp-link-fleet-time'
             },
-            {data: 'fleet_commander'},
-            {data: 'fleet_doctrine'},
-            {data: 'aar_link'},
-            {data: 'srp_code'},
+            {
+                data: 'fleet_commander',
+                className: 'srp-link-fleet-commander'
+            },
+            {
+                data: 'fleet_doctrine',
+                className: 'srp-link-fleet-doctrine'
+            },
+            {
+                data: 'aar_link',
+                className: 'srp-link-aar-link'
+            },
+            {
+                data: 'srp_code',
+                className: 'srp-link-code'
+            },
             {
                 data: 'srp_costs',
                 render: function(data, type, row, meta) {
@@ -38,10 +57,16 @@ $(document).ready(function() {
                         return data;
                     }
                 },
-                className: 'text-right srp-link-total-cost'
+                className: 'srp-link-total-cost text-right'
             },
-            {data: 'srp_status'},
-            {data: 'pending_requests'},
+            {
+                data: 'srp_status',
+                className: 'srp-link-status'
+            },
+            {
+                data: 'pending_requests',
+                className: 'srp-link-pending-requests'
+            },
             {
                 data: 'actions',
                 className: 'srp-link-actions'
@@ -69,6 +94,7 @@ $(document).ready(function() {
         createdRow: function(row, data, rowIndex) {
             // Row id attr
             $(row).attr('data-row-id', rowIndex);
+            $(row).attr('data-srp-request-code', data.srp_code);
 
             totalSrpAmount += parseInt(data.srp_costs);
             $('.srp-dashboard-total-isk-cost-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
@@ -90,18 +116,32 @@ $(document).ready(function() {
                 render: $.fn.dataTable.render.moment(
                     moment.ISO_8601,
                     aaSrpSettings.datetimeFormat
-                )
+                ),
+                className: 'srp-request-time'
             },
-            {data: 'character'},
-            {data: 'fleet_name'},
-            {data: 'srp_code'},
-            {data: 'request_code'},
+            {
+                data: 'character',
+                className: 'srp-request-character'
+            },
+            {
+                data: 'fleet_name',
+                className: 'srp-request-fleet-name'
+            },
+            {
+                data: 'srp_code',
+                className: 'srp-request-srp-code'
+            },
+            {
+                data: 'request_code',
+                className: 'srp-request-code'
+            },
             {
                 data: 'ship_html',
                 render: {
                     display: 'display',
                     _: 'sort'
-                }
+                },
+                className: 'srp-request-ship'
             },
             // {data: 'zkb_link'},
             {
@@ -113,7 +153,7 @@ $(document).ready(function() {
                         return data;
                     }
                 },
-                className: 'text-right'
+                className: 'srp-request-zkb-loss-amount text-right'
             },
             {
                 data: 'payout_amount',
@@ -124,11 +164,11 @@ $(document).ready(function() {
                         return data;
                     }
                 },
-                className: 'text-right'
+                className: 'srp-request-payout text-right'
             },
             {
                 data: 'request_status_icon',
-                className: 'text-center'
+                className: 'srp-request-status text-center'
             },
             // hidden columns
             {data: 'request_status'},
@@ -172,6 +212,7 @@ $(document).ready(function() {
         createdRow: function(row, data, rowIndex) {
             // Row id attr
             $(row).attr('data-row-id', rowIndex);
+            $(row).attr('data-srp-request-code', data.request_code);
 
             userSrpAmount += parseInt(data.payout_amount);
             $('.srp-dashboard-user-isk-cost-amount').html(userSrpAmount.toLocaleString() + ' ISK');

@@ -18,17 +18,28 @@ $(document).ready(function() {
                 render: $.fn.dataTable.render.moment(
                     moment.ISO_8601,
                     aaSrpSettings.datetimeFormat
-                )
+                ),
+                className: 'srp-request-time'
             },
-            {data: 'requester'},
-            {data: 'character'},
-            {data: 'request_code'},
+            {
+                data: 'requester',
+                className: 'srp-request-requester'
+            },
+            {
+                data: 'character',
+                className: 'srp-request-character'
+            },
+            {
+                data: 'request_code',
+                className: 'srp-request-code'
+            },
             {
                 data: 'ship_html',
                 render: {
                     display: 'display',
                     _: 'sort'
-                }
+                },
+                className: 'srp-request-ship'
             },
             // {data: 'zkb_link'},
             {
@@ -49,7 +60,7 @@ $(document).ready(function() {
                         return data;
                     }
                 },
-                className: 'text-right'
+                className: 'srp-request-zbk-loss-amount text-right'
             },
             {
                 data: 'payout_amount',
@@ -69,11 +80,11 @@ $(document).ready(function() {
                         return data;
                     }
                 },
-                className: 'text-right'
+                className: 'srp-request-payout text-right'
             },
             {
                 data: 'request_status_icon',
-                className: 'text-center'
+                className: 'srp-request-status text-center'
             },
             {
                 data: 'actions',
@@ -132,6 +143,7 @@ $(document).ready(function() {
         createdRow: function(row, data, rowIndex) {
             // Row id attr
             $(row).attr('data-row-id', rowIndex);
+            $(row).attr('data-srp-request-code', data.request_code);
 
             // add class and data attribute to the payout span
             $(row).find('span.srp-payout-amount').addClass('srp-request-' + data.request_code);
