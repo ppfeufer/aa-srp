@@ -151,6 +151,15 @@ class AaSrpLink(models.Model):
             request_status=AaSrpRequestStatus.REJECTED
         ).count()
 
+    @property
+    def requests(self):
+        """
+        All SRP requests
+        :return:
+        """
+
+        return self.aasrprequest_set.all()
+
     class Meta:
         """
         Meta definitions
