@@ -3,12 +3,11 @@
 $(document).ready(function() {
     'use strict';
 
-    var totalSrpAmount = 0;
-    var userSrpAmount = 0;
-
     /**
      * Table :: SRP Links
      */
+    var totalSrpAmount = 0;
+
     $('#tab_aasrp_srp_links').DataTable({
         ajax: {
             url: aaSrpSettings.url.availableSrpLinks,
@@ -50,6 +49,15 @@ $(document).ready(function() {
             },
             {
                 data: 'srp_costs',
+                /**
+                 * render callback
+                 *
+                 * @param data
+                 * @param type
+                 * @param row
+                 * @param meta
+                 * @returns {string|*}
+                 */
                 render: function(data, type, row, meta) {
                     if(type === 'display') {
                         return data.toLocaleString() + ' ISK';
@@ -104,6 +112,8 @@ $(document).ready(function() {
     /**
      * Table :: User's own SRP requests
      */
+    var userSrpAmount = 0;
+
     $('#tab_aasrp_user_srp_requests').DataTable({
         ajax: {
             url: aaSrpSettings.url.userSrpRequests,
@@ -146,6 +156,15 @@ $(document).ready(function() {
             // {data: 'zkb_link'},
             {
                 data: 'zbk_loss_amount',
+                /**
+                 * render callback
+                 *
+                 * @param data
+                 * @param type
+                 * @param row
+                 * @param meta
+                 * @returns {string|*}
+                 */
                 render: function(data, type, row, meta) {
                     if(type === 'display') {
                         return data.toLocaleString() + ' ISK';
@@ -157,6 +176,15 @@ $(document).ready(function() {
             },
             {
                 data: 'payout_amount',
+                /**
+                 * render callback
+                 *
+                 * @param data
+                 * @param type
+                 * @param row
+                 * @param meta
+                 * @returns {string|*}
+                 */
                 render: function(data, type, row, meta) {
                     if(type === 'display') {
                         return data.toLocaleString() + ' ISK';
