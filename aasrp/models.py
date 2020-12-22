@@ -198,10 +198,11 @@ class AaSrpRequest(models.Model):
     post_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return "{character_name} ({user_name}) SRP Request for: {ship}".format(
+        return "{character_name} ({user_name}) SRP Request for: {ship} ({request_code})".format(
             character_name=self.character.character_name,
             user_name=self.creator.profile.main_character.character_name,
             ship=self.ship_name,
+            request_code=self.request_code,
         )
 
     class Meta:
