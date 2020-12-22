@@ -2,7 +2,10 @@
 {% load humanize %}
 
 <div class="panel panel-default">
-    <div class="panel-heading">{% translate "Overview" %}</div>
+    <div class="panel-heading">
+        {% translate "Overview" %}
+    </div>
+
     <div class="panel-body">
         <div class="col-md-3">
             <dt>{% translate "Requests" %}:</dt>
@@ -11,17 +14,27 @@
             <dd>{% translate "Approved" %}: {{ srp_link.approved_requests }}</dd>
             <dd>{% translate "Rejected" %}: {{ srp_link.rejected_requests }}</dd>
         </div>
+
         <div class="col-md-3">
             <dt>{% translate "Fleet Name" %}:</dt>
             <dd>{{ srp_link.srp_name }}</dd>
         </div>
+
         <div class="col-md-3">
             <dt>{% translate "SRP Code" %}:</dt>
             <dd>{{ srp_link.srp_code }}</dd>
         </div>
+
         <div class="col-md-3">
             <dt>{% translate "SRP Cost" %}:</dt>
             <dd class="srp-fleet-total-amount">{{ srp_link.total_cost|intcomma }} ISK</dd>
         </div>
+    </div>
+
+    <div class="panel-footer">
+        <a class="btn btn-link btn-sm" href="{% url 'aasrp:dashboard' %}">
+            <i class="fas fa-arrow-circle-left"></i>
+            {% translate "Back to SRP overview" %}
+        </a>
     </div>
 </div>
