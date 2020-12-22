@@ -501,7 +501,7 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
             request=request, srp_request=srp_request
         )
         srp_request_action_icons = get_srp_request_action_icons(
-            request=request, srp_request=srp_request
+            request=request, srp_code=srp_code, srp_request=srp_request
         )
         character = get_formatted_character_name(character=srp_request.character)
 
@@ -664,6 +664,25 @@ def ajax_srp_request_additional_information(
     :param srp_code:
     :param srp_request_code:
     """
+
+    srp_request = AaSrpRequest.objects.get(request_code=srp_request_code)
+
+    requester = srp_request.creator.username
+    if srp_request.creator.profile.main_character is not None:
+        requester = srp_request.creator.profile.main_character.character_name
+
+    character = get_formatted_character_name(character=srp_request.character)
+
+    data = {
+        "killboard_link": srp_request.killboard_link,
+        "ship_type": srp_request.ship_name,
+        "request_time": srp_request.post_time,
+        "requester": requester,
+        "character": character,
+        "additional_info": srp_request.additional_info.replace("\n", "<br>\n"),
+    }
+
+    return JsonResponse(data, safe=False)
 
 
 @login_required

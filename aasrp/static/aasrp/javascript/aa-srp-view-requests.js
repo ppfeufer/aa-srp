@@ -210,4 +210,68 @@ $(document).ready(function() {
             }
         }
     });
+
+    /**
+     * Modals
+     */
+    $('#srp-link-action-modal')
+        /**
+         * show modal
+         */
+        .on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var modal = $(this);
+
+            var name = button.data('modal-title');
+            var url = button.data('link');
+            var confirmButtonText = button.data('modal-button-confirm');
+            var cancelButtonText = button.data('modal-button-cancel');
+            var body = button.data('modal-body');
+            var modalType = button.data('modal-type');
+
+
+            modal.find('.modal-title').text(name);
+            modal.find('#modal-button-confirm').attr('href', url);
+            modal.find('.modal-button-confirm').text(confirmButtonText);
+            modal.find('#modal-button-cancel').html(cancelButtonText);
+            modal.find('.modal-body').text(body);
+
+            if(modalType === 'modal-interactive') {
+                $.get({
+                    url: url,
+                    success: function(data) {
+                        var modalBody = '';
+
+                        // requester
+                        modalBody += '<div class="clearfix modal-srp-details modal-srp-details-requester"><div class="col-sm-6"><p><b>Requester:</b> ' + data.requester + '</p></div><div class="col-sm-6"><p><b>Character:</b> ' + data.character + '</p></div></div>';
+
+                        // ship and killmail
+                        modalBody += '<div class="clearfix modal-srp-details modal-srp-details-ship"><div class="col-sm-6"><p><b>Ship:</b> <a href="' + data.killboard_link + '" target="_blank">' + data.ship_type + '</a></p></div></div>';
+
+                        // additional info
+                        modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information"><div class="col-sm-12"><p><b>Additional Information:</b></p><p>' + data.additional_info + '</p></div></div>';
+
+                        // add to modal body
+                        modal.find('.modal-body').html(modalBody);
+                    }
+                });
+            }
+
+            if(modalType === 'modal-action') {
+                modal.find('#modal-button-confirm').show();
+            }
+        })
+        /**
+         * hide modal
+         */
+        .on('hide.bs.modal', function() {
+            var modal = $(this);
+
+            modal.find('.modal-title').text('');
+            modal.find('#modal-button-confirm').attr('href', '');
+            modal.find('.modal-button-confirm').text('');
+            modal.find('#modal-button-cancel').text('');
+            modal.find('.modal-body').text('');
+            modal.find('#modal-button-confirm').hide();
+        });
 });

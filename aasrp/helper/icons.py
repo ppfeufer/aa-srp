@@ -171,24 +171,64 @@ def get_srp_request_status_icon(request, srp_request: AaSrpRequest) -> str:
 
 @login_required
 @permission_required("aasrp.manage_srp_requests", "aasrp.manage_srp")
-def get_srp_request_action_icons(request, srp_request: AaSrpRequest) -> str:
+def get_srp_request_action_icons(
+    request, srp_code: str, srp_request: AaSrpRequest
+) -> str:
     """
     get action icons for srp requests
     :param request:
+    :param srp_code:
     :param srp_request:
     """
+
+    actions = ""
+
+    # read details
+    button_request_details_url = reverse(
+        "aasrp:ajax_srp_request_additional_information",
+        args=[srp_code, srp_request.request_code],
+    )
+    actions += (
+        '<button data-link="{link}" '
+        'data-toggle="modal" '
+        'data-target="#srp-link-action-modal" '
+        'data-modal-type="modal-interactive" '
+        'data-modal-title="{title}" '
+        'data-modal-button-cancel="{modal_button_cancel}" '
+        'data-modal-button-confirm="{modal_button_confirm}" '
+        'class="btn btn-aasrp btn-primary btn-sm" '
+        'title="{title}">{icon}</button>'.format(
+            link=button_request_details_url,
+            icon='<i class="fas fa-info-circle"></i>',
+            title=_("SRP Request Details"),
+            modal_button_cancel=_("{fa_icon} Close").format(fa_icon=""),
+            modal_button_confirm=_("OK"),
+        )
+    )
 
     # accept
     button_request_accept_url = reverse(
         "aasrp:request_srp", args=[srp_request.request_code]
     )
-    actions = (
-        '<a href="{btn_link}" '
+    actions += (
+        '<button data-link="{link}" '
+        'data-toggle="modal" '
+        'data-target="#srp-link-action-modal" '
+        'data-modal-type="modal-action" '
+        'data-modal-title="{title}" '
+        'data-modal-body="{modal_body}" '
+        'data-modal-button-cancel="{modal_button_cancel}" '
+        'data-modal-button-confirm="{modal_button_confirm}" '
         'class="btn btn-aasrp btn-success btn-sm" '
-        'title="{btn_title}">{btn_icon}</a>'.format(
-            btn_link=button_request_accept_url,
-            btn_icon='<i class="fas fa-check"></i>',
-            btn_title=_("Accept SRP Request"),
+        'title="{title}">{icon}</button>'.format(
+            link=button_request_accept_url,
+            icon='<i class="fas fa-check"></i>',
+            title=_("Accept SRP Request"),
+            modal_body=_("Are you sure you want to accept this SRP request?"),
+            modal_button_cancel=_("{fa_icon} Cancel").format(
+                fa_icon="<i class='far fa-hand-paper'></i>"
+            ),
+            modal_button_confirm=_("Accept SRP Request"),
         )
     )
 
@@ -197,12 +237,24 @@ def get_srp_request_action_icons(request, srp_request: AaSrpRequest) -> str:
         "aasrp:request_srp", args=[srp_request.request_code]
     )
     actions += (
-        '<a href="{btn_link}" '
+        '<button data-link="{link}" '
+        'data-toggle="modal" '
+        'data-target="#srp-link-action-modal" '
+        'data-modal-type="modal-action" '
+        'data-modal-title="{title}" '
+        'data-modal-body="{modal_body}" '
+        'data-modal-button-cancel="{modal_button_cancel}" '
+        'data-modal-button-confirm="{modal_button_confirm}" '
         'class="btn btn-aasrp btn-warning btn-sm" '
-        'title="{btn_title}">{btn_icon}</a>'.format(
-            btn_link=button_request_reject_url,
-            btn_icon='<i class="fas fa-ban"></i>',
-            btn_title=_("Reject SRP Request"),
+        'title="{title}">{icon}</button>'.format(
+            link=button_request_reject_url,
+            icon='<i class="fas fa-ban"></i>',
+            title=_("Reject SRP Request"),
+            modal_body=_("Are you sure you want to reject this SRP request?"),
+            modal_button_cancel=_("{fa_icon} Cancel").format(
+                fa_icon="<i class='far fa-hand-paper'></i>"
+            ),
+            modal_button_confirm=_("Reject SRP Request"),
         )
     )
 
@@ -212,12 +264,24 @@ def get_srp_request_action_icons(request, srp_request: AaSrpRequest) -> str:
             "aasrp:request_srp", args=[srp_request.request_code]
         )
         actions += (
-            '<a href="{btn_link}" '
+            '<button data-link="{link}" '
+            'data-toggle="modal" '
+            'data-target="#srp-link-action-modal" '
+            'data-modal-type="modal-action" '
+            'data-modal-title="{title}" '
+            'data-modal-body="{modal_body}" '
+            'data-modal-button-cancel="{modal_button_cancel}" '
+            'data-modal-button-confirm="{modal_button_confirm}" '
             'class="btn btn-aasrp btn-danger btn-sm" '
-            'title="{btn_title}">{btn_icon}</a>'.format(
-                btn_link=button_request_delete_url,
-                btn_icon='<i class="fas fa-trash-alt"></i>',
-                btn_title=_("Remove SRP Request"),
+            'title="{title}">{icon}</button>'.format(
+                link=button_request_delete_url,
+                icon='<i class="fas fa-trash-alt"></i>',
+                title=_("Remove SRP Request"),
+                modal_body=_("Are you sure you want to remove this SRP request?"),
+                modal_button_cancel=_("{fa_icon} Cancel").format(
+                    fa_icon="<i class='far fa-hand-paper'></i>"
+                ),
+                modal_button_confirm=_("Remove SRP Request"),
             )
         )
 

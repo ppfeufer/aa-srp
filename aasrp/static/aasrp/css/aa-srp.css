@@ -48,6 +48,10 @@
     .panel-srp-request-overview-cell:last-child {
         margin-bottom: 0;
     }
+
+    .modal-srp-details-ship {
+        margin-bottom: 2rem;
+    }
 }
 
 @media all and (min-width: 992px) {

@@ -58,6 +58,7 @@ urlpatterns = [
         name="ajax_srp_request_additional_information",
     ),
     url(
+        # change the srp payout amount
         r"^call/srp-link/(\w+)/srp-request/(\w+)/change-srp-payout/$",
         views.ajax_srp_request_change_payout,
         name="ajax_srp_request_change_payout",
