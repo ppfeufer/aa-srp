@@ -50,12 +50,12 @@
 
     <div class="panel-footer">
         <button class="btn btn-primary btn-sm pull-right"
-            data-link="{% url 'aasrp:dashboard' %}"
+            data-link="{% url 'aasrp:complete_srp_link' srp_link.srp_code %}"
             data-toggle="modal"
             data-target="#srp-link-action-modal"
             data-modal-type="modal-action"
             data-modal-title="Mark Completed"
-            data-modal-body="{% translate 'Are you sure you want to make this SRP link as completed and close it for good? Be aware, once it is completed, your pilots can no longer file SRP requests for this link/fleet.' %}"
+            data-modal-body="{% translate 'Are you sure you want to mark this SRP link as completed and close it for good? Be aware that once it&apos;s completed, your pilots can no longer file SRP requests for this link / fleet.' %}"
             data-modal-button-cancel="<i class='far fa-hand-paper'></i> {% translate 'Cancel' %}"
             data-modal-button-confirm="{% translate 'Mark as completed' %}"
         >

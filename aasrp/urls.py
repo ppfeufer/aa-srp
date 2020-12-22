@@ -25,6 +25,9 @@ urlpatterns = [
     url(r"^srp-link/(\w+)/disable/$", views.disable_srp_link, name="disable_srp_link"),
     url(r"^srp-link/(\w+)/delete/$", views.delete_srp_link, name="delete_srp_link"),
     url(r"^srp-link/(\w+)/request-srp/$", views.request_srp, name="request_srp"),
+    url(
+        r"^srp-link/(\w+)/complete/$", views.complete_srp_link, name="complete_srp_link"
+    ),
     # ajax calls
     url(
         # get active srp links

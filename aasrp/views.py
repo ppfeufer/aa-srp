@@ -430,6 +430,45 @@ def request_srp(request, srp_code: str) -> HttpResponse:
 
 
 @login_required
+@permission_required("aasrp.manage_srp")
+def complete_srp_link(request, srp_code: str):
+    """
+    mark an srp link as completed
+    :param request:
+    :param srp_code:
+    """
+
+    logger.info(
+        "Complete SRP link form for SRP code {srp_code} called by {user}".format(
+            srp_code=srp_code, user=request.user
+        )
+    )
+
+    # check if the provided SRP code is valid
+    if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
+        logger.error(
+            "Unable to locate SRP Fleet using code {srp_code} for user {user}".format(
+                srp_code=srp_code, user=request.user
+            )
+        )
+
+        messages.error(
+            request,
+            _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
+        )
+
+        return redirect("aasrp:dashboard")
+
+    srp_link = AaSrpLink.objects.get(srp_code=srp_code)
+    srp_link.srp_status = AaSrpStatus.COMPLETED
+    srp_link.save()
+
+    messages.success(request, _("SRP link closed"))
+
+    return redirect("aasrp:dashboard")
+
+
+@login_required
 @permission_required("aasrp.manage_srp", "manage_srp_requests")
 def srp_link_view_requests(request, srp_code: str) -> HttpResponse:
     """
@@ -477,7 +516,9 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
 
     data = list()
 
-    srp_requests = AaSrpRequest.objects.filter(srp_link_id__srp_code=srp_code)
+    srp_link = AaSrpLink.objects.get(srp_code=srp_code)
+    # srp_requests = AaSrpRequest.objects.filter(srp_link_id__srp_code=srp_code)
+    srp_requests = srp_link.requests
 
     for srp_request in srp_requests:
         killboard_link = ""
@@ -497,7 +538,7 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
             request=request, srp_request=srp_request
         )
         srp_request_action_icons = get_srp_request_action_icons(
-            request=request, srp_code=srp_code, srp_request=srp_request
+            request=request, srp_link=srp_link, srp_request=srp_request
         )
         character = get_formatted_character_name(character=srp_request.character)
 
