@@ -47,6 +47,7 @@ class AaSrpRequestCommentType(models.TextChoices):
     """
 
     COMMENT = "Comment", _("SRP Request Comment")
+    REQUEST_INFO = "Request Information", _("SRP Request Additional Information")
     REJECT_REASON = "Reject Reason", _("SRP Reject Reason")
 
 
@@ -221,7 +222,7 @@ class AaSrpRequestComment(models.Model):
     comment = models.TextField(null=True, blank=True)
 
     comment_type = models.CharField(
-        max_length=16,
+        max_length=19,
         choices=AaSrpRequestCommentType.choices,
         default=AaSrpRequestCommentType.COMMENT,
     )
