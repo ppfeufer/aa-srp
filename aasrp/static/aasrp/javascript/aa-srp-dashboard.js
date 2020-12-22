@@ -3,6 +3,9 @@
 $(document).ready(function() {
     'use strict';
 
+    var totalSrpAmount = 0;
+    var userSrpAmount = 0;
+
     /**
      * Table :: SRP Links
      */
@@ -35,7 +38,7 @@ $(document).ready(function() {
                         return data;
                     }
                 },
-                className: 'text-right'
+                className: 'text-right srp-link-total-cost'
             },
             {data: 'srp_status'},
             {data: 'pending_requests'},
@@ -55,7 +58,21 @@ $(document).ready(function() {
             }
         ],
         order: [[2, 'asc']],
-        paging: false
+        paging: false,
+        /**
+         * when ever a row is created ...
+         *
+         * @param row
+         * @param data
+         * @param rowIndex
+         */
+        createdRow: function(row, data, rowIndex) {
+            // Row id attr
+            $(row).attr('data-row-id', rowIndex);
+
+            totalSrpAmount += parseInt(data.srp_costs);
+            $('.srp-dashboard-total-isk-cost-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
+        },
     });
 
     /**
@@ -144,6 +161,20 @@ $(document).ready(function() {
             ],
             autoSize: false,
             bootstrap: true
-        }
+        },
+        /**
+         * when ever a row is created ...
+         *
+         * @param row
+         * @param data
+         * @param rowIndex
+         */
+        createdRow: function(row, data, rowIndex) {
+            // Row id attr
+            $(row).attr('data-row-id', rowIndex);
+
+            userSrpAmount += parseInt(data.payout_amount);
+            $('.srp-dashboard-user-isk-cost-amount').html(userSrpAmount.toLocaleString() + ' ISK');
+        },
     });
 });
