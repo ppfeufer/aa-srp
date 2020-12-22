@@ -122,8 +122,6 @@ $(document).ready(function() {
             bootstrap: true
         },
         paging: false,
-        processing: true,
-        serverSide: true,
         /**
          * when ever a row is created ...
          *
