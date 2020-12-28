@@ -7,6 +7,7 @@ SRP Manager
 import requests
 
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 from aasrp import __user_agent__, __title__
 from aasrp.models import AaSrpRequest, AaSrpRequestStatus
@@ -82,7 +83,7 @@ class AaSrpManager:
 
             return ship_type, ship_value, victim_id
 
-        raise ValueError("Invalid Kill ID or Hash.")
+        raise ValueError(_("Invalid Kill ID or Hash."))
 
     @staticmethod
     def pending_requests_count_for_user(user: User):

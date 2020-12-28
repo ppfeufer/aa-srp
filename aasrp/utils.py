@@ -10,6 +10,7 @@ import os
 from django.conf import settings
 from django.utils.functional import lazy
 from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
 
 from allianceauth.services.hooks import get_extension_logger
 
@@ -36,7 +37,6 @@ class LoggerAddTag(logging.LoggerAdapter):
         return "[%s] %s" % (self.prefix, msg), kwargs
 
 
-# logger = LoggerAddTag(get_extension_logger(__name__), __package__)
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
@@ -60,7 +60,7 @@ def clean_setting(
     """
 
     if default_value is None and not required_type:
-        raise ValueError("You must specify a required_type for None defaults")
+        raise ValueError(_("You must specify a required_type for None defaults"))
 
     if not required_type:
         required_type = type(default_value)

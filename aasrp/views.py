@@ -367,7 +367,7 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                     request,
                     _(
                         "Your SRP request Killmail link is invalid. "
-                        "Please make sure you are using zKillboard."
+                        "Please make sure you are using http://zkillboard.com"
                     ),
                 )
 
@@ -409,8 +409,9 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                 messages.error(
                     request,
                     _(
-                        "Character {character_id} does not belong to your Auth account. "
-                        "Please add this character as an alt to your main and try again."
+                        "Character {character_id} does not belong to your Auth "
+                        "account. Please add this character as an alt to "
+                        "your main and try again."
                     ).format(character_id=victim_id),
                 )
 

@@ -95,7 +95,7 @@ class AaSrpLink(models.Model):
         User,
         null=True,
         on_delete=models.SET(get_sentinel_user),
-        help_text="Who created the SRP link?",
+        help_text=_("Who created the SRP link?"),
     )
 
     def __str__(self):
@@ -181,7 +181,7 @@ class AaSrpRequest(models.Model):
         User,
         null=True,
         on_delete=models.SET(get_sentinel_user),
-        help_text="Who created the SRP link?",
+        help_text=_("Who created the SRP link?"),
     )
     character = models.ForeignKey(EveCharacter, null=True, on_delete=models.SET_NULL)
     ship_name = models.CharField(max_length=254, default="")
@@ -198,11 +198,14 @@ class AaSrpRequest(models.Model):
     post_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return "{character_name} ({user_name}) SRP Request for: {ship} ({request_code})".format(
-            character_name=self.character.character_name,
-            user_name=self.creator.profile.main_character.character_name,
-            ship=self.ship_name,
-            request_code=self.request_code,
+        return _(
+            "{character_name} ({user_name}) SRP Request "
+            "for: {ship} ({request_code})".format(
+                character_name=self.character.character_name,
+                user_name=self.creator.profile.main_character.character_name,
+                ship=self.ship_name,
+                request_code=self.request_code,
+            )
         )
 
     class Meta:

@@ -79,7 +79,9 @@ class AaSrpRequestForm(ModelForm):
         data = self.cleaned_data["killboard_link"]
 
         if "zkillboard.com" not in data:
-            raise forms.ValidationError(_("Invalid Link. Please use zKillboard.com"))
+            raise forms.ValidationError(
+                _("Invalid Link. Please use https://zkillboard.com")
+            )
 
         return data
 

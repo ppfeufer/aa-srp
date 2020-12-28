@@ -150,7 +150,7 @@ def get_srp_request_status_icon(request, srp_request: AaSrpRequest) -> str:
         "{request_status_icon}"
         "</button>".format(
             request_status_icon='<i class="fas fa-clock"></i>',
-            request_status_icon_title=_("Pending"),
+            request_status_icon_title=_("SRP Request Pending"),
         )
     )
     if srp_request.request_status == AaSrpRequestStatus.APPROVED:
@@ -160,7 +160,7 @@ def get_srp_request_status_icon(request, srp_request: AaSrpRequest) -> str:
             "{request_status_icon}"
             "</button>".format(
                 request_status_icon='<i class="fas fa-thumbs-up"></i>',
-                request_status_icon_title=_("Approved"),
+                request_status_icon_title=_("SRP Request Approved"),
             )
         )
 
@@ -171,7 +171,7 @@ def get_srp_request_status_icon(request, srp_request: AaSrpRequest) -> str:
             "{request_status_icon}"
             "</button>".format(
                 request_status_icon='<i class="fas fa-thumbs-down"></i>',
-                request_status_icon_title=_("Rejected"),
+                request_status_icon_title=_("SRP Request Rejected"),
             )
         )
 
