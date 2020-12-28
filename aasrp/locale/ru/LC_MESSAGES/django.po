@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-29 00:09+0100\n"
+"POT-Creation-Date: 2020-12-29 00:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,10 +126,6 @@ msgstr ""
 msgid "{fa_icon} Accept SRP Request"
 msgstr ""
 
-#: helper/icons.py:251
-msgid "btn btn-success btn-sm"
-msgstr ""
-
 #: helper/icons.py:280
 msgid "Reject SRP Request"
 msgstr ""
@@ -143,10 +139,6 @@ msgstr ""
 msgid "{fa_icon} Reject SRP Request"
 msgstr ""
 
-#: helper/icons.py:288
-msgid "btn btn-warning btn-sm"
-msgstr ""
-
 #: helper/icons.py:313
 msgid "Remove SRP Request"
 msgstr ""
@@ -158,10 +150,6 @@ msgstr ""
 #: helper/icons.py:318
 #, python-brace-format
 msgid "{fa_icon} Remove SRP Request"
-msgstr ""
-
-#: helper/icons.py:321
-msgid "btn btn-danger btn-sm"
 msgstr ""
 
 #: managers.py:86
@@ -506,7 +494,7 @@ msgstr ""
 
 #: views.py:297
 #, python-brace-format
-msgid "Unable to locate SRP Fleet using SRP code {srp_code} "
+msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr ""
 
 #: views.py:309
