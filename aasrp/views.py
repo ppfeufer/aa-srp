@@ -213,7 +213,7 @@ def srp_link_add(request) -> HttpResponse:
 
 
 @login_required
-@permission_required("aasrp.manage_srp")
+@permission_required("aasrp.manage_srp", "aasrp.create_srp")
 def srp_link_edit(request, srp_code: str) -> HttpResponse:
     """
     add or edit AAR link
