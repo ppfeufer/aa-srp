@@ -506,7 +506,7 @@ def srp_link_view_requests(request, srp_code: str) -> HttpResponse:
 
 
 @login_required
-@permission_required("aasrp.basic_access")
+@permission_required("aasrp.manage_srp", "manage_srp_requests")
 def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
     """
     ajax request
@@ -692,7 +692,7 @@ def delete_srp_link(request, srp_code: str):
 
 
 @login_required
-@permission_required("aasrp.manage_srp")
+@permission_required("aasrp.manage_srp", "manage_srp_requests")
 def ajax_srp_request_additional_information(
     request, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -723,7 +723,7 @@ def ajax_srp_request_additional_information(
 
 
 @login_required
-@permission_required("aasrp.manage_srp")
+@permission_required("aasrp.manage_srp", "manage_srp_requests")
 def ajax_srp_request_change_payout(
     request, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -759,7 +759,7 @@ def ajax_srp_request_change_payout(
 
 
 @login_required
-@permission_required("aasrp.manage_srp")
+@permission_required("aasrp.manage_srp", "manage_srp_requests")
 def ajax_srp_request_approve(
     request, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -807,7 +807,7 @@ def ajax_srp_request_approve(
 
 
 @login_required
-@permission_required("aasrp.manage_srp")
+@permission_required("aasrp.manage_srp", "manage_srp_requests")
 def ajax_srp_request_deny(
     request, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -851,7 +851,7 @@ def ajax_srp_request_deny(
 
 
 @login_required
-@permission_required("aasrp.manage_srp")
+@permission_required("aasrp.manage_srp", "manage_srp_requests")
 def ajax_srp_request_remove(
     request, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
