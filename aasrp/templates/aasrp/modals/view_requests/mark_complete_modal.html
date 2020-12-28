@@ -18,18 +18,19 @@
                         Are you sure you want to mark this SRP link as completed and
                         close it for good? Be aware that once it's completed,
                         your pilots can no longer file SRP requests for
-                        this link / fleet. It is also no longer possible to process
-                        (accept, deny or even remove) any SRP requests from this
-                        SRP link.
+                        this link / fleet.
                     {% endblocktranslate %}
                 </p>
 
-                <p class="alert alert-warning">
-                    {% blocktranslate %}
-                        If there are still unprocessed requests with this link,
-                        they will stay unprocessed forever!
-                    {% endblocktranslate %}
-                </p>
+                {% if srp_link.pending_requests > 0 %}
+                    <p class="alert alert-warning">
+                        {% blocktranslate with number_pending_requests=srp_link.pending_requests %}
+                            This SRP link still has {{ number_pending_requests }} pending
+                            SRP request(s). Are you absolutely certain you want to mark
+                            this SRP link as completed?
+                        {% endblocktranslate %}
+                    </p>
+                {% endif %}
             </div>
 
             <div class="modal-footer">
