@@ -1,0 +1,111 @@
+{% extends 'aasrp/base.html' %}
+
+{% load i18n %}
+{% load static %}
+
+{% block aasrp_header %}
+    {% translate "Ship Replacement" as translated_header %}
+    {% include 'aasrp/partials/header/h1.html' with header_text=translated_header %}
+{% endblock %}
+
+{% block aasrp_body %}
+    {% include 'aasrp/partials/dashboard/buttons.html' %}
+    {% include 'aasrp/partials/dashboard/table.html' %}
+
+    <!-- modals -->
+    {% include 'aasrp/modals/dashboard/enable_srp_link.html' %}
+    {% include 'aasrp/modals/dashboard/disable_srp_link.html' %}
+    {% include 'aasrp/modals/dashboard/delete_srp_link.html' %}
+{% endblock %}
+
+{% block extra_css %}
+    {% include 'bundles/datatables-css.html' %}
+
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
+{% endblock %}
+
+{% block extra_javascript %}
+    {% include 'bundles/datatables-js.html' %}
+    {% include 'bundles/moment-js.html' with locale=True %}
+
+    <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/dataTables.rowGroup.min.js' %}"></script>
+    <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/datetime.js' %}"></script>
+    <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}"></script>
+
+    <script type="application/javascript">
+        /**
+         * passing some setting to our JS
+         */
+        let urlUserSrpRequests = "{% url 'aasrp:ajax_dashboard_user_srp_requests_data' %}";
+        let urlAvailableSrpLinks = "{% url 'aasrp:ajax_dashboard_srp_links_data' %}";
+        {% if show_all_links %}
+            // override for "view all"
+            urlAvailableSrpLinks = "{% url 'aasrp:ajax_dashboard_srp_links_all_data' %}";
+        {% endif %}
+
+        let aaSrpSettings = {
+            datetimeFormat: 'YYYY-MM-DD HH:mm',
+            url: {
+                availableSrpLinks: urlAvailableSrpLinks,
+                userSrpRequests: urlUserSrpRequests
+            },
+            translation: {
+                filterRequestShip: "{% translate 'Ship' %}",
+                filterRequestStatus: "{% translate 'Request Status' %}"
+            }
+        };
+
+        /**
+         * enable link modal
+         */
+        $('#enable-srp-link').on('show.bs.modal', function(event) {
+            let button = $(event.relatedTarget);
+            let url = button.data('url');
+            let name = button.data('name');
+            let modal = $(this);
+
+            modal.find('#modal-button-confirm-enable-srp-link').attr('href', url);
+            modal.find('.modal-body').html('{% translate "Are you sure you want to (re-)activate the following SRP Link?" %}<br>"' + name + '"');
+        }).on('hide.bs.modal', function() {
+            let modal = $(this);
+
+            modal.find('.modal-body').html('');
+        });
+
+        /**
+         * disable link modal
+         */
+        $('#disable-srp-link').on('show.bs.modal', function(event) {
+            let button = $(event.relatedTarget);
+            let url = button.data('url');
+            let name = button.data('name');
+            let modal = $(this);
+
+            modal.find('#modal-button-confirm-disable-srp-link').attr('href', url);
+            modal.find('.modal-body').html('{% translate "Are you sure you want to disable the following SRP Link?" %}<br>"' + name + '"');
+        }).on('hide.bs.modal', function() {
+            let modal = $(this);
+
+            modal.find('.modal-body').html('');
+        });
+
+        /**
+         * delete link modal
+         */
+        $('#delete-srp-link').on('show.bs.modal', function(event) {
+            let button = $(event.relatedTarget);
+            let url = button.data('url');
+            let name = button.data('name');
+            let modal = $(this);
+
+            modal.find('#modal-button-confirm-delete-srp-link').attr('href', url);
+            modal.find('.modal-body').html('{% translate "Are you sure you want to delete the following SRP Link and all SRP requests tied to it?" %}<br>"' + name + '"');
+        }).on('hide.bs.modal', function() {
+            let modal = $(this);
+
+            modal.find('.modal-body').html('');
+        });
+    </script>
+    <script type="application/javascript" src="{% static 'aasrp/javascript/aa-srp-dashboard.min.js' %}"></script>
+{% endblock %}

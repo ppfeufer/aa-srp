@@ -1,0 +1,13 @@
+/* attempting to fix AA's wrong usage of bootstrap classes
+----------------------------------------------------------------------------------------------------------------------*/
+@media all {
+    .aa-srp {
+        margin-left: 15px;
+    }
+}
+
+@media all and (min-width: 768px) {
+    .aa-srp {
+        margin-left: 0;
+    }
+}

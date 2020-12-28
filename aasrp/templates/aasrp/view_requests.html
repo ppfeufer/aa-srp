@@ -1,0 +1,60 @@
+{% extends 'aasrp/base.html' %}
+
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+
+{% block aasrp_header %}
+    {% translate "SRP Requests" as translated_header %}
+    {% include 'aasrp/partials/header/h1.html' with header_text=translated_header %}
+{% endblock %}
+
+{% block aasrp_body %}
+    {% include 'aasrp/partials/view_requests/overview.html' %}
+    {% include 'aasrp/partials/view_requests/requests.html' %}
+    {% include 'aasrp/modals/view_requests/action_modal.html' %}
+    {% include 'aasrp/modals/view_requests/mark_complete_modal.html' %}
+{% endblock %}
+
+{% block extra_css %}
+    {% include 'bundles/datatables-css.html' %}
+    {% include 'aasrp/bundles/bootstrap3-editable-css.html' %}
+
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
+{% endblock %}
+
+{% block extra_javascript %}
+    {% include 'bundles/datatables-js.html' %}
+    {% include 'bundles/moment-js.html' with locale=True %}
+    {% include 'aasrp/bundles/bootstrap3-editable-js.html' %}
+
+    <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/dataTables.rowGroup.min.js' %}"></script>
+    <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/datetime.min.js' %}"></script>
+    <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}"></script>
+
+    <script type="application/javascript">
+        /**
+         * passing some settings to our JS
+         */
+        let urlRequestsForSrpLink = '{% url "aasrp:ajax_srp_link_view_requests_data" srp_link.srp_code %}';
+        let urlChangeSrpAmount = '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}';
+
+        let aaSrpSettings = {
+            datetimeFormat: 'YYYY-MM-DD HH:mm',
+            srpCode: '{{ srp_link.srp_code }}',
+            csrfToken: '{{ csrf_token }}',
+            url: {
+                requestsForSrpLink: urlRequestsForSrpLink,
+                changeSrpAmount: urlChangeSrpAmount
+            },
+            translation: {
+                filterRequestStatus: '{% translate "Request Status" %}',
+                filterRequestShip: '{% translate "Ship" %}',
+                changeSrpPayoutHeader: '{% translate "Enter SRP payout value" %}',
+                editableValidate: '{% translate "Empty values are not allowed" %}'
+            }
+        };
+    </script>
+    <script type="application/javascript" src="{% static 'aasrp/javascript/aa-srp-view-requests.min.js' %}"></script>
+{% endblock %}

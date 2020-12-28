@@ -1,0 +1,27 @@
+{% extends 'aasrp/base.html' %}
+
+{% load i18n %}
+{% load static %}
+
+{% block page_title %}{% translate "SRP Link Edit" %}{% endblock %}
+
+{% block aasrp_header %}
+    {% translate "Add/Edit After Action Report Link" as translated_header %}
+    {% include 'aasrp/partials/header/h1.html' with header_text=translated_header %}
+{% endblock %}
+
+{% block aasrp_body %}
+    {% include 'aasrp/partials/link_edit/form.html' %}
+{% endblock %}
+
+{% block extra_javascript %}
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp-form.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
+{% endblock %}
+
+{% block extra_script %}
+{% endblock extra_script %}

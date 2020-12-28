@@ -1,0 +1,54 @@
+{% load i18n %}
+
+{% if form.errors %}
+    <div class="aasrp-form-errors clearfix">
+        {% for error in form.non_field_errors %}
+            <div class="aasrp-form-error clearfix">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% for field in form %}
+    <div class="form-group aasrp-form-group clearfix">
+        <label class="form-label aasrp-form-label{% if field.field.required %} field-required{% endif %}" for="{{ field.id_for_label }}">
+            <span class="aasrp-form-label-text">
+                {{ field.label }}
+            </span>
+
+            {% if field.field.widget.input_type %}
+                <input
+                    id="{{ field.id_for_label }}"
+                    name="{{ field.html_name }}"
+                    type="{{ field.field.widget.input_type }}"
+                    class="form-control input-md"
+                    value="{% if field.value %}{{ field.value }}{% endif %}"
+                    autocomplete="off"
+                >
+            {% elif field.field.widget.attrs.input_type == 'textarea' %}
+                <textarea
+                    id="{{ field.id_for_label }}"
+                    name="{{ field.html_name }}"
+                    class="form-control input-md"
+                    rows="{{ field.field.widget.attrs.rows }}"
+                    cols="{{ field.field.widget.attrs.cols }}"
+                >{% if field.value %}{{ field.value }}{% endif %}</textarea>
+            {% endif %}
+
+            {% if field.errors %}
+                <div class="aasrp-form-field-errors clearfix">
+                    {% for error in field.errors %}
+                        <div class="aasrp-form-field-error clearfix">
+                            {{ error|escape }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </label>
+    </div>
+{% endfor %}
+
+<div class="form-group aasrp-form-group text-right clearfix">
+    <p>{% translate 'Fields marked with an asterisk (*) are mandatory' %}</p>
+</div>

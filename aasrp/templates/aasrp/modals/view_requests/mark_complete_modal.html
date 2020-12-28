@@ -1,0 +1,46 @@
+{% load i18n %}
+
+<!-- request mark as completed modal -->
+<div class="modal fade" id="srp-link-mark-complete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+                <h4 class="modal-title" id="modalLongTitle">{% translate 'Mark Completed' %}</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    {% blocktranslate %}
+                        Are you sure you want to mark this SRP link as completed and
+                        close it for good? Be aware that once it's completed,
+                        your pilots can no longer file SRP requests for
+                        this link / fleet.
+                    {% endblocktranslate %}
+                </p>
+
+                {% if srp_link.pending_requests > 0 %}
+                    <p class="alert alert-warning">
+                        {% blocktranslate with number_pending_requests=srp_link.pending_requests %}
+                            This SRP link still has {{ number_pending_requests }} pending
+                            SRP request(s). Are you absolutely certain you want to mark
+                            this SRP link as completed?
+                        {% endblocktranslate %}
+                    </p>
+                {% endif %}
+            </div>
+
+            <div class="modal-footer">
+                <button id="modal-button-cancel" type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class='far fa-hand-paper'></i> {% translate 'Cancel' %}
+                </button>
+                <a href="{% url 'aasrp:complete_srp_link' srp_link.srp_code %}" id="modal-button-confirm" role="button" class="btn btn-success btn-sm">
+                    <i class='fas fa-check'></i> {% translate 'Mark as completed' %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

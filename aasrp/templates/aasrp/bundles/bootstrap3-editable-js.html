@@ -1,0 +1,7 @@
+{% load static %}
+
+{% if avoid_cdn %}
+    <script type="application/javascript" src="{% static 'aasrp/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js' %}"></script>
+{% else %}
+    <script type="application/javascript" src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+{% endif %}
