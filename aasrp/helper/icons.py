@@ -248,7 +248,7 @@ def get_srp_request_action_icons(
                 modal_button_confirm=_("{fa_icon} Accept SRP Request").format(
                     fa_icon="<i class='fas fa-check'></i>"
                 ),
-                modal_button_confirm_classes=_("btn btn-success btn-sm"),
+                modal_button_confirm_classes="btn btn-success btn-sm",
                 button_state=button_request_accept_state,
             )
         )
@@ -285,7 +285,7 @@ def get_srp_request_action_icons(
                 modal_button_confirm=_("{fa_icon} Reject SRP Request").format(
                     fa_icon="<i class='fas fa-ban'></i>"
                 ),
-                modal_button_confirm_classes=_("btn btn-warning btn-sm"),
+                modal_button_confirm_classes="btn btn-warning btn-sm",
                 button_state=button_request_reject_state,
             )
         )
@@ -318,7 +318,7 @@ def get_srp_request_action_icons(
                     modal_button_confirm=_("{fa_icon} Remove SRP Request").format(
                         fa_icon="<i class='fas fa-trash-alt'></i>"
                     ),
-                    modal_button_confirm_classes=_("btn btn-danger btn-sm"),
+                    modal_button_confirm_classes="btn btn-danger btn-sm",
                 )
             )
 
