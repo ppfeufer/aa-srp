@@ -275,25 +275,25 @@ $(document).ready(function() {
                         if (data['0'].success === true) {
                             srpRequestsTable.ajax.reload(function(tableData) {
                                 var totalSrpAmount = 0;
-                                var requests_total = 0;
-                                var requests_pending = 0;
-                                var requests_approved = 0;
-                                var requests_rejected = 0;
+                                var requestsTotal = 0;
+                                var requestsPending = 0;
+                                var requestsApproved = 0;
+                                var requestsRejected = 0;
 
                                 $.each(tableData, function(i, item) {
                                     totalSrpAmount += parseInt(item.payout_amount);
-                                    requests_total += 1;
+                                    requestsTotal += 1;
 
                                     if (item.request_status === 'Pending') {
-                                        requests_pending += 1;
+                                        requestsPending += 1;
                                     }
 
                                     if (item.request_status === 'Approved') {
-                                        requests_approved += 1;
+                                        requestsApproved += 1;
                                     }
 
                                     if (item.request_status === 'Rejected') {
-                                        requests_rejected += 1;
+                                        requestsRejected += 1;
                                     }
                                 });
 
@@ -304,16 +304,16 @@ $(document).ready(function() {
 
                                 // update requests counts
                                 $('.srp-requests-total-count').html(
-                                    requests_total
+                                    requestsTotal
                                 );
                                 $('.srp-requests-pending-count').html(
-                                    requests_pending
+                                    requestsPending
                                 );
                                 $('.srp-requests-approved-count').html(
-                                    requests_approved
+                                    requestsApproved
                                 );
                                 $('.srp-requests-rejected-count').html(
-                                    requests_rejected
+                                    requestsRejected
                                 );
                             });
                         }
