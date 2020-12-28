@@ -1,0 +1,45 @@
+{% load i18n %}
+
+<!-- request mark as completed modal -->
+<div class="modal fade" id="srp-link-mark-complete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+                <h4 class="modal-title" id="modalLongTitle">{% translate 'Mark Completed' %}</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    {% blocktranslate %}
+                        Are you sure you want to mark this SRP link as completed and
+                        close it for good? Be aware that once it's completed,
+                        your pilots can no longer file SRP requests for
+                        this link / fleet. It is also no longer possible to process
+                        (accept, deny or even remove) any SRP requests from this
+                        SRP link.
+                    {% endblocktranslate %}
+                </p>
+
+                <p class="alert alert-warning">
+                    {% blocktranslate %}
+                        If there are still unprocessed requests with this link,
+                        they will stay unprocessed forever!
+                    {% endblocktranslate %}
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button id="modal-button-cancel" type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class='far fa-hand-paper'></i> {% translate 'Cancel' %}
+                </button>
+                <a href="{% url 'aasrp:complete_srp_link' srp_link.srp_code %}" id="modal-button-confirm" role="button" class="btn btn-success btn-sm">
+                    <i class='fas fa-check'></i> {% translate 'Mark as completed' %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

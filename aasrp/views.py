@@ -463,7 +463,7 @@ def complete_srp_link(request, srp_code: str):
     srp_link.srp_status = AaSrpStatus.COMPLETED
     srp_link.save()
 
-    messages.success(request, _("SRP link closed"))
+    messages.success(request, _("SRP link marked as completed"))
 
     return redirect("aasrp:dashboard")
 

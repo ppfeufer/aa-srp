@@ -239,6 +239,8 @@ $(document).ready(function() {
             var body = button.data('modal-body');
             var modalType = button.data('modal-type');
 
+            console.log(url);
+
             modal.find('.modal-title').text(name);
             modal.find('#modal-button-confirm').addClass(confirmButtonClasses);
             modal.find('#modal-button-confirm').html(confirmButtonText);
