@@ -294,7 +294,7 @@ def request_srp(request, srp_code: str) -> HttpResponse:
 
         messages.error(
             request,
-            _("Unable to locate SRP Fleet using SRP code {srp_code} ").format(
+            _("Unable to locate SRP Fleet using SRP code {srp_code}").format(
                 srp_code=srp_code
             ),
         )
