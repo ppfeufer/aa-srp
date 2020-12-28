@@ -4,7 +4,7 @@
 some helper functions
 so we don't mess up other files too much
 """
-
+from aasrp.models import get_sentinel_user
 from django.contrib.auth.models import User
 
 from allianceauth.eveonline.models import EveCharacter
@@ -43,11 +43,16 @@ def get_formatted_character_name(character: EveCharacter) -> str:
 
 def get_main_for_character(character: EveCharacter) -> EveCharacter:
     """
-    get themain character for a given eve character
+    get the main character for a given eve character
     :param character:
     """
 
-    return character.userprofile.main_character
+    return_value = None
+
+    if character.userprofile:
+        return_value = character.userprofile.main_character
+
+    return return_value
 
 
 def get_user_for_character(character: EveCharacter) -> User:
@@ -57,4 +62,9 @@ def get_user_for_character(character: EveCharacter) -> User:
     :return:
     """
 
-    return character.userprofile.user
+    if character.userprofile is None:
+        return_value = get_sentinel_user()
+    else:
+        return_value = character.userprofile.user
+
+    return return_value
