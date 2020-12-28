@@ -36,19 +36,19 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
 ### Screenshots
 
 #### Dashboard
-![Dashboard](aasrp/images/aa-srp-dashboard.jpg)
+![Dashboard](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-dashboard.jpg)
 
 #### Dashboard (View All)
-![Dashboard (View All)](aasrp/images/aa-srp-dashboard-view-all.jpg)
+![Dashboard (View All)](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-dashboard-view-all.jpg)
 
 #### Your SRP Requests
-![Your SRP Requests](aasrp/images/aa-srp-your-requests.jpg)
+![Your SRP Requests](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-your-requests.jpg)
 
 #### SRP Requests Overview
-![SRP Requests Overview](aasrp/images/aa-srp-requests-overview.jpg)
+![SRP Requests Overview](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-requests-overview.jpg)
 
 #### SRP Request Details
-![SRP Request Details](aasrp/images/aa-srp-request-details.jpg)
+![SRP Request Details](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-request-details.jpg)
 
 
 ## Installation
