@@ -176,6 +176,7 @@ class Command(BaseCommand):
         self.stdout.write(
             "Migrating SRP links and requests from the built-in SRP module."
         )
+
         self.stdout.write(
             self.style.WARNING(
                 "Due to the nature of the built-in modules design, "
@@ -183,6 +184,10 @@ class Command(BaseCommand):
                 "after their migration so they cannot be migrated again and we "
                 "don't end up with duplicates!"
             )
+        )
+
+        self.stdout.write(
+            self.style.ERROR("!!! Make sure you have NO pending SRP requests !!!")
         )
 
         user_input = get_input("Are you sure you want to proceed? (yes/no)?")
