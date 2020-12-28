@@ -10,10 +10,10 @@
         <div class="col-md-3 panel-srp-request-overview-column">
             <div class="panel-srp-request-overview-cell">
                 <dt>{% translate "Requests" %}:</dt>
-                <dd>{% translate "Total" %}: {{ srp_link.total_requests }}</dd>
-                <dd>{% translate "Pending" %}: {{ srp_link.pending_requests }}</dd>
-                <dd>{% translate "Approved" %}: {{ srp_link.approved_requests }}</dd>
-                <dd>{% translate "Rejected" %}: {{ srp_link.rejected_requests }}</dd>
+                <dd>{% translate "Total" %}: <span class="srp-requests-total-count">{{ srp_link.total_requests }}</span></dd>
+                <dd>{% translate "Pending" %}: <span class="srp-requests-pending-count">{{ srp_link.pending_requests }}</span></dd>
+                <dd>{% translate "Approved" %}: <span class="srp-requests-approved-count">{{ srp_link.approved_requests }}</span></dd>
+                <dd>{% translate "Rejected" %}: <span class="srp-requests-rejected-count">{{ srp_link.rejected_requests }}</span></dd>
             </div>
         </div>
 
@@ -27,6 +27,7 @@
                 <dt>{% translate "Fleet Commander" %}</dt>
                 <dd>{{ srp_link.fleet_commander }}</dd>
             </div>
+
             <div class="panel-srp-request-overview-cell">
                 <dt>{% translate "Fleet Time" %}:</dt>
                 <dd>{{ srp_link.fleet_time|date:"Y-m-d H:i" }}</dd>

@@ -66,4 +66,22 @@ urlpatterns = [
         views.ajax_srp_request_change_payout,
         name="ajax_srp_request_change_payout",
     ),
+    url(
+        # change the srp payout amount
+        r"^call/srp-link/(\w+)/srp-request/(\w+)/approve/$",
+        views.ajax_srp_request_approve,
+        name="ajax_srp_request_approve",
+    ),
+    url(
+        # change the srp payout amount
+        r"^call/srp-link/(\w+)/srp-request/(\w+)/deny/$",
+        views.ajax_srp_request_deny,
+        name="ajax_srp_request_deny",
+    ),
+    url(
+        # change the srp payout amount
+        r"^call/srp-link/(\w+)/srp-request/(\w+)/remove/$",
+        views.ajax_srp_request_remove,
+        name="ajax_srp_request_remove",
+    ),
 ]

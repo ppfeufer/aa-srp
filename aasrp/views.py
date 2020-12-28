@@ -3,7 +3,7 @@
 """
 the views
 """
-
+from allianceauth.notifications import notify
 from allianceauth.services.hooks import get_extension_logger
 
 from aasrp import __title__
@@ -21,7 +21,7 @@ from aasrp.form import (
     AaSrpRequestPayoutForm,
 )
 from aasrp.managers import AaSrpManager
-from aasrp.models import AaSrpLink, AaSrpStatus, AaSrpRequest
+from aasrp.models import AaSrpLink, AaSrpRequestStatus, AaSrpStatus, AaSrpRequest
 from aasrp.utils import LoggerAddTag
 
 from django.contrib import messages
@@ -697,7 +697,6 @@ def ajax_srp_request_additional_information(
     request, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
     """
-
     :param request:
     :param srp_code:
     :param srp_request_code:
@@ -729,7 +728,6 @@ def ajax_srp_request_change_payout(
     request, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
     """
-
     :param request:
     :param srp_code:
     :param srp_request_code:
@@ -756,5 +754,124 @@ def ajax_srp_request_change_payout(
                 data.append({"success": False})
         except AaSrpRequest.DoesNotExist:
             data.append({"success": False})
+
+    return JsonResponse(data, safe=False)
+
+
+@login_required
+@permission_required("aasrp.manage_srp")
+def ajax_srp_request_approve(
+    request, srp_code: str, srp_request_code: str
+) -> JsonResponse:
+    """
+    :param request:
+    :param srp_code:
+    :param srp_request_code:
+    """
+
+    data = list()
+
+    try:
+        srp_request = AaSrpRequest.objects.get(
+            request_code=srp_request_code, srp_link__srp_code=srp_code
+        )
+
+        user = srp_request.creator
+        srp_payout = srp_request.payout_amount
+        srp_isk_loss = srp_request.loss_amount
+
+        if srp_payout == 0:
+            srp_request.payout_amount = srp_isk_loss
+
+        srp_request.request_status = AaSrpRequestStatus.APPROVED
+        srp_request.save()
+
+        notify(
+            user=user,
+            title=_("SRP Request Approved"),
+            level="success",
+            message=_(
+                "Your SRP request for a {ship_name} lost during "
+                "{fleet_name} has been approved.".format(
+                    ship_name=srp_request.ship_name,
+                    fleet_name=srp_request.srp_link.srp_name,
+                )
+            ),
+        )
+
+        data.append({"success": True, "message": _("SRP request has been approved")})
+    except AaSrpRequest.DoesNotExist:
+        data.append({"success": False})
+
+    return JsonResponse(data, safe=False)
+
+
+@login_required
+@permission_required("aasrp.manage_srp")
+def ajax_srp_request_deny(
+    request, srp_code: str, srp_request_code: str
+) -> JsonResponse:
+    """
+    :param request:
+    :param srp_code:
+    :param srp_request_code:
+    """
+
+    data = list()
+
+    try:
+        srp_request = AaSrpRequest.objects.get(
+            request_code=srp_request_code, srp_link__srp_code=srp_code
+        )
+
+        user = srp_request.creator
+
+        srp_request.payout_amount = 0
+        srp_request.request_status = AaSrpRequestStatus.REJECTED
+        srp_request.save()
+
+        notify(
+            user=user,
+            title=_("SRP Request Rejected"),
+            level="danger",
+            message=_(
+                "Your SRP request for a {ship_name} lost during "
+                "{fleet_name} has been rejected.".format(
+                    ship_name=srp_request.ship_name,
+                    fleet_name=srp_request.srp_link.srp_name,
+                )
+            ),
+        )
+
+        data.append({"success": True, "message": _("SRP request has been rejected")})
+    except AaSrpRequest.DoesNotExist:
+        data.append({"success": False})
+
+    return JsonResponse(data, safe=False)
+
+
+@login_required
+@permission_required("aasrp.manage_srp")
+def ajax_srp_request_remove(
+    request, srp_code: str, srp_request_code: str
+) -> JsonResponse:
+    """
+    :param request:
+    :param srp_code:
+    :param srp_request_code:
+    """
+
+    data = list()
+
+    try:
+        srp_request = AaSrpRequest.objects.get(
+            request_code=srp_request_code, srp_link__srp_code=srp_code
+        )
+
+        srp_request.delete()
+
+        data.append({"success": True, "message": _("SRP request has been removed")})
+    except AaSrpRequest.DoesNotExist:
+        data.append({"success": False})
 
     return JsonResponse(data, safe=False)
