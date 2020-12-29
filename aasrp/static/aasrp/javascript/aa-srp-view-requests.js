@@ -251,8 +251,8 @@ $(document).ready(function() {
                     success: function(data) {
                         var modalBody = '';
 
-                        // requester
-                        modalBody += '<div class="clearfix modal-srp-details modal-srp-details-requester"><div class="col-sm-6"><p><b>Requester:</b></p><p>' + data.requester + '</p></div><div class="col-sm-6"><p><b>Character:</b></p><p>' + data.character + '</p></div></div>';
+                        // requestor
+                        modalBody += '<div class="clearfix modal-srp-details modal-srp-details-requester"><div class="col-sm-6"><p><b>Requestor:</b></p><p>' + data.requester + '</p></div><div class="col-sm-6"><p><b>Character:</b></p><p>' + data.character + '</p></div></div>';
 
                         // ship and killmail
                         modalBody += '<div class="clearfix modal-srp-details modal-srp-details-ship"><div class="col-sm-6"><p><b>Ship:</b></p><p><a href="' + data.killboard_link + '" target="_blank">' + data.ship_type + '</a></p></div></div>';
