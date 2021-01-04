@@ -33,8 +33,7 @@ from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 from allianceauth.eveonline.models import EveCharacter
-from allianceauth.eveonline.providers import provider
-
+from eveuniverse.models import EveType
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
@@ -134,7 +133,7 @@ def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
             killboard_link = (
                 '<a href="{zkb_link}" target="_blank">{zkb_link_text}</a>'.format(
                     zkb_link=srp_request.killboard_link,
-                    zkb_link_text=srp_request.ship_name,
+                    zkb_link_text=srp_request.ship.name,
                 )
             )
 
@@ -150,8 +149,8 @@ def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
                 "fleet_name": srp_request.srp_link.srp_name,
                 "srp_code": srp_request.srp_link.srp_code,
                 "request_code": srp_request.request_code,
-                "ship_html": {"display": killboard_link, "sort": srp_request.ship_name},
-                "ship": srp_request.ship_name,
+                "ship_html": {"display": killboard_link, "sort": srp_request.ship.name},
+                "ship": srp_request.ship.name,
                 "zkb_link": killboard_link,
                 "zbk_loss_amount": srp_request.loss_amount,
                 "payout_amount": srp_request.payout_amount,
@@ -380,8 +379,11 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                     victim_id
                 )
 
+                srp_request__ship = EveType.objects.get(id=ship_type_id)
+
                 srp_request.character = srp_request__character
-                srp_request.ship_name = provider.get_itemtype(ship_type_id).name
+                srp_request.ship_name = srp_request__ship.name
+                srp_request.ship = srp_request__ship
                 srp_request.loss_amount = ship_value
                 srp_request.post_time = post_time
                 srp_request.request_code = get_random_string(length=16)
@@ -400,7 +402,7 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                 messages.success(
                     request,
                     _("Submitted SRP request for your {ship}.").format(
-                        ship=srp_request.ship_name
+                        ship=srp_request.ship.name
                     ),
                 )
 
@@ -527,7 +529,7 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
             killboard_link = (
                 '<a href="{zkb_link}" target="_blank">{zkb_link_text}</a>'.format(
                     zkb_link=srp_request.killboard_link,
-                    zkb_link_text=srp_request.ship_name,
+                    zkb_link_text=srp_request.ship.name,
                 )
             )
 
@@ -550,8 +552,8 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
                 "character": character,
                 "request_code": srp_request.request_code,
                 "srp_code": srp_request.srp_link.srp_code,
-                "ship_html": {"display": killboard_link, "sort": srp_request.ship_name},
-                "ship": srp_request.ship_name,
+                "ship_html": {"display": killboard_link, "sort": srp_request.ship.name},
+                "ship": srp_request.ship.name,
                 "zkb_link": killboard_link,
                 "zbk_loss_amount": srp_request.loss_amount,
                 "payout_amount": srp_request.payout_amount,
@@ -713,7 +715,7 @@ def ajax_srp_request_additional_information(
 
     data = {
         "killboard_link": srp_request.killboard_link,
-        "ship_type": srp_request.ship_name,
+        "ship_type": srp_request.ship.name,
         "request_time": srp_request.post_time,
         "requester": requester,
         "character": character,
@@ -794,7 +796,7 @@ def ajax_srp_request_approve(
             message=_(
                 "Your SRP request for a {ship_name} lost during "
                 "{fleet_name} has been approved.".format(
-                    ship_name=srp_request.ship_name,
+                    ship_name=srp_request.ship.name,
                     fleet_name=srp_request.srp_link.srp_name,
                 )
             ),
@@ -838,7 +840,7 @@ def ajax_srp_request_deny(
             message=_(
                 "Your SRP request for a {ship_name} lost during "
                 "{fleet_name} has been rejected.".format(
-                    ship_name=srp_request.ship_name,
+                    ship_name=srp_request.ship.name,
                     fleet_name=srp_request.srp_link.srp_name,
                 )
             ),

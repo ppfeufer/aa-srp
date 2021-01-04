@@ -11,6 +11,7 @@ from aasrp.helper.character import get_user_for_character
 from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpStatus, AaSrpRequestStatus
 
 from allianceauth.srp.models import SrpFleetMain
+from eveuniverse.models import EveType
 
 
 def get_input(text):
@@ -124,7 +125,10 @@ class Command(BaseCommand):
                         )
                         srp_userrequest_payout = srp_userrequest.srp_total_amount
                         srp_userrequest_loss_amount = srp_userrequest.kb_total_loss
-                        srp_userrequest_ship_name = srp_userrequest.srp_ship_name
+                        srp_userrequest_ship = EveType.objects.get(
+                            name=srp_userrequest.srp_ship_name
+                        )
+                        # srp_userrequest_ship_name = srp_userrequest_ship.name
                         srp_userrequest_post_time = srp_userrequest.post_time
                         srp_userrequest_request_code = get_random_string(length=16)
                         srp_userrequest_character = srp_userrequest.character
@@ -153,7 +157,8 @@ class Command(BaseCommand):
                             srp_request.request_status = srp_userrequest_status
                             srp_request.payout_amount = srp_userrequest_payout
                             srp_request.loss_amount = srp_userrequest_loss_amount
-                            srp_request.ship_name = srp_userrequest_ship_name
+                            srp_request.ship = srp_userrequest_ship
+                            # srp_request.ship_name = srp_userrequest_ship_name
                             srp_request.post_time = srp_userrequest_post_time
                             srp_request.request_code = srp_userrequest_request_code
                             srp_request.character = srp_userrequest_character

@@ -7,9 +7,10 @@ Our Models
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _
 
 from allianceauth.eveonline.models import EveCharacter
+from eveuniverse.models import EveType
 
 
 def get_sentinel_user():
@@ -85,7 +86,12 @@ class AaSrpLink(models.Model):
     )
     srp_code = models.CharField(max_length=16, default="")
     fleet_commander = models.ForeignKey(
-        EveCharacter, null=True, on_delete=models.SET_NULL
+        EveCharacter,
+        related_name="+",
+        null=True,
+        blank=True,
+        default=None,
+        on_delete=models.SET_NULL,
     )
     fleet_doctrine = models.CharField(max_length=254, default="")
     fleet_time = models.DateTimeField()
@@ -93,7 +99,10 @@ class AaSrpLink(models.Model):
 
     creator = models.ForeignKey(
         User,
+        related_name="+",
         null=True,
+        blank=True,
+        default=None,
         on_delete=models.SET(get_sentinel_user),
         help_text=_("Who created the SRP link?"),
     )
@@ -179,12 +188,23 @@ class AaSrpRequest(models.Model):
     request_code = models.CharField(max_length=254, default="")
     creator = models.ForeignKey(
         User,
+        related_name="+",
         null=True,
+        blank=True,
+        default=None,
         on_delete=models.SET(get_sentinel_user),
         help_text=_("Who created the SRP link?"),
     )
     character = models.ForeignKey(EveCharacter, null=True, on_delete=models.SET_NULL)
     ship_name = models.CharField(max_length=254, default="")
+    ship = models.ForeignKey(
+        EveType,
+        related_name="+",
+        null=True,
+        blank=True,
+        default=None,
+        on_delete=models.SET_NULL,
+    )
     killboard_link = models.CharField(max_length=254, default="")
     additional_info = models.TextField(blank=True, default="")
     request_status = models.CharField(
@@ -203,7 +223,7 @@ class AaSrpRequest(models.Model):
             "for: {ship} ({request_code})".format(
                 character_name=self.character.character_name,
                 user_name=self.creator.profile.main_character.character_name,
-                ship=self.ship_name,
+                ship=self.ship.name,
                 request_code=self.request_code,
             )
         )
@@ -231,8 +251,23 @@ class AaSrpRequestComment(models.Model):
         default=AaSrpRequestCommentType.COMMENT,
     )
 
-    creator = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
-    srp_request = models.ForeignKey(AaSrpRequest, on_delete=models.CASCADE)
+    creator = models.ForeignKey(
+        User,
+        related_name="+",
+        null=True,
+        blank=True,
+        default=None,
+        on_delete=models.SET(get_sentinel_user),
+    )
+
+    srp_request = models.ForeignKey(
+        AaSrpRequest,
+        related_name="+",
+        null=True,
+        blank=True,
+        default=None,
+        on_delete=models.CASCADE,
+    )
 
     class Meta:
         """
