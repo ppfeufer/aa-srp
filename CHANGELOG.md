@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.1.0-beta.6] - 2021-01-05
+
+### Added
+
+- character portraits and ship icons
+
+
 ## [0.1.0-beta.5] - 2021-01-05
 
 ### Changed
