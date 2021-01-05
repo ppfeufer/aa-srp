@@ -252,13 +252,20 @@ $(document).ready(function() {
                         var modalBody = '';
 
                         // requestor
-                        modalBody += '<div class="clearfix modal-srp-details modal-srp-details-requester"><div class="col-sm-6"><p><b>Requestor:</b></p><p>' + data.requester + '</p></div><div class="col-sm-6"><p><b>Character:</b></p><p>' + data.character + '</p></div></div>';
+                        modalBody += '<div class="clearfix modal-srp-details modal-srp-details-requester">' +
+                            '<div class="col-sm-6"><p><b>Requestor:</b></p><p>' + data.requester + '</p></div>' +
+                            '<div class="col-sm-6"><p><b>Character:</b></p><p>' + data.character + '</p></div>' +
+                            '</div>';
 
                         // ship and killmail
-                        modalBody += '<div class="clearfix modal-srp-details modal-srp-details-ship"><div class="col-sm-6"><p><b>Ship:</b></p><p><a href="' + data.killboard_link + '" target="_blank">' + data.ship_type + '</a></p></div></div>';
+                        modalBody += '<div class="clearfix modal-srp-details modal-srp-details-ship">' +
+                            '<div class="col-sm-12"><p><b>Ship:</b></p><p>' + data.killboard_link + '</p></div>' +
+                            '</div>';
 
                         // additional info
-                        modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information"><div class="col-sm-12"><p><b>Additional Information:</b></p><p>' + data.additional_info + '</p></div></div>';
+                        modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +
+                            '<div class="col-sm-12"><p><b>Additional Information:</b></p><p>' + data.additional_info + '</p></div>' +
+                            '</div>';
 
                         // add to modal body
                         modal.find('.modal-body').html(modalBody);

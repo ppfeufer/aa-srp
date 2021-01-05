@@ -52,6 +52,14 @@
     .modal-srp-details {
         margin-bottom: 2rem;
     }
+
+    .aasrp-character-portrait, .aasrp-ship-icon {
+        margin-right: 0.5rem;
+    }
+
+    .aa-srp .table-vertical-middle td {
+        vertical-align: middle;
+    }
 }
 
 @media all and (min-width: 992px) {

@@ -3,6 +3,7 @@
 """
 the views
 """
+from allianceauth.eveonline.evelinks.eveimageserver import type_render_url
 from allianceauth.notifications import notify
 from allianceauth.services.hooks import get_extension_logger
 
@@ -130,17 +131,25 @@ def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
     for srp_request in requests:
         killboard_link = ""
         if srp_request.killboard_link:
+            ship_render = type_render_url(type_id=srp_request.ship.id)
+
             killboard_link = (
-                '<a href="{zkb_link}" target="_blank">{zkb_link_text}</a>'.format(
+                '<a href="{zkb_link}" target="_blank">'
+                '<img class="aasrp-ship-icon" src="{ship_render}" alt="{zkb_link_text}">'
+                "<span>{zkb_link_text}</span>"
+                "</a>".format(
                     zkb_link=srp_request.killboard_link,
                     zkb_link_text=srp_request.ship.name,
+                    ship_render=ship_render,
                 )
             )
 
         srp_request_status_icon = get_srp_request_status_icon(
             request=request, srp_request=srp_request
         )
-        character = get_formatted_character_name(character=srp_request.character)
+        character = get_formatted_character_name(
+            character=srp_request.character, with_portrait=True
+        )
 
         data.append(
             {
@@ -523,16 +532,21 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
     data = list()
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
-    # srp_requests = AaSrpRequest.objects.filter(srp_link_id__srp_code=srp_code)
     srp_requests = srp_link.requests
 
     for srp_request in srp_requests:
         killboard_link = ""
         if srp_request.killboard_link:
+            ship_render = type_render_url(type_id=srp_request.ship.id)
+
             killboard_link = (
-                '<a href="{zkb_link}" target="_blank">{zkb_link_text}</a>'.format(
+                '<a href="{zkb_link}" target="_blank">'
+                '<img class="aasrp-ship-icon" src="{ship_render}" alt="{zkb_link_text}">'
+                "<span>{zkb_link_text}</span>"
+                "</a>".format(
                     zkb_link=srp_request.killboard_link,
                     zkb_link_text=srp_request.ship.name,
+                    ship_render=ship_render,
                 )
             )
 
@@ -546,7 +560,9 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
         srp_request_action_icons = get_srp_request_action_icons(
             request=request, srp_link=srp_link, srp_request=srp_request
         )
-        character = get_formatted_character_name(character=srp_request.character)
+        character = get_formatted_character_name(
+            character=srp_request.character, with_portrait=True
+        )
 
         data.append(
             {
@@ -714,10 +730,29 @@ def ajax_srp_request_additional_information(
     if srp_request.creator.profile.main_character is not None:
         requester = srp_request.creator.profile.main_character.character_name
 
-    character = get_formatted_character_name(character=srp_request.character)
+    character = get_formatted_character_name(
+        character=srp_request.character,
+        with_portrait=True,
+    )
+
+    killboard_link = ""
+    if srp_request.killboard_link:
+        ship_render = type_render_url(type_id=srp_request.ship.id)
+
+        killboard_link = (
+            '<a href="{zkb_link}" target="_blank">'
+            '<img class="aasrp-ship-icon" src="{ship_render}" alt="{zkb_link_text}">'
+            "<span>{zkb_link_text}</span>"
+            "</a>".format(
+                zkb_link=srp_request.killboard_link,
+                zkb_link_text=srp_request.ship.name,
+                ship_render=ship_render,
+            )
+        )
 
     data = {
-        "killboard_link": srp_request.killboard_link,
+        # "killboard_link": srp_request.killboard_link,
+        "killboard_link": killboard_link,
         "ship_type": srp_request.ship.name,
         "request_time": srp_request.post_time,
         "requester": requester,
