@@ -1,7 +1,7 @@
 # AA-SRP
 
 [![Version](https://img.shields.io/pypi/v/aa-srp?label=release)](https://pypi.org/project/aa-srp/)
-[![License](https://img.shields.io/badge/license-GPLv3-green)](https://pypi.org/project/aa-srp/)
+[![License](https://img.shields.io/github/license/ppfeufer/aa-srp)](https://github.com/ppfeufer/aa-srp/blob/master/LICENSE)
 [![Python](https://img.shields.io/pypi/pyversions/aa-srp)](https://pypi.org/project/aa-srp/)
 [![Django](https://img.shields.io/pypi/djversions/aa-srp?label=django)](https://pypi.org/project/aa-srp/)
 [![Code Style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](http://black.readthedocs.io/en/latest/)
