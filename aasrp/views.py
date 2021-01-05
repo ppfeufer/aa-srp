@@ -379,7 +379,10 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                     victim_id
                 )
 
-                srp_request__ship = EveType.objects.get(id=ship_type_id)
+                (
+                    srp_request__ship,
+                    created_from_esi,
+                ) = EveType.objects.get_or_create_esi(id=ship_type_id)
 
                 srp_request.character = srp_request__character
                 srp_request.ship_name = srp_request__ship.name

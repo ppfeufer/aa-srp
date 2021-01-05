@@ -3,7 +3,7 @@
 """
 Migrate srp data from the built-in SRP module
 """
-
+from aasrp.managers import AaSrpManager
 from django.core.management.base import BaseCommand
 
 from aasrp.models import AaSrpRequest
@@ -44,9 +44,21 @@ class Command(BaseCommand):
                 )
             )
 
-            eve_type = EveType.objects.get(name=srp_request.ship_name)
+            try:
+                srp_request__ship = EveType.objects.get(name=srp_request.ship_name)
+            except EveType.DoesNotExist:
+                srp_kill_link = AaSrpManager.get_kill_id(srp_request.killboard_link)
 
-            srp_request.ship = eve_type
+                (ship_type_id, ship_value, victim_id) = AaSrpManager.get_kill_data(
+                    srp_kill_link
+                )
+
+                (
+                    srp_request__ship,
+                    created_from_esi,
+                ) = EveType.objects.get_or_create_esi(id=ship_type_id)
+
+            srp_request.ship = srp_request__ship
             srp_request.save()
 
     def handle(self, *args, **options):
