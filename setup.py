@@ -19,7 +19,10 @@ with open(os.path.join(this_directory, "README.md"), encoding="utf-8") as f:
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
-install_requires = ["allianceauth>=2.8.0"]
+install_requires = [
+    "allianceauth>=2.8.0",
+    "django-eveuniverse>=0.7.6",
+]
 
 setup(
     name="aa-srp",

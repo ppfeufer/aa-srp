@@ -3,7 +3,7 @@
 """
 Migrate srp data from the built-in SRP module
 """
-
+from aasrp.managers import AaSrpManager
 from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
 
@@ -11,6 +11,7 @@ from aasrp.helper.character import get_user_for_character
 from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpStatus, AaSrpRequestStatus
 
 from allianceauth.srp.models import SrpFleetMain
+from eveuniverse.models import EveType
 
 
 def get_input(text):
@@ -119,23 +120,6 @@ class Command(BaseCommand):
 
                     if srp_userrequest_creator is not None:
                         srp_userrequest_killboard_link = srp_userrequest.killboard_link
-                        srp_userrequest_additional_info = (
-                            srp_userrequest.additional_info
-                        )
-                        srp_userrequest_payout = srp_userrequest.srp_total_amount
-                        srp_userrequest_loss_amount = srp_userrequest.kb_total_loss
-                        srp_userrequest_ship_name = srp_userrequest.srp_ship_name
-                        srp_userrequest_post_time = srp_userrequest.post_time
-                        srp_userrequest_request_code = get_random_string(length=16)
-                        srp_userrequest_character = srp_userrequest.character
-                        srp_userrequest_srp_link = srp_link
-
-                        srp_userrequest_status = AaSrpRequestStatus.PENDING
-                        if srp_userrequest.srp_status == "Approved":
-                            srp_userrequest_status = AaSrpRequestStatus.APPROVED
-
-                        if srp_userrequest.srp_status == "Rejected":
-                            srp_userrequest_status = AaSrpRequestStatus.REJECTED
 
                         try:
                             AaSrpRequest.objects.get(
@@ -144,6 +128,45 @@ class Command(BaseCommand):
 
                             srp_requests_skipped += 1
                         except AaSrpRequest.DoesNotExist:
+                            srp_userrequest_additional_info = (
+                                srp_userrequest.additional_info
+                            )
+                            srp_userrequest_payout = srp_userrequest.srp_total_amount
+                            srp_userrequest_loss_amount = srp_userrequest.kb_total_loss
+
+                            try:
+                                srp_userrequest_ship = EveType.objects.get(
+                                    name=srp_userrequest.srp_ship_name
+                                )
+                            except EveType.DoesNotExist:
+                                srp_kill_link = AaSrpManager.get_kill_id(
+                                    srp_userrequest_killboard_link
+                                )
+
+                                (
+                                    ship_type_id,
+                                    ship_value,
+                                    victim_id,
+                                ) = AaSrpManager.get_kill_data(srp_kill_link)
+
+                                (
+                                    srp_userrequest_ship,
+                                    created_from_esi,
+                                ) = EveType.objects.get_or_create_esi(id=ship_type_id)
+
+                            # srp_userrequest_ship_name = srp_userrequest_ship.name
+                            srp_userrequest_post_time = srp_userrequest.post_time
+                            srp_userrequest_request_code = get_random_string(length=16)
+                            srp_userrequest_character = srp_userrequest.character
+                            srp_userrequest_srp_link = srp_link
+
+                            srp_userrequest_status = AaSrpRequestStatus.PENDING
+                            if srp_userrequest.srp_status == "Approved":
+                                srp_userrequest_status = AaSrpRequestStatus.APPROVED
+
+                            if srp_userrequest.srp_status == "Rejected":
+                                srp_userrequest_status = AaSrpRequestStatus.REJECTED
+
                             srp_request = AaSrpRequest()
 
                             srp_request.killboard_link = srp_userrequest_killboard_link
@@ -153,7 +176,8 @@ class Command(BaseCommand):
                             srp_request.request_status = srp_userrequest_status
                             srp_request.payout_amount = srp_userrequest_payout
                             srp_request.loss_amount = srp_userrequest_loss_amount
-                            srp_request.ship_name = srp_userrequest_ship_name
+                            srp_request.ship = srp_userrequest_ship
+                            # srp_request.ship_name = srp_userrequest_ship_name
                             srp_request.post_time = srp_userrequest_post_time
                             srp_request.request_code = srp_userrequest_request_code
                             srp_request.character = srp_userrequest_character
