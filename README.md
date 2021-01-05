@@ -4,10 +4,12 @@
 [![License](https://img.shields.io/github/license/ppfeufer/aa-srp)](https://github.com/ppfeufer/aa-srp/blob/master/LICENSE)
 [![Python](https://img.shields.io/pypi/pyversions/aa-srp)](https://pypi.org/project/aa-srp/)
 [![Django](https://img.shields.io/pypi/djversions/aa-srp?label=django)](https://pypi.org/project/aa-srp/)
+![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)
 [![Code Style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](http://black.readthedocs.io/en/latest/)
 [![Discord](https://img.shields.io/discord/790364535294132234?label=discord)](https://discord.gg/zmh52wnfvM)
 
 SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
+
 
 ## Contents
 
@@ -23,6 +25,7 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
     - [Step 5 - Set up permissions](#step-6---set-up-permissions)
 - [Permissions](#permissions)
 - [Changelog](#changelog)
+
 
 ## Overview
 
@@ -40,14 +43,18 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
 #### Dashboard
 ![Dashboard](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-dashboard.jpg)
 
+
 #### Dashboard (View All)
 ![Dashboard (View All)](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-dashboard-view-all.jpg)
+
 
 #### Your SRP Requests
 ![Your SRP Requests](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-your-requests.jpg)
 
+
 #### SRP Requests Overview
 ![SRP Requests Overview](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-requests-overview.jpg)
+
 
 #### SRP Request Details
 ![SRP Request Details](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-request-details.jpg)
