@@ -26,7 +26,11 @@ $(document).ready(function() {
                 className: 'srp-request-requester'
             },
             {
-                data: 'character',
+                data: 'character_html',
+                render: {
+                    display: 'display',
+                    _: 'sort'
+                },
                 className: 'srp-request-character'
             },
             {
@@ -96,6 +100,7 @@ $(document).ready(function() {
              */
             {data: 'ship'},
             {data: 'request_status'},
+            {data: 'character'},
         ],
         columnDefs: [
             {
@@ -104,21 +109,24 @@ $(document).ready(function() {
             },
             {
                 visible: false,
-                targets: [9, 10]
+                targets: [9, 10, 11]
             },
             {
                 width: 115,
                 targets: [8]
             }
         ],
-        order: [[0, 'asc']],
+        order: [
+            [0, 'asc']
+        ],
         filterDropDown: {
             columns: [
                 {
                     idx: 1,
                 },
                 {
-                    idx: 2,
+                    idx: 11,
+                    title: aaSrpSettings.translation.filterCharacter
                 },
                 {
                     idx: 9,

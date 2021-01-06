@@ -3,6 +3,7 @@
 """
 the views
 """
+from aasrp.helper.eve_images import get_type_render_url_from_type_id
 from allianceauth.eveonline.evelinks.eveimageserver import type_render_url
 from allianceauth.notifications import notify
 from allianceauth.services.hooks import get_extension_logger
@@ -131,30 +132,40 @@ def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
     for srp_request in requests:
         killboard_link = ""
         if srp_request.killboard_link:
-            ship_render = type_render_url(type_id=srp_request.ship.id)
+            ship_render_icon_html = get_type_render_url_from_type_id(
+                evetype_id=srp_request.ship.id,
+                evetype_name=srp_request.ship.name,
+                size=32,
+                as_html=True,
+            )
 
             killboard_link = (
                 '<a href="{zkb_link}" target="_blank">'
-                '<img class="aasrp-ship-icon" src="{ship_render}" alt="{zkb_link_text}">'
+                "{ship_render_icon_html}"
                 "<span>{zkb_link_text}</span>"
                 "</a>".format(
                     zkb_link=srp_request.killboard_link,
                     zkb_link_text=srp_request.ship.name,
-                    ship_render=ship_render,
+                    ship_render_icon_html=ship_render_icon_html,
                 )
             )
 
         srp_request_status_icon = get_srp_request_status_icon(
             request=request, srp_request=srp_request
         )
-        character = get_formatted_character_name(
+        character_display = get_formatted_character_name(
             character=srp_request.character, with_portrait=True
         )
+        character_sort = get_formatted_character_name(character=srp_request.character)
 
         data.append(
             {
                 "request_time": srp_request.post_time.replace(tzinfo=None),
-                "character": character,
+                "character_html": {
+                    "display": character_display,
+                    "sort": character_sort,
+                },
+                "character": character_sort,
                 "fleet_name": srp_request.srp_link.srp_name,
                 "srp_code": srp_request.srp_link.srp_code,
                 "request_code": srp_request.request_code,
@@ -537,16 +548,21 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
     for srp_request in srp_requests:
         killboard_link = ""
         if srp_request.killboard_link:
-            ship_render = type_render_url(type_id=srp_request.ship.id)
+            ship_render_icon_html = get_type_render_url_from_type_id(
+                evetype_id=srp_request.ship.id,
+                evetype_name=srp_request.ship.name,
+                size=32,
+                as_html=True,
+            )
 
             killboard_link = (
                 '<a href="{zkb_link}" target="_blank">'
-                '<img class="aasrp-ship-icon" src="{ship_render}" alt="{zkb_link_text}">'
+                "{ship_render_icon_html}"
                 "<span>{zkb_link_text}</span>"
                 "</a>".format(
                     zkb_link=srp_request.killboard_link,
                     zkb_link_text=srp_request.ship.name,
-                    ship_render=ship_render,
+                    ship_render_icon_html=ship_render_icon_html,
                 )
             )
 
@@ -560,15 +576,20 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
         srp_request_action_icons = get_srp_request_action_icons(
             request=request, srp_link=srp_link, srp_request=srp_request
         )
-        character = get_formatted_character_name(
+        character_display = get_formatted_character_name(
             character=srp_request.character, with_portrait=True
         )
+        character_sort = get_formatted_character_name(character=srp_request.character)
 
         data.append(
             {
                 "request_time": srp_request.post_time.replace(tzinfo=None),
                 "requester": requester,
-                "character": character,
+                "character_html": {
+                    "display": character_display,
+                    "sort": character_sort,
+                },
+                "character": character_sort,
                 "request_code": srp_request.request_code,
                 "srp_code": srp_request.srp_link.srp_code,
                 "ship_html": {"display": killboard_link, "sort": srp_request.ship.name},

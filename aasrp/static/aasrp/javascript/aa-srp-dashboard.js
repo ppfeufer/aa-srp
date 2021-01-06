@@ -130,7 +130,11 @@ $(document).ready(function() {
                 className: 'srp-request-time'
             },
             {
-                data: 'character',
+                data: 'character_html',
+                render: {
+                    display: 'display',
+                    _: 'sort'
+                },
                 className: 'srp-request-character'
             },
             {
@@ -201,6 +205,7 @@ $(document).ready(function() {
             // hidden columns
             {data: 'request_status'},
             {data: 'ship'},
+            {data: 'character'},
         ],
         columnDefs: [
             {
@@ -209,14 +214,17 @@ $(document).ready(function() {
             },
             {
                 visible: false,
-                targets: [9, 10]
+                targets: [9, 10, 11]
             }
         ],
-        order: [[0, 'desc']],
+        order: [
+            [0, 'desc']
+        ],
         filterDropDown: {
             columns: [
                 {
-                    idx: 1,
+                    idx: 11,
+                    title: aaSrpSettings.translation.filterCharacter
                 },
                 {
                     idx: 10,

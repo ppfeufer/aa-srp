@@ -4,12 +4,11 @@
 some helper functions
 so we don't mess up other files too much
 """
-
+from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
 from aasrp.models import get_sentinel_user
 
 from django.contrib.auth.models import User
 
-from allianceauth.eveonline.evelinks.eveimageserver import character_portrait_url
 from allianceauth.eveonline.models import EveCharacter
 
 
@@ -56,16 +55,15 @@ def get_formatted_character_name(
         if inline is True:
             line_break = "<br>"
 
+        character_portrait_html = get_character_portrait_from_evecharacter(
+            character=character, size=32, as_html=True
+        )
+
         return_value = (
-            '<img class="aasrp-character-portrait" '
-            'src="{character_portrait_url}" alt="{character_name}">'
-            "{line_break}"
+            "{character_portrait}{line_break}"
             "<span>{character_name_formatted}</span>".format(
-                character_portrait_url=character_portrait_url(
-                    character_id=character.character_id, size=portrait_size
-                ),
+                character_portrait=character_portrait_html,
                 line_break=line_break,
-                character_name=character_name,
                 character_name_formatted=character_name_formatted,
             )
         )
