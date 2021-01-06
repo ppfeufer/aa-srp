@@ -53,13 +53,19 @@ class AaSrpRequestForm(ModelForm):
     """
 
     killboard_link = forms.CharField(
-        label=_("zKillboard Link"), max_length=254, required=True
+        label=_("zKillboard Link"),
+        max_length=254,
+        required=True,
+        help_text="Find your kill mail on https://zkillboard.com and paste the lnk here.",
     )
 
     additional_info = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
         label=_("Additional Info"),
+        help_text="Please tell us about the circumstances of your untimely demise. "
+        "Who was the FC, what doctrine was called, have changes to the fit "
+        "been requested and so on. Be as detailed as you can.",
     )
 
     class Meta:  # pylint: disable=too-few-public-methods

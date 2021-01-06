@@ -72,6 +72,10 @@
     .aa-srp .table-vertical-middle td {
         vertical-align: middle;
     }
+
+    .aa-srp .text-aasrp-form-description {
+        font-weight: 400;
+    }
 }
 
 @media all and (min-width: 992px) {

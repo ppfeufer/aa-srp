@@ -13,9 +13,16 @@
 {% for field in form %}
     <div class="form-group aasrp-form-group clearfix">
         <label class="form-label aasrp-form-label{% if field.field.required %} field-required{% endif %}" for="{{ field.id_for_label }}">
-            <span class="aasrp-form-label-text">
+            <span class="text-aasrp-form-label">
                 {{ field.label }}
             </span>
+
+            {% if field.help_text %}
+                <br>
+                <span class="text-aasrp-form-description text-muted">
+                    {{ field.help_text }}
+                </span>
+            {% endif %}
 
             {% if field.field.widget.input_type %}
                 <input
