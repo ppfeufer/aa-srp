@@ -3,10 +3,12 @@
 """
 Migrate srp data from the built-in SRP module
 """
-from aasrp.managers import AaSrpManager
+
 from django.core.management.base import BaseCommand
 
+from aasrp.managers import AaSrpManager
 from aasrp.models import AaSrpRequest
+
 from eveuniverse.models import EveType
 
 

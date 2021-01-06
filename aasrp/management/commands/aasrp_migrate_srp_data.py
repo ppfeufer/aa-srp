@@ -3,15 +3,17 @@
 """
 Migrate srp data from the built-in SRP module
 """
-from aasrp.managers import AaSrpManager
-from django.core.management.base import BaseCommand
-from django.utils.crypto import get_random_string
 
+from eveuniverse.models import EveType
+
+from aasrp.managers import AaSrpManager
 from aasrp.helper.character import get_user_for_character
 from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpStatus, AaSrpRequestStatus
 
+from django.core.management.base import BaseCommand
+from django.utils.crypto import get_random_string
+
 from allianceauth.srp.models import SrpFleetMain
-from eveuniverse.models import EveType
 
 
 def get_input(text):

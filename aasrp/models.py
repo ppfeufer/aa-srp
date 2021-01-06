@@ -9,8 +9,9 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
-from allianceauth.eveonline.models import EveCharacter
 from eveuniverse.models import EveType
+
+from allianceauth.eveonline.models import EveCharacter
 
 
 def get_sentinel_user():
