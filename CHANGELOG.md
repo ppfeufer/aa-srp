@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [0.1.0-beta.8] - 2021-01-06
+
+### Fixed
+
+- Filter dropdowns for character again -.-
+
+
 ## [0.1.0-beta.7] - 2021-01-06
 
 ### Fixed
@@ -19,7 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ### Added
 
-- character portraits and ship icons
+- Character portraits and ship icons
 
 
 ## [0.1.0-beta.5] - 2021-01-05
