@@ -16,7 +16,7 @@ def get_formatted_character_name(
     character: EveCharacter,
     with_portrait: bool = False,
     portrait_size: int = 32,
-    inline: bool = False,
+    inline: bool = True,
 ) -> str:
     """
     get character name with alliance and corp ticker
@@ -41,7 +41,8 @@ def get_formatted_character_name(
         )
 
     character_name_formatted = (
-        "{alliance_ticker}{corporation_ticker}{character_name}".format(
+        "<small class='text-muted'>{alliance_ticker}{corporation_ticker}</small>"
+        "<br>{character_name}".format(
             alliance_ticker=character__alliance_ticker,
             corporation_ticker=character__corporation_ticker,
             character_name=character_name,
@@ -52,16 +53,18 @@ def get_formatted_character_name(
 
     if with_portrait is True:
         line_break = ""
-        if inline is True:
+        if inline is False:
             line_break = "<br>"
 
         character_portrait_html = get_character_portrait_from_evecharacter(
-            character=character, size=32, as_html=True
+            character=character, size=portrait_size, as_html=True
         )
 
         return_value = (
             "{character_portrait}{line_break}"
-            "<span>{character_name_formatted}</span>".format(
+            "<span class='aasrp-character-portrait-character-name'>"
+            "{character_name_formatted}"
+            "</span>".format(
                 character_portrait=character_portrait_html,
                 line_break=line_break,
                 character_name_formatted=character_name_formatted,

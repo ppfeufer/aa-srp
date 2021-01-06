@@ -57,6 +57,18 @@
         margin-right: 0.5rem;
     }
 
+    .aasrp-character-portrait {
+        vertical-align: baseline;
+    }
+
+    .aasrp-character-portrait-character-name {
+        display: inline-block;
+    }
+
+    .aasrp-character-portrait-character-name small {
+        font-size: 80%;
+    }
+
     .aa-srp .table-vertical-middle td {
         vertical-align: middle;
     }
