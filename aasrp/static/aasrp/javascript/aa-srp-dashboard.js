@@ -105,7 +105,9 @@ $(document).ready(function() {
             $(row).attr('data-srp-request-code', data.srp_code);
 
             totalSrpAmount += parseInt(data.srp_costs);
-            $('.srp-dashboard-total-isk-cost-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
+            $('.srp-dashboard-total-isk-cost-amount').html(
+                totalSrpAmount.toLocaleString() + ' ISK'
+            );
         },
     });
 
@@ -251,7 +253,9 @@ $(document).ready(function() {
             $(row).attr('data-srp-request-code', data.request_code);
 
             userSrpAmount += parseInt(data.payout_amount);
-            $('.srp-dashboard-user-isk-cost-amount').html(userSrpAmount.toLocaleString() + ' ISK');
+            $('.srp-dashboard-user-isk-cost-amount').html(
+                userSrpAmount.toLocaleString() + ' ISK'
+            );
         },
     });
 });
