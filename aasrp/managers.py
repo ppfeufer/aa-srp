@@ -26,7 +26,7 @@ class AaSrpManager:
     """
 
     @staticmethod
-    def get_kill_id(killboard_link):
+    def get_kill_id(killboard_link: str):
         """
         get killmail ID from zKillboard link
         :param killboard_link:
@@ -39,7 +39,7 @@ class AaSrpManager:
         return kill_id
 
     @staticmethod
-    def get_kill_data(kill_id):
+    def get_kill_data(kill_id: str):
         """
         get kill data from zKillboard
         :param kill_id:

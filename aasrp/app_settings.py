@@ -14,7 +14,7 @@ from aasrp.utils import clean_setting
 AVOID_CDN = clean_setting("AVOID_CDN", False)
 
 
-def get_site_url():  # regex sso url
+def get_site_url() -> str:  # regex sso url
     """
     get the site url
     :return: string

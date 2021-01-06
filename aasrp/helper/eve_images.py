@@ -16,6 +16,7 @@ def get_character_portrait_from_evecharacter(
 ) -> str:
     """
     get the character portrait from EveCharacter model
+    :param size:
     :param character:
     :param portrait_size:
     :param as_html:

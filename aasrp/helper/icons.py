@@ -8,6 +8,7 @@ so we don't mess up other files too much
 from aasrp.models import AaSrpRequestStatus, AaSrpLink, AaSrpRequest, AaSrpStatus
 
 from django.contrib.auth.decorators import login_required, permission_required
+from django.core.handlers.wsgi import WSGIRequest
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -16,7 +17,7 @@ from django.utils.translation import gettext_lazy as _
 @permission_required(
     "aasrp.basic_access", "aasrp.manage_srp_requests", "aasrp.manage_srp"
 )
-def get_dashboard_action_icons(request, srp_link: AaSrpLink) -> str:
+def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str:
     """
     getting the action buttons for the dashboard view
     :param request:
@@ -136,7 +137,7 @@ def get_dashboard_action_icons(request, srp_link: AaSrpLink) -> str:
 
 @login_required
 @permission_required("aasrp.basic_access")
-def get_srp_request_status_icon(request, srp_request: AaSrpRequest) -> str:
+def get_srp_request_status_icon(request: WSGIRequest, srp_request: AaSrpRequest) -> str:
     """
     get status icon for srp request
     :param request:
@@ -181,7 +182,7 @@ def get_srp_request_status_icon(request, srp_request: AaSrpRequest) -> str:
 @login_required
 @permission_required("aasrp.manage_srp_requests", "aasrp.manage_srp")
 def get_srp_request_action_icons(
-    request, srp_link: AaSrpLink, srp_request: AaSrpRequest
+    request: WSGIRequest, srp_link: AaSrpLink, srp_request: AaSrpRequest
 ) -> str:
     """
     get action icons for srp requests

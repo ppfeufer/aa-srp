@@ -4,6 +4,7 @@
 some helper functions
 so we don't mess up other files too much
 """
+
 from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
 from aasrp.models import get_sentinel_user
 
