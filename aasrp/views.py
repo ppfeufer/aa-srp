@@ -3,11 +3,16 @@
 """
 the views
 """
-from aasrp.helper.eve_images import get_type_render_url_from_type_id
-from allianceauth.eveonline.evelinks.eveimageserver import type_render_url
-from allianceauth.notifications import notify
-from allianceauth.services.hooks import get_extension_logger
 
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from django.utils.crypto import get_random_string
+from django.utils.translation import gettext_lazy as _
+
+from aasrp.helper.eve_images import get_type_render_url_from_type_id
 from aasrp import __title__
 from aasrp.app_settings import avoid_cdn
 from aasrp.helper.character import get_formatted_character_name
@@ -26,16 +31,11 @@ from aasrp.managers import AaSrpManager
 from aasrp.models import AaSrpLink, AaSrpRequestStatus, AaSrpStatus, AaSrpRequest
 from aasrp.utils import LoggerAddTag
 
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render, redirect
-from django.utils import timezone
-from django.utils.crypto import get_random_string
-from django.utils.translation import gettext_lazy as _
+from eveuniverse.models import EveType
 
 from allianceauth.eveonline.models import EveCharacter
-from eveuniverse.models import EveType
+from allianceauth.notifications import notify
+from allianceauth.services.hooks import get_extension_logger
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
@@ -758,16 +758,21 @@ def ajax_srp_request_additional_information(
 
     killboard_link = ""
     if srp_request.killboard_link:
-        ship_render = type_render_url(type_id=srp_request.ship.id)
+        ship_render_icon_html = get_type_render_url_from_type_id(
+            evetype_id=srp_request.ship.id,
+            evetype_name=srp_request.ship.name,
+            size=32,
+            as_html=True,
+        )
 
         killboard_link = (
             '<a href="{zkb_link}" target="_blank">'
-            '<img class="aasrp-ship-icon" src="{ship_render}" alt="{zkb_link_text}">'
+            "{ship_render_icon_html}"
             "<span>{zkb_link_text}</span>"
             "</a>".format(
                 zkb_link=srp_request.killboard_link,
                 zkb_link_text=srp_request.ship.name,
-                ship_render=ship_render,
+                ship_render_icon_html=ship_render_icon_html,
             )
         )
 
