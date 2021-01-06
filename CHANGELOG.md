@@ -6,11 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
-## [0.1.0-beta.9] - xxxx-xx-xx
+## [0.1.0-beta.9] - 2021-01-06
 
 ### Added
 
 - Mandatory reason on SRP reject
+- Type hints to classes and functions
 
 
 ## [0.1.0-beta.8] - 2021-01-06
