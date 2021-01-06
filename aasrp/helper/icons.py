@@ -145,7 +145,7 @@ def get_srp_request_status_icon(request, srp_request: AaSrpRequest) -> str:
     """
 
     srp_request_status_icon = (
-        '<button class="btn btn-warning btn-sm btn-icon-aasrp" '
+        '<button class="btn btn-warning btn-sm btn-icon-aasrp btn-icon-aasrp-status" '
         'title="{request_status_icon_title}">'
         "{request_status_icon}"
         "</button>".format(
@@ -155,7 +155,7 @@ def get_srp_request_status_icon(request, srp_request: AaSrpRequest) -> str:
     )
     if srp_request.request_status == AaSrpRequestStatus.APPROVED:
         srp_request_status_icon = (
-            '<button class="btn btn-success btn-sm btn-icon-aasrp" '
+            '<button class="btn btn-success btn-sm btn-icon-aasrp btn-icon-aasrp-status" '
             'title="{request_status_icon_title}">'
             "{request_status_icon}"
             "</button>".format(
@@ -166,7 +166,7 @@ def get_srp_request_status_icon(request, srp_request: AaSrpRequest) -> str:
 
     if srp_request.request_status == AaSrpRequestStatus.REJECTED:
         srp_request_status_icon = (
-            '<button class="btn btn-danger btn-sm btn-icon-aasrp" '
+            '<button class="btn btn-danger btn-sm btn-icon-aasrp btn-icon-aasrp-status" '
             'title="{request_status_icon_title}">'
             "{request_status_icon}"
             "</button>".format(

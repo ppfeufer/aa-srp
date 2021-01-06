@@ -19,6 +19,14 @@
         height: 36px;
     }
 
+    .btn-icon-aasrp-status {
+        cursor: default;
+    }
+
+    .btn-icon-aasrp-status:focus {
+        border: inherit;
+    }
+
     .srp-payout-amount {
         display: inline-block;
     }
