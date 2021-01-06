@@ -36,6 +36,7 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
 - SRP Request administration mostly done via ajax and without page reloads
 - Use of modern DataTables with filters where useful
 - Tables fully searchable and sortable
+- Mandatory reason on SRP reject
 
 
 ### Screenshots
