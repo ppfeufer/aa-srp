@@ -266,7 +266,6 @@ def get_srp_request_action_icons(
         actions += (
             '<button data-link="{link}" '
             'data-toggle="modal" '
-            # 'data-target="#srp-link-action-modal" '
             'data-target="#srp-request-reject" '
             'data-modal-type="modal-action" '
             'data-modal-title="{title}" '
