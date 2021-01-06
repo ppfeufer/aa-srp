@@ -26,6 +26,7 @@ from aasrp.form import (
     AaSrpLinkUpdateForm,
     AaSrpRequestForm,
     AaSrpRequestPayoutForm,
+    AaSrpRequestRejectForm,
 )
 from aasrp.managers import AaSrpManager
 from aasrp.models import AaSrpLink, AaSrpRequestStatus, AaSrpStatus, AaSrpRequest
@@ -336,7 +337,7 @@ def request_srp(request, srp_code: str) -> HttpResponse:
         form = AaSrpRequestForm(request.POST)
 
         logger.debug(
-            "Request type POST contains form valid: {form_is_valid}".format(
+            "Request type POST contains valid form: {form_is_valid}".format(
                 form_is_valid=form.is_valid()
             )
         )
@@ -525,8 +526,9 @@ def srp_link_view_requests(request, srp_code: str) -> HttpResponse:
         return redirect("aasrp:dashboard")
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
+    reject_form = AaSrpRequestRejectForm()
 
-    context = {"avoid_cdn": avoid_cdn(), "srp_link": srp_link}
+    context = {"avoid_cdn": avoid_cdn(), "srp_link": srp_link, "form": reject_form}
 
     return render(request, "aasrp/view_requests.html", context)
 
@@ -784,6 +786,7 @@ def ajax_srp_request_additional_information(
         "requester": requester,
         "character": character,
         "additional_info": srp_request.additional_info.replace("\n", "<br>\n"),
+        "reject_info": srp_request.reject_info.replace("\n", "<br>\n"),
     }
 
     return JsonResponse(data, safe=False)
@@ -851,6 +854,7 @@ def ajax_srp_request_approve(
             srp_request.payout_amount = srp_isk_loss
 
         srp_request.request_status = AaSrpRequestStatus.APPROVED
+        srp_request.reject_info = ""
         srp_request.save()
 
         notify(
@@ -887,30 +891,42 @@ def ajax_srp_request_deny(
     data = list()
 
     try:
-        srp_request = AaSrpRequest.objects.get(
-            request_code=srp_request_code, srp_link__srp_code=srp_code
-        )
+        if request.method == "POST":
+            # create a form instance and populate it with data from the request
+            form = AaSrpRequestRejectForm(request.POST)
 
-        user = srp_request.creator
+            # check whether it's valid:
+            if form.is_valid():
+                reject_info = form.cleaned_data["reject_info"]
 
-        srp_request.payout_amount = 0
-        srp_request.request_status = AaSrpRequestStatus.REJECTED
-        srp_request.save()
-
-        notify(
-            user=user,
-            title=_("SRP Request Rejected"),
-            level="danger",
-            message=_(
-                "Your SRP request for a {ship_name} lost during "
-                "{fleet_name} has been rejected.".format(
-                    ship_name=srp_request.ship.name,
-                    fleet_name=srp_request.srp_link.srp_name,
+                srp_request = AaSrpRequest.objects.get(
+                    request_code=srp_request_code, srp_link__srp_code=srp_code
                 )
-            ),
-        )
 
-        data.append({"success": True, "message": _("SRP request has been rejected")})
+                user = srp_request.creator
+
+                srp_request.payout_amount = 0
+                srp_request.request_status = AaSrpRequestStatus.REJECTED
+                srp_request.reject_info = reject_info
+                srp_request.save()
+
+                notify(
+                    user=user,
+                    title=_("SRP Request Rejected"),
+                    level="danger",
+                    message=_(
+                        "Your SRP request for a {ship_name} lost during "
+                        "{fleet_name} has been rejected.\n\nReason:\n{reject_info}".format(
+                            ship_name=srp_request.ship.name,
+                            fleet_name=srp_request.srp_link.srp_name,
+                            reject_info=reject_info,
+                        )
+                    ),
+                )
+
+                data.append(
+                    {"success": True, "message": _("SRP request has been rejected")}
+                )
     except AaSrpRequest.DoesNotExist:
         data.append({"success": False})
 

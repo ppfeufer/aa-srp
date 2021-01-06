@@ -275,6 +275,13 @@ $(document).ready(function() {
                             '<div class="col-sm-12"><p><b>Additional Information:</b></p><p>' + data.additional_info + '</p></div>' +
                             '</div>';
 
+                        if (data.reject_info !== '') {
+                            // reject info
+                            modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +
+                                '<div class="col-sm-12"><p><b>Reject Information:</b></p><p>' + data.reject_info + '</p></div>' +
+                                '</div>';
+                        }
+
                         // add to modal body
                         modal.find('.modal-body').html(modalBody);
                     }
@@ -351,5 +358,100 @@ $(document).ready(function() {
             modal.find('#modal-button-confirm').hide();
 
             $('#modal-button-confirm').unbind('click');
+        });
+
+    $('#srp-request-reject')
+        /**
+         * show modal
+         */
+        .on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var modal = $(this);
+            var url = button.data('link');
+
+            $('#modal-button-confirm-reject-request').on('click', function() {
+                var form = modal.find('form');
+                var rejectInfo = form.find('textarea[name="reject_info"]').val();
+                var csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+
+                if (rejectInfo === '') {
+                    var errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
+                        '<div class="aasrp-form-field-error clearfix">This field is required.</div>' +
+                        '</div>';
+
+                    form.find('.aasrp-form-field-errors').remove();
+                    $(errorMessage).insertAfter($('textarea[name="reject_info"]'));
+                }
+
+                if (rejectInfo !== '') {
+                    var posting = $.post(
+                        url,
+                        {
+                            reject_info: rejectInfo,
+                            csrfmiddlewaretoken: csrfMiddlewareToken
+                        }
+                    );
+
+                    posting.done(function(data) {
+                        if (data['0'].success === true) {
+                            srpRequestsTable.ajax.reload(function(tableData) {
+                                var totalSrpAmount = 0;
+                                var requestsTotal = 0;
+                                var requestsPending = 0;
+                                var requestsApproved = 0;
+                                var requestsRejected = 0;
+
+                                $.each(tableData, function(i, item) {
+                                    totalSrpAmount += parseInt(item.payout_amount);
+                                    requestsTotal += 1;
+
+                                    if (item.request_status === 'Pending') {
+                                        requestsPending += 1;
+                                    }
+
+                                    if (item.request_status === 'Approved') {
+                                        requestsApproved += 1;
+                                    }
+
+                                    if (item.request_status === 'Rejected') {
+                                        requestsRejected += 1;
+                                    }
+                                });
+
+                                // update fleet total srp amount
+                                $('.srp-fleet-total-amount').html(
+                                    totalSrpAmount.toLocaleString() + ' ISK'
+                                );
+
+                                // update requests counts
+                                $('.srp-requests-total-count').html(
+                                    requestsTotal
+                                );
+                                $('.srp-requests-pending-count').html(
+                                    requestsPending
+                                );
+                                $('.srp-requests-approved-count').html(
+                                    requestsApproved
+                                );
+                                $('.srp-requests-rejected-count').html(
+                                    requestsRejected
+                                );
+                            });
+                        }
+
+                        modal.modal('toggle');
+                    });
+                }
+            });
+
+        })
+        /**
+         * hide modal
+         */
+        .on('hide.bs.modal', function() {
+            var modal = $(this);
+
+            modal.find('textarea[name="reject_info"]').val('');
+            $('#modal-button-confirm-reject-request').unbind('click');
         });
 });

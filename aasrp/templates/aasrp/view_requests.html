@@ -14,6 +14,7 @@
     {% include 'aasrp/partials/view_requests/requests.html' %}
     {% include 'aasrp/modals/view_requests/action_modal.html' %}
     {% include 'aasrp/modals/view_requests/mark_complete_modal.html' %}
+    {% include 'aasrp/modals/view_requests/reject_request.html' %}
 {% endblock %}
 
 {% block extra_css %}
@@ -22,6 +23,7 @@
 
     <link rel="stylesheet" href="{% static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp-form.min.css' %}" type="text/css">
 {% endblock %}
 
 {% block extra_javascript %}

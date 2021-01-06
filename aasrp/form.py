@@ -93,4 +93,21 @@ class AaSrpRequestForm(ModelForm):
 
 
 class AaSrpRequestPayoutForm(forms.Form):
+    """
+    change payout value
+    """
+
     value = forms.CharField(label=_("SRP payout value"), max_length=254, required=True)
+
+
+class AaSrpRequestRejectForm(forms.Form):
+    """
+    SRP request reject form
+    """
+
+    reject_info = forms.CharField(
+        widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
+        required=True,
+        label=_("Rejection Reason"),
+        help_text=_("Please provide the reason why this SRP request is rejected."),
+    )

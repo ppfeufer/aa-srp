@@ -217,6 +217,7 @@ class AaSrpRequest(models.Model):
     srp_link = models.ForeignKey(AaSrpLink, on_delete=models.CASCADE)
     loss_amount = models.BigIntegerField(default=0)
     post_time = models.DateTimeField(default=timezone.now)
+    reject_info = models.TextField(blank=True, default="")
 
     def __str__(self):
         return _(
