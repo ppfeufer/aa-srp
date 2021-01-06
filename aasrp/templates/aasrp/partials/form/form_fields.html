@@ -15,6 +15,7 @@
         <label class="form-label aasrp-form-label{% if field.field.required %} field-required{% endif %}" for="{{ field.id_for_label }}">
             <span class="text-aasrp-form-label">
                 {{ field.label }}
+                {% if field.field.required %}<span class="aasrp-form-required-field-marker">*</span>{% endif %}
             </span>
 
             {% if field.help_text %}
