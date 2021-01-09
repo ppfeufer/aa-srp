@@ -7,6 +7,7 @@
     </div>
 
     <div class="panel-body">
+        <!-- left panel -->
         <div class="col-md-3 panel-srp-request-overview-column">
             <div class="panel-srp-request-overview-cell">
                 <dt>{% translate "Requests" %}:</dt>
@@ -17,6 +18,7 @@
             </div>
         </div>
 
+        <!-- middle left panel-->
         <div class="col-md-3 panel-srp-request-overview-column">
             <div class="panel-srp-request-overview-cell">
                 <dt>{% translate "Fleet Name" %}:</dt>
@@ -34,13 +36,20 @@
             </div>
         </div>
 
+        <!-- middle right panel -->
         <div class="col-md-3 panel-srp-request-overview-column">
+            <div class="panel-srp-request-overview-cell">
+                <dt>{% translate "Doctrine" %}:</dt>
+                <dd>{{ srp_link.fleet_doctrine }}</dd>
+            </div>
+
             <div class="panel-srp-request-overview-cell">
                 <dt>{% translate "SRP Code" %}:</dt>
                 <dd>{{ srp_link.srp_code }}</dd>
             </div>
         </div>
 
+        <!-- right panel -->
         <div class="col-md-3 panel-srp-request-overview-column">
             <div class="panel-srp-request-overview-cell">
                 <dt>{% translate "SRP Cost" %}:</dt>
