@@ -9,7 +9,8 @@ import requests
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
-from aasrp import __user_agent__, __title__
+from aasrp import __title__
+from aasrp.constants import USERAGENT
 from aasrp.models import AaSrpRequest, AaSrpRequestStatus
 from aasrp.utils import LoggerAddTag
 
@@ -51,7 +52,7 @@ class AaSrpManager:
         )
 
         headers = {
-            "User-Agent": __user_agent__,
+            "User-Agent": USERAGENT,
             "Content-Type": "application/json",
         }
 
