@@ -226,15 +226,15 @@ $(document).ready(function() {
             columns: [
                 {
                     idx: 11,
-                    title: aaSrpSettings.translation.filterCharacter
+                    title: aaSrpSettings.translation.filter.character
                 },
                 {
                     idx: 10,
-                    title: aaSrpSettings.translation.filterRequestShip
+                    title: aaSrpSettings.translation.filter.ship
                 },
                 {
                     idx: 9,
-                    title: aaSrpSettings.translation.filterRequestStatus
+                    title: aaSrpSettings.translation.filter.requestStatus
                 }
             ],
             autoSize: false,
@@ -257,5 +257,59 @@ $(document).ready(function() {
                 userSrpAmount.toLocaleString() + ' ISK'
             );
         },
+    });
+
+    /*
+     * Modals
+     */
+    // enable link modal
+    $('#enable-srp-link').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var url = button.data('url');
+        var name = button.data('name');
+        var modal = $(this);
+
+        modal.find('#modal-button-confirm-enable-srp-link').attr('href', url);
+        modal.find('.modal-body').html(
+            aaSrpSettings.translation.modal.enableSrpLink.body + '<br>"' + name + '"'
+        );
+    }).on('hide.bs.modal', function() {
+        var modal = $(this);
+
+        modal.find('.modal-body').html('');
+    });
+
+    // disable link modal
+    $('#disable-srp-link').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var url = button.data('url');
+        var name = button.data('name');
+        var modal = $(this);
+
+        modal.find('#modal-button-confirm-disable-srp-link').attr('href', url);
+        modal.find('.modal-body').html(
+            aaSrpSettings.translation.modal.disableSrpLink.body + '<br>"' + name + '"'
+        );
+    }).on('hide.bs.modal', function() {
+        var modal = $(this);
+
+        modal.find('.modal-body').html('');
+    });
+
+    // delete link modal
+    $('#delete-srp-link').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var url = button.data('url');
+        var name = button.data('name');
+        var modal = $(this);
+
+        modal.find('#modal-button-confirm-delete-srp-link').attr('href', url);
+        modal.find('.modal-body').html(
+            aaSrpSettings.translation.modal.deleteSrpLink.body + '<br>"' + name + '"'
+        );
+    }).on('hide.bs.modal', function() {
+        var modal = $(this);
+
+        modal.find('.modal-body').html('');
     });
 });

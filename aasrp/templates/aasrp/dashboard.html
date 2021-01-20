@@ -51,62 +51,24 @@
                 userSrpRequests: urlUserSrpRequests
             },
             translation: {
-                filterRequestShip: "{% translate 'Ship' %}",
-                filterRequestStatus: "{% translate 'Request Status' %}",
-                filterCharacter: "{% translate 'Character' %}"
+                filter: {
+                    ship: "{% translate 'Ship' %}",
+                    requestStatus: "{% translate 'Request Status' %}",
+                    character: "{% translate 'Character' %}",
+                },
+                modal: {
+                    enableSrpLink: {
+                        body: "{% translate 'Are you sure you want to (re-)activate the following SRP Link?' %}"
+                    },
+                    disableSrpLink: {
+                        body: "{% translate 'Are you sure you want to disable the following SRP Link?' %}"
+                    },
+                    deleteSrpLink: {
+                        body: "{% translate 'Are you sure you want to delete the following SRP Link and all SRP requests tied to it?' %}"
+                    }
+                }
             }
         };
-
-        /**
-         * enable link modal
-         */
-        $('#enable-srp-link').on('show.bs.modal', function(event) {
-            let button = $(event.relatedTarget);
-            let url = button.data('url');
-            let name = button.data('name');
-            let modal = $(this);
-
-            modal.find('#modal-button-confirm-enable-srp-link').attr('href', url);
-            modal.find('.modal-body').html('{% translate "Are you sure you want to (re-)activate the following SRP Link?" %}<br>"' + name + '"');
-        }).on('hide.bs.modal', function() {
-            let modal = $(this);
-
-            modal.find('.modal-body').html('');
-        });
-
-        /**
-         * disable link modal
-         */
-        $('#disable-srp-link').on('show.bs.modal', function(event) {
-            let button = $(event.relatedTarget);
-            let url = button.data('url');
-            let name = button.data('name');
-            let modal = $(this);
-
-            modal.find('#modal-button-confirm-disable-srp-link').attr('href', url);
-            modal.find('.modal-body').html('{% translate "Are you sure you want to disable the following SRP Link?" %}<br>"' + name + '"');
-        }).on('hide.bs.modal', function() {
-            let modal = $(this);
-
-            modal.find('.modal-body').html('');
-        });
-
-        /**
-         * delete link modal
-         */
-        $('#delete-srp-link').on('show.bs.modal', function(event) {
-            let button = $(event.relatedTarget);
-            let url = button.data('url');
-            let name = button.data('name');
-            let modal = $(this);
-
-            modal.find('#modal-button-confirm-delete-srp-link').attr('href', url);
-            modal.find('.modal-body').html('{% translate "Are you sure you want to delete the following SRP Link and all SRP requests tied to it?" %}<br>"' + name + '"');
-        }).on('hide.bs.modal', function() {
-            let modal = $(this);
-
-            modal.find('.modal-body').html('');
-        });
     </script>
     <script type="application/javascript" src="{% static 'aasrp/javascript/aa-srp-dashboard.min.js' %}"></script>
 {% endblock %}

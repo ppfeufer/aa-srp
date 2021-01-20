@@ -51,11 +51,29 @@
                 changeSrpAmount: urlChangeSrpAmount
             },
             translation: {
-                filterRequestStatus: '{% translate "Request Status" %}',
-                filterRequestShip: '{% translate "Ship" %}',
-                filterCharacter: '{% translate "Character" %}',
+                filter: {
+                    requestStatus: '{% translate "Request Status" %}',
+                    ship: '{% translate "Ship" %}',
+                    character: '{% translate "Character" %}',
+                },
                 changeSrpPayoutHeader: '{% translate "Enter SRP payout value" %}',
-                editableValidate: '{% translate "Empty values are not allowed" %}'
+                editableValidate: '{% translate "Empty values are not allowed" %}',
+                modal: {
+                    srpDetails: {
+                        body: {
+                            requestor: '{% translate "Requestor" %}',
+                            character: '{% translate "Character" %}',
+                            ship: '{% translate "Ship" %}',
+                            additionalInformation: '{% translate "Additional Information" %}',
+                            rejectInformation: '{% translate "Reject Information" %}'
+                        }
+                    },
+                    rejectRequest: {
+                        body: {
+                            fieldRequired: '{% translate "This field is required." %}'
+                        }
+                    }
+                }
             }
         };
     </script>

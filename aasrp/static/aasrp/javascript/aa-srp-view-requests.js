@@ -126,15 +126,15 @@ $(document).ready(function() {
                 },
                 {
                     idx: 11,
-                    title: aaSrpSettings.translation.filterCharacter
+                    title: aaSrpSettings.translation.filter.character
                 },
                 {
                     idx: 9,
-                    title: aaSrpSettings.translation.filterRequestShip
+                    title: aaSrpSettings.translation.filter.ship
                 },
                 {
                     idx: 10,
-                    title: aaSrpSettings.translation.filterRequestStatus
+                    title: aaSrpSettings.translation.filter.requestStatus
                 }
             ],
             autoSize: false,
@@ -261,24 +261,24 @@ $(document).ready(function() {
 
                         // requestor
                         modalBody += '<div class="clearfix modal-srp-details modal-srp-details-requester">' +
-                            '<div class="col-sm-6"><p><b>Requestor:</b></p><p>' + data.requester + '</p></div>' +
-                            '<div class="col-sm-6"><p><b>Character:</b></p><p>' + data.character + '</p></div>' +
+                            '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.requestor + ':</b></p><p>' + data.requester + '</p></div>' +
+                            '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.character + ':</b></p><p>' + data.character + '</p></div>' +
                             '</div>';
 
                         // ship and killmail
                         modalBody += '<div class="clearfix modal-srp-details modal-srp-details-ship">' +
-                            '<div class="col-sm-12"><p><b>Ship:</b></p><p>' + data.killboard_link + '</p></div>' +
+                            '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.ship + ':</b></p><p>' + data.killboard_link + '</p></div>' +
                             '</div>';
 
                         // additional info
                         modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +
-                            '<div class="col-sm-12"><p><b>Additional Information:</b></p><p>' + data.additional_info + '</p></div>' +
+                            '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.additionalInformation + ':</b></p><p>' + data.additional_info + '</p></div>' +
                             '</div>';
 
                         if (data.reject_info !== '') {
                             // reject info
                             modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +
-                                '<div class="col-sm-12"><p><b>Reject Information:</b></p><p>' + data.reject_info + '</p></div>' +
+                                '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.rejectInformation + ':</b></p><p>' + data.reject_info + '</p></div>' +
                                 '</div>';
                         }
 
@@ -376,7 +376,9 @@ $(document).ready(function() {
 
                 if (rejectInfo === '') {
                     var errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
-                        '<div class="aasrp-form-field-error clearfix">This field is required.</div>' +
+                        '<div class="aasrp-form-field-error clearfix">' +
+                        aaSrpSettings.translation.modal.rejectRequest.body.fieldRequired +
+                        '</div>' +
                         '</div>';
 
                     form.find('.aasrp-form-field-errors').remove();
