@@ -201,18 +201,15 @@ def get_srp_request_action_icons(
     actions += (
         '<button data-link="{link}" '
         'data-toggle="modal" '
-        'data-target="#srp-link-action-modal" '
-        'data-modal-type="modal-interactive" '
+        'data-target="#srp-request-details" '
         'data-modal-title="{title}" '
-        'data-modal-button-cancel="{modal_button_cancel}" '
         'data-modal-button-confirm="{modal_button_confirm}" '
         'class="btn btn-primary btn-sm btn-icon-aasrp" '
         'title="{title}">{icon}</button>'.format(
             link=button_request_details_url,
             icon='<i class="fas fa-info-circle"></i>',
             title=_("SRP Request Details"),
-            modal_button_cancel=_("{fa_icon} Close").format(fa_icon=""),
-            modal_button_confirm=_("OK"),
+            modal_button_confirm=_("{fa_icon} Close").format(fa_icon=""),
         )
     )
 
@@ -230,8 +227,7 @@ def get_srp_request_action_icons(
         actions += (
             '<button data-link="{link}" '
             'data-toggle="modal" '
-            'data-target="#srp-link-action-modal" '
-            'data-modal-type="modal-action" '
+            'data-target="#srp-request-accept" '
             'data-modal-title="{title}" '
             'data-modal-body="{modal_body}" '
             'data-modal-button-cancel="{modal_button_cancel}" '
@@ -268,7 +264,6 @@ def get_srp_request_action_icons(
             '<button data-link="{link}" '
             'data-toggle="modal" '
             'data-target="#srp-request-reject" '
-            'data-modal-type="modal-action" '
             'data-modal-title="{title}" '
             'data-modal-body="{modal_body}" '
             'data-modal-button-cancel="{modal_button_cancel}" '
@@ -301,7 +296,6 @@ def get_srp_request_action_icons(
                 '<button data-link="{link}" '
                 'data-toggle="modal" '
                 'data-target="#srp-link-action-modal" '
-                'data-modal-type="modal-action" '
                 'data-modal-title="{title}" '
                 'data-modal-body="{modal_body}" '
                 'data-modal-button-cancel="{modal_button_cancel}" '
