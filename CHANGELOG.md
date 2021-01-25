@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ### Changed
 
 - Modals separated into their own templates
+- Wrappd datatables in responsive div
+- Moved useragent to constants
+- JS re-organized
 
 
 ## [0.1.0-beta.10] - 2021-01-11
