@@ -246,7 +246,7 @@ $(document).ready(function() {
         $.get({
             url: url,
             success: function(data) {
-                var modalBody = '';
+                var modalBody = data.request_status_banner;
 
                 // requestor
                 modalBody += '<div class="clearfix modal-srp-details modal-srp-details-requester">' +

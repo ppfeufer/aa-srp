@@ -11,11 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ### Fixed
 
 - Panel title for overview panel in SRP requests view
-- Missing modal for "Delere SRP Request" re-added
+- Missing modal for "Delete SRP Request" re-added
 
 ### Added
 
-- SRP details modal in "Your SRP Requests" tab on dashboard view
+- SRP request details modal in "Your SRP Requests" tab on dashboard view
+- SRP request status to details modal
 
 
 ## [0.1.0-beta.11] - 2021-01-26
@@ -23,7 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ### Changed
 
 - Modals separated into their own templates
-- Wrappd datatables in responsive div
+- Wrapped datatables in responsive div
 - Moved useragent to constants
 - JS re-organized
 

@@ -146,7 +146,7 @@ def get_srp_request_status_icon(request: WSGIRequest, srp_request: AaSrpRequest)
     """
 
     srp_request_status_icon = (
-        '<button class="btn btn-warning btn-sm btn-icon-aasrp btn-icon-aasrp-status" '
+        '<button class="btn btn-info btn-sm btn-icon-aasrp btn-icon-aasrp-status" '
         'title="{request_status_icon_title}">'
         "{request_status_icon}"
         "</button>".format(

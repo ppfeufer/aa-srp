@@ -791,6 +791,22 @@ def ajax_srp_request_additional_information(
             )
         )
 
+    request_status_banner_alert_level = "info"
+    if srp_request.request_status == AaSrpRequestStatus.APPROVED:
+        request_status_banner_alert_level = "success"
+
+    if srp_request.request_status == AaSrpRequestStatus.REJECTED:
+        request_status_banner_alert_level = "danger"
+
+    request_status_banner = (
+        '<div class="alert alert-{banner_level}">'
+        '<div class="text-center">{banner_text}</div>'
+        "</div>".format(
+            banner_level=request_status_banner_alert_level,
+            banner_text="SRP Request " + srp_request.request_status,
+        )
+    )
+
     data = {
         # "killboard_link": srp_request.killboard_link,
         "killboard_link": killboard_link,
@@ -800,6 +816,7 @@ def ajax_srp_request_additional_information(
         "character": character,
         "additional_info": srp_request.additional_info.replace("\n", "<br>\n"),
         "reject_info": srp_request.reject_info.replace("\n", "<br>\n"),
+        "request_status_banner": request_status_banner,
     }
 
     return JsonResponse(data, safe=False)
