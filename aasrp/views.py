@@ -19,6 +19,7 @@ from aasrp.app_settings import avoid_cdn
 from aasrp.helper.character import get_formatted_character_name
 from aasrp.helper.icons import (
     get_dashboard_action_icons,
+    get_srp_request_details_icon,
     get_srp_request_status_icon,
     get_srp_request_action_icons,
 )
@@ -157,6 +158,11 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
         srp_request_status_icon = get_srp_request_status_icon(
             request=request, srp_request=srp_request
         )
+
+        srp_request_details_icon = get_srp_request_details_icon(
+            request=request, srp_link=srp_request.srp_link, srp_request=srp_request
+        )
+
         character_display = get_formatted_character_name(
             character=srp_request.character, with_portrait=True
         )
@@ -178,7 +184,9 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
                 "zkb_link": killboard_link,
                 "zbk_loss_amount": srp_request.loss_amount,
                 "payout_amount": srp_request.payout_amount,
-                "request_status_icon": srp_request_status_icon,
+                "request_status_icon": (
+                    srp_request_details_icon + srp_request_status_icon
+                ),
                 "request_status": srp_request.request_status,
             }
         )

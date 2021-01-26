@@ -16,6 +16,7 @@
     {% include 'aasrp/modals/dashboard/enable_srp_link.html' %}
     {% include 'aasrp/modals/dashboard/disable_srp_link.html' %}
     {% include 'aasrp/modals/dashboard/delete_srp_link.html' %}
+    {% include 'aasrp/modals/view_requests/request_details.html' %}
 {% endblock %}
 
 {% block extra_css %}
@@ -65,10 +66,19 @@
                     },
                     deleteSrpLink: {
                         body: "{% translate 'Are you sure you want to delete the following SRP Link and all SRP requests tied to it?' %}"
+                    },
+                    srpDetails: {
+                        body: {
+                            requestor: '{% translate "Requestor" %}',
+                            character: '{% translate "Character" %}',
+                            ship: '{% translate "Ship" %}',
+                            additionalInformation: '{% translate "Additional Information" %}',
+                            rejectInformation: '{% translate "Reject Information" %}'
+                        }
                     }
                 }
             }
         };
     </script>
-    <script type="application/javascript" src="{% static 'aasrp/javascript/aa-srp-dashboard.min.js' %}"></script>
+    <script type="application/javascript" src="{% static 'aasrp/javascript/aa-srp-dashboard.js' %}"></script>
 {% endblock %}

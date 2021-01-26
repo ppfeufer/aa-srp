@@ -312,4 +312,55 @@ $(document).ready(function() {
 
         modal.find('.modal-body').html('');
     });
+
+    // show details
+    $('#srp-request-details').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+
+        var name = button.data('modal-title');
+        var url = button.data('link');
+        var confirmButtonText = button.data('modal-button-confirm');
+
+        modal.find('.modal-title').text(name);
+        modal.find('#modal-button-request-details-confirm').html(confirmButtonText);
+
+        $.get({
+            url: url,
+            success: function(data) {
+                var modalBody = '';
+
+                // requestor
+                modalBody += '<div class="clearfix modal-srp-details modal-srp-details-requester">' +
+                    '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.requestor + ':</b></p><p>' + data.requester + '</p></div>' +
+                    '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.character + ':</b></p><p>' + data.character + '</p></div>' +
+                    '</div>';
+
+                // ship and killmail
+                modalBody += '<div class="clearfix modal-srp-details modal-srp-details-ship">' +
+                    '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.ship + ':</b></p><p>' + data.killboard_link + '</p></div>' +
+                    '</div>';
+
+                // additional info
+                modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +
+                    '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.additionalInformation + ':</b></p><p>' + data.additional_info + '</p></div>' +
+                    '</div>';
+
+                if (data.reject_info !== '') {
+                    // reject info
+                    modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +
+                        '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.rejectInformation + ':</b></p><p>' + data.reject_info + '</p></div>' +
+                        '</div>';
+                }
+
+                // add to modal body
+                modal.find('.modal-body').html(modalBody);
+            }
+        });
+    }).on('hide.bs.modal', function() {
+        var modal = $(this);
+
+        modal.find('.modal-title').text('');
+        modal.find('.modal-body').text('');
+    });
 });
