@@ -231,81 +231,161 @@ $(document).ready(function() {
     /**
      * Modals
      */
-    $('#srp-request-details')
-        .on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var modal = $(this);
+    // SRP request details
+    $('#srp-request-details').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
 
-            var name = button.data('modal-title');
-            var url = button.data('link');
-            var confirmButtonText = button.data('modal-button-confirm');
-            var body = button.data('modal-body');
+        var name = button.data('modal-title');
+        var url = button.data('link');
+        var confirmButtonText = button.data('modal-button-confirm');
 
-            modal.find('.modal-title').text(name);
-            modal.find('#modal-button-request-details-confirm').html(confirmButtonText);
-            modal.find('.modal-body').text(body);
+        modal.find('.modal-title').text(name);
+        modal.find('#modal-button-request-details-confirm').html(confirmButtonText);
 
-            $.get({
-                url: url,
-                success: function(data) {
-                    var modalBody = '';
+        $.get({
+            url: url,
+            success: function(data) {
+                var modalBody = '';
 
-                    // requestor
-                    modalBody += '<div class="clearfix modal-srp-details modal-srp-details-requester">' +
-                        '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.requestor + ':</b></p><p>' + data.requester + '</p></div>' +
-                        '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.character + ':</b></p><p>' + data.character + '</p></div>' +
-                        '</div>';
+                // requestor
+                modalBody += '<div class="clearfix modal-srp-details modal-srp-details-requester">' +
+                    '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.requestor + ':</b></p><p>' + data.requester + '</p></div>' +
+                    '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.character + ':</b></p><p>' + data.character + '</p></div>' +
+                    '</div>';
 
-                    // ship and killmail
-                    modalBody += '<div class="clearfix modal-srp-details modal-srp-details-ship">' +
-                        '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.ship + ':</b></p><p>' + data.killboard_link + '</p></div>' +
-                        '</div>';
+                // ship and killmail
+                modalBody += '<div class="clearfix modal-srp-details modal-srp-details-ship">' +
+                    '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.ship + ':</b></p><p>' + data.killboard_link + '</p></div>' +
+                    '</div>';
 
-                    // additional info
+                // additional info
+                modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +
+                    '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.additionalInformation + ':</b></p><p>' + data.additional_info + '</p></div>' +
+                    '</div>';
+
+                if (data.reject_info !== '') {
+                    // reject info
                     modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +
-                        '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.additionalInformation + ':</b></p><p>' + data.additional_info + '</p></div>' +
+                        '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.rejectInformation + ':</b></p><p>' + data.reject_info + '</p></div>' +
                         '</div>';
+                }
 
-                    if (data.reject_info !== '') {
-                        // reject info
-                        modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +
-                            '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.rejectInformation + ':</b></p><p>' + data.reject_info + '</p></div>' +
-                            '</div>';
-                    }
+                // add to modal body
+                modal.find('.modal-body').html(modalBody);
+            }
+        });
+    }).on('hide.bs.modal', function() {
+        var modal = $(this);
 
-                    // add to modal body
-                    modal.find('.modal-body').html(modalBody);
+        modal.find('.modal-title').text('');
+        modal.find('.modal-body').text('');
+    });
+
+    // accept SRP request
+    $('#srp-request-accept').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+
+        var name = button.data('modal-title');
+        var url = button.data('link');
+        var confirmButtonText = button.data('modal-button-confirm');
+        var cancelButtonText = button.data('modal-button-cancel');
+        var confirmButtonClasses = button.data('modal-button-confirm-classes');
+        var body = button.data('modal-body');
+
+        modal.find('.modal-title').text(name);
+        modal.find('#modal-button-confirm-accept-request').addClass(confirmButtonClasses);
+        modal.find('#modal-button-confirm-accept-request').html(confirmButtonText);
+        modal.find('#modal-button-cancel-accept-request').html(cancelButtonText);
+        modal.find('.modal-body').text(body);
+
+        $('#modal-button-confirm-accept-request').on('click', function(event) {
+            $.get(url, function(data, status) {
+                // reload datatable on success and update srp status values
+                if (data['0'].success === true) {
+                    srpRequestsTable.ajax.reload(function(tableData) {
+                        var totalSrpAmount = 0;
+                        var requestsTotal = 0;
+                        var requestsPending = 0;
+                        var requestsApproved = 0;
+                        var requestsRejected = 0;
+
+                        $.each(tableData, function(i, item) {
+                            totalSrpAmount += parseInt(item.payout_amount);
+                            requestsTotal += 1;
+
+                            if (item.request_status === 'Pending') {
+                                requestsPending += 1;
+                            }
+
+                            if (item.request_status === 'Approved') {
+                                requestsApproved += 1;
+                            }
+
+                            if (item.request_status === 'Rejected') {
+                                requestsRejected += 1;
+                            }
+                        });
+
+                        // update fleet total srp amount
+                        $('.srp-fleet-total-amount').html(
+                            totalSrpAmount.toLocaleString() + ' ISK'
+                        );
+
+                        // update requests counts
+                        $('.srp-requests-total-count').html(
+                            requestsTotal
+                        );
+                        $('.srp-requests-pending-count').html(
+                            requestsPending
+                        );
+                        $('.srp-requests-approved-count').html(
+                            requestsApproved
+                        );
+                        $('.srp-requests-rejected-count').html(
+                            requestsRejected
+                        );
+                    });
                 }
             });
-        })
-        .on('hide.bs.modal', function() {
-            var modal = $(this);
-
-            modal.find('.modal-title').text('');
-            modal.find('.modal-body').text('');
         });
+    });
 
-    $('#srp-request-accept')
-        .on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var modal = $(this);
+    // reject SRP request
+    $('#srp-request-reject').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+        var url = button.data('link');
 
-            var name = button.data('modal-title');
-            var url = button.data('link');
-            var confirmButtonText = button.data('modal-button-confirm');
-            var cancelButtonText = button.data('modal-button-cancel');
-            var confirmButtonClasses = button.data('modal-button-confirm-classes');
-            var body = button.data('modal-body');
+        $('#modal-button-confirm-reject-request').on('click', function() {
+            var form = modal.find('form');
+            var rejectInfo = form.find('textarea[name="reject_info"]').val();
+            var csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
 
-            modal.find('.modal-title').text(name);
-            modal.find('#modal-button-confirm-accept-request').addClass(confirmButtonClasses);
-            modal.find('#modal-button-confirm-accept-request').html(confirmButtonText);
-            modal.find('#modal-button-cancel-accept-request').html(cancelButtonText);
-            modal.find('.modal-body').text(body);
+            if (rejectInfo === '') {
+                var errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
+                    '<div class="aasrp-form-field-error clearfix">' +
+                    aaSrpSettings.translation.modal.rejectRequest.body.fieldRequired +
+                    '</div>' +
+                    '</div>';
 
-            $('#modal-button-confirm-accept-request').on('click', function(event) {
-                $.get(url, function(data, status) {
-                    // reload datatable on success and update srp status values
+                form.find('.aasrp-form-field-errors').remove();
+                $(errorMessage).insertAfter($('textarea[name="reject_info"]'));
+            }
+
+            if (rejectInfo !== '') {
+                var posting = $.post(
+                    url,
+                    {
+                        reject_info: rejectInfo,
+                        csrfmiddlewaretoken: csrfMiddlewareToken
+                    }
+                );
+
+                posting.done(function(data) {
+                    // $('#modal-button-cancel-reject-request').click();
+
                     if (data['0'].success === true) {
                         srpRequestsTable.ajax.reload(function(tableData) {
                             var totalSrpAmount = 0;
@@ -352,98 +432,84 @@ $(document).ready(function() {
                         });
                     }
                 });
-            });
+
+                modal.modal('toggle');
+            }
         });
+    }).on('hide.bs.modal', function() {
+        var modal = $(this);
 
-    $('#srp-request-reject')
-        .on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var modal = $(this);
-            var url = button.data('link');
+        modal.find('textarea[name="reject_info"]').val('');
+        $('#modal-button-confirm-reject-request').unbind('click');
+    });
 
-            $('#modal-button-confirm-reject-request').on('click', function() {
-                var form = modal.find('form');
-                var rejectInfo = form.find('textarea[name="reject_info"]').val();
-                var csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+    // remove SRP request
+    $('#srp-request-remove').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
 
-                if (rejectInfo === '') {
-                    var errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
-                        '<div class="aasrp-form-field-error clearfix">' +
-                        aaSrpSettings.translation.modal.rejectRequest.body.fieldRequired +
-                        '</div>' +
-                        '</div>';
+        var name = button.data('modal-title');
+        var url = button.data('link');
+        var confirmButtonText = button.data('modal-button-confirm');
+        var cancelButtonText = button.data('modal-button-cancel');
+        var confirmButtonClasses = button.data('modal-button-confirm-classes');
+        var body = button.data('modal-body');
 
-                    form.find('.aasrp-form-field-errors').remove();
-                    $(errorMessage).insertAfter($('textarea[name="reject_info"]'));
-                }
+        modal.find('.modal-title').text(name);
+        modal.find('#modal-button-confirm-remove-request').addClass(confirmButtonClasses);
+        modal.find('#modal-button-confirm-remove-request').html(confirmButtonText);
+        modal.find('#modal-button-cancel-remove-request').html(cancelButtonText);
+        modal.find('.modal-body').text(body);
 
-                if (rejectInfo !== '') {
-                    var posting = $.post(
-                        url,
-                        {
-                            reject_info: rejectInfo,
-                            csrfmiddlewaretoken: csrfMiddlewareToken
-                        }
-                    );
+        $('#modal-button-confirm-remove-request').on('click', function(event) {
+            $.get(url, function(data, status) {
+                // reload datatable on success and update srp status values
+                if (data['0'].success === true) {
+                    srpRequestsTable.ajax.reload(function(tableData) {
+                        var totalSrpAmount = 0;
+                        var requestsTotal = 0;
+                        var requestsPending = 0;
+                        var requestsApproved = 0;
+                        var requestsRejected = 0;
 
-                    posting.done(function(data) {
-                        // $('#modal-button-cancel-reject-request').click();
+                        $.each(tableData, function(i, item) {
+                            totalSrpAmount += parseInt(item.payout_amount);
+                            requestsTotal += 1;
 
-                        if (data['0'].success === true) {
-                            srpRequestsTable.ajax.reload(function(tableData) {
-                                var totalSrpAmount = 0;
-                                var requestsTotal = 0;
-                                var requestsPending = 0;
-                                var requestsApproved = 0;
-                                var requestsRejected = 0;
+                            if (item.request_status === 'Pending') {
+                                requestsPending += 1;
+                            }
 
-                                $.each(tableData, function(i, item) {
-                                    totalSrpAmount += parseInt(item.payout_amount);
-                                    requestsTotal += 1;
+                            if (item.request_status === 'Approved') {
+                                requestsApproved += 1;
+                            }
 
-                                    if (item.request_status === 'Pending') {
-                                        requestsPending += 1;
-                                    }
+                            if (item.request_status === 'Rejected') {
+                                requestsRejected += 1;
+                            }
+                        });
 
-                                    if (item.request_status === 'Approved') {
-                                        requestsApproved += 1;
-                                    }
+                        // update fleet total srp amount
+                        $('.srp-fleet-total-amount').html(
+                            totalSrpAmount.toLocaleString() + ' ISK'
+                        );
 
-                                    if (item.request_status === 'Rejected') {
-                                        requestsRejected += 1;
-                                    }
-                                });
-
-                                // update fleet total srp amount
-                                $('.srp-fleet-total-amount').html(
-                                    totalSrpAmount.toLocaleString() + ' ISK'
-                                );
-
-                                // update requests counts
-                                $('.srp-requests-total-count').html(
-                                    requestsTotal
-                                );
-                                $('.srp-requests-pending-count').html(
-                                    requestsPending
-                                );
-                                $('.srp-requests-approved-count').html(
-                                    requestsApproved
-                                );
-                                $('.srp-requests-rejected-count').html(
-                                    requestsRejected
-                                );
-                            });
-                        }
+                        // update requests counts
+                        $('.srp-requests-total-count').html(
+                            requestsTotal
+                        );
+                        $('.srp-requests-pending-count').html(
+                            requestsPending
+                        );
+                        $('.srp-requests-approved-count').html(
+                            requestsApproved
+                        );
+                        $('.srp-requests-rejected-count').html(
+                            requestsRejected
+                        );
                     });
-
-                    modal.modal('toggle');
                 }
             });
-        })
-        .on('hide.bs.modal', function() {
-            var modal = $(this);
-
-            modal.find('textarea[name="reject_info"]').val('');
-            $('#modal-button-confirm-reject-request').unbind('click');
         });
+    });
 });
