@@ -105,7 +105,7 @@ def ajax_dashboard_srp_links_data(
             {
                 "srp_name": srp_link.srp_name,
                 "creator": srp_link.creator.profile.main_character.character_name,
-                "fleet_time": srp_link.fleet_time.replace(tzinfo=None),
+                "fleet_time": srp_link.fleet_time,
                 "fleet_commander": srp_link.fleet_commander.character_name,
                 "fleet_doctrine": srp_link.fleet_doctrine,
                 "aar_link": aar_link,
@@ -170,7 +170,7 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
 
         data.append(
             {
-                "request_time": srp_request.post_time.replace(tzinfo=None),
+                "request_time": srp_request.post_time,
                 "character_html": {
                     "display": character_display,
                     "sort": character_sort,
@@ -598,7 +598,7 @@ def ajax_srp_link_view_requests_data(
 
         data.append(
             {
-                "request_time": srp_request.post_time.replace(tzinfo=None),
+                "request_time": srp_request.post_time,
                 "requester": requester,
                 "character_html": {
                     "display": character_display,

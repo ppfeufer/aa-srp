@@ -25,10 +25,9 @@ $(document).ready(function() {
             },
             {
                 data: 'fleet_time',
-                render: $.fn.dataTable.render.moment(
-                    moment.ISO_8601,
-                    aaSrpSettings.datetimeFormat
-                ),
+                render: function (data, type, row) {
+                    return moment(data).utc().format(aaSrpSettings.datetimeFormat);
+                },
                 className: 'srp-link-fleet-time'
             },
             {
@@ -125,10 +124,9 @@ $(document).ready(function() {
         columns: [
             {
                 data: 'request_time',
-                render: $.fn.dataTable.render.moment(
-                    moment.ISO_8601,
-                    aaSrpSettings.datetimeFormat
-                ),
+                render: function (data, type, row) {
+                    return moment(data).utc().format(aaSrpSettings.datetimeFormat);
+                },
                 className: 'srp-request-time'
             },
             {
