@@ -82,14 +82,28 @@ class AaSrpRequestForm(ModelForm):
         :return:
         """
 
-        data = self.cleaned_data["killboard_link"]
+        killboard_link = self.cleaned_data["killboard_link"]
 
-        if "zkillboard.com" not in data:
+        if "zkillboard.com" not in killboard_link:
             raise forms.ValidationError(
                 _("Invalid Link. Please use https://zkillboard.com")
             )
 
-        return data
+        if "https://zkillboard.com/kill/" not in killboard_link:
+            raise forms.ValidationError(
+                _("Invalid Link. Please post a link that is actually a killmail.")
+            )
+
+        # check if there is already a SRP request for this killmail
+        if AaSrpRequest.objects.filter(killboard_link=killboard_link).exists():
+            raise forms.ValidationError(
+                _(
+                    "There is already a SRP request for this killmail. "
+                    "Please check if you got the right one."
+                )
+            )
+
+        return killboard_link
 
 
 class AaSrpRequestPayoutForm(forms.Form):

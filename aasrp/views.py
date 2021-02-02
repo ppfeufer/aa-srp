@@ -355,20 +355,6 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         # check whether it's valid:
         if form.is_valid():
-            # check if the killmail was already posted
-            if AaSrpRequest.objects.filter(
-                killboard_link=form.cleaned_data["killboard_link"]
-            ).exists():
-                messages.error(
-                    request,
-                    _(
-                        "There is already a SRP request for this killmail. "
-                        "Please check if you got the right one."
-                    ),
-                )
-
-                return redirect("aasrp:dashboard")
-
             creator = request.user
             post_time = timezone.now()
 
