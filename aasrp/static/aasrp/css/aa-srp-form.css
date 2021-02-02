@@ -4,8 +4,8 @@
         font-weight: normal;
     }
 
-    .aasrp-form-errors, .aasrp-form-field-errors {
-        color: rgb(255, 0, 0);
+    .aasrp-form-field-errors {
+        margin-top: 0.5rem;
     }
 
     .field-required > span {

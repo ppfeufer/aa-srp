@@ -45,7 +45,7 @@
             {% endif %}
 
             {% if field.errors %}
-                <div class="aasrp-form-field-errors clearfix">
+                <div class="aasrp-form-field-errors alert alert-danger clearfix">
                     {% for error in field.errors %}
                         <div class="aasrp-form-field-error clearfix">
                             {{ error|escape }}
