@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+### [0.1.0-beta.14] - 2021-02-02
+
+### Changed
+
+- Form validation moved to the form model instead of view, so the person
+  requesting SRP does not have to restart the whole process again if form validation
+  fails
+- Form error messages formatted
+
+
 ### [0.1.0-beta.13] - 2021-01-27
 
 ### Changed
