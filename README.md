@@ -25,6 +25,7 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
     - [Step 5 - Set up permissions](#step-6---set-up-permissions)
 - [Permissions](#permissions)
 - [Changelog](#changelog)
+- [Contributing](#contributing)
 
 
 ## Overview
@@ -151,3 +152,11 @@ section for more information about the available permissions.
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md)
+
+
+## Contributing
+
+You want to contribute to this project? That's cool!
+
+Please make sure to read the [contribution guidelines](CONTRIBUTING.md)
+(I promise, it's not much, just some basics)
