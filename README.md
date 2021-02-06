@@ -38,6 +38,8 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
 - Use of modern DataTables with filters where useful
 - Tables fully searchable and sortable
 - Mandatory reason on SRP reject
+- Discord notification via PM to the user on SRP request approval or rejection, if
+  [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot) is installed
 
 
 ### Screenshots
