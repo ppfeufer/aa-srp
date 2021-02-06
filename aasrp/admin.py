@@ -109,5 +109,6 @@ class AaSrpRequestCommentAdmin(admin.ModelAdmin):
     AaSrpRequestCommentAdmin
     """
 
-    list_display = ("id", "comment_type", "creator")
-    ordering = ("id",)
+    list_display = ("srp_request", "comment_type", "creator")
+    ordering = ("srp_request",)
+    list_filter = ("comment_type",)

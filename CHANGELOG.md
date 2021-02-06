@@ -6,14 +6,45 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
-### [0.1.0-beta.15] - 2021-02-04
+## [0.1.0-beta.16] - 2021-02-06
+
+### Changed
+
+- Migrated SRP request comments (Additional request information and reject information)
+  into their own model
+
+
+## Important Update Instructions
+
+**IMPORTANT**
+
+If you update from v0.1.0-beta.15 or earlier, make sure to read carefully.
+
+In this version the way the SRP request comments are handled has changed. It is no
+longer just a simple string in the database table, it is now a proper model. So
+you have to an extra steps to migrate your data.
+
+**This needs to be done right after you have updated AA SRP from a version prior
+v0.1.0-beta.16.**
+
+### Migrate SRP request comments
+
+To migrate the comments from SRP requests to their own model, simply run
+(Make sure you ran migrations before running this command.)
+
+```shell
+python manage.py aasrp_migrate_to_comments
+```
+
+
+## [0.1.0-beta.15] - 2021-02-04
 
 ### Fixed
 
 - Modal headers
 
 
-### [0.1.0-beta.14] - 2021-02-02
+## [0.1.0-beta.14] - 2021-02-02
 
 ### Changed
 
@@ -23,7 +54,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 - Form error messages formatted
 
 
-### [0.1.0-beta.13] - 2021-01-27
+## [0.1.0-beta.13] - 2021-01-27
 
 ### Changed
 

@@ -31,7 +31,14 @@ from aasrp.form import (
     AaSrpRequestRejectForm,
 )
 from aasrp.managers import AaSrpManager
-from aasrp.models import AaSrpLink, AaSrpRequestStatus, AaSrpStatus, AaSrpRequest
+from aasrp.models import (
+    AaSrpLink,
+    AaSrpRequestComment,
+    AaSrpRequestCommentType,
+    AaSrpRequestStatus,
+    AaSrpStatus,
+    AaSrpRequest,
+)
 from aasrp.utils import LoggerAddTag
 
 from eveuniverse.models import EveType
@@ -360,7 +367,6 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
             srp_request = AaSrpRequest()
             srp_request.killboard_link = form.cleaned_data["killboard_link"]
-            srp_request.additional_info = form.cleaned_data["additional_info"]
             srp_request.creator = creator
             srp_request.srp_link = srp_link
 
@@ -409,6 +415,14 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 srp_request.post_time = post_time
                 srp_request.request_code = get_random_string(length=16)
                 srp_request.save()
+
+                # add request info to comments
+                srp_request_comment = AaSrpRequestComment()
+                srp_request_comment.comment = form.cleaned_data["additional_info"]
+                srp_request_comment.srp_request = srp_request
+                srp_request_comment.comment_type = AaSrpRequestCommentType.REQUEST_INFO
+                srp_request_comment.creator = creator
+                srp_request_comment.save()
 
                 logger.info(
                     "Created SRP request on behalf of user {user_name} "
@@ -793,6 +807,26 @@ def ajax_srp_request_additional_information(
         )
     )
 
+    additional_info = ""
+    try:
+        additional_info_comment = AaSrpRequestComment.objects.get(
+            srp_request=srp_request, comment_type=AaSrpRequestCommentType.REQUEST_INFO
+        )
+
+        additional_info = additional_info_comment.comment.replace("\n", "<br>\n")
+    except AaSrpRequestComment.DoesNotExist:
+        pass
+
+    reject_info = ""
+    try:
+        reject_comment = AaSrpRequestComment.objects.get(
+            srp_request=srp_request, comment_type=AaSrpRequestCommentType.REJECT_REASON
+        )
+
+        reject_info = reject_comment.comment.replace("\n", "<br>\n")
+    except AaSrpRequestComment.DoesNotExist:
+        pass
+
     data = {
         # "killboard_link": srp_request.killboard_link,
         "killboard_link": killboard_link,
@@ -800,8 +834,8 @@ def ajax_srp_request_additional_information(
         "request_time": srp_request.post_time,
         "requester": requester,
         "character": character,
-        "additional_info": srp_request.additional_info.replace("\n", "<br>\n"),
-        "reject_info": srp_request.reject_info.replace("\n", "<br>\n"),
+        "additional_info": additional_info,
+        "reject_info": reject_info,
         "request_status_banner": request_status_banner,
     }
 
@@ -869,8 +903,13 @@ def ajax_srp_request_approve(
         if srp_payout == 0:
             srp_request.payout_amount = srp_isk_loss
 
+        # remove any possible reject reason in case this was rejected before
+        AaSrpRequestComment.objects.filter(
+            srp_request=srp_request,
+            comment_type=AaSrpRequestCommentType.REJECT_REASON,
+        ).delete()
+
         srp_request.request_status = AaSrpRequestStatus.APPROVED
-        srp_request.reject_info = ""
         srp_request.save()
 
         notify(
@@ -923,8 +962,21 @@ def ajax_srp_request_deny(
 
                 srp_request.payout_amount = 0
                 srp_request.request_status = AaSrpRequestStatus.REJECTED
-                srp_request.reject_info = reject_info
+                # srp_request.reject_info = reject_info
                 srp_request.save()
+
+                # save reject reason as comment for this request
+                AaSrpRequestComment.objects.filter(
+                    srp_request=srp_request,
+                    comment_type=AaSrpRequestCommentType.REJECT_REASON,
+                ).delete()
+
+                srp_request_comment = AaSrpRequestComment()
+                srp_request_comment.comment = reject_info
+                srp_request_comment.srp_request = srp_request
+                srp_request_comment.comment_type = AaSrpRequestCommentType.REJECT_REASON
+                srp_request_comment.creator = request.user
+                srp_request_comment.save()
 
                 notify(
                     user=user,

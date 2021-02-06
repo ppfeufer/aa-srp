@@ -18,7 +18,7 @@ from allianceauth.srp.models import SrpFleetMain
 
 def get_input(text):
     """
-    wrapped input to enable tz import
+    wrapped input to migrate srp data
     """
 
     return input(text)
