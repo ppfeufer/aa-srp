@@ -35,3 +35,12 @@ def avoid_cdn() -> bool:
     :return: bool
     """
     return AVOID_CDN
+
+
+def discord_bot_active():
+    """
+    check if allianceauth-dicordbot is installed and active
+    :return:
+    """
+
+    return "aadiscordbot" in settings.INSTALLED_APPS
