@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
-## [0.1.0-beta.17] - 2021-02-06
+
+## [1.0.0] - 2021-02-06
+
+This has now been tested long enough by my corp, it's time to fully release the
+module now, so here we go ...
+
+### Important
+
+**If you are updating from an earlier beta-version, please make sure to read through
+this changelog, beginning from the beta-version you were using. You might have to do
+some manual work, so please update step by step.**
 
 ### Fixed
 
