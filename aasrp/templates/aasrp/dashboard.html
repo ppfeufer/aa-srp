@@ -16,6 +16,7 @@
     {% include 'aasrp/modals/dashboard/enable_srp_link.html' %}
     {% include 'aasrp/modals/dashboard/disable_srp_link.html' %}
     {% include 'aasrp/modals/dashboard/delete_srp_link.html' %}
+    {% include 'aasrp/modals/view_requests/request_details.html' %}
 {% endblock %}
 
 {% block extra_css %}
@@ -51,61 +52,33 @@
                 userSrpRequests: urlUserSrpRequests
             },
             translation: {
-                filterRequestShip: "{% translate 'Ship' %}",
-                filterRequestStatus: "{% translate 'Request Status' %}"
+                filter: {
+                    ship: "{% translate 'Ship' %}",
+                    requestStatus: "{% translate 'Request Status' %}",
+                    character: "{% translate 'Character' %}",
+                },
+                modal: {
+                    enableSrpLink: {
+                        body: "{% translate 'Are you sure you want to (re-)activate the following SRP Link?' %}"
+                    },
+                    disableSrpLink: {
+                        body: "{% translate 'Are you sure you want to disable the following SRP Link?' %}"
+                    },
+                    deleteSrpLink: {
+                        body: "{% translate 'Are you sure you want to delete the following SRP Link and all SRP requests tied to it?' %}"
+                    },
+                    srpDetails: {
+                        body: {
+                            requestor: '{% translate "Requestor" %}',
+                            character: '{% translate "Character" %}',
+                            ship: '{% translate "Ship" %}',
+                            additionalInformation: '{% translate "Additional Information" %}',
+                            rejectInformation: '{% translate "Reject Information" %}'
+                        }
+                    }
+                }
             }
         };
-
-        /**
-         * enable link modal
-         */
-        $('#enable-srp-link').on('show.bs.modal', function(event) {
-            let button = $(event.relatedTarget);
-            let url = button.data('url');
-            let name = button.data('name');
-            let modal = $(this);
-
-            modal.find('#modal-button-confirm-enable-srp-link').attr('href', url);
-            modal.find('.modal-body').html('{% translate "Are you sure you want to (re-)activate the following SRP Link?" %}<br>"' + name + '"');
-        }).on('hide.bs.modal', function() {
-            let modal = $(this);
-
-            modal.find('.modal-body').html('');
-        });
-
-        /**
-         * disable link modal
-         */
-        $('#disable-srp-link').on('show.bs.modal', function(event) {
-            let button = $(event.relatedTarget);
-            let url = button.data('url');
-            let name = button.data('name');
-            let modal = $(this);
-
-            modal.find('#modal-button-confirm-disable-srp-link').attr('href', url);
-            modal.find('.modal-body').html('{% translate "Are you sure you want to disable the following SRP Link?" %}<br>"' + name + '"');
-        }).on('hide.bs.modal', function() {
-            let modal = $(this);
-
-            modal.find('.modal-body').html('');
-        });
-
-        /**
-         * delete link modal
-         */
-        $('#delete-srp-link').on('show.bs.modal', function(event) {
-            let button = $(event.relatedTarget);
-            let url = button.data('url');
-            let name = button.data('name');
-            let modal = $(this);
-
-            modal.find('#modal-button-confirm-delete-srp-link').attr('href', url);
-            modal.find('.modal-body').html('{% translate "Are you sure you want to delete the following SRP Link and all SRP requests tied to it?" %}<br>"' + name + '"');
-        }).on('hide.bs.modal', function() {
-            let modal = $(this);
-
-            modal.find('.modal-body').html('');
-        });
     </script>
-    <script type="application/javascript" src="{% static 'aasrp/javascript/aa-srp-dashboard.min.js' %}"></script>
+    <script type="application/javascript" src="{% static 'aasrp/javascript/aa-srp-dashboard.js' %}"></script>
 {% endblock %}

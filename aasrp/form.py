@@ -53,13 +53,19 @@ class AaSrpRequestForm(ModelForm):
     """
 
     killboard_link = forms.CharField(
-        label=_("zKillboard Link"), max_length=254, required=True
+        label=_("zKillboard Link"),
+        max_length=254,
+        required=True,
+        help_text="Find your kill mail on https://zkillboard.com and paste the lnk here.",
     )
 
     additional_info = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
         label=_("Additional Info"),
+        help_text="Please tell us about the circumstances of your untimely demise. "
+        "Who was the FC, what doctrine was called, have changes to the fit "
+        "been requested and so on. Be as detailed as you can.",
     )
 
     class Meta:  # pylint: disable=too-few-public-methods
@@ -76,13 +82,46 @@ class AaSrpRequestForm(ModelForm):
         :return:
         """
 
-        data = self.cleaned_data["killboard_link"]
+        killboard_link = self.cleaned_data["killboard_link"]
 
-        if "zkillboard.com" not in data:
-            raise forms.ValidationError(_("Invalid Link. Please use zKillboard.com"))
+        if "zkillboard.com" not in killboard_link:
+            raise forms.ValidationError(
+                _("Invalid Link. Please use https://zkillboard.com")
+            )
 
-        return data
+        if "https://zkillboard.com/kill/" not in killboard_link:
+            raise forms.ValidationError(
+                _("Invalid Link. Please post a link that is actually a killmail.")
+            )
+
+        # check if there is already a SRP request for this killmail
+        if AaSrpRequest.objects.filter(killboard_link=killboard_link).exists():
+            raise forms.ValidationError(
+                _(
+                    "There is already a SRP request for this killmail. "
+                    "Please check if you got the right one."
+                )
+            )
+
+        return killboard_link
 
 
 class AaSrpRequestPayoutForm(forms.Form):
+    """
+    change payout value
+    """
+
     value = forms.CharField(label=_("SRP payout value"), max_length=254, required=True)
+
+
+class AaSrpRequestRejectForm(forms.Form):
+    """
+    SRP request reject form
+    """
+
+    reject_info = forms.CharField(
+        widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
+        required=True,
+        label=_("Rejection Reason"),
+        help_text=_("Please provide the reason why this SRP request is rejected."),
+    )

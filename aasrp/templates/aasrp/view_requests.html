@@ -12,8 +12,11 @@
 {% block aasrp_body %}
     {% include 'aasrp/partials/view_requests/overview.html' %}
     {% include 'aasrp/partials/view_requests/requests.html' %}
-    {% include 'aasrp/modals/view_requests/action_modal.html' %}
+    {% include 'aasrp/modals/view_requests/request_details.html' %}
     {% include 'aasrp/modals/view_requests/mark_complete_modal.html' %}
+    {% include 'aasrp/modals/view_requests/accept_request.html' %}
+    {% include 'aasrp/modals/view_requests/reject_request.html' %}
+    {% include 'aasrp/modals/view_requests/remove_request.html' %}
 {% endblock %}
 
 {% block extra_css %}
@@ -22,6 +25,7 @@
 
     <link rel="stylesheet" href="{% static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp-form.min.css' %}" type="text/css">
 {% endblock %}
 
 {% block extra_javascript %}
@@ -49,10 +53,29 @@
                 changeSrpAmount: urlChangeSrpAmount
             },
             translation: {
-                filterRequestStatus: '{% translate "Request Status" %}',
-                filterRequestShip: '{% translate "Ship" %}',
+                filter: {
+                    requestStatus: '{% translate "Request Status" %}',
+                    ship: '{% translate "Ship" %}',
+                    character: '{% translate "Character" %}',
+                },
                 changeSrpPayoutHeader: '{% translate "Enter SRP payout value" %}',
-                editableValidate: '{% translate "Empty values are not allowed" %}'
+                editableValidate: '{% translate "Empty values are not allowed" %}',
+                modal: {
+                    srpDetails: {
+                        body: {
+                            requestor: '{% translate "Requestor" %}',
+                            character: '{% translate "Character" %}',
+                            ship: '{% translate "Ship" %}',
+                            additionalInformation: '{% translate "Additional Information" %}',
+                            rejectInformation: '{% translate "Reject Information" %}'
+                        }
+                    },
+                    rejectRequest: {
+                        body: {
+                            fieldRequired: '{% translate "This field is required." %}'
+                        }
+                    }
+                }
             }
         };
     </script>

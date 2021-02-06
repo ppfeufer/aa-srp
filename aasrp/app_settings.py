@@ -14,7 +14,7 @@ from aasrp.utils import clean_setting
 AVOID_CDN = clean_setting("AVOID_CDN", False)
 
 
-def get_site_url():  # regex sso url
+def get_site_url() -> str:  # regex sso url
     """
     get the site url
     :return: string
@@ -35,3 +35,12 @@ def avoid_cdn() -> bool:
     :return: bool
     """
     return AVOID_CDN
+
+
+def discord_bot_active():
+    """
+    check if allianceauth-dicordbot is installed and active
+    :return:
+    """
+
+    return "aadiscordbot" in settings.INSTALLED_APPS

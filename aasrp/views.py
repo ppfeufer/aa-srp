@@ -3,14 +3,24 @@
 """
 the views
 """
-from allianceauth.notifications import notify
-from allianceauth.services.hooks import get_extension_logger
+
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
+from django.core.handlers.wsgi import WSGIRequest
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from django.utils.crypto import get_random_string
+from django.utils.translation import gettext_lazy as _
 
 from aasrp import __title__
-from aasrp.app_settings import avoid_cdn
+from aasrp.app_settings import avoid_cdn, discord_bot_active
+from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
+from aasrp.helper.eve_images import get_type_render_url_from_type_id
 from aasrp.helper.character import get_formatted_character_name
 from aasrp.helper.icons import (
     get_dashboard_action_icons,
+    get_srp_request_details_icon,
     get_srp_request_status_icon,
     get_srp_request_action_icons,
 )
@@ -19,29 +29,31 @@ from aasrp.form import (
     AaSrpLinkUpdateForm,
     AaSrpRequestForm,
     AaSrpRequestPayoutForm,
+    AaSrpRequestRejectForm,
 )
 from aasrp.managers import AaSrpManager
-from aasrp.models import AaSrpLink, AaSrpRequestStatus, AaSrpStatus, AaSrpRequest
+from aasrp.models import (
+    AaSrpLink,
+    AaSrpRequestComment,
+    AaSrpRequestCommentType,
+    AaSrpRequestStatus,
+    AaSrpStatus,
+    AaSrpRequest,
+)
 from aasrp.utils import LoggerAddTag
 
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render, redirect
-from django.utils import timezone
-from django.utils.crypto import get_random_string
-from django.utils.translation import gettext_lazy as _
+from eveuniverse.models import EveType
 
 from allianceauth.eveonline.models import EveCharacter
-from allianceauth.eveonline.providers import provider
-
+from allianceauth.notifications import notify
+from allianceauth.services.hooks import get_extension_logger
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
 @login_required
 @permission_required("aasrp.basic_access")
-def dashboard(request, show_all_links=False) -> HttpResponse:
+def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpResponse:
     """
     srp dasboard
     :param request:
@@ -66,7 +78,9 @@ def dashboard(request, show_all_links=False) -> HttpResponse:
 
 @login_required
 @permission_required("aasrp.basic_access")
-def ajax_dashboard_srp_links_data(request, show_all_links=False) -> JsonResponse:
+def ajax_dashboard_srp_links_data(
+    request: WSGIRequest, show_all_links: bool = False
+) -> JsonResponse:
     """
     ajax request
     get all active srp links
@@ -99,7 +113,7 @@ def ajax_dashboard_srp_links_data(request, show_all_links=False) -> JsonResponse
             {
                 "srp_name": srp_link.srp_name,
                 "creator": srp_link.creator.profile.main_character.character_name,
-                "fleet_time": srp_link.fleet_time.replace(tzinfo=None),
+                "fleet_time": srp_link.fleet_time,
                 "fleet_commander": srp_link.fleet_commander.character_name,
                 "fleet_doctrine": srp_link.fleet_doctrine,
                 "aar_link": aar_link,
@@ -116,7 +130,7 @@ def ajax_dashboard_srp_links_data(request, show_all_links=False) -> JsonResponse
 
 @login_required
 @permission_required("aasrp.basic_access")
-def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
+def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
     """
     ajax request
     get user srp requests
@@ -131,31 +145,56 @@ def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
     for srp_request in requests:
         killboard_link = ""
         if srp_request.killboard_link:
+            ship_render_icon_html = get_type_render_url_from_type_id(
+                evetype_id=srp_request.ship.id,
+                evetype_name=srp_request.ship.name,
+                size=32,
+                as_html=True,
+            )
+
             killboard_link = (
-                '<a href="{zkb_link}" target="_blank">{zkb_link_text}</a>'.format(
+                '<a href="{zkb_link}" target="_blank">'
+                "{ship_render_icon_html}"
+                "<span>{zkb_link_text}</span>"
+                "</a>".format(
                     zkb_link=srp_request.killboard_link,
-                    zkb_link_text=srp_request.ship_name,
+                    zkb_link_text=srp_request.ship.name,
+                    ship_render_icon_html=ship_render_icon_html,
                 )
             )
 
         srp_request_status_icon = get_srp_request_status_icon(
             request=request, srp_request=srp_request
         )
-        character = get_formatted_character_name(character=srp_request.character)
+
+        srp_request_details_icon = get_srp_request_details_icon(
+            request=request, srp_link=srp_request.srp_link, srp_request=srp_request
+        )
+
+        character_display = get_formatted_character_name(
+            character=srp_request.character, with_portrait=True
+        )
+        character_sort = get_formatted_character_name(character=srp_request.character)
 
         data.append(
             {
-                "request_time": srp_request.post_time.replace(tzinfo=None),
-                "character": character,
+                "request_time": srp_request.post_time,
+                "character_html": {
+                    "display": character_display,
+                    "sort": character_sort,
+                },
+                "character": srp_request.character.character_name,
                 "fleet_name": srp_request.srp_link.srp_name,
                 "srp_code": srp_request.srp_link.srp_code,
                 "request_code": srp_request.request_code,
-                "ship_html": {"display": killboard_link, "sort": srp_request.ship_name},
-                "ship": srp_request.ship_name,
+                "ship_html": {"display": killboard_link, "sort": srp_request.ship.name},
+                "ship": srp_request.ship.name,
                 "zkb_link": killboard_link,
                 "zbk_loss_amount": srp_request.loss_amount,
                 "payout_amount": srp_request.payout_amount,
-                "request_status_icon": srp_request_status_icon,
+                "request_status_icon": (
+                    srp_request_details_icon + srp_request_status_icon
+                ),
                 "request_status": srp_request.request_status,
             }
         )
@@ -165,7 +204,7 @@ def ajax_dashboard_user_srp_requests_data(request) -> JsonResponse:
 
 @login_required
 @permission_required("aasrp.manage_srp", "aasrp.create_srp")
-def srp_link_add(request) -> HttpResponse:
+def srp_link_add(request: WSGIRequest) -> HttpResponse:
     """
     add a srp link
     :param request:
@@ -214,7 +253,7 @@ def srp_link_add(request) -> HttpResponse:
 
 @login_required
 @permission_required("aasrp.manage_srp", "aasrp.create_srp")
-def srp_link_edit(request, srp_code: str) -> HttpResponse:
+def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
     add or edit AAR link
     :param request:
@@ -270,7 +309,7 @@ def srp_link_edit(request, srp_code: str) -> HttpResponse:
 
 @login_required
 @permission_required("aasrp.basic_access")
-def request_srp(request, srp_code: str) -> HttpResponse:
+def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
     srp request
     :param request:
@@ -294,7 +333,7 @@ def request_srp(request, srp_code: str) -> HttpResponse:
 
         messages.error(
             request,
-            _("Unable to locate SRP Fleet using SRP code {srp_code} ").format(
+            _("Unable to locate SRP Fleet using SRP code {srp_code}").format(
                 srp_code=srp_code
             ),
         )
@@ -317,33 +356,18 @@ def request_srp(request, srp_code: str) -> HttpResponse:
         form = AaSrpRequestForm(request.POST)
 
         logger.debug(
-            "Request type POST contains form valid: {form_is_valid}".format(
+            "Request type POST contains valid form: {form_is_valid}".format(
                 form_is_valid=form.is_valid()
             )
         )
 
         # check whether it's valid:
         if form.is_valid():
-            # check if the killmail was already posted
-            if AaSrpRequest.objects.filter(
-                killboard_link=form.cleaned_data["killboard_link"]
-            ).exists():
-                messages.error(
-                    request,
-                    _(
-                        "There is already a SRP request for this killmail. "
-                        "Please check if you got the right one."
-                    ),
-                )
-
-                return redirect("aasrp:dashboard")
-
             creator = request.user
             post_time = timezone.now()
 
             srp_request = AaSrpRequest()
             srp_request.killboard_link = form.cleaned_data["killboard_link"]
-            srp_request.additional_info = form.cleaned_data["additional_info"]
             srp_request.creator = creator
             srp_request.srp_link = srp_link
 
@@ -367,7 +391,7 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                     request,
                     _(
                         "Your SRP request Killmail link is invalid. "
-                        "Please make sure you are using zKillboard."
+                        "Please make sure you are using http://zkillboard.com"
                     ),
                 )
 
@@ -380,12 +404,26 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                     victim_id
                 )
 
+                (
+                    srp_request__ship,
+                    created_from_esi,
+                ) = EveType.objects.get_or_create_esi(id=ship_type_id)
+
                 srp_request.character = srp_request__character
-                srp_request.ship_name = provider.get_itemtype(ship_type_id).name
+                srp_request.ship_name = srp_request__ship.name
+                srp_request.ship = srp_request__ship
                 srp_request.loss_amount = ship_value
                 srp_request.post_time = post_time
                 srp_request.request_code = get_random_string(length=16)
                 srp_request.save()
+
+                # add request info to comments
+                srp_request_comment = AaSrpRequestComment()
+                srp_request_comment.comment = form.cleaned_data["additional_info"]
+                srp_request_comment.srp_request = srp_request
+                srp_request_comment.comment_type = AaSrpRequestCommentType.REQUEST_INFO
+                srp_request_comment.creator = creator
+                srp_request_comment.save()
 
                 logger.info(
                     "Created SRP request on behalf of user {user_name} "
@@ -400,7 +438,7 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                 messages.success(
                     request,
                     _("Submitted SRP request for your {ship}.").format(
-                        ship=srp_request.ship_name
+                        ship=srp_request.ship.name
                     ),
                 )
 
@@ -409,8 +447,9 @@ def request_srp(request, srp_code: str) -> HttpResponse:
                 messages.error(
                     request,
                     _(
-                        "Character {character_id} does not belong to your Auth account. "
-                        "Please add this character as an alt to your main and try again."
+                        "Character {character_id} does not belong to your Auth "
+                        "account. Please add this character as an alt to "
+                        "your main and try again."
                     ).format(character_id=victim_id),
                 )
 
@@ -431,7 +470,7 @@ def request_srp(request, srp_code: str) -> HttpResponse:
 
 @login_required
 @permission_required("aasrp.manage_srp")
-def complete_srp_link(request, srp_code: str):
+def complete_srp_link(request: WSGIRequest, srp_code: str):
     """
     mark an srp link as completed
     :param request:
@@ -470,7 +509,7 @@ def complete_srp_link(request, srp_code: str):
 
 @login_required
 @permission_required("aasrp.manage_srp", "manage_srp_requests")
-def srp_link_view_requests(request, srp_code: str) -> HttpResponse:
+def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
     view srp requests for a specific srp code
     :param request:
@@ -499,15 +538,18 @@ def srp_link_view_requests(request, srp_code: str) -> HttpResponse:
         return redirect("aasrp:dashboard")
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
+    reject_form = AaSrpRequestRejectForm()
 
-    context = {"avoid_cdn": avoid_cdn(), "srp_link": srp_link}
+    context = {"avoid_cdn": avoid_cdn(), "srp_link": srp_link, "form": reject_form}
 
     return render(request, "aasrp/view_requests.html", context)
 
 
 @login_required
 @permission_required("aasrp.manage_srp", "manage_srp_requests")
-def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
+def ajax_srp_link_view_requests_data(
+    request: WSGIRequest, srp_code: str
+) -> JsonResponse:
     """
     ajax request
     get datatable data
@@ -517,16 +559,26 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
     data = list()
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
-    # srp_requests = AaSrpRequest.objects.filter(srp_link_id__srp_code=srp_code)
     srp_requests = srp_link.requests
 
     for srp_request in srp_requests:
         killboard_link = ""
         if srp_request.killboard_link:
+            ship_render_icon_html = get_type_render_url_from_type_id(
+                evetype_id=srp_request.ship.id,
+                evetype_name=srp_request.ship.name,
+                size=32,
+                as_html=True,
+            )
+
             killboard_link = (
-                '<a href="{zkb_link}" target="_blank">{zkb_link_text}</a>'.format(
+                '<a href="{zkb_link}" target="_blank">'
+                "{ship_render_icon_html}"
+                "<span>{zkb_link_text}</span>"
+                "</a>".format(
                     zkb_link=srp_request.killboard_link,
-                    zkb_link_text=srp_request.ship_name,
+                    zkb_link_text=srp_request.ship.name,
+                    ship_render_icon_html=ship_render_icon_html,
                 )
             )
 
@@ -540,17 +592,24 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
         srp_request_action_icons = get_srp_request_action_icons(
             request=request, srp_link=srp_link, srp_request=srp_request
         )
-        character = get_formatted_character_name(character=srp_request.character)
+        character_display = get_formatted_character_name(
+            character=srp_request.character, with_portrait=True
+        )
+        character_sort = get_formatted_character_name(character=srp_request.character)
 
         data.append(
             {
-                "request_time": srp_request.post_time.replace(tzinfo=None),
+                "request_time": srp_request.post_time,
                 "requester": requester,
-                "character": character,
+                "character_html": {
+                    "display": character_display,
+                    "sort": character_sort,
+                },
+                "character": srp_request.character.character_name,
                 "request_code": srp_request.request_code,
                 "srp_code": srp_request.srp_link.srp_code,
-                "ship_html": {"display": killboard_link, "sort": srp_request.ship_name},
-                "ship": srp_request.ship_name,
+                "ship_html": {"display": killboard_link, "sort": srp_request.ship.name},
+                "ship": srp_request.ship.name,
                 "zkb_link": killboard_link,
                 "zbk_loss_amount": srp_request.loss_amount,
                 "payout_amount": srp_request.payout_amount,
@@ -565,7 +624,7 @@ def ajax_srp_link_view_requests_data(request, srp_code: str) -> JsonResponse:
 
 @login_required
 @permission_required("aasrp.manage_srp")
-def enable_srp_link(request, srp_code: str):
+def enable_srp_link(request: WSGIRequest, srp_code: str):
     """
     disable SRP link
     :param request:
@@ -608,7 +667,7 @@ def enable_srp_link(request, srp_code: str):
 
 @login_required
 @permission_required("aasrp.manage_srp")
-def disable_srp_link(request, srp_code: str):
+def disable_srp_link(request: WSGIRequest, srp_code: str):
     """
     disable SRP link
     :param request:
@@ -651,7 +710,7 @@ def disable_srp_link(request, srp_code: str):
 
 @login_required
 @permission_required("aasrp.manage_srp")
-def delete_srp_link(request, srp_code: str):
+def delete_srp_link(request: WSGIRequest, srp_code: str):
     """
     disable SRP link
     :param request:
@@ -694,7 +753,7 @@ def delete_srp_link(request, srp_code: str):
 @login_required
 @permission_required("aasrp.manage_srp", "manage_srp_requests")
 def ajax_srp_request_additional_information(
-    request, srp_code: str, srp_request_code: str
+    request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
     """
     :param request:
@@ -708,15 +767,77 @@ def ajax_srp_request_additional_information(
     if srp_request.creator.profile.main_character is not None:
         requester = srp_request.creator.profile.main_character.character_name
 
-    character = get_formatted_character_name(character=srp_request.character)
+    character = get_formatted_character_name(
+        character=srp_request.character,
+        with_portrait=True,
+    )
+
+    killboard_link = ""
+    if srp_request.killboard_link:
+        ship_render_icon_html = get_type_render_url_from_type_id(
+            evetype_id=srp_request.ship.id,
+            evetype_name=srp_request.ship.name,
+            size=32,
+            as_html=True,
+        )
+
+        killboard_link = (
+            '<a href="{zkb_link}" target="_blank">'
+            "{ship_render_icon_html}"
+            "<span>{zkb_link_text}</span>"
+            "</a>".format(
+                zkb_link=srp_request.killboard_link,
+                zkb_link_text=srp_request.ship.name,
+                ship_render_icon_html=ship_render_icon_html,
+            )
+        )
+
+    request_status_banner_alert_level = "info"
+    if srp_request.request_status == AaSrpRequestStatus.APPROVED:
+        request_status_banner_alert_level = "success"
+
+    if srp_request.request_status == AaSrpRequestStatus.REJECTED:
+        request_status_banner_alert_level = "danger"
+
+    request_status_banner = (
+        '<div class="alert alert-{banner_level}">'
+        '<div class="text-center">{banner_text}</div>'
+        "</div>".format(
+            banner_level=request_status_banner_alert_level,
+            banner_text="SRP Request " + srp_request.request_status,
+        )
+    )
+
+    additional_info = ""
+    try:
+        additional_info_comment = AaSrpRequestComment.objects.get(
+            srp_request=srp_request, comment_type=AaSrpRequestCommentType.REQUEST_INFO
+        )
+
+        additional_info = additional_info_comment.comment.replace("\n", "<br>\n")
+    except AaSrpRequestComment.DoesNotExist:
+        pass
+
+    reject_info = ""
+    try:
+        reject_comment = AaSrpRequestComment.objects.get(
+            srp_request=srp_request, comment_type=AaSrpRequestCommentType.REJECT_REASON
+        )
+
+        reject_info = reject_comment.comment.replace("\n", "<br>\n")
+    except AaSrpRequestComment.DoesNotExist:
+        pass
 
     data = {
-        "killboard_link": srp_request.killboard_link,
-        "ship_type": srp_request.ship_name,
+        # "killboard_link": srp_request.killboard_link,
+        "killboard_link": killboard_link,
+        "ship_type": srp_request.ship.name,
         "request_time": srp_request.post_time,
         "requester": requester,
         "character": character,
-        "additional_info": srp_request.additional_info.replace("\n", "<br>\n"),
+        "additional_info": additional_info,
+        "reject_info": reject_info,
+        "request_status_banner": request_status_banner,
     }
 
     return JsonResponse(data, safe=False)
@@ -725,7 +846,7 @@ def ajax_srp_request_additional_information(
 @login_required
 @permission_required("aasrp.manage_srp", "manage_srp_requests")
 def ajax_srp_request_change_payout(
-    request, srp_code: str, srp_request_code: str
+    request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
     """
     :param request:
@@ -761,7 +882,7 @@ def ajax_srp_request_change_payout(
 @login_required
 @permission_required("aasrp.manage_srp", "manage_srp_requests")
 def ajax_srp_request_approve(
-    request, srp_code: str, srp_request_code: str
+    request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
     """
     :param request:
@@ -783,21 +904,48 @@ def ajax_srp_request_approve(
         if srp_payout == 0:
             srp_request.payout_amount = srp_isk_loss
 
+        # remove any possible reject reason in case this was rejected before
+        AaSrpRequestComment.objects.filter(
+            srp_request=srp_request,
+            comment_type=AaSrpRequestCommentType.REJECT_REASON,
+        ).delete()
+
         srp_request.request_status = AaSrpRequestStatus.APPROVED
         srp_request.save()
+
+        request_reviser = request.user
+        if request.user.profile.main_character:
+            request_reviser = request.user.profile.main_character.character_name
+
+        notification_message = (
+            "Your SRP request regarding your {ship_name} lost during "
+            "{fleet_name} has been approved.\n\n"
+            "Request Details:\nSRP-Code: {srp_code}\n"
+            "Request-Code: {request_code}\n"
+            "Reviser: {reviser}\n\n{inquiry_note}".format(
+                ship_name=srp_request.ship.name,
+                fleet_name=srp_request.srp_link.srp_name,
+                srp_code=srp_request.srp_link.srp_code,
+                request_code=srp_request.request_code,
+                reviser=request_reviser,
+                inquiry_note=SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE,
+            )
+        )
 
         notify(
             user=user,
             title=_("SRP Request Approved"),
             level="success",
-            message=_(
-                "Your SRP request for a {ship_name} lost during "
-                "{fleet_name} has been approved.".format(
-                    ship_name=srp_request.ship_name,
-                    fleet_name=srp_request.srp_link.srp_name,
-                )
-            ),
+            message=notification_message,
         )
+
+        # send a PM to the user on Discord if allianceauth-discordbot is active
+        if discord_bot_active():
+            import aadiscordbot.tasks
+
+            aadiscordbot.tasks.send_direct_message_by_user_id.delay(
+                request.user.pk, notification_message
+            )
 
         data.append({"success": True, "message": _("SRP request has been approved")})
     except AaSrpRequest.DoesNotExist:
@@ -809,7 +957,7 @@ def ajax_srp_request_approve(
 @login_required
 @permission_required("aasrp.manage_srp", "manage_srp_requests")
 def ajax_srp_request_deny(
-    request, srp_code: str, srp_request_code: str
+    request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
     """
     :param request:
@@ -820,30 +968,77 @@ def ajax_srp_request_deny(
     data = list()
 
     try:
-        srp_request = AaSrpRequest.objects.get(
-            request_code=srp_request_code, srp_link__srp_code=srp_code
-        )
+        if request.method == "POST":
+            # create a form instance and populate it with data from the request
+            form = AaSrpRequestRejectForm(request.POST)
 
-        user = srp_request.creator
+            # check whether it's valid:
+            if form.is_valid():
+                reject_info = form.cleaned_data["reject_info"]
 
-        srp_request.payout_amount = 0
-        srp_request.request_status = AaSrpRequestStatus.REJECTED
-        srp_request.save()
-
-        notify(
-            user=user,
-            title=_("SRP Request Rejected"),
-            level="danger",
-            message=_(
-                "Your SRP request for a {ship_name} lost during "
-                "{fleet_name} has been rejected.".format(
-                    ship_name=srp_request.ship_name,
-                    fleet_name=srp_request.srp_link.srp_name,
+                srp_request = AaSrpRequest.objects.get(
+                    request_code=srp_request_code, srp_link__srp_code=srp_code
                 )
-            ),
-        )
 
-        data.append({"success": True, "message": _("SRP request has been rejected")})
+                user = srp_request.creator
+
+                srp_request.payout_amount = 0
+                srp_request.request_status = AaSrpRequestStatus.REJECTED
+                # srp_request.reject_info = reject_info
+                srp_request.save()
+
+                # save reject reason as comment for this request
+                AaSrpRequestComment.objects.filter(
+                    srp_request=srp_request,
+                    comment_type=AaSrpRequestCommentType.REJECT_REASON,
+                ).delete()
+
+                srp_request_comment = AaSrpRequestComment()
+                srp_request_comment.comment = reject_info
+                srp_request_comment.srp_request = srp_request
+                srp_request_comment.comment_type = AaSrpRequestCommentType.REJECT_REASON
+                srp_request_comment.creator = request.user
+                srp_request_comment.save()
+
+                request_reviser = request.user
+                if request.user.profile.main_character:
+                    request_reviser = request.user.profile.main_character.character_name
+
+                notification_message = (
+                    "Your SRP request regarding your {ship_name} lost during "
+                    "{fleet_name} has been rejected.\n\n"
+                    "Reason:\n{reject_info}\n\n"
+                    "Request Details:\nSRP-Code: {srp_code}\n"
+                    "Request-Code: {request_code}\n"
+                    "Reviser: {reviser}\n\n{inquiry_note}".format(
+                        ship_name=srp_request.ship.name,
+                        fleet_name=srp_request.srp_link.srp_name,
+                        reject_info=reject_info,
+                        srp_code=srp_request.srp_link.srp_code,
+                        request_code=srp_request.request_code,
+                        reviser=request_reviser,
+                        inquiry_note=SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE,
+                    )
+                )
+
+                notify(
+                    user=user,
+                    title=_("SRP Request Rejected"),
+                    level="danger",
+                    message=notification_message,
+                )
+
+                # send a PM to the user on Discord if allianceauth-discordbot is active
+                if discord_bot_active():
+                    import aadiscordbot.tasks
+
+                    aadiscordbot.tasks.send_direct_message_by_user_id.delay(
+                        request.user.pk, notification_message
+                    )
+
+                data.append(
+                    {"success": True, "message": _("SRP request has been rejected")}
+                )
     except AaSrpRequest.DoesNotExist:
         data.append({"success": False})
 
@@ -853,7 +1048,7 @@ def ajax_srp_request_deny(
 @login_required
 @permission_required("aasrp.manage_srp", "manage_srp_requests")
 def ajax_srp_request_remove(
-    request, srp_code: str, srp_request_code: str
+    request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
     """
     :param request:

@@ -7,8 +7,10 @@ SRP Manager
 import requests
 
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
-from aasrp import __user_agent__, __title__
+from aasrp import __title__
+from aasrp.constants import USERAGENT
 from aasrp.models import AaSrpRequest, AaSrpRequestStatus
 from aasrp.utils import LoggerAddTag
 
@@ -25,7 +27,7 @@ class AaSrpManager:
     """
 
     @staticmethod
-    def get_kill_id(killboard_link):
+    def get_kill_id(killboard_link: str):
         """
         get killmail ID from zKillboard link
         :param killboard_link:
@@ -38,7 +40,7 @@ class AaSrpManager:
         return kill_id
 
     @staticmethod
-    def get_kill_data(kill_id):
+    def get_kill_data(kill_id: str):
         """
         get kill data from zKillboard
         :param kill_id:
@@ -50,7 +52,7 @@ class AaSrpManager:
         )
 
         headers = {
-            "User-Agent": __user_agent__,
+            "User-Agent": USERAGENT,
             "Content-Type": "application/json",
         }
 
@@ -82,7 +84,7 @@ class AaSrpManager:
 
             return ship_type, ship_value, victim_id
 
-        raise ValueError("Invalid Kill ID or Hash.")
+        raise ValueError(_("Invalid Kill ID or Hash."))
 
     @staticmethod
     def pending_requests_count_for_user(user: User):

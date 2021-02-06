@@ -4,15 +4,26 @@
 some helper functions
 so we don't mess up other files too much
 """
+
+from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
 from aasrp.models import get_sentinel_user
+
 from django.contrib.auth.models import User
 
 from allianceauth.eveonline.models import EveCharacter
 
 
-def get_formatted_character_name(character: EveCharacter) -> str:
+def get_formatted_character_name(
+    character: EveCharacter,
+    with_portrait: bool = False,
+    portrait_size: int = 32,
+    inline: bool = True,
+) -> str:
     """
     get character name with alliance and corp ticker
+    :param inline:
+    :param portrait_size:
+    :param with_portrait:
     :param character:
     """
 
@@ -31,14 +42,37 @@ def get_formatted_character_name(character: EveCharacter) -> str:
         )
 
     character_name_formatted = (
-        "{alliance_ticker}{corporation_ticker}{character_name}".format(
+        "<small class='text-muted'>{alliance_ticker}{corporation_ticker}</small>"
+        "<br>{character_name}".format(
             alliance_ticker=character__alliance_ticker,
             corporation_ticker=character__corporation_ticker,
             character_name=character_name,
         )
     )
 
-    return character_name_formatted
+    return_value = character_name_formatted
+
+    if with_portrait is True:
+        line_break = ""
+        if inline is False:
+            line_break = "<br>"
+
+        character_portrait_html = get_character_portrait_from_evecharacter(
+            character=character, size=portrait_size, as_html=True
+        )
+
+        return_value = (
+            "{character_portrait}{line_break}"
+            "<span class='aasrp-character-portrait-character-name'>"
+            "{character_name_formatted}"
+            "</span>".format(
+                character_portrait=character_portrait_html,
+                line_break=line_break,
+                character_name_formatted=character_name_formatted,
+            )
+        )
+
+    return return_value
 
 
 def get_main_for_character(character: EveCharacter) -> EveCharacter:

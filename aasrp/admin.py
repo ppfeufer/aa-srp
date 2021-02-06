@@ -74,7 +74,7 @@ class AaSrpRequestAdmin(admin.ModelAdmin):
         "character",
         "srp_link",
         "post_time",
-        "ship_name",
+        "ship",
         "loss_amount",
         "payout_amount",
         "killboard_link",
@@ -82,12 +82,12 @@ class AaSrpRequestAdmin(admin.ModelAdmin):
     )
     ordering = ("post_time",)
 
-    list_filter = ("creator", "character", "ship_name", "request_status")
+    list_filter = ("creator", "character", "request_status")
 
     search_fields = (
         "request_code",
         "character__character_name",
-        "ship_name",
+        "ship__name",
         "srp_link__srp_code",
     )
 
@@ -109,5 +109,6 @@ class AaSrpRequestCommentAdmin(admin.ModelAdmin):
     AaSrpRequestCommentAdmin
     """
 
-    list_display = ("id", "comment_type", "creator")
-    ordering = ("id",)
+    list_display = ("srp_request", "comment_type", "creator")
+    ordering = ("srp_request",)
+    list_filter = ("comment_type",)

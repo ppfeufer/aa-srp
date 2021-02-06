@@ -19,6 +19,14 @@
         height: 36px;
     }
 
+    .btn-icon-aasrp-status {
+        cursor: default;
+    }
+
+    .btn-icon-aasrp-status:focus {
+        border: inherit;
+    }
+
     .srp-payout-amount {
         display: inline-block;
     }
@@ -51,6 +59,30 @@
 
     .modal-srp-details {
         margin-bottom: 2rem;
+    }
+
+    .aasrp-character-portrait, .aasrp-evetype-icon {
+        margin-right: 0.5rem;
+    }
+
+    .aasrp-character-portrait {
+        vertical-align: baseline;
+    }
+
+    .aasrp-character-portrait-character-name {
+        display: inline-block;
+    }
+
+    .aasrp-character-portrait-character-name small {
+        font-size: 80%;
+    }
+
+    .aa-srp .table-vertical-middle td {
+        vertical-align: middle;
+    }
+
+    .aa-srp .text-aasrp-form-description {
+        font-weight: 400;
     }
 }
 

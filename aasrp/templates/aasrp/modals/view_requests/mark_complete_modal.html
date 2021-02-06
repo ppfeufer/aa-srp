@@ -5,11 +5,11 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="{% translate 'Close' %}">
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-                <h4 class="modal-title" id="modalLongTitle">{% translate 'Mark Completed' %}</h4>
+                <div class="modal-title">{% translate 'Mark Completed' %}</div>
             </div>
 
             <div class="modal-body">
@@ -34,10 +34,11 @@
             </div>
 
             <div class="modal-footer">
-                <button id="modal-button-cancel" type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                <button id="modal-button-cancel-mark-complete" type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                     <i class='far fa-hand-paper'></i> {% translate 'Cancel' %}
                 </button>
-                <a href="{% url 'aasrp:complete_srp_link' srp_link.srp_code %}" id="modal-button-confirm" role="button" class="btn btn-success btn-sm">
+
+                <a href="{% url 'aasrp:complete_srp_link' srp_link.srp_code %}" id="modal-button-confirm-mark-complete" role="button" class="btn btn-success btn-sm">
                     <i class='fas fa-check'></i> {% translate 'Mark as completed' %}
                 </a>
             </div>
