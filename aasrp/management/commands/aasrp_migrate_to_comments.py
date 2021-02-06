@@ -1,7 +1,7 @@
 # coding=utf-8
 
 """
-Migrate reject comments from AaSrpRequest to AaSrpRequestComments
+Migrate comments from AaSrpRequest to AaSrpRequestComments
 """
 
 from django.core.management import BaseCommand
@@ -24,10 +24,10 @@ def get_input(text):
 
 class Command(BaseCommand):
     """
-    Migrate reject comments from AaSrpRequest to AaSrpRequestComments
+    Migrate comments from AaSrpRequest to AaSrpRequestComments
     """
 
-    help = "Migrate reject comments from AaSrpRequest to AaSrpRequestComments"
+    help = "Migrate comments from AaSrpRequest to AaSrpRequestComments"
 
     def _migrate_reject_comments(self) -> None:
         """
