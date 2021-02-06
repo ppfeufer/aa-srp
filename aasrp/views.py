@@ -3,7 +3,7 @@
 """
 the views
 """
-
+from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
@@ -912,15 +912,26 @@ def ajax_srp_request_approve(
         srp_request.request_status = AaSrpRequestStatus.APPROVED
         srp_request.save()
 
+        request_reviser = request.user
+        if request.user.profile.main_character:
+            request_reviser = request.user.profile.main_character.character_name
+
         notify(
             user=user,
             title=_("SRP Request Approved"),
             level="success",
             message=_(
                 "Your SRP request for a {ship_name} lost during "
-                "{fleet_name} has been approved.".format(
+                "{fleet_name} has been approved.\n\n"
+                "Request Details:\nSRP-Code: {srp_code}\n"
+                "Request-Code: {request_code}\n"
+                "Reviser: {reviser}\n\n{inquiry_note}".format(
                     ship_name=srp_request.ship.name,
                     fleet_name=srp_request.srp_link.srp_name,
+                    srp_code=srp_request.srp_link.srp_code,
+                    request_code=srp_request.request_code,
+                    reviser=request_reviser,
+                    inquiry_note=SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE,
                 )
             ),
         )
@@ -978,16 +989,28 @@ def ajax_srp_request_deny(
                 srp_request_comment.creator = request.user
                 srp_request_comment.save()
 
+                request_reviser = request.user
+                if request.user.profile.main_character:
+                    request_reviser = request.user.profile.main_character.character_name
+
                 notify(
                     user=user,
                     title=_("SRP Request Rejected"),
                     level="danger",
                     message=_(
                         "Your SRP request for a {ship_name} lost during "
-                        "{fleet_name} has been rejected.\n\nReason:\n{reject_info}".format(
+                        "{fleet_name} has been rejected.\n\n"
+                        "Reason:\n{reject_info}\n\n"
+                        "Request Details:\nSRP-Code: {srp_code}\n"
+                        "Request-Code: {request_code}\n"
+                        "Reviser: {reviser}\n\n{inquiry_note}".format(
                             ship_name=srp_request.ship.name,
                             fleet_name=srp_request.srp_link.srp_name,
                             reject_info=reject_info,
+                            srp_code=srp_request.srp_link.srp_code,
+                            request_code=srp_request.request_code,
+                            reviser=request_reviser,
+                            inquiry_note=SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE,
                         )
                     ),
                 )
