@@ -349,6 +349,11 @@ $(document).ready(function() {
                 }
             });
         });
+    }).on('hide.bs.modal', function() {
+        var modal = $(this);
+
+        modal.find('textarea[name="reject_info"]').val('');
+        $('#modal-button-confirm-accept-request').unbind('click');
     });
 
     // reject SRP request
@@ -510,5 +515,10 @@ $(document).ready(function() {
                 }
             });
         });
+    }).on('hide.bs.modal', function() {
+        var modal = $(this);
+
+        modal.find('textarea[name="reject_info"]').val('');
+        $('#modal-button-confirm-remove-request').unbind('click');
     });
 });
