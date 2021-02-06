@@ -8,7 +8,14 @@ from eveuniverse.models import EveType
 
 from aasrp.managers import AaSrpManager
 from aasrp.helper.character import get_user_for_character
-from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpStatus, AaSrpRequestStatus
+from aasrp.models import (
+    AaSrpLink,
+    AaSrpRequest,
+    AaSrpRequestComment,
+    AaSrpRequestCommentType,
+    AaSrpStatus,
+    AaSrpRequestStatus,
+)
 
 from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
@@ -156,7 +163,6 @@ class Command(BaseCommand):
                                     created_from_esi,
                                 ) = EveType.objects.get_or_create_esi(id=ship_type_id)
 
-                            # srp_userrequest_ship_name = srp_userrequest_ship.name
                             srp_userrequest_post_time = srp_userrequest.post_time
                             srp_userrequest_request_code = get_random_string(length=16)
                             srp_userrequest_character = srp_userrequest.character
@@ -170,22 +176,29 @@ class Command(BaseCommand):
                                 srp_userrequest_status = AaSrpRequestStatus.REJECTED
 
                             srp_request = AaSrpRequest()
-
                             srp_request.killboard_link = srp_userrequest_killboard_link
-                            srp_request.additional_info = (
-                                srp_userrequest_additional_info
-                            )
                             srp_request.request_status = srp_userrequest_status
                             srp_request.payout_amount = srp_userrequest_payout
                             srp_request.loss_amount = srp_userrequest_loss_amount
                             srp_request.ship = srp_userrequest_ship
-                            # srp_request.ship_name = srp_userrequest_ship_name
                             srp_request.post_time = srp_userrequest_post_time
                             srp_request.request_code = srp_userrequest_request_code
                             srp_request.character = srp_userrequest_character
                             srp_request.creator = srp_userrequest_creator
                             srp_request.srp_link = srp_userrequest_srp_link
                             srp_request.save()
+
+                            # add request info to comments
+                            srp_request_comment = AaSrpRequestComment()
+                            srp_request_comment.comment = (
+                                srp_userrequest_additional_info
+                            )
+                            srp_request_comment.srp_request = srp_request
+                            srp_request_comment.comment_type = (
+                                AaSrpRequestCommentType.REQUEST_INFO
+                            )
+                            srp_request_comment.creator = srp_userrequest_creator
+                            srp_request_comment.save()
 
                             srp_requests_migrated += 1
 
