@@ -1,7 +1,7 @@
 # coding=utf-8
 
 """
-Migrate srp data from the built-in SRP module
+Update DB relations
 """
 
 from django.core.management.base import BaseCommand
@@ -14,7 +14,7 @@ from eveuniverse.models import EveType
 
 def get_input(text):
     """
-    wrapped input to enable tz import
+    wrapped input to update DB relations
     """
 
     return input(text)
