@@ -35,9 +35,10 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
 - Overview of SRP links
 - Overview of your own SRP requests and their status
 - SRP Request administration mostly done via ajax and without page reloads
-- Use of modern DataTables with filters where useful
+- Use of modern DataTables with filters where ever they are useful
 - Tables fully searchable and sortable
 - Mandatory reason on SRP reject
+- Notifications in AA with detailed information on SRP rejection
 - Discord notification via PM to the user on SRP request approval or rejection, if
   [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot) is installed
 
