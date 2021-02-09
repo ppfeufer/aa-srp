@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.0.1] - 2021-02-09
+
+### Fixed
+
+- Discord PM on approval or reject goes to the reviewer instead of the requester (#11)
+
+
 ## [1.0.0] - 2021-02-06
 
 This has now been tested long enough by my corp, it's time to fully release the

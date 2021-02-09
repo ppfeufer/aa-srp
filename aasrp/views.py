@@ -897,7 +897,7 @@ def ajax_srp_request_approve(
             request_code=srp_request_code, srp_link__srp_code=srp_code
         )
 
-        user = srp_request.creator
+        requester = srp_request.creator
         srp_payout = srp_request.payout_amount
         srp_isk_loss = srp_request.loss_amount
 
@@ -933,7 +933,7 @@ def ajax_srp_request_approve(
         )
 
         notify(
-            user=user,
+            user=requester,
             title=_("SRP Request Approved"),
             level="success",
             message=notification_message,
@@ -944,7 +944,7 @@ def ajax_srp_request_approve(
             import aadiscordbot.tasks
 
             aadiscordbot.tasks.send_direct_message_by_user_id.delay(
-                request.user.pk, notification_message
+                requester.pk, notification_message
             )
 
         data.append({"success": True, "message": _("SRP request has been approved")})
@@ -980,11 +980,10 @@ def ajax_srp_request_deny(
                     request_code=srp_request_code, srp_link__srp_code=srp_code
                 )
 
-                user = srp_request.creator
+                requester = srp_request.creator
 
                 srp_request.payout_amount = 0
                 srp_request.request_status = AaSrpRequestStatus.REJECTED
-                # srp_request.reject_info = reject_info
                 srp_request.save()
 
                 # save reject reason as comment for this request
@@ -1022,7 +1021,7 @@ def ajax_srp_request_deny(
                 )
 
                 notify(
-                    user=user,
+                    user=requester,
                     title=_("SRP Request Rejected"),
                     level="danger",
                     message=notification_message,
@@ -1033,7 +1032,7 @@ def ajax_srp_request_deny(
                     import aadiscordbot.tasks
 
                     aadiscordbot.tasks.send_direct_message_by_user_id.delay(
-                        request.user.pk, notification_message
+                        requester.pk, notification_message
                     )
 
                 data.append(
