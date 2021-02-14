@@ -237,7 +237,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 
             messages.success(
                 request,
-                _('SRP link "{srp_code}" created').format(srp_code=srp_link.srp_code),
+                _('SRP link "{srp_code}" created'.format(srp_code=srp_link.srp_code)),
             )
 
             return redirect("aasrp:dashboard")
@@ -277,7 +277,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         messages.error(
             request,
-            _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
+            _("Unable to locate SRP code with ID {srp_code}".format(srp_code=srp_code)),
         )
 
         return redirect("aasrp:dashboard")
@@ -333,8 +333,10 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         messages.error(
             request,
-            _("Unable to locate SRP Fleet using SRP code {srp_code}").format(
-                srp_code=srp_code
+            _(
+                "Unable to locate SRP Fleet using SRP code {srp_code}".format(
+                    srp_code=srp_code
+                )
             ),
         )
 
@@ -437,8 +439,10 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 )
                 messages.success(
                     request,
-                    _("Submitted SRP request for your {ship}.").format(
-                        ship=srp_request.ship.name
+                    _(
+                        "Submitted SRP request for your {ship}.".format(
+                            ship=srp_request.ship.name
+                        )
                     ),
                 )
 
@@ -449,8 +453,8 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     _(
                         "Character {character_id} does not belong to your Auth "
                         "account. Please add this character as an alt to "
-                        "your main and try again."
-                    ).format(character_id=victim_id),
+                        "your main and try again.".format(character_id=victim_id)
+                    ),
                 )
 
             return redirect("aasrp:dashboard")
@@ -493,7 +497,7 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
 
         messages.error(
             request,
-            _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
+            _("Unable to locate SRP code with ID {srp_code}".format(srp_code=srp_code)),
         )
 
         return redirect("aasrp:dashboard")
@@ -532,7 +536,7 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         messages.error(
             request,
-            _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
+            _("Unable to locate SRP code with ID {srp_code}".format(srp_code=srp_code)),
         )
 
         return redirect("aasrp:dashboard")
@@ -553,6 +557,7 @@ def ajax_srp_link_view_requests_data(
     """
     ajax request
     get datatable data
+    :param srp_code:
     :param request:
     """
 
@@ -647,7 +652,7 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
 
         messages.error(
             request,
-            _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
+            _("Unable to locate SRP code with ID {srp_code}".format(srp_code=srp_code)),
         )
 
         return redirect("aasrp:dashboard")
@@ -659,7 +664,7 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
 
     messages.success(
         request,
-        _("SRP link {srp_code} (re-)activated.").format(srp_code=srp_code),
+        _("SRP link {srp_code} (re-)activated.".format(srp_code=srp_code)),
     )
 
     return redirect("aasrp:dashboard")
@@ -690,7 +695,7 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
 
         messages.error(
             request,
-            _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
+            _("Unable to locate SRP code with ID {srp_code}".format(srp_code=srp_code)),
         )
 
         return redirect("aasrp:dashboard")
@@ -702,7 +707,7 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
 
     messages.success(
         request,
-        _("SRP link {srp_code} disabled.").format(srp_code=srp_code),
+        _("SRP link {srp_code} disabled.".format(srp_code=srp_code)),
     )
 
     return redirect("aasrp:dashboard")
@@ -733,7 +738,7 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
 
         messages.error(
             request,
-            _("Unable to locate SRP code with ID {srp_code}").format(srp_code=srp_code),
+            _("Unable to locate SRP code with ID {srp_code}".format(srp_code=srp_code)),
         )
 
         return redirect("aasrp:dashboard")
@@ -744,7 +749,7 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
 
     messages.success(
         request,
-        _("SRP link {srp_code} deleted.").format(srp_code=srp_code),
+        _("SRP link {srp_code} deleted.".format(srp_code=srp_code)),
     )
 
     return redirect("aasrp:dashboard")

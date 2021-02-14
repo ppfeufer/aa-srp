@@ -53,8 +53,10 @@ class Command(BaseCommand):
                     self.stdout.write(
                         (
                             "Updating Request Information "
-                            "for SRP request {request_code}"
-                        ).format(request_code=srp_request.request_code)
+                            "for SRP request {request_code}".format(
+                                request_code=srp_request.request_code
+                            )
+                        )
                     )
 
                     # check if there is already a request info
@@ -86,8 +88,10 @@ class Command(BaseCommand):
                     self.stdout.write(
                         (
                             "Updating Reject Information "
-                            "for SRP request {request_code}"
-                        ).format(request_code=srp_request.request_code)
+                            "for SRP request {request_code}".format(
+                                request_code=srp_request.request_code
+                            )
+                        )
                     )
 
                     # check if there is already a reject comment
