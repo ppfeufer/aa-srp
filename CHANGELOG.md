@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.1.0] - 2021-03-02
+
+### Added
+
+- Option to notify the SRP team in their Discord channel about new SRP requests. (You
+  need to have [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot)
+  installed and configured to use this option)
+
+
 ## [1.0.1] - 2021-02-09
 
 ### Fixed

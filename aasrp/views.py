@@ -9,12 +9,18 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 from aasrp import __title__
-from aasrp.app_settings import avoid_cdn, discord_bot_active
+from aasrp.app_settings import (
+    AASRP_SRP_TEAM_DISCORD_CHANNEL,
+    avoid_cdn,
+    discord_bot_active,
+    get_site_url,
+)
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
 from aasrp.helper.eve_images import get_type_render_url_from_type_id
 from aasrp.helper.character import get_formatted_character_name
@@ -437,6 +443,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                         srp_code=srp_request.request_code,
                     )
                 )
+
                 messages.success(
                     request,
                     _(
@@ -445,6 +452,47 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                         )
                     ),
                 )
+
+                # send message to the srp team in their discord channel
+                if AASRP_SRP_TEAM_DISCORD_CHANNEL is not None and discord_bot_active():
+                    import aadiscordbot.tasks
+
+                    site_base_url = get_site_url()
+
+                    message = "**New SRP Request**\n\n"
+                    message += "**Request Code:** {request_code}\n".format(
+                        request_code=srp_request.request_code
+                    )
+                    message += "**Character:** {character_name}\n".format(
+                        character_name=srp_request__character.character_name
+                    )
+                    message += "**Ship:** {ship_type}\n".format(
+                        ship_type=srp_request__ship.name
+                    )
+                    message += "**zKillboard Link:** {zkillboard_link}\n".format(
+                        zkillboard_link=srp_request.killboard_link
+                    )
+                    message += (
+                        "**Additional Information:** "
+                        "{additional_information}\n\n".format(
+                            additional_information=srp_request_comment.comment
+                        )
+                    )
+
+                    message += "**SRP Code:** {srp_code}\n".format(srp_code=srp_code)
+                    message += "**SRP Link:** {srp_link}\n".format(
+                        srp_link=site_base_url
+                        + reverse("aasrp:view_srp_requests", args=[srp_link.srp_code])
+                    )
+
+                    logger.info(
+                        "Sending SRP request notification to "
+                        "the SRP team channel on Discord"
+                    )
+
+                    aadiscordbot.tasks.send_channel_message_by_discord_id.delay(
+                        AASRP_SRP_TEAM_DISCORD_CHANNEL, message, embed=False
+                    )
 
                 return redirect("aasrp:dashboard")
             else:
