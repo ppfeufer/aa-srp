@@ -24,6 +24,7 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
     - [Step 4 - Import from built-in SRP module](#step-5---import-from-built-in-srp-module)
     - [Step 5 - Set up permissions](#step-6---set-up-permissions)
 - [Permissions](#permissions)
+- [Settings](#settings)
 - [Changelog](#changelog)
 - [Contributing](#contributing)
 
@@ -40,6 +41,8 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
 - Mandatory reason on SRP reject
 - Notifications in AA with detailed information on SRP rejection
 - Discord notification via PM to the user on SRP request approval or rejection, if
+  [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot) is installed
+- Notify your SRP team (optional) in their Doscord channel about new SRP requests, if
   [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot) is installed
 
 
@@ -150,6 +153,13 @@ section for more information about the available permissions.
 | `create_srp`          | Can create new SRP links     | Your FCs should have this permission.                                                                       |
 | `manage_srp`          | Can manage SRP               | Users with this permission can manage the AA SRP Module. Like changing and removing SRP links and requests. |
 | `manage_srp_requests` | Can manage SRP requests      | Users with this permission can manage the SRP requests. Like changing and removing SRP requests.            |
+
+
+## Settings
+
+| Key | Description | Type | Default |
+|-----|-------------|------|---------|
+| `AASRP_SRP_TEAM_DISCORD_CHANNEL` | ID of the Discord channel of your SRP team. If set, your SRP team will be notified (no ping to prevent ping spam) about new SRP requests in their channel. (You need to have [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot) installed and configured to use this option) | int | `None` |
 
 
 ## Changelog

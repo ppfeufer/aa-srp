@@ -207,7 +207,7 @@ def get_srp_request_details_icon(
             link=button_request_details_url,
             icon='<i class="fas fa-info-circle"></i>',
             title=_("SRP Request Details"),
-            modal_button_confirm=_("{fa_icon} Close").format(fa_icon=""),
+            modal_button_confirm=_("{fa_icon} Close".format(fa_icon="")),
         )
     )
 
@@ -250,11 +250,13 @@ def get_srp_request_accept_icon(
             icon='<i class="fas fa-check"></i>',
             title=_("Accept SRP Request"),
             modal_body=_("Are you sure you want to accept this SRP request?"),
-            modal_button_cancel=_("{fa_icon} Cancel").format(
-                fa_icon="<i class='far fa-hand-paper'></i>"
+            modal_button_cancel=_(
+                "{fa_icon} Cancel".format(fa_icon="<i class='far fa-hand-paper'></i>")
             ),
-            modal_button_confirm=_("{fa_icon} Accept SRP Request").format(
-                fa_icon="<i class='fas fa-check'></i>"
+            modal_button_confirm=_(
+                "{fa_icon} Accept SRP Request".format(
+                    fa_icon="<i class='fas fa-check'></i>"
+                )
             ),
             modal_button_confirm_classes="btn btn-success btn-sm",
             button_state=button_request_accept_state,
@@ -300,11 +302,13 @@ def get_srp_request_reject_icon(
             icon='<i class="fas fa-ban"></i>',
             title=_("Reject SRP Request"),
             modal_body=_("Are you sure you want to reject this SRP request?"),
-            modal_button_cancel=_("{fa_icon} Cancel").format(
-                fa_icon="<i class='far fa-hand-paper'></i>"
+            modal_button_cancel=_(
+                "{fa_icon} Cancel".format(fa_icon="<i class='far fa-hand-paper'></i>")
             ),
-            modal_button_confirm=_("{fa_icon} Reject SRP Request").format(
-                fa_icon="<i class='fas fa-ban'></i>"
+            modal_button_confirm=_(
+                "{fa_icon} Reject SRP Request".format(
+                    fa_icon="<i class='fas fa-ban'></i>"
+                )
             ),
             modal_button_confirm_classes="btn btn-warning btn-sm",
             button_state=button_request_reject_state,
@@ -346,11 +350,13 @@ def get_srp_request_delete_icon(
             icon='<i class="fas fa-trash-alt"></i>',
             title=_("Remove SRP Request"),
             modal_body=_("Are you sure you want to remove this SRP request?"),
-            modal_button_cancel=_("{fa_icon} Cancel").format(
-                fa_icon="<i class='far fa-hand-paper'></i>"
+            modal_button_cancel=_(
+                "{fa_icon} Cancel".format(fa_icon="<i class='far fa-hand-paper'></i>")
             ),
-            modal_button_confirm=_("{fa_icon} Remove SRP Request").format(
-                fa_icon="<i class='fas fa-trash-alt'></i>"
+            modal_button_confirm=_(
+                "{fa_icon} Remove SRP Request".format(
+                    fa_icon="<i class='fas fa-trash-alt'></i>"
+                )
             ),
             modal_button_confirm_classes="btn btn-danger btn-sm",
         )
