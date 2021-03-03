@@ -90,7 +90,7 @@ $(document).ready(function() {
             }
         ],
         order: [[2, 'asc']],
-        paging: false,
+        // paging: false,
         /**
          * when ever a row is created ...
          *

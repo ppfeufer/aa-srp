@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.1.1] - 2021-xx-yy
+
+### Changed
+
+- Enabled paging for SRP link table in dashboard view, since these can be quite some,
+  especially in "View All" mode
+
+
 ## [1.1.0] - 2021-03-02
 
 ### Added
