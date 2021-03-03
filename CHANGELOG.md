@@ -10,8 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ### Changed
 
-- Enabled paging for SRP link table in dashboard view, since these can be quite some,
-  especially in "View All" mode
+- Enabled paging for SRP link table on dashboard in "View All" mode
 
 
 ## [1.1.0] - 2021-03-02

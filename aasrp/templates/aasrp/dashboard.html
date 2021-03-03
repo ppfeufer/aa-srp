@@ -51,6 +51,9 @@
                 availableSrpLinks: urlAvailableSrpLinks,
                 userSrpRequests: urlUserSrpRequests
             },
+            dataTable: {
+                paging: {{ show_all_links|yesno:"true,false" }}
+            },
             translation: {
                 filter: {
                     ship: "{% translate 'Ship' %}",
