@@ -1,5 +1,3 @@
-# coding=utf-8
-
 """
 Migrate comments from AaSrpRequest to AaSrpRequestComments
 """

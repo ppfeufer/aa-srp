@@ -1,5 +1,3 @@
-# coding=utf-8
-
 """
 a couple of variable to use throughout the app
 """

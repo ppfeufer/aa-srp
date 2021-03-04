@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.3.0
+    rev: v3.4.0
     hooks:
       - id: check-case-conflict
       - id: check-json
@@ -13,6 +13,8 @@ repos:
         exclude: \.(min\.css|min\.js|po|mo)$
       - id: mixed-line-ending
         args: [ '--fix=lf' ]
+      - id: fix-encoding-pragma
+        args: [ '--remove' ]
 
   - repo: https://github.com/psf/black
     rev: 20.8b1

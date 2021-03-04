@@ -1,5 +1,3 @@
-# coding=utf-8
-
 """
 some helper functions
 so we don't mess up other files too much

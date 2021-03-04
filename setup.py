@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """
 setting up our app
 """
