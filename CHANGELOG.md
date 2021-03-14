@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.2.2] - 2021-03-14
+
+### Changed
+
+- Notification functions moved to its own module to avoid code duplications
+
+
 ## [1.2.1] - 2021-03-14
 
 ### Fixed
