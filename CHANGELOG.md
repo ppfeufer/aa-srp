@@ -6,7 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
-## [1.1.1] - 2021-xx-yy
+## [1.2.0] - 2021-xx-yy
+
+### Added
+
+- Option for users to disable notifications for this module. When enabled, no
+  notifications will be sent at all. Neither in AA itself nor on Discord (if any of
+  the Discord apps is active)
 
 ### Changed
 

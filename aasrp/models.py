@@ -277,3 +277,31 @@ class AaSrpRequestComment(models.Model):
         default_permissions = ()
         verbose_name = _("SRP Request Comment")
         verbose_name_plural = _("SRP Request Comments")
+
+
+class AaSrpUserSettings(models.Model):
+    """
+    User settings
+    """
+
+    user = models.ForeignKey(
+        User,
+        related_name="+",
+        null=True,
+        blank=True,
+        default=None,
+        on_delete=models.SET(get_sentinel_user),
+    )
+
+    disable_notifications = models.BooleanField(
+        default=False,
+    )
+
+    class Meta:
+        """
+        Meta definitions
+        """
+
+        default_permissions = ()
+        verbose_name = _("User Settings")
+        verbose_name_plural = _("User Settings")
