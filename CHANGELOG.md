@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 - Option for users to disable notifications for this module. When enabled, no
   notifications will be sent at all. Neither in AA itself nor on Discord (if any of
   the Discord apps is active)
+- Check if [AA Discord Notify](https://gitlab.com/ErikKalkoken/aa-discordnotify) is
+  installed, which picks up on notifications in Auth and relays them to the
+  respective user as Discord PM. This way we don't send double notifications to the
+  user if [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot) is
+  installed as well.
 
 ### Changed
 

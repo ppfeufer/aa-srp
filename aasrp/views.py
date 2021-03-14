@@ -16,8 +16,9 @@ from aasrp import __title__
 from aasrp.app_settings import (
     AASRP_SRP_TEAM_DISCORD_CHANNEL,
     avoid_cdn,
-    discord_bot_active,
+    allianceauth_discordbot_active,
     get_site_url,
+    aa_discordnotify_active,
 )
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
 from aasrp.helper.eve_images import get_type_render_url_from_type_id
@@ -484,7 +485,10 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 )
 
                 # send message to the srp team in their discord channel
-                if AASRP_SRP_TEAM_DISCORD_CHANNEL is not None and discord_bot_active():
+                if (
+                    AASRP_SRP_TEAM_DISCORD_CHANNEL is not None
+                    and allianceauth_discordbot_active()
+                ):
                     import aadiscordbot.tasks
 
                     site_base_url = get_site_url()
@@ -1026,8 +1030,9 @@ def ajax_srp_request_approve(
                 message=notification_message,
             )
 
-            # send a PM to the user on Discord if allianceauth-discordbot is active
-            if discord_bot_active():
+            # send a PM to the user on Discord if allianceauth-discordbot
+            # is active and not aa-discordnotify
+            if allianceauth_discordbot_active() and not aa_discordnotify_active():
                 import aadiscordbot.tasks
 
                 aadiscordbot.tasks.send_direct_message_by_user_id.delay(
@@ -1118,8 +1123,12 @@ def ajax_srp_request_deny(
                         message=notification_message,
                     )
 
-                    # send a PM to the user on Discord if allianceauth-discordbot is active
-                    if discord_bot_active():
+                    # send a PM to the user on Discord if allianceauth-discordbot
+                    # is active and not aa-discordnotify
+                    if (
+                        allianceauth_discordbot_active()
+                        and not aa_discordnotify_active()
+                    ):
                         import aadiscordbot.tasks
 
                         aadiscordbot.tasks.send_direct_message_by_user_id.delay(
