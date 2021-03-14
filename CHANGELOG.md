@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ### Added
 
-- Option for users to disable notifications for this module. If enabled no
+- Option for users to disable notifications for this module. When enabled, no
   notifications will be sent at all. Neither in AA itself nor on Discord (if any of
   the Discord apps is active)
 
