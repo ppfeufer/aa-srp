@@ -16,9 +16,7 @@ from aasrp import __title__
 from aasrp.app_settings import (
     AASRP_SRP_TEAM_DISCORD_CHANNEL,
     avoid_cdn,
-    allianceauth_discordbot_active,
     get_site_url,
-    aa_discordnotify_active,
 )
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
 from aasrp.helper.eve_images import get_type_render_url_from_type_id
@@ -28,6 +26,10 @@ from aasrp.helper.icons import (
     get_srp_request_details_icon,
     get_srp_request_status_icon,
     get_srp_request_action_icons,
+)
+from aasrp.helper.notification import (
+    send_user_notification,
+    send_message_to_discord_channel,
 )
 from aasrp.form import (
     AaSrpLinkForm,
@@ -52,7 +54,6 @@ from aasrp.utils import LoggerAddTag
 from eveuniverse.models import EveType
 
 from allianceauth.eveonline.models import EveCharacter
-from allianceauth.notifications import notify
 from allianceauth.services.hooks import get_extension_logger
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
@@ -485,12 +486,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 )
 
                 # send message to the srp team in their discord channel
-                if (
-                    AASRP_SRP_TEAM_DISCORD_CHANNEL is not None
-                    and allianceauth_discordbot_active()
-                ):
-                    import aadiscordbot.tasks
-
+                if AASRP_SRP_TEAM_DISCORD_CHANNEL is not None:
                     site_base_url = get_site_url()
 
                     message = "**New SRP Request**\n\n"
@@ -512,20 +508,19 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                             additional_information=srp_request_comment.comment
                         )
                     )
-
                     message += "**SRP Code:** {srp_code}\n".format(srp_code=srp_code)
                     message += "**SRP Link:** {srp_link}\n".format(
                         srp_link=site_base_url
                         + reverse("aasrp:view_srp_requests", args=[srp_link.srp_code])
                     )
 
+                    send_message_to_discord_channel(
+                        channel_id=AASRP_SRP_TEAM_DISCORD_CHANNEL, message=message
+                    )
+
                     logger.info(
                         "Sending SRP request notification to "
                         "the SRP team channel on Discord"
-                    )
-
-                    aadiscordbot.tasks.send_channel_message_by_discord_id.delay(
-                        AASRP_SRP_TEAM_DISCORD_CHANNEL, message, embed=False
                     )
 
                 return redirect("aasrp:dashboard")
@@ -1004,40 +999,31 @@ def ajax_srp_request_approve(
         if request.user.profile.main_character:
             request_reviser = request.user.profile.main_character.character_name
 
-        notification_message = (
-            "Your SRP request regarding your {ship_name} lost during "
-            "{fleet_name} has been approved.\n\n"
-            "Request Details:\nSRP-Code: {srp_code}\n"
-            "Request-Code: {request_code}\n"
-            "Reviser: {reviser}\n\n{inquiry_note}".format(
-                ship_name=srp_request.ship.name,
-                fleet_name=srp_request.srp_link.srp_name,
-                srp_code=srp_request.srp_link.srp_code,
-                request_code=srp_request.request_code,
-                reviser=request_reviser,
-                inquiry_note=SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE,
-            )
-        )
-
         user_settings = AaSrpUserSettings.objects.get(user=request.user)
 
         # check if the user has notifications activated (it's by default)
         if user_settings.disable_notifications is False:
-            notify(
-                user=requester,
-                title=_("SRP Request Approved"),
-                level="success",
-                message=notification_message,
+            notification_message = (
+                "Your SRP request regarding your {ship_name} lost during "
+                "{fleet_name} has been approved.\n\n"
+                "Request Details:\nSRP-Code: {srp_code}\n"
+                "Request-Code: {request_code}\n"
+                "Reviser: {reviser}\n\n{inquiry_note}".format(
+                    ship_name=srp_request.ship.name,
+                    fleet_name=srp_request.srp_link.srp_name,
+                    srp_code=srp_request.srp_link.srp_code,
+                    request_code=srp_request.request_code,
+                    reviser=request_reviser,
+                    inquiry_note=SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE,
+                )
             )
 
-            # send a PM to the user on Discord if allianceauth-discordbot
-            # is active and not aa-discordnotify
-            if allianceauth_discordbot_active() and not aa_discordnotify_active():
-                import aadiscordbot.tasks
-
-                aadiscordbot.tasks.send_direct_message_by_user_id.delay(
-                    requester.pk, notification_message
-                )
+            send_user_notification(
+                user=requester,
+                level="success",
+                title=_("SRP Request Approved"),
+                message=notification_message,
+            )
 
         data.append({"success": True, "message": _("SRP request has been approved")})
     except AaSrpRequest.DoesNotExist:
@@ -1095,45 +1081,33 @@ def ajax_srp_request_deny(
                 if request.user.profile.main_character:
                     request_reviser = request.user.profile.main_character.character_name
 
-                notification_message = (
-                    "Your SRP request regarding your {ship_name} lost during "
-                    "{fleet_name} has been rejected.\n\n"
-                    "Reason:\n{reject_info}\n\n"
-                    "Request Details:\nSRP-Code: {srp_code}\n"
-                    "Request-Code: {request_code}\n"
-                    "Reviser: {reviser}\n\n{inquiry_note}".format(
-                        ship_name=srp_request.ship.name,
-                        fleet_name=srp_request.srp_link.srp_name,
-                        reject_info=reject_info,
-                        srp_code=srp_request.srp_link.srp_code,
-                        request_code=srp_request.request_code,
-                        reviser=request_reviser,
-                        inquiry_note=SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE,
-                    )
-                )
-
                 user_settings = AaSrpUserSettings.objects.get(user=request.user)
 
                 # check if the user has notifications activated (it's by default)
                 if user_settings.disable_notifications is False:
-                    notify(
-                        user=requester,
-                        title=_("SRP Request Rejected"),
-                        level="danger",
-                        message=notification_message,
+                    notification_message = (
+                        "Your SRP request regarding your {ship_name} lost during "
+                        "{fleet_name} has been rejected.\n\n"
+                        "Reason:\n{reject_info}\n\n"
+                        "Request Details:\nSRP-Code: {srp_code}\n"
+                        "Request-Code: {request_code}\n"
+                        "Reviser: {reviser}\n\n{inquiry_note}".format(
+                            ship_name=srp_request.ship.name,
+                            fleet_name=srp_request.srp_link.srp_name,
+                            reject_info=reject_info,
+                            srp_code=srp_request.srp_link.srp_code,
+                            request_code=srp_request.request_code,
+                            reviser=request_reviser,
+                            inquiry_note=SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE,
+                        )
                     )
 
-                    # send a PM to the user on Discord if allianceauth-discordbot
-                    # is active and not aa-discordnotify
-                    if (
-                        allianceauth_discordbot_active()
-                        and not aa_discordnotify_active()
-                    ):
-                        import aadiscordbot.tasks
-
-                        aadiscordbot.tasks.send_direct_message_by_user_id.delay(
-                            requester.pk, notification_message
-                        )
+                    send_user_notification(
+                        user=requester,
+                        level="danger",
+                        title=_("SRP Request Rejected"),
+                        message=notification_message,
+                    )
 
                 data.append(
                     {"success": True, "message": _("SRP request has been rejected")}
