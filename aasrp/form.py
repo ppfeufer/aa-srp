@@ -133,7 +133,10 @@ class AaSrpUserSettingsForm(ModelForm):
     disable_notifications = forms.BooleanField(
         initial=False,
         required=False,
-        label=_("Disable notifications."),
+        label=_(
+            "Disable notifications. "
+            "(Auth and Discord, if a relevant module is installed)"
+        ),
     )
 
     class Meta:  # pylint: disable=too-few-public-methods
