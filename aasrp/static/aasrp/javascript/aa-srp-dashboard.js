@@ -90,7 +90,7 @@ $(document).ready(function() {
             }
         ],
         order: [[2, 'asc']],
-        paging: false,
+        paging: aaSrpSettings.dataTable.paging,
         /**
          * when ever a row is created ...
          *

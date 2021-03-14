@@ -1,5 +1,3 @@
-# coding=utf-8
-
 """
 Migrate srp data from the built-in SRP module
 """

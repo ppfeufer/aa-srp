@@ -1,5 +1,3 @@
-# coding=utf-8
-
 """
 Form definitions
 """
@@ -8,7 +6,7 @@ from django import forms
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
-from aasrp.models import AaSrpLink, AaSrpRequest
+from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpUserSettings
 
 
 class AaSrpLinkForm(ModelForm):
@@ -125,3 +123,26 @@ class AaSrpRequestRejectForm(forms.Form):
         label=_("Rejection Reason"),
         help_text=_("Please provide the reason why this SRP request is rejected."),
     )
+
+
+class AaSrpUserSettingsForm(ModelForm):
+    """
+    user settings form
+    """
+
+    disable_notifications = forms.BooleanField(
+        initial=False,
+        required=False,
+        label=_(
+            "Disable notifications. "
+            "(Auth and Discord, if a relevant module is installed)"
+        ),
+    )
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        meta definitions
+        """
+
+        model = AaSrpUserSettings
+        fields = ["disable_notifications"]

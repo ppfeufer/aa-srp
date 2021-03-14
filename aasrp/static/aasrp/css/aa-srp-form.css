@@ -1,18 +1,32 @@
 @media all {
-    .aasrp-form-label {
+    .aa-srp .aasrp-form-label {
         width: 100%;
         font-weight: normal;
     }
 
-    .aasrp-form-field-errors {
+    .aa-srp .aasrp-form-field-errors {
         margin-top: 0.5rem;
     }
 
-    .field-required > span {
+    .aa-srp .field-required > span {
         font-weight: bold;
     }
 
-    .field-required .aasrp-form-label-text::after {
+    .aa-srp .field-required .aasrp-form-label-text::after {
         content: " *";
+    }
+
+    .aa-srp .form-label-text-normal {
+        font-weight: normal;
+    }
+
+    .aa-srp input[type="checkbox"] {
+        display: initial;
+        width: auto;
+        height: auto;
+    }
+
+    .aa-srp .form-checkbox-left {
+        margin-right: 0.5rem;
     }
 }

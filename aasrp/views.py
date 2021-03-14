@@ -1,5 +1,3 @@
-# coding=utf-8
-
 """
 the views
 """
@@ -18,8 +16,9 @@ from aasrp import __title__
 from aasrp.app_settings import (
     AASRP_SRP_TEAM_DISCORD_CHANNEL,
     avoid_cdn,
-    discord_bot_active,
+    allianceauth_discordbot_active,
     get_site_url,
+    aa_discordnotify_active,
 )
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
 from aasrp.helper.eve_images import get_type_render_url_from_type_id
@@ -36,6 +35,7 @@ from aasrp.form import (
     AaSrpRequestForm,
     AaSrpRequestPayoutForm,
     AaSrpRequestRejectForm,
+    AaSrpUserSettingsForm,
 )
 from aasrp.managers import AaSrpManager
 from aasrp.models import (
@@ -45,6 +45,7 @@ from aasrp.models import (
     AaSrpRequestStatus,
     AaSrpStatus,
     AaSrpRequest,
+    AaSrpUserSettings,
 )
 from aasrp.utils import LoggerAddTag
 
@@ -67,6 +68,32 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
     :return:
     """
 
+    # check if the current user has any settings. if not, create the default set
+    try:
+        user_settings = AaSrpUserSettings.objects.get(user=request.user)
+    except AaSrpUserSettings.DoesNotExist:
+        # create the default settings in the DB for the current user
+        user_settings = AaSrpUserSettings()
+        user_settings.user = request.user
+        user_settings.save()
+
+        # get the user settings again
+        user_settings = AaSrpUserSettings.objects.get(user=request.user)
+
+    # if this is a POST request we need to process the form data
+    if request.method == "POST":
+        user_settings_form = AaSrpUserSettingsForm(request.POST, instance=user_settings)
+
+        # check whether it's valid:
+        if user_settings_form.is_valid():
+            # user_settings.user = request.user
+            user_settings.disable_notifications = user_settings_form.cleaned_data[
+                "disable_notifications"
+            ]
+            user_settings.save()
+    else:
+        user_settings_form = AaSrpUserSettingsForm(instance=user_settings)
+
     logger_message = "Dashboard with available SRP links called by {user}".format(
         user=request.user
     )
@@ -77,7 +104,11 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
 
     logger.info(logger_message)
 
-    context = {"avoid_cdn": avoid_cdn(), "show_all_links": show_all_links}
+    context = {
+        "avoid_cdn": avoid_cdn(),
+        "show_all_links": show_all_links,
+        "user_settings_form": user_settings_form,
+    }
 
     return render(request, "aasrp/dashboard.html", context)
 
@@ -454,7 +485,10 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 )
 
                 # send message to the srp team in their discord channel
-                if AASRP_SRP_TEAM_DISCORD_CHANNEL is not None and discord_bot_active():
+                if (
+                    AASRP_SRP_TEAM_DISCORD_CHANNEL is not None
+                    and allianceauth_discordbot_active()
+                ):
                     import aadiscordbot.tasks
 
                     site_base_url = get_site_url()
@@ -985,20 +1019,25 @@ def ajax_srp_request_approve(
             )
         )
 
-        notify(
-            user=requester,
-            title=_("SRP Request Approved"),
-            level="success",
-            message=notification_message,
-        )
+        user_settings = AaSrpUserSettings.objects.get(user=request.user)
 
-        # send a PM to the user on Discord if allianceauth-discordbot is active
-        if discord_bot_active():
-            import aadiscordbot.tasks
-
-            aadiscordbot.tasks.send_direct_message_by_user_id.delay(
-                requester.pk, notification_message
+        # check if the user has notifications activated (it's by default)
+        if user_settings.disable_notifications is False:
+            notify(
+                user=requester,
+                title=_("SRP Request Approved"),
+                level="success",
+                message=notification_message,
             )
+
+            # send a PM to the user on Discord if allianceauth-discordbot
+            # is active and not aa-discordnotify
+            if allianceauth_discordbot_active() and not aa_discordnotify_active():
+                import aadiscordbot.tasks
+
+                aadiscordbot.tasks.send_direct_message_by_user_id.delay(
+                    requester.pk, notification_message
+                )
 
         data.append({"success": True, "message": _("SRP request has been approved")})
     except AaSrpRequest.DoesNotExist:
@@ -1073,20 +1112,28 @@ def ajax_srp_request_deny(
                     )
                 )
 
-                notify(
-                    user=requester,
-                    title=_("SRP Request Rejected"),
-                    level="danger",
-                    message=notification_message,
-                )
+                user_settings = AaSrpUserSettings.objects.get(user=request.user)
 
-                # send a PM to the user on Discord if allianceauth-discordbot is active
-                if discord_bot_active():
-                    import aadiscordbot.tasks
-
-                    aadiscordbot.tasks.send_direct_message_by_user_id.delay(
-                        requester.pk, notification_message
+                # check if the user has notifications activated (it's by default)
+                if user_settings.disable_notifications is False:
+                    notify(
+                        user=requester,
+                        title=_("SRP Request Rejected"),
+                        level="danger",
+                        message=notification_message,
                     )
+
+                    # send a PM to the user on Discord if allianceauth-discordbot
+                    # is active and not aa-discordnotify
+                    if (
+                        allianceauth_discordbot_active()
+                        and not aa_discordnotify_active()
+                    ):
+                        import aadiscordbot.tasks
+
+                        aadiscordbot.tasks.send_direct_message_by_user_id.delay(
+                            requester.pk, notification_message
+                        )
 
                 data.append(
                     {"success": True, "message": _("SRP request has been rejected")}

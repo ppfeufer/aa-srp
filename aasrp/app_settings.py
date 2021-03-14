@@ -1,5 +1,3 @@
-# coding=utf-8
-
 """
 our app setting
 """
@@ -42,10 +40,19 @@ def avoid_cdn() -> bool:
     return AVOID_CDN
 
 
-def discord_bot_active():
+def allianceauth_discordbot_active():
     """
     check if allianceauth-dicordbot is installed and active
     :return:
     """
 
     return "aadiscordbot" in settings.INSTALLED_APPS
+
+
+def aa_discordnotify_active():
+    """
+    check if allianceauth-dicordbot is installed and active
+    :return:
+    """
+
+    return "discordnotify" in settings.INSTALLED_APPS
