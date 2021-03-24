@@ -6,7 +6,6 @@ from django.conf.urls import url
 
 from aasrp import views
 
-
 app_name: str = "aasrp"
 
 urlpatterns = [

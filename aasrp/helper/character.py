@@ -3,12 +3,12 @@ some helper functions
 so we don't mess up other files too much
 """
 
-from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
-from aasrp.models import get_sentinel_user
-
 from django.contrib.auth.models import User
 
 from allianceauth.eveonline.models import EveCharacter
+
+from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
+from aasrp.models import get_sentinel_user
 
 
 def get_formatted_character_name(

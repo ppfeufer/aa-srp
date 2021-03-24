@@ -2,14 +2,11 @@
 notifications helper
 """
 
-from aasrp.app_settings import (
-    allianceauth_discordbot_active,
-    aa_discordnotify_active,
-)
-
 from django.contrib.auth.models import User
 
 from allianceauth.notifications import notify
+
+from aasrp.app_settings import aa_discordnotify_active, allianceauth_discordbot_active
 
 
 def send_user_notification(user: User, level: str, title: str, message: str) -> None:

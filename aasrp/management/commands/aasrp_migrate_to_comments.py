@@ -6,9 +6,9 @@ from django.core.management import BaseCommand
 
 from aasrp.models import (
     AaSrpRequest,
-    AaSrpRequestStatus,
     AaSrpRequestComment,
     AaSrpRequestCommentType,
+    AaSrpRequestStatus,
 )
 
 

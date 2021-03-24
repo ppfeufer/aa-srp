@@ -10,9 +10,9 @@ from django.utils.functional import lazy
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
-from aasrp import __title__
-
 from allianceauth.services.hooks import get_extension_logger
+
+from aasrp import __title__
 
 
 class LoggerAddTag(logging.LoggerAdapter):

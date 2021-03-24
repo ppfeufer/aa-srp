@@ -5,32 +5,20 @@ the views
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render, redirect
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
+from allianceauth.eveonline.models import EveCharacter
+from allianceauth.services.hooks import get_extension_logger
+from eveuniverse.models import EveType
+
 from aasrp import __title__
-from aasrp.app_settings import (
-    AASRP_SRP_TEAM_DISCORD_CHANNEL,
-    avoid_cdn,
-    get_site_url,
-)
+from aasrp.app_settings import AASRP_SRP_TEAM_DISCORD_CHANNEL, avoid_cdn, get_site_url
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
-from aasrp.helper.eve_images import get_type_render_url_from_type_id
-from aasrp.helper.character import get_formatted_character_name
-from aasrp.helper.icons import (
-    get_dashboard_action_icons,
-    get_srp_request_details_icon,
-    get_srp_request_status_icon,
-    get_srp_request_action_icons,
-)
-from aasrp.helper.notification import (
-    send_user_notification,
-    send_message_to_discord_channel,
-)
 from aasrp.form import (
     AaSrpLinkForm,
     AaSrpLinkUpdateForm,
@@ -39,22 +27,29 @@ from aasrp.form import (
     AaSrpRequestRejectForm,
     AaSrpUserSettingsForm,
 )
+from aasrp.helper.character import get_formatted_character_name
+from aasrp.helper.eve_images import get_type_render_url_from_type_id
+from aasrp.helper.icons import (
+    get_dashboard_action_icons,
+    get_srp_request_action_icons,
+    get_srp_request_details_icon,
+    get_srp_request_status_icon,
+)
+from aasrp.helper.notification import (
+    send_message_to_discord_channel,
+    send_user_notification,
+)
 from aasrp.managers import AaSrpManager
 from aasrp.models import (
     AaSrpLink,
+    AaSrpRequest,
     AaSrpRequestComment,
     AaSrpRequestCommentType,
     AaSrpRequestStatus,
     AaSrpStatus,
-    AaSrpRequest,
     AaSrpUserSettings,
 )
 from aasrp.utils import LoggerAddTag
-
-from eveuniverse.models import EveType
-
-from allianceauth.eveonline.models import EveCharacter
-from allianceauth.services.hooks import get_extension_logger
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
