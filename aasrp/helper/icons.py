@@ -3,12 +3,12 @@ some helper functions
 so we don't mess up other files too much
 """
 
-from aasrp.models import AaSrpRequestStatus, AaSrpLink, AaSrpRequest, AaSrpStatus
-
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
+from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpRequestStatus, AaSrpStatus
 
 
 @login_required

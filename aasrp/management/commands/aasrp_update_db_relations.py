@@ -4,10 +4,10 @@ Update DB relations
 
 from django.core.management.base import BaseCommand
 
+from eveuniverse.models import EveType
+
 from aasrp.managers import AaSrpManager
 from aasrp.models import AaSrpRequest
-
-from eveuniverse.models import EveType
 
 
 def get_input(text):

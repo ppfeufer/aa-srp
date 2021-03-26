@@ -4,10 +4,9 @@ setting up our app
 
 import os
 
-from aasrp import __version__
-
 from setuptools import find_packages, setup
 
+from aasrp import __version__
 
 # read the contents of your README file
 this_directory = os.path.abspath(os.path.dirname(__file__))

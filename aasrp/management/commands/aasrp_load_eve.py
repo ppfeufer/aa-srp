@@ -7,7 +7,6 @@ from aasrp import __title__
 from aasrp.constants import EVE_CATEGORY_ID_SHIP
 from aasrp.utils import LoggerAddTag
 
-
 logger = LoggerAddTag(logging.getLogger(__name__), __title__)
 
 

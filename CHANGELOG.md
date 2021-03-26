@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.3.0] - 2021-03-26
+
+### Added
+
+- Copy to clipboard for SRP link in SRP dashboard view
+- Copy to clipboard for pilot name in SRP link view
+
+
 ## [1.2.2] - 2021-03-14
 
 ### Changed

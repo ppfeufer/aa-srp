@@ -3,26 +3,29 @@ some helper functions
 so we don't mess up other files too much
 """
 
-from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
-from aasrp.models import get_sentinel_user
-
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 from allianceauth.eveonline.models import EveCharacter
+
+from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
+from aasrp.models import get_sentinel_user
 
 
 def get_formatted_character_name(
     character: EveCharacter,
     with_portrait: bool = False,
+    with_copy_icon: bool = False,
     portrait_size: int = 32,
     inline: bool = True,
 ) -> str:
     """
     get character name with alliance and corp ticker
-    :param inline:
-    :param portrait_size:
-    :param with_portrait:
     :param character:
+    :param with_portrait:
+    :param with_copy_icon:
+    :param portrait_size:
+    :param inline:
     """
 
     character_name = character.character_name
@@ -47,6 +50,16 @@ def get_formatted_character_name(
             character_name=character_name,
         )
     )
+
+    if with_copy_icon is True:
+        character_name_formatted += (
+            "<i "
+            'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
+            'data-clipboard-text="{character_name}" title="{title}"></i>'.format(
+                character_name=character_name,
+                title=_("Copy character name to clipboard"),
+            )
+        )
 
     return_value = character_name_formatted
 

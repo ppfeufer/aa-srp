@@ -2,13 +2,13 @@
 hook into AA
 """
 
-from aasrp import urls, __title__
-from aasrp.managers import AaSrpManager
-
 from django.utils.translation import ugettext_lazy as _
 
-from allianceauth.services.hooks import MenuItemHook, UrlHook
 from allianceauth import hooks
+from allianceauth.services.hooks import MenuItemHook, UrlHook
+
+from aasrp import __title__, urls
+from aasrp.managers import AaSrpManager
 
 
 class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods

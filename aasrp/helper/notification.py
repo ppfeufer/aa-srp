@@ -2,14 +2,11 @@
 notifications helper
 """
 
-from aasrp.app_settings import (
-    allianceauth_discordbot_active,
-    aa_discordnotify_active,
-)
-
 from django.contrib.auth.models import User
 
 from allianceauth.notifications import notify
+
+from aasrp.app_settings import aa_discordnotify_active, allianceauth_discordbot_active
 
 
 def send_user_notification(user: User, level: str, title: str, message: str) -> None:
@@ -35,7 +32,9 @@ def send_user_notification(user: User, level: str, title: str, message: str) -> 
     if allianceauth_discordbot_active() and not aa_discordnotify_active():
         import aadiscordbot.tasks
 
-        aadiscordbot.tasks.send_direct_message_by_user_id.delay(user.pk, message)
+        aadiscordbot.tasks.send_direct_message_by_user_id.delay(
+            user_pk=user.pk, message_content=message
+        )
 
 
 def send_message_to_discord_channel(
@@ -53,5 +52,5 @@ def send_message_to_discord_channel(
         import aadiscordbot.tasks
 
         aadiscordbot.tasks.send_channel_message_by_discord_id.delay(
-            channel_id, message, embed=embed
+            channel_id=channel_id, message_content=message, embed=embed
         )

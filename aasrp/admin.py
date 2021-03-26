@@ -2,9 +2,9 @@
 Django admin declarations
 """
 
-from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpRequestComment
-
 from django.contrib import admin
+
+from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpRequestComment
 
 
 def custom_filter(title):
