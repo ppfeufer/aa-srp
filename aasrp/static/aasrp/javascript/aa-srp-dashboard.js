@@ -1,12 +1,12 @@
 /* global aaSrpSettings, moment */
 
-$(document).ready(function() {
+$(document).ready(function () {
     'use strict';
 
     /**
      * Table :: SRP Links
      */
-    var totalSrpAmount = 0;
+    let totalSrpAmount = 0;
 
     $('#tab_aasrp_srp_links').DataTable({
         ajax: {
@@ -44,6 +44,10 @@ $(document).ready(function() {
             },
             {
                 data: 'srp_code',
+                render: {
+                    display: 'display',
+                    _: 'sort'
+                },
                 className: 'srp-link-code'
             },
             {
@@ -57,8 +61,8 @@ $(document).ready(function() {
                  * @param meta
                  * @returns {string|*}
                  */
-                render: function(data, type, row, meta) {
-                    if(type === 'display') {
+                render: function (data, type, row, meta) {
+                    if (type === 'display') {
                         return data.toLocaleString() + ' ISK';
                     } else {
                         return data;
@@ -98,7 +102,7 @@ $(document).ready(function() {
          * @param data
          * @param rowIndex
          */
-        createdRow: function(row, data, rowIndex) {
+        createdRow: function (row, data, rowIndex) {
             // Row id attr
             $(row).attr('data-row-id', rowIndex);
             $(row).attr('data-srp-request-code', data.srp_code);
@@ -113,7 +117,7 @@ $(document).ready(function() {
     /**
      * Table :: User's own SRP requests
      */
-    var userSrpAmount = 0;
+    let userSrpAmount = 0;
 
     $('#tab_aasrp_user_srp_requests').DataTable({
         ajax: {
@@ -169,8 +173,8 @@ $(document).ready(function() {
                  * @param meta
                  * @returns {string|*}
                  */
-                render: function(data, type, row, meta) {
-                    if(type === 'display') {
+                render: function (data, type, row, meta) {
+                    if (type === 'display') {
                         return data.toLocaleString() + ' ISK';
                     } else {
                         return data;
@@ -189,8 +193,8 @@ $(document).ready(function() {
                  * @param meta
                  * @returns {string|*}
                  */
-                render: function(data, type, row, meta) {
-                    if(type === 'display') {
+                render: function (data, type, row, meta) {
+                    if (type === 'display') {
                         return data.toLocaleString() + ' ISK';
                     } else {
                         return data;
@@ -245,7 +249,7 @@ $(document).ready(function() {
          * @param data
          * @param rowIndex
          */
-        createdRow: function(row, data, rowIndex) {
+        createdRow: function (row, data, rowIndex) {
             // Row id attr
             $(row).attr('data-row-id', rowIndex);
             $(row).attr('data-srp-request-code', data.request_code);
@@ -261,72 +265,72 @@ $(document).ready(function() {
      * Modals
      */
     // enable link modal
-    $('#enable-srp-link').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);
-        var url = button.data('url');
-        var name = button.data('name');
-        var modal = $(this);
+    $('#enable-srp-link').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let url = button.data('url');
+        let name = button.data('name');
+        let modal = $(this);
 
         modal.find('#modal-button-confirm-enable-srp-link').attr('href', url);
         modal.find('.modal-body').html(
             aaSrpSettings.translation.modal.enableSrpLink.body + '<br>"' + name + '"'
         );
-    }).on('hide.bs.modal', function() {
-        var modal = $(this);
+    }).on('hide.bs.modal', function () {
+        let modal = $(this);
 
         modal.find('.modal-body').html('');
     });
 
     // disable link modal
-    $('#disable-srp-link').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);
-        var url = button.data('url');
-        var name = button.data('name');
-        var modal = $(this);
+    $('#disable-srp-link').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let url = button.data('url');
+        let name = button.data('name');
+        let modal = $(this);
 
         modal.find('#modal-button-confirm-disable-srp-link').attr('href', url);
         modal.find('.modal-body').html(
             aaSrpSettings.translation.modal.disableSrpLink.body + '<br>"' + name + '"'
         );
-    }).on('hide.bs.modal', function() {
-        var modal = $(this);
+    }).on('hide.bs.modal', function () {
+        let modal = $(this);
 
         modal.find('.modal-body').html('');
     });
 
     // delete link modal
-    $('#delete-srp-link').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);
-        var url = button.data('url');
-        var name = button.data('name');
-        var modal = $(this);
+    $('#delete-srp-link').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let url = button.data('url');
+        let name = button.data('name');
+        let modal = $(this);
 
         modal.find('#modal-button-confirm-delete-srp-link').attr('href', url);
         modal.find('.modal-body').html(
             aaSrpSettings.translation.modal.deleteSrpLink.body + '<br>"' + name + '"'
         );
-    }).on('hide.bs.modal', function() {
-        var modal = $(this);
+    }).on('hide.bs.modal', function () {
+        let modal = $(this);
 
         modal.find('.modal-body').html('');
     });
 
     // show details
-    $('#srp-request-details').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);
-        var modal = $(this);
+    $('#srp-request-details').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let modal = $(this);
 
-        var name = button.data('modal-title');
-        var url = button.data('link');
-        var confirmButtonText = button.data('modal-button-confirm');
+        let name = button.data('modal-title');
+        let url = button.data('link');
+        let confirmButtonText = button.data('modal-button-confirm');
 
         modal.find('.modal-title').text(name);
         modal.find('#modal-button-request-details-confirm').html(confirmButtonText);
 
         $.get({
             url: url,
-            success: function(data) {
-                var modalBody = data.request_status_banner;
+            success: function (data) {
+                let modalBody = data.request_status_banner;
 
                 // requestor
                 modalBody += '<div class="clearfix modal-srp-details modal-srp-details-requester">' +
@@ -355,8 +359,8 @@ $(document).ready(function() {
                 modal.find('.modal-body').html(modalBody);
             }
         });
-    }).on('hide.bs.modal', function() {
-        var modal = $(this);
+    }).on('hide.bs.modal', function () {
+        let modal = $(this);
 
         modal.find('.modal-title').text('');
         modal.find('.modal-body').text('');

@@ -1,7 +1,6 @@
 """
 the views
 """
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
@@ -39,6 +38,7 @@ from aasrp.helper.notification import (
     send_message_to_discord_channel,
     send_user_notification,
 )
+from aasrp.helper.urls import reverse_absolute
 from aasrp.managers import AaSrpManager
 from aasrp.models import (
     AaSrpLink,
@@ -140,6 +140,17 @@ def ajax_dashboard_srp_links_data(
                 aar_link=srp_link.aar_link, link_text=_("Link")
             )
 
+        srp_code_html = (
+            srp_link.srp_code + "<i "
+            'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
+            'data-clipboard-text="{srp_link}" title="{title}"></i>'.format(
+                srp_link=reverse_absolute(
+                    "aasrp:request_srp", args=[srp_link.srp_code]
+                ),
+                title=_("Copy SRP link to clipboard"),
+            )
+        )
+
         actions = get_dashboard_action_icons(request=request, srp_link=srp_link)
 
         data.append(
@@ -150,7 +161,8 @@ def ajax_dashboard_srp_links_data(
                 "fleet_commander": srp_link.fleet_commander.character_name,
                 "fleet_doctrine": srp_link.fleet_doctrine,
                 "aar_link": aar_link,
-                "srp_code": srp_link.srp_code,
+                # "srp_code": srp_link.srp_code,
+                "srp_code": {"display": srp_code_html, "sort": srp_link.srp_code},
                 "srp_costs": srp_link.total_cost,
                 "srp_status": srp_link.srp_status,
                 "pending_requests": srp_link.pending_requests,
@@ -670,7 +682,7 @@ def ajax_srp_link_view_requests_data(
             request=request, srp_link=srp_link, srp_request=srp_request
         )
         character_display = get_formatted_character_name(
-            character=srp_request.character, with_portrait=True
+            character=srp_request.character, with_portrait=True, with_copy_icon=True
         )
         character_sort = get_formatted_character_name(character=srp_request.character)
 

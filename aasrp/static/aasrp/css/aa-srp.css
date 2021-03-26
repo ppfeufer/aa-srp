@@ -84,6 +84,14 @@
     .aa-srp .text-aasrp-form-description {
         font-weight: 400;
     }
+
+    .aa-srp-fa-icon {
+        cursor: pointer;
+    }
+
+    .aa-srp-fa-icon-right {
+        margin-left: 1rem;
+    }
 }
 
 @media all and (min-width: 992px) {
