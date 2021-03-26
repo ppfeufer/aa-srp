@@ -52,5 +52,5 @@ def send_message_to_discord_channel(
         import aadiscordbot.tasks
 
         aadiscordbot.tasks.send_channel_message_by_discord_id.delay(
-            channel_id=channel_id, message_content=message, embed=embed
+            channel_id, message, embed
         )
