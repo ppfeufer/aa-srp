@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.x.x] - Upcoming
+
+### Changed
+
+- Required field hint in forms has now its own template since it is not needed in
+  every form, to avoid confusion
+
+
 ## [1.3.1] - 2021-03-26
 
 ### Fixed
