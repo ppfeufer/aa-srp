@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 - Required field hint in forms has now its own template since it is not needed in
   every form, to avoid confusion
 
+### Fixed
+
+- Copy to clipboard should only be available for active SRP links
+
 
 ## [1.3.1] - 2021-03-26
 
