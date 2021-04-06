@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.3.2] - 2021-04-06
+
+### Changed
+
+- Required field hint in forms has now its own template since it is not needed in
+  every form, to avoid confusion
+
+### Fixed
+
+- Copy to clipboard should only be available for active SRP links
+
+
 ## [1.3.1] - 2021-03-26
 
 ### Fixed
