@@ -89,7 +89,7 @@ class AaSrpRequestForm(ModelForm):
                 _("Invalid Link. Please use https://zkillboard.com")
             )
 
-        if not re.match(r"http[s]?://zkillboard\.com/kill/\d{8}\/", killboard_link):
+        if not re.match(r"http[s]?://zkillboard\.com/kill/\d+\/", killboard_link):
             raise forms.ValidationError(
                 _("Invalid Link. Please post a link that is actually a killmail.")
             )
