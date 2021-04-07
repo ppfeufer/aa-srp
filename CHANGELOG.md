@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.3.x] - Upcoming
+
+### Changed
+
+- Using regular expression to determine if we are looking at a kill mail link or not
+
+
 ## [1.3.2] - 2021-04-06
 
 ### Changed

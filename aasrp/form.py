@@ -2,6 +2,8 @@
 Form definitions
 """
 
+import re
+
 from django import forms
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
@@ -87,7 +89,7 @@ class AaSrpRequestForm(ModelForm):
                 _("Invalid Link. Please use https://zkillboard.com")
             )
 
-        if "https://zkillboard.com/kill/" not in killboard_link:
+        if not re.match(r"http[s]?://zkillboard\.com/kill/\d{8}\/", killboard_link):
             raise forms.ValidationError(
                 _("Invalid Link. Please post a link that is actually a killmail.")
             )
