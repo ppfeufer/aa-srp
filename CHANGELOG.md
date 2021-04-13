@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ### Fixed
 
-- Permissions
+- Permission decorators (#22)
 
 ### Changed
 
