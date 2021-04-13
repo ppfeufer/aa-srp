@@ -1,6 +1,7 @@
 """
 the views
 """
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
@@ -11,6 +12,7 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
+from allianceauth.authentication.decorators import permissions_required
 from allianceauth.eveonline.models import EveCharacter
 from allianceauth.services.hooks import get_extension_logger
 from eveuniverse.models import EveType
@@ -251,7 +253,7 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
 
 
 @login_required
-@permission_required("aasrp.manage_srp", "aasrp.create_srp")
+@permissions_required(("aasrp.manage_srp", "aasrp.create_srp"))
 def srp_link_add(request: WSGIRequest) -> HttpResponse:
     """
     add a srp link
@@ -300,7 +302,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 
 
 @login_required
-@permission_required("aasrp.manage_srp", "aasrp.create_srp")
+@permissions_required(("aasrp.manage_srp", "aasrp.create_srp"))
 def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
     add or edit AAR link
@@ -599,7 +601,7 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
 
 
 @login_required
-@permission_required("aasrp.manage_srp", "manage_srp_requests")
+@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
 def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
     view srp requests for a specific srp code
@@ -637,7 +639,7 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
 
 @login_required
-@permission_required("aasrp.manage_srp", "manage_srp_requests")
+@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
 def ajax_srp_link_view_requests_data(
     request: WSGIRequest, srp_code: str
 ) -> JsonResponse:
@@ -843,7 +845,7 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
 
 
 @login_required
-@permission_required("aasrp.manage_srp", "manage_srp_requests")
+@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
 def ajax_srp_request_additional_information(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -936,7 +938,7 @@ def ajax_srp_request_additional_information(
 
 
 @login_required
-@permission_required("aasrp.manage_srp", "manage_srp_requests")
+@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
 def ajax_srp_request_change_payout(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -972,7 +974,7 @@ def ajax_srp_request_change_payout(
 
 
 @login_required
-@permission_required("aasrp.manage_srp", "manage_srp_requests")
+@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
 def ajax_srp_request_approve(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -1043,7 +1045,7 @@ def ajax_srp_request_approve(
 
 
 @login_required
-@permission_required("aasrp.manage_srp", "manage_srp_requests")
+@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
 def ajax_srp_request_deny(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -1129,7 +1131,7 @@ def ajax_srp_request_deny(
 
 
 @login_required
-@permission_required("aasrp.manage_srp", "manage_srp_requests")
+@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
 def ajax_srp_request_remove(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
