@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ### Changed
 
-- Form now using form generation via django-bootstrap-form instead of own template
+- Forms now using form generation via django-bootstrap-form instead of own template
   construct that was falling appart already
 
 
