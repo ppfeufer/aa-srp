@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ### Fixed
 
-- IndexError on ivalid kill mail link
+- IndexError on invalid kill mail link
 
 ### Changed
 
 - Forms now using form generation via django-bootstrap-form instead of own template
-  construct that was falling appart already
+  construct that was falling apart already
 
 
 ## [1.3.3] - 2020-04-13
