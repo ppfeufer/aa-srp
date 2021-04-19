@@ -1,3 +1,4 @@
+{% load bootstrap %}
 {% load i18n %}
 
 <!-- user settings tab -->
@@ -12,7 +13,7 @@
                 {% csrf_token %}
 
                 <fieldset class="aa-srp-request-form col-md-6 col-md-offset-3">
-                    {% include "aasrp/partials/form/form_fields.html" with form=user_settings_form %}
+                    {{ user_settings_form|bootstrap }}
 
                     <div class="form-group aasrp-form-group text-right clearfix">
                         <button class="btn btn-primary" type="submit">{% translate 'Change Settings' %}</button>
