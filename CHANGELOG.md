@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
+## [1.4.0] - 2021-04-20
+
+### Fixed
+
+- IndexError on ivalid kill mail link
+
+### Changed
+
+- Forms now using form generation via django-bootstrap-form instead of own template
+  construct that was falling appart already
+
 
 ## [1.3.3] - 2020-04-13
 

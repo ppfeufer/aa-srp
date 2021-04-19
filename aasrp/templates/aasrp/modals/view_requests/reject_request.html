@@ -1,3 +1,4 @@
+{% load bootstrap %}
 {% load i18n %}
 
 <!-- request mark as completed modal -->
@@ -21,7 +22,8 @@
                     {% csrf_token %}
 
                     <fieldset class="aa-srp-request-form">
-                        {% include "aasrp/partials/form/form_fields.html" with form=form %}
+                        {{ form|bootstrap }}
+
                         {% include "aasrp/partials/form/required_field_hint.html" %}
                     </fieldset>
                 </form>

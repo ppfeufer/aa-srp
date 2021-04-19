@@ -1,1 +1,1 @@
-@media all{.aa-srp .aasrp-form-label{width:100%;font-weight:400}.aa-srp .aasrp-form-field-errors{margin-top:.5rem}.aa-srp .field-required>span{font-weight:700}.aa-srp .field-required .aasrp-form-label-text::after{content:" *"}.aa-srp .form-label-text-normal{font-weight:400}.aa-srp input[type=checkbox]{display:initial;width:auto;height:auto}.aa-srp .form-checkbox-left{margin-right:.5rem}}
+@media all{.aa-srp .aasrp-form-field-errors{margin-top:.5rem}.aa-srp form label{font-weight:400}.aa-srp form label .form-field-required{font-weight:700}}

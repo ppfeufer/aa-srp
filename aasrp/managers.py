@@ -53,8 +53,13 @@ class AaSrpManager:
             "Content-Type": "application/json",
         }
 
-        request_result = requests.get(url, headers=headers)
-        result = request_result.json()[0]
+        result = None
+
+        try:
+            request_result = requests.get(url, headers=headers)
+            result = request_result.json()[0]
+        except IndexError:
+            raise ValueError("Invalid Kill ID")
 
         if result:
             killmail_id = result["killmail_id"]

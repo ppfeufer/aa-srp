@@ -1,3 +1,4 @@
+{% load bootstrap %}
 {% load i18n %}
 
 <div class="panel panel-default">
@@ -10,7 +11,8 @@
             {% csrf_token %}
 
             <fieldset class="aa-srp-request-form col-md-6 col-md-offset-3">
-                {% include "aasrp/partials/form/form_fields.html" with form=form %}
+                {{ form|bootstrap }}
+
                 {% include "aasrp/partials/form/required_field_hint.html" %}
 
                 <div class="form-group aasrp-form-group text-right clearfix">
