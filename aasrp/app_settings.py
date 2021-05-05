@@ -4,6 +4,7 @@ our app setting
 
 import re
 
+from django.apps import apps
 from django.conf import settings
 
 from aasrp.utils import clean_setting
@@ -37,6 +38,7 @@ def avoid_cdn() -> bool:
     check if we should aviod CDN usage
     :return: bool
     """
+
     return AVOID_CDN
 
 
@@ -46,7 +48,7 @@ def allianceauth_discordbot_active():
     :return:
     """
 
-    return "aadiscordbot" in settings.INSTALLED_APPS
+    return apps.is_installed("aadiscordbot")
 
 
 def aa_discordnotify_active():
@@ -55,4 +57,4 @@ def aa_discordnotify_active():
     :return:
     """
 
-    return "discordnotify" in settings.INSTALLED_APPS
+    return apps.is_installed("discordnotify")
