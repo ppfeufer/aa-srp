@@ -14,4 +14,4 @@ class AaSrpConfig(AppConfig):
 
     name = "aasrp"
     label = "aasrp"
-    verbose_name = "AA Ship Replacement v{}".format(__version__)
+    verbose_name = f"AA Ship Replacement v{__version__}"

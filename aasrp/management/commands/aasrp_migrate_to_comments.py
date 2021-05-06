@@ -36,9 +36,7 @@ class Command(BaseCommand):
         srp_requests = AaSrpRequest.objects.all()
 
         self.stdout.write(
-            self.style.WARNING(
-                "Found {count} SRP requests.".format(count=srp_requests.count())
-            )
+            self.style.WARNING(f"Found {srp_requests.count()} SRP requests.")
         )
 
         if srp_requests.count() > 0:
@@ -49,11 +47,9 @@ class Command(BaseCommand):
                 # migrate additional info
                 if srp_info != "":
                     self.stdout.write(
-                        (
-                            "Updating Request Information "
-                            "for SRP request {request_code}".format(
-                                request_code=srp_request.request_code
-                            )
+                        "Updating Request Information "
+                        "for SRP request {request_code}".format(
+                            request_code=srp_request.request_code
                         )
                     )
 
@@ -84,11 +80,9 @@ class Command(BaseCommand):
                     and reject_reason != ""
                 ):
                     self.stdout.write(
-                        (
-                            "Updating Reject Information "
-                            "for SRP request {request_code}".format(
-                                request_code=srp_request.request_code
-                            )
+                        "Updating Reject Information "
+                        "for SRP request {request_code}".format(
+                            request_code=srp_request.request_code
                         )
                     )
 

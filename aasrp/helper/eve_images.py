@@ -55,7 +55,7 @@ def get_type_render_url_from_type_id(
     if as_html is True:
         alt_tag = ""
         if evetype_name is not None:
-            alt_tag = ' alt="{evetype_name}"'.format(evetype_name=evetype_name)
+            alt_tag = f' alt="{evetype_name}"'
 
         return_value = (
             '<img class="aasrp-evetype-icon img-rounded" '

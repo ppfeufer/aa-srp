@@ -32,7 +32,7 @@ class LoggerAddTag(logging.LoggerAdapter):
         :return:
         """
 
-        return "[%s] %s" % (self.prefix, msg), kwargs
+        return f"[{self.prefix}] {msg}", kwargs
 
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
