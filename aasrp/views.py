@@ -287,7 +287,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 
             messages.success(
                 request,
-                _('SRP link "{srp_code}" created'.format(srp_code=srp_link.srp_code)),
+                _(f'SRP link "{srp_link.srp_code}" created'),
             )
 
             return redirect("aasrp:dashboard")
@@ -327,7 +327,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         messages.error(
             request,
-            _("Unable to locate SRP code with ID {srp_code}".format(srp_code=srp_code)),
+            _(f"Unable to locate SRP code with ID {srp_code}"),
         )
 
         return redirect("aasrp:dashboard")
@@ -520,7 +520,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                             additional_information=srp_request_comment.comment
                         )
                     )
-                    message += "**SRP Code:** {srp_code}\n".format(srp_code=srp_code)
+                    message += f"**SRP Code:** {srp_code}\n"
                     message += "**SRP Link:** {srp_link}\n".format(
                         srp_link=site_base_url
                         + reverse("aasrp:view_srp_requests", args=[srp_link.srp_code])
@@ -550,9 +550,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        logger.debug(
-            "Returning blank SRP request form for {user}".format(user=request.user)
-        )
+        logger.debug(f"Returning blank SRP request form for {request.user}")
 
         form = AaSrpRequestForm()
 
@@ -586,7 +584,7 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
 
         messages.error(
             request,
-            _("Unable to locate SRP code with ID {srp_code}".format(srp_code=srp_code)),
+            _(f"Unable to locate SRP code with ID {srp_code}"),
         )
 
         return redirect("aasrp:dashboard")
@@ -625,7 +623,7 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         messages.error(
             request,
-            _("Unable to locate SRP code with ID {srp_code}".format(srp_code=srp_code)),
+            _(f"Unable to locate SRP code with ID {srp_code}"),
         )
 
         return redirect("aasrp:dashboard")
@@ -741,7 +739,7 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
 
         messages.error(
             request,
-            _("Unable to locate SRP code with ID {srp_code}".format(srp_code=srp_code)),
+            _(f"Unable to locate SRP code with ID {srp_code}"),
         )
 
         return redirect("aasrp:dashboard")
@@ -753,7 +751,7 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
 
     messages.success(
         request,
-        _("SRP link {srp_code} (re-)activated.".format(srp_code=srp_code)),
+        _(f"SRP link {srp_code} (re-)activated."),
     )
 
     return redirect("aasrp:dashboard")
@@ -784,7 +782,7 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
 
         messages.error(
             request,
-            _("Unable to locate SRP code with ID {srp_code}".format(srp_code=srp_code)),
+            _(f"Unable to locate SRP code with ID {srp_code}"),
         )
 
         return redirect("aasrp:dashboard")
@@ -796,7 +794,7 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
 
     messages.success(
         request,
-        _("SRP link {srp_code} disabled.".format(srp_code=srp_code)),
+        _(f"SRP link {srp_code} disabled."),
     )
 
     return redirect("aasrp:dashboard")
@@ -827,7 +825,7 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
 
         messages.error(
             request,
-            _("Unable to locate SRP code with ID {srp_code}".format(srp_code=srp_code)),
+            _(f"Unable to locate SRP code with ID {srp_code}"),
         )
 
         return redirect("aasrp:dashboard")
@@ -838,7 +836,7 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
 
     messages.success(
         request,
-        _("SRP link {srp_code} deleted.".format(srp_code=srp_code)),
+        _(f"SRP link {srp_code} deleted."),
     )
 
     return redirect("aasrp:dashboard")

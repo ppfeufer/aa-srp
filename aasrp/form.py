@@ -40,7 +40,9 @@ class AaSrpLinkForm(ModelForm):
         required=True, label=get_mandatory_form_label_text(_("Fleet Name"))
     )
     fleet_time = forms.DateTimeField(
-        required=True, label=get_mandatory_form_label_text(_("Fleet Time"))
+        required=True,
+        label=get_mandatory_form_label_text(_("Fleet Time")),
+        widget=forms.DateTimeInput(attrs={"autocomplete": "off"}),
     )
     fleet_doctrine = forms.CharField(
         required=True, label=get_mandatory_form_label_text(_("Fleet Doctrine"))

@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.4.2] - 2021-05-06
+
+### Fixed
+
+- Autocomplete from date/time field removed, so the datepicker works again properly
+
+
 ## [1.4.1] - 2021-05-05
 
 ### Fixed
