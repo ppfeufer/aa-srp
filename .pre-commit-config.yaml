@@ -1,4 +1,4 @@
-# Apply to all files without commiting:
+# Apply to all files without committing:
 #   pre-commit run --all-files
 # Update this file:
 #   pre-commit autoupdate
@@ -25,10 +25,11 @@ repos:
       - id: check-ast  # Is it valid Python?
       - id: debug-statements  # Check for debugger imports and py37+ breakpoint() calls
 
-  - repo: https://github.com/pre-commit/mirrors-isort
-    rev: v5.8.0
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+    rev: 2.3.5
     hooks:
-      - id: isort
+      - id: editorconfig-checker
+        exclude: ^(LICENSE|aasrp/static/aasrp/libs/)
 
   - repo: https://github.com/asottile/pyupgrade
     rev: v2.14.0
@@ -36,15 +37,20 @@ repos:
       - id: pyupgrade
         args: [ --py37-plus ]
 
-  - repo: https://github.com/psf/black
-    rev: 21.5b0
-    hooks:
-      - id: black
-
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.9.1
     hooks:
       - id: flake8
+
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.8.0
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/psf/black
+    rev: 21.5b0
+    hooks:
+      - id: black
 
   - repo: https://github.com/asottile/blacken-docs
     rev: v1.10.0
