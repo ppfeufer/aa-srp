@@ -253,10 +253,18 @@ $(document).ready(function () {
                     '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.character + ':</b></p><p>' + data.character + '</p></div>' +
                     '</div>';
 
-                // ship and killmail
+                // ship, killmail and insurance
                 modalBody += '<div class="clearfix modal-srp-details modal-srp-details-ship">' +
-                    '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.ship + ':</b></p><p>' + data.killboard_link + '</p></div>' +
+                    '<div class="col-sm-6">' +
+                    '<p><b>' + aaSrpSettings.translation.modal.srpDetails.body.ship + ':</b></p><p>' + data.killboard_link + '</p>' +
+                    // '<p><b>ISK Lost:</b></p><p>' + data.loss_amount + '</p>' +
                     '</div>';
+
+                if (data.insurance) {
+                    modalBody += '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.insurance + ':</b></p><p>' + data.insurance + '</p></div>';
+                }
+
+                modalBody += '</div>';
 
                 // additional info
                 modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +

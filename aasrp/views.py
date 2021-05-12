@@ -43,6 +43,7 @@ from aasrp.helper.notification import (
 from aasrp.helper.urls import reverse_absolute
 from aasrp.managers import AaSrpManager
 from aasrp.models import (
+    AaSrpInsurance,
     AaSrpLink,
     AaSrpRequest,
     AaSrpRequestComment,
@@ -477,6 +478,20 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 srp_request_comment.creator = creator
                 srp_request_comment.save()
 
+                # add insurance information
+                insurance_information = AaSrpManager.get_insurance_for_ship_type(
+                    ship_type_id=ship_type_id
+                )
+
+                for insurance_level in insurance_information["levels"]:
+                    logger.debug(insurance_level)
+                    insurance = AaSrpInsurance()
+                    insurance.srp_request = srp_request
+                    insurance.insurance_level = insurance_level["name"]
+                    insurance.insurance_cost = insurance_level["cost"]
+                    insurance.insurance_payout = insurance_level["payout"]
+                    insurance.save()
+
                 logger.info(
                     "Created SRP request on behalf of user {user_name} "
                     "(character: {character_name}) for fleet name {srp_name} "
@@ -540,9 +555,9 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 messages.error(
                     request,
                     _(
-                        "Character {character_id} does not belong to your Auth "
+                        f"Character {victim_id} does not belong to your Auth "
                         "account. Please add this character as an alt to "
-                        "your main and try again.".format(character_id=victim_id)
+                        "your main and try again."
                     ),
                 )
 
@@ -569,17 +584,13 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
     """
 
     logger.info(
-        "Complete SRP link form for SRP code {srp_code} called by {user}".format(
-            srp_code=srp_code, user=request.user
-        )
+        f"Complete SRP link form for SRP code {srp_code} called by {request.user}"
     )
 
     # check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
-            "Unable to locate SRP Fleet using code {srp_code} for user {user}".format(
-                srp_code=srp_code, user=request.user
-            )
+            f"Unable to locate SRP Fleet using code {srp_code} for user {request.user}"
         )
 
         messages.error(
@@ -607,18 +618,12 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
     :param srp_code:
     """
 
-    logger.info(
-        "View SRP request for SRP code {srp_code} called by {user}".format(
-            user=request.user, srp_code=srp_code
-        )
-    )
+    logger.info(f"View SRP request for SRP code {srp_code} called by {request.user}")
 
     # check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
-            "Unable to locate SRP Fleet using code {srp_code} for user {user}".format(
-                srp_code=srp_code, user=request.user
-            )
+            f"Unable to locate SRP Fleet using code {srp_code} for user {request.user}"
         )
 
         messages.error(
@@ -664,14 +669,9 @@ def ajax_srp_link_view_requests_data(
             )
 
             killboard_link = (
-                '<a href="{zkb_link}" target="_blank">'
-                "{ship_render_icon_html}"
-                "<span>{zkb_link_text}</span>"
-                "</a>".format(
-                    zkb_link=srp_request.killboard_link,
-                    zkb_link_text=srp_request.ship.name,
-                    ship_render_icon_html=ship_render_icon_html,
-                )
+                f'<a href="{srp_request.killboard_link}" target="_blank">'
+                f"{ship_render_icon_html}"
+                f"<span>{srp_request.ship.name}</span></a>"
             )
 
         requester = srp_request.creator.username
@@ -723,18 +723,12 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
     :param srp_code:
     """
 
-    logger.info(
-        "Enable SRP link {srp_code} called by {user}".format(
-            user=request.user, srp_code=srp_code
-        )
-    )
+    logger.info(f"Enable SRP link {srp_code} called by {request.user}")
 
     # check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
-            "Unable to locate SRP Fleet using code {srp_code} for user {user}".format(
-                srp_code=srp_code, user=request.user
-            )
+            f"Unable to locate SRP Fleet using code {srp_code} for user {request.user}"
         )
 
         messages.error(
@@ -766,18 +760,12 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
     :param srp_code:
     """
 
-    logger.info(
-        "Disable SRP link {srp_code} called by {user}".format(
-            user=request.user, srp_code=srp_code
-        )
-    )
+    logger.info(f"Disable SRP link {srp_code} called by {request.user}")
 
     # check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
-            "Unable to locate SRP Fleet using code {srp_code} for user {user}".format(
-                srp_code=srp_code, user=request.user
-            )
+            f"Unable to locate SRP Fleet using code {srp_code} for user {request.user}"
         )
 
         messages.error(
@@ -809,18 +797,12 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
     :param srp_code:
     """
 
-    logger.info(
-        "Delete SRP link {srp_code} called by {user}".format(
-            user=request.user, srp_code=srp_code
-        )
-    )
+    logger.info(f"Delete SRP link {srp_code} called by {request.user}")
 
     # check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
-            "Unable to locate SRP Fleet using code {srp_code} for user {user}".format(
-                srp_code=srp_code, user=request.user
-            )
+            f"Unable to locate SRP Fleet using code {srp_code} for user {request.user}"
         )
 
         messages.error(
@@ -853,7 +835,28 @@ def ajax_srp_request_additional_information(
     :param srp_request_code:
     """
 
-    srp_request = AaSrpRequest.objects.get(request_code=srp_request_code)
+    srp_request = AaSrpRequest.objects.get(
+        srp_link__srp_code=srp_code, request_code=srp_request_code
+    )
+
+    insurance = None
+    insurance_information = srp_request.insurance.filter(srp_request=srp_request)
+
+    if insurance_information.count() > 0:
+        insurance = '<table class="table table-condensed table-striped">'
+        insurance += "<tbody>"
+
+        for insurance_level in insurance_information:
+            insurance += "<tr>"
+            insurance += "<td>" + insurance_level.insurance_level + "</td>"
+            insurance += (
+                f'<td class="text-right">'
+                f"{insurance_level.insurance_payout:,.2f} ISK</td>"
+            )
+            insurance += "</tr>"
+
+        insurance += "</tbody>"
+        insurance += "</table>"
 
     requester = srp_request.creator.username
     if srp_request.creator.profile.main_character is not None:
@@ -874,14 +877,10 @@ def ajax_srp_request_additional_information(
         )
 
         killboard_link = (
-            '<a href="{zkb_link}" target="_blank">'
-            "{ship_render_icon_html}"
-            "<span>{zkb_link_text}</span>"
-            "</a>".format(
-                zkb_link=srp_request.killboard_link,
-                zkb_link_text=srp_request.ship.name,
-                ship_render_icon_html=ship_render_icon_html,
-            )
+            f"{ship_render_icon_html}"
+            f'<span style="display: inline-block; vertical-align: middle;">'
+            f'<a href="{srp_request.killboard_link}" target="_blank">'
+            f"{srp_request.ship.name}</a><br>{srp_request.loss_amount:,.2f} ISK</span>"
         )
 
     request_status_banner_alert_level = "info"
@@ -892,12 +891,9 @@ def ajax_srp_request_additional_information(
         request_status_banner_alert_level = "danger"
 
     request_status_banner = (
-        '<div class="alert alert-{banner_level}">'
-        '<div class="text-center">{banner_text}</div>'
-        "</div>".format(
-            banner_level=request_status_banner_alert_level,
-            banner_text="SRP Request " + srp_request.request_status,
-        )
+        f'<div class="alert alert-{request_status_banner_alert_level}">'
+        f'<div class="text-center">SRP Request {srp_request.request_status}</div>'
+        "</div>"
     )
 
     additional_info = ""
@@ -921,7 +917,6 @@ def ajax_srp_request_additional_information(
         pass
 
     data = {
-        # "killboard_link": srp_request.killboard_link,
         "killboard_link": killboard_link,
         "ship_type": srp_request.ship.name,
         "request_time": srp_request.post_time,
@@ -930,6 +925,7 @@ def ajax_srp_request_additional_information(
         "additional_info": additional_info,
         "reject_info": reject_info,
         "request_status_banner": request_status_banner,
+        "insurance": insurance,
     }
 
     return JsonResponse(data, safe=False)
