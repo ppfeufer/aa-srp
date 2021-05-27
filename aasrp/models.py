@@ -115,7 +115,7 @@ class AaSrpLink(models.Model):
         :return:
         """
 
-        return sum([int(r.payout_amount) for r in self.aasrprequest_set.all()])
+        return sum(int(r.payout_amount) for r in self.aasrprequest_set.all())
 
     @property
     def total_requests(self):

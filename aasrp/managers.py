@@ -33,7 +33,7 @@ class AaSrpManager:
         """
 
         num_set = "0123456789"
-        kill_id = "".join([c for c in killboard_link if c in num_set])
+        kill_id = "".join(c for c in killboard_link if c in num_set)
 
         return kill_id
 
