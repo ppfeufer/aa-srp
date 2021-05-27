@@ -154,10 +154,13 @@ def get_srp_request_status_icon(request: WSGIRequest, srp_request: AaSrpRequest)
     )
     if srp_request.request_status == AaSrpRequestStatus.APPROVED:
         srp_request_status_icon = (
-            '<button class="btn btn-success btn-sm btn-icon-aasrp btn-icon-aasrp-status" '
+            '<button class="{btn_classes}" '
             'title="{request_status_icon_title}">'
             "{request_status_icon}"
             "</button>".format(
+                btn_classes=(
+                    "btn btn-success btn-sm btn-icon-aasrp btn-icon-aasrp-status"
+                ),
                 request_status_icon='<i class="fas fa-thumbs-up"></i>',
                 request_status_icon_title=_("SRP Request Approved"),
             )
@@ -165,10 +168,13 @@ def get_srp_request_status_icon(request: WSGIRequest, srp_request: AaSrpRequest)
 
     if srp_request.request_status == AaSrpRequestStatus.REJECTED:
         srp_request_status_icon = (
-            '<button class="btn btn-danger btn-sm btn-icon-aasrp btn-icon-aasrp-status" '
+            '<button class="{btn_classes}" '
             'title="{request_status_icon_title}">'
             "{request_status_icon}"
             "</button>".format(
+                btn_classes=(
+                    "btn btn-danger btn-sm btn-icon-aasrp btn-icon-aasrp-status"
+                ),
                 request_status_icon='<i class="fas fa-thumbs-down"></i>',
                 request_status_icon_title=_("SRP Request Rejected"),
             )

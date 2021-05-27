@@ -13,6 +13,7 @@ from allianceauth.services.hooks import get_extension_logger
 from aasrp import __title__
 from aasrp.constants import USERAGENT
 from aasrp.models import AaSrpRequest, AaSrpRequestStatus
+from aasrp.providers import esi
 from aasrp.utils import LoggerAddTag
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
@@ -32,7 +33,7 @@ class AaSrpManager:
         """
 
         num_set = "0123456789"
-        kill_id = "".join([c for c in killboard_link if c in num_set])
+        kill_id = "".join(c for c in killboard_link if c in num_set)
 
         return kill_id
 
@@ -99,5 +100,21 @@ class AaSrpManager:
             return AaSrpRequest.objects.filter(
                 request_status=AaSrpRequestStatus.PENDING
             ).count()
+
+        return None
+
+    @staticmethod
+    def get_insurance_for_ship_type(ship_type_id: int):
+        """
+        getting insurance for a given ship type ID from ESI
+        :param ship_type_id:
+        :type ship_type_id:
+        """
+
+        insurance_prices = esi.client.Insurance.get_insurance_prices().result()
+
+        for insurance in insurance_prices:
+            if insurance["type_id"] == ship_type_id:
+                return insurance
 
         return None

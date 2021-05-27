@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.5.0] - 2021-05-27
+
+### Added
+
+- Insurance information to SRP request details modal (Only for new SRP requests)
+
+
 ## [1.4.2] - 2021-05-06
 
 ### Fixed
