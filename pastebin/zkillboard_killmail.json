@@ -1,0 +1,15 @@
+[
+    {
+        "killmail_id": 92805575,
+        "zkb": {
+            "locationID": 50013770,
+            "hash": "79b46dac66cba1ac120ed180e2b371e24c66c21a",
+            "fittedValue": 329185822.77,
+            "totalValue": 349147869.07,
+            "points": 1,
+            "npc": false,
+            "solo": false,
+            "awox": false
+        }
+    }
+]

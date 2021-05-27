@@ -115,7 +115,7 @@ class AaSrpLink(models.Model):
         :return:
         """
 
-        return sum([int(r.payout_amount) for r in self.aasrprequest_set.all()])
+        return sum(int(r.payout_amount) for r in self.aasrprequest_set.all())
 
     @property
     def total_requests(self):
@@ -235,6 +235,28 @@ class AaSrpRequest(models.Model):
         default_permissions = ()
         verbose_name = _("SRP Request")
         verbose_name_plural = _("SRP Requests")
+
+
+class AaSrpInsurance(models.Model):
+    """
+    Insurance Model
+    """
+
+    srp_request = models.ForeignKey(
+        AaSrpRequest, on_delete=models.CASCADE, related_name="insurance"
+    )
+    insurance_level = models.CharField(max_length=254, default="")
+    insurance_cost = models.FloatField()
+    insurance_payout = models.FloatField()
+
+    class Meta:
+        """
+        Meta definitions
+        """
+
+        default_permissions = ()
+        verbose_name = _("Ship Insurance")
+        verbose_name_plural = _("Ship Insurances")
 
 
 class AaSrpRequestComment(models.Model):
