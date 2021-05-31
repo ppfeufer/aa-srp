@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [Unreleased] - Upcoming
+
+### Changed
+
+- Check for valid zKillboard URL is now done completely via regular expressions.
+
+
 ## [1.5.0] - 2021-05-27
 
 ### Added
