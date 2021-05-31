@@ -11,7 +11,7 @@ from allianceauth.eveonline.providers import provider
 from allianceauth.services.hooks import get_extension_logger
 
 from aasrp import __title__
-from aasrp.constants import USERAGENT
+from aasrp.constants import USERAGENT, ZKILLBOARD_API_URL
 from aasrp.models import AaSrpRequest, AaSrpRequestStatus
 from aasrp.providers import esi
 from aasrp.utils import LoggerAddTag
@@ -45,16 +45,12 @@ class AaSrpManager:
         :return:
         """
 
-        url = "https://zkillboard.com/api/killID/{killmail_id}/".format(
-            killmail_id=kill_id
-        )
+        url = f"{ZKILLBOARD_API_URL}killID/{kill_id}/"
 
         headers = {
             "User-Agent": USERAGENT,
             "Content-Type": "application/json",
         }
-
-        result = None
 
         try:
             request_result = requests.get(url, headers=headers)

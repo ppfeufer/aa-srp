@@ -19,7 +19,7 @@ from eveuniverse.models import EveType
 
 from aasrp import __title__
 from aasrp.app_settings import AASRP_SRP_TEAM_DISCORD_CHANNEL, avoid_cdn, get_site_url
-from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
+from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE, ZKILLBOARD_BASE_URL
 from aasrp.form import (
     AaSrpLinkForm,
     AaSrpLinkUpdateForm,
@@ -444,7 +444,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     request,
                     _(
                         "Your SRP request Killmail link is invalid. "
-                        "Please make sure you are using http://zkillboard.com"
+                        f"Please make sure you are using {ZKILLBOARD_BASE_URL}"
                     ),
                 )
 
