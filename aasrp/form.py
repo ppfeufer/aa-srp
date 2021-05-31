@@ -10,9 +10,9 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from aasrp.constants import (
-    REGEX_ZKILLBOAR_KILLMAIL_URL,
-    REGEX_ZKILLBOARD_BASE_URL,
+    ZKILLBOAR_KILLMAIL_URL_REGEX,
     ZKILLBOARD_BASE_URL,
+    ZKILLBOARD_BASE_URL_REGEX,
 )
 from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpUserSettings
 
@@ -122,13 +122,13 @@ class AaSrpRequestForm(ModelForm):
         killboard_link = self.cleaned_data["killboard_link"]
 
         # Check if it's a zkillboard link
-        if not re.search(REGEX_ZKILLBOARD_BASE_URL, killboard_link):
+        if not re.search(ZKILLBOARD_BASE_URL_REGEX, killboard_link):
             raise forms.ValidationError(
                 _(f"Invalid Link. Please use {ZKILLBOARD_BASE_URL}")
             )
 
         # Check if it's an actual kill mail
-        if not re.match(REGEX_ZKILLBOAR_KILLMAIL_URL, killboard_link):
+        if not re.match(ZKILLBOAR_KILLMAIL_URL_REGEX, killboard_link):
             raise forms.ValidationError(
                 _("Invalid link. Please post a link to a kill mail.")
             )

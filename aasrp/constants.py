@@ -23,5 +23,5 @@ SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = _(
 
 ZKILLBOARD_BASE_URL = "https://zkillboard.com/"
 ZKILLBOARD_API_URL = "https://zkillboard.com/api/"
-REGEX_ZKILLBOARD_BASE_URL = r"^http[s]?://zkillboard\.com/"
-REGEX_ZKILLBOAR_KILLMAIL_URL = r"^http[s]?://zkillboard\.com/kill/\d+\/"
+ZKILLBOARD_BASE_URL_REGEX = r"^http[s]?://zkillboard\.com/"
+ZKILLBOAR_KILLMAIL_URL_REGEX = r"^http[s]?://zkillboard\.com/kill/\d+\/"
