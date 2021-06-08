@@ -9,6 +9,11 @@ from django.forms import ModelForm
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from aasrp.constants import (
+    ZKILLBOAR_KILLMAIL_URL_REGEX,
+    ZKILLBOARD_BASE_URL,
+    ZKILLBOARD_BASE_URL_REGEX,
+)
 from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpUserSettings
 
 
@@ -85,7 +90,7 @@ class AaSrpRequestForm(ModelForm):
         max_length=254,
         required=True,
         help_text=(
-            "Find your kill mail on https://zkillboard.com " "and paste the link here."
+            f"Find your kill mail on {ZKILLBOARD_BASE_URL} and paste the link here."
         ),
     )
 
@@ -116,23 +121,23 @@ class AaSrpRequestForm(ModelForm):
 
         killboard_link = self.cleaned_data["killboard_link"]
 
-        # check if it's a zkillboard link
-        if "zkillboard.com" not in killboard_link:
+        # Check if it's a zkillboard link
+        if not re.search(ZKILLBOARD_BASE_URL_REGEX, killboard_link):
             raise forms.ValidationError(
-                _("Invalid Link. Please use https://zkillboard.com")
+                _(f"Invalid Link. Please use {ZKILLBOARD_BASE_URL}")
             )
 
-        # check if it's an actual kill mail
-        if not re.match(r"http[s]?://zkillboard\.com/kill/\d+\/", killboard_link):
+        # Check if it's an actual kill mail
+        if not re.match(ZKILLBOAR_KILLMAIL_URL_REGEX, killboard_link):
             raise forms.ValidationError(
-                _("Invalid Link. Please post a link to a kill mail.")
+                _("Invalid link. Please post a link to a kill mail.")
             )
 
         # check if there is already a SRP request for this killmail
         if AaSrpRequest.objects.filter(killboard_link=killboard_link).exists():
             raise forms.ValidationError(
                 _(
-                    "There is already a SRP request for this killmail. "
+                    "There is already an SRP request for this killmail. "
                     "Please check if you got the right one."
                 )
             )
@@ -157,7 +162,7 @@ class AaSrpRequestRejectForm(forms.Form):
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
         label=get_mandatory_form_label_text(_("Rejection Reason")),
-        help_text=_("Please provide the reason why this SRP request is rejected."),
+        help_text=_("Please provide the reason this SRP request is rejected."),
     )
 
 

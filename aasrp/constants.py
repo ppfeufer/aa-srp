@@ -20,3 +20,8 @@ SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = _(
     "request reviser.\nPlease make sure to always add the SRP-Code and the "
     "Request-Code with your inquiry."
 )
+
+ZKILLBOARD_BASE_URL = "https://zkillboard.com/"
+ZKILLBOARD_API_URL = "https://zkillboard.com/api/"
+ZKILLBOARD_BASE_URL_REGEX = r"^http[s]?://zkillboard\.com/"
+ZKILLBOAR_KILLMAIL_URL_REGEX = r"^http[s]?://zkillboard\.com/kill/\d+\/"
