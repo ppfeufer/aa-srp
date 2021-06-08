@@ -21,8 +21,8 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
     - [Step 2 - Configure Alliance Auth](#step-2---configure-alliance-auth)
     - [Step 3 - Finalize the installation](#step-3---finalize-the-installation)
     - [Step 4 - Preload Eve Universe data](#step-4---preload-eve-universe-data)
-    - [Step 4 - Import from built-in SRP module](#step-5---import-from-built-in-srp-module)
-    - [Step 5 - Set up permissions](#step-6---set-up-permissions)
+    - [Step 5 - Set up permissions](#step-5---set-up-permissions)
+    - [Step 6 - (Optional) Import from built-in SRP module](#step-6---optional-import-from-built-in-srp-module)
 - [Permissions](#permissions)
 - [Settings](#settings)
 - [Changelog](#changelog)
@@ -36,7 +36,7 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
 - Overview of SRP links
 - Overview of your own SRP requests and their status
 - SRP Request administration mostly done via ajax and without page reloads
-- Use of modern DataTables with filters where ever they are useful
+- Use modern DataTables with filters where ever they are useful
 - Tables fully searchable and sortable
 - Mandatory reason on SRP reject
 - Notifications in AA with detailed information on SRP rejection
@@ -82,7 +82,7 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
 ### Step 1 - Install the package
 
 Make sure you are in the virtual environment (venv) of your Alliance Auth
-installation Then install the latest releast directly from PyPi.
+installation Then install the latest release directly from PyPi.
 
 ```shell
 pip install aa-srp
@@ -113,36 +113,36 @@ Restart your supervisor services for Auth
 
 ### Step 4 - Preload Eve Universe data
 
-AA SRP utilizes the EveUniverse module so it doesn't need to ask ESI for ship
-informations. To set this up, you now need to run the following command.
+AA SRP utilizes the EveUniverse module, so it doesn't need to ask ESI for ship
+information. To set this up, you now need to run the following command.
 
 ```shell
 python manage.py aasrp_load_eve
 ```
 
-
-### Step 5 - Import from built-in SRP module
-
-**Important:**
-
-Make sure you don't have any open SRP reqests before. All SRP links in the built-in
-module will be closed during the import process, to make sure to not import any
-duplicates.
-
-The import process can be done at any given time and does not necessarily have to be
-at the time of the installation.
-
-To import your SRP information from the buil-in SRP module, run the following command.
-
-```shell
-python manage.py aasrp_migrate_srp_data
-```
-
-### Step 6 - Set up permissions
+### Step 5 - Set up permissions
 
 Now it's time to set up access permissions for your new SRP module. You can do so in
 your admin backend in the AA SRP section. Read the [Permissions](#permissions)
 section for more information about the available permissions.
+
+
+### Step 6 - (Optional) Import from built-in SRP module
+
+**This step is only needed when you have been using the built-in SRP module until now.**
+
+Make sure you don't have any open SRP requests before. All SRP links in the built-in
+module will be closed during the import process, to make sure to not import any
+duplicates.
+
+The import process can be done at any given time and does not necessarily have to be
+during the installation.
+
+To import your SRP information from the built-in SRP module, run the following command.
+
+```shell
+python manage.py aasrp_migrate_srp_data
+```
 
 
 ## Permissions
