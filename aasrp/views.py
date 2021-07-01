@@ -515,39 +515,35 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 # send message to the srp team in their discord channel
                 if AASRP_SRP_TEAM_DISCORD_CHANNEL is not None:
                     site_base_url = get_site_url()
+                    request_code = srp_request.request_code
+                    character_name = srp_request__character.character_name
+                    ship_type = srp_request__ship.name
+                    zkillboard_link = srp_request.killboard_link
+                    additional_information = srp_request_comment.comment.replace(
+                        "@", "{@}"
+                    )
+                    srp_link = site_base_url + reverse(
+                        "aasrp:view_srp_requests", args=[srp_link.srp_code]
+                    )
 
                     message = "**New SRP Request**\n\n"
-                    message += "**Request Code:** {request_code}\n".format(
-                        request_code=srp_request.request_code
-                    )
-                    message += "**Character:** {character_name}\n".format(
-                        character_name=srp_request__character.character_name
-                    )
-                    message += "**Ship:** {ship_type}\n".format(
-                        ship_type=srp_request__ship.name
-                    )
-                    message += "**zKillboard Link:** {zkillboard_link}\n".format(
-                        zkillboard_link=srp_request.killboard_link
-                    )
+                    message += f"**Request Code:** {request_code}\n"
+                    message += f"**Character:** {character_name}\n"
+                    message += f"**Ship:** {ship_type}\n"
+                    message += f"**zKillboard Link:** {zkillboard_link}\n"
                     message += (
-                        "**Additional Information:** "
-                        "{additional_information}\n\n".format(
-                            additional_information=srp_request_comment.comment
-                        )
+                        f"**Additional Information:**\n{additional_information}\n\n"
                     )
                     message += f"**SRP Code:** {srp_code}\n"
-                    message += "**SRP Link:** {srp_link}\n".format(
-                        srp_link=site_base_url
-                        + reverse("aasrp:view_srp_requests", args=[srp_link.srp_code])
-                    )
+                    message += f"**SRP Link:** {srp_link}\n"
 
                     send_message_to_discord_channel(
                         channel_id=AASRP_SRP_TEAM_DISCORD_CHANNEL, message=message
                     )
 
                     logger.info(
-                        "Sending SRP request notification to "
-                        "the SRP team channel on Discord"
+                        "Sending SRP request notification to the SRP team channel on "
+                        "Discord"
                     )
 
                 return redirect("aasrp:dashboard")
