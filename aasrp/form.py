@@ -10,16 +10,20 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from aasrp.constants import (
-    ZKILLBOAR_KILLMAIL_URL_REGEX,
+    EVETOOLS_KILLBOARD_BASE_URL,
+    EVETOOLS_KILLBOARD_BASE_URL_REGEX,
+    EVETOOLS_KILLBOARD_KILLMAIL_URL_REGEX,
     ZKILLBOARD_BASE_URL,
     ZKILLBOARD_BASE_URL_REGEX,
+    ZKILLBOARD_KILLMAIL_URL_REGEX,
 )
+from aasrp.managers import AaSrpManager
 from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpUserSettings
 
 
 def get_mandatory_form_label_text(text: str) -> str:
     """
-    label text for mandatory form fields
+    Label text for mandatory form fields
     :param text:
     :type text:
     :return:
@@ -38,7 +42,7 @@ def get_mandatory_form_label_text(text: str) -> str:
 
 class AaSrpLinkForm(ModelForm):
     """
-    new SRP lnk form
+    New SRP lnk form
     """
 
     srp_name = forms.CharField(
@@ -56,7 +60,7 @@ class AaSrpLinkForm(ModelForm):
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        meta definitions
+        Meta definitions
         """
 
         model = AaSrpLink
@@ -65,32 +69,32 @@ class AaSrpLinkForm(ModelForm):
 
 class AaSrpLinkUpdateForm(ModelForm):
     """
-    edit SRP link form
+    Edit SRP link form
     """
 
     aar_link = forms.CharField(required=False, label=_("After Action Report Link"))
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        meta definitions
+        Meta definitions
         """
 
         model = AaSrpLink
         fields = ["aar_link"]
 
 
-# class AaSrpRequestForm(forms.Form):
 class AaSrpRequestForm(ModelForm):
     """
-    srp request form
+    SRP request form
     """
 
     killboard_link = forms.URLField(
-        label=get_mandatory_form_label_text(_("zKillboard Link")),
+        label=get_mandatory_form_label_text(_("Killboard Link")),
         max_length=254,
         required=True,
         help_text=(
-            f"Find your kill mail on {ZKILLBOARD_BASE_URL} and paste the link here."
+            f"Find your kill mail on {ZKILLBOARD_BASE_URL} "
+            f"or {EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."
         ),
     )
 
@@ -107,7 +111,7 @@ class AaSrpRequestForm(ModelForm):
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        meta definitions
+        Meta definitions
         """
 
         model = AaSrpRequest
@@ -115,26 +119,42 @@ class AaSrpRequestForm(ModelForm):
 
     def clean_killboard_link(self):
         """
-        check if it's a zkillboard link and clean it
+        Check if it's a link from one of the accepted kill boards and clean it
         :return:
         """
 
         killboard_link = self.cleaned_data["killboard_link"]
 
-        # Check if it's a zkillboard link
-        if not re.search(ZKILLBOARD_BASE_URL_REGEX, killboard_link):
+        # Check if it's a link from one of the accepted kill boards
+        if not any(
+            re.match(regex, killboard_link)
+            for regex in [ZKILLBOARD_BASE_URL_REGEX, EVETOOLS_KILLBOARD_BASE_URL_REGEX]
+        ):
             raise forms.ValidationError(
-                _(f"Invalid Link. Please use {ZKILLBOARD_BASE_URL}")
+                _(
+                    f"Invalid Link. Please use {ZKILLBOARD_BASE_URL} "
+                    f"or {EVETOOLS_KILLBOARD_BASE_URL}"
+                )
             )
 
         # Check if it's an actual kill mail
-        if not re.match(ZKILLBOAR_KILLMAIL_URL_REGEX, killboard_link):
+        if not any(
+            re.match(regex, killboard_link)
+            for regex in [
+                ZKILLBOARD_KILLMAIL_URL_REGEX,
+                EVETOOLS_KILLBOARD_KILLMAIL_URL_REGEX,
+            ]
+        ):
             raise forms.ValidationError(
                 _("Invalid link. Please post a link to a kill mail.")
             )
 
-        # check if there is already a SRP request for this killmail
-        if AaSrpRequest.objects.filter(killboard_link=killboard_link).exists():
+        # Check if there is already a SRP request for this kill mail
+        killmail_id = AaSrpManager.get_kill_id(killboard_link=killboard_link)
+
+        if AaSrpRequest.objects.filter(
+            killboard_link__icontains="/kill/" + killmail_id
+        ).exists():
             raise forms.ValidationError(
                 _(
                     "There is already an SRP request for this killmail. "
@@ -147,7 +167,7 @@ class AaSrpRequestForm(ModelForm):
 
 class AaSrpRequestPayoutForm(forms.Form):
     """
-    change payout value
+    Change payout value
     """
 
     value = forms.CharField(label=_("SRP payout value"), max_length=254, required=True)
@@ -168,7 +188,7 @@ class AaSrpRequestRejectForm(forms.Form):
 
 class AaSrpUserSettingsForm(ModelForm):
     """
-    user settings form
+    User settings form
     """
 
     disable_notifications = forms.BooleanField(
@@ -182,7 +202,7 @@ class AaSrpUserSettingsForm(ModelForm):
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        meta definitions
+        Meta definitions
         """
 
         model = AaSrpUserSettings
