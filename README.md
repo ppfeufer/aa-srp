@@ -35,6 +35,8 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
 
 - Overview of SRP links
 - Overview of your own SRP requests and their status
+- Accepting kill mails from [zKillboard](https://zkillboard.com/) and
+  [EveTools Killboard](https://kb.evetools.org/)
 - SRP Request administration mostly done via ajax and without page reloads
 - Use modern DataTables with filters where ever they are useful
 - Tables fully searchable and sortable
