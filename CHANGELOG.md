@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.7.0] - 2021-07-04
+
+### Added
+
+- [EveTools kill board](https://kb.evetools.org/) as accepted source for SRP
+  request kill mails
+
+
 ## [1.6.1] - 2021-07-01
 
 ### Changed
