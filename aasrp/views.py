@@ -127,11 +127,12 @@ def ajax_dashboard_srp_links_data(
 
     data = list()
 
-    srp_links = (
-        AaSrpLink.objects.select_related("fleet_commander")
-        .prefetch_related("aasrprequest_set")
-        .all()
-    )
+    srp_links = AaSrpLink.objects.prefetch_related(
+        "fleet_commander",
+        "creator",
+        "creator__profile__main_character",
+        "srp_requests",
+    ).all()
 
     if not show_all_links:
         srp_links = srp_links.filter(srp_status=AaSrpStatus.ACTIVE)
@@ -191,7 +192,15 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
 
     data = list()
 
-    requests = AaSrpRequest.objects.filter(creator=request.user)
+    requests = AaSrpRequest.objects.filter(creator=request.user).prefetch_related(
+        "creator",
+        "creator__profile__main_character",
+        "character",
+        "srp_link",
+        "srp_link__creator",
+        "srp_link__creator__profile__main_character",
+        "ship",
+    )
 
     for srp_request in requests:
         killboard_link = ""
@@ -651,8 +660,18 @@ def ajax_srp_link_view_requests_data(
 
     data = list()
 
-    srp_link = AaSrpLink.objects.get(srp_code=srp_code)
-    srp_requests = srp_link.requests
+    # srp_link = AaSrpLink.objects.get(srp_code=srp_code)
+    # srp_requests = srp_link.srp_requests.all()
+
+    srp_requests = AaSrpRequest.objects.filter(
+        srp_link__srp_code__iexact=srp_code
+    ).prefetch_related(
+        "srp_link",
+        "srp_link__creator",
+        "srp_link__creator__profile__main_character",
+        "character",
+        "ship",
+    )
 
     for srp_request in srp_requests:
         killboard_link = ""
@@ -678,7 +697,7 @@ def ajax_srp_link_view_requests_data(
             request=request, srp_request=srp_request
         )
         srp_request_action_icons = get_srp_request_action_icons(
-            request=request, srp_link=srp_link, srp_request=srp_request
+            request=request, srp_link=srp_request.srp_link, srp_request=srp_request
         )
         character_display = get_formatted_character_name(
             character=srp_request.character, with_portrait=True, with_copy_icon=True
