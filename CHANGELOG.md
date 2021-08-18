@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.7.2] - 2021-08-18
+
+### Changed
+
+- Improved performance by reducing the number of SQL queries
+
+
 ## [1.7.1] - 2021-07-08
 
 ### Added

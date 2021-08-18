@@ -115,7 +115,7 @@ class AaSrpLink(models.Model):
         :return:
         """
 
-        return sum(int(r.payout_amount) for r in self.aasrprequest_set.all())
+        return sum(int(r.payout_amount) for r in self.srp_requests.all())
 
     @property
     def total_requests(self):
@@ -124,7 +124,7 @@ class AaSrpLink(models.Model):
         :return:
         """
 
-        return self.aasrprequest_set.count()
+        return self.srp_requests.count()
 
     @property
     def pending_requests(self):
@@ -133,7 +133,7 @@ class AaSrpLink(models.Model):
         :return:
         """
 
-        return self.aasrprequest_set.filter(
+        return self.srp_requests.filter(
             request_status=AaSrpRequestStatus.PENDING
         ).count()
 
@@ -144,7 +144,7 @@ class AaSrpLink(models.Model):
         :return:
         """
 
-        return self.aasrprequest_set.filter(
+        return self.srp_requests.filter(
             request_status=AaSrpRequestStatus.APPROVED
         ).count()
 
@@ -155,7 +155,7 @@ class AaSrpLink(models.Model):
         :return:
         """
 
-        return self.aasrprequest_set.filter(
+        return self.srp_requests.filter(
             request_status=AaSrpRequestStatus.REJECTED
         ).count()
 
@@ -166,7 +166,7 @@ class AaSrpLink(models.Model):
         :return:
         """
 
-        return self.aasrprequest_set.all()
+        return self.srp_requests.all()
 
     class Meta:
         """
@@ -197,7 +197,7 @@ class AaSrpRequest(models.Model):
     ship_name = models.CharField(max_length=254, default="")
     ship = models.ForeignKey(
         EveType,
-        related_name="+",
+        related_name="srp_requests",
         null=True,
         blank=True,
         default=None,
@@ -211,7 +211,9 @@ class AaSrpRequest(models.Model):
         default=AaSrpRequestStatus.PENDING,
     )
     payout_amount = models.BigIntegerField(default=0)
-    srp_link = models.ForeignKey(AaSrpLink, on_delete=models.CASCADE)
+    srp_link = models.ForeignKey(
+        AaSrpLink, related_name="srp_requests", on_delete=models.CASCADE
+    )
     loss_amount = models.BigIntegerField(default=0)
     post_time = models.DateTimeField(default=timezone.now)
     reject_info = models.TextField(blank=True, default="")
@@ -283,7 +285,7 @@ class AaSrpRequestComment(models.Model):
 
     srp_request = models.ForeignKey(
         AaSrpRequest,
-        related_name="+",
+        related_name="srp_request_comments",
         null=True,
         blank=True,
         default=None,
