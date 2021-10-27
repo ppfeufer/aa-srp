@@ -3,13 +3,13 @@ utilities
 """
 
 import logging
-import os
 
 from django.conf import settings
 from django.utils.functional import lazy
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
+from allianceauth.authentication.admin import User
 from allianceauth.services.hooks import get_extension_logger
 
 from aasrp import __title__
@@ -91,17 +91,21 @@ DATETIME_FORMAT = "%Y-%m-%d %H:%M"
 format_html_lazy = lazy(format_html, str)
 
 
-def get_swagger_spec_path() -> str:
+def get_main_character_from_user(user: User) -> str:
     """
-    returns the path to the current swagger spec file
-    """
-
-    return os.path.join(os.path.dirname(os.path.abspath(__file__)), "swagger.json")
-
-
-def make_logger_prefix(tag: str):
-    """
-    creates a function to add logger prefix, which returns tag when used empty
+    Get the main character from a user
+    :param user:
+    :type user:
+    :return:
+    :rtype:
     """
 
-    return lambda text="": "{}{}".format(tag, (": " + text) if text else "")
+    user_main_character = user.username
+
+    try:
+        user_profile = user.profile
+        user_main_character = user_profile.main_character.character_name
+    except AttributeError:
+        pass
+
+    return user_main_character

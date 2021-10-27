@@ -7,7 +7,6 @@ import requests
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
-from allianceauth.eveonline.providers import provider
 from allianceauth.services.hooks import get_extension_logger
 
 from aasrp import __title__
@@ -62,9 +61,7 @@ class AaSrpManager:
             killmail_id = result["killmail_id"]
             killmail_hash = result["zkb"]["hash"]
 
-            esi_client = provider.client
-
-            esi_killmail = esi_client.Killmails.get_killmails_killmail_id_killmail_hash(
+            esi_killmail = esi.client.Killmails.get_killmails_killmail_id_killmail_hash(
                 killmail_id=killmail_id, killmail_hash=killmail_hash
             ).result()
         else:
