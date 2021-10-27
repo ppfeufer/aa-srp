@@ -6,13 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
-## [1.7.2] - 2021-10-27
+## [1.7.3] - 2021-10-27
 
 ### Fixed
 
 - AttributeError: Resource Killmails not found. Available resources: Alliance,
   Character, Corporation, Universe. This was caused by using AA's ESI provider,
   which has changed. We now use our own ESI provider for everything ESI related.
+- Get the sentry username when a creator/revisor has been deleted
 
 
 ## [1.7.2] - 2021-08-18

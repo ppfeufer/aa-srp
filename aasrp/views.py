@@ -52,7 +52,7 @@ from aasrp.models import (
     AaSrpStatus,
     AaSrpUserSettings,
 )
-from aasrp.utils import LoggerAddTag
+from aasrp.utils import LoggerAddTag, get_main_character_from_user
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
@@ -164,7 +164,7 @@ def ajax_dashboard_srp_links_data(
         data.append(
             {
                 "srp_name": srp_link.srp_name,
-                "creator": srp_link.creator.profile.main_character.character_name,
+                "creator": get_main_character_from_user(srp_link.creator),
                 "fleet_time": srp_link.fleet_time,
                 "fleet_commander": srp_link.fleet_commander.character_name,
                 "fleet_doctrine": srp_link.fleet_doctrine,
@@ -689,10 +689,6 @@ def ajax_srp_link_view_requests_data(
                 f"<span>{srp_request.ship.name}</span></a>"
             )
 
-        requester = srp_request.creator.username
-        if srp_request.creator.profile.main_character is not None:
-            requester = srp_request.creator.profile.main_character.character_name
-
         srp_request_status_icon = get_srp_request_status_icon(
             request=request, srp_request=srp_request
         )
@@ -707,7 +703,7 @@ def ajax_srp_link_view_requests_data(
         data.append(
             {
                 "request_time": srp_request.post_time,
-                "requester": requester,
+                "requester": get_main_character_from_user(srp_request.creator),
                 "character_html": {
                     "display": character_display,
                     "sort": character_sort,
@@ -873,10 +869,6 @@ def ajax_srp_request_additional_information(
         insurance += "</tbody>"
         insurance += "</table>"
 
-    requester = srp_request.creator.username
-    if srp_request.creator.profile.main_character is not None:
-        requester = srp_request.creator.profile.main_character.character_name
-
     character = get_formatted_character_name(
         character=srp_request.character,
         with_portrait=True,
@@ -935,7 +927,7 @@ def ajax_srp_request_additional_information(
         "killboard_link": killboard_link,
         "ship_type": srp_request.ship.name,
         "request_time": srp_request.post_time,
-        "requester": requester,
+        "requester": get_main_character_from_user(srp_request.creator),
         "character": character,
         "additional_info": additional_info,
         "reject_info": reject_info,
@@ -1016,10 +1008,6 @@ def ajax_srp_request_approve(
         srp_request.request_status = AaSrpRequestStatus.APPROVED
         srp_request.save()
 
-        request_reviser = request.user
-        if request.user.profile.main_character:
-            request_reviser = request.user.profile.main_character.character_name
-
         user_settings = AaSrpUserSettings.objects.get(user=request.user)
 
         # check if the user has notifications activated (it's by default)
@@ -1034,7 +1022,7 @@ def ajax_srp_request_approve(
                     fleet_name=srp_request.srp_link.srp_name,
                     srp_code=srp_request.srp_link.srp_code,
                     request_code=srp_request.request_code,
-                    reviser=request_reviser,
+                    reviser=get_main_character_from_user(request.user),
                     inquiry_note=SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE,
                 )
             )
@@ -1098,10 +1086,6 @@ def ajax_srp_request_deny(
                 srp_request_comment.creator = request.user
                 srp_request_comment.save()
 
-                request_reviser = request.user
-                if request.user.profile.main_character:
-                    request_reviser = request.user.profile.main_character.character_name
-
                 user_settings = AaSrpUserSettings.objects.get(user=request.user)
 
                 # check if the user has notifications activated (it's by default)
@@ -1118,7 +1102,7 @@ def ajax_srp_request_deny(
                             reject_info=reject_info,
                             srp_code=srp_request.srp_link.srp_code,
                             request_code=srp_request.request_code,
-                            reviser=request_reviser,
+                            reviser=get_main_character_from_user(request.user),
                             inquiry_note=SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE,
                         )
                     )
