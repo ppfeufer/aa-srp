@@ -3,7 +3,6 @@ utilities
 """
 
 import logging
-import os
 
 from django.conf import settings
 from django.utils.functional import lazy
@@ -89,19 +88,3 @@ def clean_setting(
 DATETIME_FORMAT = "%Y-%m-%d %H:%M"
 
 format_html_lazy = lazy(format_html, str)
-
-
-def get_swagger_spec_path() -> str:
-    """
-    returns the path to the current swagger spec file
-    """
-
-    return os.path.join(os.path.dirname(os.path.abspath(__file__)), "swagger.json")
-
-
-def make_logger_prefix(tag: str):
-    """
-    creates a function to add logger prefix, which returns tag when used empty
-    """
-
-    return lambda text="": "{}{}".format(tag, (": " + text) if text else "")
