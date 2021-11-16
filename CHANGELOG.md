@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 - AttributeError ('NoneType' object has no attribute 'id') when, for whatever reason,
   the ship type has been removed from the `EveType` table
 
+### Added
+
+- Versioned static files to prevent browser cache related errors on app updates
+
 
 ## [1.7.3] - 2021-10-27
 
