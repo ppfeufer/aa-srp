@@ -1,7 +1,7 @@
 ---
 name: Feature Request
 about: Suggest an idea for AA SRP
-title: ''
+title: "[Feature Request] "
 labels: ''
 assignees: ''
 ---
