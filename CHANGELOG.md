@@ -17,6 +17,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 - Versioned static files to prevent browser cache related errors on app updates
 
+### Changed
+
+- Minimum requirements for:
+  - Alliance Auth (>= 2.9.0)
+  - Django Eveuniverse (>= 0.8.2)
+  - Python (>= 3.7)
+
 
 ## [1.7.3] - 2021-10-27
 
