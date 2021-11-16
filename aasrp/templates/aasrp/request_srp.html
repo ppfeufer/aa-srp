@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load static %}
+{% load aasrp_versioned_static %}
 
 {% block aasrp_header %}
     {% translate "Request SRP" as translated_header %}
@@ -13,9 +14,9 @@
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp-form.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-srp-form.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
 {% endblock %}
 
 {% block extra_javascript %}

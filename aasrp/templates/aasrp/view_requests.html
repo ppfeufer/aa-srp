@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load static %}
+{% load aasrp_versioned_static %}
 {% load humanize %}
 
 {% block aasrp_header %}
@@ -23,9 +24,9 @@
     {% include 'bundles/datatables-css.html' %}
     {% include 'aasrp/bundles/bootstrap3-editable-css.html' %}
 
-    <link rel="stylesheet" href="{% static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'aasrp/css/aa-srp-form.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-srp-form.min.css' %}" type="text/css">
 {% endblock %}
 
 {% block extra_javascript %}
@@ -94,5 +95,5 @@
             }
         };
     </script>
-    <script type="application/javascript" src="{% static 'aasrp/javascript/aa-srp-view-requests.min.js' %}"></script>
+    <script type="application/javascript" src="{% aasrp_static 'aasrp/javascript/aa-srp-view-requests.min.js' %}"></script>
 {% endblock %}

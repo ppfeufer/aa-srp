@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.7.4] - 2021-11-16
+
+### Fixed
+
+- AttributeError ('NoneType' object has no attribute 'id') when, for whatever reason,
+  the ship type has been removed from the `EveType` table
+
+### Added
+
+- Versioned static files to prevent browser cache related errors on app updates
+
+### Changed
+
+- Minimum requirements for:
+  - Alliance Auth (>= 2.9.0)
+  - Django Eveuniverse (>= 0.8.2)
+  - Python (>= 3.7)
+
+
 ## [1.7.3] - 2021-10-27
 
 ### Fixed
