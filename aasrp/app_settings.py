@@ -2,11 +2,14 @@
 our app setting
 """
 
+# Standard Library
 import re
 
+# Django
 from django.apps import apps
 from django.conf import settings
 
+# AA SRP
 from aasrp.utils import clean_setting
 
 # AA-GDPR

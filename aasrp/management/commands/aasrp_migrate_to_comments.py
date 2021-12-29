@@ -2,8 +2,10 @@
 Migrate comments from AaSrpRequest to AaSrpRequestComments
 """
 
+# Django
 from django.core.management import BaseCommand
 
+# AA SRP
 from aasrp.models import (
     AaSrpRequest,
     AaSrpRequestComment,

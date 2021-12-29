@@ -1,8 +1,11 @@
+# Standard Library
 import logging
 
+# Django
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
+# AA SRP
 from aasrp import __title__
 from aasrp.constants import EVE_CATEGORY_ID_SHIP
 from aasrp.utils import LoggerAddTag

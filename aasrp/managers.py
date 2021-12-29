@@ -2,13 +2,17 @@
 SRP Manager
 """
 
+# Third Party
 import requests
 
+# Django
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
+# Alliance Auth
 from allianceauth.services.hooks import get_extension_logger
 
+# AA SRP
 from aasrp import __title__
 from aasrp.constants import USERAGENT, ZKILLBOARD_API_URL
 from aasrp.models import AaSrpRequest, AaSrpRequestStatus

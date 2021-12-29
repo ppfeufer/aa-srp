@@ -2,6 +2,7 @@
 eve images
 """
 
+# Alliance Auth
 from allianceauth.eveonline.evelinks.eveimageserver import (
     character_portrait_url,
     type_render_url,

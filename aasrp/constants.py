@@ -2,9 +2,11 @@
 Constants
 """
 
+# Django
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
+# AA SRP
 from aasrp import __version__
 
 VERBOSE_NAME = "AA-SRP - A ship replacement module for Alliance Auth"

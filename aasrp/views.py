@@ -2,6 +2,7 @@
 the views
 """
 
+# Django
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
@@ -12,11 +13,15 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
+# Alliance Auth
 from allianceauth.authentication.decorators import permissions_required
 from allianceauth.eveonline.models import EveCharacter
 from allianceauth.services.hooks import get_extension_logger
+
+# Alliance Auth (External Libs)
 from eveuniverse.models import EveType
 
+# AA SRP
 from aasrp import __title__
 from aasrp.app_settings import AASRP_SRP_TEAM_DISCORD_CHANNEL, avoid_cdn, get_site_url
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE, ZKILLBOARD_BASE_URL

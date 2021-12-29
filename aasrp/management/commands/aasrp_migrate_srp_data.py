@@ -2,12 +2,17 @@
 Migrate srp data from the built-in SRP module
 """
 
+# Django
 from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
 
+# Alliance Auth
 from allianceauth.srp.models import SrpFleetMain
+
+# Alliance Auth (External Libs)
 from eveuniverse.models import EveType
 
+# AA SRP
 from aasrp.helper.character import get_user_for_character
 from aasrp.managers import AaSrpManager
 from aasrp.models import (

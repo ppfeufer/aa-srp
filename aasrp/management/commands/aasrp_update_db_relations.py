@@ -2,10 +2,13 @@
 Update DB relations
 """
 
+# Django
 from django.core.management.base import BaseCommand
 
+# Alliance Auth (External Libs)
 from eveuniverse.models import EveType
 
+# AA SRP
 from aasrp.managers import AaSrpManager
 from aasrp.models import AaSrpRequest
 

@@ -2,11 +2,14 @@
 hook into AA
 """
 
+# Django
 from django.utils.translation import ugettext_lazy as _
 
+# Alliance Auth
 from allianceauth import hooks
 from allianceauth.services.hooks import MenuItemHook, UrlHook
 
+# AA SRP
 from aasrp import __title__, urls
 from aasrp.managers import AaSrpManager
 

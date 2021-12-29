@@ -2,8 +2,10 @@
 aasrp url config
 """
 
+# Django
 from django.conf.urls import url
 
+# AA SRP
 from aasrp import views
 
 app_name: str = "aasrp"

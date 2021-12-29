@@ -3,11 +3,14 @@ some helper functions
 so we don't mess up other files too much
 """
 
+# Django
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
+# Alliance Auth
 from allianceauth.eveonline.models import EveCharacter
 
+# AA SRP
 from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
 from aasrp.models import get_sentinel_user
 

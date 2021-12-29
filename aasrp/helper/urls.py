@@ -1,6 +1,8 @@
+# Standard Library
 import re
 from urllib.parse import urljoin
 
+# Django
 from django.conf import settings
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import reverse

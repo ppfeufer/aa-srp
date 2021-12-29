@@ -2,16 +2,20 @@
 utilities
 """
 
+# Standard Library
 import logging
 
+# Django
 from django.conf import settings
 from django.utils.functional import lazy
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
+# Alliance Auth
 from allianceauth.authentication.admin import User
 from allianceauth.services.hooks import get_extension_logger
 
+# AA SRP
 from aasrp import __title__
 
 
