@@ -81,11 +81,7 @@ class Command(BaseCommand):
 
                 srp_fleet_srp_code = srp_fleet.fleet_srp_code
 
-                self.stdout.write(
-                    "Migrating SRP fleet {srp_code} ...".format(
-                        srp_code=srp_fleet_srp_code
-                    )
-                )
+                self.stdout.write(f"Migrating SRP fleet {srp_fleet_srp_code} ...")
 
                 try:
                     srp_link = AaSrpLink.objects.get(srp_code=srp_fleet_srp_code)
@@ -114,9 +110,7 @@ class Command(BaseCommand):
                     srp_link = AaSrpLink.objects.get(srp_code=srp_fleet_srp_code)
 
                 self.stdout.write(
-                    "Migrating SRP requests for SRP fleet {srp_code} ...".format(
-                        srp_code=srp_fleet_srp_code
-                    )
+                    f"Migrating SRP requests for SRP fleet {srp_fleet_srp_code} ..."
                 )
                 srp_userrequests = srp_fleet.srpuserrequest_set.all()
 
@@ -205,28 +199,10 @@ class Command(BaseCommand):
                             srp_requests_migrated += 1
 
         self.stdout.write("Migration finished.")
-
-        self.stdout.write(
-            "SRP links migrated: {srp_links_migrated}".format(
-                srp_links_migrated=srp_links_migrated
-            )
-        )
-        self.stdout.write(
-            "SRP links skipped: {srp_links_skipped}".format(
-                srp_links_skipped=srp_links_skipped
-            )
-        )
-
-        self.stdout.write(
-            "SRP requests migrated: {srp_requests_migrated}".format(
-                srp_requests_migrated=srp_requests_migrated
-            )
-        )
-        self.stdout.write(
-            "SRP requests skipped: {srp_requests_skipped}".format(
-                srp_requests_skipped=srp_requests_skipped
-            )
-        )
+        self.stdout.write(f"SRP links migrated: {srp_links_migrated}")
+        self.stdout.write(f"SRP links skipped: {srp_links_skipped}")
+        self.stdout.write(f"SRP requests migrated: {srp_requests_migrated}")
+        self.stdout.write(f"SRP requests skipped: {srp_requests_skipped}")
 
     def handle(self, *args, **options):
         """

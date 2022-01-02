@@ -23,12 +23,7 @@ def send_user_notification(user: User, level: str, title: str, message: str) -> 
     :param message:
     """
 
-    notify(
-        user=user,
-        title=title,
-        level=level,
-        message=message,
-    )
+    notify(user=user, title=title, level=level, message=message)
 
     # send a PM to the user on Discord if allianceauth-discordbot
     # is active and not aa-discordnotify

@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.9.0] - 2022-01-xx
+
+### Changed
+
+- General code cleanup and modernisation
+- Switched to Alliance Auth App Utils for some helper functions
+
+### Removed
+
+- Non used code
+
 ## [1.8.0] - 2021-11-30
 
 ### Changed

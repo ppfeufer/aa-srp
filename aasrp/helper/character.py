@@ -32,36 +32,24 @@ def get_formatted_character_name(
     """
 
     character_name = character.character_name
-
-    character__corporation_ticker = ""
-    if character.corporation_ticker:
-        character__corporation_ticker = "[{corporation_ticker}] ".format(
-            corporation_ticker=character.corporation_ticker
-        )
-
-    character__alliance_ticker = ""
-    if character.alliance_ticker:
-        character__alliance_ticker = "{alliance_ticker} ".format(
-            alliance_ticker=character.alliance_ticker
-        )
-
+    character__corporation_ticker = (
+        f"[{character.corporation_ticker}] " if character.corporation_ticker else ""
+    )
+    character__alliance_ticker = (
+        f"{character.alliance_ticker} " if character.alliance_ticker else ""
+    )
     character_name_formatted = (
-        "<small class='text-muted'>{alliance_ticker}{corporation_ticker}</small>"
-        "<br>{character_name}".format(
-            alliance_ticker=character__alliance_ticker,
-            corporation_ticker=character__corporation_ticker,
-            character_name=character_name,
-        )
+        f"<small class='text-muted'>"
+        f"{character__alliance_ticker}{character__corporation_ticker}</small>"
+        f"<br>{character_name}"
     )
 
     if with_copy_icon is True:
+        title = _("Copy character name to clipboard")
         character_name_formatted += (
-            "<i "
-            'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
-            'data-clipboard-text="{character_name}" title="{title}"></i>'.format(
-                character_name=character_name,
-                title=_("Copy character name to clipboard"),
-            )
+            f"<i "
+            f'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
+            f'data-clipboard-text="{character_name}" title="{title}"></i>'
         )
 
     return_value = character_name_formatted
@@ -76,14 +64,10 @@ def get_formatted_character_name(
         )
 
         return_value = (
-            "{character_portrait}{line_break}"
-            "<span class='aasrp-character-portrait-character-name'>"
-            "{character_name_formatted}"
-            "</span>".format(
-                character_portrait=character_portrait_html,
-                line_break=line_break,
-                character_name_formatted=character_name_formatted,
-            )
+            f"{character_portrait_html}{line_break}"
+            f"<span class='aasrp-character-portrait-character-name'>"
+            f"{character_name_formatted}"
+            f"</span>"
         )
 
     return return_value

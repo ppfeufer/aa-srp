@@ -109,8 +109,8 @@ class AaSrpLink(models.Model):
         help_text=_("Who created the SRP link?"),
     )
 
-    def __str__(self):
-        return self.srp_name
+    def __str__(self) -> str:
+        return str(self.srp_name)
 
     @property
     def total_cost(self):

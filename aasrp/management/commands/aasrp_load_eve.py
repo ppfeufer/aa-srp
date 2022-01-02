@@ -5,10 +5,12 @@ import logging
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
+# Alliance Auth (External Libs)
+from app_utils.logging import LoggerAddTag
+
 # AA SRP
 from aasrp import __title__
 from aasrp.constants import EVE_CATEGORY_ID_SHIP
-from aasrp.utils import LoggerAddTag
 
 logger = LoggerAddTag(logging.getLogger(__name__), __title__)
 

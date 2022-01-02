@@ -2,9 +2,6 @@
 utilities
 """
 
-# Standard Library
-import logging
-
 # Django
 from django.conf import settings
 from django.utils.functional import lazy
@@ -15,29 +12,11 @@ from django.utils.translation import gettext_lazy as _
 from allianceauth.authentication.admin import User
 from allianceauth.services.hooks import get_extension_logger
 
+# Alliance Auth (External Libs)
+from app_utils.logging import LoggerAddTag
+
 # AA SRP
 from aasrp import __title__
-
-
-class LoggerAddTag(logging.LoggerAdapter):
-    """
-    add custom tag to a logger
-    """
-
-    def __init__(self, my_logger, prefix):
-        super().__init__(my_logger, {})
-        self.prefix = prefix
-
-    def process(self, msg, kwargs):
-        """
-        process log items
-        :param msg:
-        :param kwargs:
-        :return:
-        """
-
-        return f"[{self.prefix}] {msg}", kwargs
-
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
@@ -81,8 +60,8 @@ def clean_setting(
             cleaned_value = getattr(settings, name)
         else:
             logger.warning(
-                "You setting for {name} is not valid. Please correct it. "
-                "Using default for now: {value}".format(name=name, value=default_value)
+                f"You setting for {name} is not valid. Please correct it. "
+                f"Using default for now: {default_value}"
             )
             cleaned_value = default_value
 

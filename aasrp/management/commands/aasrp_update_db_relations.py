@@ -31,21 +31,15 @@ class Command(BaseCommand):
         """
 
         srp_requests = AaSrpRequest.objects.filter(ship=None)
+        requests_count = srp_requests.count()
 
         self.stdout.write(
-            self.style.WARNING(
-                "{count} SRP requests need to be updated".format(
-                    count=srp_requests.count()
-                )
-            )
+            self.style.WARNING(f"{requests_count} SRP requests need to be updated")
         )
 
         for srp_request in srp_requests:
-            self.stdout.write(
-                "Updating SRP request {request_code}".format(
-                    request_code=srp_request.request_code
-                )
-            )
+            request_code = srp_request.request_code
+            self.stdout.write(f"Updating SRP request {request_code}")
 
             try:
                 srp_request__ship = EveType.objects.get(name=srp_request.ship_name)

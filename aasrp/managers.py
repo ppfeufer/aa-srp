@@ -12,12 +12,14 @@ from django.utils.translation import gettext_lazy as _
 # Alliance Auth
 from allianceauth.services.hooks import get_extension_logger
 
+# Alliance Auth (External Libs)
+from app_utils.logging import LoggerAddTag
+
 # AA SRP
 from aasrp import __title__
 from aasrp.constants import USERAGENT, ZKILLBOARD_API_URL
 from aasrp.models import AaSrpRequest, AaSrpRequestStatus
 from aasrp.providers import esi
-from aasrp.utils import LoggerAddTag
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
