@@ -31,9 +31,7 @@ def send_user_notification(user: User, level: str, title: str, message: str) -> 
         # Third Party
         import aadiscordbot.tasks
 
-        aadiscordbot.tasks.send_direct_message_by_user_id.delay(
-            user_pk=user.pk, message_content=message
-        )
+        aadiscordbot.tasks.send_direct_message_by_user_id.delay(user.pk, message)
 
 
 def send_message_to_discord_channel(

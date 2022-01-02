@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [1.9.0] - 2022-01-xx
 
+### Added
+
+- Workaround for possible bug in AA-Discordbot (#41)
+
 ### Changed
 
 - General code cleanup and modernisation
