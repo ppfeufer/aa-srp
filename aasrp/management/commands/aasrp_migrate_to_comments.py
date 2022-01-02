@@ -2,8 +2,10 @@
 Migrate comments from AaSrpRequest to AaSrpRequestComments
 """
 
+# Django
 from django.core.management import BaseCommand
 
+# AA SRP
 from aasrp.models import (
     AaSrpRequest,
     AaSrpRequestComment,
@@ -43,14 +45,12 @@ class Command(BaseCommand):
             for srp_request in srp_requests:
                 reject_reason = srp_request.reject_info
                 srp_info = srp_request.additional_info
+                request_code = srp_request.request_code
 
                 # migrate additional info
                 if srp_info != "":
                     self.stdout.write(
-                        "Updating Request Information "
-                        "for SRP request {request_code}".format(
-                            request_code=srp_request.request_code
-                        )
+                        f"Updating Request Information for SRP request {request_code}"
                     )
 
                     # check if there is already a request info
@@ -80,10 +80,7 @@ class Command(BaseCommand):
                     and reject_reason != ""
                 ):
                     self.stdout.write(
-                        "Updating Reject Information "
-                        "for SRP request {request_code}".format(
-                            request_code=srp_request.request_code
-                        )
+                        f"Updating Reject Information for SRP request {request_code}"
                     )
 
                     # check if there is already a reject comment

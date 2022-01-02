@@ -2,12 +2,16 @@
 Our Models
 """
 
+# Django
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
+# Alliance Auth
 from allianceauth.eveonline.models import EveCharacter
+
+# Alliance Auth (External Libs)
 from eveuniverse.models import EveType
 
 
@@ -105,8 +109,8 @@ class AaSrpLink(models.Model):
         help_text=_("Who created the SRP link?"),
     )
 
-    def __str__(self):
-        return self.srp_name
+    def __str__(self) -> str:
+        return str(self.srp_name)
 
     @property
     def total_cost(self):

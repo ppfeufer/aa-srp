@@ -2,6 +2,7 @@
 the views
 """
 
+# Django
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
@@ -12,13 +13,19 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
+# Alliance Auth
 from allianceauth.authentication.decorators import permissions_required
 from allianceauth.eveonline.models import EveCharacter
 from allianceauth.services.hooks import get_extension_logger
+
+# Alliance Auth (External Libs)
+from app_utils.logging import LoggerAddTag
+from app_utils.urls import reverse_absolute, site_absolute_url
 from eveuniverse.models import EveType
 
+# AA SRP
 from aasrp import __title__
-from aasrp.app_settings import AASRP_SRP_TEAM_DISCORD_CHANNEL, avoid_cdn, get_site_url
+from aasrp.app_settings import AASRP_SRP_TEAM_DISCORD_CHANNEL, avoid_cdn
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE, ZKILLBOARD_BASE_URL
 from aasrp.form import (
     AaSrpLinkForm,
@@ -40,7 +47,6 @@ from aasrp.helper.notification import (
     send_message_to_discord_channel,
     send_user_notification,
 )
-from aasrp.helper.urls import reverse_absolute
 from aasrp.managers import AaSrpManager
 from aasrp.models import (
     AaSrpInsurance,
@@ -52,7 +58,7 @@ from aasrp.models import (
     AaSrpStatus,
     AaSrpUserSettings,
 )
-from aasrp.utils import LoggerAddTag, get_main_character_from_user
+from aasrp.utils import get_main_character_from_user
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
@@ -124,13 +130,9 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
     else:
         user_settings_form = AaSrpUserSettingsForm(instance=user_settings)
 
-    logger_message = "Dashboard with available SRP links called by {user}".format(
-        user=request.user
-    )
+    logger_message = f"Dashboard with available SRP links called by {request.user}"
     if show_all_links is True:
-        logger_message = "Dashboard with all SRP links called by {user}".format(
-            user=request.user
-        )
+        logger_message = f"Dashboard with all SRP links called by {request.user}"
 
     logger.info(logger_message)
 
@@ -156,7 +158,7 @@ def ajax_dashboard_srp_links_data(
     :return:
     """
 
-    data = list()
+    data = []
 
     srp_links = AaSrpLink.objects.prefetch_related(
         "fleet_commander",
@@ -171,23 +173,22 @@ def ajax_dashboard_srp_links_data(
     for srp_link in srp_links:
         aar_link = ""
         if srp_link.aar_link:
-            aar_link = '<a href="{aar_link}" target="_blank">{link_text}</a>'.format(
-                aar_link=srp_link.aar_link, link_text=_("Link")
-            )
+            aar_href = srp_link.aar_link
+            link_text = _("Link")
+            aar_link = f'<a href="{aar_href}" target="_blank">{link_text}</a>'
 
         srp_code_html = srp_link.srp_code
         if srp_link.srp_status == AaSrpStatus.ACTIVE:
+            css_classes = (
+                "aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy"
+            )
+            srp_link_href = reverse_absolute(
+                "aasrp:request_srp", args=[srp_link.srp_code]
+            )
+            title = _("Copy SRP link to clipboard")
             srp_code_html += (
-                '<i class="{css_classes}" '
-                'data-clipboard-text="{srp_link}" title="{title}"></i>'
-            ).format(
-                css_classes=(
-                    "aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy"
-                ),
-                srp_link=reverse_absolute(
-                    "aasrp:request_srp", args=[srp_link.srp_code]
-                ),
-                title=_("Copy SRP link to clipboard"),
+                f'<i class="{css_classes}" '
+                f'data-clipboard-text="{srp_link_href}" title="{title}"></i>'
             )
 
         actions = get_dashboard_action_icons(request=request, srp_link=srp_link)
@@ -221,7 +222,7 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
     :return:
     """
 
-    data = list()
+    data = []
 
     requests = (
         AaSrpRequest.objects.filter(creator=request.user)
@@ -262,15 +263,13 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
                     as_html=True,
                 )
 
+            zkb_link = srp_request.killboard_link
+            zkb_link_text = srp_request.ship.name
             killboard_link = (
-                '<a href="{zkb_link}" target="_blank">'
-                "{ship_render_icon_html}"
-                "<span>{zkb_link_text}</span>"
-                "</a>".format(
-                    zkb_link=srp_request.killboard_link,
-                    zkb_link_text=srp_request.ship.name,
-                    ship_render_icon_html=ship_render_icon_html,
-                )
+                f'<a href="{zkb_link}" target="_blank">'
+                f"{ship_render_icon_html}"
+                f"<span>{zkb_link_text}</span>"
+                f"</a>"
             )
 
         srp_request_status_icon = get_srp_request_status_icon(
@@ -374,18 +373,14 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     :return:
     """
 
-    logger.info(
-        "Edit SRP link form for SRP code {srp_code} called by {user}".format(
-            srp_code=srp_code, user=request.user
-        )
-    )
+    request_user = request.user
+
+    logger.info(f"Edit SRP link form for SRP code {srp_code} called by {request_user}")
 
     # check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
-            "Unable to locate SRP Fleet using code {srp_code} for user {user}".format(
-                srp_code=srp_code, user=request.user
-            )
+            f"Unable to locate SRP Fleet using code {srp_code} for user {request_user}"
         )
 
         messages.error(
@@ -429,28 +424,19 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
     :param srp_code:
     """
 
-    logger.info(
-        "SRP request form for SRP code {srp_code} called by {user}".format(
-            user=request.user, srp_code=srp_code
-        )
-    )
+    request_user = request.user
+
+    logger.info(f"SRP request form for SRP code {srp_code} called by {request_user}")
 
     # check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
-            "Unable to locate SRP Fleet "
-            "using SRP code {srp_code} for user {user}".format(
-                srp_code=srp_code, user=request.user
-            )
+            f"Unable to locate SRP Fleet using SRP code {srp_code} for user {request_user}"
         )
 
         messages.error(
             request,
-            _(
-                "Unable to locate SRP Fleet using SRP code {srp_code}".format(
-                    srp_code=srp_code
-                )
-            ),
+            _(f"Unable to locate SRP Fleet using SRP code {srp_code}"),
         )
 
         return redirect("aasrp:dashboard")
@@ -469,12 +455,9 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
     if request.method == "POST":
         # create a form instance and populate it with data from the request
         form = AaSrpRequestForm(request.POST)
+        form_is_valid = form.is_valid()
 
-        logger.debug(
-            "Request type POST contains valid form: {form_is_valid}".format(
-                form_is_valid=form.is_valid()
-            )
-        )
+        logger.debug(f"Request type POST contains valid form: {form_is_valid}")
 
         # check whether it's valid:
         if form.is_valid():
@@ -495,11 +478,10 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 )
             except ValueError:
                 # invalid killmail
+                killmail_link = srp_request.killboard_link
                 logger.debug(
-                    "User {user} submitted an invalid killmail link ({killmail_link}) "
-                    "or zKillboard server could not be reached".format(
-                        user=request.user, killmail_link=srp_request.killboard_link
-                    )
+                    f"User {request_user} submitted an invalid killmail link ({killmail_link}) "
+                    f"or zKillboard server could not be reached"
                 )
 
                 messages.error(
@@ -554,29 +536,22 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     insurance.insurance_payout = insurance_level["payout"]
                     insurance.save()
 
+                user_name = request.user
+                character_name = srp_request__character
+                srp_name = srp_link.srp_name
+                srp_code = srp_request.request_code
                 logger.info(
-                    "Created SRP request on behalf of user {user_name} "
-                    "(character: {character_name}) for fleet name {srp_name} "
-                    "with SRP code {srp_code}".format(
-                        user_name=request.user,
-                        character_name=srp_request__character,
-                        srp_name=srp_link.srp_name,
-                        srp_code=srp_request.request_code,
-                    )
+                    f"Created SRP request on behalf of user {user_name} "
+                    f"(character: {character_name}) for fleet name {srp_name} "
+                    f"with SRP code {srp_code}"
                 )
 
-                messages.success(
-                    request,
-                    _(
-                        "Submitted SRP request for your {ship}.".format(
-                            ship=srp_request.ship.name
-                        )
-                    ),
-                )
+                ship = srp_request.ship.name
+                messages.success(request, _(f"Submitted SRP request for your {ship}."))
 
                 # send message to the srp team in their discord channel
                 if AASRP_SRP_TEAM_DISCORD_CHANNEL is not None:
-                    site_base_url = get_site_url()
+                    site_base_url = site_absolute_url()
                     request_code = srp_request.request_code
                     character_name = srp_request__character.character_name
                     ship_type = srp_request__ship.name
@@ -609,15 +584,15 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     )
 
                 return redirect("aasrp:dashboard")
-            else:
-                messages.error(
-                    request,
-                    _(
-                        f"Character {victim_id} does not belong to your Auth "
-                        "account. Please add this character as an alt to "
-                        "your main and try again."
-                    ),
-                )
+
+            messages.error(
+                request,
+                _(
+                    f"Character {victim_id} does not belong to your Auth "
+                    f"account. Please add this character as an alt to "
+                    f"your main and try again."
+                ),
+            )
 
             return redirect("aasrp:dashboard")
 
@@ -711,7 +686,7 @@ def ajax_srp_link_view_requests_data(
     :param request:
     """
 
-    data = list()
+    data = []
 
     # srp_link = AaSrpLink.objects.get(srp_code=srp_code)
     # srp_requests = srp_link.srp_requests.all()
@@ -1028,7 +1003,7 @@ def ajax_srp_request_change_payout(
     :param srp_request_code:
     """
 
-    data = list()
+    data = []
 
     if request.method == "POST":
         try:
@@ -1064,7 +1039,7 @@ def ajax_srp_request_approve(
     :param srp_request_code:
     """
 
-    data = list()
+    data = []
 
     try:
         srp_request = AaSrpRequest.objects.get(
@@ -1091,19 +1066,18 @@ def ajax_srp_request_approve(
 
         # check if the user has notifications activated (it's by default)
         if user_settings.disable_notifications is False:
+            ship_name = srp_request.ship.name
+            fleet_name = srp_request.srp_link.srp_name
+            srp_code = srp_request.srp_link.srp_code
+            request_code = srp_request.request_code
+            reviser = get_main_character_from_user(request.user)
+            inquiry_note = SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
             notification_message = (
-                "Your SRP request regarding your {ship_name} lost during "
-                "{fleet_name} has been approved.\n\n"
-                "Request Details:\nSRP-Code: {srp_code}\n"
-                "Request-Code: {request_code}\n"
-                "Reviser: {reviser}\n\n{inquiry_note}".format(
-                    ship_name=srp_request.ship.name,
-                    fleet_name=srp_request.srp_link.srp_name,
-                    srp_code=srp_request.srp_link.srp_code,
-                    request_code=srp_request.request_code,
-                    reviser=get_main_character_from_user(request.user),
-                    inquiry_note=SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE,
-                )
+                f"Your SRP request regarding your {ship_name} lost during "
+                f"{fleet_name} has been approved.\n\n"
+                f"Request Details:\nSRP-Code: {srp_code}\n"
+                f"Request-Code: {request_code}\n"
+                f"Reviser: {reviser}\n\n{inquiry_note}"
             )
 
             send_user_notification(
@@ -1131,7 +1105,7 @@ def ajax_srp_request_deny(
     :param srp_request_code:
     """
 
-    data = list()
+    data = []
 
     try:
         if request.method == "POST":
@@ -1169,21 +1143,20 @@ def ajax_srp_request_deny(
 
                 # check if the user has notifications activated (it's by default)
                 if user_settings.disable_notifications is False:
+                    ship_name = srp_request.ship.name
+                    fleet_name = srp_request.srp_link.srp_name
+                    reject_info = reject_info
+                    srp_code = srp_request.srp_link.srp_code
+                    request_code = srp_request.request_code
+                    reviser = get_main_character_from_user(request.user)
+                    inquiry_note = SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
                     notification_message = (
-                        "Your SRP request regarding your {ship_name} lost during "
-                        "{fleet_name} has been rejected.\n\n"
-                        "Reason:\n{reject_info}\n\n"
-                        "Request Details:\nSRP-Code: {srp_code}\n"
-                        "Request-Code: {request_code}\n"
-                        "Reviser: {reviser}\n\n{inquiry_note}".format(
-                            ship_name=srp_request.ship.name,
-                            fleet_name=srp_request.srp_link.srp_name,
-                            reject_info=reject_info,
-                            srp_code=srp_request.srp_link.srp_code,
-                            request_code=srp_request.request_code,
-                            reviser=get_main_character_from_user(request.user),
-                            inquiry_note=SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE,
-                        )
+                        f"Your SRP request regarding your {ship_name} lost during "
+                        f"{fleet_name} has been rejected.\n\n"
+                        f"Reason:\n{reject_info}\n\n"
+                        f"Request Details:\nSRP-Code: {srp_code}\n"
+                        f"Request-Code: {request_code}\n"
+                        f"Reviser: {reviser}\n\n{inquiry_note}"
                     )
 
                     send_user_notification(
@@ -1213,7 +1186,7 @@ def ajax_srp_request_remove(
     :param srp_request_code:
     """
 
-    data = list()
+    data = []
 
     try:
         srp_request = AaSrpRequest.objects.get(

@@ -2,8 +2,10 @@
 Django admin declarations
 """
 
+# Django
 from django.contrib import admin
 
+# AA SRP
 from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpRequestComment
 
 

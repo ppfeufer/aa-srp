@@ -2,8 +2,10 @@
 app config
 """
 
+# Django
 from django.apps import AppConfig
 
+# AA SRP
 from aasrp import __version__
 
 

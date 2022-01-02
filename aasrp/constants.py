@@ -2,17 +2,19 @@
 Constants
 """
 
+# Django
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
+# AA SRP
 from aasrp import __version__
 
 VERBOSE_NAME = "AA-SRP - A ship replacement module for Alliance Auth"
-USERAGENT = "{verbose_name} v{version} {github_url}".format(
-    verbose_name=slugify(VERBOSE_NAME, allow_unicode=True),
-    version=__version__,
-    github_url="https://github.com/ppfeufer/aa-srp",
-)
+
+verbose_name_slugified: str = slugify(VERBOSE_NAME, allow_unicode=True)
+github_url: str = "https://github.com/ppfeufer/aa-srp"
+USERAGENT = f"{verbose_name_slugified} v{__version__} {github_url}"
+
 EVE_CATEGORY_ID_SHIP = 6
 
 SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = _(
