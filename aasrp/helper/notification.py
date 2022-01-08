@@ -47,31 +47,30 @@ def send_user_notification(user: User, level: str, title: str, message: str) -> 
                 from discordproxy.client import DiscordClient
                 from discordproxy.discord_api_pb2 import Embed
                 from discordproxy.exceptions import DiscordProxyException
-
-                try:
-                    if hasattr(user, "discord"):
-                        client = DiscordClient()
-
-                        footer = Embed.Footer(text=__title__)
-
-                        embed = Embed(
-                            title=str(title),
-                            description=message,
-                            color=COLOR_MAP.get(level, None),
-                            timestamp=timezone.now().isoformat(),
-                            footer=footer,
-                        )
-
-                        client.create_direct_message(
-                            user_id=int(user.discord.uid), embed=embed
-                        )
-                except DiscordProxyException:
-                    # something went wrong with discordproxy, fail silently
-                    pass
-
             except ModuleNotFoundError:
                 # discordproxy not available, fail silently
                 pass
+            else:
+                if hasattr(user, "discord"):
+                    client = DiscordClient()
+
+                    footer = Embed.Footer(text=__title__)
+
+                    embed = Embed(
+                        title=str(title),
+                        description=message,
+                        color=COLOR_MAP.get(level, None),
+                        timestamp=timezone.now().isoformat(),
+                        footer=footer,
+                    )
+
+                    try:
+                        client.create_direct_message(
+                            user_id=int(user.discord.uid), embed=embed
+                        )
+                    except DiscordProxyException:
+                        # something went wrong with discordproxy, fail silently
+                        pass
 
 
 def send_message_to_discord_channel(
