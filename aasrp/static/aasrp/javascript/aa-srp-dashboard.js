@@ -111,7 +111,7 @@ $(document).ready(function () {
             $('.srp-dashboard-total-isk-cost-amount').html(
                 totalSrpAmount.toLocaleString() + ' ISK'
             );
-        },
+        }
     });
 
     /**
@@ -209,7 +209,7 @@ $(document).ready(function () {
             // hidden columns
             {data: 'request_status'},
             {data: 'ship'},
-            {data: 'character'},
+            {data: 'character'}
         ],
         columnDefs: [
             {
@@ -258,7 +258,7 @@ $(document).ready(function () {
             $('.srp-dashboard-user-isk-cost-amount').html(
                 userSrpAmount.toLocaleString() + ' ISK'
             );
-        },
+        }
     });
 
     /*
