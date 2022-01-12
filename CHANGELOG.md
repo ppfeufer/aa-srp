@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 - Discord PMs on SRP accept/reject when `discordproxy` is installed as stand-alone,
   without `aa-discordnotify`
 
+### Changed
+
+- JavaScript: `const` instead of `let` where ever appropriate
+
 
 ## [1.9.0] - 2022-01-02
 
