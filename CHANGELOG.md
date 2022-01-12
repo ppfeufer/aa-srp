@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ### Changed
 
 - JavaScript: `const` instead of `let` where ever appropriate
+- Minimum requirements
+  - Alliance Auth v2.9.4
 
 
 ## [1.9.0] - 2022-01-02
