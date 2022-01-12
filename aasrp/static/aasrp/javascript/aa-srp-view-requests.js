@@ -6,7 +6,7 @@ $(document).ready(function () {
     /**
      * Table :: SRP Requests
      */
-    let srpRequestsTable = $('#tab_aasrp_srp_requests').DataTable({
+    const srpRequestsTable = $('#tab_aasrp_srp_requests').DataTable({
         ajax: {
             url: aaSrpSettings.url.requestsForSrpLink,
             dataSrc: '',
@@ -99,7 +99,7 @@ $(document).ready(function () {
              */
             {data: 'ship'},
             {data: 'request_status'},
-            {data: 'character'},
+            {data: 'character'}
         ],
         columnDefs: [
             {
@@ -121,7 +121,7 @@ $(document).ready(function () {
         filterDropDown: {
             columns: [
                 {
-                    idx: 1,
+                    idx: 1
                 },
                 {
                     idx: 11,
@@ -167,7 +167,7 @@ $(document).ready(function () {
                     data.request_code
                 )
             );
-        },
+        }
     });
 
     /**
@@ -200,7 +200,7 @@ $(document).ready(function () {
             $(this).attr('data-value', newValue);
 
             // update payout value formatted
-            let newValuewFormatted = newValue.toLocaleString() + ' ISK';
+            const newValuewFormatted = newValue.toLocaleString() + ' ISK';
 
             $(this).addClass('srp-payout-amount-changed');
             $(this).html(newValuewFormatted);
@@ -232,12 +232,11 @@ $(document).ready(function () {
      */
     // SRP request details
     $('#srp-request-details').on('show.bs.modal', function (event) {
-        let button = $(event.relatedTarget);
-        let modal = $(this);
-
-        let name = button.data('modal-title');
-        let url = button.data('link');
-        let confirmButtonText = button.data('modal-button-confirm');
+        const button = $(event.relatedTarget);
+        const modal = $(this);
+        const name = button.data('modal-title');
+        const url = button.data('link');
+        const confirmButtonText = button.data('modal-button-confirm');
 
         modal.find('.modal-title').text(name);
         modal.find('#modal-button-request-details-confirm').html(confirmButtonText);
@@ -283,7 +282,7 @@ $(document).ready(function () {
             }
         });
     }).on('hide.bs.modal', function () {
-        let modal = $(this);
+        const modal = $(this);
 
         modal.find('.modal-title').text('');
         modal.find('.modal-body').text('');
@@ -291,15 +290,14 @@ $(document).ready(function () {
 
     // accept SRP request
     $('#srp-request-accept').on('show.bs.modal', function (event) {
-        let button = $(event.relatedTarget);
-        let modal = $(this);
-
-        let name = button.data('modal-title');
-        let url = button.data('link');
-        let confirmButtonText = button.data('modal-button-confirm');
-        let cancelButtonText = button.data('modal-button-cancel');
-        let confirmButtonClasses = button.data('modal-button-confirm-classes');
-        let body = button.data('modal-body');
+        const button = $(event.relatedTarget);
+        const modal = $(this);
+        const name = button.data('modal-title');
+        const url = button.data('link');
+        const confirmButtonText = button.data('modal-button-confirm');
+        const cancelButtonText = button.data('modal-button-cancel');
+        const confirmButtonClasses = button.data('modal-button-confirm-classes');
+        const body = button.data('modal-body');
 
         modal.find('.modal-title').text(name);
         modal.find('#modal-button-confirm-accept-request').addClass(confirmButtonClasses);
@@ -358,36 +356,38 @@ $(document).ready(function () {
             });
         });
     }).on('hide.bs.modal', function () {
-        let modal = $(this);
+        const modal = $(this);
 
         modal.find('textarea[name="reject_info"]').val('');
+
         $('#modal-button-confirm-accept-request').unbind('click');
     });
 
     // reject SRP request
     $('#srp-request-reject').on('show.bs.modal', function (event) {
-        let button = $(event.relatedTarget);
-        let modal = $(this);
-        let url = button.data('link');
+        const button = $(event.relatedTarget);
+        const modal = $(this);
+        const url = button.data('link');
 
         $('#modal-button-confirm-reject-request').on('click', function () {
-            let form = modal.find('form');
-            let rejectInfo = form.find('textarea[name="reject_info"]').val();
-            let csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+            const form = modal.find('form');
+            const rejectInfo = form.find('textarea[name="reject_info"]').val();
+            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
 
             if (rejectInfo === '') {
-                let errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
+                const errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
                     '<div class="aasrp-form-field-error clearfix">' +
                     aaSrpSettings.translation.modal.rejectRequest.body.fieldRequired +
                     '</div>' +
                     '</div>';
 
                 form.find('.aasrp-form-field-errors').remove();
+
                 $(errorMessage).insertAfter($('textarea[name="reject_info"]'));
             }
 
             if (rejectInfo !== '') {
-                let posting = $.post(
+                const posting = $.post(
                     url,
                     {
                         reject_info: rejectInfo,
@@ -449,23 +449,23 @@ $(document).ready(function () {
             }
         });
     }).on('hide.bs.modal', function () {
-        let modal = $(this);
+        const modal = $(this);
 
         modal.find('textarea[name="reject_info"]').val('');
+
         $('#modal-button-confirm-reject-request').unbind('click');
     });
 
     // remove SRP request
     $('#srp-request-remove').on('show.bs.modal', function (event) {
-        let button = $(event.relatedTarget);
-        let modal = $(this);
-
-        let name = button.data('modal-title');
-        let url = button.data('link');
-        let confirmButtonText = button.data('modal-button-confirm');
-        let cancelButtonText = button.data('modal-button-cancel');
-        let confirmButtonClasses = button.data('modal-button-confirm-classes');
-        let body = button.data('modal-body');
+        const button = $(event.relatedTarget);
+        const modal = $(this);
+        const name = button.data('modal-title');
+        const url = button.data('link');
+        const confirmButtonText = button.data('modal-button-confirm');
+        const cancelButtonText = button.data('modal-button-cancel');
+        const confirmButtonClasses = button.data('modal-button-confirm-classes');
+        const body = button.data('modal-body');
 
         modal.find('.modal-title').text(name);
         modal.find('#modal-button-confirm-remove-request').addClass(confirmButtonClasses);
@@ -524,9 +524,10 @@ $(document).ready(function () {
             });
         });
     }).on('hide.bs.modal', function () {
-        let modal = $(this);
+        const modal = $(this);
 
         modal.find('textarea[name="reject_info"]').val('');
+
         $('#modal-button-confirm-remove-request').unbind('click');
     });
 });

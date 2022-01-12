@@ -1083,7 +1083,7 @@ def ajax_srp_request_approve(
             send_user_notification(
                 user=requester,
                 level="success",
-                title=_("SRP Request Approved"),
+                title="SRP Request Approved",
                 message=notification_message,
             )
 

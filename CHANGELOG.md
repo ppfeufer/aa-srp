@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
+## [1.10.0] - 2022-01-12
+
+### Added
+
+- Discord PMs on SRP accept/reject when `discordproxy` is installed as stand-alone,
+  without `aa-discordnotify`
+
+### Changed
+
+- JavaScript: `const` instead of `let` where ever appropriate
+- Minimum requirements
+  - Alliance Auth v2.9.4
+
+
 ## [1.9.0] - 2022-01-02
 
 ### Added

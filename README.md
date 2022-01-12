@@ -47,7 +47,9 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
 - Mandatory reason on SRP reject
 - Notifications in AA with detailed information on SRP rejection
 - Discord notification via PM to the user on SRP request approval or rejection, if
-  [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot) is installed
+  either [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot),
+  [AA-Discord Notify](https://gitlab.com/ErikKalkoken/aa-discordnotify) or
+  [Discord Proxy](https://gitlab.com/ErikKalkoken/discordproxy) is installed
 - Notify your SRP team (optional) in their Doscord channel about new SRP requests, if
   [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot) is installed
 
