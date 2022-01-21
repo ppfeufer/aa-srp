@@ -9,9 +9,14 @@ from faker import Faker
 from django.contrib.auth.models import Group
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
+from django.utils.crypto import get_random_string
 
 # Alliance Auth (External Libs)
 from app_utils.testing import create_fake_user
+
+# AA SRP
+from aasrp.models import AaSrpLink
 
 fake = Faker()
 
@@ -118,3 +123,119 @@ class TestAccess(TestCase):
         # then
         self.assertNotEqual(res.status_code, 200)
         self.assertEqual(res.status_code, 302)
+
+    def test_srp_link_add_with_create_srp_permission(self):
+        """
+        Test if a user with create_srp permission can create an SRP link
+        :return:
+        """
+
+        # given
+        self.client.force_login(self.user_with_create_srp)
+
+        # when
+        res = self.client.get(reverse("aasrp:add_srp_link"))
+
+        # then
+        self.assertEqual(res.status_code, 200)
+
+    def test_srp_link_add_with_manage_srp_permission(self):
+        """
+        Test if a user with manage_srp permission can create an SRP link
+        :return:
+        """
+
+        # given
+        self.client.force_login(self.user_with_manage_srp)
+
+        # when
+        res = self.client.get(reverse("aasrp:add_srp_link"))
+
+        # then
+        self.assertEqual(res.status_code, 200)
+
+    def test_srp_link_add_without_appropriate_permission(self):
+        """
+        Test that a user with basic_access permission cannot create an SRP link
+        :return:
+        """
+
+        # given
+        self.client.force_login(self.user_with_basic_access)
+
+        # when
+        res = self.client.get(reverse("aasrp:add_srp_link"))
+
+        # then
+        self.assertNotEqual(res.status_code, 200)
+        self.assertEqual(res.status_code, 302)
+
+    def test_srp_link_add_without_permission(self):
+        """
+        Test that a user without permissions canot create an SRP link
+        :return:
+        """
+
+        # given
+        self.client.force_login(self.user_without_access)
+
+        # when
+        res = self.client.get(reverse("aasrp:add_srp_link"))
+
+        # then
+        self.assertNotEqual(res.status_code, 200)
+        self.assertEqual(res.status_code, 302)
+
+    def test_srp_link_edit_with_create_srp_permission(self):
+        """
+        Test if a user with create_srp permission can edit an SRP link
+        :return:
+        """
+
+        # given
+        srp_code = get_random_string(length=16)
+        srp_link = AaSrpLink(
+            srp_name="Foobar",
+            fleet_time=timezone.now(),
+            fleet_doctrine="Ships",
+            aar_link="",
+            srp_code=srp_code,
+            fleet_commander=None,
+            creator=self.user_with_create_srp,
+        )
+        srp_link.save()
+
+        self.client.force_login(self.user_with_create_srp)
+
+        # when
+        res = self.client.get(reverse("aasrp:edit_srp_link", args=[srp_code]))
+
+        # then
+        self.assertEqual(res.status_code, 200)
+
+    def test_srp_link_edit_with_manage_srp_permission(self):
+        """
+        Test if a user with manage_srp permission can edit an SRP link
+        :return:
+        """
+
+        # given
+        srp_code = get_random_string(length=16)
+        srp_link = AaSrpLink(
+            srp_name="Foobar",
+            fleet_time=timezone.now(),
+            fleet_doctrine="Ships",
+            aar_link="",
+            srp_code=srp_code,
+            fleet_commander=None,
+            creator=self.user_with_create_srp,
+        )
+        srp_link.save()
+
+        self.client.force_login(self.user_with_manage_srp)
+
+        # when
+        res = self.client.get(reverse("aasrp:edit_srp_link", args=[srp_code]))
+
+        # then
+        self.assertEqual(res.status_code, 200)
