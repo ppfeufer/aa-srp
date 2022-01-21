@@ -111,12 +111,8 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
         user_settings = AaSrpUserSettings.objects.get(user=request.user)
     except AaSrpUserSettings.DoesNotExist:
         # create the default settings in the DB for the current user
-        user_settings = AaSrpUserSettings()
-        user_settings.user = request.user
+        user_settings = AaSrpUserSettings(user=request.user)
         user_settings.save()
-
-        # get the user settings again
-        user_settings = AaSrpUserSettings.objects.get(user=request.user)
 
     # if this is a POST request we need to process the form data
     if request.method == "POST":
@@ -133,7 +129,16 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
         user_settings_form = AaSrpUserSettingsForm(instance=user_settings)
 
     logger_message = f"Dashboard with available SRP links called by {request.user}"
+
     if show_all_links is True:
+        if not request.user.has_perm("aasrp.manage_srp"):
+            messages.error(
+                request,
+                _("You do not have the needed permissions to view all SRP links"),
+            )
+
+            return redirect("aasrp:dashboard")
+
         logger_message = f"Dashboard with all SRP links called by {request.user}"
 
     logger.info(logger_message)
