@@ -265,3 +265,55 @@ class TestAccess(TestCase):
         # then
         self.assertNotEqual(res.status_code, 200)
         self.assertEqual(res.status_code, 302)
+
+    def test_srp_link_view_requests_with_manage_srp_permission(self):
+        """
+        Test if a user with manage_srp permission can view srp requests
+        :return:
+        """
+
+        # given
+        self.client.force_login(self.user_with_manage_srp)
+
+        # when
+        res = self.client.get(
+            reverse("aasrp:view_srp_requests", args=[self.defaul_srp_link.srp_code])
+        )
+
+        # then
+        self.assertEqual(res.status_code, 200)
+
+    def test_srp_link_view_requests_with_manage_srp_requests_permission(self):
+        """
+        Test if a user with manage_srp_requests permission can view srp requsts
+        :return:
+        """
+
+        # given
+        self.client.force_login(self.user_with_manage_srp_requests)
+
+        # when
+        res = self.client.get(
+            reverse("aasrp:view_srp_requests", args=[self.defaul_srp_link.srp_code])
+        )
+
+        # then
+        self.assertEqual(res.status_code, 200)
+
+    def test_srp_link_view_requests_without_permission(self):
+        """
+        Test that a user with basic_access permission cannot view srp requests
+        :return:
+        """
+
+        # given
+        self.client.force_login(self.user_with_basic_access)
+
+        # when
+        res = self.client.get(
+            reverse("aasrp:view_srp_requests", args=[self.defaul_srp_link.srp_code])
+        )
+
+        # then
+        self.assertNotEqual(res.status_code, 200)
+        self.assertEqual(res.status_code, 302)

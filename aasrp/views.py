@@ -655,7 +655,7 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
     view srp requests for a specific srp code
@@ -687,7 +687,7 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def ajax_srp_link_view_requests_data(
     request: WSGIRequest, srp_code: str
 ) -> JsonResponse:
@@ -887,7 +887,7 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def ajax_srp_request_additional_information(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -1002,7 +1002,7 @@ def ajax_srp_request_additional_information(
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def ajax_srp_request_change_payout(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -1038,7 +1038,7 @@ def ajax_srp_request_change_payout(
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def ajax_srp_request_approve(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -1104,7 +1104,7 @@ def ajax_srp_request_approve(
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def ajax_srp_request_deny(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -1189,7 +1189,7 @@ def ajax_srp_request_deny(
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def ajax_srp_request_remove(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:

@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 - Some minor code optimisations
 
+### Fixed
+
+- Access for users with `manage_srp_requests`
+
 
 ## [1.10.0] - 2022-01-12
 
