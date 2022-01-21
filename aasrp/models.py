@@ -82,9 +82,7 @@ class AaSrpLink(models.Model):
 
     srp_name = models.CharField(max_length=254, default="")
     srp_status = models.CharField(
-        max_length=9,
-        choices=AaSrpStatus.choices,
-        default=AaSrpStatus.ACTIVE,
+        max_length=9, choices=AaSrpStatus.choices, default=AaSrpStatus.ACTIVE
     )
     srp_code = models.CharField(max_length=16, default="")
     fleet_commander = models.ForeignKey(
@@ -223,14 +221,13 @@ class AaSrpRequest(models.Model):
     reject_info = models.TextField(blank=True, default="")
 
     def __str__(self):
+        character_name = self.character.character_name
+        user_name = self.creator.profile.main_character.character_name
+        ship = self.ship.name
+        request_code = self.request_code
+
         return _(
-            "{character_name} ({user_name}) SRP Request "
-            "for: {ship} ({request_code})".format(
-                character_name=self.character.character_name,
-                user_name=self.creator.profile.main_character.character_name,
-                ship=self.ship.name,
-                request_code=self.request_code,
-            )
+            f"{character_name} ({user_name}) SRP Request for: {ship} ({request_code})"
         )
 
     class Meta:
@@ -320,9 +317,7 @@ class AaSrpUserSettings(models.Model):
         on_delete=models.SET(get_sentinel_user),
     )
 
-    disable_notifications = models.BooleanField(
-        default=False,
-    )
+    disable_notifications = models.BooleanField(default=False)
 
     class Meta:
         """

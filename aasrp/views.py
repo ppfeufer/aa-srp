@@ -337,14 +337,15 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
             fleet_doctrine = form.cleaned_data["fleet_doctrine"]
             aar_link = form.cleaned_data["aar_link"]
 
-            srp_link = AaSrpLink()
-            srp_link.srp_name = srp_name
-            srp_link.fleet_time = fleet_time
-            srp_link.fleet_doctrine = fleet_doctrine
-            srp_link.aar_link = aar_link
-            srp_link.srp_code = get_random_string(length=16)
-            srp_link.fleet_commander = request.user.profile.main_character
-            srp_link.creator = request.user
+            srp_link = AaSrpLink(
+                srp_name=srp_name,
+                fleet_time=fleet_time,
+                fleet_doctrine=fleet_doctrine,
+                aar_link=aar_link,
+                srp_code=get_random_string(length=16),
+                fleet_commander=request.user.profile.main_character,
+                creator=request.user,
+            )
             srp_link.save()
 
             messages.success(
@@ -463,25 +464,21 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
         if form.is_valid():
             creator = request.user
             post_time = timezone.now()
-
-            srp_request = AaSrpRequest()
-            srp_request.killboard_link = form.cleaned_data["killboard_link"]
-            srp_request.creator = creator
-            srp_request.srp_link = srp_link
+            submitted_killmail_link = form.cleaned_data["killboard_link"]
 
             # parse killmail
             try:
-                srp_kill_link = AaSrpManager.get_kill_id(srp_request.killboard_link)
+                srp_kill_link = AaSrpManager.get_kill_id(submitted_killmail_link)
 
                 (ship_type_id, ship_value, victim_id) = AaSrpManager.get_kill_data(
                     srp_kill_link
                 )
             except ValueError:
                 # invalid killmail
-                killmail_link = srp_request.killboard_link
                 logger.debug(
-                    f"User {request_user} submitted an invalid killmail link ({killmail_link}) "
-                    f"or zKillboard server could not be reached"
+                    f"User {request_user} submitted an invalid killmail link "
+                    f"({submitted_killmail_link}) or zKillboard server could "
+                    f"not be reached"
                 )
 
                 messages.error(
@@ -506,20 +503,26 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     created_from_esi,
                 ) = EveType.objects.get_or_create_esi(id=ship_type_id)
 
-                srp_request.character = srp_request__character
-                srp_request.ship_name = srp_request__ship.name
-                srp_request.ship = srp_request__ship
-                srp_request.loss_amount = ship_value
-                srp_request.post_time = post_time
-                srp_request.request_code = get_random_string(length=16)
+                srp_request = AaSrpRequest(
+                    killboard_link=submitted_killmail_link,
+                    creator=creator,
+                    srp_link=srp_link,
+                    character=srp_request__character,
+                    ship_name=srp_request__ship.name,
+                    ship=srp_request__ship,
+                    loss_amount=ship_value,
+                    post_time=post_time,
+                    request_code=get_random_string(length=16),
+                )
                 srp_request.save()
 
                 # add request info to comments
-                srp_request_comment = AaSrpRequestComment()
-                srp_request_comment.comment = form.cleaned_data["additional_info"]
-                srp_request_comment.srp_request = srp_request
-                srp_request_comment.comment_type = AaSrpRequestCommentType.REQUEST_INFO
-                srp_request_comment.creator = creator
+                srp_request_comment = AaSrpRequestComment(
+                    comment=form.cleaned_data["additional_info"],
+                    srp_request=srp_request,
+                    comment_type=AaSrpRequestCommentType.REQUEST_INFO,
+                    creator=creator,
+                )
                 srp_request_comment.save()
 
                 # add insurance information
@@ -529,11 +532,13 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
                 for insurance_level in insurance_information["levels"]:
                     logger.debug(insurance_level)
-                    insurance = AaSrpInsurance()
-                    insurance.srp_request = srp_request
-                    insurance.insurance_level = insurance_level["name"]
-                    insurance.insurance_cost = insurance_level["cost"]
-                    insurance.insurance_payout = insurance_level["payout"]
+
+                    insurance = AaSrpInsurance(
+                        srp_request=srp_request,
+                        insurance_level=insurance_level["name"],
+                        insurance_cost=insurance_level["cost"],
+                        insurance_payout=insurance_level["payout"],
+                    )
                     insurance.save()
 
                 user_name = request.user
@@ -792,7 +797,6 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
         return redirect("aasrp:dashboard")
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
-
     srp_link.srp_status = AaSrpStatus.ACTIVE
     srp_link.save()
 
@@ -829,7 +833,6 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
         return redirect("aasrp:dashboard")
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
-
     srp_link.srp_status = AaSrpStatus.CLOSED
     srp_link.save()
 
@@ -866,7 +869,6 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
         return redirect("aasrp:dashboard")
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
-
     srp_link.delete()
 
     messages.success(
@@ -1010,7 +1012,9 @@ def ajax_srp_request_change_payout(
             srp_request = AaSrpRequest.objects.get(
                 request_code=srp_request_code, srp_link__srp_code=srp_code
             )
-
+        except AaSrpRequest.DoesNotExist:
+            data.append({"success": False})
+        else:
             # check whether it's valid:
             form = AaSrpRequestPayoutForm(request.POST)
             if form.is_valid():
@@ -1022,8 +1026,6 @@ def ajax_srp_request_change_payout(
                 data.append({"success": True})
             else:
                 data.append({"success": False})
-        except AaSrpRequest.DoesNotExist:
-            data.append({"success": False})
 
     return JsonResponse(data, safe=False)
 
@@ -1045,7 +1047,9 @@ def ajax_srp_request_approve(
         srp_request = AaSrpRequest.objects.get(
             request_code=srp_request_code, srp_link__srp_code=srp_code
         )
-
+    except AaSrpRequest.DoesNotExist:
+        data.append({"success": False})
+    else:
         requester = srp_request.creator
         srp_payout = srp_request.payout_amount
         srp_isk_loss = srp_request.loss_amount
@@ -1088,8 +1092,6 @@ def ajax_srp_request_approve(
             )
 
         data.append({"success": True, "message": _("SRP request has been approved")})
-    except AaSrpRequest.DoesNotExist:
-        data.append({"success": False})
 
     return JsonResponse(data, safe=False)
 
@@ -1108,6 +1110,12 @@ def ajax_srp_request_deny(
     data = []
 
     try:
+        srp_request = AaSrpRequest.objects.get(
+            request_code=srp_request_code, srp_link__srp_code=srp_code
+        )
+    except AaSrpRequest.DoesNotExist:
+        data.append({"success": False})
+    else:
         if request.method == "POST":
             # create a form instance and populate it with data from the request
             form = AaSrpRequestRejectForm(request.POST)
@@ -1115,11 +1123,6 @@ def ajax_srp_request_deny(
             # check whether it's valid:
             if form.is_valid():
                 reject_info = form.cleaned_data["reject_info"]
-
-                srp_request = AaSrpRequest.objects.get(
-                    request_code=srp_request_code, srp_link__srp_code=srp_code
-                )
-
                 requester = srp_request.creator
 
                 srp_request.payout_amount = 0
@@ -1127,17 +1130,22 @@ def ajax_srp_request_deny(
                 srp_request.save()
 
                 # save reject reason as comment for this request
-                AaSrpRequestComment.objects.filter(
-                    srp_request=srp_request,
-                    comment_type=AaSrpRequestCommentType.REJECT_REASON,
-                ).delete()
-
-                srp_request_comment = AaSrpRequestComment()
-                srp_request_comment.comment = reject_info
-                srp_request_comment.srp_request = srp_request
-                srp_request_comment.comment_type = AaSrpRequestCommentType.REJECT_REASON
-                srp_request_comment.creator = request.user
-                srp_request_comment.save()
+                try:
+                    existing_reject_info = AaSrpRequestComment.objects.get(
+                        srp_request=srp_request,
+                        comment_type=AaSrpRequestCommentType.REJECT_REASON,
+                    )
+                except AaSrpRequestComment.DoesNotExist:
+                    AaSrpRequestComment(
+                        comment=reject_info,
+                        srp_request=srp_request,
+                        comment_type=AaSrpRequestCommentType.REJECT_REASON,
+                        creator=request.user,
+                    ).save()
+                else:
+                    existing_reject_info.comment = reject_info
+                    existing_reject_info.creator = request.user
+                    existing_reject_info.save()
 
                 user_settings = AaSrpUserSettings.objects.get(user=request.user)
 
@@ -1169,8 +1177,6 @@ def ajax_srp_request_deny(
                 data.append(
                     {"success": True, "message": _("SRP request has been rejected")}
                 )
-    except AaSrpRequest.DoesNotExist:
-        data.append({"success": False})
 
     return JsonResponse(data, safe=False)
 
@@ -1192,11 +1198,11 @@ def ajax_srp_request_remove(
         srp_request = AaSrpRequest.objects.get(
             request_code=srp_request_code, srp_link__srp_code=srp_code
         )
-
+    except AaSrpRequest.DoesNotExist:
+        data.append({"success": False})
+    else:
         srp_request.delete()
 
         data.append({"success": True, "message": _("SRP request has been removed")})
-    except AaSrpRequest.DoesNotExist:
-        data.append({"success": False})
 
     return JsonResponse(data, safe=False)
