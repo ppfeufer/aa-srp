@@ -22,6 +22,10 @@ fake = Faker()
 
 
 class TestAccess(TestCase):
+    """
+    Testing access to various views
+    """
+
     @classmethod
     def setUpClass(cls) -> None:
         """
@@ -62,7 +66,6 @@ class TestAccess(TestCase):
         """
         Test that a user with basic_access can see the srp module
         :return:
-        :rtype:
         """
 
         # given
@@ -78,7 +81,6 @@ class TestAccess(TestCase):
         """
         Test that a user without basic_access can't see the srp module
         :return:
-        :rtype:
         """
 
         # given
@@ -95,7 +97,6 @@ class TestAccess(TestCase):
         """
         Test that a user with manage_srp can see all srp links
         :return:
-        :rtype:
         """
 
         # given
@@ -111,7 +112,6 @@ class TestAccess(TestCase):
         """
         Test that a user without manage_srp can't see all srp links
         :return:
-        :rtype:
         """
 
         # given
