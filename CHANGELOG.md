@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Added
+
+- Access tests
+
 ### Changed
 
 - Some minor code optimisations
