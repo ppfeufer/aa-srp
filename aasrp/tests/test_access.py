@@ -239,3 +239,58 @@ class TestAccess(TestCase):
 
         # then
         self.assertEqual(res.status_code, 200)
+
+    def test_request_srp_with_basic_access_permission(self):
+        """
+        Test if a user with basic_access can open the Request SRP view
+        :return:
+        """
+
+        # given
+        srp_code = get_random_string(length=16)
+        srp_link = AaSrpLink(
+            srp_name="Foobar",
+            fleet_time=timezone.now(),
+            fleet_doctrine="Ships",
+            aar_link="",
+            srp_code=srp_code,
+            fleet_commander=None,
+            creator=self.user_with_create_srp,
+        )
+        srp_link.save()
+
+        self.client.force_login(self.user_with_basic_access)
+
+        # when
+        res = self.client.get(reverse("aasrp:request_srp", args=[srp_code]))
+
+        # then
+        self.assertEqual(res.status_code, 200)
+
+    def test_request_srp_without_permission(self):
+        """
+        Test that a user without access cannot open the Request SRP view
+        :return:
+        """
+
+        # given
+        srp_code = get_random_string(length=16)
+        srp_link = AaSrpLink(
+            srp_name="Foobar",
+            fleet_time=timezone.now(),
+            fleet_doctrine="Ships",
+            aar_link="",
+            srp_code=srp_code,
+            fleet_commander=None,
+            creator=self.user_with_create_srp,
+        )
+        srp_link.save()
+
+        self.client.force_login(self.user_without_access)
+
+        # when
+        res = self.client.get(reverse("aasrp:request_srp", args=[srp_code]))
+
+        # then
+        self.assertNotEqual(res.status_code, 200)
+        self.assertEqual(res.status_code, 302)
