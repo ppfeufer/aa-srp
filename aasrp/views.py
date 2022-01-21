@@ -111,12 +111,8 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
         user_settings = AaSrpUserSettings.objects.get(user=request.user)
     except AaSrpUserSettings.DoesNotExist:
         # create the default settings in the DB for the current user
-        user_settings = AaSrpUserSettings()
-        user_settings.user = request.user
+        user_settings = AaSrpUserSettings(user=request.user)
         user_settings.save()
-
-        # get the user settings again
-        user_settings = AaSrpUserSettings.objects.get(user=request.user)
 
     # if this is a POST request we need to process the form data
     if request.method == "POST":
@@ -133,7 +129,16 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
         user_settings_form = AaSrpUserSettingsForm(instance=user_settings)
 
     logger_message = f"Dashboard with available SRP links called by {request.user}"
+
     if show_all_links is True:
+        if not request.user.has_perm("aasrp.manage_srp"):
+            messages.error(
+                request,
+                _("You do not have the needed permissions to view all SRP links"),
+            )
+
+            return redirect("aasrp:dashboard")
+
         logger_message = f"Dashboard with all SRP links called by {request.user}"
 
     logger.info(logger_message)
@@ -650,7 +655,7 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
     view srp requests for a specific srp code
@@ -682,7 +687,7 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def ajax_srp_link_view_requests_data(
     request: WSGIRequest, srp_code: str
 ) -> JsonResponse:
@@ -882,7 +887,7 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def ajax_srp_request_additional_information(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -997,7 +1002,7 @@ def ajax_srp_request_additional_information(
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def ajax_srp_request_change_payout(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -1033,7 +1038,7 @@ def ajax_srp_request_change_payout(
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def ajax_srp_request_approve(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -1099,7 +1104,7 @@ def ajax_srp_request_approve(
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def ajax_srp_request_deny(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
@@ -1184,7 +1189,7 @@ def ajax_srp_request_deny(
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "manage_srp_requests"))
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def ajax_srp_request_remove(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:

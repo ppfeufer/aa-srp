@@ -8,9 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Added
+
+- Access tests
+
 ### Changed
 
 - Some minor code optimisations
+
+### Fixed
+
+- Access for users with `manage_srp_requests`
 
 
 ## [1.10.0] - 2022-01-12
