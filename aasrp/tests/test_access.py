@@ -62,6 +62,17 @@ class TestAccess(TestCase):
             permissions=["aasrp.basic_access", "aasrp.manage_srp"],
         )
 
+        cls.defaul_srp_link = AaSrpLink(
+            srp_name="Foobar",
+            fleet_time=timezone.now(),
+            fleet_doctrine="Ships",
+            aar_link="",
+            srp_code=get_random_string(length=16),
+            fleet_commander=None,
+            creator=cls.user_with_create_srp,
+        )
+        cls.defaul_srp_link.save()
+
     def test_should_show_dashboard(self):
         """
         Test that a user with basic_access can see the srp module
@@ -193,22 +204,12 @@ class TestAccess(TestCase):
         """
 
         # given
-        srp_code = get_random_string(length=16)
-        srp_link = AaSrpLink(
-            srp_name="Foobar",
-            fleet_time=timezone.now(),
-            fleet_doctrine="Ships",
-            aar_link="",
-            srp_code=srp_code,
-            fleet_commander=None,
-            creator=self.user_with_create_srp,
-        )
-        srp_link.save()
-
         self.client.force_login(self.user_with_create_srp)
 
         # when
-        res = self.client.get(reverse("aasrp:edit_srp_link", args=[srp_code]))
+        res = self.client.get(
+            reverse("aasrp:edit_srp_link", args=[self.defaul_srp_link.srp_code])
+        )
 
         # then
         self.assertEqual(res.status_code, 200)
@@ -220,22 +221,12 @@ class TestAccess(TestCase):
         """
 
         # given
-        srp_code = get_random_string(length=16)
-        srp_link = AaSrpLink(
-            srp_name="Foobar",
-            fleet_time=timezone.now(),
-            fleet_doctrine="Ships",
-            aar_link="",
-            srp_code=srp_code,
-            fleet_commander=None,
-            creator=self.user_with_create_srp,
-        )
-        srp_link.save()
-
         self.client.force_login(self.user_with_manage_srp)
 
         # when
-        res = self.client.get(reverse("aasrp:edit_srp_link", args=[srp_code]))
+        res = self.client.get(
+            reverse("aasrp:edit_srp_link", args=[self.defaul_srp_link.srp_code])
+        )
 
         # then
         self.assertEqual(res.status_code, 200)
@@ -247,22 +238,12 @@ class TestAccess(TestCase):
         """
 
         # given
-        srp_code = get_random_string(length=16)
-        srp_link = AaSrpLink(
-            srp_name="Foobar",
-            fleet_time=timezone.now(),
-            fleet_doctrine="Ships",
-            aar_link="",
-            srp_code=srp_code,
-            fleet_commander=None,
-            creator=self.user_with_create_srp,
-        )
-        srp_link.save()
-
         self.client.force_login(self.user_with_basic_access)
 
         # when
-        res = self.client.get(reverse("aasrp:request_srp", args=[srp_code]))
+        res = self.client.get(
+            reverse("aasrp:request_srp", args=[self.defaul_srp_link.srp_code])
+        )
 
         # then
         self.assertEqual(res.status_code, 200)
@@ -274,22 +255,12 @@ class TestAccess(TestCase):
         """
 
         # given
-        srp_code = get_random_string(length=16)
-        srp_link = AaSrpLink(
-            srp_name="Foobar",
-            fleet_time=timezone.now(),
-            fleet_doctrine="Ships",
-            aar_link="",
-            srp_code=srp_code,
-            fleet_commander=None,
-            creator=self.user_with_create_srp,
-        )
-        srp_link.save()
-
         self.client.force_login(self.user_without_access)
 
         # when
-        res = self.client.get(reverse("aasrp:request_srp", args=[srp_code]))
+        res = self.client.get(
+            reverse("aasrp:request_srp", args=[self.defaul_srp_link.srp_code])
+        )
 
         # then
         self.assertNotEqual(res.status_code, 200)
