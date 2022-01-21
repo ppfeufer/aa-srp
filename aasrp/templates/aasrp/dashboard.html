@@ -34,7 +34,7 @@
     {% include 'bundles/clipboard-js.html' %}
 
     <script type="application/javascript">
-        let clipboard = new ClipboardJS('.copy-text-fa-icon');
+        const clipboard = new ClipboardJS('.copy-text-fa-icon');
 
         clipboard.on('success', function (e) {
             e.clearSelection();
@@ -54,14 +54,14 @@
         /**
          * passing some setting to our JS
          */
-        let urlUserSrpRequests = "{% url 'aasrp:ajax_dashboard_user_srp_requests_data' %}";
+        const urlUserSrpRequests = "{% url 'aasrp:ajax_dashboard_user_srp_requests_data' %}";
         let urlAvailableSrpLinks = "{% url 'aasrp:ajax_dashboard_srp_links_data' %}";
         {% if show_all_links %}
             // override for "view all"
             urlAvailableSrpLinks = "{% url 'aasrp:ajax_dashboard_srp_links_all_data' %}";
         {% endif %}
 
-        let aaSrpSettings = {
+        const aaSrpSettings = {
             datetimeFormat: 'YYYY-MM-DD HH:mm',
             url: {
                 availableSrpLinks: urlAvailableSrpLinks,
