@@ -100,3 +100,23 @@ def get_user_for_character(character: EveCharacter) -> User:
         return_value = character.userprofile.user
 
     return return_value
+
+
+def get_main_character_from_user(user: User) -> str:
+    """
+    Get the main character from a user
+    :param user:
+    :type user:
+    :return:
+    :rtype:
+    """
+
+    user_main_character = user.username
+
+    try:
+        user_profile = user.profile
+        user_main_character = user_profile.main_character.character_name
+    except AttributeError:
+        pass
+
+    return user_main_character

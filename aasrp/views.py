@@ -35,7 +35,10 @@ from aasrp.form import (
     AaSrpRequestRejectForm,
     AaSrpUserSettingsForm,
 )
-from aasrp.helper.character import get_formatted_character_name
+from aasrp.helper.character import (
+    get_formatted_character_name,
+    get_main_character_from_user,
+)
 from aasrp.helper.eve_images import get_type_render_url_from_type_id
 from aasrp.helper.icons import (
     get_dashboard_action_icons,
@@ -58,7 +61,6 @@ from aasrp.models import (
     AaSrpStatus,
     AaSrpUserSettings,
 )
-from aasrp.utils import get_main_character_from_user
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
