@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Fixed
+
+- Import from a module that might not even be there at all
+
 
 ## [1.10.1] - 2022-01-21
 

@@ -13,6 +13,7 @@ from allianceauth.notifications import notify
 # AA SRP
 from aasrp import __title__
 from aasrp.app_settings import aa_discordnotify_active, allianceauth_discordbot_active
+from aasrp.constants import DISCORD_EMBED_COLOR_MAP
 
 
 def send_user_notification(user: User, level: str, title: str, message: str) -> None:
@@ -43,7 +44,6 @@ def send_user_notification(user: User, level: str, title: str, message: str) -> 
         else:
             try:
                 # Third Party
-                from discordnotify.core import COLOR_MAP
                 from discordproxy.client import DiscordClient
                 from discordproxy.discord_api_pb2 import Embed
                 from discordproxy.exceptions import DiscordProxyException
@@ -59,7 +59,7 @@ def send_user_notification(user: User, level: str, title: str, message: str) -> 
                     embed = Embed(
                         title=str(title),
                         description=message,
-                        color=COLOR_MAP.get(level, None),
+                        color=DISCORD_EMBED_COLOR_MAP.get(level, None),
                         timestamp=timezone.now().isoformat(),
                         footer=footer,
                     )
