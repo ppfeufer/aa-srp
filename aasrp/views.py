@@ -575,8 +575,8 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                         "aasrp:view_srp_requests", args=[srp_link.srp_code]
                     )
 
-                    message = "**New SRP Request**\n\n"
-                    message += f"**Request Code:** {request_code}\n"
+                    title = "New SRP Request"
+                    message = f"**Request Code:** {request_code}\n"
                     message += f"**Character:** {character_name}\n"
                     message += f"**Ship:** {ship_type}\n"
                     message += f"**zKillboard Link:** {zkillboard_link}\n"
@@ -587,7 +587,9 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     message += f"**SRP Link:** {srp_link}\n"
 
                     send_message_to_discord_channel(
-                        channel_id=AASRP_SRP_TEAM_DISCORD_CHANNEL, message=message
+                        channel_id=AASRP_SRP_TEAM_DISCORD_CHANNEL,
+                        title=title,
+                        message=message,
                     )
 
                     logger.info(

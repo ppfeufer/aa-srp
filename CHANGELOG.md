@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [1.10.2] - 2022-01-22
 
+### Added
+
+- Better handling for Discord messages (Prioritise `discordproxy` over
+  `allianceauth-discordbot` when both are installed)
+- Embedded Discord messages to the SRP team channel, when `discordproxy` is installed
+
 ### Fixed
 
 - Import from a module that might not even be there at all, which could have
