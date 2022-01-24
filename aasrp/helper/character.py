@@ -31,44 +31,54 @@ def get_formatted_character_name(
     :param inline:
     """
 
-    character_name = character.character_name
-    character__corporation_ticker = (
-        f"[{character.corporation_ticker}] " if character.corporation_ticker else ""
-    )
-    character__alliance_ticker = (
-        f"{character.alliance_ticker} " if character.alliance_ticker else ""
-    )
-    character_name_formatted = (
-        f"<small class='text-muted'>"
-        f"{character__alliance_ticker}{character__corporation_ticker}</small>"
-        f"<br>{character_name}"
-    )
+    try:
+        character_name = character.character_name
+    except AttributeError:
+        character_name = _("Unknown Character")
 
-    if with_copy_icon is True:
-        title = _("Copy character name to clipboard")
-        character_name_formatted += (
-            f"<i "
-            f'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
-            f'data-clipboard-text="{character_name}" title="{title}"></i>'
-        )
-
-    return_value = character_name_formatted
-
-    if with_portrait is True:
-        line_break = ""
-        if inline is False:
-            line_break = "<br>"
-
-        character_portrait_html = get_character_portrait_from_evecharacter(
-            character=character, size=portrait_size, as_html=True
-        )
-
-        return_value = (
-            f"{character_portrait_html}{line_break}"
+        return (
             f"<span class='aasrp-character-portrait-character-name'>"
-            f"{character_name_formatted}"
+            f"{character_name}"
             f"</span>"
         )
+    else:
+        character__corporation_ticker = (
+            f"[{character.corporation_ticker}] " if character.corporation_ticker else ""
+        )
+        character__alliance_ticker = (
+            f"{character.alliance_ticker} " if character.alliance_ticker else ""
+        )
+        character_name_formatted = (
+            f"<small class='text-muted'>"
+            f"{character__alliance_ticker}{character__corporation_ticker}</small>"
+            f"<br>{character_name}"
+        )
+
+        if with_copy_icon is True:
+            title = _("Copy character name to clipboard")
+            character_name_formatted += (
+                f"<i "
+                f'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
+                f'data-clipboard-text="{character_name}" title="{title}"></i>'
+            )
+
+        return_value = character_name_formatted
+
+        if with_portrait is True:
+            line_break = ""
+            if inline is False:
+                line_break = "<br>"
+
+            character_portrait_html = get_character_portrait_from_evecharacter(
+                character=character, size=portrait_size, as_html=True
+            )
+
+            return_value = (
+                f"{character_portrait_html}{line_break}"
+                f"<span class='aasrp-character-portrait-character-name'>"
+                f"{character_name_formatted}"
+                f"</span>"
+            )
 
     return return_value
 

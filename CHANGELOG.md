@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ## [In Development] - Unreleased
 
 
+## [1.10.3] - Unreleased
+
+### Fixed
+
+- Don't try to get a character name from a deleted user account. There is none.
+
+### Changed
+
+- Try harder with the Discord messages. (`discordproxy` is the prioritised way to
+  send messages to Discord, but if anything fais with it, always try for
+  `allianceauth-discordbot` to get the message out)
+
+
 ## [1.10.2] - 2022-01-22
 
 ### Added
