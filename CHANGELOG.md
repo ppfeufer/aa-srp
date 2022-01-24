@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ### Changed
 
 - Try harder with the Discord messages. (`discordproxy` is the prioritised way to
-  send messages to Discord, but if anything fais with it, always try for
+  send messages to Discord, but if anything fails with it, always try for
   `allianceauth-discordbot` to get the message out)
 
 
