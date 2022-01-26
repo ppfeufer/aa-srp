@@ -56,9 +56,6 @@ from aasrp.models import (
     AaSrpLink,
     AaSrpRequest,
     AaSrpRequestComment,
-    AaSrpRequestCommentType,
-    AaSrpRequestStatus,
-    AaSrpStatus,
     AaSrpUserSettings,
 )
 
@@ -175,7 +172,7 @@ def ajax_dashboard_srp_links_data(
     ).all()
 
     if not show_all_links:
-        srp_links = srp_links.filter(srp_status=AaSrpStatus.ACTIVE)
+        srp_links = srp_links.filter(srp_status=AaSrpLink.Status.ACTIVE)
 
     for srp_link in srp_links:
         aar_link = ""
@@ -185,7 +182,7 @@ def ajax_dashboard_srp_links_data(
             aar_link = f'<a href="{aar_href}" target="_blank">{link_text}</a>'
 
         srp_code_html = srp_link.srp_code
-        if srp_link.srp_status == AaSrpStatus.ACTIVE:
+        if srp_link.srp_status == AaSrpLink.Status.ACTIVE:
             css_classes = (
                 "aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy"
             )
@@ -452,7 +449,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
 
     # check if the SRP link is still open
-    if srp_link.srp_status != AaSrpStatus.ACTIVE:
+    if srp_link.srp_status != AaSrpLink.Status.ACTIVE:
         messages.error(
             request, _("This SRP link is no longer available for SRP requests.")
         )
@@ -527,7 +524,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 srp_request_comment = AaSrpRequestComment(
                     comment=form.cleaned_data["additional_info"],
                     srp_request=srp_request,
-                    comment_type=AaSrpRequestCommentType.REQUEST_INFO,
+                    comment_type=AaSrpRequestComment.Type.REQUEST_INFO,
                     creator=creator,
                 )
                 srp_request_comment.save()
@@ -648,7 +645,7 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
         return redirect("aasrp:dashboard")
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
-    srp_link.srp_status = AaSrpStatus.COMPLETED
+    srp_link.srp_status = AaSrpLink.Status.COMPLETED
     srp_link.save()
 
     messages.success(request, _("SRP link marked as completed"))
@@ -806,7 +803,7 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
         return redirect("aasrp:dashboard")
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
-    srp_link.srp_status = AaSrpStatus.ACTIVE
+    srp_link.srp_status = AaSrpLink.Status.ACTIVE
     srp_link.save()
 
     messages.success(
@@ -842,7 +839,7 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
         return redirect("aasrp:dashboard")
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
-    srp_link.srp_status = AaSrpStatus.CLOSED
+    srp_link.srp_status = AaSrpLink.Status.CLOSED
     srp_link.save()
 
     messages.success(
@@ -956,10 +953,10 @@ def ajax_srp_request_additional_information(
         )
 
     request_status_banner_alert_level = "info"
-    if srp_request.request_status == AaSrpRequestStatus.APPROVED:
+    if srp_request.request_status == AaSrpRequest.Status.APPROVED:
         request_status_banner_alert_level = "success"
 
-    if srp_request.request_status == AaSrpRequestStatus.REJECTED:
+    if srp_request.request_status == AaSrpRequest.Status.REJECTED:
         request_status_banner_alert_level = "danger"
 
     request_status_banner = (
@@ -971,7 +968,7 @@ def ajax_srp_request_additional_information(
     additional_info = ""
     try:
         additional_info_comment = AaSrpRequestComment.objects.get(
-            srp_request=srp_request, comment_type=AaSrpRequestCommentType.REQUEST_INFO
+            srp_request=srp_request, comment_type=AaSrpRequestComment.Type.REQUEST_INFO
         )
 
         additional_info = additional_info_comment.comment.replace("\n", "<br>\n")
@@ -981,7 +978,7 @@ def ajax_srp_request_additional_information(
     reject_info = ""
     try:
         reject_comment = AaSrpRequestComment.objects.get(
-            srp_request=srp_request, comment_type=AaSrpRequestCommentType.REJECT_REASON
+            srp_request=srp_request, comment_type=AaSrpRequestComment.Type.REJECT_REASON
         )
 
         reject_info = reject_comment.comment.replace("\n", "<br>\n")
@@ -1068,11 +1065,10 @@ def ajax_srp_request_approve(
 
         # remove any possible reject reason in case this was rejected before
         AaSrpRequestComment.objects.filter(
-            srp_request=srp_request,
-            comment_type=AaSrpRequestCommentType.REJECT_REASON,
+            srp_request=srp_request, comment_type=AaSrpRequestComment.Type.REJECT_REASON
         ).delete()
 
-        srp_request.request_status = AaSrpRequestStatus.APPROVED
+        srp_request.request_status = AaSrpRequest.Status.APPROVED
         srp_request.save()
 
         user_settings = AaSrpUserSettings.objects.get(user=request.user)
@@ -1135,20 +1131,20 @@ def ajax_srp_request_deny(
                 requester = srp_request.creator
 
                 srp_request.payout_amount = 0
-                srp_request.request_status = AaSrpRequestStatus.REJECTED
+                srp_request.request_status = AaSrpRequest.Status.REJECTED
                 srp_request.save()
 
                 # save reject reason as comment for this request
                 try:
                     existing_reject_info = AaSrpRequestComment.objects.get(
                         srp_request=srp_request,
-                        comment_type=AaSrpRequestCommentType.REJECT_REASON,
+                        comment_type=AaSrpRequestComment.Type.REJECT_REASON,
                     )
                 except AaSrpRequestComment.DoesNotExist:
                     AaSrpRequestComment(
                         comment=reject_info,
                         srp_request=srp_request,
-                        comment_type=AaSrpRequestCommentType.REJECT_REASON,
+                        comment_type=AaSrpRequestComment.Type.REJECT_REASON,
                         creator=request.user,
                     ).save()
                 else:
