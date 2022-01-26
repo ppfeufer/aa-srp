@@ -24,36 +24,6 @@ def get_sentinel_user():
     return User.objects.get_or_create(username="deleted")[0]
 
 
-class AaSrpStatus(models.TextChoices):
-    """
-    Choices for SRP Status
-    """
-
-    ACTIVE = "Active", _("Active")
-    CLOSED = "Closed", _("Closed")
-    COMPLETED = "Completed", _("Completed")
-
-
-class AaSrpRequestStatus(models.TextChoices):
-    """
-    Choices for SRP Request Status
-    """
-
-    PENDING = "Pending", _("Pending")
-    APPROVED = "Approved", _("Approved")
-    REJECTED = "Rejected", _("Rejected")
-
-
-class AaSrpRequestCommentType(models.TextChoices):
-    """
-    Choices for Comment Types
-    """
-
-    COMMENT = "Comment", _("SRP Request Comment")
-    REQUEST_INFO = "Request Information", _("SRP Request Additional Information")
-    REJECT_REASON = "Reject Reason", _("SRP Reject Reason")
-
-
 class AaSrp(models.Model):
     """
     Meta model for app permissions
@@ -80,9 +50,18 @@ class AaSrpLink(models.Model):
     SRP Link model
     """
 
+    class Status(models.TextChoices):
+        """
+        Choices for SRP Status
+        """
+
+        ACTIVE = "Active", _("Active")
+        CLOSED = "Closed", _("Closed")
+        COMPLETED = "Completed", _("Completed")
+
     srp_name = models.CharField(max_length=254, default="")
     srp_status = models.CharField(
-        max_length=9, choices=AaSrpStatus.choices, default=AaSrpStatus.ACTIVE
+        max_length=9, choices=Status.choices, default=Status.ACTIVE
     )
     srp_code = models.CharField(max_length=16, default="")
     fleet_commander = models.ForeignKey(
@@ -136,7 +115,7 @@ class AaSrpLink(models.Model):
         """
 
         return self.srp_requests.filter(
-            request_status=AaSrpRequestStatus.PENDING
+            request_status=AaSrpRequest.Status.PENDING
         ).count()
 
     @property
@@ -147,7 +126,7 @@ class AaSrpLink(models.Model):
         """
 
         return self.srp_requests.filter(
-            request_status=AaSrpRequestStatus.APPROVED
+            request_status=AaSrpRequest.Status.APPROVED
         ).count()
 
     @property
@@ -158,7 +137,7 @@ class AaSrpLink(models.Model):
         """
 
         return self.srp_requests.filter(
-            request_status=AaSrpRequestStatus.REJECTED
+            request_status=AaSrpRequest.Status.REJECTED
         ).count()
 
     @property
@@ -185,6 +164,15 @@ class AaSrpRequest(models.Model):
     SRP Request model
     """
 
+    class Status(models.TextChoices):
+        """
+        Choices for SRP Request Status
+        """
+
+        PENDING = "Pending", _("Pending")
+        APPROVED = "Approved", _("Approved")
+        REJECTED = "Rejected", _("Rejected")
+
     request_code = models.CharField(max_length=254, default="")
     creator = models.ForeignKey(
         User,
@@ -208,9 +196,7 @@ class AaSrpRequest(models.Model):
     killboard_link = models.CharField(max_length=254, default="")
     additional_info = models.TextField(blank=True, default="")
     request_status = models.CharField(
-        max_length=8,
-        choices=AaSrpRequestStatus.choices,
-        default=AaSrpRequestStatus.PENDING,
+        max_length=8, choices=Status.choices, default=Status.PENDING
     )
     payout_amount = models.BigIntegerField(default=0)
     srp_link = models.ForeignKey(
@@ -267,12 +253,19 @@ class AaSrpRequestComment(models.Model):
     SRP Request Comments model
     """
 
+    class Type(models.TextChoices):
+        """
+        Choices for Comment Types
+        """
+
+        COMMENT = "Comment", _("SRP Request Comment")
+        REQUEST_INFO = "Request Information", _("SRP Request Additional Information")
+        REJECT_REASON = "Reject Reason", _("SRP Reject Reason")
+
     comment = models.TextField(null=True, blank=True)
 
     comment_type = models.CharField(
-        max_length=19,
-        choices=AaSrpRequestCommentType.choices,
-        default=AaSrpRequestCommentType.COMMENT,
+        max_length=19, choices=Type.choices, default=Type.COMMENT
     )
 
     creator = models.ForeignKey(

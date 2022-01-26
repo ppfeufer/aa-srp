@@ -15,14 +15,7 @@ from eveuniverse.models import EveType
 # AA SRP
 from aasrp.helper.character import get_user_for_character
 from aasrp.managers import AaSrpManager
-from aasrp.models import (
-    AaSrpLink,
-    AaSrpRequest,
-    AaSrpRequestComment,
-    AaSrpRequestCommentType,
-    AaSrpRequestStatus,
-    AaSrpStatus,
-)
+from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpRequestComment
 
 
 def get_input(text):
@@ -67,12 +60,12 @@ class Command(BaseCommand):
                 srp_fleet_aar_link = srp_fleet.fleet_srp_aar_link
 
                 # fix srp status
-                srp_fleet_status = AaSrpStatus.ACTIVE
+                srp_fleet_status = AaSrpLink.Status.ACTIVE
                 if srp_fleet.fleet_srp_status == "Completed":
-                    srp_fleet_status = AaSrpStatus.COMPLETED
+                    srp_fleet_status = AaSrpLink.Status.COMPLETED
 
                 if srp_fleet.fleet_srp_code == "":
-                    srp_fleet_status = AaSrpStatus.CLOSED
+                    srp_fleet_status = AaSrpLink.Status.CLOSED
 
                     # also fix the missing SRP code, we need it!
                     srp_fleet.fleet_srp_code = get_random_string(
@@ -164,12 +157,12 @@ class Command(BaseCommand):
                             srp_userrequest_character = srp_userrequest.character
                             srp_userrequest_srp_link = srp_link
 
-                            srp_userrequest_status = AaSrpRequestStatus.PENDING
+                            srp_userrequest_status = AaSrpRequest.Status.PENDING
                             if srp_userrequest.srp_status == "Approved":
-                                srp_userrequest_status = AaSrpRequestStatus.APPROVED
+                                srp_userrequest_status = AaSrpRequest.Status.APPROVED
 
                             if srp_userrequest.srp_status == "Rejected":
-                                srp_userrequest_status = AaSrpRequestStatus.REJECTED
+                                srp_userrequest_status = AaSrpRequest.Status.REJECTED
 
                             srp_request = AaSrpRequest()
                             srp_request.killboard_link = srp_userrequest_killboard_link
@@ -191,7 +184,7 @@ class Command(BaseCommand):
                             )
                             srp_request_comment.srp_request = srp_request
                             srp_request_comment.comment_type = (
-                                AaSrpRequestCommentType.REQUEST_INFO
+                                AaSrpRequestComment.Type.REQUEST_INFO
                             )
                             srp_request_comment.creator = srp_userrequest_creator
                             srp_request_comment.save()

@@ -6,12 +6,7 @@ Migrate comments from AaSrpRequest to AaSrpRequestComments
 from django.core.management import BaseCommand
 
 # AA SRP
-from aasrp.models import (
-    AaSrpRequest,
-    AaSrpRequestComment,
-    AaSrpRequestCommentType,
-    AaSrpRequestStatus,
-)
+from aasrp.models import AaSrpRequest, AaSrpRequestComment
 
 
 def get_input(text):
@@ -57,7 +52,7 @@ class Command(BaseCommand):
                     # for this request and remove it
                     AaSrpRequestComment.objects.filter(
                         srp_request=srp_request,
-                        comment_type=AaSrpRequestCommentType.REQUEST_INFO,
+                        comment_type=AaSrpRequestComment.Type.REQUEST_INFO,
                     ).delete()
 
                     # write new
@@ -65,7 +60,7 @@ class Command(BaseCommand):
                     srp_request_comment.srp_request = srp_request
                     srp_request_comment.comment = srp_info
                     srp_request_comment.comment_type = (
-                        AaSrpRequestCommentType.REQUEST_INFO
+                        AaSrpRequestComment.Type.REQUEST_INFO
                     )
                     srp_request_comment.creator = srp_request.creator
                     srp_request_comment.save()
@@ -76,7 +71,7 @@ class Command(BaseCommand):
 
                 # migrate reject reason
                 if (
-                    srp_request.request_status == AaSrpRequestStatus.REJECTED
+                    srp_request.request_status == AaSrpRequest.Status.REJECTED
                     and reject_reason != ""
                 ):
                     self.stdout.write(
@@ -87,7 +82,7 @@ class Command(BaseCommand):
                     # for this request and remove it
                     AaSrpRequestComment.objects.filter(
                         srp_request=srp_request,
-                        comment_type=AaSrpRequestCommentType.REJECT_REASON,
+                        comment_type=AaSrpRequestComment.Type.REJECT_REASON,
                     ).delete()
 
                     # write new
@@ -95,7 +90,7 @@ class Command(BaseCommand):
                     srp_request_comment.srp_request = srp_request
                     srp_request_comment.comment = reject_reason
                     srp_request_comment.comment_type = (
-                        AaSrpRequestCommentType.REJECT_REASON
+                        AaSrpRequestComment.Type.REJECT_REASON
                     )
                     srp_request_comment.save()
 
