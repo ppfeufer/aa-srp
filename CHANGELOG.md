@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 - `model.TextChoices` refactored for better code readability
 
+### Removed
+
+- Outdated management commands. By now everyone should have updated to a version
+  where they are no longer needed. No one should have a version that's older than a
+  year ...
+
 
 ## [1.10.3] - 2022-01-24
 
