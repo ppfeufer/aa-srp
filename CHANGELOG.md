@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ### Changed
 
-- `model.TextChoices` refactored for better code readability
+- `models.TextChoices` refactored for better code readability
 
 ### Removed
 
