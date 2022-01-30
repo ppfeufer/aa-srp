@@ -30,6 +30,10 @@ class AaSrp(models.Model):
     """
 
     class Meta:
+        """
+        General definitions
+        """
+
         verbose_name = "AA-SRP"
         managed = False
         default_permissions = ()
