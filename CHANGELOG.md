@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ### Changed
 
 - `models.TextChoices` refactored for better code readability
+- Using `path` in URL config instead of soon-to-be removed `url`
 
 ### Removed
 
