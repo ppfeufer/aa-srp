@@ -18,7 +18,7 @@ from app_utils.logging import LoggerAddTag
 # AA SRP
 from aasrp import __title__
 from aasrp.constants import USERAGENT, ZKILLBOARD_API_URL
-from aasrp.models import AaSrpRequest, AaSrpRequestStatus
+from aasrp.models import AaSrpRequest
 from aasrp.providers import esi
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
@@ -97,7 +97,7 @@ class AaSrpManager:
             "aasrp.manage_srp_requests"
         ):
             return AaSrpRequest.objects.filter(
-                request_status=AaSrpRequestStatus.PENDING
+                request_status=AaSrpRequest.Status.PENDING
             ).count()
 
         return None

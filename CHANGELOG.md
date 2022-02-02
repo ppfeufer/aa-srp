@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ## [In Development] - Unreleased
 
 
+## [1.11.0] - 2022-02-02
+
+### Changed
+
+- `models.TextChoices` refactored for better code readability
+- Using `path` in URL config instead of soon-to-be removed `url`
+
+### Removed
+
+- Outdated management commands. By now everyone should have updated to a version
+  where they are no longer needed. No one should have a version that's older than a
+  year ...
+
+
 ## [1.10.3] - 2022-01-24
 
 ### Fixed
