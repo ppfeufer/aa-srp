@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Added
+
+- More logging to the Discord message logic
+
 
 ## [1.11.0] - 2022-02-02
 
