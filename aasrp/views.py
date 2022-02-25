@@ -583,15 +583,15 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     message += f"**SRP Code:** {srp_code}\n"
                     message += f"**SRP Link:** {srp_link}\n"
 
+                    logger.info(
+                        "Sending SRP request notification to the SRP team channel on "
+                        "Discord"
+                    )
+
                     send_message_to_discord_channel(
                         channel_id=AASRP_SRP_TEAM_DISCORD_CHANNEL,
                         title=title,
                         message=message,
-                    )
-
-                    logger.info(
-                        "Sending SRP request notification to the SRP team channel on "
-                        "Discord"
                     )
 
                 return redirect("aasrp:dashboard")
@@ -1089,6 +1089,8 @@ def ajax_srp_request_approve(
                 f"Reviser: {reviser}\n\n{inquiry_note}"
             )
 
+            logger.info("Sending approval message to user")
+
             send_user_notification(
                 user=requester,
                 level="success",
@@ -1171,6 +1173,8 @@ def ajax_srp_request_deny(
                         f"Request-Code: {request_code}\n"
                         f"Reviser: {reviser}\n\n{inquiry_note}"
                     )
+
+                    logger.info("Sending reject message to user")
 
                     send_user_notification(
                         user=requester,
