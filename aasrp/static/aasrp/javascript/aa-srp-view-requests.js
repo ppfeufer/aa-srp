@@ -180,7 +180,7 @@ $(document).ready(() => {
      * @param {int} newValue
      * @private
      */
-    const _refresh_srp_amount_field = (element, newValue) => {
+    const _refreshSrpAmountField = (element, newValue) => {
         newValue = parseInt(newValue);
 
         // update data-attribute
@@ -200,7 +200,7 @@ $(document).ready(() => {
         });
 
         $('.srp-fleet-total-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
-    }
+    };
 
     /**
      * Make srp payout field editable for pending requests
@@ -226,7 +226,7 @@ $(document).ready(() => {
          * @param newValue
          */
         success: (response, newValue) => {
-            _refresh_srp_amount_field($(this), newValue);
+            _refreshSrpAmountField($(this), newValue);
         },
         /**
          * check if input is not empty
@@ -266,7 +266,7 @@ $(document).ready(() => {
          * @param newValue
          */
         success: (response, newValue) => {
-            _refresh_srp_amount_field($(this), newValue);
+            _refreshSrpAmountField($(this), newValue);
         },
         /**
          * check if input is not empty
