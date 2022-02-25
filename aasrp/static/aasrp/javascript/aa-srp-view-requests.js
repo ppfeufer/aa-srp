@@ -1,6 +1,6 @@
 /* global aaSrpSettings, moment */
 
-$(document).ready(function () {
+$(document).ready(() => {
     'use strict';
 
     const elementSrpRequestsTable = $('#tab_aasrp_srp_requests');
@@ -17,7 +17,7 @@ $(document).ready(function () {
         columns: [
             {
                 data: 'request_time',
-                render: function (data, type, row) {
+                render: (data, type, row) => {
                     return moment(data).utc().format(aaSrpSettings.datetimeFormat);
                 },
                 className: 'srp-request-time'
@@ -58,7 +58,7 @@ $(document).ready(function () {
                  * @param meta
                  * @returns {string|*}
                  */
-                render: function (data, type, row, meta) {
+                render: (data, type, row, meta) => {
                     if (type === 'display') {
                         return data.toLocaleString() + ' ISK';
                     } else {
@@ -78,7 +78,7 @@ $(document).ready(function () {
                  * @param meta
                  * @returns {string|*}
                  */
-                render: function (data, type, row, meta) {
+                render: (data, type, row, meta) => {
                     if (type === 'display') {
                         return '<span class="srp-payout-amount">' + data.toLocaleString() + ' ISK</span>';
                     } else {
@@ -149,7 +149,7 @@ $(document).ready(function () {
          * @param data
          * @param rowIndex
          */
-        createdRow: function (row, data, rowIndex) {
+        createdRow: (row, data, rowIndex) => {
             // Row id attr
             $(row).attr('data-row-id', rowIndex);
             $(row).attr('data-srp-request-code', data.request_code);
@@ -180,7 +180,7 @@ $(document).ready(function () {
      * @param {int} newValue
      * @private
      */
-    const _refresh_srp_amount_field = (element, newValue) => {
+    const _refreshSrpAmountField = (element, newValue) => {
         newValue = parseInt(newValue);
 
         // update data-attribute
@@ -200,7 +200,7 @@ $(document).ready(function () {
         });
 
         $('.srp-fleet-total-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
-    }
+    };
 
     /**
      * Make srp payout field editable for pending requests
@@ -216,7 +216,7 @@ $(document).ready(function () {
          * @param response
          * @returns {boolean}
          */
-        display: function (value, response) {
+        display: (value, response) => {
             return false;
         },
         /**
@@ -225,8 +225,8 @@ $(document).ready(function () {
          * @param response
          * @param newValue
          */
-        success: function (response, newValue) {
-            _refresh_srp_amount_field($(this), newValue);
+        success: (response, newValue) => {
+            _refreshSrpAmountField($(this), newValue);
         },
         /**
          * check if input is not empty
@@ -234,7 +234,7 @@ $(document).ready(function () {
          * @param {string} value
          * @returns {string}
          */
-        validate: function (value) {
+        validate: (value) => {
             if (value === null || value === '') {
                 return aaSrpSettings.translation.editableValidate;
             }
@@ -256,7 +256,7 @@ $(document).ready(function () {
          * @param response
          * @returns {boolean}
          */
-        display: function (value, response) {
+        display: (value, response) => {
             return false;
         },
         /**
@@ -265,8 +265,8 @@ $(document).ready(function () {
          * @param response
          * @param newValue
          */
-        success: function (response, newValue) {
-            _refresh_srp_amount_field($(this), newValue);
+        success: (response, newValue) => {
+            _refreshSrpAmountField($(this), newValue);
         },
         /**
          * check if input is not empty
@@ -274,7 +274,7 @@ $(document).ready(function () {
          * @param {string} value
          * @returns {string}
          */
-        validate: function (value) {
+        validate: (value) => {
             if (value === null || value === '') {
                 return aaSrpSettings.translation.editableValidate;
             }
@@ -285,7 +285,7 @@ $(document).ready(function () {
      * Modals
      */
     // SRP request details
-    $('#srp-request-details').on('show.bs.modal', function (event) {
+    $('#srp-request-details').on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const modal = $(this);
         const name = button.data('modal-title');
@@ -297,7 +297,7 @@ $(document).ready(function () {
 
         $.get({
             url: url,
-            success: function (data) {
+            success: (data) => {
                 let modalBody = data.request_status_banner;
 
                 // requestor
@@ -335,7 +335,7 @@ $(document).ready(function () {
                 modal.find('.modal-body').html(modalBody);
             }
         });
-    }).on('hide.bs.modal', function () {
+    }).on('hide.bs.modal', () => {
         const modal = $(this);
 
         modal.find('.modal-title').text('');
@@ -343,7 +343,7 @@ $(document).ready(function () {
     });
 
     // accept SRP request
-    $('#srp-request-accept').on('show.bs.modal', function (event) {
+    $('#srp-request-accept').on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const modal = $(this);
         const name = button.data('modal-title');
@@ -359,18 +359,18 @@ $(document).ready(function () {
         modal.find('#modal-button-cancel-accept-request').html(cancelButtonText);
         modal.find('.modal-body').text(body);
 
-        $('#modal-button-confirm-accept-request').on('click', function (event) {
-            $.get(url, function (data, status) {
+        $('#modal-button-confirm-accept-request').on('click', (event) => {
+            $.get(url, (data, status) => {
                 // reload datatable on success and update srp status values
                 if (data['0'].success === true) {
-                    srpRequestsTable.ajax.reload(function (tableData) {
+                    srpRequestsTable.ajax.reload((tableData) => {
                         let totalSrpAmount = 0;
                         let requestsTotal = 0;
                         let requestsPending = 0;
                         let requestsApproved = 0;
                         let requestsRejected = 0;
 
-                        $.each(tableData, function (i, item) {
+                        $.each(tableData, (i, item) => {
                             requestsTotal += 1;
 
                             if (item.request_status === 'Pending') {
@@ -409,7 +409,7 @@ $(document).ready(function () {
                 }
             });
         });
-    }).on('hide.bs.modal', function () {
+    }).on('hide.bs.modal', () => {
         const modal = $(this);
 
         modal.find('textarea[name="reject_info"]').val('');
@@ -418,12 +418,12 @@ $(document).ready(function () {
     });
 
     // reject SRP request
-    $('#srp-request-reject').on('show.bs.modal', function (event) {
+    $('#srp-request-reject').on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const modal = $(this);
         const url = button.data('link');
 
-        $('#modal-button-confirm-reject-request').on('click', function () {
+        $('#modal-button-confirm-reject-request').on('click', () => {
             const form = modal.find('form');
             const rejectInfo = form.find('textarea[name="reject_info"]').val();
             const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
@@ -449,18 +449,18 @@ $(document).ready(function () {
                     }
                 );
 
-                posting.done(function (data) {
+                posting.done((data) => {
                     // $('#modal-button-cancel-reject-request').click();
 
                     if (data['0'].success === true) {
-                        srpRequestsTable.ajax.reload(function (tableData) {
+                        srpRequestsTable.ajax.reload((tableData) => {
                             let totalSrpAmount = 0;
                             let requestsTotal = 0;
                             let requestsPending = 0;
                             let requestsApproved = 0;
                             let requestsRejected = 0;
 
-                            $.each(tableData, function (i, item) {
+                            $.each(tableData, (i, item) => {
                                 requestsTotal += 1;
 
                                 if (item.request_status === 'Pending') {
@@ -502,7 +502,7 @@ $(document).ready(function () {
                 modal.modal('toggle');
             }
         });
-    }).on('hide.bs.modal', function () {
+    }).on('hide.bs.modal', () => {
         const modal = $(this);
 
         modal.find('textarea[name="reject_info"]').val('');
@@ -511,7 +511,7 @@ $(document).ready(function () {
     });
 
     // remove SRP request
-    $('#srp-request-remove').on('show.bs.modal', function (event) {
+    $('#srp-request-remove').on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const modal = $(this);
         const name = button.data('modal-title');
@@ -527,18 +527,18 @@ $(document).ready(function () {
         modal.find('#modal-button-cancel-remove-request').html(cancelButtonText);
         modal.find('.modal-body').text(body);
 
-        $('#modal-button-confirm-remove-request').on('click', function (event) {
-            $.get(url, function (data, status) {
+        $('#modal-button-confirm-remove-request').on('click', (event) => {
+            $.get(url, (data, status) => {
                 // reload datatable on success and update srp status values
                 if (data['0'].success === true) {
-                    srpRequestsTable.ajax.reload(function (tableData) {
+                    srpRequestsTable.ajax.reload((tableData) => {
                         let totalSrpAmount = 0;
                         let requestsTotal = 0;
                         let requestsPending = 0;
                         let requestsApproved = 0;
                         let requestsRejected = 0;
 
-                        $.each(tableData, function (i, item) {
+                        $.each(tableData, (i, item) => {
                             requestsTotal += 1;
 
                             if (item.request_status === 'Pending') {
@@ -577,7 +577,7 @@ $(document).ready(function () {
                 }
             });
         });
-    }).on('hide.bs.modal', function () {
+    }).on('hide.bs.modal', () => {
         const modal = $(this);
 
         modal.find('textarea[name="reject_info"]').val('');

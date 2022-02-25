@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 - CSS classes in templates
 - Only count approved SRP requests towards the total SRP costs
 
+### Changed
+
+- JavaScript modernised
+
 
 ## [1.11.0] - 2022-02-02
 
