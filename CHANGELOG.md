@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 - More logging to the Discord message logic
 
+### Fixed
+
+- Enable editable SRP amount field only for pending and rejected requests (#51)
+
 
 ## [1.11.0] - 2022-02-02
 

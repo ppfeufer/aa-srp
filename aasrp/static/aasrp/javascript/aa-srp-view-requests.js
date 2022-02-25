@@ -3,10 +3,12 @@
 $(document).ready(function () {
     'use strict';
 
+    const elementSrpRequestsTable = $('#tab_aasrp_srp_requests');
+
     /**
      * Table :: SRP Requests
      */
-    const srpRequestsTable = $('#tab_aasrp_srp_requests').DataTable({
+    const srpRequestsTable = elementSrpRequestsTable.DataTable({
         ajax: {
             url: aaSrpSettings.url.requestsForSrpLink,
             dataSrc: '',
@@ -151,6 +153,7 @@ $(document).ready(function () {
             // Row id attr
             $(row).attr('data-row-id', rowIndex);
             $(row).attr('data-srp-request-code', data.request_code);
+            $(row).addClass('srp-request-status-' + data.request_status.toLowerCase());
 
             // add class and data attribute to the payout span
             $(row).find('span.srp-payout-amount').addClass(
@@ -171,11 +174,40 @@ $(document).ready(function () {
     });
 
     /**
-     * make srp payout field editable
+     * Helper function: Refresh the Payout Amount field
+     *
+     * @param element
+     * @param {int} newValue
+     * @private
      */
-    $('#tab_aasrp_srp_requests').editable({
+    const _refresh_srp_amount_field = (element, newValue) => {
+        newValue = parseInt(newValue);
+
+        // update data-attribute
+        element.attr('data-value', newValue);
+
+        // update payout value formatted
+        const newValuewFormatted = newValue.toLocaleString() + ' ISK';
+
+        element.addClass('srp-payout-amount-changed');
+        element.html(newValuewFormatted);
+
+        // update fleet total srp amount
+        let totalSrpAmount = 0;
+
+        $('#tab_aasrp_srp_requests .srp-payout-amount').each(() => {
+            totalSrpAmount += parseInt(element.attr('data-value'));
+        });
+
+        $('.srp-fleet-total-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
+    }
+
+    /**
+     * Make srp payout field editable for pending requests
+     */
+    elementSrpRequestsTable.editable({
         container: 'body',
-        selector: '.srp-payout-amount',
+        selector: '.srp-request-status-pending .srp-payout-amount', // Only for pending requests
         title: aaSrpSettings.translation.changeSrpPayoutHeader,
         type: 'number',
         placement: 'top',
@@ -194,25 +226,47 @@ $(document).ready(function () {
          * @param newValue
          */
         success: function (response, newValue) {
-            newValue = parseInt(newValue);
+            _refresh_srp_amount_field($(this), newValue);
+        },
+        /**
+         * check if input is not empty
+         *
+         * @param {string} value
+         * @returns {string}
+         */
+        validate: function (value) {
+            if (value === null || value === '') {
+                return aaSrpSettings.translation.editableValidate;
+            }
+        }
+    });
 
-            // update data-attribute
-            $(this).attr('data-value', newValue);
-
-            // update payout value formatted
-            const newValuewFormatted = newValue.toLocaleString() + ' ISK';
-
-            $(this).addClass('srp-payout-amount-changed');
-            $(this).html(newValuewFormatted);
-
-            // update fleet total srp amount
-            let totalSrpAmount = 0;
-
-            $('#tab_aasrp_srp_requests .srp-payout-amount').each(function () {
-                totalSrpAmount += parseInt($(this).attr('data-value'));
-            });
-
-            $('.srp-fleet-total-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
+    /**
+     * Make srp payout field editable for rejected requests,
+     * in case they get approved later on
+     */
+    elementSrpRequestsTable.editable({
+        container: 'body',
+        selector: '.srp-request-status-rejected .srp-payout-amount', // Only for rejected requests
+        title: aaSrpSettings.translation.changeSrpPayoutHeader,
+        type: 'number',
+        placement: 'top',
+        /**
+         * @param value
+         * @param response
+         * @returns {boolean}
+         */
+        display: function (value, response) {
+            return false;
+        },
+        /**
+         * on success ...
+         *
+         * @param response
+         * @param newValue
+         */
+        success: function (response, newValue) {
+            _refresh_srp_amount_field($(this), newValue);
         },
         /**
          * check if input is not empty
