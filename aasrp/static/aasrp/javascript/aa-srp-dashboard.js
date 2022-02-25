@@ -1,6 +1,6 @@
 /* global aaSrpSettings, moment */
 
-$(document).ready(function () {
+$(document).ready(() => {
     'use strict';
 
     /**
@@ -25,7 +25,7 @@ $(document).ready(function () {
             },
             {
                 data: 'fleet_time',
-                render: function (data, type, row) {
+                render: (data, type, row) => {
                     return moment(data).utc().format(aaSrpSettings.datetimeFormat);
                 },
                 className: 'srp-link-fleet-time'
@@ -61,7 +61,7 @@ $(document).ready(function () {
                  * @param meta
                  * @returns {string|*}
                  */
-                render: function (data, type, row, meta) {
+                render: (data, type, row, meta) => {
                     if (type === 'display') {
                         return data.toLocaleString() + ' ISK';
                     } else {
@@ -102,7 +102,7 @@ $(document).ready(function () {
          * @param data
          * @param rowIndex
          */
-        createdRow: function (row, data, rowIndex) {
+        createdRow: (row, data, rowIndex) => {
             // Row id attr
             $(row).attr('data-row-id', rowIndex);
             $(row).attr('data-srp-request-code', data.srp_code);
@@ -128,7 +128,7 @@ $(document).ready(function () {
         columns: [
             {
                 data: 'request_time',
-                render: function (data, type, row) {
+                render: (data, type, row) => {
                     return moment(data).utc().format(aaSrpSettings.datetimeFormat);
                 },
                 className: 'srp-request-time'
@@ -173,7 +173,7 @@ $(document).ready(function () {
                  * @param meta
                  * @returns {string|*}
                  */
-                render: function (data, type, row, meta) {
+                render: (data, type, row, meta) => {
                     if (type === 'display') {
                         return data.toLocaleString() + ' ISK';
                     } else {
@@ -193,7 +193,7 @@ $(document).ready(function () {
                  * @param meta
                  * @returns {string|*}
                  */
-                render: function (data, type, row, meta) {
+                render: (data, type, row, meta) => {
                     if (type === 'display') {
                         return data.toLocaleString() + ' ISK';
                     } else {
@@ -249,7 +249,7 @@ $(document).ready(function () {
          * @param data
          * @param rowIndex
          */
-        createdRow: function (row, data, rowIndex) {
+        createdRow: (row, data, rowIndex) => {
             // Row id attr
             $(row).attr('data-row-id', rowIndex);
             $(row).attr('data-srp-request-code', data.request_code);
@@ -265,7 +265,7 @@ $(document).ready(function () {
      * Modals
      */
     // enable link modal
-    $('#enable-srp-link').on('show.bs.modal', function (event) {
+    $('#enable-srp-link').on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const url = button.data('url');
         const name = button.data('name');
@@ -275,14 +275,14 @@ $(document).ready(function () {
         modal.find('.modal-body').html(
             aaSrpSettings.translation.modal.enableSrpLink.body + '<br>"' + name + '"'
         );
-    }).on('hide.bs.modal', function () {
+    }).on('hide.bs.modal', () => {
         const modal = $(this);
 
         modal.find('.modal-body').html('');
     });
 
     // disable link modal
-    $('#disable-srp-link').on('show.bs.modal', function (event) {
+    $('#disable-srp-link').on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const url = button.data('url');
         const name = button.data('name');
@@ -292,14 +292,14 @@ $(document).ready(function () {
         modal.find('.modal-body').html(
             aaSrpSettings.translation.modal.disableSrpLink.body + '<br>"' + name + '"'
         );
-    }).on('hide.bs.modal', function () {
+    }).on('hide.bs.modal', () => {
         const modal = $(this);
 
         modal.find('.modal-body').html('');
     });
 
     // delete link modal
-    $('#delete-srp-link').on('show.bs.modal', function (event) {
+    $('#delete-srp-link').on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const url = button.data('url');
         const name = button.data('name');
@@ -309,14 +309,14 @@ $(document).ready(function () {
         modal.find('.modal-body').html(
             aaSrpSettings.translation.modal.deleteSrpLink.body + '<br>"' + name + '"'
         );
-    }).on('hide.bs.modal', function () {
+    }).on('hide.bs.modal', () => {
         const modal = $(this);
 
         modal.find('.modal-body').html('');
     });
 
     // show details
-    $('#srp-request-details').on('show.bs.modal', function (event) {
+    $('#srp-request-details').on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const modal = $(this);
         const name = button.data('modal-title');
@@ -328,7 +328,7 @@ $(document).ready(function () {
 
         $.get({
             url: url,
-            success: function (data) {
+            success: (data) => {
                 let modalBody = data.request_status_banner;
 
                 // requestor
@@ -358,7 +358,7 @@ $(document).ready(function () {
                 modal.find('.modal-body').html(modalBody);
             }
         });
-    }).on('hide.bs.modal', function () {
+    }).on('hide.bs.modal', () => {
         const modal = $(this);
 
         modal.find('.modal-title').text('');
