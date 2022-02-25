@@ -100,7 +100,10 @@ class AaSrpLink(models.Model):
         :return:
         """
 
-        return sum(int(r.payout_amount) for r in self.srp_requests.all())
+        return sum(
+            int(r.payout_amount)
+            for r in self.srp_requests.filter(request_status="Approved")
+        )
 
     @property
     def total_requests(self):

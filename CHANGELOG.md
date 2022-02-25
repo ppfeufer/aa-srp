@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 - Enable editable SRP amount field only for pending and rejected requests (#51)
 - CSS classes in templates
+- Only count approved SRP requests towards the total SRP costs
 
 
 ## [1.11.0] - 2022-02-02

@@ -195,8 +195,8 @@ $(document).ready(function () {
         // update fleet total srp amount
         let totalSrpAmount = 0;
 
-        $('#tab_aasrp_srp_requests .srp-payout-amount').each(() => {
-            totalSrpAmount += parseInt(element.attr('data-value'));
+        $('#tab_aasrp_srp_requests .srp-request-status-approved .srp-payout-amount').each((i, payoutElement) => {
+            totalSrpAmount += parseInt(payoutElement.getAttribute('data-value'));
         });
 
         $('.srp-fleet-total-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
@@ -371,7 +371,6 @@ $(document).ready(function () {
                         let requestsRejected = 0;
 
                         $.each(tableData, function (i, item) {
-                            totalSrpAmount += parseInt(item.payout_amount);
                             requestsTotal += 1;
 
                             if (item.request_status === 'Pending') {
@@ -379,6 +378,7 @@ $(document).ready(function () {
                             }
 
                             if (item.request_status === 'Approved') {
+                                totalSrpAmount += parseInt(item.payout_amount);
                                 requestsApproved += 1;
                             }
 
@@ -461,7 +461,6 @@ $(document).ready(function () {
                             let requestsRejected = 0;
 
                             $.each(tableData, function (i, item) {
-                                totalSrpAmount += parseInt(item.payout_amount);
                                 requestsTotal += 1;
 
                                 if (item.request_status === 'Pending') {
@@ -469,6 +468,7 @@ $(document).ready(function () {
                                 }
 
                                 if (item.request_status === 'Approved') {
+                                    totalSrpAmount += parseInt(item.payout_amount);
                                     requestsApproved += 1;
                                 }
 
@@ -539,7 +539,6 @@ $(document).ready(function () {
                         let requestsRejected = 0;
 
                         $.each(tableData, function (i, item) {
-                            totalSrpAmount += parseInt(item.payout_amount);
                             requestsTotal += 1;
 
                             if (item.request_status === 'Pending') {
@@ -547,6 +546,7 @@ $(document).ready(function () {
                             }
 
                             if (item.request_status === 'Approved') {
+                                totalSrpAmount += parseInt(item.payout_amount);
                                 requestsApproved += 1;
                             }
 
