@@ -284,16 +284,20 @@ $(document).ready(() => {
     /**
      * Modals
      */
+    const modalSrpRequestDetails = $('#srp-request-details');
+    const modalSrpRequestAccept = $('#srp-request-accept');
+    const modalSrpRequestReject = $('#srp-request-reject');
+    const modalSrpRequestRemove = $('#srp-request-remove');
+
     // SRP request details
-    $('#srp-request-details').on('show.bs.modal', (event) => {
+    modalSrpRequestDetails.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
-        const modal = $(this);
         const name = button.data('modal-title');
         const url = button.data('link');
         const confirmButtonText = button.data('modal-button-confirm');
 
-        modal.find('.modal-title').text(name);
-        modal.find('#modal-button-request-details-confirm').html(confirmButtonText);
+        modalSrpRequestDetails.find('.modal-title').text(name);
+        modalSrpRequestDetails.find('#modal-button-request-details-confirm').html(confirmButtonText);
 
         $.get({
             url: url,
@@ -332,20 +336,17 @@ $(document).ready(() => {
                 }
 
                 // add to modal body
-                modal.find('.modal-body').html(modalBody);
+                modalSrpRequestDetails.find('.modal-body').html(modalBody);
             }
         });
     }).on('hide.bs.modal', () => {
-        const modal = $(this);
-
-        modal.find('.modal-title').text('');
-        modal.find('.modal-body').text('');
+        modalSrpRequestDetails.find('.modal-title').text('');
+        modalSrpRequestDetails.find('.modal-body').text('');
     });
 
     // accept SRP request
-    $('#srp-request-accept').on('show.bs.modal', (event) => {
+    modalSrpRequestAccept.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
-        const modal = $(this);
         const name = button.data('modal-title');
         const url = button.data('link');
         const confirmButtonText = button.data('modal-button-confirm');
@@ -353,11 +354,11 @@ $(document).ready(() => {
         const confirmButtonClasses = button.data('modal-button-confirm-classes');
         const body = button.data('modal-body');
 
-        modal.find('.modal-title').text(name);
-        modal.find('#modal-button-confirm-accept-request').addClass(confirmButtonClasses);
-        modal.find('#modal-button-confirm-accept-request').html(confirmButtonText);
-        modal.find('#modal-button-cancel-accept-request').html(cancelButtonText);
-        modal.find('.modal-body').text(body);
+        modalSrpRequestAccept.find('.modal-title').text(name);
+        modalSrpRequestAccept.find('#modal-button-confirm-accept-request').addClass(confirmButtonClasses);
+        modalSrpRequestAccept.find('#modal-button-confirm-accept-request').html(confirmButtonText);
+        modalSrpRequestAccept.find('#modal-button-cancel-accept-request').html(cancelButtonText);
+        modalSrpRequestAccept.find('.modal-body').text(body);
 
         $('#modal-button-confirm-accept-request').on('click', (event) => {
             $.get(url, (data, status) => {
@@ -410,21 +411,18 @@ $(document).ready(() => {
             });
         });
     }).on('hide.bs.modal', () => {
-        const modal = $(this);
-
-        modal.find('textarea[name="reject_info"]').val('');
+        modalSrpRequestAccept.find('textarea[name="reject_info"]').val('');
 
         $('#modal-button-confirm-accept-request').unbind('click');
     });
 
     // reject SRP request
-    $('#srp-request-reject').on('show.bs.modal', (event) => {
+    modalSrpRequestReject.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
-        const modal = $(this);
         const url = button.data('link');
 
         $('#modal-button-confirm-reject-request').on('click', () => {
-            const form = modal.find('form');
+            const form = modalSrpRequestReject.find('form');
             const rejectInfo = form.find('textarea[name="reject_info"]').val();
             const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
 
@@ -499,21 +497,18 @@ $(document).ready(() => {
                     }
                 });
 
-                modal.modal('toggle');
+                modalSrpRequestReject.modal('toggle');
             }
         });
     }).on('hide.bs.modal', () => {
-        const modal = $(this);
-
-        modal.find('textarea[name="reject_info"]').val('');
+        modalSrpRequestReject.find('textarea[name="reject_info"]').val('');
 
         $('#modal-button-confirm-reject-request').unbind('click');
     });
 
     // remove SRP request
-    $('#srp-request-remove').on('show.bs.modal', (event) => {
+    modalSrpRequestRemove.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
-        const modal = $(this);
         const name = button.data('modal-title');
         const url = button.data('link');
         const confirmButtonText = button.data('modal-button-confirm');
@@ -521,11 +516,11 @@ $(document).ready(() => {
         const confirmButtonClasses = button.data('modal-button-confirm-classes');
         const body = button.data('modal-body');
 
-        modal.find('.modal-title').text(name);
-        modal.find('#modal-button-confirm-remove-request').addClass(confirmButtonClasses);
-        modal.find('#modal-button-confirm-remove-request').html(confirmButtonText);
-        modal.find('#modal-button-cancel-remove-request').html(cancelButtonText);
-        modal.find('.modal-body').text(body);
+        modalSrpRequestRemove.find('.modal-title').text(name);
+        modalSrpRequestRemove.find('#modal-button-confirm-remove-request').addClass(confirmButtonClasses);
+        modalSrpRequestRemove.find('#modal-button-confirm-remove-request').html(confirmButtonText);
+        modalSrpRequestRemove.find('#modal-button-cancel-remove-request').html(cancelButtonText);
+        modalSrpRequestRemove.find('.modal-body').text(body);
 
         $('#modal-button-confirm-remove-request').on('click', (event) => {
             $.get(url, (data, status) => {
@@ -578,9 +573,7 @@ $(document).ready(() => {
             });
         });
     }).on('hide.bs.modal', () => {
-        const modal = $(this);
-
-        modal.find('textarea[name="reject_info"]').val('');
+        modalSrpRequestRemove.find('textarea[name="reject_info"]').val('');
 
         $('#modal-button-confirm-remove-request').unbind('click');
     });
