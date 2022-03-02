@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Added
+
+- Test suite for AA 3.x and Django 4
+
+### Changed
+
+- Switched to `setup.cfg` as config file, since `setup.py` is deprecated now
+
+### Removed
+
+- Deprecated settings
+
 
 ## [1.12.0] - 2022-02-28
 
