@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ## [In Development] - Unreleased
 
 
+## [1.13.1] - 2022-03-06
+
+### Fixed
+
+- Reverted JS arrow function back to a normal function, since we need `$(this)` here
+
+
 ## [1.13.0] - 2022-03-02
 
 ### Added
