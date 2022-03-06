@@ -222,10 +222,12 @@ $(document).ready(() => {
         /**
          * on success ...
          *
+         * Arrow functions don't work here since we need $(this)
+         *
          * @param response
          * @param newValue
          */
-        success: (response, newValue) => {
+        success: function(response, newValue) {
             _refreshSrpAmountField($(this), newValue);
         },
         /**
@@ -262,10 +264,12 @@ $(document).ready(() => {
         /**
          * on success ...
          *
+         * Arrow functions don't work here since we need $(this)
+         *
          * @param response
          * @param newValue
          */
-        success: (response, newValue) => {
+        success: function(response, newValue) {
             _refreshSrpAmountField($(this), newValue);
         },
         /**
