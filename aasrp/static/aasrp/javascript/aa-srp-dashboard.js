@@ -255,6 +255,7 @@ $(document).ready(() => {
             $(row).attr('data-srp-request-code', data.request_code);
 
             userSrpAmount += parseInt(data.payout_amount);
+
             $('.srp-dashboard-user-isk-cost-amount').html(
                 userSrpAmount.toLocaleString() + ' ISK'
             );
@@ -325,32 +326,8 @@ $(document).ready(() => {
         $.get({
             url: url,
             success: (data) => {
-                let modalBody = data.request_status_banner;
+                const modalBody = data;
 
-                // requestor
-                modalBody += '<div class="clearfix modal-srp-details modal-srp-details-requester">' +
-                    '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.requestor + ':</b></p><p>' + data.requester + '</p></div>' +
-                    '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.character + ':</b></p><p>' + data.character + '</p></div>' +
-                    '</div>';
-
-                // ship and killmail
-                modalBody += '<div class="clearfix modal-srp-details modal-srp-details-ship">' +
-                    '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.ship + ':</b></p><p>' + data.killboard_link + '</p></div>' +
-                    '</div>';
-
-                // additional info
-                modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +
-                    '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.additionalInformation + ':</b></p><p>' + data.additional_info + '</p></div>' +
-                    '</div>';
-
-                if (data.reject_info !== '') {
-                    // reject info
-                    modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +
-                        '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.rejectInformation + ':</b></p><p>' + data.reject_info + '</p></div>' +
-                        '</div>';
-                }
-
-                // add to modal body
                 modalSrpRequestDetails.find('.modal-body').html(modalBody);
             }
         });

@@ -306,40 +306,8 @@ $(document).ready(() => {
         $.get({
             url: url,
             success: (data) => {
-                let modalBody = data.request_status_banner;
+                const modalBody = data;
 
-                // requestor
-                modalBody += '<div class="clearfix modal-srp-details modal-srp-details-requester">' +
-                    '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.requestor + ':</b></p><p>' + data.requester + '</p></div>' +
-                    '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.character + ':</b></p><p>' + data.character + '</p></div>' +
-                    '</div>';
-
-                // ship, killmail and insurance
-                modalBody += '<div class="clearfix modal-srp-details modal-srp-details-ship">' +
-                    '<div class="col-sm-6">' +
-                    '<p><b>' + aaSrpSettings.translation.modal.srpDetails.body.ship + ':</b></p><p>' + data.killboard_link + '</p>' +
-                    // '<p><b>ISK Lost:</b></p><p>' + data.loss_amount + '</p>' +
-                    '</div>';
-
-                if (data.insurance) {
-                    modalBody += '<div class="col-sm-6"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.insurance + ':</b></p><p>' + data.insurance + '</p></div>';
-                }
-
-                modalBody += '</div>';
-
-                // additional info
-                modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +
-                    '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.additionalInformation + ':</b></p><p>' + data.additional_info + '</p></div>' +
-                    '</div>';
-
-                if (data.reject_info !== '') {
-                    // reject info
-                    modalBody += '<div class="clearfix modal-srp-details modal-srp-details-additional-information">' +
-                        '<div class="col-sm-12"><p><b>' + aaSrpSettings.translation.modal.srpDetails.body.rejectInformation + ':</b></p><p>' + data.reject_info + '</p></div>' +
-                        '</div>';
-                }
-
-                // add to modal body
                 modalSrpRequestDetails.find('.modal-body').html(modalBody);
             }
         });

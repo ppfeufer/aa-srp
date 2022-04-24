@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Changed
+
+- HTML for ajax call result moved to its own template
+
 
 ## [1.13.1] - 2022-03-06
 
