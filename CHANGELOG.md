@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+
+## [1.13.2] - 2022-05-18
+
 ### Fixed
 
 - EveCharacter has no userprofile (#62)
