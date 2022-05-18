@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Fixed
+
+- EveCharacter has no userprofile (#62)
+
 ### Changed
 
 - HTML for ajax call result moved to its own template
