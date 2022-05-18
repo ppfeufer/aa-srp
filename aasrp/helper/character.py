@@ -92,8 +92,8 @@ def get_main_for_character(character: EveCharacter) -> EveCharacter:
     return_value = None
 
     try:
-        userprofile = character.userprofile
-    except character.userprofile.DoesNotExist:
+        userprofile = character.character_ownership.user.profile
+    except EveCharacter.character_ownership.RelatedObjectDoesNotExist:
         return_value = None
     else:
         if userprofile:
@@ -110,14 +110,14 @@ def get_user_for_character(character: EveCharacter) -> User:
     """
 
     try:
-        userprofile = character.userprofile
-    except character.userprofile.DoesNotExist:
+        userprofile = character.character_ownership.user.profile
+    except EveCharacter.character_ownership.RelatedObjectDoesNotExist:
         return_value = get_sentinel_user()
     else:
         if userprofile is None:
             return_value = get_sentinel_user()
         else:
-            return_value = character.userprofile.user
+            return_value = userprofile.user
 
     return return_value
 
