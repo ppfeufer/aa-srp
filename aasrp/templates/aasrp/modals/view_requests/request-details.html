@@ -1,0 +1,67 @@
+{% load humanize %}
+{% load i18n %}
+
+<div class="alert alert-{{ request_status_banner_alert_level }}">
+    <div class="text-center">
+        {% translate "SRP Request" %} {{ request_status }}
+    </div>
+</div>
+
+<div class="clearfix modal-srp-details modal-srp-details-requester">'
+    <div class="col-sm-6">
+        <p><b>{% translate "Requestor:" %}</b></p>
+        <p>{{ requester }}</p>
+    </div>
+
+    <div class="col-sm-6">
+        <p><b>{% translate "Character:" %}</b></p>
+        <p>{{ character|safe }}</p>
+    </div>
+</div>
+
+<div class="clearfix modal-srp-details modal-srp-details-ship">
+    <div class="col-sm-6">
+        <p><b>{% translate "Ship:" %}</b></p>
+        <p>
+            {{ ship_render_icon_html|safe }}
+            <span style="display: inline-block; vertical-align: middle;">
+                <a href="{{ srp_request.killboard_link }}" target="_blank">{{ ship_type }}</a><br>
+                {{ srp_request.loss_amount|floatformat:2|intcomma }} ISK
+            </span>
+        </p>
+    </div>
+
+    {% if insurance_information %}
+        <div class="col-sm-6">
+            <p><b>{% translate "Insurance Payout" %}</b></p>
+            <table class="table table-condensed table-striped">
+                <tbody>
+                    {% for insurance_level in insurance_information %}
+                        <tr>
+                            <td>{{ insurance_level.insurance_level }}</td>
+                            <td class="text-right">
+                                {{ insurance_level.insurance_payout|floatformat:2|intcomma}} ISK
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</div>
+
+<div class="clearfix modal-srp-details modal-srp-details-additional-information">
+    <div class="col-sm-12">
+        <p><b>{% translate "Additional Information" %}</b></p>
+        <p>{{ additional_info|safe }}</p>
+    </div>
+</div>
+
+{% if reject_info %}
+    <div class="clearfix modal-srp-details modal-srp-details-additional-information">
+        <div class="col-sm-12">
+            <p><b>{% translate "Reject Information" %}</b></p>
+            {{ reject_info|linebreaks }}
+        </div>
+    </div>
+{% endif %}

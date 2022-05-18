@@ -248,7 +248,7 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
         if srp_request.killboard_link:
             try:
                 ship_render_icon_html = get_type_render_url_from_type_id(
-                    evetype_id=srp_request.ship.id,
+                    evetype_id=srp_request.ship_id,
                     evetype_name=srp_request.ship.name,
                     size=32,
                     as_html=True,
@@ -261,7 +261,7 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
                 )
 
                 ship_render_icon_html = get_type_render_url_from_type_id(
-                    evetype_id=srp_request.ship.id,
+                    evetype_id=srp_request.ship_id,
                     evetype_name=srp_request.ship.name,
                     size=32,
                     as_html=True,
@@ -273,7 +273,7 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
                 f'<a href="{zkb_link}" target="_blank">'
                 f"{ship_render_icon_html}"
                 f"<span>{zkb_link_text}</span>"
-                f"</a>"
+                "</a>"
             )
 
         srp_request_status_icon = get_srp_request_status_icon(
@@ -482,7 +482,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 logger.debug(
                     f"User {request_user} submitted an invalid killmail link "
                     f"({submitted_killmail_link}) or zKillboard server could "
-                    f"not be reached"
+                    "not be reached"
                 )
 
                 messages.error(
@@ -600,8 +600,8 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 request,
                 _(
                     f"Character {victim_id} does not belong to your Auth "
-                    f"account. Please add this character as an alt to "
-                    f"your main and try again."
+                    "account. Please add this character as an alt to "
+                    "your main and try again."
                 ),
             )
 
@@ -717,7 +717,7 @@ def ajax_srp_link_view_requests_data(
         if srp_request.killboard_link:
             try:
                 ship_render_icon_html = get_type_render_url_from_type_id(
-                    evetype_id=srp_request.ship.id,
+                    evetype_id=srp_request.ship_id,
                     evetype_name=srp_request.ship.name,
                     size=32,
                     as_html=True,
@@ -730,7 +730,7 @@ def ajax_srp_link_view_requests_data(
                 )
 
                 ship_render_icon_html = get_type_render_url_from_type_id(
-                    evetype_id=srp_request.ship.id,
+                    evetype_id=srp_request.ship_id,
                     evetype_name=srp_request.ship.name,
                     size=32,
                     as_html=True,
@@ -889,7 +889,7 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def ajax_srp_request_additional_information(
     request: WSGIRequest, srp_code: str, srp_request_code: str
-) -> JsonResponse:
+) -> HttpResponse:
     """
     :param request:
     :param srp_code:
@@ -900,56 +900,30 @@ def ajax_srp_request_additional_information(
         srp_link__srp_code=srp_code, request_code=srp_request_code
     )
 
-    insurance = None
     insurance_information = srp_request.insurance.filter(srp_request=srp_request)
-
-    if insurance_information.count() > 0:
-        insurance = '<table class="table table-condensed table-striped">'
-        insurance += "<tbody>"
-
-        for insurance_level in insurance_information:
-            insurance += "<tr>"
-            insurance += "<td>" + insurance_level.insurance_level + "</td>"
-            insurance += (
-                f'<td class="text-right">'
-                f"{insurance_level.insurance_payout:,.2f} ISK</td>"
-            )
-            insurance += "</tr>"
-
-        insurance += "</tbody>"
-        insurance += "</table>"
 
     character = get_formatted_character_name(
         character=srp_request.character,
         with_portrait=True,
     )
 
-    killboard_link = ""
-    if srp_request.killboard_link:
-        try:
-            ship_render_icon_html = get_type_render_url_from_type_id(
-                evetype_id=srp_request.ship.id,
-                evetype_name=srp_request.ship.name,
-                size=32,
-                as_html=True,
-            )
-        except AttributeError:
-            # For some reason it seems the ship has been removed from EveType
-            # table, attempt to add it again ...
-            srp_request = _attempt_to_re_add_ship_information_to_request(srp_request)
+    try:
+        ship_render_icon_html = get_type_render_url_from_type_id(
+            evetype_id=srp_request.ship_id,
+            evetype_name=srp_request.ship.name,
+            size=32,
+            as_html=True,
+        )
+    except AttributeError:
+        # For some reason it seems the ship has been removed from EveType
+        # table, attempt to add it again ...
+        srp_request = _attempt_to_re_add_ship_information_to_request(srp_request)
 
-            ship_render_icon_html = get_type_render_url_from_type_id(
-                evetype_id=srp_request.ship.id,
-                evetype_name=srp_request.ship.name,
-                size=32,
-                as_html=True,
-            )
-
-        killboard_link = (
-            f"{ship_render_icon_html}"
-            f'<span style="display: inline-block; vertical-align: middle;">'
-            f'<a href="{srp_request.killboard_link}" target="_blank">'
-            f"{srp_request.ship.name}</a><br>{srp_request.loss_amount:,.2f} ISK</span>"
+        ship_render_icon_html = get_type_render_url_from_type_id(
+            evetype_id=srp_request.ship_id,
+            evetype_name=srp_request.ship.name,
+            size=32,
+            as_html=True,
         )
 
     request_status_banner_alert_level = "info"
@@ -958,12 +932,6 @@ def ajax_srp_request_additional_information(
 
     if srp_request.request_status == AaSrpRequest.Status.REJECTED:
         request_status_banner_alert_level = "danger"
-
-    request_status_banner = (
-        f'<div class="alert alert-{request_status_banner_alert_level}">'
-        f'<div class="text-center">SRP Request {srp_request.request_status}</div>'
-        "</div>"
-    )
 
     additional_info = ""
     try:
@@ -981,23 +949,24 @@ def ajax_srp_request_additional_information(
             srp_request=srp_request, comment_type=AaSrpRequestComment.Type.REJECT_REASON
         )
 
-        reject_info = reject_comment.comment.replace("\n", "<br>\n")
+        reject_info = reject_comment.comment
     except AaSrpRequestComment.DoesNotExist:
         pass
 
     data = {
-        "killboard_link": killboard_link,
+        "srp_request": srp_request,
+        "ship_render_icon_html": ship_render_icon_html,
         "ship_type": srp_request.ship.name,
-        "request_time": srp_request.post_time,
         "requester": get_main_character_from_user(srp_request.creator),
         "character": character,
         "additional_info": additional_info,
         "reject_info": reject_info,
-        "request_status_banner": request_status_banner,
-        "insurance": insurance,
+        "request_status_banner_alert_level": request_status_banner_alert_level,
+        "request_status": srp_request.request_status,
+        "insurance_information": insurance_information,
     }
 
-    return JsonResponse(data, safe=False)
+    return render(request, "aasrp/modals/view_requests/request-details.html", data)
 
 
 @login_required

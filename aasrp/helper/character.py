@@ -23,7 +23,7 @@ def get_formatted_character_name(
     inline: bool = True,
 ) -> str:
     """
-    get character name with alliance and corp ticker
+    Get character name with alliance and corp ticker
     :param character:
     :param with_portrait:
     :param with_copy_icon:
@@ -37,9 +37,9 @@ def get_formatted_character_name(
         character_name = _("Unknown Character")
 
         return (
-            f"<span class='aasrp-character-portrait-character-name'>"
+            "<span class='aasrp-character-portrait-character-name'>"
             f"{character_name}"
-            f"</span>"
+            "</span>"
         )
     else:
         character__corporation_ticker = (
@@ -49,7 +49,7 @@ def get_formatted_character_name(
             f"{character.alliance_ticker} " if character.alliance_ticker else ""
         )
         character_name_formatted = (
-            f"<small class='text-muted'>"
+            "<small class='text-muted'>"
             f"{character__alliance_ticker}{character__corporation_ticker}</small>"
             f"<br>{character_name}"
         )
@@ -57,8 +57,8 @@ def get_formatted_character_name(
         if with_copy_icon is True:
             title = _("Copy character name to clipboard")
             character_name_formatted += (
-                f"<i "
-                f'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
+                "<i "
+                'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
                 f'data-clipboard-text="{character_name}" title="{title}"></i>'
             )
 
@@ -75,9 +75,9 @@ def get_formatted_character_name(
 
             return_value = (
                 f"{character_portrait_html}{line_break}"
-                f"<span class='aasrp-character-portrait-character-name'>"
+                "<span class='aasrp-character-portrait-character-name'>"
                 f"{character_name_formatted}"
-                f"</span>"
+                "</span>"
             )
 
     return return_value
@@ -85,29 +85,39 @@ def get_formatted_character_name(
 
 def get_main_for_character(character: EveCharacter) -> EveCharacter:
     """
-    get the main character for a given eve character
+    Get the main character for a given eve character
     :param character:
     """
 
     return_value = None
 
-    if character.userprofile:
-        return_value = character.userprofile.main_character
+    try:
+        userprofile = character.character_ownership.user.profile
+    except EveCharacter.character_ownership.RelatedObjectDoesNotExist:
+        return_value = None
+    else:
+        if userprofile:
+            return_value = userprofile.main_character
 
     return return_value
 
 
 def get_user_for_character(character: EveCharacter) -> User:
     """
-    get the user for a character
+    Get the user for a character
     :param character:
     :return:
     """
 
-    if character.userprofile is None:
+    try:
+        userprofile = character.character_ownership.user.profile
+    except EveCharacter.character_ownership.RelatedObjectDoesNotExist:
         return_value = get_sentinel_user()
     else:
-        return_value = character.userprofile.user
+        if userprofile is None:
+            return_value = get_sentinel_user()
+        else:
+            return_value = userprofile.user
 
     return return_value
 
@@ -125,8 +135,9 @@ def get_main_character_from_user(user: User) -> str:
 
     try:
         user_profile = user.profile
-        user_main_character = user_profile.main_character.character_name
     except AttributeError:
         pass
+    else:
+        user_main_character = user_profile.main_character.character_name
 
     return user_main_character

@@ -31,7 +31,7 @@ def get_character_portrait_from_evecharacter(
 
     if as_html is True:
         return_value = (
-            f'<img class="aasrp-character-portrait img-rounded" '
+            '<img class="aasrp-character-portrait img-rounded" '
             f'src="{portrait_url}" alt="{character_name}">'
         )
 
@@ -60,7 +60,7 @@ def get_type_render_url_from_type_id(
             alt_tag = f' alt="{evetype_name}"'
 
         return_value = (
-            f'<img class="aasrp-evetype-icon img-rounded" '
+            '<img class="aasrp-evetype-icon img-rounded" '
             f'src="{render_url}"{alt_tag}>'
         )
 
