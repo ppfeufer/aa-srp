@@ -180,7 +180,7 @@ def get_srp_request_details_icon(
     srp_request_details_icon = (
         f'<button data-link="{button_request_details_url}" '
         'data-toggle="modal" '
-        f'data-target="#srp-request-details" '
+        'data-target="#srp-request-details" '
         f'data-modal-title="{title}" '
         f'data-modal-button-confirm="{modal_button_confirm}" '
         'class="btn btn-primary btn-sm btn-icon-aasrp" '
