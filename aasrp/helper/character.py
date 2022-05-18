@@ -23,7 +23,7 @@ def get_formatted_character_name(
     inline: bool = True,
 ) -> str:
     """
-    get character name with alliance and corp ticker
+    Get character name with alliance and corp ticker
     :param character:
     :param with_portrait:
     :param with_copy_icon:
@@ -85,29 +85,39 @@ def get_formatted_character_name(
 
 def get_main_for_character(character: EveCharacter) -> EveCharacter:
     """
-    get the main character for a given eve character
+    Get the main character for a given eve character
     :param character:
     """
 
     return_value = None
 
-    if character.userprofile:
-        return_value = character.userprofile.main_character
+    try:
+        userprofile = character.userprofile
+    except character.userprofile.DoesNotExist:
+        return_value = None
+    else:
+        if userprofile:
+            return_value = userprofile.main_character
 
     return return_value
 
 
 def get_user_for_character(character: EveCharacter) -> User:
     """
-    get the user for a character
+    Get the user for a character
     :param character:
     :return:
     """
 
-    if character.userprofile is None:
+    try:
+        userprofile = character.userprofile
+    except character.userprofile.DoesNotExist:
         return_value = get_sentinel_user()
     else:
-        return_value = character.userprofile.user
+        if userprofile is None:
+            return_value = get_sentinel_user()
+        else:
+            return_value = character.userprofile.user
 
     return return_value
 
@@ -125,8 +135,9 @@ def get_main_character_from_user(user: User) -> str:
 
     try:
         user_profile = user.profile
-        user_main_character = user_profile.main_character.character_name
     except AttributeError:
         pass
+    else:
+        user_main_character = user_profile.main_character.character_name
 
     return user_main_character
