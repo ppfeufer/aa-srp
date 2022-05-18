@@ -248,7 +248,7 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
         if srp_request.killboard_link:
             try:
                 ship_render_icon_html = get_type_render_url_from_type_id(
-                    evetype_id=srp_request.ship.id,
+                    evetype_id=srp_request.ship_id,
                     evetype_name=srp_request.ship.name,
                     size=32,
                     as_html=True,
@@ -261,7 +261,7 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
                 )
 
                 ship_render_icon_html = get_type_render_url_from_type_id(
-                    evetype_id=srp_request.ship.id,
+                    evetype_id=srp_request.ship_id,
                     evetype_name=srp_request.ship.name,
                     size=32,
                     as_html=True,
@@ -273,7 +273,7 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
                 f'<a href="{zkb_link}" target="_blank">'
                 f"{ship_render_icon_html}"
                 f"<span>{zkb_link_text}</span>"
-                f"</a>"
+                "</a>"
             )
 
         srp_request_status_icon = get_srp_request_status_icon(
@@ -482,7 +482,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 logger.debug(
                     f"User {request_user} submitted an invalid killmail link "
                     f"({submitted_killmail_link}) or zKillboard server could "
-                    f"not be reached"
+                    "not be reached"
                 )
 
                 messages.error(
@@ -600,8 +600,8 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 request,
                 _(
                     f"Character {victim_id} does not belong to your Auth "
-                    f"account. Please add this character as an alt to "
-                    f"your main and try again."
+                    "account. Please add this character as an alt to "
+                    "your main and try again."
                 ),
             )
 
@@ -717,7 +717,7 @@ def ajax_srp_link_view_requests_data(
         if srp_request.killboard_link:
             try:
                 ship_render_icon_html = get_type_render_url_from_type_id(
-                    evetype_id=srp_request.ship.id,
+                    evetype_id=srp_request.ship_id,
                     evetype_name=srp_request.ship.name,
                     size=32,
                     as_html=True,
@@ -730,7 +730,7 @@ def ajax_srp_link_view_requests_data(
                 )
 
                 ship_render_icon_html = get_type_render_url_from_type_id(
-                    evetype_id=srp_request.ship.id,
+                    evetype_id=srp_request.ship_id,
                     evetype_name=srp_request.ship.name,
                     size=32,
                     as_html=True,
@@ -909,7 +909,7 @@ def ajax_srp_request_additional_information(
 
     try:
         ship_render_icon_html = get_type_render_url_from_type_id(
-            evetype_id=srp_request.ship.id,
+            evetype_id=srp_request.ship_id,
             evetype_name=srp_request.ship.name,
             size=32,
             as_html=True,
@@ -920,7 +920,7 @@ def ajax_srp_request_additional_information(
         srp_request = _attempt_to_re_add_ship_information_to_request(srp_request)
 
         ship_render_icon_html = get_type_render_url_from_type_id(
-            evetype_id=srp_request.ship.id,
+            evetype_id=srp_request.ship_id,
             evetype_name=srp_request.ship.name,
             size=32,
             as_html=True,

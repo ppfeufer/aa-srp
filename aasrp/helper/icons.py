@@ -32,7 +32,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str
         btn_title = _("Request SRP")
         actions += (
             f'<a href="{button_request_url}" '
-            f'class="btn btn-success btn-sm btn-icon-aasrp" '
+            'class="btn btn-success btn-sm btn-icon-aasrp" '
             f'title="{btn_title}">{btn_icon}</a>'
         )
 
@@ -44,7 +44,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str
         btn_title = _("View SRP Requests")
         actions += (
             f'<a href="{button_view_url}" '
-            f'class="btn btn-primary btn-sm btn-icon-aasrp" '
+            'class="btn btn-primary btn-sm btn-icon-aasrp" '
             f'title="{btn_title}">{btn_icon}</a><br>'
         )
 
@@ -58,7 +58,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str
                     btn_title = _("Add/Edit AAR Link")
                     actions += (
                         f'<a href="{button_edit_url}" '
-                        f'class="btn btn-info btn-sm btn-icon-aasrp" '
+                        'class="btn btn-info btn-sm btn-icon-aasrp" '
                         f'title="{btn_title}">{btn_icon}</a>'
                     )
 
@@ -71,9 +71,9 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str
                     data_name = srp_link.srp_name + " (" + srp_link.srp_code + ")"
 
                     actions += (
-                        f'<a class="btn btn-warning btn-sm btn-icon-aasrp" '
+                        '<a class="btn btn-warning btn-sm btn-icon-aasrp" '
                         f'title="{btn_title}" '
-                        f'data-toggle="modal" '
+                        'data-toggle="modal" '
                         f'data-target="#{modal_id}" '
                         f'data-url="{button_disable_url}" '
                         f'data-name="{data_name}">{btn_icon}</a>'
@@ -89,9 +89,9 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str
                     data_name = srp_link.srp_name + " (" + srp_link.srp_code + ")"
 
                     actions += (
-                        f'<a class="btn btn-success btn-sm btn-icon-aasrp" '
+                        '<a class="btn btn-success btn-sm btn-icon-aasrp" '
                         f'title="{btn_title}" '
-                        f'data-toggle="modal" '
+                        'data-toggle="modal" '
                         f'data-target="#{modal_id}" '
                         f'data-url="{button_enable_url}" '
                         f'data-name="{data_name}">{btn_icon}</a>'
@@ -106,9 +106,9 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str
                 data_name = srp_link.srp_name + " (" + srp_link.srp_code + ")"
 
                 actions += (
-                    f'<a class="btn btn-danger btn-sm btn-icon-aasrp" '
+                    '<a class="btn btn-danger btn-sm btn-icon-aasrp" '
                     f'title="{btn_title}" '
-                    f'data-toggle="modal" '
+                    'data-toggle="modal" '
                     f'data-target="#{modal_id}" '
                     f'data-url="{button_remove_url}" '
                     f'data-name="{data_name}">{btn_icon}</a>'
@@ -129,10 +129,10 @@ def get_srp_request_status_icon(request: WSGIRequest, srp_request: AaSrpRequest)
 
     request_status_icon_title = _("SRP Request Pending")
     srp_request_status_icon = (
-        f'<button class="btn btn-info btn-sm btn-icon-aasrp btn-icon-aasrp-status" '
+        '<button class="btn btn-info btn-sm btn-icon-aasrp btn-icon-aasrp-status" '
         f'title="{request_status_icon_title}">'
-        f'<i class="fas fa-clock"></i>'
-        f"</button>"
+        '<i class="fas fa-clock"></i>'
+        "</button>"
     )
     if srp_request.request_status == AaSrpRequest.Status.APPROVED:
         btn_classes = "btn btn-success btn-sm btn-icon-aasrp btn-icon-aasrp-status"
@@ -140,8 +140,8 @@ def get_srp_request_status_icon(request: WSGIRequest, srp_request: AaSrpRequest)
         srp_request_status_icon = (
             f'<button class="{btn_classes}" '
             f'title="{request_status_icon_title}">'
-            f'<i class="fas fa-thumbs-up"></i>'
-            f"</button>"
+            '<i class="fas fa-thumbs-up"></i>'
+            "</button>"
         )
 
     if srp_request.request_status == AaSrpRequest.Status.REJECTED:
@@ -150,8 +150,8 @@ def get_srp_request_status_icon(request: WSGIRequest, srp_request: AaSrpRequest)
         srp_request_status_icon = (
             f'<button class="{btn_classes}" '
             f'title="{request_status_icon_title}">'
-            f'<i class="fas fa-thumbs-down"></i>'
-            f"</button>"
+            '<i class="fas fa-thumbs-down"></i>'
+            "</button>"
         )
 
     return srp_request_status_icon
@@ -179,11 +179,11 @@ def get_srp_request_details_icon(
 
     srp_request_details_icon = (
         f'<button data-link="{button_request_details_url}" '
-        f'data-toggle="modal" '
+        'data-toggle="modal" '
         f'data-target="#srp-request-details" '
         f'data-modal-title="{title}" '
         f'data-modal-button-confirm="{modal_button_confirm}" '
-        f'class="btn btn-primary btn-sm btn-icon-aasrp" '
+        'class="btn btn-primary btn-sm btn-icon-aasrp" '
         f'title="{title}"><i class="fas fa-info-circle"></i></button>'
     )
 
@@ -222,14 +222,14 @@ def get_srp_request_accept_icon(
 
     srp_request_accept_icon = (
         f'<button data-link="{button_request_accept_url}" '
-        f'data-toggle="modal" '
-        f'data-target="#srp-request-accept" '
+        'data-toggle="modal" '
+        'data-target="#srp-request-accept" '
         f'data-modal-title="{title}" '
         f'data-modal-body="{modal_body}" '
         f'data-modal-button-cancel="{modal_button_cancel}" '
         f'data-modal-button-confirm="{modal_button_confirm}" '
         f'data-modal-button-confirm-classes="{modal_button_confirm_classes}" '
-        f'class="btn btn-success btn-sm btn-icon-aasrp" '
+        'class="btn btn-success btn-sm btn-icon-aasrp" '
         f'title="{title}"{button_request_accept_state}>{icon}</button>'
     )
 
@@ -268,14 +268,14 @@ def get_srp_request_reject_icon(
 
     srp_request_reject_icon = (
         f'<button data-link="{button_request_reject_url}" '
-        f'data-toggle="modal" '
-        f'data-target="#srp-request-reject" '
+        'data-toggle="modal" '
+        'data-target="#srp-request-reject" '
         f'data-modal-title="{title}" '
         f'data-modal-body="{modal_body}" '
         f'data-modal-button-cancel="{modal_button_cancel}" '
         f'data-modal-button-confirm="{modal_button_confirm}" '
         f'data-modal-button-confirm-classes="{modal_button_confirm_classes}" '
-        f'class="btn btn-warning btn-sm btn-icon-aasrp" '
+        'class="btn btn-warning btn-sm btn-icon-aasrp" '
         f'title="{title}"{button_request_reject_state}>{icon}</button>'
     )
 
@@ -310,14 +310,14 @@ def get_srp_request_delete_icon(
 
     srp_request_delete_icon = (
         f'<button data-link="{button_request_delete_url}" '
-        f'data-toggle="modal" '
-        f'data-target="#srp-request-remove" '
+        'data-toggle="modal" '
+        'data-target="#srp-request-remove" '
         f'data-modal-title="{title}" '
         f'data-modal-body="{modal_body}" '
         f'data-modal-button-cancel="{modal_button_cancel}" '
         f'data-modal-button-confirm="{modal_button_confirm}" '
         f'data-modal-button-confirm-classes="{modal_button_confirm_classes}" '
-        f'class="btn btn-danger btn-sm btn-icon-aasrp" '
+        'class="btn btn-danger btn-sm btn-icon-aasrp" '
         f'title="{title}">{icon}</button>'
     )
 

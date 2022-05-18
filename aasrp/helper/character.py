@@ -37,9 +37,9 @@ def get_formatted_character_name(
         character_name = _("Unknown Character")
 
         return (
-            f"<span class='aasrp-character-portrait-character-name'>"
+            "<span class='aasrp-character-portrait-character-name'>"
             f"{character_name}"
-            f"</span>"
+            "</span>"
         )
     else:
         character__corporation_ticker = (
@@ -49,7 +49,7 @@ def get_formatted_character_name(
             f"{character.alliance_ticker} " if character.alliance_ticker else ""
         )
         character_name_formatted = (
-            f"<small class='text-muted'>"
+            "<small class='text-muted'>"
             f"{character__alliance_ticker}{character__corporation_ticker}</small>"
             f"<br>{character_name}"
         )
@@ -57,8 +57,8 @@ def get_formatted_character_name(
         if with_copy_icon is True:
             title = _("Copy character name to clipboard")
             character_name_formatted += (
-                f"<i "
-                f'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
+                "<i "
+                'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
                 f'data-clipboard-text="{character_name}" title="{title}"></i>'
             )
 
@@ -75,9 +75,9 @@ def get_formatted_character_name(
 
             return_value = (
                 f"{character_portrait_html}{line_break}"
-                f"<span class='aasrp-character-portrait-character-name'>"
+                "<span class='aasrp-character-portrait-character-name'>"
                 f"{character_name_formatted}"
-                f"</span>"
+                "</span>"
             )
 
     return return_value
