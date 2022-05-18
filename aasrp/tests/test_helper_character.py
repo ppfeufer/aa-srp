@@ -94,7 +94,7 @@ class TestHelperCharacter(TestCase):
             self.user_main_character.profile.main_character.character_name,
         )
 
-    def test_get_user_for_character_returns_sentine_user(self):
+    def test_get_user_for_character_returns_sentinel_user(self):
         """
         Test if we get the sentinel user
         :return:
