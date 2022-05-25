@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Changed
+
+- Logic for Discord PMs changed/optimized. We now check if the user has a
+  Discord account registered with Alliance Auth first, so we don't have to do all
+  the other checks if the user doesn't
+
 
 ## [1.13.2] - 2022-05-18
 
