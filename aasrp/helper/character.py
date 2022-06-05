@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
+from allianceauth.authentication.models import CharacterOwnership
 from allianceauth.eveonline.models import EveCharacter
 
 # AA SRP
@@ -111,13 +112,13 @@ def get_user_for_character(character: EveCharacter) -> User:
 
     try:
         userprofile = character.character_ownership.user.profile
-    except EveCharacter.character_ownership.RelatedObjectDoesNotExist:
+    except (
+        EveCharacter.character_ownership.RelatedObjectDoesNotExist,
+        CharacterOwnership.user.RelatedObjectDoesNotExist,
+    ):
         return_value = get_sentinel_user()
     else:
-        if userprofile is None:
-            return_value = get_sentinel_user()
-        else:
-            return_value = userprofile.user
+        return_value = userprofile.user
 
     return return_value
 

@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 - AttributError exception in `get_main_character_from_user` when the user doesn't
   have a main character anymore
+- Possible RelatedObjectDoesNotExist error in `get_user_for_character`
 
 ### Changed
 
