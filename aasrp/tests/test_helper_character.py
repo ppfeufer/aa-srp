@@ -20,10 +20,12 @@ from app_utils.testing import (
 
 # AA SRP
 from aasrp.helper.character import (
+    get_formatted_character_name,
     get_main_character_from_user,
     get_main_for_character,
     get_user_for_character,
 )
+from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
 from aasrp.models import get_sentinel_user
 
 
@@ -41,6 +43,137 @@ class TestSentinelUser(TestCase):
         sentinel_user = get_sentinel_user()
 
         self.assertEqual(sentinel_user.username, "deleted")
+
+
+class TestGetFormattedCharacterName(TestCase):
+    """
+    Tests for get_formatted_character_name
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        """
+        Set up groups and users
+        """
+
+        super().setUpClass()
+        cls.group = Group.objects.create(name="Enterprise Crew")
+
+        cls.user_main_character = create_fake_user(
+            character_id=1001, character_name="William T. Riker"
+        )
+
+        cls.alt_character = create_eve_character(
+            character_id=1002, character_name="Thomas Riker"
+        )
+
+        add_character_to_user(cls.user_main_character, cls.alt_character)
+
+        cls.character_without_profile = create_eve_character(
+            character_id=1003, character_name="Christopher Pike"
+        )
+
+    def test_should_return_formatted_character_name(self):
+        """
+        Test should return formatted character name
+        :return:
+        """
+
+        html = get_formatted_character_name(character=self.alt_character)
+        expected_html = (
+            "<small class='text-muted'>"
+            f"{self.alt_character.alliance_ticker} "
+            f"[{self.alt_character.corporation_ticker}] "
+            f"</small><br>{self.alt_character.character_name}"
+        )
+
+        self.assertEqual(html, expected_html)
+
+    def test_should_return_formatted_character_name_with_copy_icon(self):
+        """
+        Test should return formatted character name with copy icon
+        :return:
+        """
+
+        html = get_formatted_character_name(
+            character=self.alt_character, with_copy_icon=True
+        )
+
+        copy_icon = (
+            f"<i "
+            f'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
+            f'data-clipboard-text="{self.alt_character.character_name}" '
+            f'title="Copy character name to clipboard"></i>'
+        )
+
+        expected_html = (
+            "<small class='text-muted'>"
+            f"{self.alt_character.alliance_ticker} "
+            f"[{self.alt_character.corporation_ticker}] "
+            f"</small><br>{self.alt_character.character_name}{copy_icon}"
+        )
+
+        self.assertEqual(html, expected_html)
+
+    def test_should_return_formatted_character_name_with_portrait(self):
+        """
+        Test should return formatted character name with portrait
+        :return:
+        """
+
+        html = get_formatted_character_name(
+            character=self.alt_character, with_portrait=True, inline=False
+        )
+
+        formatted_character_name = (
+            "<small class='text-muted'>"
+            f"{self.alt_character.alliance_ticker} "
+            f"[{self.alt_character.corporation_ticker}] "
+            f"</small><br>{self.alt_character.character_name}"
+        )
+
+        character_portrait_html = get_character_portrait_from_evecharacter(
+            character=self.alt_character, size=32, as_html=True
+        )
+
+        expected_html = (
+            f"{character_portrait_html}<br>"
+            "<span class='aasrp-character-portrait-character-name'>"
+            f"{formatted_character_name}"
+            "</span>"
+        )
+
+        self.assertEqual(html, expected_html)
+
+    def test_should_return_formatted_character_name_with_portrait_inline(self):
+        """
+        Test should return formatted character name with portrait (inline)
+        :return:
+        """
+
+        html = get_formatted_character_name(
+            character=self.alt_character, with_portrait=True
+        )
+
+        formatted_character_name = (
+            "<small class='text-muted'>"
+            f"{self.alt_character.alliance_ticker} "
+            f"[{self.alt_character.corporation_ticker}] "
+            f"</small><br>{self.alt_character.character_name}"
+        )
+
+        character_portrait_html = get_character_portrait_from_evecharacter(
+            character=self.alt_character, size=32, as_html=True
+        )
+
+        expected_html = (
+            f"{character_portrait_html}"
+            "<span class='aasrp-character-portrait-character-name'>"
+            f"{formatted_character_name}"
+            "</span>"
+        )
+
+        self.assertEqual(html, expected_html)
 
 
 class TestGetMainForCharacter(TestCase):
