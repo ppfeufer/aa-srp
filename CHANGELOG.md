@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+
+## [1.13.3] - 2022-06-05
+
 ### Fixed
 
 - AttributError exception in `get_main_character_from_user` when the user doesn't
