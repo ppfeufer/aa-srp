@@ -90,15 +90,15 @@ def get_main_for_character(character: EveCharacter) -> EveCharacter:
     :param character:
     """
 
-    return_value = None
-
     try:
         userprofile = character.character_ownership.user.profile
-    except EveCharacter.character_ownership.RelatedObjectDoesNotExist:
+    except (
+        EveCharacter.character_ownership.RelatedObjectDoesNotExist,
+        CharacterOwnership.user.RelatedObjectDoesNotExist,
+    ):
         return_value = None
     else:
-        if userprofile:
-            return_value = userprofile.main_character
+        return_value = userprofile.main_character
 
     return return_value
 

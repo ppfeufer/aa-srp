@@ -65,7 +65,12 @@ class TestGetMainForCharacter(TestCase):
             character_id=1002, character_name="Thomas Riker"
         )
 
+        cls.alt_character_2 = create_eve_character(
+            character_id=1004, character_name="Jean Luc Riker"
+        )
+
         add_character_to_user(cls.user_main_character, cls.alt_character)
+        add_character_to_user(cls.user_main_character, cls.alt_character_2)
 
         cls.character_without_profile = create_eve_character(
             character_id=1003, character_name="Christopher Pike"
@@ -92,6 +97,20 @@ class TestGetMainForCharacter(TestCase):
         get_main_for_character(self.character_without_profile)
 
         self.assertRaises(EveCharacter.userprofile.RelatedObjectDoesNotExist)
+
+    def test_get_main_for_character_raises_exception_related_object_does_not_exist_2(
+        self,
+    ):
+        """
+        Test if we get `CharacterOwnership.user.RelatedObjectDoesNotExist` as exception
+        :return:
+        """
+
+        self.alt_character_2.character_ownership.user = None
+
+        get_main_for_character(self.alt_character_2)
+
+        self.assertRaises(CharacterOwnership.user.RelatedObjectDoesNotExist)
 
     def test_get_main_for_character_returns_main_character(self):
         """
