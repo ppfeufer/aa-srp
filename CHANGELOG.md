@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ## [In Development] - Unreleased
 
 
+## [1.13.3] - 2022-06-05
+
+### Fixed
+
+- AttributError exception in `get_main_character_from_user` when the user doesn't
+  have a main character anymore
+- Possible RelatedObjectDoesNotExist error in `get_main_for_character`
+- Possible RelatedObjectDoesNotExist error in `get_user_for_character`
+
+### Changed
+
+- Logic for Discord PMs changed/optimized. We now check if the user has a
+  Discord account registered with Alliance Auth first, so we don't have to do all
+  the other checks if the user doesn't
+
+
 ## [1.13.2] - 2022-05-18
 
 ### Fixed

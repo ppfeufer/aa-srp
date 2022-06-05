@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
+from allianceauth.authentication.models import CharacterOwnership
 from allianceauth.eveonline.models import EveCharacter
 
 # AA SRP
@@ -89,15 +90,15 @@ def get_main_for_character(character: EveCharacter) -> EveCharacter:
     :param character:
     """
 
-    return_value = None
-
     try:
         userprofile = character.character_ownership.user.profile
-    except EveCharacter.character_ownership.RelatedObjectDoesNotExist:
+    except (
+        EveCharacter.character_ownership.RelatedObjectDoesNotExist,
+        CharacterOwnership.user.RelatedObjectDoesNotExist,
+    ):
         return_value = None
     else:
-        if userprofile:
-            return_value = userprofile.main_character
+        return_value = userprofile.main_character
 
     return return_value
 
@@ -111,13 +112,13 @@ def get_user_for_character(character: EveCharacter) -> User:
 
     try:
         userprofile = character.character_ownership.user.profile
-    except EveCharacter.character_ownership.RelatedObjectDoesNotExist:
+    except (
+        EveCharacter.character_ownership.RelatedObjectDoesNotExist,
+        CharacterOwnership.user.RelatedObjectDoesNotExist,
+    ):
         return_value = get_sentinel_user()
     else:
-        if userprofile is None:
-            return_value = get_sentinel_user()
-        else:
-            return_value = userprofile.user
+        return_value = userprofile.user
 
     return return_value
 
@@ -131,13 +132,14 @@ def get_main_character_from_user(user: User) -> str:
     :rtype:
     """
 
-    user_main_character = user.username
+    if user is None:
+        sentinel_user = get_sentinel_user()
+
+        return sentinel_user.username
 
     try:
-        user_profile = user.profile
+        return_value = user.profile.main_character.character_name
     except AttributeError:
-        pass
-    else:
-        user_main_character = user_profile.main_character.character_name
+        return str(user)
 
-    return user_main_character
+    return return_value
