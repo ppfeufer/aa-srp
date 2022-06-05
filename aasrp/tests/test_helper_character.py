@@ -125,11 +125,8 @@ class TestGetFormattedCharacterName(TestCase):
             character=self.alt_character, with_portrait=True, inline=False
         )
 
-        formatted_character_name = (
-            "<small class='text-muted'>"
-            f"{self.alt_character.alliance_ticker} "
-            f"[{self.alt_character.corporation_ticker}] "
-            f"</small><br>{self.alt_character.character_name}"
+        formatted_character_name = get_formatted_character_name(
+            character=self.alt_character
         )
 
         character_portrait_html = get_character_portrait_from_evecharacter(
@@ -155,11 +152,8 @@ class TestGetFormattedCharacterName(TestCase):
             character=self.alt_character, with_portrait=True
         )
 
-        formatted_character_name = (
-            "<small class='text-muted'>"
-            f"{self.alt_character.alliance_ticker} "
-            f"[{self.alt_character.corporation_ticker}] "
-            f"</small><br>{self.alt_character.character_name}"
+        formatted_character_name = get_formatted_character_name(
+            character=self.alt_character
         )
 
         character_portrait_html = get_character_portrait_from_evecharacter(
