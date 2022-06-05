@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Fixed
+
+- AttributError exception in `get_main_character_from_user` when the user doesn't
+  have a main character anymore
+
 ### Changed
 
 - Logic for Discord PMs changed/optimized. We now check if the user has a
