@@ -45,7 +45,7 @@ class TestSentinelUser(TestCase):
 
 class TestGetMainForCharacter(TestCase):
     """
-    Testing get_main_for_character
+    Testing for get_main_for_character
     """
 
     @classmethod
@@ -128,7 +128,7 @@ class TestGetMainForCharacter(TestCase):
 
 class TestGetUserForCharacter(TestCase):
     """
-    Test get_user_for_character
+    Tests for get_user_for_character
     """
 
     @classmethod
@@ -209,7 +209,7 @@ class TestGetUserForCharacter(TestCase):
 
 class TestGetMainCharacterFromUser(TestCase):
     """
-    Test get_main_character_from_user
+    Tests for get_main_character_from_user
     """
 
     @classmethod
@@ -241,7 +241,7 @@ class TestGetMainCharacterFromUser(TestCase):
 
     def test_get_main_character_from_user_should_return_user_name(self):
         """
-        Test should return just the user name for a user without a character
+        Test should return just the username for a user without a character
         :return:
         """
 
@@ -265,7 +265,7 @@ class TestGetMainCharacterFromUser(TestCase):
 
     def test_get_main_character_from_user_should_return_sentinel_user_for_none(self):
         """
-        Test shouod return "deleted" (Sentinel User) if user is None
+        Test should return "deleted" (Sentinel User) if user is None
         :return:
         """
 
