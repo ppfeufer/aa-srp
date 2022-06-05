@@ -131,13 +131,14 @@ def get_main_character_from_user(user: User) -> str:
     :rtype:
     """
 
-    user_main_character = user.username
+    if user is None:
+        sentinel_user = get_sentinel_user()
+
+        return sentinel_user.username
 
     try:
-        user_profile = user.profile
+        return_value = user.profile.main_character.character_name
     except AttributeError:
-        pass
-    else:
-        user_main_character = user_profile.main_character.character_name
+        return str(user)
 
-    return user_main_character
+    return return_value

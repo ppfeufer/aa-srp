@@ -8,6 +8,7 @@ from django.test import TestCase
 
 # Alliance Auth
 from allianceauth.eveonline.models import EveCharacter
+from allianceauth.tests.auth_utils import AuthUtils
 
 # Alliance Auth (External Libs)
 from app_utils.testing import (
@@ -17,7 +18,11 @@ from app_utils.testing import (
 )
 
 # AA SRP
-from aasrp.helper.character import get_main_for_character, get_user_for_character
+from aasrp.helper.character import (
+    get_main_character_from_user,
+    get_main_for_character,
+    get_user_for_character,
+)
 from aasrp.models import get_sentinel_user
 
 
@@ -128,3 +133,49 @@ class TestHelperCharacter(TestCase):
         returned_user = get_user_for_character(self.alt_character)
 
         self.assertEqual(returned_user, self.user_main_character.profile.user)
+
+    def test_get_main_character_from_user_should_return_character_name(self):
+        """
+        Test should return the main character name for a regular user
+        :return:
+        """
+
+        character_name = get_main_character_from_user(self.user_main_character)
+
+        self.assertEqual(character_name, "William T. Riker")
+
+    def test_get_main_character_from_user_should_return_user_name(self):
+        """
+        Test should return just the user name for a user without a character
+        :return:
+        """
+
+        user = AuthUtils.create_user("John Doe")
+
+        character_name = get_main_character_from_user(user)
+
+        self.assertEqual(character_name, "John Doe")
+
+    def test_get_main_character_from_user_should_return_sentinel_user(self):
+        """
+        Test should return "deleted" as username (Sentinel User)
+        :return:
+        """
+
+        user = get_sentinel_user()
+
+        character_name = get_main_character_from_user(user)
+
+        self.assertEqual(character_name, "deleted")
+
+    def test_get_main_character_from_user_should_return_sentinel_user_for_none(self):
+        """
+        Test shouod return "deleted" (Sentinel User) if user is None
+        :return:
+        """
+
+        user = None
+
+        character_name = get_main_character_from_user(user)
+
+        self.assertEqual(character_name, "deleted")
