@@ -178,7 +178,7 @@ def send_message_to_discord_channel(
     except ModuleNotFoundError:
         # discordproxy not available, try if allianceauth-discordbot is available
         logger.debug(
-            "discordproxy not available to send the channel, "
+            "discordproxy not available to send the channel message, "
             "let's see if we can use allianceauth-discordbot"
         )
 
