@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ## [In Development] - Unreleased
 
 
+## [1.13.4] - 2022-06-14
+
+### Fixed
+
+- Notifications to Discord when using `allianceauth-discordbot`
+
+
 ## [1.13.3] - 2022-06-05
 
 ### Fixed
