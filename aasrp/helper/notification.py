@@ -4,6 +4,9 @@ Notifications helper
 
 # pylint: disable=import-outside-toplevel
 
+# Standard Library
+from datetime import datetime
+
 # Django
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -23,11 +26,16 @@ from aasrp.constants import DISCORD_EMBED_COLOR_MAP
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
-def _aadiscordbot_send_private_message(user_id: int, message: str) -> None:
+def _aadiscordbot_send_private_message(
+    user_id: int, level: str, title: str, message: str, embed_message: bool = True
+) -> None:
     """
     Try to send a PM to a user on Discord via allianceauth-discordbot
     :param user_id:
+    :param level:
+    :param title:
     :param message:
+    :param embed_message:
     :return:
     """
 
@@ -37,17 +45,30 @@ def _aadiscordbot_send_private_message(user_id: int, message: str) -> None:
         )
 
         # Third Party
-        import aadiscordbot.tasks
+        from aadiscordbot.tasks import send_message
+        from discord import Embed
 
-        aadiscordbot.tasks.send_direct_message_by_user_id.delay(user_id, message)
+        embed = Embed(
+            title=str(title),
+            description=message,
+            color=DISCORD_EMBED_COLOR_MAP.get(level, None),
+            timestamp=datetime.now(),
+        )
+
+        if embed_message is True:
+            send_message(user_id=user_id, embed=embed)
+        else:
+            send_message(user_id=user_id, message=f"**{title}**\n\n{message}")
 
 
 def _aadiscordbot_send_channel_message(
-    channel_id: int, message: str, embed_message: bool = True
+    channel_id: int, level: str, title: str, message: str, embed_message: bool = True
 ) -> None:
     """
     Try to send a message to a channel on Discord via allianceauth-discordbot
     :param channel_id:
+    :param level:
+    :param title:
     :param message:
     :param embed_message:
     :return:
@@ -59,11 +80,20 @@ def _aadiscordbot_send_channel_message(
         )
 
         # Third Party
-        import aadiscordbot.tasks
+        from aadiscordbot.tasks import send_message
+        from discord import Embed
 
-        aadiscordbot.tasks.send_channel_message_by_discord_id.delay(
-            channel_id, message, embed_message
+        embed = Embed(
+            title=str(title),
+            description=message,
+            color=DISCORD_EMBED_COLOR_MAP.get(level, None),
+            timestamp=datetime.now(),
         )
+
+        if embed_message is True:
+            send_message(channel_id=channel_id, embed=embed)
+        else:
+            send_message(channel_id=channel_id, message=f"**{title}**\n\n{message}")
 
 
 def send_user_notification(user: User, level: str, title: str, message: str) -> None:
@@ -105,7 +135,13 @@ def send_user_notification(user: User, level: str, title: str, message: str) -> 
                     "let's see if we can use allianceauth-discordbot"
                 )
 
-                _aadiscordbot_send_private_message(user.pk, f"**{title}**\n\n{message}")
+                _aadiscordbot_send_private_message(
+                    user_id=user.discord.uid,
+                    level=level,
+                    title=title,
+                    message=message,
+                    embed_message=True,
+                )
             else:
                 # discordproxy is available, use it
                 logger.debug("discordproxy seems to be available ...")
@@ -140,7 +176,11 @@ def send_user_notification(user: User, level: str, title: str, message: str) -> 
                     )
 
                     _aadiscordbot_send_private_message(
-                        user.pk, f"**{title}**\n\n{message}"
+                        user_id=user.discord.uid,
+                        level=level,
+                        title=title,
+                        message=message,
+                        embed_message=True,
                     )
         else:
             logger.debug(
@@ -183,7 +223,11 @@ def send_message_to_discord_channel(
         )
 
         _aadiscordbot_send_channel_message(
-            channel_id, f"**{title}**\n\n{message}", embed_message
+            channel_id=channel_id,
+            level="info",
+            title=title,
+            message=message,
+            embed_message=True,
         )
     else:
         # discordproxy is available, use it
@@ -225,5 +269,9 @@ def send_message_to_discord_channel(
             )
 
             _aadiscordbot_send_channel_message(
-                channel_id, f"**{title}**\n\n{message}", embed_message
+                channel_id=channel_id,
+                level="info",
+                title=title,
+                message=message,
+                embed_message=True,
             )
