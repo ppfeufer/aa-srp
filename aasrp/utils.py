@@ -1,5 +1,5 @@
 """
-utilities
+Utilities
 """
 
 # Django
@@ -27,14 +27,15 @@ def clean_setting(
     max_value: int = None,
     required_type: type = None,
 ):
-    """cleans the input for a custom setting
+    """
+    Cleans the input for a custom setting
 
     Will use `default_value` if settings does not exit or has the wrong type
     or is outside define boundaries (for int only)
 
     Need to define `required_type` if `default_value` is `None`
 
-    Will assume `min_value` of 0 for int (can be overriden)
+    Will assume `min_value` of 0 for int (can be overridden)
 
     Returns cleaned value for setting
     """

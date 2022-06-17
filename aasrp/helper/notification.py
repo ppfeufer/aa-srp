@@ -115,7 +115,7 @@ def send_user_notification(user: User, level: str, title: str, message: str) -> 
     if hasattr(user, "discord"):  # Check if the user has a Discord account
         logger.debug("User has a Discord account")
 
-        if not aa_discordnotify_active():  # Check if disordnotify is active
+        if not aa_discordnotify_active():  # Check if discordnotify is active
             try:
                 # Try to import discordproxy libraries
                 logger.debug(

@@ -152,7 +152,7 @@ class AaSrpRequestForm(ModelForm):
                 _("Invalid link. Please post a link to a kill mail.")
             )
 
-        # Check if there is already a SRP request for this kill mail
+        # Check if there is already an SRP request for this kill mail
         killmail_id = AaSrpManager.get_kill_id(killboard_link=killboard_link)
 
         if AaSrpRequest.objects.filter(

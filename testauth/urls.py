@@ -1,3 +1,7 @@
+"""
+URL config
+"""
+
 # Django
 from django.urls import include, re_path
 

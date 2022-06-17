@@ -1,5 +1,5 @@
 """
-our app setting
+App settings
 """
 
 # Django
@@ -19,7 +19,7 @@ AASRP_SRP_TEAM_DISCORD_CHANNEL = clean_setting(
 
 def avoid_cdn() -> bool:
     """
-    check if we should aviod CDN usage
+    Check if we should aviod CDN usage
     :return: bool
     """
 
@@ -28,7 +28,7 @@ def avoid_cdn() -> bool:
 
 def allianceauth_discordbot_active():
     """
-    check if allianceauth-dicordbot is installed and active
+    Check if allianceauth-dicordbot is installed and active
     :return:
     """
 
@@ -37,7 +37,7 @@ def allianceauth_discordbot_active():
 
 def aa_discordnotify_active():
     """
-    check if allianceauth-dicordbot is installed and active
+    Check if allianceauth-dicordbot is installed and active
     :return:
     """
 

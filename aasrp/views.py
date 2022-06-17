@@ -1,5 +1,5 @@
 """
-the views
+The views
 """
 
 # Django
@@ -75,16 +75,10 @@ def _attempt_to_re_add_ship_information_to_request(
 
     srp_kill_link = AaSrpManager.get_kill_id(srp_request.killboard_link)
 
-    (
-        ship_type_id,
-        ship_value,
-        victim_id,
-    ) = AaSrpManager.get_kill_data(srp_kill_link)
-
-    (
-        srp_request__ship,
-        created_from_esi,
-    ) = EveType.objects.get_or_create_esi(id=ship_type_id)
+    (ship_type_id, ship_value, victim_id) = AaSrpManager.get_kill_data(srp_kill_link)
+    (srp_request__ship, created_from_esi) = EveType.objects.get_or_create_esi(
+        id=ship_type_id
+    )
 
     srp_request.ship_name = srp_request__ship.name
     srp_request.ship = srp_request__ship
@@ -97,13 +91,13 @@ def _attempt_to_re_add_ship_information_to_request(
 @permission_required("aasrp.basic_access")
 def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpResponse:
     """
-    srp dasboard
+    SRP dashboard
     :param request:
     :param show_all_links:
     :return:
     """
 
-    # check if the current user has any settings. if not, create the default set
+    # Check if the current user has any settings. if not, create the default set
     try:
         user_settings = AaSrpUserSettings.objects.get(user=request.user)
     except AaSrpUserSettings.DoesNotExist:
@@ -111,13 +105,12 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
         user_settings = AaSrpUserSettings(user=request.user)
         user_settings.save()
 
-    # if this is a POST request we need to process the form data
+    # If this is a POST request we need to process the form data
     if request.method == "POST":
         user_settings_form = AaSrpUserSettingsForm(request.POST, instance=user_settings)
 
-        # check whether it's valid:
+        # Check whether it's valid:
         if user_settings_form.is_valid():
-            # user_settings.user = request.user
             user_settings.disable_notifications = user_settings_form.cleaned_data[
                 "disable_notifications"
             ]
@@ -155,8 +148,7 @@ def ajax_dashboard_srp_links_data(
     request: WSGIRequest, show_all_links: bool = False
 ) -> JsonResponse:
     """
-    ajax request
-    get all active srp links
+    Ajax request :: Get all active SRP links
     :param request:
     :param show_all_links:
     :return:
@@ -220,8 +212,7 @@ def ajax_dashboard_srp_links_data(
 @permission_required("aasrp.basic_access")
 def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
     """
-    ajax request
-    get user srp requests
+    Ajax request :: Get user srp requests
     :param request:
     :return:
     """
@@ -322,19 +313,19 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
 @permissions_required(("aasrp.manage_srp", "aasrp.create_srp"))
 def srp_link_add(request: WSGIRequest) -> HttpResponse:
     """
-    add a srp link
+    Add a SRP link
     :param request:
     :return:
     """
 
     logger.info("Add SRP link form called by %s", request.user)
 
-    # if this is a POST request we need to process the form data
+    # If this is a POST request we need to process the form data
     if request.method == "POST":
-        # create a form instance and populate it with data from the request
+        # Create a form instance and populate it with data from the request
         form = AaSrpLinkForm(request.POST)
 
-        # check whether it's valid:
+        # Check whether it's valid:
         if form.is_valid():
             srp_name = form.cleaned_data["srp_name"]
             fleet_time = form.cleaned_data["fleet_time"]
@@ -359,7 +350,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 
             return redirect("aasrp:dashboard")
 
-    # if a GET (or any other method) we'll create a blank form
+    # If a GET (or any other method) we'll create a blank form
     else:
         form = AaSrpLinkForm()
 
@@ -372,7 +363,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 @permissions_required(("aasrp.manage_srp", "aasrp.create_srp"))
 def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
-    add or edit AAR link
+    Add or edit AAR link
     :param request:
     :param srp_code:
     :return:
@@ -382,7 +373,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
     logger.info(f"Edit SRP link form for SRP code {srp_code} called by {request_user}")
 
-    # check if the provided SRP code is valid
+    # Check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
             f"Unable to locate SRP Fleet using code {srp_code} for user {request_user}"
@@ -397,12 +388,12 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
 
-    # if this is a POST request we need to process the form data
+    # If this is a POST request we need to process the form data
     if request.method == "POST":
-        # create a form instance and populate it with data
+        # Create a form instance and populate it with data
         form = AaSrpLinkUpdateForm(request.POST, instance=srp_link)
 
-        # check whether it's valid:
+        # Check whether it's valid:
         if form.is_valid():
             aar_link = form.cleaned_data["aar_link"]
 
@@ -424,7 +415,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
 @permission_required("aasrp.basic_access")
 def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
-    srp request
+    SRP request
     :param request:
     :param srp_code:
     """
@@ -433,22 +424,22 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
     logger.info(f"SRP request form for SRP code {srp_code} called by {request_user}")
 
-    # check if the provided SRP code is valid
+    # Check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
-            f"Unable to locate SRP Fleet using SRP code {srp_code} for user {request_user}"
+            f"Unable to locate SRP Fleet using SRP code {srp_code} for "
+            f"user {request_user}"
         )
 
         messages.error(
-            request,
-            _(f"Unable to locate SRP Fleet using SRP code {srp_code}"),
+            request, _(f"Unable to locate SRP Fleet using SRP code {srp_code}")
         )
 
         return redirect("aasrp:dashboard")
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
 
-    # check if the SRP link is still open
+    # Check if the SRP link is still open
     if srp_link.srp_status != AaSrpLink.Status.ACTIVE:
         messages.error(
             request, _("This SRP link is no longer available for SRP requests.")
@@ -456,21 +447,21 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         return redirect("aasrp:dashboard")
 
-    # if this is a POST request we need to process the form data
+    # If this is a POST request we need to process the form data
     if request.method == "POST":
-        # create a form instance and populate it with data from the request
+        # Create a form instance and populate it with data from the request
         form = AaSrpRequestForm(request.POST)
         form_is_valid = form.is_valid()
 
         logger.debug(f"Request type POST contains valid form: {form_is_valid}")
 
-        # check whether it's valid:
+        # Check whether it's valid:
         if form.is_valid():
             creator = request.user
             post_time = timezone.now()
             submitted_killmail_link = form.cleaned_data["killboard_link"]
 
-            # parse killmail
+            # Parse killmail
             try:
                 srp_kill_link = AaSrpManager.get_kill_id(submitted_killmail_link)
 
@@ -478,7 +469,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     srp_kill_link
                 )
             except ValueError:
-                # invalid killmail
+                # Invalid killmail
                 logger.debug(
                     f"User {request_user} submitted an invalid killmail link "
                     f"({submitted_killmail_link}) or zKillboard server could "
@@ -520,7 +511,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 )
                 srp_request.save()
 
-                # add request info to comments
+                # Add request info to comments
                 srp_request_comment = AaSrpRequestComment(
                     comment=form.cleaned_data["additional_info"],
                     srp_request=srp_request,
@@ -529,7 +520,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 )
                 srp_request_comment.save()
 
-                # add insurance information
+                # Add insurance information
                 insurance_information = AaSrpManager.get_insurance_for_ship_type(
                     ship_type_id=ship_type_id
                 )
@@ -558,7 +549,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 ship = srp_request.ship.name
                 messages.success(request, _(f"Submitted SRP request for your {ship}."))
 
-                # send message to the srp team in their discord channel
+                # Send message to the srp team in their discord channel
                 if AASRP_SRP_TEAM_DISCORD_CHANNEL is not None:
                     site_base_url = site_absolute_url()
                     request_code = srp_request.request_code
@@ -607,7 +598,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
             return redirect("aasrp:dashboard")
 
-    # if a GET (or any other method) we'll create a blank form
+    # If a GET (or any other method) we'll create a blank form
     else:
         logger.debug(f"Returning blank SRP request form for {request.user}")
 
@@ -622,7 +613,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 @permission_required("aasrp.manage_srp")
 def complete_srp_link(request: WSGIRequest, srp_code: str):
     """
-    mark an srp link as completed
+    Mark an SRP link as completed
     :param request:
     :param srp_code:
     """
@@ -637,10 +628,7 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
             f"Unable to locate SRP Fleet using code {srp_code} for user {request.user}"
         )
 
-        messages.error(
-            request,
-            _(f"Unable to locate SRP code with ID {srp_code}"),
-        )
+        messages.error(request, _(f"Unable to locate SRP code with ID {srp_code}"))
 
         return redirect("aasrp:dashboard")
 
@@ -657,23 +645,20 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
-    view srp requests for a specific srp code
+    View SRP requests for a specific SRP code
     :param request:
     :param srp_code:
     """
 
     logger.info(f"View SRP request for SRP code {srp_code} called by {request.user}")
 
-    # check if the provided SRP code is valid
+    # Check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
             f"Unable to locate SRP Fleet using code {srp_code} for user {request.user}"
         )
 
-        messages.error(
-            request,
-            _(f"Unable to locate SRP code with ID {srp_code}"),
-        )
+        messages.error(request, _(f"Unable to locate SRP code with ID {srp_code}"))
 
         return redirect("aasrp:dashboard")
 
@@ -691,16 +676,12 @@ def ajax_srp_link_view_requests_data(
     request: WSGIRequest, srp_code: str
 ) -> JsonResponse:
     """
-    ajax request
-    get datatable data
+    Ajax request :: Get datatable data
     :param srp_code:
     :param request:
     """
 
     data = []
-
-    # srp_link = AaSrpLink.objects.get(srp_code=srp_code)
-    # srp_requests = srp_link.srp_requests.all()
 
     srp_requests = AaSrpRequest.objects.filter(
         srp_link__srp_code__iexact=srp_code
@@ -782,23 +763,20 @@ def ajax_srp_link_view_requests_data(
 @permission_required("aasrp.manage_srp")
 def enable_srp_link(request: WSGIRequest, srp_code: str):
     """
-    disable SRP link
+    Enable SRP link
     :param request:
     :param srp_code:
     """
 
     logger.info(f"Enable SRP link {srp_code} called by {request.user}")
 
-    # check if the provided SRP code is valid
+    # Check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
             f"Unable to locate SRP Fleet using code {srp_code} for user {request.user}"
         )
 
-        messages.error(
-            request,
-            _(f"Unable to locate SRP code with ID {srp_code}"),
-        )
+        messages.error(request, _(f"Unable to locate SRP code with ID {srp_code}"))
 
         return redirect("aasrp:dashboard")
 
@@ -806,10 +784,7 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
     srp_link.srp_status = AaSrpLink.Status.ACTIVE
     srp_link.save()
 
-    messages.success(
-        request,
-        _(f"SRP link {srp_code} (re-)activated."),
-    )
+    messages.success(request, _(f"SRP link {srp_code} (re-)activated."))
 
     return redirect("aasrp:dashboard")
 
@@ -818,23 +793,20 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
 @permission_required("aasrp.manage_srp")
 def disable_srp_link(request: WSGIRequest, srp_code: str):
     """
-    disable SRP link
+    Disable SRP link
     :param request:
     :param srp_code:
     """
 
     logger.info(f"Disable SRP link {srp_code} called by {request.user}")
 
-    # check if the provided SRP code is valid
+    # Check if the provided SRP code is valid
     if AaSrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
             f"Unable to locate SRP Fleet using code {srp_code} for user {request.user}"
         )
 
-        messages.error(
-            request,
-            _(f"Unable to locate SRP code with ID {srp_code}"),
-        )
+        messages.error(request, _(f"Unable to locate SRP code with ID {srp_code}"))
 
         return redirect("aasrp:dashboard")
 
@@ -842,10 +814,7 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
     srp_link.srp_status = AaSrpLink.Status.CLOSED
     srp_link.save()
 
-    messages.success(
-        request,
-        _(f"SRP link {srp_code} disabled."),
-    )
+    messages.success(request, _(f"SRP link {srp_code} disabled."))
 
     return redirect("aasrp:dashboard")
 
@@ -854,7 +823,7 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
 @permission_required("aasrp.manage_srp")
 def delete_srp_link(request: WSGIRequest, srp_code: str):
     """
-    disable SRP link
+    Delete SRP link
     :param request:
     :param srp_code:
     """
@@ -867,20 +836,14 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
             f"Unable to locate SRP Fleet using code {srp_code} for user {request.user}"
         )
 
-        messages.error(
-            request,
-            _(f"Unable to locate SRP code with ID {srp_code}"),
-        )
+        messages.error(request, _(f"Unable to locate SRP code with ID {srp_code}"))
 
         return redirect("aasrp:dashboard")
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
     srp_link.delete()
 
-    messages.success(
-        request,
-        _(f"SRP link {srp_code} deleted."),
-    )
+    messages.success(request, _(f"SRP link {srp_code} deleted."))
 
     return redirect("aasrp:dashboard")
 
@@ -891,6 +854,7 @@ def ajax_srp_request_additional_information(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> HttpResponse:
     """
+    Ajax Call :: Get additional information for an SRP request
     :param request:
     :param srp_code:
     :param srp_request_code:
@@ -903,8 +867,7 @@ def ajax_srp_request_additional_information(
     insurance_information = srp_request.insurance.filter(srp_request=srp_request)
 
     character = get_formatted_character_name(
-        character=srp_request.character,
-        with_portrait=True,
+        character=srp_request.character, with_portrait=True
     )
 
     try:
@@ -975,6 +938,7 @@ def ajax_srp_request_change_payout(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
     """
+    Ajax call :: Change SRP payout
     :param request:
     :param srp_code:
     :param srp_request_code:
@@ -1011,6 +975,7 @@ def ajax_srp_request_approve(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
     """
+    Ajax call :: Approve SRP request
     :param request:
     :param srp_code:
     :param srp_request_code:
@@ -1032,7 +997,7 @@ def ajax_srp_request_approve(
         if srp_payout == 0:
             srp_request.payout_amount = srp_isk_loss
 
-        # remove any possible reject reason in case this was rejected before
+        # Remove any possible reject reason in case this was rejected before
         AaSrpRequestComment.objects.filter(
             srp_request=srp_request, comment_type=AaSrpRequestComment.Type.REJECT_REASON
         ).delete()
@@ -1042,7 +1007,7 @@ def ajax_srp_request_approve(
 
         user_settings = AaSrpUserSettings.objects.get(user=request.user)
 
-        # check if the user has notifications activated (it's by default)
+        # Check if the user has notifications activated (it's by default)
         if user_settings.disable_notifications is False:
             ship_name = srp_request.ship.name
             fleet_name = srp_request.srp_link.srp_name
@@ -1078,6 +1043,7 @@ def ajax_srp_request_deny(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
     """
+    Ajax call :: Deny SRP request
     :param request:
     :param srp_code:
     :param srp_request_code:
@@ -1093,10 +1059,10 @@ def ajax_srp_request_deny(
         data.append({"success": False})
     else:
         if request.method == "POST":
-            # create a form instance and populate it with data from the request
+            # Create a form instance and populate it with data from the request
             form = AaSrpRequestRejectForm(request.POST)
 
-            # check whether it's valid:
+            # Check whether it's valid:
             if form.is_valid():
                 reject_info = form.cleaned_data["reject_info"]
                 requester = srp_request.creator
@@ -1105,7 +1071,7 @@ def ajax_srp_request_deny(
                 srp_request.request_status = AaSrpRequest.Status.REJECTED
                 srp_request.save()
 
-                # save reject reason as comment for this request
+                # Save reject reason as comment for this request
                 try:
                     existing_reject_info = AaSrpRequestComment.objects.get(
                         srp_request=srp_request,
@@ -1125,11 +1091,10 @@ def ajax_srp_request_deny(
 
                 user_settings = AaSrpUserSettings.objects.get(user=request.user)
 
-                # check if the user has notifications activated (it's by default)
+                # Check if the user has notifications activated (it's by default)
                 if user_settings.disable_notifications is False:
                     ship_name = srp_request.ship.name
                     fleet_name = srp_request.srp_link.srp_name
-                    reject_info = reject_info
                     srp_code = srp_request.srp_link.srp_code
                     request_code = srp_request.request_code
                     reviser = get_main_character_from_user(request.user)
@@ -1165,6 +1130,7 @@ def ajax_srp_request_remove(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
     """
+    Ajax call :: Remove SRP request
     :param request:
     :param srp_code:
     :param srp_request_code:

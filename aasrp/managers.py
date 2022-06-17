@@ -32,7 +32,7 @@ class AaSrpManager:
     @staticmethod
     def get_kill_id(killboard_link: str):
         """
-        get killmail ID from zKillboard link
+        Get killmail ID from zKillboard link
         :param killboard_link:
         :return:
         """
@@ -45,7 +45,7 @@ class AaSrpManager:
     @staticmethod
     def get_kill_data(kill_id: str):
         """
-        get kill data from zKillboard
+        Get kill data from zKillboard
         :param kill_id:
         :return:
         """
@@ -89,7 +89,7 @@ class AaSrpManager:
     @staticmethod
     def pending_requests_count_for_user(user: User):
         """
-        returns the number of open SRP requests for given user
+        Returns the number of open SRP requests for given user
         or None if user has no permission
         """
 
@@ -105,7 +105,7 @@ class AaSrpManager:
     @staticmethod
     def get_insurance_for_ship_type(ship_type_id: int):
         """
-        getting insurance for a given ship type ID from ESI
+        Getting insurance for a given ship type ID from ESI
         :param ship_type_id:
         :type ship_type_id:
         """

@@ -1,5 +1,5 @@
 """
-app config
+App config
 """
 
 # Django
@@ -11,7 +11,7 @@ from aasrp import __version__
 
 class AaSrpConfig(AppConfig):
     """
-    application config
+    Application config
     """
 
     name = "aasrp"

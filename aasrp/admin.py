@@ -11,14 +11,14 @@ from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpRequestComment
 
 def custom_filter(title):
     """
-    custom filter for model properties
+    Custom filter for model properties
     :param title:
     :return:
     """
 
     class Wrapper(admin.FieldListFilter):
         """
-        custom_filter :: wrapper
+        Custom_filter :: wrapper
         """
 
         def __new__(cls, *args, **kwargs):

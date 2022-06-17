@@ -53,7 +53,7 @@ $(document).ready(() => {
             {
                 data: 'srp_costs',
                 /**
-                 * render callback
+                 * Render callback
                  *
                  * @param data
                  * @param type
@@ -96,7 +96,7 @@ $(document).ready(() => {
         order: [[2, 'asc']],
         paging: aaSrpSettings.dataTable.paging,
         /**
-         * when ever a row is created ...
+         * When ever a row is created ...
          *
          * @param row
          * @param data
@@ -165,7 +165,7 @@ $(document).ready(() => {
             {
                 data: 'zbk_loss_amount',
                 /**
-                 * render callback
+                 * Render callback
                  *
                  * @param data
                  * @param type
@@ -185,7 +185,7 @@ $(document).ready(() => {
             {
                 data: 'payout_amount',
                 /**
-                 * render callback
+                 * Render callback
                  *
                  * @param data
                  * @param type
@@ -206,7 +206,7 @@ $(document).ready(() => {
                 data: 'request_status_icon',
                 className: 'srp-request-status text-center'
             },
-            // hidden columns
+            // Hidden columns
             {data: 'request_status'},
             {data: 'ship'},
             {data: 'character'}
@@ -243,7 +243,7 @@ $(document).ready(() => {
             bootstrap: true
         },
         /**
-         * when ever a row is created ...
+         * When ever a row is created ...
          *
          * @param row
          * @param data
@@ -270,7 +270,7 @@ $(document).ready(() => {
     const modalDeleteSrpLink = $('#delete-srp-link');
     const modalSrpRequestDetails = $('#srp-request-details');
 
-    // enable link modal
+    // Enable link modal
     modalEnableSrpLink.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const url = button.data('url');
@@ -284,7 +284,7 @@ $(document).ready(() => {
         modalEnableSrpLink.find('.modal-body').html('');
     });
 
-    // disable link modal
+    // Disable link modal
     modalDisableSrpLink.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const url = button.data('url');
@@ -298,8 +298,7 @@ $(document).ready(() => {
         modalDisableSrpLink.find('.modal-body').html('');
     });
 
-
-    // delete link modal
+    // Delete link modal
     modalDeleteSrpLink.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const url = button.data('url');
@@ -313,7 +312,7 @@ $(document).ready(() => {
         modalDeleteSrpLink.find('.modal-body').html('');
     });
 
-    // show details
+    // Show details
     modalSrpRequestDetails.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const name = button.data('modal-title');

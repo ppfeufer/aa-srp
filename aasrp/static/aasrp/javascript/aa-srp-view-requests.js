@@ -50,7 +50,7 @@ $(document).ready(() => {
             {
                 data: 'zbk_loss_amount',
                 /**
-                 * render callback
+                 * Render callback
                  *
                  * @param data
                  * @param type
@@ -70,7 +70,7 @@ $(document).ready(() => {
             {
                 data: 'payout_amount',
                 /**
-                 * render callback
+                 * Render callback
                  *
                  * @param data
                  * @param type
@@ -97,7 +97,7 @@ $(document).ready(() => {
             },
 
             /**
-             * hidden columns
+             * Hidden columns
              */
             {data: 'ship'},
             {data: 'request_status'},
@@ -143,7 +143,7 @@ $(document).ready(() => {
         },
         paging: false,
         /**
-         * when ever a row is created ...
+         * When ever a row is created ...
          *
          * @param row
          * @param data
@@ -155,7 +155,7 @@ $(document).ready(() => {
             $(row).attr('data-srp-request-code', data.request_code);
             $(row).addClass('srp-request-status-' + data.request_status.toLowerCase());
 
-            // add class and data attribute to the payout span
+            // Add class and data attribute to the payout span
             $(row).find('span.srp-payout-amount').addClass(
                 'srp-request-' + data.request_code
             );
@@ -183,16 +183,16 @@ $(document).ready(() => {
     const _refreshSrpAmountField = (element, newValue) => {
         newValue = parseInt(newValue);
 
-        // update data-attribute
+        // Update data-attribute
         element.attr('data-value', newValue);
 
-        // update payout value formatted
+        // Update payout value formatted
         const newValuewFormatted = newValue.toLocaleString() + ' ISK';
 
         element.addClass('srp-payout-amount-changed');
         element.html(newValuewFormatted);
 
-        // update fleet total srp amount
+        // Update fleet total SRP amount
         let totalSrpAmount = 0;
 
         $('#tab_aasrp_srp_requests .srp-request-status-approved .srp-payout-amount').each((i, payoutElement) => {
@@ -203,7 +203,7 @@ $(document).ready(() => {
     };
 
     /**
-     * Make srp payout field editable for pending requests
+     * Make SRP payout field editable for pending requests
      */
     elementSrpRequestsTable.editable({
         container: 'body',
@@ -220,7 +220,7 @@ $(document).ready(() => {
             return false;
         },
         /**
-         * on success ...
+         * On success ...
          *
          * Arrow functions don't work here since we need $(this)
          *
@@ -231,20 +231,20 @@ $(document).ready(() => {
             _refreshSrpAmountField($(this), newValue);
         },
         /**
-         * check if input is not empty
+         * Check if input is not empty
          *
          * @param {string} value
          * @returns {string}
          */
         validate: (value) => {
-            if (value === null || value === '') {
+            if (value === '') {
                 return aaSrpSettings.translation.editableValidate;
             }
         }
     });
 
     /**
-     * Make srp payout field editable for rejected requests,
+     * Make SRP payout field editable for rejected requests,
      * in case they get approved later on
      */
     elementSrpRequestsTable.editable({
@@ -262,7 +262,7 @@ $(document).ready(() => {
             return false;
         },
         /**
-         * on success ...
+         * On success ...
          *
          * Arrow functions don't work here since we need $(this)
          *
@@ -273,13 +273,13 @@ $(document).ready(() => {
             _refreshSrpAmountField($(this), newValue);
         },
         /**
-         * check if input is not empty
+         * Check if input is not empty
          *
          * @param {string} value
          * @returns {string}
          */
         validate: (value) => {
-            if (value === null || value === '') {
+            if (value === '') {
                 return aaSrpSettings.translation.editableValidate;
             }
         }
@@ -306,9 +306,7 @@ $(document).ready(() => {
         $.get({
             url: url,
             success: (data) => {
-                const modalBody = data;
-
-                modalSrpRequestDetails.find('.modal-body').html(modalBody);
+                modalSrpRequestDetails.find('.modal-body').html(data);
             }
         });
     }).on('hide.bs.modal', () => {
@@ -316,7 +314,7 @@ $(document).ready(() => {
         modalSrpRequestDetails.find('.modal-body').text('');
     });
 
-    // accept SRP request
+    // Accept SRP request
     modalSrpRequestAccept.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const name = button.data('modal-title');
@@ -334,7 +332,7 @@ $(document).ready(() => {
 
         $('#modal-button-confirm-accept-request').on('click', (event) => {
             $.get(url, (data, status) => {
-                // reload datatable on success and update srp status values
+                // reload datatable on success and update SRP status values
                 if (data['0'].success === true) {
                     srpRequestsTable.ajax.reload((tableData) => {
                         let totalSrpAmount = 0;
@@ -360,12 +358,12 @@ $(document).ready(() => {
                             }
                         });
 
-                        // update fleet total srp amount
+                        // Update fleet total SRP amount
                         $('.srp-fleet-total-amount').html(
                             totalSrpAmount.toLocaleString() + ' ISK'
                         );
 
-                        // update requests counts
+                        // Update requests counts
                         $('.srp-requests-total-count').html(
                             requestsTotal
                         );
@@ -388,7 +386,7 @@ $(document).ready(() => {
         $('#modal-button-confirm-accept-request').unbind('click');
     });
 
-    // reject SRP request
+    // Reject SRP request
     modalSrpRequestReject.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const url = button.data('link');
@@ -420,8 +418,6 @@ $(document).ready(() => {
                 );
 
                 posting.done((data) => {
-                    // $('#modal-button-cancel-reject-request').click();
-
                     if (data['0'].success === true) {
                         srpRequestsTable.ajax.reload((tableData) => {
                             let totalSrpAmount = 0;
@@ -447,12 +443,12 @@ $(document).ready(() => {
                                 }
                             });
 
-                            // update fleet total srp amount
+                            // Update fleet total SRP amount
                             $('.srp-fleet-total-amount').html(
                                 totalSrpAmount.toLocaleString() + ' ISK'
                             );
 
-                            // update requests counts
+                            // Update requests counts
                             $('.srp-requests-total-count').html(
                                 requestsTotal
                             );
@@ -478,7 +474,7 @@ $(document).ready(() => {
         $('#modal-button-confirm-reject-request').unbind('click');
     });
 
-    // remove SRP request
+    // Remove SRP request
     modalSrpRequestRemove.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const name = button.data('modal-title');
@@ -496,7 +492,7 @@ $(document).ready(() => {
 
         $('#modal-button-confirm-remove-request').on('click', (event) => {
             $.get(url, (data, status) => {
-                // reload datatable on success and update srp status values
+                // Reload datatable on success and update SRP status values
                 if (data['0'].success === true) {
                     srpRequestsTable.ajax.reload((tableData) => {
                         let totalSrpAmount = 0;
@@ -522,12 +518,12 @@ $(document).ready(() => {
                             }
                         });
 
-                        // update fleet total srp amount
+                        // Update fleet total SRP amount
                         $('.srp-fleet-total-amount').html(
                             totalSrpAmount.toLocaleString() + ' ISK'
                         );
 
-                        // update requests counts
+                        // Update requests counts
                         $('.srp-requests-total-count').html(
                             requestsTotal
                         );

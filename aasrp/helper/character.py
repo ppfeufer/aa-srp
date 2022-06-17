@@ -1,6 +1,5 @@
 """
-some helper functions
-so we don't mess up other files too much
+Some helper functions, so we don't mess up other files too much
 """
 
 # Django

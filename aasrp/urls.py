@@ -37,34 +37,34 @@ urlpatterns = [
         views.complete_srp_link,
         name="complete_srp_link",
     ),
-    # ajax calls
+    # Ajax calls
     path(
-        # get active srp links
+        # Get active SRP links
         "call/active-srp-links-data/",
         views.ajax_dashboard_srp_links_data,
         name="ajax_dashboard_srp_links_data",
     ),
     path(
-        # get all srp links
+        # Get all SRP links
         "call/active-srp-links-data/all/",
         views.ajax_dashboard_srp_links_data,
         {"show_all_links": True},
         name="ajax_dashboard_srp_links_all_data",
     ),
     path(
-        # get all srp request for the current user
+        # Get all SRP request for the current user
         "call/user-srp-requests-data/",
         views.ajax_dashboard_user_srp_requests_data,
         name="ajax_dashboard_user_srp_requests_data",
     ),
     path(
-        # get all srp requests for the current srp link
+        # Get all SRP requests for the current SRP link
         "call/srp-link/<str:srp_code>/view-srp-requests-data/",
         views.ajax_srp_link_view_requests_data,
         name="ajax_srp_link_view_requests_data",
     ),
     path(
-        # get addition information for the current srp request
+        # Get addition information for the current SRP request
         (
             "call/srp-link/<str:srp_code>/srp-request/"
             "<str:srp_request_code>/view-additional-information-data/"
@@ -73,7 +73,7 @@ urlpatterns = [
         name="ajax_srp_request_additional_information",
     ),
     path(
-        # change the srp payout amount
+        # Change the SRP payout amount
         (
             "call/srp-link/<str:srp_code>/srp-request/"
             "<str:srp_request_code>/change-srp-payout/"
@@ -82,19 +82,19 @@ urlpatterns = [
         name="ajax_srp_request_change_payout",
     ),
     path(
-        # change the srp payout amount
+        # Change the SRP payout amount
         "call/srp-link/<str:srp_code>/srp-request/<str:srp_request_code>/approve/",
         views.ajax_srp_request_approve,
         name="ajax_srp_request_approve",
     ),
     path(
-        # change the srp payout amount
+        # Change the SRP payout amount
         "call/srp-link/<str:srp_code>/srp-request/<str:srp_request_code>/deny/",
         views.ajax_srp_request_deny,
         name="ajax_srp_request_deny",
     ),
     path(
-        # change the srp payout amount
+        # Change the SRP payout amount
         "call/srp-link/<str:srp_code>/srp-request/<str:srp_request_code>/remove/",
         views.ajax_srp_request_remove,
         name="ajax_srp_request_remove",

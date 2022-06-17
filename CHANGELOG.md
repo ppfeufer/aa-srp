@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Cleanup
+
+- Grammar in comments fixed
+- Commented and no longer used code removed
+- Code cleaned up in general
+
 
 ## [1.13.4] - 2022-06-14
 
