@@ -6,7 +6,10 @@ Test checks for installed modules we might use
 from django.test import TestCase, modify_settings
 
 # AA SRP
-from aasrp.app_settings import aa_discordnotify_active, allianceauth_discordbot_active
+from aasrp.app_settings import (
+    aa_discordnotify_installed,
+    allianceauth_discordbot_installed,
+)
 
 
 class TestModulesInstalled(TestCase):
@@ -15,37 +18,37 @@ class TestModulesInstalled(TestCase):
     """
 
     @modify_settings(INSTALLED_APPS={"remove": "aadiscordbot"})
-    def test_allianceauth_discordbot_active_should_return_false(self):
+    def test_allianceauth_discordbot_installed_should_return_false(self):
         """
-        Test allianceauth_discordbot_active should return False
+        Test allianceauth_discordbot_installed should return False
         :return:
         """
 
-        self.assertFalse(allianceauth_discordbot_active())
+        self.assertFalse(allianceauth_discordbot_installed())
 
     @modify_settings(INSTALLED_APPS={"append": "aadiscordbot"})
-    def test_allianceauth_discordbot_active_should_return_true(self):
+    def test_allianceauth_discordbot_installed_should_return_true(self):
         """
-        Test allianceauth_discordbot_active should return True
+        Test allianceauth_discordbot_installed should return True
         :return:
         """
 
-        self.assertTrue(allianceauth_discordbot_active())
+        self.assertTrue(allianceauth_discordbot_installed())
 
     @modify_settings(INSTALLED_APPS={"remove": "discordnotify"})
-    def test_aa_discordnotify_active_should_return_false(self):
+    def test_aa_discordnotify_installed_should_return_false(self):
         """
-        Test aa_discordnotify_active should return False
+        Test aa_discordnotify_installed should return False
         :return:
         """
 
-        self.assertFalse(aa_discordnotify_active())
+        self.assertFalse(aa_discordnotify_installed())
 
     @modify_settings(INSTALLED_APPS={"append": "discordnotify"})
-    def test_aa_discordnotify_active_should_return_true(self):
+    def test_aa_discordnotify_installed_should_return_true(self):
         """
-        Test aa_discordnotify_active should return True
+        Test aa_discordnotify_installed should return True
         :return:
         """
 
-        self.assertTrue(aa_discordnotify_active())
+        self.assertTrue(aa_discordnotify_installed())

@@ -20,7 +20,10 @@ from app_utils.logging import LoggerAddTag
 
 # AA SRP
 from aasrp import __title__
-from aasrp.app_settings import aa_discordnotify_active, allianceauth_discordbot_active
+from aasrp.app_settings import (
+    aa_discordnotify_installed,
+    allianceauth_discordbot_installed,
+)
 from aasrp.constants import DISCORD_EMBED_COLOR_MAP
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
@@ -39,7 +42,7 @@ def _aadiscordbot_send_private_message(
     :return:
     """
 
-    if allianceauth_discordbot_active():
+    if allianceauth_discordbot_installed():
         logger.debug(
             "allianceauth-discordbot is active, trying to send private message"
         )
@@ -74,7 +77,7 @@ def _aadiscordbot_send_channel_message(
     :return:
     """
 
-    if allianceauth_discordbot_active():
+    if allianceauth_discordbot_installed():
         logger.debug(
             "allianceauth-discordbot is active, trying to send channel message"
         )
@@ -115,7 +118,7 @@ def send_user_notification(user: User, level: str, title: str, message: str) -> 
     if hasattr(user, "discord"):  # Check if the user has a Discord account
         logger.debug("User has a Discord account")
 
-        if not aa_discordnotify_active():  # Check if discordnotify is active
+        if not aa_discordnotify_installed():  # Check if discordnotify is active
             try:
                 # Try to import discordproxy libraries
                 logger.debug(

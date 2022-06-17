@@ -14,7 +14,7 @@ AASRP_SRP_TEAM_DISCORD_CHANNEL = clean_setting(
 )
 
 
-def allianceauth_discordbot_active():
+def allianceauth_discordbot_installed():
     """
     Check if allianceauth-dicordbot is installed and active
     :return:
@@ -23,7 +23,7 @@ def allianceauth_discordbot_active():
     return apps.is_installed("aadiscordbot")
 
 
-def aa_discordnotify_active():
+def aa_discordnotify_installed():
     """
     Check if allianceauth-dicordbot is installed and active
     :return:

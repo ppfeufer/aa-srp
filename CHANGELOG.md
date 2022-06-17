@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ### Changed
 
 - Always serve JS and CSS locally (GDPR)
+- Functions to check if an additional module is installed have been renamed to
+  something that makes more sense
 
 
 ## [1.13.4] - 2022-06-14
