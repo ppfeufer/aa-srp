@@ -25,7 +25,7 @@ from eveuniverse.models import EveType
 
 # AA SRP
 from aasrp import __title__
-from aasrp.app_settings import AASRP_SRP_TEAM_DISCORD_CHANNEL, avoid_cdn
+from aasrp.app_settings import AASRP_SRP_TEAM_DISCORD_CHANNEL
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE, ZKILLBOARD_BASE_URL
 from aasrp.form import (
     AaSrpLinkForm,
@@ -134,7 +134,6 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
     logger.info(logger_message)
 
     context = {
-        "avoid_cdn": avoid_cdn(),
         "show_all_links": show_all_links,
         "user_settings_form": user_settings_form,
     }
@@ -354,7 +353,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
     else:
         form = AaSrpLinkForm()
 
-    context = {"avoid_cdn": avoid_cdn(), "form": form}
+    context = {"form": form}
 
     return render(request, "aasrp/link_add.html", context)
 
@@ -406,7 +405,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     else:
         form = AaSrpLinkUpdateForm(instance=srp_link)
 
-    context = {"avoid_cdn": avoid_cdn(), "srp_code": srp_code, "form": form}
+    context = {"srp_code": srp_code, "form": form}
 
     return render(request, "aasrp/link_edit.html", context)
 
@@ -604,7 +603,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         form = AaSrpRequestForm()
 
-    context = {"avoid_cdn": avoid_cdn(), "srp_code": srp_code, "form": form}
+    context = {"srp_code": srp_code, "form": form}
 
     return render(request, "aasrp/request_srp.html", context)
 
@@ -665,7 +664,7 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
     reject_form = AaSrpRequestRejectForm()
 
-    context = {"avoid_cdn": avoid_cdn(), "srp_link": srp_link, "form": reject_form}
+    context = {"srp_link": srp_link, "form": reject_form}
 
     return render(request, "aasrp/view_requests.html", context)
 
