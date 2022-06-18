@@ -51,7 +51,7 @@ repos:
     rev: v2.34.0
     hooks:
       - id: pyupgrade
-        args: [ --py37-plus ]
+        args: [ --py38-plus ]
 
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.9.2
@@ -72,14 +72,14 @@ repos:
     rev: 22.3.0
     hooks:
       - id: black
-        args: [ --target-version=py37 ]
+        args: [ --target-version=py38 ]
 
   - repo: https://github.com/asottile/blacken-docs
     rev: v1.12.1
     hooks:
       - id: blacken-docs
         additional_dependencies: [ black==22.3.0 ]
-        args: [ --target-version=py37 ]
+        args: [ --target-version=py38 ]
 
   - repo: https://github.com/asottile/setup-cfg-fmt
     rev: v1.20.1

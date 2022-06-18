@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 - Functions to check if an additional module is installed have been renamed to
   something that makes more sense
 - Optimized notification helper to send Discord messages
+- Minimum requirements
+  - Python (>= 3.8)
 
 
 ## [1.13.4] - 2022-06-14
