@@ -34,7 +34,7 @@ EVETOOLS_KILLBOARD_BASE_URL = "https://kb.evetools.org/"
 EVETOOLS_KILLBOARD_BASE_URL_REGEX = r"^http[s]?:\/\/kb\.evetools\.org\/"
 EVETOOLS_KILLBOARD_KILLMAIL_URL_REGEX = r"^http[s]?:\/\/kb\.evetools\.org\/kill\/\d+"
 
-# embed colors
+# Embed colors
 DISCORD_EMBED_COLOR_INFO = 0x5BC0DE
 DISCORD_EMBED_COLOR_SUCCESS = 0x5CB85C
 DISCORD_EMBED_COLOR_WARNING = 0xF0AD4E

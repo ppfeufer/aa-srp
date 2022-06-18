@@ -1,6 +1,5 @@
 """
-some helper functions
-so we don't mess up other files too much
+Some helper functions, so we don't mess up other files too much
 """
 
 # Django
@@ -19,7 +18,7 @@ from aasrp.models import AaSrpLink, AaSrpRequest
 )
 def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str:
     """
-    getting the action buttons for the dashboard view
+    Getting the action buttons for the dashboard view
     :param request:
     :param srp_link:
     """
@@ -121,7 +120,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str
 @permission_required("aasrp.basic_access")
 def get_srp_request_status_icon(request: WSGIRequest, srp_request: AaSrpRequest) -> str:
     """
-    get status icon for srp request
+    Get status icon for srp request
     :param request:
     :param srp_request:
     :return:
@@ -163,7 +162,7 @@ def get_srp_request_details_icon(
     request: WSGIRequest, srp_link: AaSrpLink, srp_request: AaSrpRequest
 ) -> str:
     """
-    get details icon for an SRP request
+    Get details icon for an SRP request
     :param request:
     :param srp_link:
     :param srp_request:
@@ -196,7 +195,7 @@ def get_srp_request_accept_icon(
     request: WSGIRequest, srp_link: AaSrpLink, srp_request: AaSrpRequest
 ) -> str:
     """
-    get accept icon for an SRP request
+    Get accept icon for an SRP request
     :param request:
     :param srp_link:
     :param srp_request:
@@ -242,7 +241,7 @@ def get_srp_request_reject_icon(
     request: WSGIRequest, srp_link: AaSrpLink, srp_request: AaSrpRequest
 ) -> str:
     """
-    get reject icon for an SRP request
+    Get reject icon for an SRP request
     :param request:
     :param srp_link:
     :param srp_request:
@@ -288,7 +287,7 @@ def get_srp_request_delete_icon(
     request: WSGIRequest, srp_link: AaSrpLink, srp_request: AaSrpRequest
 ) -> str:
     """
-    get delete icon for an SRP request
+    Get delete icon for an SRP request
     :param request:
     :param srp_link:
     :param srp_request:
@@ -330,9 +329,9 @@ def get_srp_request_action_icons(
     request: WSGIRequest, srp_link: AaSrpLink, srp_request: AaSrpRequest
 ) -> str:
     """
-    get action icons for srp requests
+    Get action icons for srp requests
     :param request:
-    :param srp_code:
+    :param srp_link:
     :param srp_request:
     """
 
@@ -340,21 +339,18 @@ def get_srp_request_action_icons(
         request=request, srp_link=srp_link, srp_request=srp_request
     )
 
-    if (
-        srp_link.srp_status == AaSrpLink.Status.ACTIVE
-        or srp_link.srp_status == AaSrpLink.Status.CLOSED
-    ):
-        # accept
+    if srp_link.srp_status in (AaSrpLink.Status.ACTIVE, AaSrpLink.Status.CLOSED):
+        # Accept
         srp_request_action_icons += get_srp_request_accept_icon(
             request=request, srp_link=srp_link, srp_request=srp_request
         )
 
-        # reject
+        # Reject
         srp_request_action_icons += get_srp_request_reject_icon(
             request=request, srp_link=srp_link, srp_request=srp_request
         )
 
-        # delete
+        # Delete
         if request.user.has_perm("aasrp.manage_srp"):
             srp_request_action_icons += get_srp_request_delete_icon(
                 request=request, srp_link=srp_link, srp_request=srp_request

@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ## [In Development] - Unreleased
 
 
+## [1.14.0] - 2022-06-18
+
+### Cleanup
+
+- Grammar in comments fixed
+- Commented and no longer used code removed
+- Code cleaned up in general
+
+### Changed
+
+- Always serve JS and CSS locally (GDPR)
+- Functions to check if an additional module is installed have been renamed to
+  something that makes more sense
+- Optimized notification helper to send Discord messages
+- Minimum requirements
+  - Python (>= 3.8)
+
+
 ## [1.13.4] - 2022-06-14
 
 ### Fixed
@@ -20,7 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ### Fixed
 
-- AttributError exception in `get_main_character_from_user` when the user doesn't
+- AttributeError exception in `get_main_character_from_user` when the user doesn't
   have a main character anymore
 - Possible RelatedObjectDoesNotExist error in `get_main_for_character`
 - Possible RelatedObjectDoesNotExist error in `get_user_for_character`
@@ -217,7 +235,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 - AttributeError: Resource Killmails not found. Available resources: Alliance,
   Character, Corporation, Universe. This was caused by using AA's ESI provider,
   which has changed. We now use our own ESI provider for everything ESI related.
-- Get the sentry username when a creator/revisor has been deleted
+- Get the sentry username when a creator/reviser has been deleted
 
 
 ## [1.7.2] - 2021-08-18

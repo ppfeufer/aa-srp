@@ -1,5 +1,5 @@
 """
-eve images
+Eve images
 """
 
 # Alliance Auth
@@ -14,7 +14,7 @@ def get_character_portrait_from_evecharacter(
     character: EveCharacter, size: int = 32, as_html: bool = False
 ) -> str:
     """
-    get the character portrait from EveCharacter model
+    Get the character portrait from EveCharacter model
     :param size:
     :param character:
     :param size:
@@ -42,7 +42,7 @@ def get_type_render_url_from_type_id(
     evetype_id: int, size: int = 32, evetype_name: str = None, as_html: bool = False
 ) -> str:
     """
-    get type render from evetype_id
+    Get type render from evetype_id
     :param evetype_id:
     :param size:
     :param evetype_name:
@@ -60,8 +60,7 @@ def get_type_render_url_from_type_id(
             alt_tag = f' alt="{evetype_name}"'
 
         return_value = (
-            '<img class="aasrp-evetype-icon img-rounded" '
-            f'src="{render_url}"{alt_tag}>'
+            f'<img class="aasrp-evetype-icon img-rounded" src="{render_url}"{alt_tag}>'
         )
 
     return return_value

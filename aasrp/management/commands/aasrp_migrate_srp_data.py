@@ -20,7 +20,7 @@ from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpRequestComment
 
 def get_input(text):
     """
-    wrapped input to migrate srp data
+    Wrapped input to migrate srp data
     """
 
     return input(text)
@@ -31,7 +31,7 @@ class Command(BaseCommand):
 
     def _migrate_srp_data(self) -> None:
         """
-        migrate srp data from the built-in SRP module
+        Migrate srp data from the built-in SRP module
         :return:
         """
 
@@ -44,8 +44,8 @@ class Command(BaseCommand):
         srp_fleets = SrpFleetMain.objects.all()
 
         for srp_fleet in srp_fleets:
-            # let's see if the creator is still valid
-            # returns None when the creators account has been deleted
+            # Let's see if the creator is still valid
+            # Returns None when the creators account has been deleted
             # and no sentinel user can be created or obtained
             # in this case, we cannot create the fleet again
             srp_fleet_creator = get_user_for_character(
@@ -59,7 +59,7 @@ class Command(BaseCommand):
                 srp_fleet_time = srp_fleet.fleet_time
                 srp_fleet_aar_link = srp_fleet.fleet_srp_aar_link
 
-                # fix srp status
+                # Fix srp status
                 srp_fleet_status = AaSrpLink.Status.ACTIVE
                 if srp_fleet.fleet_srp_status == "Completed":
                     srp_fleet_status = AaSrpLink.Status.COMPLETED
@@ -67,7 +67,7 @@ class Command(BaseCommand):
                 if srp_fleet.fleet_srp_code == "":
                     srp_fleet_status = AaSrpLink.Status.CLOSED
 
-                    # also fix the missing SRP code, we need it!
+                    # Also fix the missing SRP code, we need it!
                     srp_fleet.fleet_srp_code = get_random_string(
                         length=8
                     )  # 8 chars only because old SRP link
@@ -93,7 +93,7 @@ class Command(BaseCommand):
                     srp_link.creator = srp_fleet_creator
                     srp_link.save()
 
-                    # mark migrated SRP link as COMPLETED and save the object
+                    # Mark migrated SRP link as COMPLETED and save the object
                     srp_fleet.fleet_srp_status = "Completed"
                     srp_fleet.save()
 
@@ -108,8 +108,8 @@ class Command(BaseCommand):
                 srp_userrequests = srp_fleet.srpuserrequest_set.all()
 
                 for srp_userrequest in srp_userrequests:
-                    # let's see if the creator is still valid
-                    # returns None when the creators account has been deleted
+                    # Let's see if the creator is still valid
+                    # Returns None when the creators account has been deleted
                     # and no sentinel user can be created or obtained
                     # in this case, we cannot create the request again
                     srp_userrequest_creator = get_user_for_character(
@@ -199,7 +199,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """
-        ask before running ...
+        Ask before running ...
         :param args:
         :param options:
         """

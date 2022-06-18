@@ -1,3 +1,7 @@
+"""
+Celery config
+"""
+
 # Standard Library
 import os
 

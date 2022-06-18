@@ -1,3 +1,7 @@
+"""
+Preloads data required for this app from ESI
+"""
+
 # Standard Library
 import logging
 
@@ -20,7 +24,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """
-        start the eve type import
+        Start the eve type import
         :param args:
         :param options:
         """

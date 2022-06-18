@@ -22,8 +22,8 @@
 
 {% block extra_css %}
     {% include 'bundles/datatables-css.html' %}
-    {% include 'aasrp/bundles/bootstrap3-editable-css.html' %}
 
+    <link rel="stylesheet" href={% static 'aasrp/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.min.css' %}>
     <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-bootstrap-fix.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-srp.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-srp-form.min.css' %}" type="text/css">
@@ -32,7 +32,6 @@
 {% block extra_javascript %}
     {% include 'bundles/datatables-js.html' %}
     {% include 'bundles/moment-js.html' with locale=True %}
-    {% include 'aasrp/bundles/bootstrap3-editable-js.html' %}
     {% include 'bundles/clipboard-js.html' %}
 
     <script type="application/javascript">
@@ -48,6 +47,7 @@
         });
     </script>
 
+    <script type="application/javascript" src="{% static 'aasrp/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js' %}"></script>
     <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/dataTables.rowGroup.min.js' %}"></script>
     <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/datetime.min.js' %}"></script>
     <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}"></script>

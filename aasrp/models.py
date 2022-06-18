@@ -17,7 +17,7 @@ from eveuniverse.models import EveType
 
 def get_sentinel_user():
     """
-    get user or create one
+    Get or create sentinel user
     :return:
     """
 
@@ -38,25 +38,25 @@ class AaSrp(models.Model):
         managed = False
         default_permissions = ()
         permissions = (
-            # can open the SRP app and submit SRP requests
+            # Can open the SRP app and submit SRP requests
             ("basic_access", "Can access the AA-SRP module"),
-            # can create SRP links
+            # Can create SRP links
             ("create_srp", "Can create new SRP links"),
-            # can manage the complete SRP module
+            # Can manage the complete SRP module
             ("manage_srp", "Can manage SRP"),
-            # can manage SRP requests only
+            # Can manage SRP requests only
             ("manage_srp_requests", "Can manage SRP requests"),
         )
 
 
 class AaSrpLink(models.Model):
     """
-    SRP Link model
+    SRP link model
     """
 
     class Status(models.TextChoices):
         """
-        Choices for SRP Status
+        Choices for SRP status
         """
 
         ACTIVE = "Active", _("Active")
@@ -96,7 +96,7 @@ class AaSrpLink(models.Model):
     @property
     def total_cost(self):
         """
-        total cost for this SRP link
+        Total cost for this SRP link
         :return:
         """
 
@@ -173,7 +173,7 @@ class AaSrpRequest(models.Model):
 
     class Status(models.TextChoices):
         """
-        Choices for SRP Request Status
+        Choices for SRP Request status
         """
 
         PENDING = "Pending", _("Pending")
@@ -262,7 +262,7 @@ class AaSrpRequestComment(models.Model):
 
     class Type(models.TextChoices):
         """
-        Choices for Comment Types
+        Choices for comment types
         """
 
         COMMENT = "Comment", _("SRP Request Comment")

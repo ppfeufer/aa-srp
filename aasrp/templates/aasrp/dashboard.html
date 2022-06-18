@@ -52,12 +52,12 @@
 
     <script type="application/javascript">
         /**
-         * passing some setting to our JS
+         * Passing some setting to our JS
          */
         const urlUserSrpRequests = "{% url 'aasrp:ajax_dashboard_user_srp_requests_data' %}";
         let urlAvailableSrpLinks = "{% url 'aasrp:ajax_dashboard_srp_links_data' %}";
         {% if show_all_links %}
-            // override for "view all"
+            // Override for "view all"
             urlAvailableSrpLinks = "{% url 'aasrp:ajax_dashboard_srp_links_all_data' %}";
         {% endif %}
 
