@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Changed
+
+- Switched to new notification API
+
 
 ## [1.14.0] - 2022-06-18
 
