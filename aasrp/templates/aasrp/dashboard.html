@@ -30,6 +30,7 @@
 
 {% block extra_javascript %}
     {% include 'bundles/datatables-js.html' %}
+    {% include 'bundles/filterdropdown-js.html' %}
     {% include 'bundles/moment-js.html' with locale=True %}
     {% include 'bundles/clipboard-js.html' %}
 
@@ -46,9 +47,7 @@
         });
     </script>
 
-    <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/dataTables.rowGroup.min.js' %}"></script>
     <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/datetime.js' %}"></script>
-    <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}"></script>
 
     <script type="application/javascript">
         /**
@@ -99,5 +98,6 @@
             }
         };
     </script>
+
     <script type="application/javascript" src="{% aasrp_static 'aasrp/javascript/aa-srp-dashboard.min.js' %}"></script>
 {% endblock %}

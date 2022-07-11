@@ -928,7 +928,9 @@ def ajax_srp_request_additional_information(
         "insurance_information": insurance_information,
     }
 
-    return render(request, "aasrp/modals/view_requests/request-details.html", data)
+    return render(
+        request, "aasrp/ajax_render/srp_request_additional_information.html", data
+    )
 
 
 @login_required

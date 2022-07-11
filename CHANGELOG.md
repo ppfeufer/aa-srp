@@ -8,6 +8,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Fixed
+
+- Removed a sneaky `'` in a modal template
+
+### Changed
+
+- Switched to the new notification API
+- Using bundled `filterDropDown` JavaScript
+- Ajax render template moved to a more logical place
+- `x-editable` lib moved to a bundled template
+- `x-editable` lib updated to v1.5.3
+
+### Removed
+
+- Unnecessary `{% load static %}` statements from templates
+- Unnecessary `{% load humanize %}` statements from templates
+- Unused JavaScripts and CSS
+
 
 ## [1.14.0] - 2022-06-18
 
