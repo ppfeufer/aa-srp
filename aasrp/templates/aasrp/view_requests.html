@@ -29,11 +29,7 @@
 {% endblock %}
 
 {% block extra_javascript %}
-    {% include 'bundles/moment-js.html' with locale=True %}
-    {% include 'bundles/datatables-js.html' %}
-    {% include 'bundles/filterdropdown-js.html' %}
     {% include 'bundles/clipboard-js.html' %}
-    {% include 'aasrp/bundles/x-editable-js.html' %}
 
     <script type="application/javascript">
         let clipboard = new ClipboardJS('.copy-text-fa-icon');
@@ -47,6 +43,11 @@
             console.error('Trigger:', e.trigger);
         });
     </script>
+
+    {% include 'aasrp/bundles/x-editable-js.html' %}
+    {% include 'bundles/moment-js.html' with locale=True %}
+    {% include 'bundles/datatables-js.html' %}
+    {% include 'bundles/filterdropdown-js.html' %}
 
     <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/datetime.min.js' %}"></script>
 
