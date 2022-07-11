@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ## [In Development] - Unreleased
 
 
+## [1.15.1] - 2022-07-11
+
+### Fixed
+
+- JS order in template
+
+
 ## [1.15.0] - 2022-07-11
 
 ### Fixed

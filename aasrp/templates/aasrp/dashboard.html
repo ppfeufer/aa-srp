@@ -29,9 +29,6 @@
 {% endblock %}
 
 {% block extra_javascript %}
-    {% include 'bundles/datatables-js.html' %}
-    {% include 'bundles/filterdropdown-js.html' %}
-    {% include 'bundles/moment-js.html' with locale=True %}
     {% include 'bundles/clipboard-js.html' %}
 
     <script type="application/javascript">
@@ -46,6 +43,10 @@
             console.error('Trigger:', e.trigger);
         });
     </script>
+
+    {% include 'bundles/datatables-js.html' %}
+    {% include 'bundles/moment-js.html' with locale=True %}
+    {% include 'bundles/filterdropdown-js.html' %}
 
     <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/datetime.js' %}"></script>
 
