@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+
+## [1.15.0] - 2022-07-11
+
 ### Fixed
 
 - Removed a sneaky `'` in a modal template
