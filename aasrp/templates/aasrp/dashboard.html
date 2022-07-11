@@ -29,9 +29,9 @@
 {% endblock %}
 
 {% block extra_javascript %}
+    {% include 'bundles/moment-js.html' with locale=True %}
     {% include 'bundles/datatables-js.html' %}
     {% include 'bundles/filterdropdown-js.html' %}
-    {% include 'bundles/moment-js.html' with locale=True %}
     {% include 'bundles/clipboard-js.html' %}
 
     <script type="application/javascript">
