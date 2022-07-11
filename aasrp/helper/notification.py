@@ -244,7 +244,7 @@ def send_user_notification(
     :param embed_message:
     """
 
-    notify(user=user, title=title, level=level, message=message)
+    getattr(notify, level)(user=user, title=title, message=message)
 
     # Handle Discord PMs when aa_discordnotify is not active
     # Check if either allianceauth_discordbot or discordproxy are available

@@ -58,23 +58,28 @@ SRP Module for [Alliance Auth](https://gitlab.com/allianceauth/allianceauth)
 ### Screenshots
 
 #### Dashboard
-![Dashboard](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-dashboard.jpg)
+
+![AA SRP Dashboard](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-dashboard.jpg "AA SRP Dashboard")
 
 
 #### Dashboard (View All)
-![Dashboard (View All)](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-dashboard-view-all.jpg)
+
+![AA SRP Dashboard (View All)](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-dashboard-view-all.jpg "AA SRP Dashboard (View All)")
 
 
 #### Your SRP Requests
-![Your SRP Requests](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-your-requests.jpg)
+
+![Your SRP Requests View](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-your-requests.jpg "Your SRP Requests View")
 
 
 #### SRP Requests Overview
-![SRP Requests Overview](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-requests-overview.jpg)
+
+![SRP Requests Overview](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-requests-overview.jpg "SRP Requests Overview")
 
 
 #### SRP Request Details
-![SRP Request Details](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-request-details.jpg)
+
+![SRP Request Details](https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-request-details.jpg "SRP Request Details")
 
 
 ## Installation
@@ -166,19 +171,19 @@ python manage.py aasrp_migrate_srp_data
 
 ## Settings
 
-| Key | Description | Type | Default |
-|-----|-------------|------|---------|
-| `AASRP_SRP_TEAM_DISCORD_CHANNEL` | ID of the Discord channel of your SRP team. If set, your SRP team will be notified (no ping to prevent ping spam) about new SRP requests in their channel. (You need to have [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot) installed and configured to use this option) | int | `None` |
+| Key                              | Description                                                                                                                                                                                                                                                                                    | Type  | Default  |
+|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|----------|
+| `AASRP_SRP_TEAM_DISCORD_CHANNEL` | ID of the Discord channel of your SRP team. If set, your SRP team will be notified (no ping to prevent ping spam) about new SRP requests in their channel. (You need to have [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot) installed and configured to use this option) | int   | `None`   |
 
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md)
+See [CHANGELOG.md](https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md)
 
 
 ## Contributing
 
 You want to contribute to this project? That's cool!
 
-Please make sure to read the [contribution guidelines](CONTRIBUTING.md)
+Please make sure to read the [contribution guidelines](https://github.com/ppfeufer/aa-srp/blob/master/CONTRIBUTING.md)
 (I promise, it's not much, just some basics)
