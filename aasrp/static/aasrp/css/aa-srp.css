@@ -98,6 +98,12 @@
         cursor: pointer;
         display: block;
     }
+
+    .srp-request-payout-amount-editable .srp-payout-amount-changed {
+        border-bottom: dashed 1px rgb(204, 71, 0);
+        cursor: pointer;
+        display: block;
+    }
 }
 
 @media all and (min-width: 992px) {

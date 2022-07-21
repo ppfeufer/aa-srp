@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ### Changed
 
 - Moved SRP recalculation to its own function
+- Highlight color for SRP Amount Changed
 
 
 ## [1.15.1] - 2022-07-11
