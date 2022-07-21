@@ -157,34 +157,33 @@ $(document).ready(() => {
             const srpRequestPayoutAmount = data.payout_amount;
 
             // Row id attr
-            $(row).attr('data-row-id', rowIndex);
-            $(row).attr('data-srp-request-code', srpRequestCode);
-            $(row).addClass('srp-request-status-' + srpRequestStatus);
+            $(row)
+                .attr('data-row-id', rowIndex)
+                .attr('data-srp-request-code', srpRequestCode)
+                .addClass('srp-request-status-' + srpRequestStatus);
+
+            $(row)
+                .find('span.srp-payout-amount')
+                .attr('data-value', srpRequestPayoutAmount);
 
             // Add class and data attribute to the payout span
             if (srpRequestStatus === 'pending' || srpRequestStatus === 'rejected') {
-                $(row).find('td.srp-request-payout').addClass(
-                    'srp-request-payout-amount-editable'
-                );
-                $(row).find('span.srp-payout-amount')
-                    .addClass(
-                        'srp-request-' + srpRequestCode
-                    )
+                $(row)
+                    .find('td.srp-request-payout')
+                    .addClass('srp-request-payout-amount-editable');
+
+                $(row)
+                    .find('span.srp-payout-amount')
+                    .addClass('srp-request-' + srpRequestCode)
                     .attr(
                         'data-params', '{csrfmiddlewaretoken:\'' + aaSrpSettings.csrfToken + '\'}'
                     )
                     .attr('data-pk', srpRequestCode)
-                    .attr(
-                        'data-value', srpRequestPayoutAmount
-                    )
                     .attr('data-tooltip', 'enable')
-                    .attr(
-                        'title', aaSrpSettings.translation.changeSrpPayoutAmount
-                    )
+                    .attr('title', aaSrpSettings.translation.changeSrpPayoutAmount)
                     .attr(
                         'data-url', aaSrpSettings.url.changeSrpAmount.replace(
-                            'SRP_REQUEST_CODE',
-                            srpRequestCode
+                            'SRP_REQUEST_CODE', srpRequestCode
                         )
                     );
             }
