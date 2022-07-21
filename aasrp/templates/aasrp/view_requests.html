@@ -55,10 +55,10 @@
         /**
          * passing some settings to our JS
          */
-        let urlRequestsForSrpLink = '{% url "aasrp:ajax_srp_link_view_requests_data" srp_link.srp_code %}';
-        let urlChangeSrpAmount = '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}';
+        const urlRequestsForSrpLink = '{% url "aasrp:ajax_srp_link_view_requests_data" srp_link.srp_code %}';
+        const urlChangeSrpAmount = '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}';
 
-        let aaSrpSettings = {
+        const aaSrpSettings = {
             datetimeFormat: 'YYYY-MM-DD HH:mm',
             srpCode: '{{ srp_link.srp_code }}',
             csrfToken: '{{ csrf_token }}',

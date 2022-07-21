@@ -200,19 +200,22 @@ $(document).ready(() => {
     const _refreshSrpAmountField = (element, newValue) => {
         newValue = parseInt(newValue);
 
-        // Update data-attribute
-        element.attr('data-value', newValue);
-
         // Update payout value formatted
-        const newValuewFormatted = newValue.toLocaleString() + ' ISK';
+        const newValueFormatted = newValue.toLocaleString() + ' ISK';
 
-        element.addClass('srp-payout-amount-changed');
-        element.html(newValuewFormatted);
+        // Update the element
+        element
+            .attr('data-value', newValue)
+            .addClass('srp-payout-amount-changed')
+            .html(newValueFormatted);
 
         // Update fleet total SRP amount
         let totalSrpAmount = 0;
+        const elementSrpAmount = $(
+            '#tab_aasrp_srp_requests .srp-request-status-approved .srp-payout-amount'
+        );
 
-        $('#tab_aasrp_srp_requests .srp-request-status-approved .srp-payout-amount').each((i, payoutElement) => {
+        elementSrpAmount.each((i, payoutElement) => {
             totalSrpAmount += parseInt(payoutElement.getAttribute('data-value'));
         });
 
@@ -322,7 +325,8 @@ $(document).ready(() => {
         const confirmButtonText = button.data('modal-button-confirm');
 
         modalSrpRequestDetails.find('.modal-title').text(name);
-        modalSrpRequestDetails.find('#modal-button-request-details-confirm').html(confirmButtonText);
+        modalSrpRequestDetails.find('#modal-button-request-details-confirm')
+            .html(confirmButtonText);
 
         $.get({
             url: url,
@@ -346,9 +350,11 @@ $(document).ready(() => {
         const body = button.data('modal-body');
 
         modalSrpRequestAccept.find('.modal-title').text(name);
-        modalSrpRequestAccept.find('#modal-button-confirm-accept-request').addClass(confirmButtonClasses);
-        modalSrpRequestAccept.find('#modal-button-confirm-accept-request').html(confirmButtonText);
-        modalSrpRequestAccept.find('#modal-button-cancel-accept-request').html(cancelButtonText);
+        modalSrpRequestAccept.find('#modal-button-confirm-accept-request')
+            .addClass(confirmButtonClasses)
+            .html(confirmButtonText);
+        modalSrpRequestAccept.find('#modal-button-cancel-accept-request')
+            .html(cancelButtonText);
         modalSrpRequestAccept.find('.modal-body').text(body);
 
         $('#modal-button-confirm-accept-request').on('click', (event) => {
@@ -426,9 +432,11 @@ $(document).ready(() => {
         const body = button.data('modal-body');
 
         modalSrpRequestRemove.find('.modal-title').text(name);
-        modalSrpRequestRemove.find('#modal-button-confirm-remove-request').addClass(confirmButtonClasses);
-        modalSrpRequestRemove.find('#modal-button-confirm-remove-request').html(confirmButtonText);
-        modalSrpRequestRemove.find('#modal-button-cancel-remove-request').html(cancelButtonText);
+        modalSrpRequestRemove.find('#modal-button-confirm-remove-request')
+            .addClass(confirmButtonClasses)
+            .html(confirmButtonText);
+        modalSrpRequestRemove.find('#modal-button-cancel-remove-request')
+            .html(cancelButtonText);
         modalSrpRequestRemove.find('.modal-body').text(body);
 
         $('#modal-button-confirm-remove-request').on('click', (event) => {
