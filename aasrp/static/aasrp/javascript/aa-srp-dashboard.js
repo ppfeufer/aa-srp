@@ -325,9 +325,7 @@ $(document).ready(() => {
         $.get({
             url: url,
             success: (data) => {
-                const modalBody = data;
-
-                modalSrpRequestDetails.find('.modal-body').html(modalBody);
+                modalSrpRequestDetails.find('.modal-body').html(data);
             }
         });
     }).on('hide.bs.modal', () => {

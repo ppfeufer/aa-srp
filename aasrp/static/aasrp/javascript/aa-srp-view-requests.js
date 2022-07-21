@@ -166,26 +166,27 @@ $(document).ready(() => {
                 $(row).find('td.srp-request-payout').addClass(
                     'srp-request-payout-amount-editable'
                 );
-                $(row).find('span.srp-payout-amount').addClass(
-                    'srp-request-' + srpRequestCode
-                );
-                $(row).find('span.srp-payout-amount').attr(
-                    'data-params', '{csrfmiddlewaretoken:\'' + aaSrpSettings.csrfToken + '\'}'
-                );
-                $(row).find('span.srp-payout-amount').attr('data-pk', srpRequestCode);
-                $(row).find('span.srp-payout-amount').attr(
-                    'data-value', srpRequestPayoutAmount
-                );
-                $(row).find('span.srp-payout-amount').attr('data-tooltip', 'toggle');
-                $(row).find('span.srp-payout-amount').attr(
-                    'title', aaSrpSettings.translation.changeSrpPayoutAmount
-                );
-                $(row).find('span.srp-payout-amount').attr(
-                    'data-url', aaSrpSettings.url.changeSrpAmount.replace(
-                        'SRP_REQUEST_CODE',
-                        srpRequestCode
+                $(row).find('span.srp-payout-amount')
+                    .addClass(
+                        'srp-request-' + srpRequestCode
                     )
-                );
+                    .attr(
+                        'data-params', '{csrfmiddlewaretoken:\'' + aaSrpSettings.csrfToken + '\'}'
+                    )
+                    .attr('data-pk', srpRequestCode)
+                    .attr(
+                        'data-value', srpRequestPayoutAmount
+                    )
+                    .attr('data-tooltip', 'enable')
+                    .attr(
+                        'title', aaSrpSettings.translation.changeSrpPayoutAmount
+                    )
+                    .attr(
+                        'data-url', aaSrpSettings.url.changeSrpAmount.replace(
+                            'SRP_REQUEST_CODE',
+                            srpRequestCode
+                        )
+                    );
             }
         }
     });
@@ -263,7 +264,7 @@ $(document).ready(() => {
         });
 
         // Show bootstrap tooltips
-        $('[data-tooltip="toggle"]').tooltip();
+        $('[data-tooltip="enable"]').tooltip();
     });
 
     /**
