@@ -104,10 +104,12 @@ $(document).ready(() => {
          */
         createdRow: (row, data, rowIndex) => {
             // Row id attr
-            $(row).attr('data-row-id', rowIndex);
-            $(row).attr('data-srp-request-code', data.srp_code);
+            $(row)
+                .attr('data-row-id', rowIndex)
+                .attr('data-srp-code', data.srp_code.sort);
 
             totalSrpAmount += parseInt(data.srp_costs);
+
             $('.srp-dashboard-total-isk-cost-amount').html(
                 totalSrpAmount.toLocaleString() + ' ISK'
             );
@@ -276,7 +278,8 @@ $(document).ready(() => {
         const url = button.data('url');
         const name = button.data('name');
 
-        modalEnableSrpLink.find('#modal-button-confirm-enable-srp-link').attr('href', url);
+        modalEnableSrpLink.find('#modal-button-confirm-enable-srp-link')
+            .attr('href', url);
         modalEnableSrpLink.find('.modal-body').html(
             aaSrpSettings.translation.modal.enableSrpLink.body + '<br>"' + name + '"'
         );
@@ -290,7 +293,8 @@ $(document).ready(() => {
         const url = button.data('url');
         const name = button.data('name');
 
-        modalDisableSrpLink.find('#modal-button-confirm-disable-srp-link').attr('href', url);
+        modalDisableSrpLink.find('#modal-button-confirm-disable-srp-link')
+            .attr('href', url);
         modalDisableSrpLink.find('.modal-body').html(
             aaSrpSettings.translation.modal.disableSrpLink.body + '<br>"' + name + '"'
         );
@@ -320,14 +324,13 @@ $(document).ready(() => {
         const confirmButtonText = button.data('modal-button-confirm');
 
         modalSrpRequestDetails.find('.modal-title').text(name);
-        modalSrpRequestDetails.find('#modal-button-request-details-confirm').html(confirmButtonText);
+        modalSrpRequestDetails.find('#modal-button-request-details-confirm')
+            .html(confirmButtonText);
 
         $.get({
             url: url,
             success: (data) => {
-                const modalBody = data;
-
-                modalSrpRequestDetails.find('.modal-body').html(modalBody);
+                modalSrpRequestDetails.find('.modal-body').html(data);
             }
         });
     }).on('hide.bs.modal', () => {

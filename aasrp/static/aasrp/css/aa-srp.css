@@ -14,9 +14,9 @@
     }
 
     .btn-icon-aasrp {
+        height: 36px;
         margin: 0.1rem;
         width: 36px;
-        height: 36px;
     }
 
     .btn-icon-aasrp-status {
@@ -92,6 +92,18 @@
     .aa-srp-fa-icon-right {
         margin-left: 1rem;
     }
+
+    .srp-request-payout-amount-editable .srp-payout-amount {
+        border-bottom: dashed 1px rgb(0 136 204);
+        cursor: pointer;
+        display: block;
+    }
+
+    .srp-request-payout-amount-editable .srp-payout-amount-changed {
+        border-bottom: dashed 1px rgb(204, 71, 0);
+        cursor: pointer;
+        display: block;
+    }
 }
 
 @media all and (min-width: 992px) {
@@ -108,8 +120,8 @@
     }
 
     .dataTables_wrapper > .form-inline select {
-        margin-right: 1rem;
         margin-bottom: 1rem;
+        margin-right: 1rem;
     }
 
     .dataTables_wrapper > .form-inline select:last-child {

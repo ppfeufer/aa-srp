@@ -55,10 +55,10 @@
         /**
          * passing some settings to our JS
          */
-        let urlRequestsForSrpLink = '{% url "aasrp:ajax_srp_link_view_requests_data" srp_link.srp_code %}';
-        let urlChangeSrpAmount = '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}';
+        const urlRequestsForSrpLink = '{% url "aasrp:ajax_srp_link_view_requests_data" srp_link.srp_code %}';
+        const urlChangeSrpAmount = '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}';
 
-        let aaSrpSettings = {
+        const aaSrpSettings = {
             datetimeFormat: 'YYYY-MM-DD HH:mm',
             srpCode: '{{ srp_link.srp_code }}',
             csrfToken: '{{ csrf_token }}',
@@ -70,8 +70,9 @@
                 filter: {
                     requestStatus: '{% translate "Request Status" %}',
                     ship: '{% translate "Ship" %}',
-                    character: '{% translate "Character" %}',
+                    character: '{% translate "Character" %}'
                 },
+                changeSrpPayoutAmount: '{% translate "Click here to change the payout amount for this SRP request." %}',
                 changeSrpPayoutHeader: '{% translate "Enter SRP payout value" %}',
                 editableValidate: '{% translate "Empty values are not allowed" %}',
                 modal: {
@@ -93,6 +94,10 @@
                 }
             }
         };
+
+        $(document).ready(() => {
+            $('[data-tooltip="payout-hint"]').tooltip();
+        });
     </script>
     <script type="application/javascript" src="{% aasrp_static 'aasrp/javascript/aa-srp-view-requests.min.js' %}"></script>
 {% endblock %}
