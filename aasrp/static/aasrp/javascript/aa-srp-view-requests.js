@@ -222,7 +222,7 @@ $(document).ready(() => {
     /**
      * When the DataTable has finished rendering and is fully initialized
      */
-    srpRequestsTable.on('init', () => {
+    srpRequestsTable.on('draw', () => {
         // Make SRP payout field editable for pending and rejected requests
         elementSrpRequestsTable.editable({
             container: 'body',
