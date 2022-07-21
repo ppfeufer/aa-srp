@@ -7,6 +7,8 @@ $(document).ready(() => {
 
     /**
      * Table :: SRP Requests
+     *
+     * @type {*|jQuery}
      */
     const srpRequestsTable = elementSrpRequestsTable.DataTable({
         ajax: {
@@ -239,12 +241,12 @@ $(document).ready(() => {
             /**
              * On success ...
              *
-             * Arrow functions don't work here since we need $(this)
+             * Arrow functions doesn't work here since we need `$(this)`
              *
              * @param response
              * @param newValue
              */
-            success: function(response, newValue) {
+            success: function (response, newValue) {
                 _refreshSrpAmountField($(this), newValue);
             },
             /**
@@ -263,6 +265,46 @@ $(document).ready(() => {
         // Show bootstrap tooltips
         $('[data-tooltip="toggle"]').tooltip();
     });
+
+    /**
+     * Reloading SRP calculation in our DataTable
+     *
+     * @param tableData
+     * @private
+     */
+    const _reloadSrpCalculations = (tableData) => {
+        let totalSrpAmount = 0;
+        let requestsTotal = 0;
+        let requestsPending = 0;
+        let requestsApproved = 0;
+        let requestsRejected = 0;
+
+        $.each(tableData, (i, item) => {
+            requestsTotal += 1;
+
+            if (item.request_status === 'Pending') {
+                requestsPending += 1;
+            }
+
+            if (item.request_status === 'Approved') {
+                totalSrpAmount += parseInt(item.payout_amount);
+                requestsApproved += 1;
+            }
+
+            if (item.request_status === 'Rejected') {
+                requestsRejected += 1;
+            }
+        });
+
+        // Update fleet total SRP amount
+        $('.srp-fleet-total-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
+
+        // Update requests counts
+        $('.srp-requests-total-count').html(requestsTotal);
+        $('.srp-requests-pending-count').html(requestsPending);
+        $('.srp-requests-approved-count').html(requestsApproved);
+        $('.srp-requests-rejected-count').html(requestsRejected);
+    };
 
     /**
      * Modals
@@ -314,47 +356,7 @@ $(document).ready(() => {
                 // reload datatable on success and update SRP status values
                 if (data['0'].success === true) {
                     srpRequestsTable.ajax.reload((tableData) => {
-                        let totalSrpAmount = 0;
-                        let requestsTotal = 0;
-                        let requestsPending = 0;
-                        let requestsApproved = 0;
-                        let requestsRejected = 0;
-
-                        $.each(tableData, (i, item) => {
-                            requestsTotal += 1;
-
-                            if (item.request_status === 'Pending') {
-                                requestsPending += 1;
-                            }
-
-                            if (item.request_status === 'Approved') {
-                                totalSrpAmount += parseInt(item.payout_amount);
-                                requestsApproved += 1;
-                            }
-
-                            if (item.request_status === 'Rejected') {
-                                requestsRejected += 1;
-                            }
-                        });
-
-                        // Update fleet total SRP amount
-                        $('.srp-fleet-total-amount').html(
-                            totalSrpAmount.toLocaleString() + ' ISK'
-                        );
-
-                        // Update requests counts
-                        $('.srp-requests-total-count').html(
-                            requestsTotal
-                        );
-                        $('.srp-requests-pending-count').html(
-                            requestsPending
-                        );
-                        $('.srp-requests-approved-count').html(
-                            requestsApproved
-                        );
-                        $('.srp-requests-rejected-count').html(
-                            requestsRejected
-                        );
+                        _reloadSrpCalculations(tableData);
                     });
                 }
             });
@@ -399,47 +401,7 @@ $(document).ready(() => {
                 posting.done((data) => {
                     if (data['0'].success === true) {
                         srpRequestsTable.ajax.reload((tableData) => {
-                            let totalSrpAmount = 0;
-                            let requestsTotal = 0;
-                            let requestsPending = 0;
-                            let requestsApproved = 0;
-                            let requestsRejected = 0;
-
-                            $.each(tableData, (i, item) => {
-                                requestsTotal += 1;
-
-                                if (item.request_status === 'Pending') {
-                                    requestsPending += 1;
-                                }
-
-                                if (item.request_status === 'Approved') {
-                                    totalSrpAmount += parseInt(item.payout_amount);
-                                    requestsApproved += 1;
-                                }
-
-                                if (item.request_status === 'Rejected') {
-                                    requestsRejected += 1;
-                                }
-                            });
-
-                            // Update fleet total SRP amount
-                            $('.srp-fleet-total-amount').html(
-                                totalSrpAmount.toLocaleString() + ' ISK'
-                            );
-
-                            // Update requests counts
-                            $('.srp-requests-total-count').html(
-                                requestsTotal
-                            );
-                            $('.srp-requests-pending-count').html(
-                                requestsPending
-                            );
-                            $('.srp-requests-approved-count').html(
-                                requestsApproved
-                            );
-                            $('.srp-requests-rejected-count').html(
-                                requestsRejected
-                            );
+                            _reloadSrpCalculations(tableData);
                         });
                     }
                 });
@@ -474,47 +436,7 @@ $(document).ready(() => {
                 // Reload datatable on success and update SRP status values
                 if (data['0'].success === true) {
                     srpRequestsTable.ajax.reload((tableData) => {
-                        let totalSrpAmount = 0;
-                        let requestsTotal = 0;
-                        let requestsPending = 0;
-                        let requestsApproved = 0;
-                        let requestsRejected = 0;
-
-                        $.each(tableData, (i, item) => {
-                            requestsTotal += 1;
-
-                            if (item.request_status === 'Pending') {
-                                requestsPending += 1;
-                            }
-
-                            if (item.request_status === 'Approved') {
-                                totalSrpAmount += parseInt(item.payout_amount);
-                                requestsApproved += 1;
-                            }
-
-                            if (item.request_status === 'Rejected') {
-                                requestsRejected += 1;
-                            }
-                        });
-
-                        // Update fleet total SRP amount
-                        $('.srp-fleet-total-amount').html(
-                            totalSrpAmount.toLocaleString() + ' ISK'
-                        );
-
-                        // Update requests counts
-                        $('.srp-requests-total-count').html(
-                            requestsTotal
-                        );
-                        $('.srp-requests-pending-count').html(
-                            requestsPending
-                        );
-                        $('.srp-requests-approved-count').html(
-                            requestsApproved
-                        );
-                        $('.srp-requests-rejected-count').html(
-                            requestsRejected
-                        );
+                        _reloadSrpCalculations(tableData);
                     });
                 }
             });
