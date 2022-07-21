@@ -150,26 +150,41 @@ $(document).ready(() => {
          * @param rowIndex
          */
         createdRow: (row, data, rowIndex) => {
+            const srpRequestCode = data.request_code;
+            const srpRequestStatus = data.request_status.toLowerCase();
+            const srpRequestPayoutAmount = data.payout_amount;
+
             // Row id attr
             $(row).attr('data-row-id', rowIndex);
-            $(row).attr('data-srp-request-code', data.request_code);
-            $(row).addClass('srp-request-status-' + data.request_status.toLowerCase());
+            $(row).attr('data-srp-request-code', srpRequestCode);
+            $(row).addClass('srp-request-status-' + srpRequestStatus);
 
             // Add class and data attribute to the payout span
-            $(row).find('span.srp-payout-amount').addClass(
-                'srp-request-' + data.request_code
-            );
-            $(row).find('span.srp-payout-amount').attr(
-                'data-params', '{csrfmiddlewaretoken:\'' + aaSrpSettings.csrfToken + '\'}'
-            );
-            $(row).find('span.srp-payout-amount').attr('data-pk', data.request_code);
-            $(row).find('span.srp-payout-amount').attr('data-value', data.payout_amount);
-            $(row).find('span.srp-payout-amount').attr(
-                'data-url', aaSrpSettings.url.changeSrpAmount.replace(
-                    'SRP_REQUEST_CODE',
-                    data.request_code
-                )
-            );
+            if (srpRequestStatus === 'pending' || srpRequestStatus === 'rejected') {
+                $(row).find('td.srp-request-payout').addClass(
+                    'srp-request-payout-amount-editable'
+                );
+                $(row).find('span.srp-payout-amount').addClass(
+                    'srp-request-' + srpRequestCode
+                );
+                $(row).find('span.srp-payout-amount').attr(
+                    'data-params', '{csrfmiddlewaretoken:\'' + aaSrpSettings.csrfToken + '\'}'
+                );
+                $(row).find('span.srp-payout-amount').attr('data-pk', srpRequestCode);
+                $(row).find('span.srp-payout-amount').attr(
+                    'data-value', srpRequestPayoutAmount
+                );
+                $(row).find('span.srp-payout-amount').attr('data-tooltip', 'toggle');
+                $(row).find('span.srp-payout-amount').attr(
+                    'title', aaSrpSettings.translation.changeSrpPayoutAmount
+                );
+                $(row).find('span.srp-payout-amount').attr(
+                    'data-url', aaSrpSettings.url.changeSrpAmount.replace(
+                        'SRP_REQUEST_CODE',
+                        srpRequestCode
+                    )
+                );
+            }
         }
     });
 
@@ -203,86 +218,50 @@ $(document).ready(() => {
     };
 
     /**
-     * Make SRP payout field editable for pending requests
+     * When the DataTable has finished rendering and is fully initialized
      */
-    elementSrpRequestsTable.editable({
-        container: 'body',
-        selector: '.srp-request-status-pending .srp-payout-amount', // Only for pending requests
-        title: aaSrpSettings.translation.changeSrpPayoutHeader,
-        type: 'number',
-        placement: 'top',
-        /**
-         * @param value
-         * @param response
-         * @returns {boolean}
-         */
-        display: (value, response) => {
-            return false;
-        },
-        /**
-         * On success ...
-         *
-         * Arrow functions don't work here since we need $(this)
-         *
-         * @param response
-         * @param newValue
-         */
-        success: function(response, newValue) {
-            _refreshSrpAmountField($(this), newValue);
-        },
-        /**
-         * Check if input is not empty
-         *
-         * @param {string} value
-         * @returns {string}
-         */
-        validate: (value) => {
-            if (value === '') {
-                return aaSrpSettings.translation.editableValidate;
+    srpRequestsTable.on('init', () => {
+        // Make SRP payout field editable for pending and rejected requests
+        elementSrpRequestsTable.editable({
+            container: 'body',
+            selector: '.srp-request-payout-amount-editable .srp-payout-amount',
+            title: aaSrpSettings.translation.changeSrpPayoutHeader,
+            type: 'number',
+            placement: 'top',
+            /**
+             * @param value
+             * @param response
+             * @returns {boolean}
+             */
+            display: (value, response) => {
+                return false;
+            },
+            /**
+             * On success ...
+             *
+             * Arrow functions don't work here since we need $(this)
+             *
+             * @param response
+             * @param newValue
+             */
+            success: function(response, newValue) {
+                _refreshSrpAmountField($(this), newValue);
+            },
+            /**
+             * Check if input is not empty
+             *
+             * @param {string} value
+             * @returns {string}
+             */
+            validate: (value) => {
+                if (value === '') {
+                    return aaSrpSettings.translation.editableValidate;
+                }
             }
-        }
-    });
+        });
 
-    /**
-     * Make SRP payout field editable for rejected requests,
-     * in case they get approved later on
-     */
-    elementSrpRequestsTable.editable({
-        container: 'body',
-        selector: '.srp-request-status-rejected .srp-payout-amount', // Only for rejected requests
-        title: aaSrpSettings.translation.changeSrpPayoutHeader,
-        type: 'number',
-        placement: 'top',
-        /**
-         * @param value
-         * @param response
-         * @returns {boolean}
-         */
-        display: (value, response) => {
-            return false;
-        },
-        /**
-         * On success ...
-         *
-         * Arrow functions don't work here since we need $(this)
-         *
-         * @param response
-         * @param newValue
-         */
-        success: function(response, newValue) {
-            _refreshSrpAmountField($(this), newValue);
-        },
-        /**
-         * Check if input is not empty
-         *
-         * @param {string} value
-         * @returns {string}
-         */
-        validate: (value) => {
-            if (value === '') {
-                return aaSrpSettings.translation.editableValidate;
-            }
-        }
+        // Show bootstrap tooltips
+        $('[data-tooltip="toggle"]').tooltip();
     });
 
     /**

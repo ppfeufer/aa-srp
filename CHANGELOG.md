@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Added
+
+- Tooltip to make it a bit more obvious that SRP payout values can be changed
+  ![Tooltip: Change SRP Payout Amount](aasrp//images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount")
+
 
 ## [1.15.1] - 2022-07-11
 
