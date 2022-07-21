@@ -26,9 +26,7 @@ class TestModulesInstalled(TestCase):
 
         self.assertFalse(allianceauth_discordbot_installed())
 
-    @modify_settings(
-        INSTALLED_APPS={"append": "aadiscordbot"}, DISCORD_BOT_TOKEN="MYDUMMYTOKEN"
-    )
+    @modify_settings(INSTALLED_APPS={"append": "aadiscordbot"})
     def test_allianceauth_discordbot_installed_should_return_true(self):
         """
         Test allianceauth_discordbot_installed should return True
