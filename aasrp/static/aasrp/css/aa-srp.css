@@ -116,6 +116,19 @@
         cursor: pointer;
         display: block;
     }
+
+    .modal-srp-details-request-history .request-history-comment {
+        margin-top: 1rem;
+        border-bottom: 1px solid rgb(229 229 229);
+    }
+
+    .template-dark-mode .modal-srp-details-request-history .request-history-comment {
+        border-bottom: 1px solid rgb(70 69 69);
+    }
+
+    .modal-srp-details-request-history .request-history-comment:last-child {
+        border-bottom: none;
+    }
 }
 
 @media all and (min-width: 992px) {

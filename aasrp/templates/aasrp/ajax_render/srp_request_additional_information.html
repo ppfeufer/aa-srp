@@ -1,3 +1,4 @@
+{% load aasrp_user %}
 {% load humanize %}
 {% load i18n %}
 
@@ -57,11 +58,26 @@
     </div>
 </div>
 
-{% if reject_info %}
-    <div class="clearfix modal-srp-details modal-srp-details-additional-information">
+{% if request_history %}
+    <div class="clearfix modal-srp-details modal-srp-details-request-history">
         <div class="col-sm-12">
-            <p><b>{% translate "Reject Information" %}</b></p>
-            {{ reject_info|linebreaks }}
+            <p><b>{% translate "Request History" %}</b></p>
+
+            {% for comment in request_history %}
+                <div class="request-history-comment row">
+                    <div class="col-sm-12">
+                        <p><b>{{ comment.get_comment_type_display }}</b></p>
+                    </div>
+
+                    <div class="col-sm-3">
+                        {{ comment.creator|main_character_name }}
+                    </div>
+
+                    <div class="col-sm-9">
+                        {{ comment.comment|linebreaks }}
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endif %}

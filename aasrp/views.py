@@ -6,6 +6,7 @@ The views
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -906,7 +907,6 @@ def ajax_srp_request_additional_information(
     if srp_request.request_status == AaSrpRequest.Status.REJECTED:
         request_status_banner_alert_level = "danger"
 
-    additional_info = ""
     try:
         additional_info_comment = AaSrpRequestComment.objects.get(
             srp_request=srp_request, comment_type=AaSrpRequestComment.Type.REQUEST_INFO
@@ -914,17 +914,15 @@ def ajax_srp_request_additional_information(
 
         additional_info = additional_info_comment.comment.replace("\n", "<br>\n")
     except AaSrpRequestComment.DoesNotExist:
-        pass
+        additional_info = ""
 
-    reject_info = ""
     try:
-        reject_comment = AaSrpRequestComment.objects.get(
-            srp_request=srp_request, comment_type=AaSrpRequestComment.Type.REJECT_REASON
-        )
-
-        reject_info = reject_comment.comment
+        request_history = AaSrpRequestComment.objects.filter(
+            ~Q(comment_type=AaSrpRequestComment.Type.REQUEST_INFO),
+            srp_request=srp_request,
+        ).order_by("pk")
     except AaSrpRequestComment.DoesNotExist:
-        pass
+        request_history = ""
 
     data = {
         "srp_request": srp_request,
@@ -933,10 +931,10 @@ def ajax_srp_request_additional_information(
         "requester": get_main_character_from_user(srp_request.creator),
         "character": character,
         "additional_info": additional_info,
-        "reject_info": reject_info,
         "request_status_banner_alert_level": request_status_banner_alert_level,
         "request_status": srp_request.request_status,
         "insurance_information": insurance_information,
+        "request_history": request_history,
     }
 
     return render(

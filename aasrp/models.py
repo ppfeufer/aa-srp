@@ -265,10 +265,11 @@ class AaSrpRequestComment(models.Model):
         Choices for comment types
         """
 
-        COMMENT = "Comment", _("SRP Request Comment")
-        REQUEST_INFO = "Request Information", _("SRP Request Additional Information")
-        REJECT_REASON = "Reject Reason", _("SRP Reject Reason")
-        REVISER_COMMENT = "Reviser Comment", _("SRP Request Reviser Comment")
+        COMMENT = "Comment", _("Comment")
+        REQUEST_INFO = "Request Information", _("Additional Information")
+        REJECT_REASON = "Reject Reason", _("Reject Reason")
+        STATUS_CHANGE = "Status Changed", _("Status Changed")
+        REVISER_COMMENT = "Reviser Comment", _("Reviser Comment")
 
     comment = models.TextField(null=True, blank=True)
 
