@@ -1,11 +1,11 @@
 @media all {
     .template-light-mode .aa-srp .nav-tabs > li.active > a {
-        background-color: rgb(236, 240, 241);
-        color: rgb(0, 0, 0);
+        background-color: rgb(236 240 241);
+        color: rgb(0 0 0);
     }
 
     .template-dark-mode .aa-srp .nav-tabs > li.active > a {
-        background-color: rgb(70, 69, 69);
+        background-color: rgb(70 69 69);
         color: rgb(255, 255, 255);
     }
 
@@ -100,7 +100,7 @@
     }
 
     .srp-request-payout-amount-editable .srp-payout-amount-changed {
-        border-bottom: dashed 1px rgb(204, 71, 0);
+        border-bottom: dashed 1px rgb(204 71 0);
         cursor: pointer;
         display: block;
     }

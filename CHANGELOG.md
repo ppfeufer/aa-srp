@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Changed
+
+- RGB notations in CSS files modernised
+
 
 ## [1.15.2] - 2022-07-21
 
