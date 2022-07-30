@@ -12,9 +12,11 @@
 {% block aasrp_body %}
     {% include 'aasrp/partials/view_requests/overview.html' %}
     {% include 'aasrp/partials/view_requests/requests.html' %}
+
     {% include 'aasrp/modals/view_requests/request_details.html' %}
     {% include 'aasrp/modals/view_requests/mark_complete_modal.html' %}
     {% include 'aasrp/modals/view_requests/accept_request.html' %}
+    {% include 'aasrp/modals/view_requests/accept_rejected_request.html' %}
     {% include 'aasrp/modals/view_requests/reject_request.html' %}
     {% include 'aasrp/modals/view_requests/remove_request.html' %}
 {% endblock %}
@@ -86,8 +88,8 @@
                             rejectInformation: '{% translate "Reject Information" %}'
                         }
                     },
-                    rejectRequest: {
-                        body: {
+                    form: {
+                        error: {
                             fieldRequired: '{% translate "This field is required." %}'
                         }
                     }

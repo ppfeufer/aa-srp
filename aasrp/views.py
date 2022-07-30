@@ -30,6 +30,8 @@ from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE, ZKILLBOARD_BA
 from aasrp.form import (
     AaSrpLinkForm,
     AaSrpLinkUpdateForm,
+    AaSrpRequestAcceptForm,
+    AaSrpRequestAcceptRejectedForm,
     AaSrpRequestForm,
     AaSrpRequestPayoutForm,
     AaSrpRequestRejectForm,
@@ -663,8 +665,17 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
     reject_form = AaSrpRequestRejectForm()
+    accept_form = AaSrpRequestAcceptForm()
+    accept_rejected_form = AaSrpRequestAcceptRejectedForm()
 
-    context = {"srp_link": srp_link, "form": reject_form}
+    context = {
+        "srp_link": srp_link,
+        "forms": {
+            "reject_request": reject_form,
+            "accept_request": accept_form,
+            "accept_rejected_request": accept_rejected_form,
+        },
+    }
 
     return render(request, "aasrp/view_requests.html", context)
 
@@ -991,49 +1002,79 @@ def ajax_srp_request_approve(
     except AaSrpRequest.DoesNotExist:
         data.append({"success": False})
     else:
-        requester = srp_request.creator
-        srp_payout = srp_request.payout_amount
-        srp_isk_loss = srp_request.loss_amount
+        if request.method == "POST":
+            # Create a form instance and populate it with data from the request
+            form = None
 
-        if srp_payout == 0:
-            srp_request.payout_amount = srp_isk_loss
+            if srp_request.request_status == AaSrpRequest.Status.PENDING:
+                form = AaSrpRequestAcceptForm(request.POST)
+            elif srp_request.request_status == AaSrpRequest.Status.REJECTED:
+                form = AaSrpRequestAcceptRejectedForm(request.POST)
 
-        # Remove any possible reject reason in case this was rejected before
-        AaSrpRequestComment.objects.filter(
-            srp_request=srp_request, comment_type=AaSrpRequestComment.Type.REJECT_REASON
-        ).delete()
+            if form and form.is_valid():
+                requester = srp_request.creator
+                srp_payout = srp_request.payout_amount
+                srp_isk_loss = srp_request.loss_amount
 
-        srp_request.request_status = AaSrpRequest.Status.APPROVED
-        srp_request.save()
+                # Reviser comment
+                reviser_comment = form.cleaned_data["reviser_comment"]
 
-        user_settings = AaSrpUserSettings.objects.get(user=request.user)
+                if srp_payout == 0:
+                    srp_request.payout_amount = srp_isk_loss
 
-        # Check if the user has notifications activated (it's by default)
-        if user_settings.disable_notifications is False:
-            ship_name = srp_request.ship.name
-            fleet_name = srp_request.srp_link.srp_name
-            srp_code = srp_request.srp_link.srp_code
-            request_code = srp_request.request_code
-            reviser = get_main_character_from_user(request.user)
-            inquiry_note = SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
-            notification_message = (
-                f"Your SRP request regarding your {ship_name} lost during "
-                f"{fleet_name} has been approved.\n\n"
-                f"Request Details:\nSRP-Code: {srp_code}\n"
-                f"Request-Code: {request_code}\n"
-                f"Reviser: {reviser}\n\n{inquiry_note}"
-            )
+                # Remove any possible reject reason in case this was rejected before
+                AaSrpRequestComment.objects.filter(
+                    srp_request=srp_request,
+                    comment_type=AaSrpRequestComment.Type.REJECT_REASON,
+                ).delete()
 
-            logger.info("Sending approval message to user")
+                # Save reviser comment
+                if reviser_comment != "":
+                    AaSrpRequestComment(
+                        comment=reviser_comment,
+                        srp_request=srp_request,
+                        comment_type=AaSrpRequestComment.Type.REVISER_COMMENT,
+                        creator=request.user,
+                    ).save()
 
-            send_user_notification(
-                user=requester,
-                level="success",
-                title="SRP Request Approved",
-                message=notification_message,
-            )
+                srp_request.request_status = AaSrpRequest.Status.APPROVED
+                srp_request.save()
 
-        data.append({"success": True, "message": _("SRP request has been approved")})
+                user_settings = AaSrpUserSettings.objects.get(user=request.user)
+
+                # Check if the user has notifications activated (it's by default)
+                if user_settings.disable_notifications is False:
+                    ship_name = srp_request.ship.name
+                    fleet_name = srp_request.srp_link.srp_name
+                    srp_code = srp_request.srp_link.srp_code
+                    request_code = srp_request.request_code
+                    reviser = get_main_character_from_user(request.user)
+                    reviser_comment = (
+                        f"\nComment:\n{reviser_comment}\n"
+                        if reviser_comment != ""
+                        else ""
+                    )
+                    inquiry_note = SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
+                    notification_message = (
+                        f"Your SRP request regarding your {ship_name} lost during "
+                        f"{fleet_name} has been approved.\n\n"
+                        f"Request Details:\nSRP-Code: {srp_code}\n"
+                        f"Request-Code: {request_code}\n"
+                        f"Reviser: {reviser}\n{reviser_comment}\n{inquiry_note}"
+                    )
+
+                    logger.info("Sending approval message to user")
+
+                    send_user_notification(
+                        user=requester,
+                        level="success",
+                        title="SRP Request Approved",
+                        message=notification_message,
+                    )
+
+                data.append(
+                    {"success": True, "message": _("SRP request has been approved")}
+                )
 
     return JsonResponse(data, safe=False)
 

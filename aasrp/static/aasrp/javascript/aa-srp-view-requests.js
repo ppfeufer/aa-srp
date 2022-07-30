@@ -314,6 +314,7 @@ $(document).ready(() => {
      */
     const modalSrpRequestDetails = $('#srp-request-details');
     const modalSrpRequestAccept = $('#srp-request-accept');
+    const modalSrpRequestAcceptRejected = $('#srp-request-accept-rejected');
     const modalSrpRequestReject = $('#srp-request-reject');
     const modalSrpRequestRemove = $('#srp-request-remove');
 
@@ -342,35 +343,80 @@ $(document).ready(() => {
     // Accept SRP request
     modalSrpRequestAccept.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
-        const name = button.data('modal-title');
         const url = button.data('link');
-        const confirmButtonText = button.data('modal-button-confirm');
-        const cancelButtonText = button.data('modal-button-cancel');
-        const confirmButtonClasses = button.data('modal-button-confirm-classes');
-        const body = button.data('modal-body');
-
-        modalSrpRequestAccept.find('.modal-title').text(name);
-        modalSrpRequestAccept.find('#modal-button-confirm-accept-request')
-            .addClass(confirmButtonClasses)
-            .html(confirmButtonText);
-        modalSrpRequestAccept.find('#modal-button-cancel-accept-request')
-            .html(cancelButtonText);
-        modalSrpRequestAccept.find('.modal-body').text(body);
 
         $('#modal-button-confirm-accept-request').on('click', (event) => {
-            $.get(url, (data, status) => {
-                // reload datatable on success and update SRP status values
+            const form = modalSrpRequestAccept.find('form');
+            const reviserComment = form.find('textarea[name="reviser_comment"]').val();
+            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+
+            const posting = $.post(
+                url,
+                {
+                    reviser_comment: reviserComment,
+                    csrfmiddlewaretoken: csrfMiddlewareToken
+                }
+            );
+
+            posting.done((data) => {
                 if (data['0'].success === true) {
                     srpRequestsTable.ajax.reload((tableData) => {
                         _reloadSrpCalculations(tableData);
                     });
                 }
             });
+
+            modalSrpRequestAccept.modal('toggle');
         });
     }).on('hide.bs.modal', () => {
         modalSrpRequestAccept.find('textarea[name="reject_info"]').val('');
 
         $('#modal-button-confirm-accept-request').unbind('click');
+    });
+
+    // Accept former rejected SRP request
+    modalSrpRequestAcceptRejected.on('show.bs.modal', (event) => {
+        const button = $(event.relatedTarget);
+        const url = button.data('link');
+
+        $('#modal-button-confirm-accept-rejected-request').on('click', () => {
+            const form = modalSrpRequestAcceptRejected.find('form');
+            const reviserComment = form.find('textarea[name="reviser_comment"]').val();
+            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+
+            if (reviserComment === '') {
+                const errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
+                    '<p>' + aaSrpSettings.translation.modal.form.error.fieldRequired + '</p>' +
+                    '</div>';
+
+                form.find('.aasrp-form-field-errors').remove();
+
+                $(errorMessage).insertAfter($('textarea[name="accept_rejected_request_comment"]'));
+            } else {
+                const posting = $.post(
+                    url,
+                    {
+                        reviser_comment: reviserComment,
+                        csrfmiddlewaretoken: csrfMiddlewareToken
+                    }
+                );
+
+                posting.done((data) => {
+                    if (data['0'].success === true) {
+                        srpRequestsTable.ajax.reload((tableData) => {
+                            _reloadSrpCalculations(tableData);
+                        });
+                    }
+                });
+
+                modalSrpRequestAcceptRejected.modal('toggle');
+            }
+        });
+    }).on('hide.bs.modal', () => {
+        modalSrpRequestAcceptRejected.find('textarea[name="reject_info"]').val('');
+
+        $('.aasrp-form-field-error').remove();
+        $('#modal-button-confirm-accept-rejected-request').unbind('click');
     });
 
     // Reject SRP request
@@ -385,17 +431,13 @@ $(document).ready(() => {
 
             if (rejectInfo === '') {
                 const errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
-                    '<div class="aasrp-form-field-error clearfix">' +
-                    aaSrpSettings.translation.modal.rejectRequest.body.fieldRequired +
-                    '</div>' +
+                    '<p>' + aaSrpSettings.translation.modal.form.error.fieldRequired + '</p>' +
                     '</div>';
 
                 form.find('.aasrp-form-field-errors').remove();
 
                 $(errorMessage).insertAfter($('textarea[name="reject_info"]'));
-            }
-
-            if (rejectInfo !== '') {
+            } else {
                 const posting = $.post(
                     url,
                     {
@@ -418,26 +460,14 @@ $(document).ready(() => {
     }).on('hide.bs.modal', () => {
         modalSrpRequestReject.find('textarea[name="reject_info"]').val('');
 
+        $('.aasrp-form-field-errors').remove();
         $('#modal-button-confirm-reject-request').unbind('click');
     });
 
     // Remove SRP request
     modalSrpRequestRemove.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
-        const name = button.data('modal-title');
         const url = button.data('link');
-        const confirmButtonText = button.data('modal-button-confirm');
-        const cancelButtonText = button.data('modal-button-cancel');
-        const confirmButtonClasses = button.data('modal-button-confirm-classes');
-        const body = button.data('modal-body');
-
-        modalSrpRequestRemove.find('.modal-title').text(name);
-        modalSrpRequestRemove.find('#modal-button-confirm-remove-request')
-            .addClass(confirmButtonClasses)
-            .html(confirmButtonText);
-        modalSrpRequestRemove.find('#modal-button-cancel-remove-request')
-            .html(cancelButtonText);
-        modalSrpRequestRemove.find('.modal-body').text(body);
 
         $('#modal-button-confirm-remove-request').on('click', (event) => {
             $.get(url, (data, status) => {

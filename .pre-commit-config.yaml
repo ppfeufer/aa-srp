@@ -48,7 +48,7 @@ repos:
         args: [ --target-version=3.2 ]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.37.0
+    rev: v2.37.3
     hooks:
       - id: pyupgrade
         args: [ --py38-plus ]
@@ -82,6 +82,6 @@ repos:
         args: [ --target-version=py38 ]
 
   - repo: https://github.com/asottile/setup-cfg-fmt
-    rev: v1.20.1
+    rev: v1.20.2
     hooks:
       - id: setup-cfg-fmt

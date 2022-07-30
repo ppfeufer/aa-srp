@@ -268,6 +268,7 @@ class AaSrpRequestComment(models.Model):
         COMMENT = "Comment", _("SRP Request Comment")
         REQUEST_INFO = "Request Information", _("SRP Request Additional Information")
         REJECT_REASON = "Reject Reason", _("SRP Reject Reason")
+        REVISER_COMMENT = "Reviser Comment", _("SRP Request Reviser Comment")
 
     comment = models.TextField(null=True, blank=True)
 
