@@ -308,7 +308,8 @@ $(document).ready(() => {
         const url = button.data('url');
         const name = button.data('name');
 
-        modalDeleteSrpLink.find('#modal-button-confirm-delete-srp-link').attr('href', url);
+        modalDeleteSrpLink.find('#modal-button-confirm-delete-srp-link')
+            .attr('href', url);
         modalDeleteSrpLink.find('.modal-body').html(
             aaSrpSettings.translation.modal.deleteSrpLink.body + '<br>"' + name + '"'
         );

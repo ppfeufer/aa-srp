@@ -176,13 +176,15 @@ $(document).ready(() => {
                     .find('span.srp-payout-amount')
                     .addClass('srp-request-' + srpRequestCode)
                     .attr(
-                        'data-params', '{csrfmiddlewaretoken:\'' + aaSrpSettings.csrfToken + '\'}'
+                        'data-params',
+                        '{csrfmiddlewaretoken:\'' + aaSrpSettings.csrfToken + '\'}'
                     )
                     .attr('data-pk', srpRequestCode)
                     .attr('data-tooltip', 'enable')
                     .attr('title', aaSrpSettings.translation.changeSrpPayoutAmount)
                     .attr(
-                        'data-url', aaSrpSettings.url.changeSrpAmount.replace(
+                        'data-url',
+                        aaSrpSettings.url.changeSrpAmount.replace(
                             'SRP_REQUEST_CODE', srpRequestCode
                         )
                     );
@@ -341,7 +343,8 @@ $(document).ready(() => {
         $('#modal-button-confirm-accept-request').on('click', (event) => {
             const form = modalSrpRequestAccept.find('form');
             const reviserComment = form.find('textarea[name="reviser_comment"]').val();
-            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
+                .val();
 
             const posting = $.post(
                 url,
@@ -375,7 +378,8 @@ $(document).ready(() => {
         $('#modal-button-confirm-accept-rejected-request').on('click', () => {
             const form = modalSrpRequestAcceptRejected.find('form');
             const reviserComment = form.find('textarea[name="reviser_comment"]').val();
-            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
+                .val();
 
             if (reviserComment === '') {
                 const errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
@@ -384,7 +388,9 @@ $(document).ready(() => {
 
                 form.find('.aasrp-form-field-errors').remove();
 
-                $(errorMessage).insertAfter($('textarea[name="accept_rejected_request_comment"]'));
+                $(errorMessage).insertAfter(
+                    $('textarea[name="accept_rejected_request_comment"]')
+                );
             } else {
                 const posting = $.post(
                     url,
@@ -420,7 +426,8 @@ $(document).ready(() => {
         $('#modal-button-confirm-reject-request').on('click', () => {
             const form = modalSrpRequestReject.find('form');
             const rejectInfo = form.find('textarea[name="reject_info"]').val();
-            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
+                .val();
 
             if (rejectInfo === '') {
                 const errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
