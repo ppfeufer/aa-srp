@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ### Changed
 
 - RGB notations in CSS files modernised
+- Bottom border color for changeable payout value for SRP requests that have been
+  rejected. Now it's not that prominent anymore and doesn't look like a pending SRP
+  request
 
 
 ## [1.15.2] - 2022-07-21
