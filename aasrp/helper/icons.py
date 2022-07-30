@@ -133,6 +133,7 @@ def get_srp_request_status_icon(request: WSGIRequest, srp_request: AaSrpRequest)
         '<i class="fas fa-clock"></i>'
         "</button>"
     )
+
     if srp_request.request_status == AaSrpRequest.Status.APPROVED:
         btn_classes = "btn btn-success btn-sm btn-icon-aasrp btn-icon-aasrp-status"
         request_status_icon_title = _("SRP Request Approved")
@@ -174,14 +175,11 @@ def get_srp_request_details_icon(
     )
 
     title = _("SRP Request Details")
-    modal_button_confirm = _("Close")
 
     srp_request_details_icon = (
         f'<button data-link="{button_request_details_url}" '
         'data-toggle="modal" '
         'data-target="#srp-request-details" '
-        f'data-modal-title="{title}" '
-        f'data-modal-button-confirm="{modal_button_confirm}" '
         'class="btn btn-primary btn-sm btn-icon-aasrp" '
         f'title="{title}"><i class="fas fa-info-circle"></i></button>'
     )

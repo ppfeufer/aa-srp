@@ -319,13 +319,7 @@ $(document).ready(() => {
     // Show details
     modalSrpRequestDetails.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
-        const name = button.data('modal-title');
         const url = button.data('link');
-        const confirmButtonText = button.data('modal-button-confirm');
-
-        modalSrpRequestDetails.find('.modal-title').text(name);
-        modalSrpRequestDetails.find('#modal-button-request-details-confirm')
-            .html(confirmButtonText);
 
         $.get({
             url: url,
@@ -334,7 +328,6 @@ $(document).ready(() => {
             }
         });
     }).on('hide.bs.modal', () => {
-        modalSrpRequestDetails.find('.modal-title').text('');
         modalSrpRequestDetails.find('.modal-body').text('');
     });
 });
