@@ -6,6 +6,7 @@ The views
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -30,6 +31,8 @@ from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE, ZKILLBOARD_BA
 from aasrp.form import (
     AaSrpLinkForm,
     AaSrpLinkUpdateForm,
+    AaSrpRequestAcceptForm,
+    AaSrpRequestAcceptRejectedForm,
     AaSrpRequestForm,
     AaSrpRequestPayoutForm,
     AaSrpRequestRejectForm,
@@ -510,14 +513,22 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 )
                 srp_request.save()
 
-                # Add request info to comments
-                srp_request_comment = AaSrpRequestComment(
-                    comment=form.cleaned_data["additional_info"],
+                # Save Request Create Even in request history
+                AaSrpRequestComment(
+                    srp_request=srp_request,
+                    comment_type=AaSrpRequestComment.Type.REQUEST_ADDED,
+                    creator=creator,
+                    new_status=AaSrpRequest.Status.PENDING,
+                ).save()
+
+                # Add request info to request history
+                srp_request_additional_info = form.cleaned_data["additional_info"]
+                AaSrpRequestComment(
+                    comment=srp_request_additional_info,
                     srp_request=srp_request,
                     comment_type=AaSrpRequestComment.Type.REQUEST_INFO,
                     creator=creator,
-                )
-                srp_request_comment.save()
+                ).save()
 
                 # Add insurance information
                 insurance_information = AaSrpManager.get_insurance_for_ship_type(
@@ -555,7 +566,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     character_name = srp_request__character.character_name
                     ship_type = srp_request__ship.name
                     zkillboard_link = srp_request.killboard_link
-                    additional_information = srp_request_comment.comment.replace(
+                    additional_information = srp_request_additional_info.replace(
                         "@", "{@}"
                     )
                     srp_link = site_base_url + reverse(
@@ -663,8 +674,17 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
     reject_form = AaSrpRequestRejectForm()
+    accept_form = AaSrpRequestAcceptForm()
+    accept_rejected_form = AaSrpRequestAcceptRejectedForm()
 
-    context = {"srp_link": srp_link, "form": reject_form}
+    context = {
+        "srp_link": srp_link,
+        "forms": {
+            "reject_request": reject_form,
+            "accept_request": accept_form,
+            "accept_rejected_request": accept_rejected_form,
+        },
+    }
 
     return render(request, "aasrp/view_requests.html", context)
 
@@ -895,7 +915,6 @@ def ajax_srp_request_additional_information(
     if srp_request.request_status == AaSrpRequest.Status.REJECTED:
         request_status_banner_alert_level = "danger"
 
-    additional_info = ""
     try:
         additional_info_comment = AaSrpRequestComment.objects.get(
             srp_request=srp_request, comment_type=AaSrpRequestComment.Type.REQUEST_INFO
@@ -903,17 +922,15 @@ def ajax_srp_request_additional_information(
 
         additional_info = additional_info_comment.comment.replace("\n", "<br>\n")
     except AaSrpRequestComment.DoesNotExist:
-        pass
+        additional_info = ""
 
-    reject_info = ""
     try:
-        reject_comment = AaSrpRequestComment.objects.get(
-            srp_request=srp_request, comment_type=AaSrpRequestComment.Type.REJECT_REASON
-        )
-
-        reject_info = reject_comment.comment
+        request_history = AaSrpRequestComment.objects.filter(
+            ~Q(comment_type=AaSrpRequestComment.Type.REQUEST_INFO),
+            srp_request=srp_request,
+        ).order_by("pk")
     except AaSrpRequestComment.DoesNotExist:
-        pass
+        request_history = ""
 
     data = {
         "srp_request": srp_request,
@@ -922,10 +939,10 @@ def ajax_srp_request_additional_information(
         "requester": get_main_character_from_user(srp_request.creator),
         "character": character,
         "additional_info": additional_info,
-        "reject_info": reject_info,
         "request_status_banner_alert_level": request_status_banner_alert_level,
         "request_status": srp_request.request_status,
         "insurance_information": insurance_information,
+        "request_history": request_history,
     }
 
     return render(
@@ -991,49 +1008,81 @@ def ajax_srp_request_approve(
     except AaSrpRequest.DoesNotExist:
         data.append({"success": False})
     else:
-        requester = srp_request.creator
-        srp_payout = srp_request.payout_amount
-        srp_isk_loss = srp_request.loss_amount
+        if request.method == "POST":
+            # Create a form instance and populate it with data from the request
+            form = None
 
-        if srp_payout == 0:
-            srp_request.payout_amount = srp_isk_loss
+            if srp_request.request_status == AaSrpRequest.Status.PENDING:
+                form = AaSrpRequestAcceptForm(request.POST)
+            elif srp_request.request_status == AaSrpRequest.Status.REJECTED:
+                form = AaSrpRequestAcceptRejectedForm(request.POST)
 
-        # Remove any possible reject reason in case this was rejected before
-        AaSrpRequestComment.objects.filter(
-            srp_request=srp_request, comment_type=AaSrpRequestComment.Type.REJECT_REASON
-        ).delete()
+            if form and form.is_valid():
+                requester = srp_request.creator
+                srp_payout = srp_request.payout_amount
+                srp_isk_loss = srp_request.loss_amount
 
-        srp_request.request_status = AaSrpRequest.Status.APPROVED
-        srp_request.save()
+                # Reviser comment
+                reviser_comment = form.cleaned_data["reviser_comment"]
 
-        user_settings = AaSrpUserSettings.objects.get(user=request.user)
+                if srp_payout == 0:
+                    srp_request.payout_amount = srp_isk_loss
 
-        # Check if the user has notifications activated (it's by default)
-        if user_settings.disable_notifications is False:
-            ship_name = srp_request.ship.name
-            fleet_name = srp_request.srp_link.srp_name
-            srp_code = srp_request.srp_link.srp_code
-            request_code = srp_request.request_code
-            reviser = get_main_character_from_user(request.user)
-            inquiry_note = SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
-            notification_message = (
-                f"Your SRP request regarding your {ship_name} lost during "
-                f"{fleet_name} has been approved.\n\n"
-                f"Request Details:\nSRP-Code: {srp_code}\n"
-                f"Request-Code: {request_code}\n"
-                f"Reviser: {reviser}\n\n{inquiry_note}"
-            )
+                # Set new status in request history
+                AaSrpRequestComment(
+                    srp_request=srp_request,
+                    comment_type=AaSrpRequestComment.Type.STATUS_CHANGE,
+                    new_status=AaSrpRequest.Status.APPROVED,
+                    creator=request.user,
+                ).save()
 
-            logger.info("Sending approval message to user")
+                # Save reviser comment
+                if reviser_comment != "":
+                    AaSrpRequestComment(
+                        srp_request=srp_request,
+                        comment=reviser_comment,
+                        comment_type=AaSrpRequestComment.Type.REVISER_COMMENT,
+                        creator=request.user,
+                    ).save()
 
-            send_user_notification(
-                user=requester,
-                level="success",
-                title="SRP Request Approved",
-                message=notification_message,
-            )
+                srp_request.request_status = AaSrpRequest.Status.APPROVED
+                srp_request.save()
 
-        data.append({"success": True, "message": _("SRP request has been approved")})
+                user_settings = AaSrpUserSettings.objects.get(user=request.user)
+
+                # Check if the user has notifications activated (it's by default)
+                if user_settings.disable_notifications is False:
+                    ship_name = srp_request.ship.name
+                    fleet_name = srp_request.srp_link.srp_name
+                    srp_code = srp_request.srp_link.srp_code
+                    request_code = srp_request.request_code
+                    reviser = get_main_character_from_user(request.user)
+                    reviser_comment = (
+                        f"\nComment:\n{reviser_comment}\n"
+                        if reviser_comment != ""
+                        else ""
+                    )
+                    inquiry_note = SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
+                    notification_message = (
+                        f"Your SRP request regarding your {ship_name} lost during "
+                        f"{fleet_name} has been approved.\n\n"
+                        f"Request Details:\nSRP-Code: {srp_code}\n"
+                        f"Request-Code: {request_code}\n"
+                        f"Reviser: {reviser}\n{reviser_comment}\n{inquiry_note}"
+                    )
+
+                    logger.info("Sending approval message to user")
+
+                    send_user_notification(
+                        user=requester,
+                        level="success",
+                        title="SRP Request Approved",
+                        message=notification_message,
+                    )
+
+                data.append(
+                    {"success": True, "message": _("SRP request has been approved")}
+                )
 
     return JsonResponse(data, safe=False)
 
@@ -1072,23 +1121,21 @@ def ajax_srp_request_deny(
                 srp_request.request_status = AaSrpRequest.Status.REJECTED
                 srp_request.save()
 
+                # Set new status in request history
+                AaSrpRequestComment(
+                    srp_request=srp_request,
+                    comment_type=AaSrpRequestComment.Type.STATUS_CHANGE,
+                    new_status=AaSrpRequest.Status.REJECTED,
+                    creator=request.user,
+                ).save()
+
                 # Save reject reason as comment for this request
-                try:
-                    existing_reject_info = AaSrpRequestComment.objects.get(
-                        srp_request=srp_request,
-                        comment_type=AaSrpRequestComment.Type.REJECT_REASON,
-                    )
-                except AaSrpRequestComment.DoesNotExist:
-                    AaSrpRequestComment(
-                        comment=reject_info,
-                        srp_request=srp_request,
-                        comment_type=AaSrpRequestComment.Type.REJECT_REASON,
-                        creator=request.user,
-                    ).save()
-                else:
-                    existing_reject_info.comment = reject_info
-                    existing_reject_info.creator = request.user
-                    existing_reject_info.save()
+                AaSrpRequestComment(
+                    comment=reject_info,
+                    srp_request=srp_request,
+                    comment_type=AaSrpRequestComment.Type.REJECT_REASON,
+                    creator=request.user,
+                ).save()
 
                 user_settings = AaSrpUserSettings.objects.get(user=request.user)
 

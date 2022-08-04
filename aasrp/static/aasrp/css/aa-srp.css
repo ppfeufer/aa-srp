@@ -1,12 +1,12 @@
 @media all {
     .template-light-mode .aa-srp .nav-tabs > li.active > a {
-        background-color: rgb(236, 240, 241);
-        color: rgb(0, 0, 0);
+        background-color: rgb(236 240 241);
+        color: rgb(0 0 0);
     }
 
     .template-dark-mode .aa-srp .nav-tabs > li.active > a {
-        background-color: rgb(70, 69, 69);
-        color: rgb(255, 255, 255);
+        background-color: rgb(70 69 69);
+        color: rgb(255 255 255);
     }
 
     .aa-srp .btn-tabs {
@@ -61,7 +61,8 @@
         margin-bottom: 2rem;
     }
 
-    .aasrp-character-portrait, .aasrp-evetype-icon {
+    .aasrp-character-portrait,
+    .aasrp-evetype-icon {
         margin-right: 0.5rem;
     }
 
@@ -99,10 +100,37 @@
         display: block;
     }
 
-    .srp-request-payout-amount-editable .srp-payout-amount-changed {
-        border-bottom: dashed 1px rgb(204, 71, 0);
+    .srp-request-status-rejected .srp-request-payout-amount-editable .srp-payout-amount {
+        border-bottom: dashed 1px rgb(192 192 192);
         cursor: pointer;
         display: block;
+    }
+
+    .template-dark-mode .srp-request-status-rejected .srp-request-payout-amount-editable .srp-payout-amount {
+        border-bottom: dashed 1px rgb(90 90 90);
+        cursor: pointer;
+        display: block;
+    }
+
+    .srp-request-payout-amount-editable .srp-payout-amount-changed {
+        border-bottom: dashed 1px rgb(204 71 0) !important;
+        cursor: pointer;
+        display: block;
+    }
+
+    .modal-srp-details-request-history .request-history-comment {
+        border-bottom: 1px solid rgb(229 229 229);
+        margin-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .template-dark-mode .modal-srp-details-request-history .request-history-comment {
+        border-bottom: 1px solid rgb(70 69 69);
+    }
+
+    .modal-srp-details-request-history .request-history-comment:last-child {
+        border-bottom: none;
+        padding-bottom: initial;
     }
 }
 

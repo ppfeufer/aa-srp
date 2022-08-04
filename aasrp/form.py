@@ -189,6 +189,35 @@ class AaSrpRequestRejectForm(forms.Form):
     )
 
 
+class AaSrpRequestAcceptForm(forms.Form):
+    """
+    SRP request reject form
+    """
+
+    reviser_comment = forms.CharField(
+        widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
+        required=False,
+        label=_("Comment (Optional)"),
+        help_text=_("Leave a comment for the requestor"),
+    )
+
+
+class AaSrpRequestAcceptRejectedForm(forms.Form):
+    """
+    SRP request reject form
+    """
+
+    reviser_comment = forms.CharField(
+        widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
+        required=True,
+        label=get_mandatory_form_label_text(_("Comment")),
+        help_text=_(
+            "Please provide the reason why this former rejected SRP request is now "
+            "accepted."
+        ),
+    )
+
+
 class AaSrpUserSettingsForm(ModelForm):
     """
     User settings form

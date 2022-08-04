@@ -9,18 +9,48 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ## [In Development] - Unreleased
 
 
+## [1.16.0] - 2022-08-04
+
+### Added
+
+- Comment field for accepting SRP requests. This is optional when pending requests
+  are accepted, but mandatory when formerly rejected requests are accepted to
+  state a reason.
+- Request history to request information window
+
+### Changed
+
+- RGB notations in CSS files modernised
+- Bottom border colour for changeable payout value for SRP requests that have been
+  rejected. Now it's not that prominent anymore and doesn't look like a pending SRP
+  request
+- Modal window handling improved
+- JS and CSS moved to bundled HTML templates
+- Minumum requirements
+  - allianceauth>=2.15.1
+  - allianceauth-app-utils>=1.14.0
+  - django-eveuniverse>=0.16.3
+
+### Removed
+
+- Unused JavaScript
+- Deprecated `type` attribute from `script` tags
+- Deprecated `type` attribute from `style` tags
+- Tests for non-stable version of Alliance Auth
+
+
 ## [1.15.2] - 2022-07-21
 
 ### Added
 
-- Tooltip to make it a bit more obvious that SRP payout values can be changed (#72)
+- Tooltip to make it a bit more obvious that SRP payout values can be changed ([#72](https://github.com/ppfeufer/aa-srp/issues/72))
 
-  ![Tooltip: Change SRP Payout Amount](aasrp//images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount")
+  ![Tooltip: Change SRP Payout Amount](aasrp/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount")
 
 ### Changed
 
 - Moved SRP recalculation to its own function
-- Highlight color for SRP amount changed
+- Highlight colour for SRP amount changed
 
 
 ## [1.15.1] - 2022-07-11
