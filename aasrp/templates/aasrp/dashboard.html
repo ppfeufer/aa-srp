@@ -1,35 +1,33 @@
-{% extends 'aasrp/base.html' %}
+{% extends "aasrp/base.html" %}
 
 {% load i18n %}
 {% load static %}
-{% load aasrp_versioned_static %}
 
 {% block aasrp_header %}
     {% translate "Ship Replacement" as translated_header %}
-    {% include 'aasrp/partials/header/h1.html' with header_text=translated_header %}
+    {% include "aasrp/partials/header/h1.html" with header_text=translated_header %}
 {% endblock %}
 
 {% block aasrp_body %}
-    {% include 'aasrp/partials/dashboard/buttons.html' %}
-    {% include 'aasrp/partials/dashboard/table.html' %}
+    {% include "aasrp/partials/dashboard/buttons.html" %}
+    {% include "aasrp/partials/dashboard/table.html" %}
 
     <!-- modals -->
-    {% include 'aasrp/modals/dashboard/enable_srp_link.html' %}
-    {% include 'aasrp/modals/dashboard/disable_srp_link.html' %}
-    {% include 'aasrp/modals/dashboard/delete_srp_link.html' %}
-    {% include 'aasrp/modals/view_requests/request_details.html' %}
+    {% include "aasrp/modals/dashboard/enable_srp_link.html" %}
+    {% include "aasrp/modals/dashboard/disable_srp_link.html" %}
+    {% include "aasrp/modals/dashboard/delete_srp_link.html" %}
+    {% include "aasrp/modals/view_requests/request_details.html" %}
 {% endblock %}
 
 {% block extra_css %}
-    {% include 'bundles/datatables-css.html' %}
-
-    <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-bootstrap-fix.min.css' %}">
-    <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-srp-form.min.css' %}">
-    <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-srp.min.css' %}">
+    {% include "bundles/datatables-css.html" %}
+    {% include "aasrp/bundles/aa-bootstrap-fix-css.html" %}
+    {% include "aasrp/bundles/aa-srp-css.html" %}
+    {% include "aasrp/bundles/aa-srp-form-css.html" %}
 {% endblock %}
 
 {% block extra_javascript %}
-    {% include 'bundles/clipboard-js.html' %}
+    {% include "bundles/clipboard-js.html" %}
 
     <script>
         const clipboard = new ClipboardJS('.copy-text-fa-icon');
@@ -44,9 +42,9 @@
         });
     </script>
 
-    {% include 'bundles/datatables-js.html' %}
-    {% include 'bundles/moment-js.html' with locale=True %}
-    {% include 'bundles/filterdropdown-js.html' %}
+    {% include "bundles/datatables-js.html" %}
+    {% include "bundles/moment-js.html" with locale=True %}
+    {% include "bundles/filterdropdown-js.html" %}
 
     <script>
         /**
@@ -98,5 +96,5 @@
         };
     </script>
 
-    <script src="{% aasrp_static 'aasrp/javascript/aa-srp-dashboard.min.js' %}"></script>
+    {% include "aasrp/bundles/aa-srp-dashboard-js.html" %}
 {% endblock %}

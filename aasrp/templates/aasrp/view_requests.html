@@ -1,37 +1,34 @@
-{% extends 'aasrp/base.html' %}
+{% extends "aasrp/base.html" %}
 
 {% load i18n %}
-{% load static %}
-{% load aasrp_versioned_static %}
 
 {% block aasrp_header %}
     {% translate "SRP Requests" as translated_header %}
-    {% include 'aasrp/partials/header/h1.html' with header_text=translated_header %}
+    {% include "aasrp/partials/header/h1.html" with header_text=translated_header %}
 {% endblock %}
 
 {% block aasrp_body %}
-    {% include 'aasrp/partials/view_requests/overview.html' %}
-    {% include 'aasrp/partials/view_requests/requests.html' %}
-
-    {% include 'aasrp/modals/view_requests/request_details.html' %}
-    {% include 'aasrp/modals/view_requests/mark_complete_modal.html' %}
-    {% include 'aasrp/modals/view_requests/accept_request.html' %}
-    {% include 'aasrp/modals/view_requests/accept_rejected_request.html' %}
-    {% include 'aasrp/modals/view_requests/reject_request.html' %}
-    {% include 'aasrp/modals/view_requests/remove_request.html' %}
+    {% include "aasrp/partials/view_requests/overview.html" %}
+    {% include "aasrp/partials/view_requests/requests.html" %}
+    {% include "aasrp/modals/view_requests/request_details.html" %}
+    {% include "aasrp/modals/view_requests/mark_complete_modal.html" %}
+    {% include "aasrp/modals/view_requests/accept_request.html" %}
+    {% include "aasrp/modals/view_requests/accept_rejected_request.html" %}
+    {% include "aasrp/modals/view_requests/reject_request.html" %}
+    {% include "aasrp/modals/view_requests/remove_request.html" %}
 {% endblock %}
 
 {% block extra_css %}
-    {% include 'bundles/datatables-css.html' %}
-    {% include 'aasrp/bundles/x-editable-css.html' %}
+    {% include "bundles/datatables-css.html" %}
+    {% include "aasrp/bundles/x-editable-css.html" %}
 
-    <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-bootstrap-fix.min.css' %}">
-    <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-srp.min.css' %}">
-    <link rel="stylesheet" href="{% aasrp_static 'aasrp/css/aa-srp-form.min.css' %}">
+    {% include "aasrp/bundles/aa-bootstrap-fix-css.html" %}
+    {% include "aasrp/bundles/aa-srp-css.html" %}
+    {% include "aasrp/bundles/aa-srp-form-css.html" %}
 {% endblock %}
 
 {% block extra_javascript %}
-    {% include 'bundles/clipboard-js.html' %}
+    {% include "bundles/clipboard-js.html" %}
 
     <script>
         let clipboard = new ClipboardJS('.copy-text-fa-icon');
@@ -46,12 +43,10 @@
         });
     </script>
 
-    {% include 'aasrp/bundles/x-editable-js.html' %}
-    {% include 'bundles/moment-js.html' with locale=True %}
-    {% include 'bundles/datatables-js.html' %}
-    {% include 'bundles/filterdropdown-js.html' %}
-
-    <script src="{% static 'aasrp/libs/datatables/plugins/datetime.min.js' %}"></script>
+    {% include "aasrp/bundles/x-editable-js.html" %}
+    {% include "bundles/moment-js.html" with locale=True %}
+    {% include "bundles/datatables-js.html" %}
+    {% include "bundles/filterdropdown-js.html" %}
 
     <script>
         /**
@@ -101,5 +96,6 @@
             $('[data-tooltip="payout-hint"]').tooltip();
         });
     </script>
-    <script src="{% aasrp_static 'aasrp/javascript/aa-srp-view-requests.min.js' %}"></script>
+
+    {% include "aasrp/bundles/aa-srp-view-requests-js.html" %}
 {% endblock %}

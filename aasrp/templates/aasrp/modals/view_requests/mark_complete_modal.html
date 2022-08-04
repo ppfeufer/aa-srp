@@ -9,7 +9,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-                <div class="modal-title">{% translate 'Mark Completed' %}</div>
+                <div class="modal-title">{% translate "Mark Completed" %}</div>
             </div>
 
             <div class="modal-body">
@@ -35,11 +35,13 @@
 
             <div class="modal-footer">
                 <button id="modal-button-cancel-mark-complete" type="button" class="btn btn-default btn-sm" data-dismiss="modal">
-                    <i class='far fa-hand-paper'></i> {% translate 'Cancel' %}
+                    <i class="far fa-hand-paper"></i>
+                    {% translate "Cancel" %}
                 </button>
 
                 <a href="{% url 'aasrp:complete_srp_link' srp_link.srp_code %}" id="modal-button-confirm-mark-complete" role="button" class="btn btn-success btn-sm">
-                    <i class='fas fa-check'></i> {% translate 'Mark as completed' %}
+                    <i class="fas fa-check"></i>
+                    {% translate "Mark as completed" %}
                 </a>
             </div>
         </div>

@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
   rejected. Now it's not that prominent anymore and doesn't look like a pending SRP
   request
 - Modal window handling improved
+- JS and CSS moved to bundled HTML templates
 
 ### Removed
 
