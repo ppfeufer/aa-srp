@@ -1,6 +1,7 @@
+{% load bootstrap %}
 {% load i18n %}
 
-<!-- request actions modal -->
+<!-- accept request modal -->
 <div class="modal fade" id="srp-request-accept" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -9,14 +10,32 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-                <div class="modal-title">{% translate 'Accept SRP Request' %}</div>
+                <div class="modal-title">{% translate "Accept SRP Request" %}</div>
             </div>
 
-            <div class="modal-body"></div>
+            <div class="modal-body">
+                <p>
+                    {% translate "Are you sure you want to accept this SRP request?" %}
+                </p>
+
+                <form autocomplete="off" method="post">
+                    {% csrf_token %}
+                        {{ forms.accept_request|bootstrap }}
+
+                        {% include "aasrp/partials/form/required_field_hint.html" %}
+                    </fieldset>
+                </form>
+            </div>
 
             <div class="modal-footer">
-                <button id="modal-button-cancel-accept-request" type="button" class="btn btn-default btn-sm" data-dismiss="modal"></button>
-                <button id="modal-button-confirm-accept-request" type="button" data-dismiss="modal"></button>
+                <button id="modal-button-cancel-accept-request" type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class='far fa-hand-paper'></i>
+                    {% translate "Cancel" %}
+                </button>
+                <button id="modal-button-confirm-accept-request" type="button" class="btn btn-success btn-sm">
+                    <i class='fas fa-check'></i>
+                    {% translate "Accept SRP Request" %}
+                </button>
             </div>
         </div>
     </div>

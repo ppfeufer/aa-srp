@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<!-- request actions modal -->
+<!-- request details modal -->
 <div class="modal fade" id="srp-request-details" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -9,13 +9,17 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-                <div class="modal-title"></div>
+                <div class="modal-title">
+                    {% translate "SRP Request Details" %}
+                </div>
             </div>
 
             <div class="modal-body"></div>
 
             <div class="modal-footer">
-                <button id="modal-button-request-details-confirm" type="button" class="btn btn-default btn-sm" data-dismiss="modal"></button>
+                <button id="modal-button-request-details-confirm" type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    {% translate "Close" %}
+                </button>
             </div>
         </div>
     </div>

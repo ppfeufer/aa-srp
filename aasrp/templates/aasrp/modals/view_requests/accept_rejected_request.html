@@ -1,8 +1,8 @@
 {% load bootstrap %}
 {% load i18n %}
 
-<!-- reject request modal -->
-<div class="modal fade" id="srp-request-reject" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- accept former rejected request modal -->
+<div class="modal fade" id="srp-request-accept-rejected" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,19 +10,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-                <div class="modal-title">{% translate "Reject SRP Request" %}</div>
+                <div class="modal-title">{% translate "Accept SRP Request" %}</div>
             </div>
 
             <div class="modal-body">
                 <p>
-                    {% translate "Are you sure you want to reject this SRP request?" %}
+                    {% translate "Are you sure you want to accept this SRP request?" %}
                 </p>
 
                 <form autocomplete="off" method="post">
                     {% csrf_token %}
 
                     <fieldset class="aa-srp-request-form">
-                        {{ forms.reject_request|bootstrap }}
+                        {{ forms.accept_rejected_request|bootstrap }}
 
                         {% include "aasrp/partials/form/required_field_hint.html" %}
                     </fieldset>
@@ -30,12 +30,13 @@
             </div>
 
             <div class="modal-footer">
-                <button id="modal-button-cancel-reject-request" type="button" class="btn btn-default btn-sm" data-dismiss="modal">
-                    <i class='far fa-hand-paper'></i> {% translate 'Cancel' %}
+                <button id="modal-button-cancel-accept-rejected-request" type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <i class='far fa-hand-paper'></i>
+                    {% translate "Cancel" %}
                 </button>
-
-                <button id="modal-button-confirm-reject-request" type="button" class="btn btn-warning btn-sm">
-                    <i class='fas fa-ban'></i> {% translate 'Reject SRP Request' %}
+                <button id="modal-button-confirm-accept-rejected-request" type="button" class="btn btn-success btn-sm">
+                    <i class='fas fa-check'></i>
+                    {% translate "Accept SRP Request" %}
                 </button>
             </div>
         </div>

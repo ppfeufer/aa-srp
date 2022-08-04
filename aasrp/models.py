@@ -190,7 +190,9 @@ class AaSrpRequest(models.Model):
         on_delete=models.SET(get_sentinel_user),
         help_text=_("Who created the SRP link?"),
     )
-    character = models.ForeignKey(EveCharacter, null=True, on_delete=models.SET_NULL)
+    character = models.ForeignKey(
+        EveCharacter, related_name="+", null=True, blank=True, on_delete=models.SET_NULL
+    )
     ship_name = models.CharField(max_length=254, default="")
     ship = models.ForeignKey(
         EveType,
@@ -265,11 +267,14 @@ class AaSrpRequestComment(models.Model):
         Choices for comment types
         """
 
-        COMMENT = "Comment", _("SRP Request Comment")
-        REQUEST_INFO = "Request Information", _("SRP Request Additional Information")
-        REJECT_REASON = "Reject Reason", _("SRP Reject Reason")
+        COMMENT = "Comment", _("Comment")
+        REQUEST_ADDED = "Request Added", _("SRP Request Added")
+        REQUEST_INFO = "Request Information", _("Additional Information")
+        REJECT_REASON = "Reject Reason", _("Reject Reason")
+        STATUS_CHANGE = "Status Changed", _("Status Changed")
+        REVISER_COMMENT = "Reviser Comment", _("Reviser Comment")
 
-    comment = models.TextField(null=True, blank=True)
+    comment = models.TextField(blank=True, default="")
 
     comment_type = models.CharField(
         max_length=19, choices=Type.choices, default=Type.COMMENT
@@ -291,6 +296,12 @@ class AaSrpRequestComment(models.Model):
         blank=True,
         default=None,
         on_delete=models.CASCADE,
+    )
+
+    comment_time = models.DateTimeField(default=timezone.now)
+
+    new_status = models.CharField(
+        max_length=8, choices=AaSrpRequest.Status.choices, blank=True, default=""
     )
 
     class Meta:
