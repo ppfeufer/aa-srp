@@ -66,15 +66,31 @@
             {% for comment in request_history %}
                 <div class="request-history-comment row">
                     <div class="col-sm-12">
-                        <p><b>{{ comment.get_comment_type_display }}</b></p>
+                        <p>
+                            <b>{{ comment.get_comment_type_display }}</b>
+                        </p>
                     </div>
 
                     <div class="col-sm-3">
                         {{ comment.creator|main_character_name }}
+
+                        {% if comment.comment_time %}
+                            <br>
+                            <small>{{ comment.comment_time|date:'Y-m-d H:i' }}</small>
+                        {% endif %}
                     </div>
 
                     <div class="col-sm-9">
-                        {{ comment.comment|linebreaks }}
+                        {% if comment.new_status %}
+                            {% if comment.new_status == "Pending" %}
+                                {% translate "SRP request added." %}
+                            {% else %}
+                                {% translate "SRP request status has changed to:" %}<br>
+                                <b>{{ comment.get_new_status_display }}</b>
+                            {% endif %}
+                        {% else %}
+                            {{ comment.comment|default_if_none:""|linebreaks }}
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}

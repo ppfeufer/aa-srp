@@ -513,14 +513,22 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 )
                 srp_request.save()
 
-                # Add request info to comments
-                srp_request_comment = AaSrpRequestComment(
-                    comment=form.cleaned_data["additional_info"],
+                # Save Request Create Even in request history
+                AaSrpRequestComment(
+                    srp_request=srp_request,
+                    comment_type=AaSrpRequestComment.Type.REQUEST_ADDED,
+                    creator=creator,
+                    new_status=AaSrpRequest.Status.PENDING,
+                ).save()
+
+                # Add request info to request history
+                srp_request_additional_info = form.cleaned_data["additional_info"]
+                AaSrpRequestComment(
+                    comment=srp_request_additional_info,
                     srp_request=srp_request,
                     comment_type=AaSrpRequestComment.Type.REQUEST_INFO,
                     creator=creator,
-                )
-                srp_request_comment.save()
+                ).save()
 
                 # Add insurance information
                 insurance_information = AaSrpManager.get_insurance_for_ship_type(
@@ -558,7 +566,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     character_name = srp_request__character.character_name
                     ship_type = srp_request__ship.name
                     zkillboard_link = srp_request.killboard_link
-                    additional_information = srp_request_comment.comment.replace(
+                    additional_information = srp_request_additional_info.replace(
                         "@", "{@}"
                     )
                     srp_link = site_base_url + reverse(
@@ -1020,17 +1028,19 @@ def ajax_srp_request_approve(
                 if srp_payout == 0:
                     srp_request.payout_amount = srp_isk_loss
 
-                # Remove any possible reject reason in case this was rejected before
-                AaSrpRequestComment.objects.filter(
+                # Set new status in request history
+                AaSrpRequestComment(
                     srp_request=srp_request,
-                    comment_type=AaSrpRequestComment.Type.REJECT_REASON,
-                ).delete()
+                    comment_type=AaSrpRequestComment.Type.STATUS_CHANGE,
+                    new_status=AaSrpRequest.Status.APPROVED,
+                    creator=request.user,
+                ).save()
 
                 # Save reviser comment
                 if reviser_comment != "":
                     AaSrpRequestComment(
-                        comment=reviser_comment,
                         srp_request=srp_request,
+                        comment=reviser_comment,
                         comment_type=AaSrpRequestComment.Type.REVISER_COMMENT,
                         creator=request.user,
                     ).save()
@@ -1111,23 +1121,21 @@ def ajax_srp_request_deny(
                 srp_request.request_status = AaSrpRequest.Status.REJECTED
                 srp_request.save()
 
+                # Set new status in request history
+                AaSrpRequestComment(
+                    srp_request=srp_request,
+                    comment_type=AaSrpRequestComment.Type.STATUS_CHANGE,
+                    new_status=AaSrpRequest.Status.REJECTED,
+                    creator=request.user,
+                ).save()
+
                 # Save reject reason as comment for this request
-                try:
-                    existing_reject_info = AaSrpRequestComment.objects.get(
-                        srp_request=srp_request,
-                        comment_type=AaSrpRequestComment.Type.REJECT_REASON,
-                    )
-                except AaSrpRequestComment.DoesNotExist:
-                    AaSrpRequestComment(
-                        comment=reject_info,
-                        srp_request=srp_request,
-                        comment_type=AaSrpRequestComment.Type.REJECT_REASON,
-                        creator=request.user,
-                    ).save()
-                else:
-                    existing_reject_info.comment = reject_info
-                    existing_reject_info.creator = request.user
-                    existing_reject_info.save()
+                AaSrpRequestComment(
+                    comment=reject_info,
+                    srp_request=srp_request,
+                    comment_type=AaSrpRequestComment.Type.REJECT_REASON,
+                    creator=request.user,
+                ).save()
 
                 user_settings = AaSrpUserSettings.objects.get(user=request.user)
 

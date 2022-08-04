@@ -266,6 +266,7 @@ class AaSrpRequestComment(models.Model):
         """
 
         COMMENT = "Comment", _("Comment")
+        REQUEST_ADDED = "Request Added", _("SRP Request Added")
         REQUEST_INFO = "Request Information", _("Additional Information")
         REJECT_REASON = "Reject Reason", _("Reject Reason")
         STATUS_CHANGE = "Status Changed", _("Status Changed")
@@ -293,6 +294,12 @@ class AaSrpRequestComment(models.Model):
         blank=True,
         default=None,
         on_delete=models.CASCADE,
+    )
+
+    comment_time = models.DateTimeField(default=timezone.now)
+
+    new_status = models.CharField(
+        max_length=8, choices=AaSrpRequest.Status.choices, null=True, blank=True
     )
 
     class Meta:

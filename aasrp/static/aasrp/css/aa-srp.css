@@ -121,6 +121,7 @@
     .modal-srp-details-request-history .request-history-comment {
         border-bottom: 1px solid rgb(229 229 229);
         margin-top: 1rem;
+        padding-bottom: 1rem;
     }
 
     .template-dark-mode .modal-srp-details-request-history .request-history-comment {
@@ -129,6 +130,7 @@
 
     .modal-srp-details-request-history .request-history-comment:last-child {
         border-bottom: none;
+        padding-bottom: initial;
     }
 }
 
