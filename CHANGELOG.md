@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+
+## [1.16.0] - 2022-08-04
+
 ### Added
 
 - Comment field for accepting SRP requests. This is optional when pending requests
