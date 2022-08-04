@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 - Unused JavaScript
 - Deprecated `type` attribute from `script` tags
+- Deprecated `type` attribute from `style` tags
 
 
 ## [1.15.2] - 2022-07-21
