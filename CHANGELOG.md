@@ -23,6 +23,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
   request
 - Modal window handling improved
 
+### Removed
+
+- Unused JavaScript
+
 
 ## [1.15.2] - 2022-07-21
 
