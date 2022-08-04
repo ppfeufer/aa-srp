@@ -11,14 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ### Added
 
 - Comment field for accepting SRP requests. This is optional when pending requests
-  are being accepted, but mandatory when former rejected request are accepted to
+  are accepted, but mandatory when formerly rejected requests are accepted to
   state a reason.
 - Request history to request information window
 
 ### Changed
 
 - RGB notations in CSS files modernised
-- Bottom border color for changeable payout value for SRP requests that have been
+- Bottom border colour for changeable payout value for SRP requests that have been
   rejected. Now it's not that prominent anymore and doesn't look like a pending SRP
   request
 - Modal window handling improved
@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ### Removed
 
 - Unused JavaScript
+- Deprecated `type` attribute from `script` tags
 
 
 ## [1.15.2] - 2022-07-21

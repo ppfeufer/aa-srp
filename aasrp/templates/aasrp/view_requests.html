@@ -33,7 +33,7 @@
 {% block extra_javascript %}
     {% include 'bundles/clipboard-js.html' %}
 
-    <script type="application/javascript">
+    <script>
         let clipboard = new ClipboardJS('.copy-text-fa-icon');
 
         clipboard.on('success', function (e) {
@@ -51,9 +51,9 @@
     {% include 'bundles/datatables-js.html' %}
     {% include 'bundles/filterdropdown-js.html' %}
 
-    <script type="application/javascript" src="{% static 'aasrp/libs/datatables/plugins/datetime.min.js' %}"></script>
+    <script src="{% static 'aasrp/libs/datatables/plugins/datetime.min.js' %}"></script>
 
-    <script type="application/javascript">
+    <script>
         /**
          * passing some settings to our JS
          */
@@ -101,5 +101,5 @@
             $('[data-tooltip="payout-hint"]').tooltip();
         });
     </script>
-    <script type="application/javascript" src="{% aasrp_static 'aasrp/javascript/aa-srp-view-requests.min.js' %}"></script>
+    <script src="{% aasrp_static 'aasrp/javascript/aa-srp-view-requests.min.js' %}"></script>
 {% endblock %}

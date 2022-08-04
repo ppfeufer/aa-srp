@@ -31,7 +31,7 @@
 {% block extra_javascript %}
     {% include 'bundles/clipboard-js.html' %}
 
-    <script type="application/javascript">
+    <script>
         const clipboard = new ClipboardJS('.copy-text-fa-icon');
 
         clipboard.on('success', function (e) {
@@ -48,7 +48,7 @@
     {% include 'bundles/moment-js.html' with locale=True %}
     {% include 'bundles/filterdropdown-js.html' %}
 
-    <script type="application/javascript">
+    <script>
         /**
          * Passing some setting to our JS
          */
@@ -98,5 +98,5 @@
         };
     </script>
 
-    <script type="application/javascript" src="{% aasrp_static 'aasrp/javascript/aa-srp-dashboard.min.js' %}"></script>
+    <script src="{% aasrp_static 'aasrp/javascript/aa-srp-dashboard.min.js' %}"></script>
 {% endblock %}
