@@ -23,12 +23,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
   request
 - Modal window handling improved
 - JS and CSS moved to bundled HTML templates
+- Minumum requirements
+  - allianceauth>=2.15.1
+  - allianceauth-app-utils>=1.14.0
+  - django-eveuniverse>=0.16.3
 
 ### Removed
 
 - Unused JavaScript
 - Deprecated `type` attribute from `script` tags
 - Deprecated `type` attribute from `style` tags
+- Tests for non-stable version of Alliance Auth
 
 
 ## [1.15.2] - 2022-07-21
