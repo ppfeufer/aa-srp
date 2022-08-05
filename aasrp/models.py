@@ -298,7 +298,7 @@ class AaSrpRequestComment(models.Model):
         on_delete=models.CASCADE,
     )
 
-    comment_time = models.DateTimeField(default=timezone.now)
+    comment_time = models.DateTimeField(default=timezone.now, null=True, blank=True)
 
     new_status = models.CharField(
         max_length=8, choices=AaSrpRequest.Status.choices, blank=True, default=""

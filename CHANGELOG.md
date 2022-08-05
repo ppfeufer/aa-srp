@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Fixed
+
+- Migration error for MySQL8 (`django.db.utils.OperationalError: (1292, "Incorrect
+  datetime value: '0000-00-00 00:00:00' for column 'comment_time' at row 1")`)
+
 
 ## [1.16.0] - 2022-08-04
 

@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="aasrprequestcomment",
             name="comment_time",
-            field=models.DateTimeField(default=None),
+            field=models.DateTimeField(null=True, blank=True),
         ),
         migrations.AlterField(
             model_name="aasrprequestcomment",
