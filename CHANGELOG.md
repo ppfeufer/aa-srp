@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
   datetime value: '0000-00-00 00:00:00' for column 'comment_time' at row 1")`)
 
 
-## [1.16.0] - 2022-08-04
+## [1.16.0] - 2022-08-04 [YANKED]
 
 ### Added
 
