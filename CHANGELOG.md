@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+
+## [1.16.1] - 2022-08-06
+
 ### Update Notice
 
 **This release includes all changes from
@@ -29,7 +32,13 @@ If you haven't installed v1.16.0 yet, you can just update as usual.
 ### Fixed
 
 - Migration error for MySQL8 (`django.db.utils.OperationalError: (1292, "Incorrect
-  datetime value: '0000-00-00 00:00:00' for column 'comment_time' at row 1")`)
+  datetime value: '0000-00-00 00:00:00' for column 'comment_time' at row 1")`) -
+  Thanks to Rhaven (on AA support Discord) for reporting and testing this
+
+### Removed
+
+- Python 3.11 from tests. AA is not tested yet with it, and it's not even stable at
+  the moment.
 
 
 ## [1.16.0] - 2022-08-04 [YANKED]
