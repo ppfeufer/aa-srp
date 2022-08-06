@@ -9,7 +9,42 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 ## [In Development] - Unreleased
 
 
-## [1.16.0] - 2022-08-04
+## [1.16.1] - 2022-08-06
+
+### Update Information
+
+**This release includes all changes from
+[1.16.0 (YANKED)](https://github.com/ppfeufer/aa-srp/releases/tag/v1.16.0) as well
+as the following:**
+
+If you already installed v1.16.0 and successfully ran migrations, please run the
+following command **before** updating to this version.
+
+```shell
+python manage.py migrate aasrp 0006
+```
+
+This will re-set your migrations to the state of v1.15.2, and you can update as you
+would normally do from here.
+
+If you haven't installed v1.16.0 yet, you can just update as usual.
+
+### Fixed
+
+- Migration error for MySQL8 (`django.db.utils.OperationalError: (1292, "Incorrect
+  datetime value: '0000-00-00 00:00:00' for column 'comment_time' at row 1")`)
+  Thanks to Rhaven (on AA support Discord) for reporting and testing this
+
+### Removed
+
+- Python 3.11 from tests. AA is not tested yet with it, and it's not even stable at
+  the moment.
+
+
+## [1.16.0] - 2022-08-04 [YANKED]
+
+**This release has been yanked from Pypi due to a migration error on systems with
+mySQL8**
 
 ### Added
 
