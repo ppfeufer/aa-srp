@@ -16,6 +16,6 @@ def get_user_settings(user: User) -> AaSrpUserSettings:
     :return:
     """
 
-    user_settings, created = AaSrpUserSettings.objects.get_or_create(user=user)
+    user_settings, _ = AaSrpUserSettings.objects.get_or_create(user=user)
 
     return user_settings

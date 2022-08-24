@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ### Fixed
 
-- User settings are nor fetched for the right user
+- User settings are now fetched for the right user
 
 
 ## [1.16.1] - 2022-08-06
