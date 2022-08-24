@@ -53,14 +53,9 @@ from aasrp.helper.notification import (
     send_message_to_discord_channel,
     send_user_notification,
 )
+from aasrp.helper.user import get_user_settings
 from aasrp.managers import AaSrpManager
-from aasrp.models import (
-    AaSrpInsurance,
-    AaSrpLink,
-    AaSrpRequest,
-    AaSrpRequestComment,
-    AaSrpUserSettings,
-)
+from aasrp.models import AaSrpInsurance, AaSrpLink, AaSrpRequest, AaSrpRequestComment
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
@@ -100,13 +95,7 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
     :return:
     """
 
-    # Check if the current user has any settings. if not, create the default set
-    try:
-        user_settings = AaSrpUserSettings.objects.get(user=request.user)
-    except AaSrpUserSettings.DoesNotExist:
-        # create the default settings in the DB for the current user
-        user_settings = AaSrpUserSettings(user=request.user)
-        user_settings.save()
+    user_settings = get_user_settings(user=request.user)
 
     # If this is a POST request we need to process the form data
     if request.method == "POST":
@@ -118,6 +107,10 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
                 "disable_notifications"
             ]
             user_settings.save()
+
+            messages.success(request, _("Settings saved."))
+
+            return redirect("aasrp:dashboard")
     else:
         user_settings_form = AaSrpUserSettingsForm(instance=user_settings)
 
@@ -1048,7 +1041,7 @@ def ajax_srp_request_approve(
                 srp_request.request_status = AaSrpRequest.Status.APPROVED
                 srp_request.save()
 
-                user_settings = AaSrpUserSettings.objects.get(user=request.user)
+                user_settings = get_user_settings(user=requester)
 
                 # Check if the user has notifications activated (it's by default)
                 if user_settings.disable_notifications is False:
@@ -1137,7 +1130,7 @@ def ajax_srp_request_deny(
                     creator=request.user,
                 ).save()
 
-                user_settings = AaSrpUserSettings.objects.get(user=request.user)
+                user_settings = get_user_settings(user=requester)
 
                 # Check if the user has notifications activated (it's by default)
                 if user_settings.disable_notifications is False:
