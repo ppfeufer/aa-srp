@@ -1041,10 +1041,10 @@ def ajax_srp_request_approve(
                 srp_request.request_status = AaSrpRequest.Status.APPROVED
                 srp_request.save()
 
-                user_settings = get_user_settings(user=requester)
+                requester_user_settings = get_user_settings(user=requester)
 
-                # Check if the user has notifications activated (it's by default)
-                if user_settings.disable_notifications is False:
+                # Check if the requester has notifications activated (it's by default)
+                if requester_user_settings.disable_notifications is False:
                     ship_name = srp_request.ship.name
                     fleet_name = srp_request.srp_link.srp_name
                     srp_code = srp_request.srp_link.srp_code
@@ -1130,10 +1130,10 @@ def ajax_srp_request_deny(
                     creator=request.user,
                 ).save()
 
-                user_settings = get_user_settings(user=requester)
+                requester_user_settings = get_user_settings(user=requester)
 
-                # Check if the user has notifications activated (it's by default)
-                if user_settings.disable_notifications is False:
+                # Check if the requester has notifications activated (it's by default)
+                if requester_user_settings.disable_notifications is False:
                     ship_name = srp_request.ship.name
                     fleet_name = srp_request.srp_link.srp_name
                     srp_code = srp_request.srp_link.srp_code
