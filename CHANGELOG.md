@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+
+## [1.16.2] - 2022-09-15
+
 ### Fixed
 
 - User settings are now fetched for the right user
