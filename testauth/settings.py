@@ -171,6 +171,8 @@ DATABASES = {
 }
 
 SITE_NAME = "Alliance Auth"
+SITE_URL = "https://example.com"
+CSRF_TRUSTED_ORIGINS = [SITE_URL]
 
 LOGIN_URL = "auth_login_user"  # view that handles login logic
 
@@ -259,6 +261,21 @@ SITE_NAME = "testauth"
 # Change this to enable/disable debug mode, which displays
 # useful error messages but can leak sensitive data.
 DEBUG = False
+
+if os.environ.get("USE_MYSQL", True) is True:
+    DATABASES["default"] = {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "tox_allianceauth",
+        "USER": os.environ.get("DB_USER", "user"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "password"),
+        "HOST": os.environ.get("DB_HOST", ""),
+        "PORT": os.environ.get("DB_PORT", ""),
+        "OPTIONS": {"charset": "utf8mb4"},
+        "TEST": {
+            "charset": "utf8mb4",
+            "NAME": "test_tox_allianceauth",
+        },
+    }
 
 # Add any additional apps to this list.
 INSTALLED_APPS += ["eveuniverse", "aasrp"]
