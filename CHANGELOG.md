@@ -2,8 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/)
+The format is based on [Keep a Changelog]
+and this project adheres to [Semantic Versioning]
 
 
 ## [In Development] - Unreleased
@@ -24,9 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ### Update Information
 
-**This release includes all changes from
-[1.16.0 (YANKED)](https://github.com/ppfeufer/aa-srp/releases/tag/v1.16.0) as well
-as the following:**
+**This release includes all changes from [v1.16.0 (YANKED)] as well as the following:**
 
 If you already installed v1.16.0 and successfully ran migrations, please run the
 following command **before** updating to this version.
@@ -50,6 +48,9 @@ If you haven't installed v1.16.0 yet, you can just update as usual.
 
 - Python 3.11 from tests. AA is not tested yet with it, and it's not even stable at
   the moment.
+
+<!-- Links -->
+[v1.16.0 (YANKED)]: https://github.com/ppfeufer/aa-srp/releases/tag/v1.16.0 "1.16.0 (YANKED)"
 
 
 ## [1.16.0] - 2022-08-04 [YANKED]
@@ -89,14 +90,18 @@ mySQL8**
 
 ### Added
 
-- Tooltip to make it a bit more obvious that SRP payout values can be changed ([#72](https://github.com/ppfeufer/aa-srp/issues/72))
+- Tooltip to make it a bit more obvious that SRP payout values can be changed ([#72])
 
-  ![Tooltip: Change SRP Payout Amount](aasrp/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount")
+  ![Tooltip: Change SRP Payout Amount]
 
 ### Changed
 
 - Moved SRP recalculation to its own function
 - Highlight colour for SRP amount changed
+
+<!-- Links and images -->
+[#72]: https://github.com/ppfeufer/aa-srp/issues/72 "[Feature Request] Specify Payout Percentage on approving SRP"
+[Tooltip: Change SRP Payout Amount]: aasrp/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
 
 
 ## [1.15.1] - 2022-07-11
@@ -374,8 +379,10 @@ mySQL8**
 
 ### Added
 
-- [EveTools kill board](https://kb.evetools.org/) as accepted source for SRP
-  request kill mails
+- [EveTools Killboard] as accepted source for SRP request kill mails
+
+<!-- Links -->
+[EveTools Killboard]: https://kb.evetools.org/ "EveTools Killboard"
 
 
 ## [1.6.1] - 2021-07-01
@@ -486,11 +493,9 @@ mySQL8**
 - Option for users to disable notifications for this module. When enabled, no
   notifications will be sent at all. Neither in AA itself nor on Discord (if any of
   the Discord apps is active)
-- Check if [AA Discord Notify](https://gitlab.com/ErikKalkoken/aa-discordnotify) is
-  installed, which picks up on notifications in Auth and relays them to the
-  respective user as Discord PM. This way we don't send double notifications to the
-  user if [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot) is
-  installed as well.
+- Check if [AA Discord Notify] is installed, which picks up on notifications in Auth
+  and relays them to the respective user as Discord PM. This way we don't send
+  double notifications to the user if [AA-Discordbot] is installed as well.
 
 ### Changed
 
@@ -502,8 +507,7 @@ mySQL8**
 ### Added
 
 - Option to notify the SRP team in their Discord channels about new SRP requests. (You
-  need to have [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot)
-  installed and configured to use this option)
+  need to have [AA-Discordbot] installed and configured to use this option)
 
 
 ## [1.0.1] - 2021-02-09
@@ -532,7 +536,7 @@ some manual work, so please update step by step.**
 
 - More details to notifications
 - Discord notification via PM to the user on SRP request approval or rejection, if
-  [AA-Discordbot](https://github.com/pvyParts/allianceauth-discordbot) is installed
+  [AA-Discordbot] is installed
 
 
 ## [0.1.0-beta.16] - 2021-02-06
@@ -729,3 +733,10 @@ python manage.py aasrp_update_db_relations
 ## [0.1.0-beta.3] - 2020-12-28
 
 - First public beta release
+
+
+<!-- Links -->
+[Keep a Changelog]: http://keepachangelog.com/ "Keep a Changelog"
+[Semantic Versioning]: http://semver.org/ "Semantic Versioning"
+[AA Discord Notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "AA Discord Notify"
+[AA-Discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
