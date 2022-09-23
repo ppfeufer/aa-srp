@@ -1,9 +1,10 @@
 ---
 name: Feature Request
-about: Suggest an idea for AA SRP
+about: Suggest an idea
 title: "[Feature Request] "
 labels: ''
 assignees: ''
+
 ---
 
 ### Context

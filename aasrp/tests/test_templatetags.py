@@ -506,7 +506,7 @@ class TestMainAllianceId(TestCase):
 
     def test_should_be_dummy_id_for_none(self):
         """
-        test should return dummy ID (1) for None
+        Test should return dummy ID (1) for None
         :return:
         """
 

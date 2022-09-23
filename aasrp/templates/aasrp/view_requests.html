@@ -31,7 +31,7 @@
     {% include "bundles/clipboard-js.html" %}
 
     <script>
-        let clipboard = new ClipboardJS('.copy-text-fa-icon');
+        const clipboard = new ClipboardJS('.copy-text-fa-icon');
 
         clipboard.on('success', function (e) {
             e.clearSelection();

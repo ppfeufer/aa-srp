@@ -29,7 +29,7 @@ class AaSrp(models.Model):
     Meta model for app permissions
     """
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """
         General definitions
         """
@@ -89,6 +89,15 @@ class AaSrpLink(models.Model):
         on_delete=models.SET(get_sentinel_user),
         help_text=_("Who created the SRP link?"),
     )
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        Meta definitions
+        """
+
+        default_permissions = ()
+        verbose_name = _("SRP Link")
+        verbose_name_plural = _("SRP Links")
 
     def __str__(self) -> str:
         return str(self.srp_name)
@@ -156,15 +165,6 @@ class AaSrpLink(models.Model):
 
         return self.srp_requests.all()
 
-    class Meta:
-        """
-        Meta definitions
-        """
-
-        default_permissions = ()
-        verbose_name = _("SRP Link")
-        verbose_name_plural = _("SRP Links")
-
 
 class AaSrpRequest(models.Model):
     """
@@ -215,6 +215,15 @@ class AaSrpRequest(models.Model):
     post_time = models.DateTimeField(default=timezone.now)
     reject_info = models.TextField(blank=True, default="")
 
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        Meta definitions
+        """
+
+        default_permissions = ()
+        verbose_name = _("SRP Request")
+        verbose_name_plural = _("SRP Requests")
+
     def __str__(self):
         character_name = self.character.character_name
         user_name = self.creator.profile.main_character.character_name
@@ -224,15 +233,6 @@ class AaSrpRequest(models.Model):
         return _(
             f"{character_name} ({user_name}) SRP Request for: {ship} ({request_code})"
         )
-
-    class Meta:
-        """
-        Meta definitions
-        """
-
-        default_permissions = ()
-        verbose_name = _("SRP Request")
-        verbose_name_plural = _("SRP Requests")
 
 
 class AaSrpInsurance(models.Model):
@@ -247,7 +247,7 @@ class AaSrpInsurance(models.Model):
     insurance_cost = models.FloatField()
     insurance_payout = models.FloatField()
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta definitions
         """
@@ -304,7 +304,7 @@ class AaSrpRequestComment(models.Model):
         max_length=8, choices=AaSrpRequest.Status.choices, blank=True, default=""
     )
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta definitions
         """
@@ -330,7 +330,7 @@ class AaSrpUserSettings(models.Model):
 
     disable_notifications = models.BooleanField(default=False)
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta definitions
         """

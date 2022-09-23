@@ -100,16 +100,11 @@ jobs:
       database:
         image: ${{ matrix.database }}
         env:
-          MYSQL_ROOT_PASSWORD: foobar
+          MYSQL_ROOT_PASSWORD: temp_password_aa_tox_tests
           MYSQL_DATABASE: tox_allianceauth
         ports:
           - 3306:3306
         options: --tmpfs /var/lib/mysql
-
-    env:
-      DB_HOST: 127.0.0.1
-      DB_USER: root
-      DB_PASSWORD: foobar
 
     steps:
       - name: Checkout
@@ -137,6 +132,9 @@ jobs:
         env:
           DJANGO: ${{ matrix.django-version }}
           ALLIANCEAUTH: stable
+          DB_HOST: 127.0.0.1
+          DB_USER: root
+          DB_PASSWORD: temp_password_aa_tox_tests
 
       - name: Upload Coverage Artifacts
         if: ${{ github.event_name == 'pull_request' && matrix.python-version == '3.10' && matrix.django-version == '4.0' }}
@@ -152,15 +150,15 @@ jobs:
 #    runs-on: ubuntu-latest
 #
 #    strategy:
-#      # Set Python and Django version to test for the stable release of AllianceAuth
+#      # Set Python and Django version to test for the alpha/beta release of AllianceAuth
 #      matrix:
-#        # Don't forget to change the Python version for [upload-coverage] as well
+#        # Python versions
 #        python-version:
 #          - '3.8'
 #          - '3.9'
 #          - '3.10'
 #          - '3.11-dev'
-#        # Don't forget to change the Django version for [upload-coverage] as well
+#        # Django versions
 #        django-version:
 #          - '4.0'
 #        # MySQL versions to test against
@@ -186,12 +184,6 @@ jobs:
 #        ports:
 #          - 3306:3306
 #        options: --tmpfs /var/lib/mysql
-#
-#    env:
-#      USE_MYSQL: True
-#      DB_HOST: 127.0.0.1
-#      DB_USER: root
-#      DB_PASSWORD: foobar
 #
 #    steps:
 #      - name: Checkout
@@ -219,6 +211,9 @@ jobs:
 #        env:
 #          DJANGO: ${{ matrix.django-version }}
 #          ALLIANCEAUTH: testing
+#          DB_HOST: 127.0.0.1
+#          DB_USER: root
+#          DB_PASSWORD: temp_password_aa_tox_tests
 
   # Coverage upload to Codecov and Codacy
   upload-coverage:
