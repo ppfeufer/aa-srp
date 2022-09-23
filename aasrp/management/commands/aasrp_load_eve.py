@@ -20,7 +20,19 @@ logger = LoggerAddTag(logging.getLogger(__name__), __title__)
 
 
 class Command(BaseCommand):
+    """
+    Pre-loading required data
+    """
+
     help = "Preloads data required for this app from ESI"
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "--noinput",
+            "--no-input",
+            action="store_true",
+            help="Do NOT prompt the user for input of any kind.",
+        )
 
     def handle(self, *args, **options):
         """
@@ -29,9 +41,14 @@ class Command(BaseCommand):
         :param options:
         """
 
-        call_command(
+        params = [
             "eveuniverse_load_types",
             __title__,
             "--category_id",
             str(EVE_CATEGORY_ID_SHIP),
-        )
+        ]
+
+        if options["noinput"]:
+            params.append("--noinput")
+
+        call_command(*params)

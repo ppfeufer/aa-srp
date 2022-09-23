@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+### Added
+
+- `aasrp_load_eve` can run without user interaction with the `--no-input` or
+  `--noinput` argument
+
 ### Changed
 
 - Made request detail modals a bit larger
