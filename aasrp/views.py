@@ -338,10 +338,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
             )
             srp_link.save()
 
-            messages.success(
-                request,
-                _(f'SRP link "{srp_link.srp_code}" created'),
-            )
+            messages.success(request, _(f'SRP link "{srp_link.srp_code}" created'))
 
             return redirect("aasrp:dashboard")
 
@@ -374,10 +371,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
             f"Unable to locate SRP Fleet using code {srp_code} for user {request_user}"
         )
 
-        messages.error(
-            request,
-            _(f"Unable to locate SRP code with ID {srp_code}"),
-        )
+        messages.error(request, _(f"Unable to locate SRP code with ID {srp_code}"))
 
         return redirect("aasrp:dashboard")
 

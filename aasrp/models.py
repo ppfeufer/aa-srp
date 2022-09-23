@@ -29,7 +29,7 @@ class AaSrp(models.Model):
     Meta model for app permissions
     """
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """
         General definitions
         """
@@ -156,7 +156,7 @@ class AaSrpLink(models.Model):
 
         return self.srp_requests.all()
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta definitions
         """
@@ -225,7 +225,7 @@ class AaSrpRequest(models.Model):
             f"{character_name} ({user_name}) SRP Request for: {ship} ({request_code})"
         )
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta definitions
         """
@@ -247,7 +247,7 @@ class AaSrpInsurance(models.Model):
     insurance_cost = models.FloatField()
     insurance_payout = models.FloatField()
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta definitions
         """
@@ -304,7 +304,7 @@ class AaSrpRequestComment(models.Model):
         max_length=8, choices=AaSrpRequest.Status.choices, blank=True, default=""
     )
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta definitions
         """
@@ -330,7 +330,7 @@ class AaSrpUserSettings(models.Model):
 
     disable_notifications = models.BooleanField(default=False)
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta definitions
         """
