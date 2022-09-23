@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ## [In Development] - Unreleased
 
+### Changed
+
+- Made request detail modals a bit larger
+
 
 ## [1.16.2] - 2022-09-15
 
