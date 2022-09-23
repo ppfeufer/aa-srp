@@ -9,7 +9,7 @@
 [![Badge: Support Discord]][Support Discord]
 [![Badge: Automated Tests]][Automated Tests on GitHub]
 [![Badge: Code Coverage]][AA SRP on Codecov]
-[![Badge: Contributer Covenant]][Code of Conduct]
+[![Badge: Contributor Covenant]][Code of Conduct]
 
 [![Badge: Buy me a coffee]][ppfeufer on ko-fi]
 
@@ -48,8 +48,8 @@ SRP Module for [Alliance Auth]
 - Notifications in AA with detailed information on SRP rejection
 - Discord notification via PM to the user on SRP request approval or rejection, if
   either [AA-Discordbot], [Discord Notify] or [Discord Proxy] is installed
-- Notify your SRP team (optional) in their Doscord channel about new SRP requests, if
-  [AA-Discordbot] is installed
+- Notify your SRP team (optional) in their Discord channel about new SRP requests, if
+  [AA-Discordbot] or [Discord Proxy] is installed
 
 
 ### Screenshots
@@ -196,7 +196,7 @@ just some basics)
 [Badge: Support Discord]: https://img.shields.io/discord/790364535294132234?label=discord "Support Discord"
 [Badge: Automated Tests]: https://github.com/ppfeufer/aa-srp/actions/workflows/automated-checks.yml/badge.svg "Automated Tests"
 [Badge: Code Coverage]: https://codecov.io/gh/ppfeufer/aa-srp/branch/master/graph/badge.svg "Code Coverage"
-[Badge: Contributer Covenant]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg "Contributor Covenant"
+[Badge: Contributor Covenant]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg "Contributor Covenant"
 [Badge: Buy me a coffee]: https://ko-fi.com/img/githubbutton_sm.svg "Buy me a coffee"
 
 [Image: AA SRP Dashboard]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-dashboard.jpg "AA SRP Dashboard"
