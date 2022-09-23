@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+
+## [1.16.3] - 2022-09-23
+
 ### Added
 
 - `aasrp_load_eve` can run without user interaction with the `--no-input` or
