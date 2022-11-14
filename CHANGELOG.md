@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning]
 
 - SRP link name to request form
 
+### Changed
+
+- Optimized code to check if SRP link exists when requesting SRP
+
 
 ## [1.16.3] - 2022-09-23
 
