@@ -601,7 +601,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         form = AaSrpRequestForm()
 
-    context = {"srp_code": srp_code, "form": form}
+    context = {"srp_link": srp_link, "form": form}
 
     return render(request, "aasrp/request_srp.html", context)
 
