@@ -3,12 +3,12 @@ URL config
 """
 
 # Django
-from django.urls import include, re_path
+from django.urls import include, path
 
 # Alliance Auth
 from allianceauth import urls
 
 urlpatterns = [
     # Alliance Auth URLs
-    re_path(r"", include(urls)),
+    path(r"", include(urls)),
 ]

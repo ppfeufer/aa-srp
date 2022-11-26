@@ -51,15 +51,13 @@ class AaSrpLinkAdmin(admin.ModelAdmin):
     search_fields = ("srp_code", "fleet_doctrine", "srp_name")
 
     @classmethod
+    @admin.display(description="Creator", ordering="creator")
     def _creator(cls, obj):
         creator_name = obj.creator
         if obj.creator.profile.main_character:
             creator_name = obj.creator.profile.main_character.character_name
 
         return creator_name
-
-    _creator.short_description = "Creator"
-    _creator.admin_order_field = "creator"
 
 
 @admin.register(AaSrpRequest)
@@ -92,15 +90,13 @@ class AaSrpRequestAdmin(admin.ModelAdmin):
     )
 
     @classmethod
+    @admin.display(description="Creator", ordering="creator")
     def _creator(cls, obj):
         creator_name = obj.creator
         if obj.creator.profile.main_character:
             creator_name = obj.creator.profile.main_character.character_name
 
         return creator_name
-
-    _creator.short_description = "Creator"
-    _creator.admin_order_field = "creator"
 
 
 @admin.register(AaSrpRequestComment)
