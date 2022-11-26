@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+### Fixed
+
+- Alliance Character view their SRP request detail error ([#81])
+
 ### Added
 
 - SRP link name to request form
@@ -15,6 +19,9 @@ and this project adheres to [Semantic Versioning]
 ### Changed
 
 - Optimized code to check if SRP link exists when requesting SRP
+
+<!-- Links -->
+[#81]: https://github.com/ppfeufer/aa-srp/issues/81 "Alliance Character view their SRP request detail error"
 
 
 ## [1.16.3] - 2022-09-23
