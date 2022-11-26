@@ -857,7 +857,7 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
 
 
 @login_required
-@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
+@permission_required("aasrp.basic_access")
 def ajax_srp_request_additional_information(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> HttpResponse:
