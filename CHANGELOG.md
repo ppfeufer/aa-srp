@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+
+## [1.16.4] - 2022-11-26
+
 ### Fixed
 
 - Alliance Character view their SRP request detail error ([#81])
