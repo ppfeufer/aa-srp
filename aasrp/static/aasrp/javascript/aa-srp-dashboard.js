@@ -31,9 +31,13 @@ $(document).ready(() => {
                 className: 'srp-link-fleet-time'
             },
             {
-                data: 'fleet_commander',
-                className: 'srp-link-fleet-commander'
+                data: 'fleet_type',
+                className: 'srp-link-fleet-type'
             },
+            // {
+            //     data: 'fleet_commander',
+            //     className: 'srp-link-fleet-commander'
+            // },
             {
                 data: 'fleet_doctrine',
                 className: 'srp-link-fleet-doctrine'

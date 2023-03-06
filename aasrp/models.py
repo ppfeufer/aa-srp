@@ -49,6 +49,42 @@ class AaSrp(models.Model):
         )
 
 
+class FleetType(models.Model):
+    """
+    FleetType
+    """
+
+    id = models.AutoField(primary_key=True)
+
+    name = models.CharField(
+        max_length=254, help_text="Descriptive name of your fleet type"
+    )
+
+    is_enabled = models.BooleanField(
+        default=True,
+        db_index=True,
+        help_text="Whether this fleet type is active or not",
+    )
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        AFatLinkType :: Meta
+        """
+
+        default_permissions = ()
+        verbose_name = "SRP Link Fleet Type"
+        verbose_name_plural = "SRP Link Fleet Types"
+
+    def __str__(self) -> str:
+        """
+        Return the objects string name
+        :return:
+        :rtype:
+        """
+
+        return str(self.name)
+
+
 class AaSrpLink(models.Model):
     """
     SRP link model
@@ -77,6 +113,17 @@ class AaSrpLink(models.Model):
         on_delete=models.SET_NULL,
     )
     fleet_doctrine = models.CharField(max_length=254, default="")
+
+    fleet_type = models.ForeignKey(
+        FleetType,
+        related_name="+",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        default=None,
+        help_text="The SRP link fleet type, if it's set",
+    )
+
     fleet_time = models.DateTimeField()
     aar_link = models.CharField(max_length=254, blank=True, default="")
 
