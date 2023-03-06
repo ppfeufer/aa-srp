@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning]
 ## [In Development] - Unreleased
 
 
-## [1.17.0] - 2023-03-08
+## [1.17.0] - 2023-03-06
 
 ### Added
 
