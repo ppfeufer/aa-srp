@@ -8,10 +8,15 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+
+## [1.17.0] - 2023-03-08
+
 ### Added
 
+- Fleet type to SRP links (optional) ([#83])
 - SRP details to SRP request form ([#84])
 
+[#83]: https://github.com/ppfeufer/aa-srp/issues/84 "[Feature Request] Add Fleet Types to SRP Links"
 [#84]: https://github.com/ppfeufer/aa-srp/issues/84 "[Feature Request] Add ARP Link Details to Request Form"
 
 
