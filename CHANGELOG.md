@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+### Added
+
+- SRP details to SRP request form ([#84])
+
+[#84]: https://github.com/ppfeufer/aa-srp/issues/84 "[Feature Request] Add ARP Link Details to Request Form"
+
 
 ## [1.16.4] - 2022-11-26
 
