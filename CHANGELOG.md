@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning]
 - Fleet type to SRP links (optional) ([#83])
 - SRP details to SRP request form ([#84])
 
-[#83]: https://github.com/ppfeufer/aa-srp/issues/84 "[Feature Request] Add Fleet Types to SRP Links"
+[#83]: https://github.com/ppfeufer/aa-srp/issues/83 "[Feature Request] Add Fleet Types to SRP Links"
 [#84]: https://github.com/ppfeufer/aa-srp/issues/84 "[Feature Request] Add ARP Link Details to Request Form"
 
 
