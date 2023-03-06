@@ -21,7 +21,7 @@ from aasrp.constants import (
     ZKILLBOARD_KILLMAIL_URL_REGEX,
 )
 from aasrp.managers import AaSrpManager
-from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpUserSettings
+from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpUserSettings, FleetType
 
 
 def get_mandatory_form_label_text(text: str) -> str:
@@ -56,6 +56,12 @@ class AaSrpLinkForm(ModelForm):
         label=get_mandatory_form_label_text(_("Fleet Time")),
         widget=forms.DateTimeInput(attrs={"autocomplete": "off"}),
     )
+    fleet_type = forms.ModelChoiceField(
+        required=False,
+        label=_("Fleet Type (optional)"),
+        queryset=FleetType.objects.filter(is_enabled=True),
+        # empty_label=_("Please select a fleet type"),
+    )
     fleet_doctrine = forms.CharField(
         required=True, label=get_mandatory_form_label_text(_("Fleet Doctrine"))
     )
@@ -67,7 +73,7 @@ class AaSrpLinkForm(ModelForm):
         """
 
         model = AaSrpLink
-        fields = ["srp_name", "fleet_time", "fleet_doctrine", "aar_link"]
+        fields = ["srp_name", "fleet_time", "fleet_type", "fleet_doctrine", "aar_link"]
 
 
 class AaSrpLinkUpdateForm(ModelForm):

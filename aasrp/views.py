@@ -324,12 +324,14 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
         if form.is_valid():
             srp_name = form.cleaned_data["srp_name"]
             fleet_time = form.cleaned_data["fleet_time"]
+            fleet_type = form.cleaned_data["fleet_type"]
             fleet_doctrine = form.cleaned_data["fleet_doctrine"]
             aar_link = form.cleaned_data["aar_link"]
 
             srp_link = AaSrpLink(
                 srp_name=srp_name,
                 fleet_time=fleet_time,
+                fleet_type=fleet_type,
                 fleet_doctrine=fleet_doctrine,
                 aar_link=aar_link,
                 srp_code=get_random_string(length=16),
