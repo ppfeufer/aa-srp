@@ -15,6 +15,9 @@ from django.contrib.auth.models import User
 # Alliance Auth
 from allianceauth.tests.auth_utils import AuthUtils
 
+# AA SRP
+from aasrp.models import FleetType
+
 fake = Faker()
 
 
@@ -90,3 +93,16 @@ def get_or_create_fake_user(*args, **kwargs) -> User:
         return User.objects.get(username=username)
     except User.DoesNotExist:
         return create_fake_user(*args, **kwargs)
+
+
+def create_fleettype(**kwargs) -> FleetType:
+    """
+    Create fleet type
+    :param kwargs:
+    :return:
+    """
+
+    if "name" not in kwargs:
+        kwargs["name"] = fake.name()
+
+    return FleetType.objects.create(**kwargs)

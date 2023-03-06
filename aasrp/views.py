@@ -184,11 +184,16 @@ def ajax_dashboard_srp_links_data(
 
         actions = get_dashboard_action_icons(request=request, srp_link=srp_link)
 
+        fleet_type = ""
+        if srp_link.fleet_type:
+            fleet_type = srp_link.fleet_type.name
+
         data.append(
             {
                 "srp_name": srp_link.srp_name,
                 "creator": get_main_character_from_user(srp_link.creator),
                 "fleet_time": srp_link.fleet_time,
+                "fleet_type": fleet_type,
                 "fleet_commander": srp_link.fleet_commander.character_name,
                 "fleet_doctrine": srp_link.fleet_doctrine,
                 "aar_link": aar_link,
@@ -324,12 +329,14 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
         if form.is_valid():
             srp_name = form.cleaned_data["srp_name"]
             fleet_time = form.cleaned_data["fleet_time"]
+            fleet_type = form.cleaned_data["fleet_type"]
             fleet_doctrine = form.cleaned_data["fleet_doctrine"]
             aar_link = form.cleaned_data["aar_link"]
 
             srp_link = AaSrpLink(
                 srp_name=srp_name,
                 fleet_time=fleet_time,
+                fleet_type=fleet_type,
                 fleet_doctrine=fleet_doctrine,
                 aar_link=aar_link,
                 srp_code=get_random_string(length=16),

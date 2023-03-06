@@ -1,0 +1,32 @@
+{% load i18n %}
+
+<div class="col-md-4 col-md-push-8">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                {% translate "SRP / Fleet Details" %}
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <ul class="list-unstyled">
+                <li><b>{% translate "Fleet name:" %}</b> {{ srp_link }}</li>
+                <li><b>{% translate "SRP Code:" %}</b> {{ srp_link.srp_code }}</li>
+
+                {% if srp_link.fleet_type %}
+                    <li><b>{% translate "Fleet Type:" %}</b> {{ srp_link.fleet_type }}</li>
+                {% endif %}
+
+                {% if srp_link.fleet_commander %}
+                    <li><b>{% translate "FC:" %}</b> {{ srp_link.fleet_commander }}</li>
+                {% endif %}
+
+                <li><b>{% translate "Doctrine:" %}</b> {{ srp_link.fleet_doctrine }}</li>
+
+                {% if srp_link.aar_link %}
+                    <li><b>{% translate "AAR:" %}</b> <a href="{{ srp_link.aar_link }}">{% translate "Read Here" %}</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

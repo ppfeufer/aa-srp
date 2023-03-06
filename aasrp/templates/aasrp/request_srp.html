@@ -4,10 +4,11 @@
 
 {% block aasrp_header %}
     {% translate "Request SRP" as translated_header %}
-    {% include "aasrp/partials/header/h1.html" with header_text=translated_header %}
+    {% include "aasrp/partials/header/h1.html" with header_text=translated_header addition=srp_link %}
 {% endblock %}
 
 {% block aasrp_body %}
+    {% include "aasrp/partials/request_srp/fleet-details.html" %}
     {% include "aasrp/partials/request_srp/form.html" %}
 {% endblock %}
 
