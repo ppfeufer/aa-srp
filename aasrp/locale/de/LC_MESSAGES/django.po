@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-29 00:52+0100\n"
-"PO-Revision-Date: 2023-04-09 04:45+0000\n"
+"PO-Revision-Date: 2023-04-09 17:18+0000\n"
 "Last-Translator: \"H. Peter Pfeufer\" <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/de/>\n"
@@ -431,7 +431,7 @@ msgstr "SRP Auszahlung"
 
 #: templates/aasrp/partials/form/form_fields.html:53
 msgid "Fields marked with an asterisk (*) are mandatory"
-msgstr "Felder mit einem Stern (*) sind Pflichtfelder"
+msgstr "Mit einem Sternchen (*) gekennzeichnete Felder sind Pflichtfelder"
 
 #: templates/aasrp/partials/link_add/form.html:5
 msgid "SRP Link Details"
