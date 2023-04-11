@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-29 00:52+0100\n"
-"PO-Revision-Date: 2023-04-08 11:11+0000\n"
+"PO-Revision-Date: 2023-04-09 17:18+0000\n"
 "Last-Translator: \"H. Peter Pfeufer\" <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/de/>\n"
@@ -153,7 +153,7 @@ msgstr "{fa_icon} SRP Anforderung löschen"
 
 #: managers.py:86
 msgid "Invalid Kill ID or Hash."
-msgstr "Kill ID oder Hash ungültig"
+msgstr "Kill ID oder Hash ungültig."
 
 #: models.py:29
 msgid "Active"
@@ -276,7 +276,7 @@ msgstr "SRP Link löschen"
 #: templates/aasrp/modals/dashboard/enable_srp_link.html:22
 #: templates/aasrp/modals/view_requests/mark_complete_modal.html:38
 msgid "Cancel"
-msgstr "Schließen"
+msgstr "Abbrechen"
 
 #: templates/aasrp/modals/dashboard/delete_srp_link.html:27
 msgid "Delete"
@@ -305,10 +305,12 @@ msgid ""
 "                        your pilots can no longer file SRP requests for\n"
 "                        this link / fleet.\n"
 "                    "
-msgstr "\n"
-"Bist Du sicher das Du diesen SRP link als beendet markieren und schließen "
-"willst? Sobald dieser geschlossen ist, können keine SRP Anforderungen mehr "
-"gestellt werden."
+msgstr ""
+"\n"
+"                        Bist Du sicher das Du diesen SRP link als beendet "
+"markieren und schließen willst? Sobald dieser geschlossen ist, können keine "
+"SRP Anforderungen mehr gestellt werden.\n"
+"                    "
 
 #: templates/aasrp/modals/view_requests/mark_complete_modal.html:27
 #, python-format
@@ -320,9 +322,12 @@ msgid ""
 "want to mark\n"
 "                            this SRP link as completed?\n"
 "                        "
-msgstr "\n"
-"Dieser SRP Link hat noch %(number_pending_requests)s ausstehende "
-"Anforderungen. Bist Du absolut sicher das Du diesen Link schließen willst?"
+msgstr ""
+"\n"
+"                            Dieser SRP Link hat noch "
+"%(number_pending_requests)s ausstehende Anforderungen. Bist Du absolut "
+"sicher das Du diesen Link schließen willst?\n"
+"                        "
 
 #: templates/aasrp/modals/view_requests/mark_complete_modal.html:41
 msgid "Mark as completed"
@@ -426,7 +431,7 @@ msgstr "SRP Auszahlung"
 
 #: templates/aasrp/partials/form/form_fields.html:53
 msgid "Fields marked with an asterisk (*) are mandatory"
-msgstr "Felder mit einem Stern (*) sind Pflichtfelder"
+msgstr "Mit einem Sternchen (*) gekennzeichnete Felder sind Pflichtfelder"
 
 #: templates/aasrp/partials/link_add/form.html:5
 msgid "SRP Link Details"
@@ -514,8 +519,8 @@ msgid ""
 "There is already a SRP request for this killmail. Please check if you got "
 "the right one."
 msgstr ""
-"Es gibt bereits eine SRP Anforderung für diese Killmail. Sicher das Du die "
-"Richtige hast?"
+"Es gibt bereits eine SRP Anforderung für diese Killmail. Bitte prüfe das Du "
+"die Richtige hast."
 
 #: views.py:369
 msgid ""
@@ -564,8 +569,8 @@ msgid ""
 "Your SRP request for a {ship_name} lost during {fleet_name} has been "
 "approved."
 msgstr ""
-"Deine SRP Anforderung für die {ship_name} die während der Flotte "
-"{fleet_name} zerstört wurde, wurde angenommen."
+"Deine SRP Anforderung für die {ship_name} welche während der Flotte "
+"{fleet_name} zerstört wurde, ist genehmigt worden."
 
 #: views.py:803
 msgid "SRP request has been approved"
@@ -577,8 +582,8 @@ msgid ""
 "Your SRP request for a {ship_name} lost during {fleet_name} has been "
 "rejected."
 msgstr ""
-"Deine SRP Anforderung für die {ship_name} die während der Flotte "
-"{fleet_name} zerstört wurde, wurde abgelehnt."
+"Deine SRP Anforderung für die {ship_name} welche während der Flotte "
+"{fleet_name} zerstört wurde, ist abgelehnt worden."
 
 #: views.py:847
 msgid "SRP request has been rejected"
