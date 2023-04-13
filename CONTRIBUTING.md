@@ -78,3 +78,13 @@ The full tox-test suite can be run via:
 ```shell
 make tox_tests
 ```
+
+
+## Translation
+
+This app is fully translation-ready and translations are handled via [Weblate]. If
+you like to contribute to the app's translation or simply improve it, feel free to
+register on my [Weblate] site and message me so I can add you to the right group.
+
+<!-- Links -->
+[Weblate]: https://weblate.ppfeufer.de/ "Weblate"
