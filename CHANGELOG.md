@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+### Fixed
+
+- Label in AAR Form
+
 
 ## [1.17.1] - 2023-04-13
 

@@ -65,7 +65,7 @@ class AaSrpLinkForm(ModelForm):
     fleet_doctrine = forms.CharField(
         required=True, label=get_mandatory_form_label_text(_("Fleet Doctrine"))
     )
-    aar_link = forms.CharField(required=False, label=_("AAR Link"))
+    aar_link = forms.CharField(required=False, label=_("After Action Report Link"))
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
