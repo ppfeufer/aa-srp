@@ -102,8 +102,7 @@ class AaSrpRequestForm(ModelForm):
         max_length=254,
         required=True,
         help_text=(
-            f"Find your kill mail on {ZKILLBOARD_BASE_URL} "
-            f"or {EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."
+            f"Find your kill mail on {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."  # pylint: disable=line-too-long
         ),
     )
 
@@ -141,8 +140,7 @@ class AaSrpRequestForm(ModelForm):
         ):
             raise forms.ValidationError(
                 _(
-                    f"Invalid Link. Please use {ZKILLBOARD_BASE_URL} "
-                    f"or {EVETOOLS_KILLBOARD_BASE_URL}"
+                    f"Invalid Link. Please use {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"  # pylint: disable=line-too-long
                 )
             )
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-16 23:38+0200\n"
+"POT-Creation-Date: 2023-04-17 00:04+0200\n"
 "PO-Revision-Date: 2023-04-16 21:16+0000\n"
 "Last-Translator: Nikolay <nick.postnikov@gmail.com>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -60,20 +60,22 @@ msgstr "Ссылка на отчет о действиях"
 msgid "Killboard Link"
 msgstr "Ссылка на килборду"
 
-#: form.py:113
+#: form.py:112
 msgid "Additional Info"
 msgstr "Дополнительная информация"
 
-#: form.py:144
+#: form.py:143
 #, python-brace-format
-msgid "Invalid Link. Please use {ZKILLBOARD_BASE_URL} "
-msgstr "Некорректная ссылка. Используйте {ZKILLBOARD_BASE_URL} "
+msgid ""
+"Invalid Link. Please use {ZKILLBOARD_BASE_URL} or "
+"{EVETOOLS_KILLBOARD_BASE_URL}"
+msgstr ""
 
-#: form.py:158
+#: form.py:156
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr "Некорректная ссылка. Укажите действительную ссылка на kill mail."
 
-#: form.py:169
+#: form.py:167
 msgid ""
 "There is already an SRP request for this killmail. Please check if you got "
 "the right one."
@@ -81,38 +83,38 @@ msgstr ""
 "Для указанного kill mail уже зарегистрирован SRP запрос. Убедитесь, что Вы "
 "указали верную ссылку."
 
-#: form.py:182
+#: form.py:180
 msgid "SRP payout value"
 msgstr "SRP выплата"
 
-#: form.py:193
+#: form.py:191
 msgid "Rejection Reason"
 msgstr "Причина отказа"
 
-#: form.py:194
+#: form.py:192
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "Укажите причину отказа для данного SRP запроса."
 
-#: form.py:206
+#: form.py:204
 msgid "Comment (Optional)"
 msgstr "Комментарий (не обязательно)"
 
-#: form.py:207
+#: form.py:205
 msgid "Leave a comment for the requestor"
 msgstr "Оставьте комментарий для заявителя"
 
-#: form.py:219 models.py:317
+#: form.py:217 models.py:317
 msgid "Comment"
 msgstr "Комментарий"
 
-#: form.py:221
+#: form.py:219
 msgid ""
 "Please provide the reason why this former rejected SRP request is now "
 "accepted."
 msgstr ""
 "Укажите причину удовлетворения SRP запроса, который ранее был отклонен."
 
-#: form.py:236
+#: form.py:234
 msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "Отключить уведомления. (Auth и Discord при установленных модулях)"
@@ -159,7 +161,7 @@ msgstr "SRP запрос обрабатывается"
 msgid "SRP Request Approved"
 msgstr "SRP запрос удовлетворен"
 
-#: helper/icons.py:149 views.py:1160
+#: helper/icons.py:149 views.py:1157
 msgid "SRP Request Rejected"
 msgstr "SRP запрос отклонен"
 
@@ -192,6 +194,22 @@ msgstr "Удалить SRP запрос"
 msgid "Invalid Kill ID or Hash."
 msgstr "Некорректный Kill ID или Hash."
 
+#: models.py:60
+msgid "Descriptive name of your fleet type"
+msgstr ""
+
+#: models.py:66
+msgid "Whether this fleet type is active or not"
+msgstr ""
+
+#: models.py:75
+msgid "SRP Link Fleet Type"
+msgstr ""
+
+#: models.py:76
+msgid "SRP Link Fleet Types"
+msgstr ""
+
 #: models.py:98
 msgid "Active"
 msgstr "Активен"
@@ -203,6 +221,10 @@ msgstr "Закрыт"
 #: models.py:100
 msgid "Completed"
 msgstr "Завершен"
+
+#: models.py:124
+msgid "The SRP link fleet type, if it's set"
+msgstr ""
 
 #: models.py:137 models.py:238
 msgid "Who created the SRP link?"
@@ -685,8 +707,8 @@ msgstr "Скопировать SRP ссылку в буфер обмена"
 msgid "SRP link \"{srp_link.srp_code}\" created"
 msgstr "SRP ссылка \"{srp_link.srp_code}\" создана"
 
-#: views.py:381 views.py:637 views.py:667 views.py:794 views.py:824
-#: views.py:854
+#: views.py:381 views.py:634 views.py:664 views.py:791 views.py:821
+#: views.py:851
 #, python-brace-format
 msgid "Unable to locate SRP code with ID {srp_code}"
 msgstr "Невозможно найти Код SRP с ID {srp_code}"
@@ -705,15 +727,18 @@ msgid "This SRP link is no longer available for SRP requests."
 msgstr "Эта SRP ссылка больше недоступна для создания SRP запросов."
 
 #: views.py:478
-msgid "Your SRP request Killmail link is invalid. "
-msgstr "Ссылка на killmail в Вашем SRP запросе некорректная. "
+#, python-brace-format
+msgid ""
+"Your SRP request Killmail link is invalid. Please make sure you are using "
+"{ZKILLBOARD_BASE_URL}"
+msgstr ""
 
-#: views.py:555
+#: views.py:554
 #, python-brace-format
 msgid "Submitted SRP request for your {ship}."
 msgstr "Отправлен SRP запрос для вашего {ship}."
 
-#: views.py:599
+#: views.py:598
 #, python-brace-format
 msgid ""
 "Character {victim_id} does not belong to your Auth account. Please add this "
@@ -722,33 +747,33 @@ msgstr ""
 "Пилот {victim_id} не зарегистрирован в Вашем Auth аккаунте. Добавьте пилота "
 "альтом и повторите запрос."
 
-#: views.py:645
+#: views.py:642
 msgid "SRP link marked as completed"
 msgstr "SRP ссылка помечена как завершенная"
 
-#: views.py:802
+#: views.py:799
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr "SRP ссылка {srp_code} (ре-)активирована."
 
-#: views.py:832
+#: views.py:829
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr "SRP ссылка {srp_code} отключена."
 
-#: views.py:861
+#: views.py:858
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "SRP ссылка {srp_code} удалена."
 
-#: views.py:1080
+#: views.py:1077
 msgid "SRP request has been approved"
 msgstr "SRP запрос был удовлетворен"
 
-#: views.py:1165
+#: views.py:1162
 msgid "SRP request has been rejected"
 msgstr "SRP запрос был отклонен"
 
-#: views.py:1194
+#: views.py:1191
 msgid "SRP request has been removed"
 msgstr "SRP запрос был удален"
