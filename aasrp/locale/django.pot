@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-16 23:35+0200\n"
+"POT-Creation-Date: 2023-04-16 23:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -352,7 +352,6 @@ msgid "Reject Information"
 msgstr ""
 
 #: templates/aasrp/link_add.html:5 templates/aasrp/link_add.html:8
-#: templates/aasrp/partials/link_add/form.html:22
 msgid "Create SRP Link"
 msgstr ""
 
@@ -561,6 +560,10 @@ msgstr ""
 
 #: templates/aasrp/partials/link_add/form.html:7
 msgid "SRP Link Details"
+msgstr ""
+
+#: templates/aasrp/partials/link_add/form.html:22
+msgid "Create Link"
 msgstr ""
 
 #: templates/aasrp/partials/link_edit/form.html:7
