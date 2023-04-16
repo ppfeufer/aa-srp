@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-16 21:46+0200\n"
+"POT-Creation-Date: 2023-04-16 23:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -469,20 +469,24 @@ msgid "Creator"
 msgstr ""
 
 #: templates/aasrp/partials/dashboard/srp_links.html:19
+#: templates/aasrp/partials/request_srp/fleet-details.html:17
 msgid "Fleet Type"
 msgstr ""
 
 #: templates/aasrp/partials/dashboard/srp_links.html:20
+#: templates/aasrp/partials/request_srp/fleet-details.html:24
 #: templates/aasrp/partials/view_requests/overview.html:44
 msgid "Doctrine"
 msgstr ""
 
 #: templates/aasrp/partials/dashboard/srp_links.html:21
+#: templates/aasrp/partials/request_srp/fleet-details.html:27
 msgid "AAR"
 msgstr ""
 
 #: templates/aasrp/partials/dashboard/srp_links.html:22
 #: templates/aasrp/partials/dashboard/user_srp_requests.html:19
+#: templates/aasrp/partials/request_srp/fleet-details.html:14
 #: templates/aasrp/partials/view_requests/overview.html:49
 msgid "SRP Code"
 msgstr ""
@@ -572,27 +576,11 @@ msgid "SRP / Fleet Details"
 msgstr ""
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:13
-msgid "Fleet name:"
-msgstr ""
-
-#: templates/aasrp/partials/request_srp/fleet-details.html:14
-msgid "SRP Code:"
-msgstr ""
-
-#: templates/aasrp/partials/request_srp/fleet-details.html:17
-msgid "Fleet Type:"
+msgid "Fleet name"
 msgstr ""
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:21
-msgid "FC:"
-msgstr ""
-
-#: templates/aasrp/partials/request_srp/fleet-details.html:24
-msgid "Doctrine:"
-msgstr ""
-
-#: templates/aasrp/partials/request_srp/fleet-details.html:27
-msgid "AAR:"
+msgid "FC"
 msgstr ""
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:27
