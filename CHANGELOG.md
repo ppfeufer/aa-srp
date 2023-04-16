@@ -8,9 +8,21 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+
+## [1.18.0] - 2023-04-16
+
+### Added
+
+- Russian translation
+
+### Changed
+
+- German translation updated
+
 ### Fixed
 
 - Label in AAR Form
+- Translation strings (#94)
 
 
 ## [1.17.1] - 2023-04-13
