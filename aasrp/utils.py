@@ -6,7 +6,6 @@ Utilities
 from django.conf import settings
 from django.utils.functional import lazy
 from django.utils.html import format_html
-from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
 from allianceauth.services.hooks import get_extension_logger
@@ -30,7 +29,7 @@ def clean_setting(
     """
     Cleans the input for a custom setting
 
-    Will use `default_value` if settings does not exit or has the wrong type
+    Will use `default_value` if setting does not exit or has the wrong type
     or is outside define boundaries (for int only)
 
     Need to define `required_type` if `default_value` is `None`
@@ -41,7 +40,7 @@ def clean_setting(
     """
 
     if default_value is None and not required_type:
-        raise ValueError(_("You must specify a required_type for None defaults"))
+        raise ValueError("You must specify a required_type for None defaults")
 
     if not required_type:
         required_type = type(default_value)

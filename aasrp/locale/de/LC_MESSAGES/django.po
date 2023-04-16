@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-16 23:31+0200\n"
+"POT-Creation-Date: 2023-04-16 23:35+0200\n"
 "PO-Revision-Date: 2023-04-11 20:18+0000\n"
 "Last-Translator: \"H. Peter Pfeufer\" <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -659,11 +659,6 @@ msgstr "Leere Eingaben sind nicht erlaubt"
 #: templates/aasrp/view_requests.html:88
 msgid "This field is required."
 msgstr "Dies ist ein Pflichtfeld."
-
-#: utils.py:44
-msgid "You must specify a required_type for None defaults"
-msgstr ""
-"Es muss ein required_type spezifiziert werden wenn Standardwert \"None\" ist"
 
 #: views.py:111
 msgid "Settings saved."
