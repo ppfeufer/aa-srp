@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-17 00:53+0200\n"
-"PO-Revision-Date: 2023-04-16 22:43+0000\n"
+"PO-Revision-Date: 2023-04-16 23:25+0000\n"
 "Last-Translator: \"H. Peter Pfeufer\" <info@ppfeufer.de>\n"
-"Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/de/>\n"
+"Language-Team: German <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,7 +85,7 @@ msgstr ""
 
 #: form.py:180
 msgid "SRP payout value"
-msgstr "SRP Auszahlung"
+msgstr "SRP Auszahlungsbetrag"
 
 #: form.py:191
 msgid "Rejection Reason"
