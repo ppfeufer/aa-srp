@@ -245,7 +245,7 @@ def ajax_dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
                     as_html=True,
                 )
             except AttributeError:
-                # For some reason it seems the ship has been removed from EveType
+                # For some reason, it seems the ship has been removed from EveType
                 # table, attempt to add it again ...
                 srp_request = _attempt_to_re_add_ship_information_to_request(
                     srp_request
@@ -320,7 +320,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 
     logger.info("Add SRP link form called by %s", request.user)
 
-    # If this is a POST request we need to process the form data
+    # If this is a POST request, we need to process the form data
     if request.method == "POST":
         # Create a form instance and populate it with data from the request
         form = AaSrpLinkForm(request.POST)
@@ -384,7 +384,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
     srp_link = AaSrpLink.objects.get(srp_code=srp_code)
 
-    # If this is a POST request we need to process the form data
+    # If this is a POST request, we need to process the form data
     if request.method == "POST":
         # Create a form instance and populate it with data
         form = AaSrpLinkUpdateForm(request.POST, instance=srp_link)
@@ -443,7 +443,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
             return redirect("aasrp:dashboard")
 
-        # If this is a POST request we need to process the form data
+        # If this is a POST request, we need to process the form data
         if request.method == "POST":
             # Create a form instance and populate it with data from the request
             form = AaSrpRequestForm(request.POST)
@@ -475,8 +475,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     messages.error(
                         request,
                         _(
-                            "Your SRP request Killmail link is invalid. "
-                            f"Please make sure you are using {ZKILLBOARD_BASE_URL}"
+                            f"Your SRP request Killmail link is invalid. Please make sure you are using {ZKILLBOARD_BASE_URL}"  # pylint: disable=line-too-long
                         ),
                     )
 
@@ -596,9 +595,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 messages.error(
                     request,
                     _(
-                        f"Character {victim_id} does not belong to your Auth "
-                        "account. Please add this character as an alt to "
-                        "your main and try again."
+                        f"Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."  # pylint: disable=line-too-long
                     ),
                 )
 

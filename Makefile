@@ -6,14 +6,17 @@ help:
 
 translationfiles:
 	cd $(package) && \
-	django-admin makemessages -l de --ignore 'build/*' && \
-	django-admin makemessages -l es --ignore 'build/*' && \
-	django-admin makemessages -l fr_FR --ignore 'build/*' && \
-	django-admin makemessages -l it_IT --ignore 'build/*' && \
-	django-admin makemessages -l ja --ignore 'build/*' && \
-	django-admin makemessages -l ko_KR --ignore 'build/*' && \
-	django-admin makemessages -l ru --ignore 'build/*' && \
-	django-admin makemessages -l zh_Hans --ignore 'build/*'
+	django-admin makemessages \
+		-l de \
+		-l es \
+		-l fr_FR \
+		-l it_IT \
+		-l ja \
+		-l ko_KR \
+		-l ru \
+		-l zh_Hans \
+		--keep-pot \
+		--ignore 'build/*'
 
 compiletranslationfiles:
 	cd $(package) && \

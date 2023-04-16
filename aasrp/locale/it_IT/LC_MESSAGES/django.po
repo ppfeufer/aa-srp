@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-11 21:31+0200\n"
+"POT-Creation-Date: 2023-04-17 00:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,11 +45,7 @@ msgstr ""
 msgid "Fleet Doctrine"
 msgstr ""
 
-#: form.py:68
-msgid "AAR Link"
-msgstr ""
-
-#: form.py:84
+#: form.py:68 form.py:84
 msgid "After Action Report Link"
 msgstr ""
 
@@ -58,56 +53,58 @@ msgstr ""
 msgid "Killboard Link"
 msgstr ""
 
-#: form.py:113
+#: form.py:112
 msgid "Additional Info"
 msgstr ""
 
-#: form.py:144
+#: form.py:143
 #, python-brace-format
-msgid "Invalid Link. Please use {ZKILLBOARD_BASE_URL} "
+msgid ""
+"Invalid Link. Please use {ZKILLBOARD_BASE_URL} or "
+"{EVETOOLS_KILLBOARD_BASE_URL}"
 msgstr ""
 
-#: form.py:158
+#: form.py:156
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr ""
 
-#: form.py:169
+#: form.py:167
 msgid ""
 "There is already an SRP request for this killmail. Please check if you got "
 "the right one."
 msgstr ""
 
-#: form.py:182
+#: form.py:180
 msgid "SRP payout value"
 msgstr ""
 
-#: form.py:193
+#: form.py:191
 msgid "Rejection Reason"
 msgstr ""
 
-#: form.py:194
+#: form.py:192
 msgid "Please provide the reason this SRP request is rejected."
 msgstr ""
 
-#: form.py:206
+#: form.py:204
 msgid "Comment (Optional)"
 msgstr ""
 
-#: form.py:207
+#: form.py:205
 msgid "Leave a comment for the requestor"
 msgstr ""
 
-#: form.py:219 models.py:317
+#: form.py:217 models.py:317
 msgid "Comment"
 msgstr ""
 
-#: form.py:221
+#: form.py:219
 msgid ""
 "Please provide the reason why this former rejected SRP request is now "
 "accepted."
 msgstr ""
 
-#: form.py:236
+#: form.py:234
 msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
@@ -154,7 +151,7 @@ msgstr ""
 msgid "SRP Request Approved"
 msgstr ""
 
-#: helper/icons.py:149 views.py:1160
+#: helper/icons.py:149 views.py:1157
 msgid "SRP Request Rejected"
 msgstr ""
 
@@ -187,6 +184,22 @@ msgstr ""
 msgid "Invalid Kill ID or Hash."
 msgstr ""
 
+#: models.py:60
+msgid "Descriptive name of your fleet type"
+msgstr ""
+
+#: models.py:66
+msgid "Whether this fleet type is active or not"
+msgstr ""
+
+#: models.py:75
+msgid "SRP Link Fleet Type"
+msgstr ""
+
+#: models.py:76
+msgid "SRP Link Fleet Types"
+msgstr ""
+
 #: models.py:98
 msgid "Active"
 msgstr ""
@@ -197,6 +210,10 @@ msgstr ""
 
 #: models.py:100
 msgid "Completed"
+msgstr ""
+
+#: models.py:124
+msgid "The SRP link fleet type, if it's set"
 msgstr ""
 
 #: models.py:137 models.py:238
@@ -281,15 +298,26 @@ msgid "User Settings"
 msgstr ""
 
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:13
-msgid "Requestor:"
+#: templates/aasrp/dashboard.html:87
+#: templates/aasrp/partials/view_requests/requests.html:16
+#: templates/aasrp/view_requests.html:78
+msgid "Requestor"
 msgstr ""
 
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:18
-msgid "Character:"
+#: templates/aasrp/dashboard.html:73 templates/aasrp/dashboard.html:88
+#: templates/aasrp/partials/dashboard/user_srp_requests.html:17
+#: templates/aasrp/partials/view_requests/requests.html:17
+#: templates/aasrp/view_requests.html:70 templates/aasrp/view_requests.html:79
+msgid "Character"
 msgstr ""
 
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:25
-msgid "Ship:"
+#: templates/aasrp/dashboard.html:71 templates/aasrp/dashboard.html:89
+#: templates/aasrp/partials/dashboard/user_srp_requests.html:21
+#: templates/aasrp/partials/view_requests/requests.html:19
+#: templates/aasrp/view_requests.html:69 templates/aasrp/view_requests.html:80
+msgid "Ship"
 msgstr ""
 
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:37
@@ -306,29 +334,15 @@ msgid "SRP request added."
 msgstr ""
 
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:88
-msgid "SRP request status has changed to:"
+msgid "SRP request status has changed to"
 msgstr ""
 
 #: templates/aasrp/base.html:5 templates/aasrp/dashboard.html:7
 msgid "Ship Replacement"
 msgstr ""
 
-#: templates/aasrp/dashboard.html:71 templates/aasrp/dashboard.html:89
-#: templates/aasrp/partials/dashboard/user_srp_requests.html:21
-#: templates/aasrp/partials/view_requests/requests.html:19
-#: templates/aasrp/view_requests.html:69 templates/aasrp/view_requests.html:80
-msgid "Ship"
-msgstr ""
-
 #: templates/aasrp/dashboard.html:72 templates/aasrp/view_requests.html:68
 msgid "Request Status"
-msgstr ""
-
-#: templates/aasrp/dashboard.html:73 templates/aasrp/dashboard.html:88
-#: templates/aasrp/partials/dashboard/user_srp_requests.html:17
-#: templates/aasrp/partials/view_requests/requests.html:17
-#: templates/aasrp/view_requests.html:70 templates/aasrp/view_requests.html:79
-msgid "Character"
 msgstr ""
 
 #: templates/aasrp/dashboard.html:77
@@ -345,18 +359,11 @@ msgid ""
 "tied to it?"
 msgstr ""
 
-#: templates/aasrp/dashboard.html:87
-#: templates/aasrp/partials/view_requests/requests.html:16
-#: templates/aasrp/view_requests.html:78
-msgid "Requestor"
-msgstr ""
-
 #: templates/aasrp/dashboard.html:91 templates/aasrp/view_requests.html:83
 msgid "Reject Information"
 msgstr ""
 
 #: templates/aasrp/link_add.html:5 templates/aasrp/link_add.html:8
-#: templates/aasrp/partials/link_add/form.html:22
 msgid "Create SRP Link"
 msgstr ""
 
@@ -473,20 +480,24 @@ msgid "Creator"
 msgstr ""
 
 #: templates/aasrp/partials/dashboard/srp_links.html:19
+#: templates/aasrp/partials/request_srp/fleet-details.html:17
 msgid "Fleet Type"
 msgstr ""
 
 #: templates/aasrp/partials/dashboard/srp_links.html:20
+#: templates/aasrp/partials/request_srp/fleet-details.html:24
 #: templates/aasrp/partials/view_requests/overview.html:44
 msgid "Doctrine"
 msgstr ""
 
 #: templates/aasrp/partials/dashboard/srp_links.html:21
+#: templates/aasrp/partials/request_srp/fleet-details.html:27
 msgid "AAR"
 msgstr ""
 
 #: templates/aasrp/partials/dashboard/srp_links.html:22
 #: templates/aasrp/partials/dashboard/user_srp_requests.html:19
+#: templates/aasrp/partials/request_srp/fleet-details.html:14
 #: templates/aasrp/partials/view_requests/overview.html:49
 msgid "SRP Code"
 msgstr ""
@@ -563,6 +574,10 @@ msgstr ""
 msgid "SRP Link Details"
 msgstr ""
 
+#: templates/aasrp/partials/link_add/form.html:22
+msgid "Create Link"
+msgstr ""
+
 #: templates/aasrp/partials/link_edit/form.html:7
 msgid "After Action Report"
 msgstr ""
@@ -576,27 +591,11 @@ msgid "SRP / Fleet Details"
 msgstr ""
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:13
-msgid "Fleet name:"
-msgstr ""
-
-#: templates/aasrp/partials/request_srp/fleet-details.html:14
-msgid "SRP Code:"
-msgstr ""
-
-#: templates/aasrp/partials/request_srp/fleet-details.html:17
-msgid "Fleet Type:"
+msgid "Fleet name"
 msgstr ""
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:21
-msgid "FC:"
-msgstr ""
-
-#: templates/aasrp/partials/request_srp/fleet-details.html:24
-msgid "Doctrine:"
-msgstr ""
-
-#: templates/aasrp/partials/request_srp/fleet-details.html:27
-msgid "AAR:"
+msgid "FC"
 msgstr ""
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:27
@@ -651,10 +650,6 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: utils.py:44
-msgid "You must specify a required_type for None defaults"
-msgstr ""
-
 #: views.py:111
 msgid "Settings saved."
 msgstr ""
@@ -676,8 +671,8 @@ msgstr ""
 msgid "SRP link \"{srp_link.srp_code}\" created"
 msgstr ""
 
-#: views.py:381 views.py:637 views.py:667 views.py:794 views.py:824
-#: views.py:854
+#: views.py:381 views.py:634 views.py:664 views.py:791 views.py:821
+#: views.py:851
 #, python-brace-format
 msgid "Unable to locate SRP code with ID {srp_code}"
 msgstr ""
@@ -696,48 +691,51 @@ msgid "This SRP link is no longer available for SRP requests."
 msgstr ""
 
 #: views.py:478
-msgid "Your SRP request Killmail link is invalid. "
+#, python-brace-format
+msgid ""
+"Your SRP request Killmail link is invalid. Please make sure you are using "
+"{ZKILLBOARD_BASE_URL}"
 msgstr ""
 
-#: views.py:555
+#: views.py:554
 #, python-brace-format
 msgid "Submitted SRP request for your {ship}."
 msgstr ""
 
-#: views.py:599
+#: views.py:598
 #, python-brace-format
 msgid ""
 "Character {victim_id} does not belong to your Auth account. Please add this "
 "character as an alt to your main and try again."
 msgstr ""
 
-#: views.py:645
+#: views.py:642
 msgid "SRP link marked as completed"
 msgstr ""
 
-#: views.py:802
+#: views.py:799
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr ""
 
-#: views.py:832
+#: views.py:829
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr ""
 
-#: views.py:861
+#: views.py:858
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""
 
-#: views.py:1080
+#: views.py:1077
 msgid "SRP request has been approved"
 msgstr ""
 
-#: views.py:1165
+#: views.py:1162
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: views.py:1194
+#: views.py:1191
 msgid "SRP request has been removed"
 msgstr ""

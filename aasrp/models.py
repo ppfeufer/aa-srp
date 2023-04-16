@@ -57,13 +57,13 @@ class FleetType(models.Model):
     id = models.AutoField(primary_key=True)
 
     name = models.CharField(
-        max_length=254, help_text="Descriptive name of your fleet type"
+        max_length=254, help_text=_("Descriptive name of your fleet type")
     )
 
     is_enabled = models.BooleanField(
         default=True,
         db_index=True,
-        help_text="Whether this fleet type is active or not",
+        help_text=_("Whether this fleet type is active or not"),
     )
 
     class Meta:  # pylint: disable=too-few-public-methods
@@ -72,8 +72,8 @@ class FleetType(models.Model):
         """
 
         default_permissions = ()
-        verbose_name = "SRP Link Fleet Type"
-        verbose_name_plural = "SRP Link Fleet Types"
+        verbose_name = _("SRP Link Fleet Type")
+        verbose_name_plural = _("SRP Link Fleet Types")
 
     def __str__(self) -> str:
         """
@@ -121,7 +121,7 @@ class AaSrpLink(models.Model):
         null=True,
         blank=True,
         default=None,
-        help_text="The SRP link fleet type, if it's set",
+        help_text=_("The SRP link fleet type, if it's set"),
     )
 
     fleet_time = models.DateTimeField()

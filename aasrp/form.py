@@ -65,7 +65,7 @@ class AaSrpLinkForm(ModelForm):
     fleet_doctrine = forms.CharField(
         required=True, label=get_mandatory_form_label_text(_("Fleet Doctrine"))
     )
-    aar_link = forms.CharField(required=False, label=_("AAR Link"))
+    aar_link = forms.CharField(required=False, label=_("After Action Report Link"))
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
@@ -102,8 +102,7 @@ class AaSrpRequestForm(ModelForm):
         max_length=254,
         required=True,
         help_text=(
-            f"Find your kill mail on {ZKILLBOARD_BASE_URL} "
-            f"or {EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."
+            f"Find your kill mail on {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."  # pylint: disable=line-too-long
         ),
     )
 
@@ -141,8 +140,7 @@ class AaSrpRequestForm(ModelForm):
         ):
             raise forms.ValidationError(
                 _(
-                    f"Invalid Link. Please use {ZKILLBOARD_BASE_URL} "
-                    f"or {EVETOOLS_KILLBOARD_BASE_URL}"
+                    f"Invalid Link. Please use {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"  # pylint: disable=line-too-long
                 )
             )
 
