@@ -63,7 +63,8 @@ class AaSrpLinkForm(ModelForm):
         # empty_label=_("Please select a fleet type"),
     )
     fleet_doctrine = forms.CharField(
-        required=True, label=get_mandatory_form_label_text(_("Fleet Doctrine"))
+        required=True,
+        label=get_mandatory_form_label_text(_("Doctrine")),
     )
     aar_link = forms.CharField(required=False, label=_("After Action Report Link"))
 
