@@ -22,7 +22,9 @@ and this project adheres to [Semantic Versioning]
 ### Fixed
 
 - Label in AAR Form
-- Translation strings (#94)
+- Translation strings ([#94])
+
+[#94]: https://github.com/ppfeufer/aa-srp/issues/94 "Duplicate i18n lines"
 
 
 ## [1.17.1] - 2023-04-13
