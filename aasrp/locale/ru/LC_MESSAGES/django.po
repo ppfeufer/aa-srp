@@ -7,18 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-17 00:53+0200\n"
+"POT-Creation-Date: 2023-04-17 11:46+0200\n"
 "PO-Revision-Date: 2023-04-16 23:25+0000\n"
 "Last-Translator: Nikolay <nick.postnikov@gmail.com>\n"
-"Language-Team: Russian <https://weblate.ppfeufer.de/projects/"
-"alliance-auth-apps/aa-srp/ru/>\n"
+"Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-"
+"apps/aa-srp/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 4.16.4\n"
 
 #: constants.py:21
@@ -35,7 +35,8 @@ msgstr ""
 msgid "This field is mandatory"
 msgstr "Обязательное поле"
 
-#: form.py:52 templates/aasrp/partials/view_requests/overview.html:26
+#: form.py:52 templates/aasrp/partials/request_srp/fleet-details.html:13
+#: templates/aasrp/partials/view_requests/overview.html:26
 msgid "Fleet Name"
 msgstr "Название флота"
 
@@ -48,23 +49,25 @@ msgstr "Время флота"
 msgid "Fleet Type (optional)"
 msgstr "Тип флота (не обязательно)"
 
-#: form.py:66
-msgid "Fleet Doctrine"
-msgstr "Доктрина"
+#: form.py:67 templates/aasrp/partials/dashboard/srp_links.html:20
+#: templates/aasrp/partials/request_srp/fleet-details.html:24
+#: templates/aasrp/partials/view_requests/overview.html:44
+msgid "Doctrine"
+msgstr "Формат"
 
-#: form.py:68 form.py:84
+#: form.py:69 form.py:85
 msgid "After Action Report Link"
 msgstr "Ссылка на отчет о действиях"
 
-#: form.py:101
+#: form.py:102
 msgid "Killboard Link"
 msgstr "Ссылка на килборду"
 
-#: form.py:112
+#: form.py:113
 msgid "Additional Info"
 msgstr "Дополнительная информация"
 
-#: form.py:143
+#: form.py:144
 #, python-brace-format
 msgid ""
 "Invalid Link. Please use {ZKILLBOARD_BASE_URL} or "
@@ -73,11 +76,11 @@ msgstr ""
 "Некорректная ссылка. Используйте {ZKILLBOARD_BASE_URL} or "
 "{EVETOOLS_KILLBOARD_BASE_URL}"
 
-#: form.py:156
+#: form.py:157
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr "Некорректная ссылка. Укажите действительную ссылка на kill mail."
 
-#: form.py:167
+#: form.py:168
 msgid ""
 "There is already an SRP request for this killmail. Please check if you got "
 "the right one."
@@ -85,38 +88,38 @@ msgstr ""
 "Для указанного kill mail уже зарегистрирован SRP запрос. Убедитесь, что Вы "
 "указали верную ссылку."
 
-#: form.py:180
+#: form.py:181
 msgid "SRP payout value"
 msgstr "SRP выплата"
 
-#: form.py:191
+#: form.py:192
 msgid "Rejection Reason"
 msgstr "Причина отказа"
 
-#: form.py:192
+#: form.py:193
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "Укажите причину отказа для данного SRP запроса."
 
-#: form.py:204
+#: form.py:205
 msgid "Comment (Optional)"
 msgstr "Комментарий (не обязательно)"
 
-#: form.py:205
+#: form.py:206
 msgid "Leave a comment for the requestor"
 msgstr "Оставьте комментарий для заявителя"
 
-#: form.py:217 models.py:317
+#: form.py:218 models.py:317
 msgid "Comment"
 msgstr "Комментарий"
 
-#: form.py:219
+#: form.py:220
 msgid ""
 "Please provide the reason why this former rejected SRP request is now "
 "accepted."
 msgstr ""
 "Укажите причину удовлетворения SRP запроса, который ранее был отклонен."
 
-#: form.py:234
+#: form.py:235
 msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "Отключить уведомления. (Auth и Discord при установленных модулях)"
@@ -511,12 +514,6 @@ msgstr "Создатель"
 msgid "Fleet Type"
 msgstr "Тип флота"
 
-#: templates/aasrp/partials/dashboard/srp_links.html:20
-#: templates/aasrp/partials/request_srp/fleet-details.html:24
-#: templates/aasrp/partials/view_requests/overview.html:44
-msgid "Doctrine"
-msgstr "Формат"
-
 #: templates/aasrp/partials/dashboard/srp_links.html:21
 #: templates/aasrp/partials/request_srp/fleet-details.html:27
 msgid "AAR"
@@ -616,10 +613,6 @@ msgstr "Добавить/изменить ссылку на отчет о дей
 #: templates/aasrp/partials/request_srp/fleet-details.html:7
 msgid "SRP / Fleet Details"
 msgstr "Информация о флоте"
-
-#: templates/aasrp/partials/request_srp/fleet-details.html:13
-msgid "Fleet name"
-msgstr "Название флота"
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:21
 msgid "FC"
@@ -772,3 +765,9 @@ msgstr "SRP запрос был отклонен"
 #: views.py:1191
 msgid "SRP request has been removed"
 msgstr "SRP запрос был удален"
+
+#~ msgid "Fleet Doctrine"
+#~ msgstr "Доктрина"
+
+#~ msgid "Fleet name"
+#~ msgstr "Название флота"
