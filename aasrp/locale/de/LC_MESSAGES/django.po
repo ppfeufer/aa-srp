@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-18 13:18+0200\n"
-"PO-Revision-Date: 2023-04-16 23:25+0000\n"
+"PO-Revision-Date: 2023-04-21 12:50+0000\n"
 "Last-Translator: \"H. Peter Pfeufer\" <info@ppfeufer.de>\n"
-"Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/de/>\n"
+"Language-Team: German <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -430,7 +430,7 @@ msgstr "Aktivieren"
 #: templates/aasrp/modals/view_requests/request_details.html:8
 #: templates/aasrp/modals/view_requests/request_details.html:21
 msgid "Close"
-msgstr "Abbrechen"
+msgstr "Schließen"
 
 #: templates/aasrp/modals/view_requests/accept_rejected_request.html:18
 #: templates/aasrp/modals/view_requests/accept_request.html:18
