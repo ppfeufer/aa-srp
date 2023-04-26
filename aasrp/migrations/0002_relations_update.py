@@ -10,7 +10,6 @@ import aasrp.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("eveonline", "0012_index_additions"),
         ("eveuniverse", "0004_effect_longer_name"),

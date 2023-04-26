@@ -7,7 +7,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("eveonline", "0016_character_names_are_not_unique"),
         ("aasrp", "0007_aasrprequestcomment_comment_time_and_more"),
