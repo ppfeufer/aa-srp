@@ -17,7 +17,9 @@ and this project adheres to [Semantic Versioning]
 
 ### Fixed
 
-- Text labels consistency (#100)
+- Text labels consistency ([#100])
+
+[#100]: https://github.com/ppfeufer/aa-srp/issues/94 "Text labels consistency"
 
 
 ## [1.18.0] - 2023-04-16
