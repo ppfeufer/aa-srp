@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning]
 ## [In Development] - Unreleased
 
 
+## [1.19.0] - 2023-04-26
+
+### Changed
+
+- Moved the build process to PEP 621 / pyproject.toml
+
+### Fixed
+
+- Text labels consistency (#100)
+
+
 ## [1.18.0] - 2023-04-16
 
 ### Added
