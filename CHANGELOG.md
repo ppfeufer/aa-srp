@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning]
 ## [In Development] - Unreleased
 
 
+## [1.19.0] - 2023-04-26
+
+### Changed
+
+- Moved the build process to PEP 621 / pyproject.toml
+
+### Fixed
+
+- Text labels consistency ([#100])
+
+[#100]: https://github.com/ppfeufer/aa-srp/issues/94 "Text labels consistency"
+
+
 ## [1.18.0] - 2023-04-16
 
 ### Added
@@ -22,7 +35,9 @@ and this project adheres to [Semantic Versioning]
 ### Fixed
 
 - Label in AAR Form
-- Translation strings (#94)
+- Translation strings ([#94])
+
+[#94]: https://github.com/ppfeufer/aa-srp/issues/94 "Duplicate i18n lines"
 
 
 ## [1.17.1] - 2023-04-13
@@ -55,7 +70,7 @@ and this project adheres to [Semantic Versioning]
 
 ### Changed
 
-- Optimized code to check if SRP link exists when requesting SRP
+- Optimized code to check if an SRP link exists when requesting SRP
 
 <!-- Links -->
 [#81]: https://github.com/ppfeufer/aa-srp/issues/81 "Alliance Character view their SRP request detail error"
@@ -123,12 +138,12 @@ mySQL8**
 - Comment field for accepting SRP requests. This is optional when pending requests
   are accepted, but mandatory when formerly rejected requests are accepted to
   state a reason.
-- Request history to request information window
+- Request history to the request information window
 
 ### Changed
 
 - RGB notations in CSS files modernised
-- Bottom border colour for changeable payout value for SRP requests that have been
+- Bottom border colour for changeable payout value for SRP requests that've been
   rejected. Now it's not that prominent anymore and doesn't look like a pending SRP
   request
 - Modal window handling improved
@@ -189,7 +204,7 @@ mySQL8**
 
 - Unnecessary `{% load static %}` statements from templates
 - Unnecessary `{% load humanize %}` statements from templates
-- Unused JavaScripts and CSS
+- Unused JavaScript and CSS
 
 
 ## [1.14.0] - 2022-06-18
@@ -241,7 +256,7 @@ mySQL8**
 
 ### Changed
 
-- HTML for ajax call result moved to its own template
+- HTML for an ajax call result moved to its own template
 
 
 ## [1.13.1] - 2022-03-06
@@ -308,7 +323,7 @@ mySQL8**
 ### Removed
 
 - Outdated management commands. By now everyone should have updated to a version
-  where they are no longer needed. No one should have a version that's older than a
+  where they're no longer needed. No one should have a version that's older than a
   year ...
 
 
@@ -381,7 +396,7 @@ mySQL8**
 
 ### Removed
 
-- Non used code
+- Non-used code
 
 ## [1.8.0] - 2021-11-30
 
@@ -432,7 +447,7 @@ mySQL8**
 
 ### Added
 
-- Checked for compatibility with Python 3.9 and Django 3.2
+- Check for compatibility with Python 3.9 and Django 3.2
 
 
 ## [1.7.0] - 2021-07-04
@@ -501,7 +516,7 @@ mySQL8**
 
 ### Changed
 
-- Using regular expression to determine if we are looking at a kill mail link or not
+- Using regular expression to determine if we're looking at a kill mail link or not
 
 
 ## [1.3.2] - 2021-04-06
@@ -509,7 +524,7 @@ mySQL8**
 ### Changed
 
 - Required field hint in forms has now its own template since it is not needed in
-  every form, to avoid confusion
+  every form to avoid confusion
 
 ### Fixed
 
@@ -528,7 +543,7 @@ mySQL8**
 
 ### Added
 
-- Copy to clipboard for SRP link in SRP dashboard view
+- Copy to clipboard for the SRP link in SRP dashboard view
 - Copy to clipboard for pilot name in SRP link view
 
 
@@ -554,7 +569,7 @@ mySQL8**
   notifications will be sent at all. Neither in AA itself nor on Discord (if any of
   the Discord apps is active)
 - Check if [AA Discord Notify] is installed, which picks up on notifications in Auth
-  and relays them to the respective user as Discord PM. This way we don't send
+  and relays them to the respective user as Discord PM. This way, we don't send
   double notifications to the user if [AA-Discordbot] is installed as well.
 
 ### Changed
@@ -579,7 +594,7 @@ mySQL8**
 
 ## [1.0.0] - 2021-02-06
 
-This has now been tested long enough by my corp, it's time to fully release the
+This has now been tested long enough by my corp, and it's time to fully release the
 module now, so here we go ...
 
 ### Important
@@ -595,7 +610,7 @@ some manual work, so please update step by step.**
 ### Added
 
 - More details to notifications
-- Discord notification via PM to the user on SRP request approval or rejection, if
+- Discord notification via PM to the user on SRP request approval or rejection if the
   [AA-Discordbot] is installed
 
 
@@ -613,8 +628,8 @@ some manual work, so please update step by step.**
 
 If you update from v0.1.0-beta.15 or earlier, make sure to read carefully.
 
-In this version the way the SRP request comments are handled has changed. It is no
-longer just a simple string in the database table, it is now a proper model. So
+In this version, the way the SRP request comments are handled has been changed. It
+is no longer just a simple string in the database table, it is now a proper model. So
 you have to an extra steps to migrate your data.
 
 **This needs to be done right after you have updated AA SRP from a version prior
@@ -641,8 +656,8 @@ python manage.py aasrp_migrate_to_comments
 
 ### Changed
 
-- Form validation moved to the form model instead of view, so the person
-  requesting SRP does not have to restart the whole process again if form validation
+- Form validation has been moved to the form model instead of view, so the person
+  requesting SRP doesn't have to restart the whole process again if form validation
   fails
 - Form error messages formatted
 
@@ -658,7 +673,7 @@ python manage.py aasrp_migrate_to_comments
 
 ### Fixed
 
-- Panel title for overview panel in SRP requests view
+- Panel title for the overview panel in SRP requests view
 - Missing modal for "Delete SRP Request" re-added
 
 ### Added
@@ -732,14 +747,14 @@ python manage.py aasrp_migrate_to_comments
 
 If you update from v0.1.0-beta.4 or earlier, make sure to read carefully.
 
-In this version the way the SRP ship is handled has changed. It is no longer just a
+In this version, the way the SRP ship is handled has changed. It is no longer just a
 simple string in the database, it is now a proper EveType model. So you have to do
 some extra steps to migrate your data.
 
 **This needs to be done right after you have updated AA SRP from a version prior
 v0.1.0-beta.5.**
 
-### Step 1 - Install EveUniverse
+### Step 1: Install EveUniverse
 
 This should be done automatically with the update, but there is still a bit of
 manual work to it. First you need to add the EveUniverse module to your
@@ -748,7 +763,7 @@ manual work to it. First you need to add the EveUniverse module to your
 - Add `"eveuniverse",` to `INSTALLED_APPS`
 
 
-### Step 2 - Static collection and migration
+### Step 2: Static Collection and Migration
 
 Now that EveUniverse is installed, you need to run the static collection and
 migration. Don't forget to restart your supervisor afterwards.
@@ -763,9 +778,9 @@ python manage.py migrate
 
 Restart your supervisor services for Auth
 
-### Step 3 - Import ship information from ESI
+### Step 3: Import Ship Information From ESI
 
-This is where the magic happens. You are now ready to import the ship information
+This is where the magic happens. You're now ready to import the ship information
 from ESI.
 
 ```shell
@@ -773,7 +788,7 @@ python manage.py aasrp_load_eve
 ```
 
 
-### Step 4 - Migrate your SRP data
+### Step 4: Migrate Your SRP Data
 
 Now that we have all the needed information, your SRP data needs to be updated. This
 is just another simple command.

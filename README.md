@@ -16,22 +16,32 @@
 SRP Module for [Alliance Auth]
 
 
-## Contents
+---
 
-- [Overview](#overview)
-    - [Features](#features)
-    - [Screenshots](#screenshots)
-- [Installation](#overview)
-    - [Step 1 - Install the package](#step-1---install-the-package)
-    - [Step 2 - Configure Alliance Auth](#step-2---configure-alliance-auth)
-    - [Step 3 - Finalize the installation](#step-3---finalize-the-installation)
-    - [Step 4 - Preload Eve Universe data](#step-4---preload-eve-universe-data)
-    - [Step 5 - Set up permissions](#step-5---set-up-permissions)
-    - [Step 6 - (Optional) Import from built-in SRP module](#step-6---optional-import-from-built-in-srp-module)
-- [Permissions](#permissions)
-- [Settings](#settings)
-- [Changelog](#changelog)
-- [Contributing](#contributing)
+<!-- TOC -->
+* [AA SRP](#aa-srp)
+  * [Overview](#overview)
+    * [Features](#features)
+    * [Screenshots](#screenshots)
+      * [Dashboard](#dashboard)
+      * [Dashboard (View All)](#dashboard-view-all)
+      * [Your SRP Requests](#your-srp-requests)
+      * [SRP Requests Overview](#srp-requests-overview)
+      * [SRP Request Details](#srp-request-details)
+  * [Installation](#installation)
+    * [Step 1: Install the Package](#step-1-install-the-package)
+    * [Step 2: Configure Alliance Auth](#step-2-configure-alliance-auth)
+    * [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
+    * [Step 4: Preload Eve Universe Data](#step-4-preload-eve-universe-data)
+    * [Step 5: Setting up Permissions](#step-5-setting-up-permissions)
+    * [Step 6: (Optional) Import From Built-in SRP Module](#step-6-optional-import-from-built-in-srp-module)
+  * [Permissions](#permissions)
+  * [Settings](#settings)
+  * [Changelog](#changelog)
+  * [Contributing](#contributing)
+<!-- TOC -->
+
+---
 
 
 ## Overview
@@ -41,8 +51,8 @@ SRP Module for [Alliance Auth]
 - Overview of SRP links
 - Overview of your own SRP requests and their status
 - Accepting kill mails from [zKillboard] and [EveTools Killboard]
-- SRP Request administration mostly done via ajax and without page reloads
-- Use modern DataTables with filters where ever they are useful
+- SRP Request administration is mostly done via ajax and without page reloads
+- Use modern DataTables with filters where ever they're useful
 - Tables fully searchable and sortable
 - Mandatory reason on SRP reject
 - Notifications in AA with detailed information on SRP rejection
@@ -90,9 +100,9 @@ SRP Module for [Alliance Auth]
   continuing.
 
 
-### Step 1 - Install the package
+### Step 1: Install the Package
 
-Make sure you are in the virtual environment (venv) of your Alliance Auth
+Make sure you're in the virtual environment (venv) of your Alliance Auth
 installation Then install the latest release directly from PyPi.
 
 ```shell
@@ -100,7 +110,7 @@ pip install aa-srp
 ```
 
 
-### Step 2 - Configure Alliance Auth
+### Step 2: Configure Alliance Auth
 
 This is fairly simple, just add the following to the `INSTALLED_APPS` of your `local.py`
 
@@ -110,9 +120,9 @@ Configure your AA settings (`local.py`) as follows:
 - Add `"aasrp",` to `INSTALLED_APPS`
 
 
-### Step 3 - Finalize the installation
+### Step 3: Finalizing the Installation
 
-Run  static files collection and migrations
+Run static files collection and migrations
 
 ```shell
 python manage.py collectstatic
@@ -122,7 +132,7 @@ python manage.py migrate
 Restart your supervisor services for Auth
 
 
-### Step 4 - Preload Eve Universe data
+### Step 4: Preload Eve Universe Data
 
 AA SRP utilizes the EveUniverse module, so it doesn't need to ask ESI for ship
 information. To set this up, you now need to run the following command.
@@ -131,14 +141,14 @@ information. To set this up, you now need to run the following command.
 python manage.py aasrp_load_eve
 ```
 
-### Step 5 - Set up permissions
+### Step 5: Setting up Permissions
 
 Now it's time to set up access permissions for your new SRP module. You can do so in
 your admin backend in the AA SRP section. Read the [Permissions](#permissions)
 section for more information about the available permissions.
 
 
-### Step 6 - (Optional) Import from built-in SRP module
+### Step 6: (Optional) Import From Built-in SRP Module
 
 **This step is only needed when you have been using the built-in SRP module until now.**
 
@@ -146,7 +156,7 @@ Make sure you don't have any open SRP requests before. All SRP links in the buil
 module will be closed during the import process, to make sure to not import any
 duplicates.
 
-The import process can be done at any given time and does not necessarily have to be
+The import process can be done at any given time and doesn't necessarily have to be
 during the installation.
 
 To import your SRP information from the built-in SRP module, run the following command.

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-17 00:53+0200\n"
-"PO-Revision-Date: 2023-04-16 23:25+0000\n"
+"POT-Creation-Date: 2023-04-18 13:18+0200\n"
+"PO-Revision-Date: 2023-04-21 12:50+0000\n"
 "Last-Translator: \"H. Peter Pfeufer\" <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/de/>\n"
@@ -33,7 +33,8 @@ msgstr ""
 msgid "This field is mandatory"
 msgstr "Dies ist ein Pflichtfeld"
 
-#: form.py:52 templates/aasrp/partials/view_requests/overview.html:26
+#: form.py:52 templates/aasrp/partials/request_srp/fleet-details.html:13
+#: templates/aasrp/partials/view_requests/overview.html:26
 msgid "Fleet Name"
 msgstr "Flottenname"
 
@@ -46,23 +47,25 @@ msgstr "Flottenzeit"
 msgid "Fleet Type (optional)"
 msgstr "Flottenart (optional)"
 
-#: form.py:66
-msgid "Fleet Doctrine"
-msgstr "Flottendoktrin"
+#: form.py:67 templates/aasrp/partials/dashboard/srp_links.html:20
+#: templates/aasrp/partials/request_srp/fleet-details.html:24
+#: templates/aasrp/partials/view_requests/overview.html:44
+msgid "Doctrine"
+msgstr "Doktrin"
 
-#: form.py:68 form.py:84
+#: form.py:69 form.py:85
 msgid "After Action Report Link"
 msgstr "Link zum Flottenbericht"
 
-#: form.py:101
+#: form.py:102
 msgid "Killboard Link"
 msgstr "Killboard Link"
 
-#: form.py:112
+#: form.py:113
 msgid "Additional Info"
 msgstr "Zusätzliche Informationen"
 
-#: form.py:143
+#: form.py:144
 #, python-brace-format
 msgid ""
 "Invalid Link. Please use {ZKILLBOARD_BASE_URL} or "
@@ -71,11 +74,11 @@ msgstr ""
 "Ungültiger Link. Bitte nutze {ZKILLBOARD_BASE_URL} oder "
 "{EVETOOLS_KILLBOARD_BASE_URL}"
 
-#: form.py:156
+#: form.py:157
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr "Ungültiger Link. Bitte poste einen Link zu einer Killmail."
 
-#: form.py:167
+#: form.py:168
 msgid ""
 "There is already an SRP request for this killmail. Please check if you got "
 "the right one."
@@ -83,31 +86,31 @@ msgstr ""
 "Es gibt bereits eine SRP Anforderung für diese Killmail. Bitte prüfe das Du "
 "die Richtige hast."
 
-#: form.py:180
+#: form.py:181
 msgid "SRP payout value"
 msgstr "SRP Auszahlungsbetrag"
 
-#: form.py:191
+#: form.py:192
 msgid "Rejection Reason"
 msgstr "Ablehnungsgrund"
 
-#: form.py:192
+#: form.py:193
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "Bitte gib einen Grund für die Ablehnung an."
 
-#: form.py:204
+#: form.py:205
 msgid "Comment (Optional)"
 msgstr "Kommentar (Optional)"
 
-#: form.py:205
+#: form.py:206
 msgid "Leave a comment for the requestor"
 msgstr "Hinterlasse einen Kommentar für den Anfragenden"
 
-#: form.py:217 models.py:317
+#: form.py:218 models.py:317
 msgid "Comment"
 msgstr "Kommentar"
 
-#: form.py:219
+#: form.py:220
 msgid ""
 "Please provide the reason why this former rejected SRP request is now "
 "accepted."
@@ -115,7 +118,7 @@ msgstr ""
 "Bitte geben Sie den Grund an, warum dieser zuvor abgelehnte SRP-Antrag jetzt "
 "akzeptiert wird."
 
-#: form.py:234
+#: form.py:235
 msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
@@ -427,7 +430,7 @@ msgstr "Aktivieren"
 #: templates/aasrp/modals/view_requests/request_details.html:8
 #: templates/aasrp/modals/view_requests/request_details.html:21
 msgid "Close"
-msgstr "Abbrechen"
+msgstr "Schließen"
 
 #: templates/aasrp/modals/view_requests/accept_rejected_request.html:18
 #: templates/aasrp/modals/view_requests/accept_request.html:18
@@ -509,12 +512,6 @@ msgstr "Ersteller"
 #: templates/aasrp/partials/request_srp/fleet-details.html:17
 msgid "Fleet Type"
 msgstr "Flottenart"
-
-#: templates/aasrp/partials/dashboard/srp_links.html:20
-#: templates/aasrp/partials/request_srp/fleet-details.html:24
-#: templates/aasrp/partials/view_requests/overview.html:44
-msgid "Doctrine"
-msgstr "Doktrin"
 
 #: templates/aasrp/partials/dashboard/srp_links.html:21
 #: templates/aasrp/partials/request_srp/fleet-details.html:27
@@ -615,10 +612,6 @@ msgstr "AAR Link hinzufügen/ändern"
 #: templates/aasrp/partials/request_srp/fleet-details.html:7
 msgid "SRP / Fleet Details"
 msgstr "SRP Anforderungen Details"
-
-#: templates/aasrp/partials/request_srp/fleet-details.html:13
-msgid "Fleet name"
-msgstr "Flottenname"
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:21
 msgid "FC"
@@ -772,3 +765,9 @@ msgstr "SRP Anforderung wurde abgelehnt"
 #: views.py:1191
 msgid "SRP request has been removed"
 msgstr "SRP Anforderung wurde gelöscht"
+
+#~ msgid "Fleet Doctrine"
+#~ msgstr "Flottendoktrin"
+
+#~ msgid "Fleet name"
+#~ msgstr "Flottenname"

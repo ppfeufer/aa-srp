@@ -1,20 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-17 00:53+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2023-04-18 13:18+0200\n"
+"PO-Revision-Date: 2023-04-19 09:25+0000\n"
+"Last-Translator: \"H. Peter Pfeufer\" <info@ppfeufer.de>\n"
+"Language-Team: French <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/fr/>\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.16.4\n"
 
 #: constants.py:21
 msgid ""
@@ -26,9 +28,10 @@ msgstr ""
 
 #: form.py:36
 msgid "This field is mandatory"
-msgstr ""
+msgstr "Ce champ est obligatoire"
 
-#: form.py:52 templates/aasrp/partials/view_requests/overview.html:26
+#: form.py:52 templates/aasrp/partials/request_srp/fleet-details.html:13
+#: templates/aasrp/partials/view_requests/overview.html:26
 msgid "Fleet Name"
 msgstr ""
 
@@ -41,70 +44,72 @@ msgstr ""
 msgid "Fleet Type (optional)"
 msgstr ""
 
-#: form.py:66
-msgid "Fleet Doctrine"
+#: form.py:67 templates/aasrp/partials/dashboard/srp_links.html:20
+#: templates/aasrp/partials/request_srp/fleet-details.html:24
+#: templates/aasrp/partials/view_requests/overview.html:44
+msgid "Doctrine"
 msgstr ""
 
-#: form.py:68 form.py:84
+#: form.py:69 form.py:85
 msgid "After Action Report Link"
 msgstr ""
 
-#: form.py:101
+#: form.py:102
 msgid "Killboard Link"
 msgstr ""
 
-#: form.py:112
+#: form.py:113
 msgid "Additional Info"
 msgstr ""
 
-#: form.py:143
+#: form.py:144
 #, python-brace-format
 msgid ""
 "Invalid Link. Please use {ZKILLBOARD_BASE_URL} or "
 "{EVETOOLS_KILLBOARD_BASE_URL}"
 msgstr ""
 
-#: form.py:156
+#: form.py:157
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr ""
 
-#: form.py:167
+#: form.py:168
 msgid ""
 "There is already an SRP request for this killmail. Please check if you got "
 "the right one."
 msgstr ""
 
-#: form.py:180
+#: form.py:181
 msgid "SRP payout value"
 msgstr ""
 
-#: form.py:191
+#: form.py:192
 msgid "Rejection Reason"
 msgstr ""
 
-#: form.py:192
+#: form.py:193
 msgid "Please provide the reason this SRP request is rejected."
 msgstr ""
 
-#: form.py:204
+#: form.py:205
 msgid "Comment (Optional)"
 msgstr ""
 
-#: form.py:205
+#: form.py:206
 msgid "Leave a comment for the requestor"
 msgstr ""
 
-#: form.py:217 models.py:317
+#: form.py:218 models.py:317
 msgid "Comment"
 msgstr ""
 
-#: form.py:219
+#: form.py:220
 msgid ""
 "Please provide the reason why this former rejected SRP request is now "
 "accepted."
 msgstr ""
 
-#: form.py:234
+#: form.py:235
 msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
@@ -484,12 +489,6 @@ msgstr ""
 msgid "Fleet Type"
 msgstr ""
 
-#: templates/aasrp/partials/dashboard/srp_links.html:20
-#: templates/aasrp/partials/request_srp/fleet-details.html:24
-#: templates/aasrp/partials/view_requests/overview.html:44
-msgid "Doctrine"
-msgstr ""
-
 #: templates/aasrp/partials/dashboard/srp_links.html:21
 #: templates/aasrp/partials/request_srp/fleet-details.html:27
 msgid "AAR"
@@ -568,7 +567,7 @@ msgstr ""
 
 #: templates/aasrp/partials/form/required_field_hint.html:5
 msgid "Fields marked with an asterisk (*) are mandatory"
-msgstr ""
+msgstr "Les champs marqués d'un astérisque (*) sont obligatoires"
 
 #: templates/aasrp/partials/link_add/form.html:7
 msgid "SRP Link Details"
@@ -588,10 +587,6 @@ msgstr ""
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:7
 msgid "SRP / Fleet Details"
-msgstr ""
-
-#: templates/aasrp/partials/request_srp/fleet-details.html:13
-msgid "Fleet name"
 msgstr ""
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:21
