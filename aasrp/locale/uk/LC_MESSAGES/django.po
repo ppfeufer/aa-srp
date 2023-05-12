@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # "H. Peter Pfeufer" <info@ppfeufer.de>, 2023.
+# "Andrii M." <elfleg0las88@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-19 01:30+0200\n"
-"PO-Revision-Date: 2023-04-21 12:50+0000\n"
-"Last-Translator: \"H. Peter Pfeufer\" <info@ppfeufer.de>\n"
+"PO-Revision-Date: 2023-05-12 20:50+0000\n"
+"Last-Translator: \"Andrii M.\" <elfleg0las88@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/uk/>\n"
 "Language: uk\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : "
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 4.16.4\n"
+"X-Generator: Weblate 4.17\n"
 
 #: constants.py:21
 msgid ""
@@ -43,7 +44,7 @@ msgstr ""
 
 #: form.py:61
 msgid "Fleet Type (optional)"
-msgstr ""
+msgstr "Тип флоту (необов'язково)"
 
 #: form.py:67 templates/aasrp/partials/dashboard/srp_links.html:20
 #: templates/aasrp/partials/request_srp/fleet-details.html:24
@@ -57,11 +58,11 @@ msgstr ""
 
 #: form.py:102
 msgid "Killboard Link"
-msgstr ""
+msgstr "посилання на Killboard"
 
 #: form.py:113
 msgid "Additional Info"
-msgstr ""
+msgstr "Додаткова інформація"
 
 #: form.py:144
 #, python-brace-format
@@ -69,6 +70,8 @@ msgid ""
 "Invalid Link. Please use {ZKILLBOARD_BASE_URL} or "
 "{EVETOOLS_KILLBOARD_BASE_URL}"
 msgstr ""
+"Некоректне посилання. Будь ласка, використовуйте {ZKILLBOARD_BASE_URL} або "
+"{EVETOOLS_KILLBOARD_BASE_URL}"
 
 #: form.py:157
 msgid "Invalid link. Please post a link to a kill mail."
