@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-19 01:30+0200\n"
-"PO-Revision-Date: 2023-05-12 20:50+0000\n"
-"Last-Translator: \"Andrii M.\" <elfleg0las88@gmail.com>\n"
+"PO-Revision-Date: 2023-06-14 16:18+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/uk/>\n"
 "Language: uk\n"
@@ -619,7 +619,7 @@ msgstr ""
 
 #: templates/aasrp/partials/view_requests/overview.html:31
 msgid "Fleet Commander"
-msgstr ""
+msgstr "Командувач флотом"
 
 #: templates/aasrp/partials/view_requests/overview.html:57
 msgid "SRP Cost"
