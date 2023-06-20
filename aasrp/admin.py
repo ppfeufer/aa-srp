@@ -6,7 +6,7 @@ Django admin declarations
 from django.contrib import admin, messages
 
 # AA SRP
-from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpRequestComment, FleetType
+from aasrp.models import FleetType, RequestComment, SrpLink, SrpRequest
 
 
 def custom_filter(title):
@@ -50,7 +50,7 @@ def custom_filter(title):
     return Wrapper
 
 
-@admin.register(AaSrpLink)
+@admin.register(SrpLink)
 class AaSrpLinkAdmin(admin.ModelAdmin):
     """
     AaSrpLinkAdmin
@@ -80,7 +80,7 @@ class AaSrpLinkAdmin(admin.ModelAdmin):
         return creator_name
 
 
-@admin.register(AaSrpRequest)
+@admin.register(SrpRequest)
 class AaSrpRequestAdmin(admin.ModelAdmin):
     """
     AaSrpRequestAdmin
@@ -119,7 +119,7 @@ class AaSrpRequestAdmin(admin.ModelAdmin):
         return creator_name
 
 
-@admin.register(AaSrpRequestComment)
+@admin.register(RequestComment)
 class AaSrpRequestCommentAdmin(admin.ModelAdmin):
     """
     AaSrpRequestCommentAdmin

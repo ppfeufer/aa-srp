@@ -85,7 +85,7 @@ class FleetType(models.Model):
         return str(self.name)
 
 
-class AaSrpLink(models.Model):
+class SrpLink(models.Model):
     """
     SRP link model
     """
@@ -178,7 +178,7 @@ class AaSrpLink(models.Model):
         """
 
         return self.srp_requests.filter(
-            request_status=AaSrpRequest.Status.PENDING
+            request_status=SrpRequest.Status.PENDING
         ).count()
 
     @property
@@ -189,7 +189,7 @@ class AaSrpLink(models.Model):
         """
 
         return self.srp_requests.filter(
-            request_status=AaSrpRequest.Status.APPROVED
+            request_status=SrpRequest.Status.APPROVED
         ).count()
 
     @property
@@ -200,7 +200,7 @@ class AaSrpLink(models.Model):
         """
 
         return self.srp_requests.filter(
-            request_status=AaSrpRequest.Status.REJECTED
+            request_status=SrpRequest.Status.REJECTED
         ).count()
 
     @property
@@ -213,7 +213,7 @@ class AaSrpLink(models.Model):
         return self.srp_requests.all()
 
 
-class AaSrpRequest(models.Model):
+class SrpRequest(models.Model):
     """
     SRP Request model
     """
@@ -256,7 +256,7 @@ class AaSrpRequest(models.Model):
     )
     payout_amount = models.BigIntegerField(default=0)
     srp_link = models.ForeignKey(
-        AaSrpLink, related_name="srp_requests", on_delete=models.CASCADE
+        SrpLink, related_name="srp_requests", on_delete=models.CASCADE
     )
     loss_amount = models.BigIntegerField(default=0)
     post_time = models.DateTimeField(default=timezone.now)
@@ -282,13 +282,13 @@ class AaSrpRequest(models.Model):
         )
 
 
-class AaSrpInsurance(models.Model):
+class Insurance(models.Model):
     """
     Insurance Model
     """
 
     srp_request = models.ForeignKey(
-        AaSrpRequest, on_delete=models.CASCADE, related_name="insurance"
+        SrpRequest, on_delete=models.CASCADE, related_name="insurance"
     )
     insurance_level = models.CharField(max_length=254, default="")
     insurance_cost = models.FloatField()
@@ -304,7 +304,7 @@ class AaSrpInsurance(models.Model):
         verbose_name_plural = _("Ship Insurances")
 
 
-class AaSrpRequestComment(models.Model):
+class RequestComment(models.Model):
     """
     SRP Request Comments model
     """
@@ -337,7 +337,7 @@ class AaSrpRequestComment(models.Model):
     )
 
     srp_request = models.ForeignKey(
-        AaSrpRequest,
+        SrpRequest,
         related_name="srp_request_comments",
         null=True,
         blank=True,
@@ -348,7 +348,7 @@ class AaSrpRequestComment(models.Model):
     comment_time = models.DateTimeField(default=timezone.now, null=True, blank=True)
 
     new_status = models.CharField(
-        max_length=8, choices=AaSrpRequest.Status.choices, blank=True, default=""
+        max_length=8, choices=SrpRequest.Status.choices, blank=True, default=""
     )
 
     class Meta:  # pylint: disable=too-few-public-methods
@@ -361,7 +361,7 @@ class AaSrpRequestComment(models.Model):
         verbose_name_plural = _("SRP Request Comments")
 
 
-class AaSrpUserSettings(models.Model):
+class UserSetting(models.Model):
     """
     User settings
     """

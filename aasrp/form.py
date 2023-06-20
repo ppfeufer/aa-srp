@@ -21,7 +21,7 @@ from aasrp.constants import (
     ZKILLBOARD_KILLMAIL_URL_REGEX,
 )
 from aasrp.managers import AaSrpManager
-from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpUserSettings, FleetType
+from aasrp.models import FleetType, SrpLink, SrpRequest, UserSetting
 
 
 def get_mandatory_form_label_text(text: str) -> str:
@@ -73,7 +73,7 @@ class AaSrpLinkForm(ModelForm):
         Meta definitions
         """
 
-        model = AaSrpLink
+        model = SrpLink
         fields = ["srp_name", "fleet_time", "fleet_type", "fleet_doctrine", "aar_link"]
 
 
@@ -89,7 +89,7 @@ class AaSrpLinkUpdateForm(ModelForm):
         Meta definitions
         """
 
-        model = AaSrpLink
+        model = SrpLink
         fields = ["aar_link"]
 
 
@@ -123,7 +123,7 @@ class AaSrpRequestForm(ModelForm):
         Meta definitions
         """
 
-        model = AaSrpRequest
+        model = SrpRequest
         fields = ["killboard_link", "additional_info"]
 
     def clean_killboard_link(self):
@@ -145,7 +145,7 @@ class AaSrpRequestForm(ModelForm):
                 )
             )
 
-        # Check if it's an actual kill mail
+        # Check if it's an actual killmail
         if not any(
             re.match(regex, killboard_link)
             for regex in [
@@ -160,7 +160,7 @@ class AaSrpRequestForm(ModelForm):
         # Check if there is already an SRP request for this kill mail
         killmail_id = AaSrpManager.get_kill_id(killboard_link=killboard_link)
 
-        if AaSrpRequest.objects.filter(
+        if SrpRequest.objects.filter(
             killboard_link__icontains="/kill/" + killmail_id
         ).exists():
             raise forms.ValidationError(
@@ -242,5 +242,5 @@ class AaSrpUserSettingsForm(ModelForm):
         Meta definitions
         """
 
-        model = AaSrpUserSettings
+        model = UserSetting
         fields = ["disable_notifications"]
