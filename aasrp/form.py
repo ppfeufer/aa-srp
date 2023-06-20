@@ -20,8 +20,8 @@ from aasrp.constants import (
     ZKILLBOARD_BASE_URL_REGEX,
     ZKILLBOARD_KILLMAIL_URL_REGEX,
 )
-from aasrp.managers import AaSrpManager
-from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpUserSettings, FleetType
+from aasrp.managers import SrpManager
+from aasrp.models import FleetType, SrpLink, SrpRequest, UserSetting
 
 
 def get_mandatory_form_label_text(text: str) -> str:
@@ -43,7 +43,7 @@ def get_mandatory_form_label_text(text: str) -> str:
     )
 
 
-class AaSrpLinkForm(ModelForm):
+class SrpLinkForm(ModelForm):
     """
     New SRP lnk form
     """
@@ -73,13 +73,13 @@ class AaSrpLinkForm(ModelForm):
         Meta definitions
         """
 
-        model = AaSrpLink
+        model = SrpLink
         fields = ["srp_name", "fleet_time", "fleet_type", "fleet_doctrine", "aar_link"]
 
 
-class AaSrpLinkUpdateForm(ModelForm):
+class SrpLinkUpdateForm(ModelForm):
     """
-    Edit SRP link form
+    Edit SRP link update form
     """
 
     aar_link = forms.CharField(required=False, label=_("After Action Report Link"))
@@ -89,11 +89,11 @@ class AaSrpLinkUpdateForm(ModelForm):
         Meta definitions
         """
 
-        model = AaSrpLink
+        model = SrpLink
         fields = ["aar_link"]
 
 
-class AaSrpRequestForm(ModelForm):
+class SrpRequestForm(ModelForm):
     """
     SRP request form
     """
@@ -123,7 +123,7 @@ class AaSrpRequestForm(ModelForm):
         Meta definitions
         """
 
-        model = AaSrpRequest
+        model = SrpRequest
         fields = ["killboard_link", "additional_info"]
 
     def clean_killboard_link(self):
@@ -145,7 +145,7 @@ class AaSrpRequestForm(ModelForm):
                 )
             )
 
-        # Check if it's an actual kill mail
+        # Check if it's an actual killmail
         if not any(
             re.match(regex, killboard_link)
             for regex in [
@@ -158,9 +158,9 @@ class AaSrpRequestForm(ModelForm):
             )
 
         # Check if there is already an SRP request for this kill mail
-        killmail_id = AaSrpManager.get_kill_id(killboard_link=killboard_link)
+        killmail_id = SrpManager.get_kill_id(killboard_link=killboard_link)
 
-        if AaSrpRequest.objects.filter(
+        if SrpRequest.objects.filter(
             killboard_link__icontains="/kill/" + killmail_id
         ).exists():
             raise forms.ValidationError(
@@ -173,7 +173,7 @@ class AaSrpRequestForm(ModelForm):
         return killboard_link
 
 
-class AaSrpRequestPayoutForm(forms.Form):
+class SrpRequestPayoutForm(forms.Form):
     """
     Change payout value
     """
@@ -181,7 +181,7 @@ class AaSrpRequestPayoutForm(forms.Form):
     value = forms.CharField(label=_("SRP payout value"), max_length=254, required=True)
 
 
-class AaSrpRequestRejectForm(forms.Form):
+class SrpRequestRejectForm(forms.Form):
     """
     SRP request reject form
     """
@@ -194,9 +194,9 @@ class AaSrpRequestRejectForm(forms.Form):
     )
 
 
-class AaSrpRequestAcceptForm(forms.Form):
+class SrpRequestAcceptForm(forms.Form):
     """
-    SRP request reject form
+    SRP request accept form
     """
 
     reviser_comment = forms.CharField(
@@ -207,9 +207,9 @@ class AaSrpRequestAcceptForm(forms.Form):
     )
 
 
-class AaSrpRequestAcceptRejectedForm(forms.Form):
+class SrpRequestAcceptRejectedForm(forms.Form):
     """
-    SRP request reject form
+    SRP request accept rejected form
     """
 
     reviser_comment = forms.CharField(
@@ -223,7 +223,7 @@ class AaSrpRequestAcceptRejectedForm(forms.Form):
     )
 
 
-class AaSrpUserSettingsForm(ModelForm):
+class UserSettingsForm(ModelForm):
     """
     User settings form
     """
@@ -242,5 +242,5 @@ class AaSrpUserSettingsForm(ModelForm):
         Meta definitions
         """
 
-        model = AaSrpUserSettings
+        model = UserSetting
         fields = ["disable_notifications"]

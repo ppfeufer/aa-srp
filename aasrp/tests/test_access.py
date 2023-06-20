@@ -16,7 +16,7 @@ from django.utils.crypto import get_random_string
 from app_utils.testing import create_fake_user
 
 # AA SRP
-from aasrp.models import AaSrpLink
+from aasrp.models import SrpLink
 
 fake = Faker()
 
@@ -62,7 +62,7 @@ class TestAccess(TestCase):
             permissions=["aasrp.basic_access", "aasrp.manage_srp"],
         )
 
-        cls.defaul_srp_link = AaSrpLink(
+        cls.defaul_srp_link = SrpLink(
             srp_name="Foobar",
             fleet_time=timezone.now(),
             fleet_doctrine="Ships",

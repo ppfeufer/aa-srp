@@ -9,14 +9,14 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # AA SRP
-from aasrp.models import AaSrpLink, AaSrpRequest
+from aasrp.models import SrpLink, SrpRequest
 
 
 @login_required
 @permission_required(
     "aasrp.basic_access", "aasrp.manage_srp_requests", "aasrp.manage_srp"
 )
-def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str:
+def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
     """
     Getting the action buttons for the dashboard view
     :param request:
@@ -25,7 +25,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str
 
     actions = ""
 
-    if srp_link.srp_status == AaSrpLink.Status.ACTIVE:
+    if srp_link.srp_status == SrpLink.Status.ACTIVE:
         button_request_url = reverse("aasrp:request_srp", args=[srp_link.srp_code])
         btn_icon = '<i class="fas fa-hand-holding-usd"></i>'
         btn_title = _("Request SRP")
@@ -47,9 +47,9 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str
             f'title="{btn_title}">{btn_icon}</a><br>'
         )
 
-        if srp_link.srp_status != AaSrpLink.Status.COMPLETED:
+        if srp_link.srp_status != SrpLink.Status.COMPLETED:
             if request.user.has_perm("aasrp.manage_srp"):
-                if srp_link.srp_status == AaSrpLink.Status.ACTIVE:
+                if srp_link.srp_status == SrpLink.Status.ACTIVE:
                     button_edit_url = reverse(
                         "aasrp:edit_srp_link", args=[srp_link.srp_code]
                     )
@@ -78,7 +78,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str
                         f'data-name="{data_name}">{btn_icon}</a>'
                     )
 
-                if srp_link.srp_status == AaSrpLink.Status.CLOSED:
+                if srp_link.srp_status == SrpLink.Status.CLOSED:
                     button_enable_url = reverse(
                         "aasrp:enable_srp_link", args=[srp_link.srp_code]
                     )
@@ -118,7 +118,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: AaSrpLink) -> str
 
 @login_required
 @permission_required("aasrp.basic_access")
-def get_srp_request_status_icon(request: WSGIRequest, srp_request: AaSrpRequest) -> str:
+def get_srp_request_status_icon(request: WSGIRequest, srp_request: SrpRequest) -> str:
     """
     Get status icon for srp request
     :param request:
@@ -134,7 +134,7 @@ def get_srp_request_status_icon(request: WSGIRequest, srp_request: AaSrpRequest)
         "</button>"
     )
 
-    if srp_request.request_status == AaSrpRequest.Status.APPROVED:
+    if srp_request.request_status == SrpRequest.Status.APPROVED:
         btn_classes = "btn btn-success btn-sm btn-icon-aasrp btn-icon-aasrp-status"
         request_status_icon_title = _("SRP Request Approved")
         srp_request_status_icon = (
@@ -144,7 +144,7 @@ def get_srp_request_status_icon(request: WSGIRequest, srp_request: AaSrpRequest)
             "</button>"
         )
 
-    if srp_request.request_status == AaSrpRequest.Status.REJECTED:
+    if srp_request.request_status == SrpRequest.Status.REJECTED:
         btn_classes = "btn btn-danger btn-sm btn-icon-aasrp btn-icon-aasrp-status"
         request_status_icon_title = _("SRP Request Rejected")
         srp_request_status_icon = (
@@ -160,7 +160,7 @@ def get_srp_request_status_icon(request: WSGIRequest, srp_request: AaSrpRequest)
 @login_required
 @permission_required("aasrp.basic_access")
 def get_srp_request_details_icon(
-    request: WSGIRequest, srp_link: AaSrpLink, srp_request: AaSrpRequest
+    request: WSGIRequest, srp_link: SrpLink, srp_request: SrpRequest
 ) -> str:
     """
     Get details icon for an SRP request
@@ -190,7 +190,7 @@ def get_srp_request_details_icon(
 @login_required
 @permission_required("aasrp.basic_access")
 def get_srp_request_accept_icon(
-    request: WSGIRequest, srp_link: AaSrpLink, srp_request: AaSrpRequest
+    request: WSGIRequest, srp_link: SrpLink, srp_request: SrpRequest
 ) -> str:
     """
     Get accept icon for an SRP request
@@ -205,12 +205,12 @@ def get_srp_request_accept_icon(
     )
 
     button_request_accept_state = ""
-    if srp_request.request_status == AaSrpRequest.Status.APPROVED:
+    if srp_request.request_status == SrpRequest.Status.APPROVED:
         button_request_accept_state = ' disabled="disabled"'
 
     modal_target = (
         "#srp-request-accept-rejected"
-        if srp_request.request_status == AaSrpRequest.Status.REJECTED
+        if srp_request.request_status == SrpRequest.Status.REJECTED
         else "#srp-request-accept"
     )
 
@@ -231,7 +231,7 @@ def get_srp_request_accept_icon(
 @login_required
 @permission_required("aasrp.basic_access")
 def get_srp_request_reject_icon(
-    request: WSGIRequest, srp_link: AaSrpLink, srp_request: AaSrpRequest
+    request: WSGIRequest, srp_link: SrpLink, srp_request: SrpRequest
 ) -> str:
     """
     Get reject icon for an SRP request
@@ -246,7 +246,7 @@ def get_srp_request_reject_icon(
     )
 
     button_request_reject_state = ""
-    if srp_request.request_status == AaSrpRequest.Status.REJECTED:
+    if srp_request.request_status == SrpRequest.Status.REJECTED:
         button_request_reject_state = ' disabled="disabled"'
 
     icon = '<i class="fas fa-ban"></i>'
@@ -266,7 +266,7 @@ def get_srp_request_reject_icon(
 @login_required
 @permission_required("aasrp.basic_access")
 def get_srp_request_delete_icon(
-    request: WSGIRequest, srp_link: AaSrpLink, srp_request: AaSrpRequest
+    request: WSGIRequest, srp_link: SrpLink, srp_request: SrpRequest
 ) -> str:
     """
     Get delete icon for an SRP request
@@ -297,7 +297,7 @@ def get_srp_request_delete_icon(
 @login_required
 @permission_required("aasrp.manage_srp_requests", "aasrp.manage_srp")
 def get_srp_request_action_icons(
-    request: WSGIRequest, srp_link: AaSrpLink, srp_request: AaSrpRequest
+    request: WSGIRequest, srp_link: SrpLink, srp_request: SrpRequest
 ) -> str:
     """
     Get action icons for srp requests
@@ -310,7 +310,7 @@ def get_srp_request_action_icons(
         request=request, srp_link=srp_link, srp_request=srp_request
     )
 
-    if srp_link.srp_status in (AaSrpLink.Status.ACTIVE, AaSrpLink.Status.CLOSED):
+    if srp_link.srp_status in (SrpLink.Status.ACTIVE, SrpLink.Status.CLOSED):
         # Accept
         srp_request_action_icons += get_srp_request_accept_icon(
             request=request, srp_link=srp_link, srp_request=srp_request
