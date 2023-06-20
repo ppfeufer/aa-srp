@@ -180,7 +180,7 @@ mySQL8**
 
 <!-- Links and images -->
 [#72]: https://github.com/ppfeufer/aa-srp/issues/72 "[Feature Request] Specify Payout Percentage on approving SRP"
-[Tooltip: Change SRP Payout Amount]: aasrp/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
+[Tooltip: Change SRP Payout Amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
 
 
 ## [1.15.1] - 2022-07-11
