@@ -24,7 +24,7 @@ from aasrp.providers import esi
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
-class AaSrpManager:
+class SrpManager:
     """
     AaSrpManager
     """

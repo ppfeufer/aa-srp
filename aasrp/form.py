@@ -20,7 +20,7 @@ from aasrp.constants import (
     ZKILLBOARD_BASE_URL_REGEX,
     ZKILLBOARD_KILLMAIL_URL_REGEX,
 )
-from aasrp.managers import AaSrpManager
+from aasrp.managers import SrpManager
 from aasrp.models import FleetType, SrpLink, SrpRequest, UserSetting
 
 
@@ -158,7 +158,7 @@ class AaSrpRequestForm(ModelForm):
             )
 
         # Check if there is already an SRP request for this kill mail
-        killmail_id = AaSrpManager.get_kill_id(killboard_link=killboard_link)
+        killmail_id = SrpManager.get_kill_id(killboard_link=killboard_link)
 
         if SrpRequest.objects.filter(
             killboard_link__icontains="/kill/" + killmail_id

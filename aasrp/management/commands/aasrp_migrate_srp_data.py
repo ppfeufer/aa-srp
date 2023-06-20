@@ -14,7 +14,7 @@ from eveuniverse.models import EveType
 
 # AA SRP
 from aasrp.helper.character import get_user_for_character
-from aasrp.managers import AaSrpManager
+from aasrp.managers import SrpManager
 from aasrp.models import RequestComment, SrpLink, SrpRequest
 
 
@@ -137,7 +137,7 @@ class Command(BaseCommand):
                                     name=srp_userrequest.srp_ship_name
                                 )
                             except EveType.DoesNotExist:
-                                srp_kill_link = AaSrpManager.get_kill_id(
+                                srp_kill_link = SrpManager.get_kill_id(
                                     srp_userrequest_killboard_link
                                 )
 
@@ -145,7 +145,7 @@ class Command(BaseCommand):
                                     ship_type_id,
                                     ship_value,
                                     victim_id,
-                                ) = AaSrpManager.get_kill_data(srp_kill_link)
+                                ) = SrpManager.get_kill_data(srp_kill_link)
 
                                 (
                                     srp_userrequest_ship,

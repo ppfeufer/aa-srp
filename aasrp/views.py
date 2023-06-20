@@ -54,7 +54,7 @@ from aasrp.helper.notification import (
     send_user_notification,
 )
 from aasrp.helper.user import get_user_settings
-from aasrp.managers import AaSrpManager
+from aasrp.managers import SrpManager
 from aasrp.models import Insurance, RequestComment, SrpLink, SrpRequest
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
@@ -71,9 +71,9 @@ def _attempt_to_re_add_ship_information_to_request(
     :return:
     """
 
-    srp_kill_link = AaSrpManager.get_kill_id(srp_request.killboard_link)
+    srp_kill_link = SrpManager.get_kill_id(srp_request.killboard_link)
 
-    (ship_type_id, ship_value, victim_id) = AaSrpManager.get_kill_data(srp_kill_link)
+    (ship_type_id, ship_value, victim_id) = SrpManager.get_kill_data(srp_kill_link)
     (srp_request__ship, created_from_esi) = EveType.objects.get_or_create_esi(
         id=ship_type_id
     )
@@ -459,9 +459,9 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
                 # Parse killmail
                 try:
-                    srp_kill_link = AaSrpManager.get_kill_id(submitted_killmail_link)
+                    srp_kill_link = SrpManager.get_kill_id(submitted_killmail_link)
 
-                    (ship_type_id, ship_value, victim_id) = AaSrpManager.get_kill_data(
+                    (ship_type_id, ship_value, victim_id) = SrpManager.get_kill_data(
                         srp_kill_link
                     )
                 except ValueError:
@@ -524,7 +524,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     ).save()
 
                     # Add insurance information
-                    insurance_information = AaSrpManager.get_insurance_for_ship_type(
+                    insurance_information = SrpManager.get_insurance_for_ship_type(
                         ship_type_id=ship_type_id
                     )
 
