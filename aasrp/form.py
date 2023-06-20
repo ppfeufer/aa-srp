@@ -93,7 +93,7 @@ class SrpLinkUpdateForm(ModelForm):
         fields = ["aar_link"]
 
 
-class AaSrpRequestForm(ModelForm):
+class SrpRequestForm(ModelForm):
     """
     SRP request form
     """

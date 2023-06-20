@@ -31,12 +31,12 @@ from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE, ZKILLBOARD_BA
 from aasrp.form import (
     AaSrpRequestAcceptForm,
     AaSrpRequestAcceptRejectedForm,
-    AaSrpRequestForm,
     AaSrpRequestPayoutForm,
     AaSrpRequestRejectForm,
     AaSrpUserSettingsForm,
     SrpLinkForm,
     SrpLinkUpdateForm,
+    SrpRequestForm,
 )
 from aasrp.helper.character import (
     get_formatted_character_name,
@@ -446,7 +446,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
         # If this is a POST request, we need to process the form data
         if request.method == "POST":
             # Create a form instance and populate it with data from the request
-            form = AaSrpRequestForm(request.POST)
+            form = SrpRequestForm(request.POST)
             form_is_valid = form.is_valid()
 
             logger.debug(f"Request type POST contains valid form: {form_is_valid}")
@@ -605,7 +605,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
         else:
             logger.debug(f"Returning blank SRP request form for {request.user}")
 
-            form = AaSrpRequestForm()
+            form = SrpRequestForm()
 
         context = {"srp_link": srp_link, "form": form}
 
