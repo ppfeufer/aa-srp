@@ -194,7 +194,7 @@ class SrpRequestRejectForm(forms.Form):
     )
 
 
-class AaSrpRequestAcceptForm(forms.Form):
+class SrpRequestAcceptForm(forms.Form):
     """
     SRP request accept form
     """
@@ -209,7 +209,7 @@ class AaSrpRequestAcceptForm(forms.Form):
 
 class AaSrpRequestAcceptRejectedForm(forms.Form):
     """
-    SRP request reject form
+    SRP request accept rejected form
     """
 
     reviser_comment = forms.CharField(
