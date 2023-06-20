@@ -29,7 +29,6 @@ from aasrp import __title__
 from aasrp.app_settings import AASRP_SRP_TEAM_DISCORD_CHANNEL
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE, ZKILLBOARD_BASE_URL
 from aasrp.form import (
-    AaSrpLinkUpdateForm,
     AaSrpRequestAcceptForm,
     AaSrpRequestAcceptRejectedForm,
     AaSrpRequestForm,
@@ -37,6 +36,7 @@ from aasrp.form import (
     AaSrpRequestRejectForm,
     AaSrpUserSettingsForm,
     SrpLinkForm,
+    SrpLinkUpdateForm,
 )
 from aasrp.helper.character import (
     get_formatted_character_name,
@@ -387,7 +387,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     # If this is a POST request, we need to process the form data
     if request.method == "POST":
         # Create a form instance and populate it with data
-        form = AaSrpLinkUpdateForm(request.POST, instance=srp_link)
+        form = SrpLinkUpdateForm(request.POST, instance=srp_link)
 
         # Check whether it's valid:
         if form.is_valid():
@@ -400,7 +400,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
             return redirect("aasrp:dashboard")
     else:
-        form = AaSrpLinkUpdateForm(instance=srp_link)
+        form = SrpLinkUpdateForm(instance=srp_link)
 
     context = {"srp_code": srp_code, "form": form}
 

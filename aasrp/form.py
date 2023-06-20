@@ -77,9 +77,9 @@ class SrpLinkForm(ModelForm):
         fields = ["srp_name", "fleet_time", "fleet_type", "fleet_doctrine", "aar_link"]
 
 
-class AaSrpLinkUpdateForm(ModelForm):
+class SrpLinkUpdateForm(ModelForm):
     """
-    Edit SRP link form
+    Edit SRP link update form
     """
 
     aar_link = forms.CharField(required=False, label=_("After Action Report Link"))
