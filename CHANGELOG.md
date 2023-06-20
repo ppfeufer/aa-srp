@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning]
 ### Changed
 
 - German translation improved
+- Renamed (Giving various things a saner name):
+  - Models
+  - Form classes
+  - Admin classes
+  - Manager
 
 
 ## [1.19.0] - 2023-04-26
