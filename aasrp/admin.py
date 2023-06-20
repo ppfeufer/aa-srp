@@ -5,6 +5,7 @@ Django admin declarations
 # Django
 from django.contrib import admin, messages
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 
 # AA SRP
 from aasrp.models import FleetType, RequestComment, SrpLink, SrpRequest
@@ -165,10 +166,7 @@ class FleetTypeAdmin(admin.ModelAdmin):
 
         return obj.is_enabled
 
-    actions = (
-        "activate",
-        "deactivate",
-    )
+    actions = ("activate", "deactivate")
 
     @admin.action(description=_("Activate selected fleet types"))
     def activate(self, request, queryset):
@@ -195,10 +193,24 @@ class FleetTypeAdmin(admin.ModelAdmin):
                 failed += 1
 
         if failed:
-            messages.error(request, f"Failed to activate {failed} fleet types")
+            messages.error(
+                request,
+                ngettext(
+                    "Failed to activate {failed} fleet type",
+                    "Failed to activate {failed} fleet types",
+                    failed,
+                ).format(failed=failed),
+            )
 
         if queryset.count() - failed > 0:
-            messages.success(request, f"Activated {notifications_count} fleet type(s)")
+            messages.success(
+                request,
+                ngettext(
+                    "Activated {notifications_count} fleet type",
+                    "Activated {notifications_count} fleet types",
+                    notifications_count,
+                ).format(notifications_count=notifications_count),
+            )
 
     @admin.action(description=_("Deactivate selected fleet types"))
     def deactivate(self, request, queryset):
@@ -225,9 +237,21 @@ class FleetTypeAdmin(admin.ModelAdmin):
                 failed += 1
 
         if failed:
-            messages.error(request, f"Failed to deactivate {failed} fleet types")
+            messages.error(
+                request,
+                ngettext(
+                    f"Failed to deactivate {failed} fleet type",
+                    f"Failed to deactivate {failed} fleet types",
+                    failed,
+                ).format(failed=failed),
+            )
 
         if queryset.count() - failed > 0:
             messages.success(
-                request, f"Deactivated {notifications_count} fleet type(s)"
+                request,
+                ngettext(
+                    f"Deactivated {notifications_count} fleet type",
+                    f"Deactivated {notifications_count} fleet types",
+                    notifications_count,
+                ).format(notifications_count=notifications_count),
             )
