@@ -181,7 +181,7 @@ class SrpRequestPayoutForm(forms.Form):
     value = forms.CharField(label=_("SRP payout value"), max_length=254, required=True)
 
 
-class AaSrpRequestRejectForm(forms.Form):
+class SrpRequestRejectForm(forms.Form):
     """
     SRP request reject form
     """

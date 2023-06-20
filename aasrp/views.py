@@ -31,12 +31,12 @@ from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE, ZKILLBOARD_BA
 from aasrp.form import (
     AaSrpRequestAcceptForm,
     AaSrpRequestAcceptRejectedForm,
-    AaSrpRequestRejectForm,
     AaSrpUserSettingsForm,
     SrpLinkForm,
     SrpLinkUpdateForm,
     SrpRequestForm,
     SrpRequestPayoutForm,
+    SrpRequestRejectForm,
 )
 from aasrp.helper.character import (
     get_formatted_character_name,
@@ -666,7 +666,7 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
         return redirect("aasrp:dashboard")
 
     srp_link = SrpLink.objects.get(srp_code=srp_code)
-    reject_form = AaSrpRequestRejectForm()
+    reject_form = SrpRequestRejectForm()
     accept_form = AaSrpRequestAcceptForm()
     accept_rejected_form = AaSrpRequestAcceptRejectedForm()
 
@@ -1103,7 +1103,7 @@ def ajax_srp_request_deny(
     else:
         if request.method == "POST":
             # Create a form instance and populate it with data from the request
-            form = AaSrpRequestRejectForm(request.POST)
+            form = SrpRequestRejectForm(request.POST)
 
             # Check whether it's valid:
             if form.is_valid():
