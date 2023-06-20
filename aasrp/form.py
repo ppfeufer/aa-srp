@@ -223,7 +223,7 @@ class SrpRequestAcceptRejectedForm(forms.Form):
     )
 
 
-class AaSrpUserSettingsForm(ModelForm):
+class UserSettingsForm(ModelForm):
     """
     User settings form
     """

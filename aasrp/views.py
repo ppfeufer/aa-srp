@@ -29,7 +29,6 @@ from aasrp import __title__
 from aasrp.app_settings import AASRP_SRP_TEAM_DISCORD_CHANNEL
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE, ZKILLBOARD_BASE_URL
 from aasrp.form import (
-    AaSrpUserSettingsForm,
     SrpLinkForm,
     SrpLinkUpdateForm,
     SrpRequestAcceptForm,
@@ -37,6 +36,7 @@ from aasrp.form import (
     SrpRequestForm,
     SrpRequestPayoutForm,
     SrpRequestRejectForm,
+    UserSettingsForm,
 )
 from aasrp.helper.character import (
     get_formatted_character_name,
@@ -99,7 +99,7 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
 
     # If this is a POST request we need to process the form data
     if request.method == "POST":
-        user_settings_form = AaSrpUserSettingsForm(request.POST, instance=user_settings)
+        user_settings_form = UserSettingsForm(request.POST, instance=user_settings)
 
         # Check whether it's valid:
         if user_settings_form.is_valid():
@@ -112,7 +112,7 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
 
             return redirect("aasrp:dashboard")
     else:
-        user_settings_form = AaSrpUserSettingsForm(instance=user_settings)
+        user_settings_form = UserSettingsForm(instance=user_settings)
 
     logger_message = f"Dashboard with available SRP links called by {request.user}"
 
