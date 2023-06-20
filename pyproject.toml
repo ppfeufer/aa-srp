@@ -35,7 +35,7 @@ classifiers = [
 dependencies = [
     "allianceauth-app-utils>=1.14.0",
     "allianceauth>=2.15.1",
-    "django-eveuniverse>=0.16.3",
+    "django-eveuniverse>=1.2.0",
 ]
 
 [project.urls]
