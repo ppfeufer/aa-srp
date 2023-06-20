@@ -31,12 +31,12 @@ from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE, ZKILLBOARD_BA
 from aasrp.form import (
     AaSrpRequestAcceptForm,
     AaSrpRequestAcceptRejectedForm,
-    AaSrpRequestPayoutForm,
     AaSrpRequestRejectForm,
     AaSrpUserSettingsForm,
     SrpLinkForm,
     SrpLinkUpdateForm,
     SrpRequestForm,
+    SrpRequestPayoutForm,
 )
 from aasrp.helper.character import (
     get_formatted_character_name,
@@ -966,7 +966,7 @@ def ajax_srp_request_change_payout(
             data.append({"success": False})
         else:
             # check whether it's valid:
-            form = AaSrpRequestPayoutForm(request.POST)
+            form = SrpRequestPayoutForm(request.POST)
             if form.is_valid():
                 srp_payout = form.cleaned_data["value"]
 

@@ -173,7 +173,7 @@ class SrpRequestForm(ModelForm):
         return killboard_link
 
 
-class AaSrpRequestPayoutForm(forms.Form):
+class SrpRequestPayoutForm(forms.Form):
     """
     Change payout value
     """
