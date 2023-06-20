@@ -72,8 +72,8 @@ class FleetType(models.Model):
         """
 
         default_permissions = ()
-        verbose_name = _("SRP Link Fleet Type")
-        verbose_name_plural = _("SRP Link Fleet Types")
+        verbose_name = _("Fleet Type")
+        verbose_name_plural = _("Fleet Types")
 
     def __str__(self) -> str:
         """
@@ -158,7 +158,7 @@ class SrpLink(models.Model):
 
         return sum(
             int(r.payout_amount)
-            for r in self.srp_requests.filter(request_status="Approved")
+            for r in self.srp_requests.filter(request_status=SrpRequest.Status.APPROVED)
         )
 
     @property
@@ -268,8 +268,8 @@ class SrpRequest(models.Model):
         """
 
         default_permissions = ()
-        verbose_name = _("SRP Request")
-        verbose_name_plural = _("SRP Requests")
+        verbose_name = _("Request")
+        verbose_name_plural = _("Requests")
 
     def __str__(self):
         character_name = self.character.character_name
@@ -357,8 +357,8 @@ class RequestComment(models.Model):
         """
 
         default_permissions = ()
-        verbose_name = _("SRP Request Comment")
-        verbose_name_plural = _("SRP Request Comments")
+        verbose_name = _("Comment")
+        verbose_name_plural = _("Comments")
 
 
 class UserSetting(models.Model):

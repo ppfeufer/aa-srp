@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning]
 
 - German translation improved
 - Renamed (Giving various things a saner name):
-  - Models
+  - Models including their verbose names
   - Form classes
   - Admin classes
   - Manager
