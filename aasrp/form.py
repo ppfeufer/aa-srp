@@ -207,7 +207,7 @@ class SrpRequestAcceptForm(forms.Form):
     )
 
 
-class AaSrpRequestAcceptRejectedForm(forms.Form):
+class SrpRequestAcceptRejectedForm(forms.Form):
     """
     SRP request accept rejected form
     """

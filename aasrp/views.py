@@ -29,11 +29,11 @@ from aasrp import __title__
 from aasrp.app_settings import AASRP_SRP_TEAM_DISCORD_CHANNEL
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE, ZKILLBOARD_BASE_URL
 from aasrp.form import (
-    AaSrpRequestAcceptRejectedForm,
     AaSrpUserSettingsForm,
     SrpLinkForm,
     SrpLinkUpdateForm,
     SrpRequestAcceptForm,
+    SrpRequestAcceptRejectedForm,
     SrpRequestForm,
     SrpRequestPayoutForm,
     SrpRequestRejectForm,
@@ -668,7 +668,7 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
     srp_link = SrpLink.objects.get(srp_code=srp_code)
     reject_form = SrpRequestRejectForm()
     accept_form = SrpRequestAcceptForm()
-    accept_rejected_form = AaSrpRequestAcceptRejectedForm()
+    accept_rejected_form = SrpRequestAcceptRejectedForm()
 
     context = {
         "srp_link": srp_link,
@@ -1008,7 +1008,7 @@ def ajax_srp_request_approve(
             if srp_request.request_status == SrpRequest.Status.PENDING:
                 form = SrpRequestAcceptForm(request.POST)
             elif srp_request.request_status == SrpRequest.Status.REJECTED:
-                form = AaSrpRequestAcceptRejectedForm(request.POST)
+                form = SrpRequestAcceptRejectedForm(request.POST)
 
             if form and form.is_valid():
                 requester = srp_request.creator
