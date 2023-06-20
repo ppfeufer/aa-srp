@@ -29,7 +29,6 @@ from aasrp import __title__
 from aasrp.app_settings import AASRP_SRP_TEAM_DISCORD_CHANNEL
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE, ZKILLBOARD_BASE_URL
 from aasrp.form import (
-    AaSrpLinkForm,
     AaSrpLinkUpdateForm,
     AaSrpRequestAcceptForm,
     AaSrpRequestAcceptRejectedForm,
@@ -37,6 +36,7 @@ from aasrp.form import (
     AaSrpRequestPayoutForm,
     AaSrpRequestRejectForm,
     AaSrpUserSettingsForm,
+    SrpLinkForm,
 )
 from aasrp.helper.character import (
     get_formatted_character_name,
@@ -323,7 +323,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
     # If this is a POST request, we need to process the form data
     if request.method == "POST":
         # Create a form instance and populate it with data from the request
-        form = AaSrpLinkForm(request.POST)
+        form = SrpLinkForm(request.POST)
 
         # Check whether it's valid:
         if form.is_valid():
@@ -351,7 +351,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 
     # If a GET (or any other method) we'll create a blank form
     else:
-        form = AaSrpLinkForm()
+        form = SrpLinkForm()
 
     context = {"form": form}
 

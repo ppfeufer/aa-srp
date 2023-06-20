@@ -43,7 +43,7 @@ def get_mandatory_form_label_text(text: str) -> str:
     )
 
 
-class AaSrpLinkForm(ModelForm):
+class SrpLinkForm(ModelForm):
     """
     New SRP lnk form
     """
@@ -196,7 +196,7 @@ class AaSrpRequestRejectForm(forms.Form):
 
 class AaSrpRequestAcceptForm(forms.Form):
     """
-    SRP request reject form
+    SRP request accept form
     """
 
     reviser_comment = forms.CharField(
