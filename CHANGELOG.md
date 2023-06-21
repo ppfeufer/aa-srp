@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+
+## [1.20.0-alpha.1] - 2023-06-21
+
 ### Changed
 
 - German translation improved
