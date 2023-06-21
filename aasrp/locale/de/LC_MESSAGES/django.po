@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-20 20:47+0200\n"
-"PO-Revision-Date: 2023-05-21 10:52+0000\n"
-"Last-Translator: \"H. Peter Pfeufer\" <info@ppfeufer.de>\n"
-"Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/de/>\n"
+"PO-Revision-Date: 2023-06-21 18:51+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"Language-Team: German <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 4.18\n"
 
 #: admin.py:76 templates/aasrp/partials/dashboard/srp_links.html:17
 msgid "Creator"
@@ -37,49 +37,44 @@ msgid "Fleet Type"
 msgstr "Flottenart"
 
 #: admin.py:157
-#, fuzzy
-#| msgid "Enable"
 msgid "Is Enabled"
-msgstr "Aktivieren"
+msgstr "Ist aktiviert"
 
 #: admin.py:171
 msgid "Activate selected fleet types"
-msgstr ""
+msgstr "Aktiviere ausgewählte Flottenarten"
 
 #: admin.py:199
 #, python-brace-format
 msgid "Failed to activate {failed} fleet type"
 msgid_plural "Failed to activate {failed} fleet types"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Aktivieren von {failed} Flottenart ist fehlgeschlagen"
+msgstr[1] "Aktivieren von {failed} Flottenarten ist fehlgeschlagen"
 
 #: admin.py:209
 #, python-brace-format
 msgid "Activated {notifications_count} fleet type"
 msgid_plural "Activated {notifications_count} fleet types"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{notifications_count} Flottenart aktiviert"
+msgstr[1] "{notifications_count} Flottenarten aktiviert"
 
 #: admin.py:215
-#, fuzzy
-#| msgid "Descriptive name of your fleet type"
 msgid "Deactivate selected fleet types"
-msgstr "Beschreibender Name für die Flottenart"
+msgstr "Deaktiviere ausgewählte Flottenarten"
 
 #: admin.py:243
 #, python-brace-format
 msgid "Failed to deactivate {failed} fleet type"
 msgid_plural "Failed to deactivate {failed} fleet types"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Deaktivieren von {failed} Flottenart ist fehlgeschlagen"
+msgstr[1] "Deaktivieren von {failed} Flottenarten ist fehlgeschlagen"
 
 #: admin.py:253
-#, fuzzy, python-brace-format
-#| msgid "Descriptive name of your fleet type"
+#, python-brace-format
 msgid "Deactivated {notifications_count} fleet type"
 msgid_plural "Deactivated {notifications_count} fleet types"
-msgstr[0] "Beschreibender Name für die Flottenart"
-msgstr[1] "Beschreibender Name für die Flottenart"
+msgstr[0] "{notifications_count} Flottenart deaktiviert"
+msgstr[1] "{notifications_count} Flottenarten deaktiviert"
 
 #: constants.py:21
 msgid ""
@@ -272,10 +267,8 @@ msgid "Whether this fleet type is active or not"
 msgstr "Ist diese Flottenart aktiv oder nicht"
 
 #: models.py:76
-#, fuzzy
-#| msgid "Fleet Type"
 msgid "Fleet Types"
-msgstr "Flottenart"
+msgstr "Flottenarten"
 
 #: models.py:98
 msgid "Active"
@@ -318,10 +311,8 @@ msgid "Rejected"
 msgstr "Abgelehnt"
 
 #: models.py:271
-#, fuzzy
-#| msgid "Requests"
 msgid "Request"
-msgstr "Anfragen"
+msgstr "Anfrage"
 
 #: models.py:272 templates/aasrp/partials/dashboard/srp_links.html:25
 #: templates/aasrp/partials/view_requests/overview.html:15
@@ -365,10 +356,8 @@ msgid "Reviser Comment"
 msgstr "Kommentar des Revisors"
 
 #: models.py:361
-#, fuzzy
-#| msgid "Comment"
 msgid "Comments"
-msgstr "Kommentar"
+msgstr "Kommentare"
 
 #: models.py:386 models.py:387
 msgid "User Settings"
