@@ -4,9 +4,11 @@ Django admin declarations
 
 # Django
 from django.contrib import admin, messages
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 
 # AA SRP
-from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpRequestComment, FleetType
+from aasrp.models import FleetType, RequestComment, SrpLink, SrpRequest
 
 
 def custom_filter(title):
@@ -50,10 +52,10 @@ def custom_filter(title):
     return Wrapper
 
 
-@admin.register(AaSrpLink)
-class AaSrpLinkAdmin(admin.ModelAdmin):
+@admin.register(SrpLink)
+class SrpLinkAdmin(admin.ModelAdmin):
     """
-    AaSrpLinkAdmin
+    SrpLinkAdmin
     """
 
     list_display = (
@@ -71,19 +73,20 @@ class AaSrpLinkAdmin(admin.ModelAdmin):
     search_fields = ("srp_code", "fleet_doctrine", "srp_name")
 
     @classmethod
-    @admin.display(description="Creator", ordering="creator")
+    @admin.display(description=_("Creator"), ordering="creator")
     def _creator(cls, obj):
         creator_name = obj.creator
+
         if obj.creator.profile.main_character:
             creator_name = obj.creator.profile.main_character.character_name
 
         return creator_name
 
 
-@admin.register(AaSrpRequest)
-class AaSrpRequestAdmin(admin.ModelAdmin):
+@admin.register(SrpRequest)
+class SrpRequestAdmin(admin.ModelAdmin):
     """
-    AaSrpRequestAdmin
+    SrpRequestAdmin
     """
 
     list_display = (
@@ -110,19 +113,20 @@ class AaSrpRequestAdmin(admin.ModelAdmin):
     )
 
     @classmethod
-    @admin.display(description="Creator", ordering="creator")
+    @admin.display(description=_("Requestor"), ordering="creator")
     def _creator(cls, obj):
         creator_name = obj.creator
+
         if obj.creator.profile.main_character:
             creator_name = obj.creator.profile.main_character.character_name
 
         return creator_name
 
 
-@admin.register(AaSrpRequestComment)
-class AaSrpRequestCommentAdmin(admin.ModelAdmin):
+@admin.register(RequestComment)
+class RequestCommentAdmin(admin.ModelAdmin):
     """
-    AaSrpRequestCommentAdmin
+    RequestCommentAdmin
     """
 
     list_display = ("srp_request", "comment_type", "creator")
@@ -133,14 +137,14 @@ class AaSrpRequestCommentAdmin(admin.ModelAdmin):
 @admin.register(FleetType)
 class FleetTypeAdmin(admin.ModelAdmin):
     """
-    Config for fleet type model
+    FleetTypeAdmin
     """
 
     list_display = ("id", "_name", "_is_enabled")
     list_filter = ("is_enabled",)
     ordering = ("name",)
 
-    @admin.display(description="Fleet Type", ordering="name")
+    @admin.display(description=_("Fleet Type"), ordering="name")
     def _name(self, obj):
         """
         Rewrite name
@@ -152,7 +156,7 @@ class FleetTypeAdmin(admin.ModelAdmin):
 
         return obj.name
 
-    @admin.display(description="Is Enabled", boolean=True, ordering="is_enabled")
+    @admin.display(description=_("Is Enabled"), boolean=True, ordering="is_enabled")
     def _is_enabled(self, obj):
         """
         Rewrite is_enabled
@@ -164,12 +168,9 @@ class FleetTypeAdmin(admin.ModelAdmin):
 
         return obj.is_enabled
 
-    actions = (
-        "activate",
-        "deactivate",
-    )
+    actions = ("activate", "deactivate")
 
-    @admin.action(description="Activate selected fleet type(s)")
+    @admin.action(description=_("Activate selected fleet types"))
     def activate(self, request, queryset):
         """
         Mark fleet type as active
@@ -194,12 +195,26 @@ class FleetTypeAdmin(admin.ModelAdmin):
                 failed += 1
 
         if failed:
-            messages.error(request, f"Failed to activate {failed} fleet types")
+            messages.error(
+                request,
+                ngettext(
+                    "Failed to activate {failed} fleet type",
+                    "Failed to activate {failed} fleet types",
+                    failed,
+                ).format(failed=failed),
+            )
 
         if queryset.count() - failed > 0:
-            messages.success(request, f"Activated {notifications_count} fleet type(s)")
+            messages.success(
+                request,
+                ngettext(
+                    "Activated {notifications_count} fleet type",
+                    "Activated {notifications_count} fleet types",
+                    notifications_count,
+                ).format(notifications_count=notifications_count),
+            )
 
-    @admin.action(description="Deactivate selected fleet type(s)")
+    @admin.action(description=_("Deactivate selected fleet types"))
     def deactivate(self, request, queryset):
         """
         Mark fleet type as inactive
@@ -224,9 +239,21 @@ class FleetTypeAdmin(admin.ModelAdmin):
                 failed += 1
 
         if failed:
-            messages.error(request, f"Failed to deactivate {failed} fleet types")
+            messages.error(
+                request,
+                ngettext(
+                    "Failed to deactivate {failed} fleet type",
+                    "Failed to deactivate {failed} fleet types",
+                    failed,
+                ).format(failed=failed),
+            )
 
         if queryset.count() - failed > 0:
             messages.success(
-                request, f"Deactivated {notifications_count} fleet type(s)"
+                request,
+                ngettext(
+                    "Deactivated {notifications_count} fleet type",
+                    "Deactivated {notifications_count} fleet types",
+                    notifications_count,
+                ).format(notifications_count=notifications_count),
             )

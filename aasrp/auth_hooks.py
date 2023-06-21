@@ -2,8 +2,6 @@
 Hook into AA
 """
 
-# Django
-from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
 from allianceauth import hooks
@@ -11,7 +9,7 @@ from allianceauth.services.hooks import MenuItemHook, UrlHook
 
 # AA SRP
 from aasrp import __title__, urls
-from aasrp.managers import AaSrpManager
+from aasrp.managers import SrpManager
 
 
 class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
@@ -23,7 +21,7 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
         # Setup menu entry for sidebar
         MenuItemHook.__init__(
             self,
-            _(__title__),
+            __title__,
             "far fa-money-bill-alt fa-fw",
             "aasrp:dashboard",
             navactive=["aasrp:"],
@@ -37,7 +35,7 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
         """
 
         if request.user.has_perm("aasrp.basic_access"):
-            app_count = AaSrpManager.pending_requests_count_for_user(request.user)
+            app_count = SrpManager.pending_requests_count_for_user(request.user)
             self.count = app_count if app_count and app_count > 0 else None
 
             return MenuItemHook.render(self, request)

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "aa-srp"
-version = "1.19.0"
+version = "1.20.0-alpha.1"
 description = "Improved SRP Module for Alliance Auth"
 readme = "README.md"
 license = "GPL-3.0"
@@ -35,7 +35,7 @@ classifiers = [
 dependencies = [
     "allianceauth-app-utils>=1.14.0",
     "allianceauth>=2.15.1",
-    "django-eveuniverse>=0.16.3",
+    "django-eveuniverse>=1.2.0",
 ]
 
 [project.urls]

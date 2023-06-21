@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning]
 ## [In Development] - Unreleased
 
 
+## [1.20.0-alpha.1] - 2023-06-21
+
+### Changed
+
+- German translation improved
+- Renamed (Giving various things a saner name):
+  - Models including their verbose names
+  - Form classes
+  - Admin classes
+  - Manager
+- Views split into their respective files, makes it easier to maintain
+
+
 ## [1.19.0] - 2023-04-26
 
 ### Changed
@@ -19,7 +32,7 @@ and this project adheres to [Semantic Versioning]
 
 - Text labels consistency ([#100])
 
-[#100]: https://github.com/ppfeufer/aa-srp/issues/94 "Text labels consistency"
+[#100]: https://github.com/ppfeufer/aa-srp/pull/100 "Text labels consistency"
 
 
 ## [1.18.0] - 2023-04-16
@@ -176,7 +189,7 @@ mySQL8**
 
 <!-- Links and images -->
 [#72]: https://github.com/ppfeufer/aa-srp/issues/72 "[Feature Request] Specify Payout Percentage on approving SRP"
-[Tooltip: Change SRP Payout Amount]: aasrp/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
+[Tooltip: Change SRP Payout Amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
 
 
 ## [1.15.1] - 2022-07-11

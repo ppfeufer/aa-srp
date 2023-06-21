@@ -14,8 +14,8 @@ from eveuniverse.models import EveType
 
 # AA SRP
 from aasrp.helper.character import get_user_for_character
-from aasrp.managers import AaSrpManager
-from aasrp.models import AaSrpLink, AaSrpRequest, AaSrpRequestComment
+from aasrp.managers import SrpManager
+from aasrp.models import RequestComment, SrpLink, SrpRequest
 
 
 def get_input(text):
@@ -60,12 +60,12 @@ class Command(BaseCommand):
                 srp_fleet_aar_link = srp_fleet.fleet_srp_aar_link
 
                 # Fix srp status
-                srp_fleet_status = AaSrpLink.Status.ACTIVE
+                srp_fleet_status = SrpLink.Status.ACTIVE
                 if srp_fleet.fleet_srp_status == "Completed":
-                    srp_fleet_status = AaSrpLink.Status.COMPLETED
+                    srp_fleet_status = SrpLink.Status.COMPLETED
 
                 if srp_fleet.fleet_srp_code == "":
-                    srp_fleet_status = AaSrpLink.Status.CLOSED
+                    srp_fleet_status = SrpLink.Status.CLOSED
 
                     # Also fix the missing SRP code, we need it!
                     srp_fleet.fleet_srp_code = get_random_string(
@@ -77,11 +77,11 @@ class Command(BaseCommand):
                 self.stdout.write(f"Migrating SRP fleet {srp_fleet_srp_code} ...")
 
                 try:
-                    srp_link = AaSrpLink.objects.get(srp_code=srp_fleet_srp_code)
+                    srp_link = SrpLink.objects.get(srp_code=srp_fleet_srp_code)
 
                     srp_links_skipped += 1
-                except AaSrpLink.DoesNotExist:
-                    srp_link = AaSrpLink()
+                except SrpLink.DoesNotExist:
+                    srp_link = SrpLink()
 
                     srp_link.srp_name = srp_fleet_name
                     srp_link.srp_status = srp_fleet_status
@@ -100,7 +100,7 @@ class Command(BaseCommand):
                     srp_links_migrated += 1
 
                     # get the new srp link object
-                    srp_link = AaSrpLink.objects.get(srp_code=srp_fleet_srp_code)
+                    srp_link = SrpLink.objects.get(srp_code=srp_fleet_srp_code)
 
                 self.stdout.write(
                     f"Migrating SRP requests for SRP fleet {srp_fleet_srp_code} ..."
@@ -120,12 +120,12 @@ class Command(BaseCommand):
                         srp_userrequest_killboard_link = srp_userrequest.killboard_link
 
                         try:
-                            AaSrpRequest.objects.get(
+                            SrpRequest.objects.get(
                                 killboard_link=srp_userrequest_killboard_link
                             )
 
                             srp_requests_skipped += 1
-                        except AaSrpRequest.DoesNotExist:
+                        except SrpRequest.DoesNotExist:
                             srp_userrequest_additional_info = (
                                 srp_userrequest.additional_info
                             )
@@ -137,7 +137,7 @@ class Command(BaseCommand):
                                     name=srp_userrequest.srp_ship_name
                                 )
                             except EveType.DoesNotExist:
-                                srp_kill_link = AaSrpManager.get_kill_id(
+                                srp_kill_link = SrpManager.get_kill_id(
                                     srp_userrequest_killboard_link
                                 )
 
@@ -145,7 +145,7 @@ class Command(BaseCommand):
                                     ship_type_id,
                                     ship_value,
                                     victim_id,
-                                ) = AaSrpManager.get_kill_data(srp_kill_link)
+                                ) = SrpManager.get_kill_data(srp_kill_link)
 
                                 (
                                     srp_userrequest_ship,
@@ -157,14 +157,14 @@ class Command(BaseCommand):
                             srp_userrequest_character = srp_userrequest.character
                             srp_userrequest_srp_link = srp_link
 
-                            srp_userrequest_status = AaSrpRequest.Status.PENDING
+                            srp_userrequest_status = SrpRequest.Status.PENDING
                             if srp_userrequest.srp_status == "Approved":
-                                srp_userrequest_status = AaSrpRequest.Status.APPROVED
+                                srp_userrequest_status = SrpRequest.Status.APPROVED
 
                             if srp_userrequest.srp_status == "Rejected":
-                                srp_userrequest_status = AaSrpRequest.Status.REJECTED
+                                srp_userrequest_status = SrpRequest.Status.REJECTED
 
-                            srp_request = AaSrpRequest()
+                            srp_request = SrpRequest()
                             srp_request.killboard_link = srp_userrequest_killboard_link
                             srp_request.request_status = srp_userrequest_status
                             srp_request.payout_amount = srp_userrequest_payout
@@ -178,13 +178,13 @@ class Command(BaseCommand):
                             srp_request.save()
 
                             # add request info to comments
-                            srp_request_comment = AaSrpRequestComment()
+                            srp_request_comment = RequestComment()
                             srp_request_comment.comment = (
                                 srp_userrequest_additional_info
                             )
                             srp_request_comment.srp_request = srp_request
                             srp_request_comment.comment_type = (
-                                AaSrpRequestComment.Type.REQUEST_INFO
+                                RequestComment.Type.REQUEST_INFO
                             )
                             srp_request_comment.creator = srp_userrequest_creator
                             srp_request_comment.save()

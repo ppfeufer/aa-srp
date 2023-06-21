@@ -291,7 +291,7 @@ def send_message_to_discord_channel(
     channel_id: int, title: str, message: str, embed_message: bool = True
 ) -> None:
     """
-    Sending a message to a discord channel
+    Sending a message to a discord channel.
     This creates a message to the SRP Team channel on Discord when either
     Discordproxy or AA-Discordbot is installed
     :param channel_id:

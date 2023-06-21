@@ -72,8 +72,8 @@ class FleetType(models.Model):
         """
 
         default_permissions = ()
-        verbose_name = _("SRP Link Fleet Type")
-        verbose_name_plural = _("SRP Link Fleet Types")
+        verbose_name = _("Fleet Type")
+        verbose_name_plural = _("Fleet Types")
 
     def __str__(self) -> str:
         """
@@ -85,7 +85,7 @@ class FleetType(models.Model):
         return str(self.name)
 
 
-class AaSrpLink(models.Model):
+class SrpLink(models.Model):
     """
     SRP link model
     """
@@ -158,7 +158,7 @@ class AaSrpLink(models.Model):
 
         return sum(
             int(r.payout_amount)
-            for r in self.srp_requests.filter(request_status="Approved")
+            for r in self.srp_requests.filter(request_status=SrpRequest.Status.APPROVED)
         )
 
     @property
@@ -178,7 +178,7 @@ class AaSrpLink(models.Model):
         """
 
         return self.srp_requests.filter(
-            request_status=AaSrpRequest.Status.PENDING
+            request_status=SrpRequest.Status.PENDING
         ).count()
 
     @property
@@ -189,7 +189,7 @@ class AaSrpLink(models.Model):
         """
 
         return self.srp_requests.filter(
-            request_status=AaSrpRequest.Status.APPROVED
+            request_status=SrpRequest.Status.APPROVED
         ).count()
 
     @property
@@ -200,7 +200,7 @@ class AaSrpLink(models.Model):
         """
 
         return self.srp_requests.filter(
-            request_status=AaSrpRequest.Status.REJECTED
+            request_status=SrpRequest.Status.REJECTED
         ).count()
 
     @property
@@ -213,7 +213,7 @@ class AaSrpLink(models.Model):
         return self.srp_requests.all()
 
 
-class AaSrpRequest(models.Model):
+class SrpRequest(models.Model):
     """
     SRP Request model
     """
@@ -256,7 +256,7 @@ class AaSrpRequest(models.Model):
     )
     payout_amount = models.BigIntegerField(default=0)
     srp_link = models.ForeignKey(
-        AaSrpLink, related_name="srp_requests", on_delete=models.CASCADE
+        SrpLink, related_name="srp_requests", on_delete=models.CASCADE
     )
     loss_amount = models.BigIntegerField(default=0)
     post_time = models.DateTimeField(default=timezone.now)
@@ -268,8 +268,8 @@ class AaSrpRequest(models.Model):
         """
 
         default_permissions = ()
-        verbose_name = _("SRP Request")
-        verbose_name_plural = _("SRP Requests")
+        verbose_name = _("Request")
+        verbose_name_plural = _("Requests")
 
     def __str__(self):
         character_name = self.character.character_name
@@ -278,17 +278,22 @@ class AaSrpRequest(models.Model):
         request_code = self.request_code
 
         return _(
-            f"{character_name} ({user_name}) SRP Request for: {ship} ({request_code})"
+            "{character_name} ({user_name}) SRP Request for: {ship} ({request_code})"
+        ).format(
+            character_name=character_name,
+            user_name=user_name,
+            ship=ship,
+            request_code=request_code,
         )
 
 
-class AaSrpInsurance(models.Model):
+class Insurance(models.Model):
     """
     Insurance Model
     """
 
     srp_request = models.ForeignKey(
-        AaSrpRequest, on_delete=models.CASCADE, related_name="insurance"
+        SrpRequest, on_delete=models.CASCADE, related_name="insurance"
     )
     insurance_level = models.CharField(max_length=254, default="")
     insurance_cost = models.FloatField()
@@ -304,7 +309,7 @@ class AaSrpInsurance(models.Model):
         verbose_name_plural = _("Ship Insurances")
 
 
-class AaSrpRequestComment(models.Model):
+class RequestComment(models.Model):
     """
     SRP Request Comments model
     """
@@ -337,7 +342,7 @@ class AaSrpRequestComment(models.Model):
     )
 
     srp_request = models.ForeignKey(
-        AaSrpRequest,
+        SrpRequest,
         related_name="srp_request_comments",
         null=True,
         blank=True,
@@ -348,7 +353,7 @@ class AaSrpRequestComment(models.Model):
     comment_time = models.DateTimeField(default=timezone.now, null=True, blank=True)
 
     new_status = models.CharField(
-        max_length=8, choices=AaSrpRequest.Status.choices, blank=True, default=""
+        max_length=8, choices=SrpRequest.Status.choices, blank=True, default=""
     )
 
     class Meta:  # pylint: disable=too-few-public-methods
@@ -357,11 +362,11 @@ class AaSrpRequestComment(models.Model):
         """
 
         default_permissions = ()
-        verbose_name = _("SRP Request Comment")
-        verbose_name_plural = _("SRP Request Comments")
+        verbose_name = _("Comment")
+        verbose_name_plural = _("Comments")
 
 
-class AaSrpUserSettings(models.Model):
+class UserSetting(models.Model):
     """
     User settings
     """

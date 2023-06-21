@@ -209,11 +209,11 @@ just some basics)
 [Badge: Contributor Covenant]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg "Contributor Covenant"
 [Badge: Buy me a coffee]: https://ko-fi.com/img/githubbutton_sm.svg "Buy me a coffee"
 
-[Image: AA SRP Dashboard]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-dashboard.jpg "AA SRP Dashboard"
-[Image: AA SRP Dashboard (View All)]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-dashboard-view-all.jpg "AA SRP Dashboard (View All)"
-[Image: Your SRP Requests View]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-your-requests.jpg "Your SRP Requests View"
-[Image: SRP Requests Overview]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-requests-overview.jpg "SRP Requests Overview"
-[Image: SRP Request Details]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/images/aa-srp-request-details.jpg "SRP Request Details"
+[Image: AA SRP Dashboard]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/aa-srp-dashboard.jpg "AA SRP Dashboard"
+[Image: AA SRP Dashboard (View All)]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/aa-srp-dashboard-view-all.jpg "AA SRP Dashboard (View All)"
+[Image: Your SRP Requests View]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/aa-srp-your-requests.jpg "Your SRP Requests View"
+[Image: SRP Requests Overview]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/aa-srp-requests-overview.jpg "SRP Requests Overview"
+[Image: SRP Request Details]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/aa-srp-request-details.jpg "SRP Request Details"
 
 <!-- Links -->
 [AA SRP on Pypi]: https://pypi.org/project/aa-srp/
