@@ -41,49 +41,49 @@ def get_formatted_character_name(
             f"{character_name}"
             "</span>"
         )
-    else:
-        character__corporation_ticker = (
-            f"[{character.corporation_ticker}] " if character.corporation_ticker else ""
+
+    character__corporation_ticker = (
+        f"[{character.corporation_ticker}] " if character.corporation_ticker else ""
+    )
+    character__alliance_ticker = (
+        f"{character.alliance_ticker} " if character.alliance_ticker else ""
+    )
+    character_name_formatted = (
+        "<small class='text-muted'>"
+        f"{character__alliance_ticker}{character__corporation_ticker}</small>"
+        f"<br>{character_name}"
+    )
+
+    if with_copy_icon is True:
+        title = _("Copy character name to clipboard")
+        character_name_formatted += (
+            "<i "
+            'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
+            f'data-clipboard-text="{character_name}" title="{title}"></i>'
         )
-        character__alliance_ticker = (
-            f"{character.alliance_ticker} " if character.alliance_ticker else ""
+
+    return_value = character_name_formatted
+
+    if with_portrait is True:
+        line_break = ""
+        if inline is False:
+            line_break = "<br>"
+
+        character_portrait_html = get_character_portrait_from_evecharacter(
+            character=character, size=portrait_size, as_html=True
         )
-        character_name_formatted = (
-            "<small class='text-muted'>"
-            f"{character__alliance_ticker}{character__corporation_ticker}</small>"
-            f"<br>{character_name}"
+
+        return_value = (
+            f"{character_portrait_html}{line_break}"
+            "<span class='aasrp-character-portrait-character-name'>"
+            f"{character_name_formatted}"
+            "</span>"
         )
-
-        if with_copy_icon is True:
-            title = _("Copy character name to clipboard")
-            character_name_formatted += (
-                "<i "
-                'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
-                f'data-clipboard-text="{character_name}" title="{title}"></i>'
-            )
-
-        return_value = character_name_formatted
-
-        if with_portrait is True:
-            line_break = ""
-            if inline is False:
-                line_break = "<br>"
-
-            character_portrait_html = get_character_portrait_from_evecharacter(
-                character=character, size=portrait_size, as_html=True
-            )
-
-            return_value = (
-                f"{character_portrait_html}{line_break}"
-                "<span class='aasrp-character-portrait-character-name'>"
-                f"{character_name_formatted}"
-                "</span>"
-            )
 
     return return_value
 
 
-def get_main_for_character(character: EveCharacter) -> EveCharacter:
+def get_main_for_character(character: EveCharacter) -> EveCharacter | None:
     """
     Get the main character for a given eve character
     :param character:
@@ -95,11 +95,9 @@ def get_main_for_character(character: EveCharacter) -> EveCharacter:
         EveCharacter.character_ownership.RelatedObjectDoesNotExist,
         CharacterOwnership.user.RelatedObjectDoesNotExist,
     ):
-        return_value = None
-    else:
-        return_value = userprofile.main_character
+        return None
 
-    return return_value
+    return userprofile.main_character
 
 
 def get_user_for_character(character: EveCharacter) -> User:
@@ -115,11 +113,9 @@ def get_user_for_character(character: EveCharacter) -> User:
         EveCharacter.character_ownership.RelatedObjectDoesNotExist,
         CharacterOwnership.user.RelatedObjectDoesNotExist,
     ):
-        return_value = get_sentinel_user()
-    else:
-        return_value = userprofile.user
+        return get_sentinel_user()
 
-    return return_value
+    return userprofile.user
 
 
 def get_main_character_from_user(user: User) -> str:

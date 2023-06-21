@@ -2,8 +2,6 @@
 Hook into AA
 """
 
-# Django
-from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
 from allianceauth import hooks
@@ -23,7 +21,7 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
         # Setup menu entry for sidebar
         MenuItemHook.__init__(
             self,
-            _(__title__),
+            __title__,
             "far fa-money-bill-alt fa-fw",
             "aasrp:dashboard",
             navactive=["aasrp:"],

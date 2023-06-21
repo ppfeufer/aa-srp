@@ -278,7 +278,12 @@ class SrpRequest(models.Model):
         request_code = self.request_code
 
         return _(
-            f"{character_name} ({user_name}) SRP Request for: {ship} ({request_code})"
+            "{character_name} ({user_name}) SRP Request for: {ship} ({request_code})"
+        ).format(
+            character_name=character_name,
+            user_name=user_name,
+            ship=ship,
+            request_code=request_code,
         )
 
 

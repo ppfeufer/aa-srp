@@ -76,6 +76,7 @@ class SrpLinkAdmin(admin.ModelAdmin):
     @admin.display(description=_("Creator"), ordering="creator")
     def _creator(cls, obj):
         creator_name = obj.creator
+
         if obj.creator.profile.main_character:
             creator_name = obj.creator.profile.main_character.character_name
 
@@ -115,6 +116,7 @@ class SrpRequestAdmin(admin.ModelAdmin):
     @admin.display(description=_("Requestor"), ordering="creator")
     def _creator(cls, obj):
         creator_name = obj.creator
+
         if obj.creator.profile.main_character:
             creator_name = obj.creator.profile.main_character.character_name
 
