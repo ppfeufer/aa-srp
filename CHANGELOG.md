@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning]
   - Form classes
   - Admin classes
   - Manager
+- Views split into their respective files, makes it easier to maintain
 
 
 ## [1.19.0] - 2023-04-26
