@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-21 22:13+0200\n"
+"POT-Creation-Date: 2023-06-21 23:22+0200\n"
 "PO-Revision-Date: 2023-06-21 18:51+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -194,11 +194,11 @@ msgstr ""
 "Benachrichtigungen deaktivieren. (Auth und Discord, wenn ein entsprechendes "
 "Modul installiert ist)"
 
-#: helper/character.py:37
+#: helper/character.py:40
 msgid "Unknown Character"
 msgstr "Unbekannter Charakter"
 
-#: helper/character.py:58
+#: helper/character.py:61
 msgid "Copy character name to clipboard"
 msgstr "Charakternamen in die Zwischenablage kopieren"
 

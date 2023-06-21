@@ -242,8 +242,8 @@ class FleetTypeAdmin(admin.ModelAdmin):
             messages.error(
                 request,
                 ngettext(
-                    f"Failed to deactivate {failed} fleet type",
-                    f"Failed to deactivate {failed} fleet types",
+                    "Failed to deactivate {failed} fleet type",
+                    "Failed to deactivate {failed} fleet types",
                     failed,
                 ).format(failed=failed),
             )
@@ -252,8 +252,8 @@ class FleetTypeAdmin(admin.ModelAdmin):
             messages.success(
                 request,
                 ngettext(
-                    f"Deactivated {notifications_count} fleet type",
-                    f"Deactivated {notifications_count} fleet types",
+                    "Deactivated {notifications_count} fleet type",
+                    "Deactivated {notifications_count} fleet types",
                     notifications_count,
                 ).format(notifications_count=notifications_count),
             )

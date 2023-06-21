@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-21 22:13+0200\n"
+"POT-Creation-Date: 2023-06-21 23:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -180,11 +180,11 @@ msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
 
-#: helper/character.py:37
+#: helper/character.py:40
 msgid "Unknown Character"
 msgstr ""
 
-#: helper/character.py:58
+#: helper/character.py:61
 msgid "Copy character name to clipboard"
 msgstr ""
 
