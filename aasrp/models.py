@@ -96,13 +96,16 @@ class FleetType(models.Model):
     id = models.AutoField(primary_key=True)
 
     name = models.CharField(
-        max_length=254, help_text=_("Descriptive name of your fleet type")
+        max_length=254,
+        help_text=_("Descriptive name of your fleet type"),
+        verbose_name=_("Name"),
     )
 
     is_enabled = models.BooleanField(
         default=True,
         db_index=True,
         help_text=_("Whether this fleet type is active or not"),
+        verbose_name=_("Is enabled"),
     )
 
     class Meta:  # pylint: disable=too-few-public-methods
@@ -138,11 +141,14 @@ class SrpLink(models.Model):
         CLOSED = "Closed", _("Closed")
         COMPLETED = "Completed", _("Completed")
 
-    srp_name = models.CharField(max_length=254, default="")
+    srp_name = models.CharField(max_length=254, default="", verbose_name=_("SRP Name"))
     srp_status = models.CharField(
-        max_length=9, choices=Status.choices, default=Status.ACTIVE
+        max_length=9,
+        choices=Status.choices,
+        default=Status.ACTIVE,
+        verbose_name=_("SRP Status"),
     )
-    srp_code = models.CharField(max_length=16, default="")
+    srp_code = models.CharField(max_length=16, default="", verbose_name=_("SRP Code"))
     fleet_commander = models.ForeignKey(
         EveCharacter,
         related_name="+",
@@ -150,8 +156,11 @@ class SrpLink(models.Model):
         blank=True,
         default=None,
         on_delete=models.SET_NULL,
+        verbose_name=_("Fleet Commander"),
     )
-    fleet_doctrine = models.CharField(max_length=254, default="")
+    fleet_doctrine = models.CharField(
+        max_length=254, default="", verbose_name=_("Doctrine")
+    )
 
     fleet_type = models.ForeignKey(
         FleetType,
@@ -161,10 +170,13 @@ class SrpLink(models.Model):
         blank=True,
         default=None,
         help_text=_("The SRP link fleet type, if it's set"),
+        verbose_name=_("Fleet Type"),
     )
 
-    fleet_time = models.DateTimeField()
-    aar_link = models.CharField(max_length=254, blank=True, default="")
+    fleet_time = models.DateTimeField(verbose_name=_("Fleet Time"))
+    aar_link = models.CharField(
+        max_length=254, blank=True, default="", verbose_name=_("AAR Link")
+    )
 
     creator = models.ForeignKey(
         User,
@@ -174,6 +186,7 @@ class SrpLink(models.Model):
         default=None,
         on_delete=models.SET(get_sentinel_user),
         help_text=_("Who created the SRP link?"),
+        verbose_name=_("Creator"),
     )
 
     class Meta:  # pylint: disable=too-few-public-methods
@@ -266,7 +279,9 @@ class SrpRequest(models.Model):
         APPROVED = "Approved", _("Approved")
         REJECTED = "Rejected", _("Rejected")
 
-    request_code = models.CharField(max_length=254, default="")
+    request_code = models.CharField(
+        max_length=254, default="", verbose_name=_("Request Code")
+    )
     creator = models.ForeignKey(
         User,
         related_name="+",
@@ -275,11 +290,19 @@ class SrpRequest(models.Model):
         default=None,
         on_delete=models.SET(get_sentinel_user),
         help_text=_("Who created the SRP link?"),
+        verbose_name=_("Creator"),
     )
     character = models.ForeignKey(
-        EveCharacter, related_name="+", null=True, blank=True, on_delete=models.SET_NULL
+        EveCharacter,
+        related_name="+",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_("Character"),
     )
-    ship_name = models.CharField(max_length=254, default="")
+    ship_name = models.CharField(
+        max_length=254, default="", verbose_name=_("Ship Type")
+    )
     ship = models.ForeignKey(
         EveType,
         related_name="srp_requests",
@@ -287,19 +310,34 @@ class SrpRequest(models.Model):
         blank=True,
         default=None,
         on_delete=models.SET_NULL,
+        verbose_name=_("Ship Type"),
     )
-    killboard_link = models.CharField(max_length=254, default="")
-    additional_info = models.TextField(blank=True, default="")
+    killboard_link = models.CharField(
+        max_length=254, default="", verbose_name=_("Killboard Link")
+    )
+    additional_info = models.TextField(
+        blank=True, default="", verbose_name=_("Additional Information")
+    )
     request_status = models.CharField(
-        max_length=8, choices=Status.choices, default=Status.PENDING
+        max_length=8,
+        choices=Status.choices,
+        default=Status.PENDING,
+        verbose_name=_("Request Status"),
     )
-    payout_amount = models.BigIntegerField(default=0)
+    payout_amount = models.BigIntegerField(default=0, verbose_name=_("Payout Amount"))
     srp_link = models.ForeignKey(
-        SrpLink, related_name="srp_requests", on_delete=models.CASCADE
+        SrpLink,
+        related_name="srp_requests",
+        on_delete=models.CASCADE,
+        verbose_name=_("SRP Link"),
     )
-    loss_amount = models.BigIntegerField(default=0)
-    post_time = models.DateTimeField(default=timezone.now)
-    reject_info = models.TextField(blank=True, default="")
+    loss_amount = models.BigIntegerField(default=0, verbose_name=_("Loss Amount"))
+    post_time = models.DateTimeField(
+        default=timezone.now, verbose_name=_("Request Time")
+    )
+    reject_info = models.TextField(
+        blank=True, default="", verbose_name=_("Reject Reason")
+    )
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
@@ -332,11 +370,16 @@ class Insurance(models.Model):
     """
 
     srp_request = models.ForeignKey(
-        SrpRequest, on_delete=models.CASCADE, related_name="insurance"
+        SrpRequest,
+        on_delete=models.CASCADE,
+        related_name="insurance",
+        verbose_name=_("SRP Request"),
     )
-    insurance_level = models.CharField(max_length=254, default="")
-    insurance_cost = models.FloatField()
-    insurance_payout = models.FloatField()
+    insurance_level = models.CharField(
+        max_length=254, default="", verbose_name=_("Insurance Level")
+    )
+    insurance_cost = models.FloatField(verbose_name=_("Insurance Cost"))
+    insurance_payout = models.FloatField(verbose_name=_("Insurance Payout"))
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
@@ -365,10 +408,13 @@ class RequestComment(models.Model):
         STATUS_CHANGE = "Status Changed", _("Status Changed")
         REVISER_COMMENT = "Reviser Comment", _("Reviser Comment")
 
-    comment = models.TextField(blank=True, default="")
+    comment = models.TextField(blank=True, default="", verbose_name=_("Comment"))
 
     comment_type = models.CharField(
-        max_length=19, choices=Type.choices, default=Type.COMMENT
+        max_length=19,
+        choices=Type.choices,
+        default=Type.COMMENT,
+        verbose_name=_("Comment Type"),
     )
 
     creator = models.ForeignKey(
@@ -378,6 +424,7 @@ class RequestComment(models.Model):
         blank=True,
         default=None,
         on_delete=models.SET(get_sentinel_user),
+        verbose_name=_("Creator"),
     )
 
     srp_request = models.ForeignKey(
@@ -387,12 +434,24 @@ class RequestComment(models.Model):
         blank=True,
         default=None,
         on_delete=models.CASCADE,
+        verbose_name=_("SRP Request"),
     )
 
-    comment_time = models.DateTimeField(default=timezone.now, null=True, blank=True)
+    comment_time = models.DateTimeField(
+        default=timezone.now,
+        null=True,
+        blank=True,
+        # Translators: This is the time when the comment was made
+        verbose_name=_("Comment Time"),
+    )
 
     new_status = models.CharField(
-        max_length=8, choices=SrpRequest.Status.choices, blank=True, default=""
+        max_length=8,
+        choices=SrpRequest.Status.choices,
+        blank=True,
+        default="",
+        # Translators: New SRP request status that might have been set
+        verbose_name=_("New SRP Request Status"),
     )
 
     class Meta:  # pylint: disable=too-few-public-methods
@@ -417,9 +476,12 @@ class UserSetting(models.Model):
         blank=True,
         default=None,
         on_delete=models.SET(get_sentinel_user),
+        verbose_name=_("User"),
     )
 
-    disable_notifications = models.BooleanField(default=False)
+    disable_notifications = models.BooleanField(
+        default=False, verbose_name=_("Disable Notifications")
+    )
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
