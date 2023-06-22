@@ -137,7 +137,7 @@ def _discordproxy_send_private_message(
             # Third Party
             from discordproxy.discord_api_pb2 import Embed
 
-            footer = Embed.Footer(text=__title__)
+            footer = Embed.Footer(text=str(__title__))
             embed = Embed(
                 title=str(title),
                 description=message,
@@ -197,7 +197,7 @@ def _discordproxy_send_channel_message(
             # Third Party
             from discordproxy.discord_api_pb2 import Embed
 
-            footer = Embed.Footer(text=__title__)
+            footer = Embed.Footer(text=str(__title__))
 
             embed = Embed(
                 title=title,
