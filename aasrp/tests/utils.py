@@ -16,7 +16,7 @@ from django.contrib.auth.models import User
 from allianceauth.tests.auth_utils import AuthUtils
 
 # AA SRP
-from aasrp.models import FleetType
+from aasrp.models import FleetType, Setting
 
 fake = Faker()
 
@@ -106,3 +106,13 @@ def create_fleettype(**kwargs) -> FleetType:
         kwargs["name"] = fake.name()
 
     return FleetType.objects.create(**kwargs)
+
+
+def create_setting(**kwargs) -> Setting:
+    """
+    Create setting
+    :param kwargs:
+    :return:
+    """
+
+    return Setting.objects.create(**kwargs)

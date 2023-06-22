@@ -8,7 +8,8 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 # AA SRP
-from aasrp.models import FleetType, RequestComment, SrpLink, SrpRequest
+from aasrp.form import SettingAdminForm
+from aasrp.models import FleetType, RequestComment, Setting, SrpLink, SrpRequest
 
 
 def custom_filter(title):
@@ -50,6 +51,51 @@ def custom_filter(title):
             return instance
 
     return Wrapper
+
+
+class SingletonModelAdmin(admin.ModelAdmin):
+    """
+    Prevents Django admin users deleting the singleton or adding extra rows.
+    """
+
+    actions = None  # Removes the default delete action.
+
+    def has_add_permission(self, request):
+        """
+        Has "add" permissions
+        :param request:
+        :type request:
+        :return:
+        :rtype:
+        """
+
+        return self.model.objects.all().count() == 0
+
+    def has_change_permission(self, request, obj=None):
+        """
+        Has "change" permissions
+        :param request:
+        :type request:
+        :param obj:
+        :type obj:
+        :return:
+        :rtype:
+        """
+
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        """
+        Has "delete" permissions
+        :param request:
+        :type request:
+        :param obj:
+        :type obj:
+        :return:
+        :rtype:
+        """
+
+        return False
 
 
 @admin.register(SrpLink)
@@ -257,3 +303,12 @@ class FleetTypeAdmin(admin.ModelAdmin):
                     notifications_count,
                 ).format(notifications_count=notifications_count),
             )
+
+
+@admin.register(Setting)
+class SettingAdmin(SingletonModelAdmin):
+    """
+    Setting Admin
+    """
+
+    form = SettingAdminForm

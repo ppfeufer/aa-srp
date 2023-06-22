@@ -14,6 +14,9 @@ from allianceauth.eveonline.models import EveCharacter
 # Alliance Auth (External Libs)
 from eveuniverse.models import EveType
 
+# AA SRP
+from aasrp.managers import SettingManager
+
 
 def get_sentinel_user():
     """
@@ -22,6 +25,42 @@ def get_sentinel_user():
     """
 
     return User.objects.get_or_create(username="deleted")[0]
+
+
+class SingletonModel(models.Model):
+    """
+    SingletonModel
+    """
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        Model meta definitions
+        """
+
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        """
+        Save action
+        :param args:
+        :param kwargs:
+        :return:
+        """
+
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """
+        Delete action
+        :param args:
+        :param kwargs:
+        :return:
+        """
+
+        pass  # pylint: disable=unnecessary-pass
 
 
 class AaSrp(models.Model):
@@ -390,3 +429,39 @@ class UserSetting(models.Model):
         default_permissions = ()
         verbose_name = _("User Settings")
         verbose_name_plural = _("User Settings")
+
+
+class Setting(SingletonModel):
+    """
+    SRP module settings
+    """
+
+    class Field(models.TextChoices):
+        """
+        Choices for Setting.Field
+        """
+
+        SRP_TEAM_DISCORD_CHANNEL_ID = "srp_team_discord_channel_id", _(
+            "SRP Team Discord Channel ID"
+        )
+
+    srp_team_discord_channel_id = models.PositiveBigIntegerField(
+        null=True,
+        default=None,
+        blank=True,
+        verbose_name=Field.SRP_TEAM_DISCORD_CHANNEL_ID.label,
+    )
+
+    objects = SettingManager()
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        Meta definitions
+        """
+
+        default_permissions = ()
+        verbose_name = _("setting")
+        verbose_name_plural = _("settings")
+
+    def __str__(self) -> str:
+        return str(_("AA-SRP Settings"))
