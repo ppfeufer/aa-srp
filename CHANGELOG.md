@@ -14,6 +14,8 @@ as well as the following:**
 
 ### ⚠️ Important ⚠️
 
+#### Updating From the Alpha Version
+
 If you by any chance installed
 [v1.20.0-alpha.1](https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md#1200-alpha1---2023-06-21)
 you have to reset the migrations **before** updating to this version. This release contains
@@ -34,9 +36,39 @@ python manage.py showmigrations aasrp
 If the last line does **not** say `[X] 0010_change_model_names_and_verobose_names`,
 you are good to go. (And yes, I know, there is a typo in that migration name.)
 
+#### Updating Process
+
+This version has quite some changes to its database models, so please make sure to
+back up your database before you update.
+
+These database changes mean that apps which use any of this app's DB tables (e.g.:
+Grafana Dashboards if you use them or [AA Fleet Pings]) will break and will need to
+be updated as well. For [AA Fleet Pings] there will be a release alongside this one.
+
+[AA Fleet Pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
+
+Once you have your database backed up, run the following:
+
+```shell
+pip install aa-srp==1.20.0
+python manage.py migrate aasrp
+````
+
+After that, update all other apps that need to be updated following the usual process.
+
+
 ### Removed
 
 - Hardcoded category ID and using the constant from `django-eveuniverse` directly
+
+### Changed
+
+- Moved settings from `local.py` to the database
+
+### Fixed
+
+- `AttributeError: 'NoneType' object has no attribute 'character_name'` for
+  `SrpRequest` model
 
 
 ## [1.20.0-alpha.1] - 2023-06-21
