@@ -36,7 +36,6 @@ SRP Module for [Alliance Auth]
     * [Step 5: Setting up Permissions](#step-5-setting-up-permissions)
     * [Step 6: (Optional) Import From Built-in SRP Module](#step-6-optional-import-from-built-in-srp-module)
   * [Permissions](#permissions)
-  * [Settings](#settings)
   * [Changelog](#changelog)
   * [Contributing](#contributing)
 <!-- TOC -->
@@ -174,13 +173,6 @@ python manage.py aasrp_migrate_srp_data
 | `create_srp`          | Can create new SRP links     | Your FCs should have this permission.                                                                       |
 | `manage_srp`          | Can manage SRP               | Users with this permission can manage the AA SRP Module. Like changing and removing SRP links and requests. |
 | `manage_srp_requests` | Can manage SRP requests      | Users with this permission can manage the SRP requests. Like changing and removing SRP requests.            |
-
-
-## Settings
-
-| Key                              | Description                                                                                                                                                                                                                                                  | Type  | Default  |
-|----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|----------|
-| `AASRP_SRP_TEAM_DISCORD_CHANNEL` | ID of the Discord channel of your SRP team. If set, your SRP team will be notified (no ping to prevent ping spam) about new SRP requests in their channel. (You need to have [Discord Proxy] or [AA-Discordbot] installed and configured to use this option) | int   | `None`   |
 
 
 ## Changelog

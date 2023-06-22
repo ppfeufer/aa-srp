@@ -25,7 +25,6 @@ from eveuniverse.models import EveType
 
 # AA SRP
 from aasrp import __title__
-from aasrp.app_settings import AASRP_SRP_TEAM_DISCORD_CHANNEL
 from aasrp.constants import ZKILLBOARD_BASE_URL
 from aasrp.form import (
     SrpLinkForm,
@@ -39,7 +38,7 @@ from aasrp.form import (
 from aasrp.helper.notification import send_message_to_discord_channel
 from aasrp.helper.user import get_user_settings
 from aasrp.managers import SrpManager
-from aasrp.models import Insurance, RequestComment, SrpLink, SrpRequest
+from aasrp.models import Insurance, RequestComment, Setting, SrpLink, SrpRequest
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
@@ -340,7 +339,10 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 messages.success(request, _(f"Submitted SRP request for your {ship}."))
 
                 # Send a message to the srp team in their discord channel
-                if AASRP_SRP_TEAM_DISCORD_CHANNEL is not None:
+                srp_team_discord_channel = Setting.objects.get_setting(
+                    Setting.Field.SRP_TEAM_DISCORD_CHANNEL_ID
+                )
+                if srp_team_discord_channel is not None:
                     site_base_url = site_absolute_url()
                     request_code = srp_request.request_code
                     character_name = srp_request__character.character_name
@@ -370,7 +372,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     )
 
                     send_message_to_discord_channel(
-                        channel_id=AASRP_SRP_TEAM_DISCORD_CHANNEL,
+                        channel_id=srp_team_discord_channel,
                         title=title,
                         message=message,
                     )
