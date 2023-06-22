@@ -7,6 +7,7 @@ import requests
 
 # Django
 from django.contrib.auth.models import User
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
@@ -18,7 +19,6 @@ from app_utils.logging import LoggerAddTag
 # AA SRP
 from aasrp import __title__
 from aasrp.constants import USERAGENT, ZKILLBOARD_API_URL
-from aasrp.models import SrpRequest
 from aasrp.providers import esi
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
@@ -93,6 +93,9 @@ class SrpManager:
         or None if user has no permission
         """
 
+        # AA SRP
+        from aasrp.models import SrpRequest
+
         if user.has_perm("aasrp.manage_srp") or user.has_perm(
             "aasrp.manage_srp_requests"
         ):
@@ -117,3 +120,43 @@ class SrpManager:
                 return insurance
 
         return None
+
+
+class SettingQuerySet(models.QuerySet):
+    """
+    SettingQuerySet
+    """
+
+    def delete(self):
+        """
+        Delete action
+
+        Override:   We don't allow deletion here, so we make sure the object
+                    is saved again and not deleted
+        :return:
+        """
+
+        return super().update()
+
+
+class SettingManager(models.Manager):
+    """
+    SettingManager
+    """
+
+    def get_setting(self, setting_key: str) -> str:
+        """
+        Return the value for given setting key
+        :param setting_key:
+        :return:
+        """
+
+        return getattr(self.first(), setting_key)
+
+    def get_queryset(self):
+        """
+        Get a Setting queryset
+        :return:
+        """
+
+        return SettingQuerySet(self.model)
