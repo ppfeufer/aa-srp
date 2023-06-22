@@ -448,6 +448,7 @@ class Setting(SingletonModel):
     srp_team_discord_channel_id = models.PositiveBigIntegerField(
         null=True,
         default=None,
+        blank=True,
         verbose_name=Field.SRP_TEAM_DISCORD_CHANNEL_ID.label,
     )
 

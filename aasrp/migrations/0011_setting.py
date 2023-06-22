@@ -27,6 +27,7 @@ class Migration(migrations.Migration):
                     models.PositiveBigIntegerField(
                         default=None,
                         null=True,
+                        blank=True,
                         verbose_name="SRP Team Discord Channel ID",
                     ),
                 ),
