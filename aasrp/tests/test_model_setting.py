@@ -89,3 +89,18 @@ class TestSetting(TestCase):
 
         # Check if both of our objects are identical
         self.assertEqual(settings_old, settings_first)
+
+    def test_srp_team_discord_channel_id_is_not_mandatory(self):
+        """
+        Test that we get None when the Discord Channel ID field is empty
+        :return:
+        :rtype:
+        """
+
+        # given
+        setting = Setting()
+        setting.save()
+
+        # then
+        self.assertEqual(setting.pk, 1)
+        self.assertEqual(setting.srp_team_discord_channel_id, None)
