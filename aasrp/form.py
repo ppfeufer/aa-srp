@@ -21,7 +21,7 @@ from aasrp.constants import (
     ZKILLBOARD_KILLMAIL_URL_REGEX,
 )
 from aasrp.managers import SrpManager
-from aasrp.models import FleetType, SrpLink, SrpRequest, UserSetting
+from aasrp.models import FleetType, Setting, SrpLink, SrpRequest, UserSetting
 
 
 def get_mandatory_form_label_text(text: str) -> str:
@@ -244,3 +244,18 @@ class UserSettingsForm(ModelForm):
 
         model = UserSetting
         fields = ["disable_notifications"]
+
+
+class SettingAdminForm(forms.ModelForm):
+    """
+    Form definitions for the FleetType form in admin
+    """
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        Meta
+        """
+
+        model = Setting
+        fields = "__all__"
+        widgets = {"default_embed_color": forms.TextInput(attrs={"type": "color"})}
