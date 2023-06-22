@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("aasrp", "0011_setting"),
+        ("aasrp", "0010_model_changes"),
     ]
 
     operations = [migrations.RunPython(on_migrate, on_migrate_zero)]
