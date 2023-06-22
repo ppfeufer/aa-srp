@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+**This release includes all the changes from
+[v1.20.0-alpha.1](https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md#1200-alpha1---2023-06-21)
+as well as the following:**
+
+### Removed
+
+- Hardcoded category ID and using the constant from `django-eveuniverse` directly
+
 
 ## [1.20.0-alpha.1] - 2023-06-21
 
