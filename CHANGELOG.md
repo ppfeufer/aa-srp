@@ -12,6 +12,28 @@ and this project adheres to [Semantic Versioning]
 [v1.20.0-alpha.1](https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md#1200-alpha1---2023-06-21)
 as well as the following:**
 
+### ⚠️ Important ⚠️
+
+If you by any chance installed
+[v1.20.0-alpha.1](https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md#1200-alpha1---2023-06-21)
+you have to reset the migrations **before** updating to this version. This release contains
+multiple migrations from the development process that have been combined.
+
+To reset the migration from the Alpha version, simply run:
+
+```shell
+python manage.py migrate aasrp 0009
+```
+
+If you are unsure, you can check which migrations are applied with:
+
+```shell
+python manage.py showmigrations aasrp
+```
+
+If the last line does **not** say `[X] 0010_change_model_names_and_verobose_names`,
+you are good to go. (And yes, I know, there is a typo in that migration name.)
+
 ### Removed
 
 - Hardcoded category ID and using the constant from `django-eveuniverse` directly
