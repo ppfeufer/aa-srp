@@ -328,7 +328,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 user_name = request.user
                 character_name = srp_request__character
                 srp_name = srp_link.srp_name
-                srp_code = srp_request.request_code
+                srp_code = srp_link.srp_code
                 logger.info(
                     f"Created SRP request on behalf of user {user_name} "
                     f"(character: {character_name}) for fleet name {srp_name} "
@@ -352,7 +352,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                         "@", "{@}"
                     )
                     srp_link = site_base_url + reverse(
-                        "aasrp:view_srp_requests", args=[srp_link.srp_code]
+                        "aasrp:view_srp_requests", args=[srp_code]
                     )
 
                     title = "New SRP Request"

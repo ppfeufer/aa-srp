@@ -69,6 +69,7 @@ After that, update all other apps that need to be updated following the usual pr
 
 - `AttributeError: 'NoneType' object has no attribute 'character_name'` for
   `SrpRequest` model
+- SRP code in discord channel message
 
 
 ## [1.20.0-alpha.1] - 2023-06-21
