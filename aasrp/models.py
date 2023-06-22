@@ -349,8 +349,11 @@ class SrpRequest(models.Model):
         verbose_name_plural = _("Requests")
 
     def __str__(self):
+        # AA SRP
+        from aasrp.helper.character import get_main_character_from_user
+
         character_name = self.character.character_name
-        user_name = self.creator.profile.main_character.character_name
+        user_name = get_main_character_from_user(self.creator)
         ship = self.ship.name
         request_code = self.request_code
 
