@@ -64,6 +64,7 @@ After that, update all other apps that need to be updated following the usual pr
 ### Changed
 
 - Moved settings from `local.py` to the database
+- Existing translations improved
 
 ### Fixed
 
