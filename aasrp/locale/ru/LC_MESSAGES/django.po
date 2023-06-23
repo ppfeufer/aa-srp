@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-22 19:03+0200\n"
-"PO-Revision-Date: 2023-06-21 22:34+0000\n"
-"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/ru/>\n"
+"PO-Revision-Date: 2023-06-23 06:53+0000\n"
+"Last-Translator: Nikolay <nick.postnikov@gmail.com>\n"
+"Language-Team: Russian <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,8 +44,6 @@ msgid "Fleet Type"
 msgstr "Тип флота"
 
 #: admin.py:205 models.py:108
-#, fuzzy
-#| msgid "Is Enabled"
 msgid "Is enabled"
 msgstr "Разрешен"
 
@@ -95,10 +93,9 @@ msgstr[3] "Деактивировать {notifications_count} тип флота"
 
 #. Translators: This is the app name and version, which will appear in the Django Backend
 #: apps.py:21
-#, fuzzy, python-brace-format
-#| msgid "Ship Replacement"
+#, python-brace-format
 msgid "AA Ship Replacement v{__version__}"
-msgstr "AA Ship Replacement v{__version__}"
+msgstr "AA Компенсация корабля v{__version__}"
 
 #: constants.py:20
 msgid ""
@@ -286,7 +283,7 @@ msgstr "Характерное название данного типа флот
 
 #: models.py:101
 msgid "Name"
-msgstr ""
+msgstr "Название"
 
 #: models.py:107
 msgid "Whether this fleet type is active or not"
@@ -309,16 +306,12 @@ msgid "Completed"
 msgstr "Завершен"
 
 #: models.py:144
-#, fuzzy
-#| msgid "SRP Link Name"
 msgid "SRP Name"
-msgstr "Название SRP ссылки"
+msgstr "Название SRP"
 
 #: models.py:149
-#, fuzzy
-#| msgid "Status"
 msgid "SRP Status"
-msgstr "Статус"
+msgstr "Статус SRP"
 
 #: models.py:151 templates/aasrp/partials/dashboard/srp_links.html:22
 #: templates/aasrp/partials/dashboard/user_srp_requests.html:19
@@ -336,10 +329,8 @@ msgid "The SRP link fleet type, if it's set"
 msgstr "Тип флота для SRP ссылки, при наличии"
 
 #: models.py:178
-#, fuzzy
-#| msgid "SRP Link"
 msgid "AAR Link"
-msgstr "SRP ссылка"
+msgstr "AAR ссылка"
 
 #: models.py:188 models.py:292
 msgid "Who created the SRP link?"
@@ -380,8 +371,6 @@ msgid "Character"
 msgstr "Пилот"
 
 #: models.py:304 models.py:313
-#, fuzzy
-#| msgid "Ship"
 msgid "Ship Type"
 msgstr "Тип корабля"
 
@@ -398,11 +387,11 @@ msgstr "Статус запроса"
 
 #: models.py:327
 msgid "Payout Amount"
-msgstr ""
+msgstr "Размер выплаты"
 
 #: models.py:334
 msgid "Loss Amount"
-msgstr ""
+msgstr "Оценка ущерба"
 
 #: models.py:336 templates/aasrp/partials/dashboard/user_srp_requests.html:16
 #: templates/aasrp/partials/view_requests/requests.html:15
@@ -433,16 +422,12 @@ msgid "SRP Request"
 msgstr "SRP запрос"
 
 #: models.py:382
-#, fuzzy
-#| msgid "Insurance Payout"
 msgid "Insurance Level"
-msgstr "Страховая выплата"
+msgstr "Уровень страховки"
 
 #: models.py:384
-#, fuzzy
-#| msgid "Insurance Payout"
 msgid "Insurance Cost"
-msgstr "Страховая выплата"
+msgstr "Стоимость страховки"
 
 #: models.py:385
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:37
@@ -471,24 +456,18 @@ msgid "Reviser Comment"
 msgstr "Комментарий ревизора"
 
 #: models.py:420
-#, fuzzy
-#| msgid "Comment"
 msgid "Comment Type"
-msgstr "Комментарий"
+msgstr "Тип комментария"
 
 #. Translators: This is the time when the comment was made
 #: models.py:448
-#, fuzzy
-#| msgid "Comment"
 msgid "Comment Time"
-msgstr "Комментарий"
+msgstr "Время комментария"
 
 #. Translators: New SRP request status that might have been set
 #: models.py:457
-#, fuzzy
-#| msgid "Request Status"
 msgid "New SRP Request Status"
-msgstr "Статус запроса"
+msgstr "Статус нового запроса SRP"
 
 #: models.py:467
 msgid "Comments"
@@ -496,13 +475,11 @@ msgstr "Комментарии"
 
 #: models.py:482
 msgid "User"
-msgstr ""
+msgstr "Пользователь"
 
 #: models.py:486
-#, fuzzy
-#| msgid "Notification Settings"
 msgid "Disable Notifications"
-msgstr "Настройки уведомлений"
+msgstr "Отключить уведомления"
 
 #: models.py:495 models.py:496
 msgid "User Settings"
@@ -510,25 +487,19 @@ msgstr "Настройки пользователя"
 
 #: models.py:510
 msgid "SRP Team Discord Channel ID"
-msgstr ""
+msgstr "Идентификатор канала Discord команды SRP"
 
 #: models.py:528
-#, fuzzy
-#| msgid "Settings"
 msgid "setting"
-msgstr "Настройки"
+msgstr "настройка"
 
 #: models.py:529
-#, fuzzy
-#| msgid "Settings"
 msgid "settings"
-msgstr "Настройки"
+msgstr "настройки"
 
 #: models.py:532
-#, fuzzy
-#| msgid "Settings"
 msgid "AA-SRP Settings"
-msgstr "Настройки"
+msgstr "Настройки AA-SRP"
 
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:25
 #: templates/aasrp/dashboard.html:71 templates/aasrp/dashboard.html:89
