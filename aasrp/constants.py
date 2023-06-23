@@ -18,8 +18,8 @@ USERAGENT = f"{verbose_name_slugified} v{__version__} {github_url}"
 
 SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = _(
     "If you have any questions regarding your SRP request, feel free to contact your "
-    "request reviser.\nPlease make sure to always add the SRP-Code and the "
-    "Request-Code with your inquiry."
+    "request reviser.\nPlease make sure to always add the SRP Code and the "
+    "Request Code with your inquiry."
 )
 
 # zKillboard - https://zkillboard.com/

@@ -530,8 +530,8 @@ def srp_request_approve(
                     notification_message = (
                         f"Your SRP request regarding your {ship_name} lost during "
                         f"{fleet_name} has been approved.\n\n"
-                        f"Request Details:\nSRP-Code: {srp_code}\n"
-                        f"Request-Code: {request_code}\n"
+                        f"Request Details:\nSRP Code: {srp_code}\n"
+                        f"Request Code: {request_code}\n"
                         f"Reviser: {reviser}\n{reviser_comment}\n{inquiry_note}"
                     )
 
@@ -615,8 +615,8 @@ def srp_request_deny(
                         f"Your SRP request regarding your {ship_name} lost during "
                         f"{fleet_name} has been rejected.\n\n"
                         f"Reason:\n{reject_info}\n\n"
-                        f"Request Details:\nSRP-Code: {srp_code}\n"
-                        f"Request-Code: {request_code}\n"
+                        f"Request Details:\nSRP Code: {srp_code}\n"
+                        f"Request Code: {request_code}\n"
                         f"Reviser: {reviser}\n\n{inquiry_note}"
                     )
 

@@ -110,7 +110,7 @@ class SrpRequestForm(ModelForm):
     additional_info = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
-        label=get_mandatory_form_label_text(_("Additional Info")),
+        label=get_mandatory_form_label_text(_("Additional Information")),
         help_text=(
             "Please tell us about the circumstances of your untimely demise. "
             "Who was the FC, what doctrine was called, have changes to the fit "
@@ -189,7 +189,7 @@ class SrpRequestRejectForm(forms.Form):
     reject_info = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
-        label=get_mandatory_form_label_text(_("Rejection Reason")),
+        label=get_mandatory_form_label_text(_("Reject Reason")),
         help_text=_("Please provide the reason this SRP request is rejected."),
     )
 
