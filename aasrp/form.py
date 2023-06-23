@@ -102,7 +102,7 @@ class SrpRequestForm(ModelForm):
         label=get_mandatory_form_label_text(_("Killboard Link")),
         max_length=254,
         required=True,
-        help_text=(
+        help_text=_(
             f"Find your kill mail on {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."  # pylint: disable=line-too-long
         ),
     )
@@ -111,7 +111,7 @@ class SrpRequestForm(ModelForm):
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
         label=get_mandatory_form_label_text(_("Additional Information")),
-        help_text=(
+        help_text=_(
             "Please tell us about the circumstances of your untimely demise. "
             "Who was the FC, what doctrine was called, have changes to the fit "
             "been requested and so on. Be as detailed as you can."

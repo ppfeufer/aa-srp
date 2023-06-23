@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-23 09:05+0200\n"
+"POT-Creation-Date: 2023-06-23 09:23+0200\n"
 "PO-Revision-Date: 2023-04-19 09:25+0000\n"
 "Last-Translator: \"H. Peter Pfeufer\" <info@ppfeufer.de>\n"
 "Language-Team: Spanish <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -129,10 +129,24 @@ msgstr ""
 msgid "Killboard Link"
 msgstr ""
 
+#: form.py:106
+#, python-brace-format
+msgid ""
+"Find your kill mail on {ZKILLBOARD_BASE_URL} or "
+"{EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."
+msgstr ""
+
 #: form.py:113 models.py:319 models.py:409
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:56
 #: templates/aasrp/dashboard.html:90 templates/aasrp/view_requests.html:82
 msgid "Additional Information"
+msgstr ""
+
+#: form.py:115
+msgid ""
+"Please tell us about the circumstances of your untimely demise. Who was the "
+"FC, what doctrine was called, have changes to the fit been requested and so "
+"on. Be as detailed as you can."
 msgstr ""
 
 #: form.py:144
