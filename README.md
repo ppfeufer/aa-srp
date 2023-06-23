@@ -9,6 +9,7 @@
 [![Badge: Support Discord]][Support Discord]
 [![Badge: Automated Tests]][Automated Tests on GitHub]
 [![Badge: Code Coverage]][AA SRP on Codecov]
+[![Badge: Translation Status]][Weblate Engage]
 [![Badge: Contributor Covenant]][Code of Conduct]
 
 [![Badge: Buy me a coffee]][ppfeufer on ko-fi]
@@ -200,6 +201,7 @@ just some basics)
 [Badge: Code Coverage]: https://codecov.io/gh/ppfeufer/aa-srp/branch/master/graph/badge.svg "Code Coverage"
 [Badge: Contributor Covenant]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg "Contributor Covenant"
 [Badge: Buy me a coffee]: https://ko-fi.com/img/githubbutton_sm.svg "Buy me a coffee"
+[Badge: Translation Status]: https://weblate.ppfeufer.de/widgets/alliance-auth-apps/-/aa-srp/svg-badge.svg "Translation Status"
 
 [Image: AA SRP Dashboard]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/aa-srp-dashboard.jpg "AA SRP Dashboard"
 [Image: AA SRP Dashboard (View All)]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/aa-srp-dashboard-view-all.jpg "AA SRP Dashboard (View All)"
@@ -216,6 +218,7 @@ just some basics)
 [Automated Tests on GitHub]: https://github.com/ppfeufer/aa-srp/actions/workflows/automated-checks.yml
 [Code of Conduct]: https://github.com/ppfeufer/aa-srp/blob/master/CODE_OF_CONDUCT.md
 [ppfeufer on ko-fi]: https://ko-fi.com/N4N8CL1BY
+[Weblate Engage]: https://weblate.ppfeufer.de/engage/alliance-auth-apps/
 
 [Alliance Auth]: https://gitlab.com/allianceauth/allianceauth "Alliance Auth"
 [Alliance Auth installation guide]: https://allianceauth.readthedocs.io/en/latest/installation/allianceauth.html "Alliance Auth installation guide"
