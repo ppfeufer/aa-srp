@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-22 19:03+0200\n"
+"POT-Creation-Date: 2023-06-23 09:05+0200\n"
 "PO-Revision-Date: 2023-04-19 09:25+0000\n"
 "Last-Translator: \"H. Peter Pfeufer\" <info@ppfeufer.de>\n"
 "Language-Team: Spanish <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -91,7 +91,7 @@ msgstr ""
 msgid ""
 "If you have any questions regarding your SRP request, feel free to contact "
 "your request reviser.\n"
-"Please make sure to always add the SRP-Code and the Request-Code with your "
+"Please make sure to always add the SRP Code and the Request Code with your "
 "inquiry."
 msgstr ""
 
@@ -129,8 +129,10 @@ msgstr ""
 msgid "Killboard Link"
 msgstr ""
 
-#: form.py:113
-msgid "Additional Info"
+#: form.py:113 models.py:319 models.py:409
+#: templates/aasrp/ajax_render/srp_request_additional_information.html:56
+#: templates/aasrp/dashboard.html:90 templates/aasrp/view_requests.html:82
+msgid "Additional Information"
 msgstr ""
 
 #: form.py:144
@@ -154,8 +156,8 @@ msgstr ""
 msgid "SRP payout value"
 msgstr ""
 
-#: form.py:192
-msgid "Rejection Reason"
+#: form.py:192 models.py:339 models.py:410
+msgid "Reject Reason"
 msgstr ""
 
 #: form.py:193
@@ -201,8 +203,8 @@ msgstr ""
 msgid "View SRP Requests"
 msgstr ""
 
-#: helper/icons.py:57
-msgid "Add/Edit AAR Link"
+#: helper/icons.py:57 templates/aasrp/partials/link_edit/form.html:20
+msgid "Add/Change AAR Link"
 msgstr ""
 
 #: helper/icons.py:68 templates/aasrp/modals/dashboard/disable_srp_link.html:4
@@ -251,9 +253,8 @@ msgid "Reject SRP Request"
 msgstr ""
 
 #: helper/icons.py:284
-#: templates/aasrp/modals/view_requests/remove_request.html:12
-#: templates/aasrp/modals/view_requests/remove_request.html:28
-msgid "Remove SRP Request"
+#: templates/aasrp/modals/view_requests/delete_request.html:12
+msgid "Delete SRP Request"
 msgstr ""
 
 #: managers.py:87
@@ -357,12 +358,6 @@ msgstr ""
 msgid "Ship Type"
 msgstr ""
 
-#: models.py:319 models.py:409
-#: templates/aasrp/ajax_render/srp_request_additional_information.html:56
-#: templates/aasrp/dashboard.html:90 templates/aasrp/view_requests.html:82
-msgid "Additional Information"
-msgstr ""
-
 #: models.py:325 templates/aasrp/dashboard.html:72
 #: templates/aasrp/view_requests.html:68
 msgid "Request Status"
@@ -379,10 +374,6 @@ msgstr ""
 #: models.py:336 templates/aasrp/partials/dashboard/user_srp_requests.html:16
 #: templates/aasrp/partials/view_requests/requests.html:15
 msgid "Request Time"
-msgstr ""
-
-#: models.py:339 models.py:410
-msgid "Reject Reason"
 msgstr ""
 
 #: models.py:348
@@ -544,13 +535,14 @@ msgstr ""
 #: templates/aasrp/modals/dashboard/enable_srp_link.html:22
 #: templates/aasrp/modals/view_requests/accept_rejected_request.html:35
 #: templates/aasrp/modals/view_requests/accept_request.html:32
+#: templates/aasrp/modals/view_requests/delete_request.html:24
 #: templates/aasrp/modals/view_requests/mark_complete_modal.html:39
 #: templates/aasrp/modals/view_requests/reject_request.html:35
-#: templates/aasrp/modals/view_requests/remove_request.html:24
 msgid "Cancel"
 msgstr ""
 
 #: templates/aasrp/modals/dashboard/delete_srp_link.html:27
+#: templates/aasrp/modals/view_requests/delete_request.html:28
 msgid "Delete"
 msgstr ""
 
@@ -564,9 +556,9 @@ msgstr ""
 
 #: templates/aasrp/modals/view_requests/accept_rejected_request.html:9
 #: templates/aasrp/modals/view_requests/accept_request.html:9
+#: templates/aasrp/modals/view_requests/delete_request.html:8
 #: templates/aasrp/modals/view_requests/mark_complete_modal.html:8
 #: templates/aasrp/modals/view_requests/reject_request.html:9
-#: templates/aasrp/modals/view_requests/remove_request.html:8
 #: templates/aasrp/modals/view_requests/request_details.html:8
 #: templates/aasrp/modals/view_requests/request_details.html:21
 msgid "Close"
@@ -577,7 +569,12 @@ msgstr ""
 msgid "Are you sure you want to accept this SRP request?"
 msgstr ""
 
+#: templates/aasrp/modals/view_requests/delete_request.html:17
+msgid "Are you sure you want to delete this SRP request?"
+msgstr ""
+
 #: templates/aasrp/modals/view_requests/mark_complete_modal.html:12
+#: templates/aasrp/modals/view_requests/mark_complete_modal.html:44
 #: templates/aasrp/partials/view_requests/overview.html:70
 msgid "Mark Completed"
 msgstr ""
@@ -606,16 +603,8 @@ msgid ""
 "                        "
 msgstr ""
 
-#: templates/aasrp/modals/view_requests/mark_complete_modal.html:44
-msgid "Mark as completed"
-msgstr ""
-
 #: templates/aasrp/modals/view_requests/reject_request.html:18
 msgid "Are you sure you want to reject this SRP request?"
-msgstr ""
-
-#: templates/aasrp/modals/view_requests/remove_request.html:17
-msgid "Are you sure you want to remove this SRP request?"
 msgstr ""
 
 #: templates/aasrp/partials/dashboard/buttons.html:6
@@ -702,10 +691,6 @@ msgstr ""
 
 #: templates/aasrp/partials/link_edit/form.html:7
 msgid "After Action Report"
-msgstr ""
-
-#: templates/aasrp/partials/link_edit/form.html:20
-msgid "Add/Change AAR Link"
 msgstr ""
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:7
