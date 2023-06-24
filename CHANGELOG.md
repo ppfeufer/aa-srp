@@ -65,6 +65,10 @@ After that, update all other apps that need to be updated following the usual pr
 
 - Moved settings from `local.py` to the database
 - Existing translations improved
+- Minumum requirements
+  - allianceauth>=3.0.0
+  - allianceauth-app-utils>=1.19.0
+  - django-eveuniverse>=1.2.0
 
 ### Fixed
 

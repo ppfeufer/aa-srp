@@ -34,8 +34,8 @@ classifiers = [
     "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
 ]
 dependencies = [
-    "allianceauth-app-utils>=1.14.0",
-    "allianceauth>=2.15.1",
+    "allianceauth-app-utils>=1.19.0",
+    "allianceauth>=3.0.0",
     "django-eveuniverse>=1.2.0",
 ]
 
