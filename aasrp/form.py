@@ -21,7 +21,7 @@ from aasrp.constants import (
     ZKILLBOARD_KILLMAIL_URL_REGEX,
 )
 from aasrp.managers import SrpManager
-from aasrp.models import FleetType, SrpLink, SrpRequest, UserSetting
+from aasrp.models import FleetType, Setting, SrpLink, SrpRequest, UserSetting
 
 
 def get_mandatory_form_label_text(text: str) -> str:
@@ -102,7 +102,7 @@ class SrpRequestForm(ModelForm):
         label=get_mandatory_form_label_text(_("Killboard Link")),
         max_length=254,
         required=True,
-        help_text=(
+        help_text=_(
             f"Find your kill mail on {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."  # pylint: disable=line-too-long
         ),
     )
@@ -110,8 +110,8 @@ class SrpRequestForm(ModelForm):
     additional_info = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
-        label=get_mandatory_form_label_text(_("Additional Info")),
-        help_text=(
+        label=get_mandatory_form_label_text(_("Additional Information")),
+        help_text=_(
             "Please tell us about the circumstances of your untimely demise. "
             "Who was the FC, what doctrine was called, have changes to the fit "
             "been requested and so on. Be as detailed as you can."
@@ -189,7 +189,7 @@ class SrpRequestRejectForm(forms.Form):
     reject_info = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
-        label=get_mandatory_form_label_text(_("Rejection Reason")),
+        label=get_mandatory_form_label_text(_("Reject Reason")),
         help_text=_("Please provide the reason this SRP request is rejected."),
     )
 
@@ -244,3 +244,18 @@ class UserSettingsForm(ModelForm):
 
         model = UserSetting
         fields = ["disable_notifications"]
+
+
+class SettingAdminForm(forms.ModelForm):
+    """
+    Form definitions for the FleetType form in admin
+    """
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        Meta
+        """
+
+        model = Setting
+        fields = "__all__"
+        widgets = {"default_embed_color": forms.TextInput(attrs={"type": "color"})}

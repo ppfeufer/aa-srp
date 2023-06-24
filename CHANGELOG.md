@@ -9,6 +9,77 @@ and this project adheres to [Semantic Versioning]
 ## [In Development] - Unreleased
 
 
+## [1.20.0] - 2023-06-24
+
+**This release includes all the changes from
+[v1.20.0-alpha.1](https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md#1200-alpha1---2023-06-21)
+as well as the following:**
+
+### ⚠️ Important ⚠️
+
+#### Updating From the Alpha Version
+
+If you by any chance installed
+[v1.20.0-alpha.1](https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md#1200-alpha1---2023-06-21)
+you have to reset the migrations **before** updating to this version. This release contains
+multiple migrations from the development process that have been combined.
+
+To reset the migration from the Alpha version, simply run:
+
+```shell
+python manage.py migrate aasrp 0009
+```
+
+If you are unsure, you can check which migrations are applied with:
+
+```shell
+python manage.py showmigrations aasrp
+```
+
+If the last line does **not** say `[X] 0010_change_model_names_and_verobose_names`,
+you are good to go. (And yes, I know, there is a typo in that migration name.)
+
+#### Updating Process
+
+This version has quite some changes to its database models, so please make sure to
+back up your database before you update.
+
+These database changes mean that apps which use any of this app's DB tables (e.g.:
+Grafana Dashboards if you use them or [AA Fleet Pings]) will break and will need to
+be updated as well. For [AA Fleet Pings] there will be a release alongside this one.
+
+[AA Fleet Pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
+
+Once you have your database backed up, run the following:
+
+```shell
+pip install aa-srp==1.20.0
+python manage.py migrate aasrp
+````
+
+After that, update all other apps that need to be updated following the usual process.
+
+
+### Removed
+
+- Hardcoded category ID and using the constant from `django-eveuniverse` directly
+
+### Changed
+
+- Moved settings from `local.py` to the database
+- Existing translations improved
+- Minimum requirements
+  - allianceauth>=3.0.0
+  - allianceauth-app-utils>=1.19.0
+  - django-eveuniverse>=1.2.0
+
+### Fixed
+
+- `AttributeError: 'NoneType' object has no attribute 'character_name'` for
+  `SrpRequest` model
+- SRP code in discord channel message
+
+
 ## [1.20.0-alpha.1] - 2023-06-21
 
 ### Changed
@@ -156,12 +227,12 @@ mySQL8**
 ### Changed
 
 - RGB notations in CSS files modernised
-- Bottom border colour for changeable payout value for SRP requests that've been
+- Bottom border colour for changeable payout value for SRP requests that'd been
   rejected. Now it's not that prominent anymore and doesn't look like a pending SRP
   request
 - Modal window handling improved
 - JS and CSS moved to bundled HTML templates
-- Minumum requirements
+- Minimum requirements
   - allianceauth>=2.15.1
   - allianceauth-app-utils>=1.14.0
   - django-eveuniverse>=0.16.3

@@ -54,7 +54,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
                         "aasrp:edit_srp_link", args=[srp_link.srp_code]
                     )
                     btn_icon = '<i class="far fa-newspaper"></i>'
-                    btn_title = _("Add/Edit AAR Link")
+                    btn_title = _("Add/Change AAR Link")
                     actions += (
                         f'<a href="{button_edit_url}" '
                         'class="btn btn-info btn-sm btn-icon-aasrp" '
@@ -281,7 +281,7 @@ def get_srp_request_delete_icon(
     )
 
     icon = '<i class="fas fa-trash-alt"></i>'
-    title = _("Remove SRP Request")
+    title = _("Delete SRP Request")
 
     srp_request_delete_icon = (
         f'<button data-link="{button_request_delete_url}" '

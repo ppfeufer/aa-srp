@@ -31,15 +31,19 @@ logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
 def _aadiscordbot_send_private_message(
-    user_id: int, level: str, title: str, message: str, embed_message: bool = True
+    user_id: int,
+    title: str,
+    message: str,
+    embed_message: bool = True,
+    level: str = "info",
 ) -> None:
     """
     Try to send a PM to a user on Discord via allianceauth-discordbot
     :param user_id:
-    :param level:
     :param title:
     :param message:
     :param embed_message:
+    :param level:
     :return:
     """
 
@@ -55,7 +59,7 @@ def _aadiscordbot_send_private_message(
         embed = Embed(
             title=str(title),
             description=message,
-            color=DISCORD_EMBED_COLOR_MAP.get(level, None),
+            color=DISCORD_EMBED_COLOR_MAP.get(level),
             timestamp=datetime.now(),
         )
 
@@ -71,15 +75,19 @@ def _aadiscordbot_send_private_message(
 
 
 def _aadiscordbot_send_channel_message(
-    channel_id: int, level: str, title: str, message: str, embed_message: bool = True
+    channel_id: int,
+    title: str,
+    message: str,
+    embed_message: bool = True,
+    level: str = "info",
 ) -> None:
     """
     Try to send a message to a channel on Discord via allianceauth-discordbot
     :param channel_id:
-    :param level:
     :param title:
     :param message:
     :param embed_message:
+    :param level:
     :return:
     """
 
@@ -95,7 +103,7 @@ def _aadiscordbot_send_channel_message(
         embed = Embed(
             title=str(title),
             description=message,
-            color=DISCORD_EMBED_COLOR_MAP.get(level, None),
+            color=DISCORD_EMBED_COLOR_MAP.get(level),
             timestamp=datetime.now(),
         )
 
@@ -111,16 +119,20 @@ def _aadiscordbot_send_channel_message(
 
 
 def _discordproxy_send_private_message(
-    user_id: int, level: str, title: str, message: str, embed_message: bool = True
+    user_id: int,
+    title: str,
+    message: str,
+    embed_message: bool = True,
+    level: str = "info",
 ):
     """
     Try to send a PM to a user on Discord via discordproxy
     (fall back to allianceauth-discordbot if needed)
     :param user_id:
-    :param level:
     :param title:
     :param message:
     :param embed_message:
+    :param level:
     :return:
     """
 
@@ -137,11 +149,11 @@ def _discordproxy_send_private_message(
             # Third Party
             from discordproxy.discord_api_pb2 import Embed
 
-            footer = Embed.Footer(text=__title__)
+            footer = Embed.Footer(text=str(__title__))
             embed = Embed(
                 title=str(title),
                 description=message,
-                color=DISCORD_EMBED_COLOR_MAP.get(level, None),
+                color=DISCORD_EMBED_COLOR_MAP.get(level),
                 timestamp=timezone.now().isoformat(),
                 footer=footer,
             )
@@ -171,16 +183,20 @@ def _discordproxy_send_private_message(
 
 
 def _discordproxy_send_channel_message(
-    channel_id: int, level: str, title: str, message: str, embed_message: bool = True
+    channel_id: int,
+    title: str,
+    message: str,
+    embed_message: bool = True,
+    level: str = "info",
 ):
     """
     Try to send a message to a channel on Discord via discordproxy
     (fall back to allianceauth-discordbot if needed)
     :param channel_id:
-    :param level:
     :param title:
     :param message:
     :param embed_message:
+    :param level:
     :return:
     """
 
@@ -197,12 +213,12 @@ def _discordproxy_send_channel_message(
             # Third Party
             from discordproxy.discord_api_pb2 import Embed
 
-            footer = Embed.Footer(text=__title__)
+            footer = Embed.Footer(text=str(__title__))
 
             embed = Embed(
                 title=title,
                 description=message,
-                color=DISCORD_EMBED_COLOR_MAP.get(level, None),
+                color=DISCORD_EMBED_COLOR_MAP.get(level),
                 timestamp=timezone.now().isoformat(),
                 footer=footer,
             )
@@ -231,17 +247,21 @@ def _discordproxy_send_channel_message(
 
 
 def send_user_notification(
-    user: User, level: str, title: str, message: str, embed_message: bool = True
+    user: User,
+    title: str,
+    message: str,
+    embed_message: bool = True,
+    level: str = "info",
 ) -> None:
     """
     Send notification to user
     This creates a notification in Auth and a PM in Discord when either
     Discordproxy, AA-Discordbot or AA Discord Notifications is installed
     :param user:
-    :param level:
     :param title:
     :param message:
     :param embed_message:
+    :param level:
     """
 
     getattr(notify, level)(user=user, title=title, message=message)

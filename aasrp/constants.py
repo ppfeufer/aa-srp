@@ -15,12 +15,11 @@ verbose_name_slugified: str = slugify(VERBOSE_NAME, allow_unicode=True)
 github_url: str = "https://github.com/ppfeufer/aa-srp"
 USERAGENT = f"{verbose_name_slugified} v{__version__} {github_url}"
 
-EVE_CATEGORY_ID_SHIP = 6
 
 SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = _(
     "If you have any questions regarding your SRP request, feel free to contact your "
-    "request reviser.\nPlease make sure to always add the SRP-Code and the "
-    "Request-Code with your inquiry."
+    "request reviser.\nPlease make sure to always add the SRP Code and the "
+    "Request Code with your inquiry."
 )
 
 # zKillboard - https://zkillboard.com/

@@ -11,10 +11,10 @@ from django.core.management.base import BaseCommand
 
 # Alliance Auth (External Libs)
 from app_utils.logging import LoggerAddTag
+from eveuniverse.constants import EveCategoryId
 
 # AA SRP
 from aasrp import __title__
-from aasrp.constants import EVE_CATEGORY_ID_SHIP
 
 logger = LoggerAddTag(logging.getLogger(__name__), __title__)
 
@@ -45,7 +45,7 @@ class Command(BaseCommand):
             "eveuniverse_load_types",
             __title__,
             "--category_id",
-            str(EVE_CATEGORY_ID_SHIP),
+            str(EveCategoryId.SHIP.value),
         ]
 
         if options["noinput"]:
