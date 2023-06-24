@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+
+## [1.20.0] - 2023-06-24
+
 **This release includes all the changes from
 [v1.20.0-alpha.1](https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md#1200-alpha1---2023-06-21)
 as well as the following:**
@@ -65,7 +68,7 @@ After that, update all other apps that need to be updated following the usual pr
 
 - Moved settings from `local.py` to the database
 - Existing translations improved
-- Minumum requirements
+- Minimum requirements
   - allianceauth>=3.0.0
   - allianceauth-app-utils>=1.19.0
   - django-eveuniverse>=1.2.0
@@ -224,12 +227,12 @@ mySQL8**
 ### Changed
 
 - RGB notations in CSS files modernised
-- Bottom border colour for changeable payout value for SRP requests that've been
+- Bottom border colour for changeable payout value for SRP requests that'd been
   rejected. Now it's not that prominent anymore and doesn't look like a pending SRP
   request
 - Modal window handling improved
 - JS and CSS moved to bundled HTML templates
-- Minumum requirements
+- Minimum requirements
   - allianceauth>=2.15.1
   - allianceauth-app-utils>=1.14.0
   - django-eveuniverse>=0.16.3
