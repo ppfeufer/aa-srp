@@ -59,7 +59,7 @@ def clean_setting(
             cleaned_value = getattr(settings, name)
         else:
             logger.warning(
-                f"You setting for {name} is not valid. Please correct it. "
+                f"Your setting for {name} is not valid. Please correct it. "
                 f"Using default for now: {default_value}"
             )
             cleaned_value = default_value
