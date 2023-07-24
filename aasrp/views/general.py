@@ -8,7 +8,6 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.urls import reverse
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
@@ -20,12 +19,11 @@ from allianceauth.services.hooks import get_extension_logger
 
 # Alliance Auth (External Libs)
 from app_utils.logging import LoggerAddTag
-from app_utils.urls import site_absolute_url
 from eveuniverse.models import EveType
 
 # AA SRP
 from aasrp import __title__
-from aasrp.constants import ZKILLBOARD_BASE_URL
+from aasrp.constants import EVETOOLS_KILLBOARD_BASE_URL, ZKILLBOARD_BASE_URL
 from aasrp.form import (
     SrpLinkForm,
     SrpLinkUpdateForm,
@@ -35,10 +33,10 @@ from aasrp.form import (
     SrpRequestRejectForm,
     UserSettingsForm,
 )
-from aasrp.helper.notification import send_message_to_discord_channel
+from aasrp.helper.notification import notify_srp_team
 from aasrp.helper.user import get_user_settings
 from aasrp.managers import SrpManager
-from aasrp.models import Insurance, RequestComment, Setting, SrpLink, SrpRequest
+from aasrp.models import Insurance, RequestComment, SrpLink, SrpRequest
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
@@ -193,6 +191,103 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     return render(request, "aasrp/link_edit.html", context)
 
 
+def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-locals
+    request: WSGIRequest,
+    srp_link: SrpLink,
+    killmail_link: str,
+    ship_type_id: int,
+    ship_value: str,
+    victim_id: int,
+    additional_info: str,
+) -> SrpRequest:
+    """
+    Saving the SRP request
+    :param request:
+    :type request:
+    :param srp_link:
+    :type srp_link:
+    :param killmail_link:
+    :type killmail_link:
+    :param ship_type_id:
+    :type ship_type_id:
+    :param ship_value:
+    :type ship_value:
+    :param victim_id:
+    :type victim_id:
+    :param additional_info:
+    :type additional_info:
+    :return:
+    :rtype:
+    """
+
+    creator = request.user
+    post_time = timezone.now()
+    srp_request__character = EveCharacter.objects.get_character_by_id(victim_id)
+
+    (
+        srp_request__ship,
+        created_from_esi,  # pylint: disable=unused-variable
+    ) = EveType.objects.get_or_create_esi(id=ship_type_id)
+
+    srp_request = SrpRequest(
+        killboard_link=killmail_link,
+        creator=creator,
+        srp_link=srp_link,
+        character=srp_request__character,
+        ship_name=srp_request__ship.name,
+        ship=srp_request__ship,
+        loss_amount=ship_value,
+        post_time=post_time,
+        request_code=get_random_string(length=16),
+    )
+    srp_request.save()
+
+    # Save Request Create Even in request history
+    RequestComment(
+        srp_request=srp_request,
+        comment_type=RequestComment.Type.REQUEST_ADDED,
+        creator=creator,
+        new_status=SrpRequest.Status.PENDING,
+    ).save()
+
+    # Add request info to request history
+    RequestComment(
+        comment=additional_info,
+        srp_request=srp_request,
+        comment_type=RequestComment.Type.REQUEST_INFO,
+        creator=creator,
+    ).save()
+
+    # Add insurance information
+    insurance_information = SrpManager.get_insurance_for_ship_type(
+        ship_type_id=ship_type_id
+    )
+
+    for insurance_level in insurance_information["levels"]:
+        logger.debug(insurance_level)
+
+        Insurance(
+            srp_request=srp_request,
+            insurance_level=insurance_level["name"],
+            insurance_cost=insurance_level["cost"],
+            insurance_payout=insurance_level["payout"],
+        ).save()
+
+    srp_name = srp_link.srp_name
+    srp_code = srp_link.srp_code
+    logger.info(
+        f"Created SRP request on behalf of user {creator} "
+        f"(character: {srp_request__character}) for fleet name {srp_name} "
+        f"with SRP code {srp_code}"
+    )
+
+    messages.success(
+        request, _(f"Submitted SRP request for your {srp_request__ship.name}.")
+    )
+
+    return srp_request
+
+
 @login_required
 @permission_required("aasrp.basic_access")
 def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
@@ -239,9 +334,8 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         # Check whether it's valid:
         if form.is_valid():
-            creator = request.user
-            post_time = timezone.now()
             submitted_killmail_link = form.cleaned_data["killboard_link"]
+            srp_request_additional_info = form.cleaned_data["additional_info"]
 
             # Parse killmail
             try:
@@ -258,124 +352,32 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     "not be reached"
                 )
 
-                messages.error(
-                    request,
-                    _(
-                        f"Your SRP request Killmail link is invalid. Please make sure you are using {ZKILLBOARD_BASE_URL}"  # pylint: disable=line-too-long
-                    ),
+                error_message_text = _(
+                    f"Your Killmail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"  # pylint: disable=line-too-long
                 )
+
+                messages.error(request, error_message_text)
 
                 return redirect("aasrp:dashboard")
 
             if request.user.character_ownerships.filter(
                 character__character_id=str(victim_id)
             ).exists():
-                srp_request__character = EveCharacter.objects.get_character_by_id(
-                    victim_id
-                )
-
-                (
-                    srp_request__ship,
-                    created_from_esi,
-                ) = EveType.objects.get_or_create_esi(id=ship_type_id)
-
-                srp_request = SrpRequest(
-                    killboard_link=submitted_killmail_link,
-                    creator=creator,
+                # Save the SRP request
+                srp_request = _save_srp_request(
+                    request=request,
                     srp_link=srp_link,
-                    character=srp_request__character,
-                    ship_name=srp_request__ship.name,
-                    ship=srp_request__ship,
-                    loss_amount=ship_value,
-                    post_time=post_time,
-                    request_code=get_random_string(length=16),
+                    killmail_link=submitted_killmail_link,
+                    ship_type_id=ship_type_id,
+                    ship_value=ship_value,
+                    victim_id=victim_id,
+                    additional_info=srp_request_additional_info,
                 )
-                srp_request.save()
-
-                # Save Request Create Even in request history
-                RequestComment(
-                    srp_request=srp_request,
-                    comment_type=RequestComment.Type.REQUEST_ADDED,
-                    creator=creator,
-                    new_status=SrpRequest.Status.PENDING,
-                ).save()
-
-                # Add request info to request history
-                srp_request_additional_info = form.cleaned_data["additional_info"]
-                RequestComment(
-                    comment=srp_request_additional_info,
-                    srp_request=srp_request,
-                    comment_type=RequestComment.Type.REQUEST_INFO,
-                    creator=creator,
-                ).save()
-
-                # Add insurance information
-                insurance_information = SrpManager.get_insurance_for_ship_type(
-                    ship_type_id=ship_type_id
-                )
-
-                for insurance_level in insurance_information["levels"]:
-                    logger.debug(insurance_level)
-
-                    insurance = Insurance(
-                        srp_request=srp_request,
-                        insurance_level=insurance_level["name"],
-                        insurance_cost=insurance_level["cost"],
-                        insurance_payout=insurance_level["payout"],
-                    )
-                    insurance.save()
-
-                user_name = request.user
-                character_name = srp_request__character
-                srp_name = srp_link.srp_name
-                srp_code = srp_link.srp_code
-                logger.info(
-                    f"Created SRP request on behalf of user {user_name} "
-                    f"(character: {character_name}) for fleet name {srp_name} "
-                    f"with SRP code {srp_code}"
-                )
-
-                ship = srp_request.ship.name
-                messages.success(request, _(f"Submitted SRP request for your {ship}."))
 
                 # Send a message to the srp team in their discord channel
-                srp_team_discord_channel = Setting.objects.get_setting(
-                    Setting.Field.SRP_TEAM_DISCORD_CHANNEL_ID
+                notify_srp_team(
+                    srp_request=srp_request, additional_info=srp_request_additional_info
                 )
-                if srp_team_discord_channel is not None:
-                    site_base_url = site_absolute_url()
-                    request_code = srp_request.request_code
-                    character_name = srp_request__character.character_name
-                    ship_type = srp_request__ship.name
-                    zkillboard_link = srp_request.killboard_link
-                    additional_information = srp_request_additional_info.replace(
-                        "@", "{@}"
-                    )
-                    srp_link = site_base_url + reverse(
-                        "aasrp:view_srp_requests", args=[srp_code]
-                    )
-
-                    title = "New SRP Request"
-                    message = f"**Request Code:** {request_code}\n"
-                    message += f"**Character:** {character_name}\n"
-                    message += f"**Ship:** {ship_type}\n"
-                    message += f"**zKillboard Link:** {zkillboard_link}\n"
-                    message += (
-                        f"**Additional Information:**\n{additional_information}\n\n"
-                    )
-                    message += f"**SRP Code:** {srp_code}\n"
-                    message += f"**SRP Link:** {srp_link}\n"
-
-                    logger.info(
-                        "Sending SRP request notification to the SRP team channel "
-                        "on Discord"
-                    )
-
-                    send_message_to_discord_channel(
-                        channel_id=srp_team_discord_channel,
-                        title=title,
-                        message=message,
-                    )
 
                 return redirect("aasrp:dashboard")
 
