@@ -50,40 +50,48 @@ class SrpManager:
         """
 
         url = f"{ZKILLBOARD_API_URL}killID/{kill_id}/"
-
-        headers = {
-            "User-Agent": USERAGENT,
-            "Content-Type": "application/json",
-        }
+        headers = {"User-Agent": USERAGENT, "Content-Type": "application/json"}
+        request_result = requests.get(url, headers=headers, timeout=5)
 
         try:
-            request_result = requests.get(url, headers=headers, timeout=5)
-            result = request_result.json()[0]
-        except IndexError as exc:
-            raise ValueError("Invalid Kill ID") from exc
+            request_result.raise_for_status()
+        except requests.HTTPError as exc:
+            error_str = str(exc)
 
-        if result:
+            logger.warning(
+                f"Unable to get killmail details from zKillboard. Error: {error_str}",
+                exc_info=True,
+            )
+
+            raise ValueError(error_str) from exc
+        except requests.Timeout as exc:
+            error_str = str(exc)
+
+            logger.warning("Connection to zKillboard timed out …")
+
+            raise ValueError(error_str) from exc
+
+        result = request_result.json()[0]
+
+        try:
             killmail_id = result["killmail_id"]
             killmail_hash = result["zkb"]["hash"]
 
             esi_killmail = esi.client.Killmails.get_killmails_killmail_id_killmail_hash(
                 killmail_id=killmail_id, killmail_hash=killmail_hash
             ).result()
-        else:
-            raise ValueError("Invalid Kill ID")
+        except Exception as exc:
+            raise ValueError("Invalid Kill ID or Hash.") from exc
 
-        if esi_killmail:
-            ship_type = esi_killmail["victim"]["ship_type_id"]
-            logger.debug(f"Ship type for kill ID {kill_id} is {ship_type}")
-            ship_value = result["zkb"]["totalValue"]
+        ship_type = esi_killmail["victim"]["ship_type_id"]
+        logger.debug(f"Ship type for kill ID {kill_id} is {ship_type}")
+        ship_value = result["zkb"]["totalValue"]
 
-            logger.debug(f"Total loss value for kill id {kill_id} is {ship_value}")
+        logger.debug(f"Total loss value for kill id {kill_id} is {ship_value}")
 
-            victim_id = esi_killmail["victim"]["character_id"]
+        victim_id = esi_killmail["victim"]["character_id"]
 
-            return ship_type, ship_value, victim_id
-
-        raise ValueError("Invalid Kill ID or Hash.")
+        return ship_type, ship_value, victim_id
 
     @staticmethod
     def pending_requests_count_for_user(user: User):
