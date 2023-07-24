@@ -8,7 +8,6 @@ import requests
 # Django
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
 from allianceauth.services.hooks import get_extension_logger
@@ -84,7 +83,7 @@ class SrpManager:
 
             return ship_type, ship_value, victim_id
 
-        raise ValueError(_("Invalid Kill ID or Hash."))
+        raise ValueError("Invalid Kill ID or Hash.")
 
     @staticmethod
     def pending_requests_count_for_user(user: User):
@@ -94,7 +93,7 @@ class SrpManager:
         """
 
         # AA SRP
-        from aasrp.models import SrpRequest
+        from aasrp.models import SrpRequest  # pylint: disable=import-outside-toplevel
 
         if user.has_perm("aasrp.manage_srp") or user.has_perm(
             "aasrp.manage_srp_requests"
