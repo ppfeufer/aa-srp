@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-23 09:23+0200\n"
-"PO-Revision-Date: 2023-06-23 07:52+0000\n"
-"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"PO-Revision-Date: 2023-07-26 13:02+0000\n"
+"Last-Translator: \"Andrii M.\" <elfleg0las88@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/uk/>\n"
 "Language: uk\n"
@@ -18,16 +18,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : "
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 4.18\n"
+"X-Generator: Weblate 4.18.2\n"
 
 #: __init__.py:12 templates/aasrp/base.html:5 templates/aasrp/dashboard.html:7
 msgid "Ship Replacement"
-msgstr ""
+msgstr "Компенсація корабля"
 
 #: admin.py:122 models.py:189 models.py:293 models.py:430
 #: templates/aasrp/partials/dashboard/srp_links.html:17
 msgid "Creator"
-msgstr ""
+msgstr "Автор"
 
 #: admin.py:162
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:13
@@ -35,7 +35,7 @@ msgstr ""
 #: templates/aasrp/partials/view_requests/requests.html:16
 #: templates/aasrp/view_requests.html:78
 msgid "Requestor"
-msgstr ""
+msgstr "Заявник"
 
 #: admin.py:193 models.py:117 models.py:173
 #: templates/aasrp/partials/dashboard/srp_links.html:19
@@ -51,7 +51,7 @@ msgstr "Дозволено"
 
 #: admin.py:219
 msgid "Activate selected fleet types"
-msgstr ""
+msgstr "Активувати обрані типи флотів"
 
 #: admin.py:247
 #, python-brace-format
