@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+### Changed
+
+- Ukrainian translation improved
+
 
 ## [1.20.0] - 2023-06-24
 
