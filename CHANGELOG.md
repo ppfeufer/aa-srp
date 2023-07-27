@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+### Added
+
+- Footer to promote help with the app translation
+
 ### Changed
 
 - Ukrainian translation improved

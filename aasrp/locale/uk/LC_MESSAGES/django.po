@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-23 09:23+0200\n"
+"POT-Creation-Date: 2023-07-28 00:08+0200\n"
 "PO-Revision-Date: 2023-07-26 13:02+0000\n"
 "Last-Translator: \"Andrii M.\" <elfleg0las88@gmail.com>\n"
-"Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/"
-"alliance-auth-apps/aa-srp/uk/>\n"
+"Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-"
+"apps/aa-srp/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -283,10 +283,6 @@ msgstr ""
 #: helper/icons.py:284
 #: templates/aasrp/modals/view_requests/delete_request.html:12
 msgid "Delete SRP Request"
-msgstr ""
-
-#: managers.py:87
-msgid "Invalid Kill ID or Hash."
 msgstr ""
 
 #: models.py:100
@@ -705,6 +701,19 @@ msgstr ""
 #: templates/aasrp/partials/dashboard/user_srp_requests.html:23
 #: templates/aasrp/partials/view_requests/requests.html:22
 msgid "SRP Payout"
+msgstr ""
+
+#: templates/aasrp/partials/footer/app-translation-footer.html:4
+msgid "Join our team of translators!"
+msgstr ""
+
+#: templates/aasrp/partials/footer/app-translation-footer.html:7
+#, python-format
+msgid ""
+"\n"
+"            Do you want to help translate this app into your language or "
+"improve the existing translation? - %(weblate_link)s\n"
+"        "
 msgstr ""
 
 #: templates/aasrp/partials/form/required_field_hint.html:5
