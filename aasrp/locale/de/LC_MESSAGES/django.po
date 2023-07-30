@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-30 15:16+0200\n"
-"PO-Revision-Date: 2023-07-28 22:39+0000\n"
+"PO-Revision-Date: 2023-07-30 15:38+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/de/>\n"
+"Language-Team: German <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -856,10 +856,9 @@ msgid "AAR link changed"
 msgstr "AAR Link geändert"
 
 #: views/general.py:314
-#, fuzzy, python-brace-format
-#| msgid "Submitted SRP request for your {ship}."
+#, python-brace-format
 msgid "Submitted SRP request for your {srp_request__ship.name}."
-msgstr "SRP Anfrage für Deine {ship} übertragen."
+msgstr "SRP Anfrage für Deine {srp_request__ship.name} eingereicht."
 
 #: views/general.py:351
 #, python-brace-format
@@ -877,6 +876,9 @@ msgid ""
 "API is not answering at the moment. Please make sure you are using either "
 "{ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
 msgstr ""
+"Dein Killmail-Link ({submitted_killmail_link}) ist ungültig oder die "
+"zKillboard-API antwortet derzeit nicht. Bitte stelle sicher, dass Du "
+"entweder {ZKILLBOARD_BASE_URL} oder {EVETOOLS_KILLBOARD_BASE_URL} verwendest"
 
 #: views/general.py:429
 #, python-brace-format
