@@ -9,6 +9,7 @@ from datetime import datetime
 
 # Django
 from django.contrib.auth.models import User
+from django.urls import reverse
 from django.utils import timezone
 
 # Alliance Auth
@@ -17,6 +18,7 @@ from allianceauth.services.hooks import get_extension_logger
 
 # Alliance Auth (External Libs)
 from app_utils.logging import LoggerAddTag
+from app_utils.urls import site_absolute_url
 
 # AA SRP
 from aasrp import __title__
@@ -26,6 +28,7 @@ from aasrp.app_settings import (
     discordproxy_installed,
 )
 from aasrp.constants import DISCORD_EMBED_COLOR_MAP
+from aasrp.models import Setting, SrpRequest
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
@@ -39,12 +42,19 @@ def _aadiscordbot_send_private_message(
 ) -> None:
     """
     Try to send a PM to a user on Discord via allianceauth-discordbot
+
     :param user_id:
+    :type user_id:
     :param title:
+    :type title:
     :param message:
+    :type message:
     :param embed_message:
+    :type embed_message:
     :param level:
+    :type level:
     :return:
+    :rtype:
     """
 
     if allianceauth_discordbot_installed():
@@ -83,12 +93,19 @@ def _aadiscordbot_send_channel_message(
 ) -> None:
     """
     Try to send a message to a channel on Discord via allianceauth-discordbot
+
     :param channel_id:
+    :type channel_id:
     :param title:
+    :type title:
     :param message:
+    :type message:
     :param embed_message:
+    :type embed_message:
     :param level:
+    :type level:
     :return:
+    :rtype:
     """
 
     if allianceauth_discordbot_installed():
@@ -128,12 +145,19 @@ def _discordproxy_send_private_message(
     """
     Try to send a PM to a user on Discord via discordproxy
     (fall back to allianceauth-discordbot if needed)
+
     :param user_id:
+    :type user_id:
     :param title:
+    :type title:
     :param message:
+    :type message:
     :param embed_message:
+    :type embed_message:
     :param level:
+    :type level:
     :return:
+    :rtype:
     """
 
     # Third Party
@@ -192,12 +216,19 @@ def _discordproxy_send_channel_message(
     """
     Try to send a message to a channel on Discord via discordproxy
     (fall back to allianceauth-discordbot if needed)
+
     :param channel_id:
+    :type channel_id:
     :param title:
+    :type title:
     :param message:
+    :type message:
     :param embed_message:
+    :type embed_message:
     :param level:
+    :type level:
     :return:
+    :rtype:
     """
 
     # Third Party
@@ -257,11 +288,19 @@ def send_user_notification(
     Send notification to user
     This creates a notification in Auth and a PM in Discord when either
     Discordproxy, AA-Discordbot or AA Discord Notifications is installed
+
     :param user:
+    :type user:
     :param title:
+    :type title:
     :param message:
+    :type message:
     :param embed_message:
+    :type embed_message:
     :param level:
+    :type level:
+    :return:
+    :rtype:
     """
 
     getattr(notify, level)(user=user, title=title, message=message)
@@ -314,10 +353,17 @@ def send_message_to_discord_channel(
     Sending a message to a discord channel.
     This creates a message to the SRP Team channel on Discord when either
     Discordproxy or AA-Discordbot is installed
+
     :param channel_id:
+    :type channel_id:
     :param title:
+    :type title:
     :param message:
+    :type message:
     :param embed_message:
+    :type embed_message:
+    :return:
+    :rtype:
     """
 
     # Check if either allianceauth_discordbot or discordproxy are available
@@ -345,4 +391,52 @@ def send_message_to_discord_channel(
             title=title,
             message=message,
             embed_message=embed_message,
+        )
+
+
+def notify_srp_team(srp_request: SrpRequest, additional_info: str):
+    """
+    Send SRP request notification to the SRP teams Discord channel
+
+    :param srp_request:
+    :type srp_request:
+    :param additional_info:
+    :type additional_info:
+    :return:
+    :rtype:
+    """
+
+    srp_team_discord_channel = Setting.objects.get_setting(
+        Setting.Field.SRP_TEAM_DISCORD_CHANNEL_ID
+    )
+
+    if srp_team_discord_channel is not None:
+        site_base_url = site_absolute_url()
+        request_code = srp_request.request_code
+        character_name = srp_request.character.character_name
+        ship_type = srp_request.ship.name
+        zkillboard_link = srp_request.killboard_link
+        additional_information = additional_info.replace(__old="@", __new="{@}")
+        srp_code = srp_request.srp_link.srp_code
+        srp_link = site_base_url + reverse(
+            viewname="aasrp:view_srp_requests", args=[srp_code]
+        )
+
+        title = "New SRP Request"
+        message = f"**Request Code:** {request_code}\n"
+        message += f"**Character:** {character_name}\n"
+        message += f"**Ship:** {ship_type}\n"
+        message += f"**zKillboard Link:** {zkillboard_link}\n"
+        message += f"**Additional Information:**\n{additional_information}\n\n"
+        message += f"**SRP Code:** {srp_code}\n"
+        message += f"**SRP Link:** {srp_link}\n"
+
+        logger.info(
+            "Sending SRP request notification to the SRP team channel on Discord"
+        )
+
+        send_message_to_discord_channel(
+            channel_id=srp_team_discord_channel,
+            title=title,
+            message=message,
         )

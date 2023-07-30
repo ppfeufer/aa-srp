@@ -31,19 +31,28 @@ def create_fake_user(
     **kwargs,
 ) -> User:
     """
-    Create a fake user incl. main character and (optional) permissions.
+    Create a fake user incl. Main character and (optional) permissions.
+
     :param character_id:
+    :type character_id:
     :param character_name:
+    :type character_name:
     :param corporation_id:
+    :type corporation_id:
     :param corporation_name:
+    :type corporation_name:
     :param corporation_ticker:
+    :type corporation_ticker:
     :param permissions:
+    :type permissions:
     :param kwargs:
+    :type kwargs:
     :return:
+    :rtype:
     """
 
-    username = re.sub(r"[^\w\d@\.\+-]", "_", character_name)
-    user = AuthUtils.create_user(username)
+    username = re.sub(pattern=r"[^\w\d@\.\+-]", repl="_", string=character_name)
+    user = AuthUtils.create_user(username=username)
 
     if not corporation_id:
         corporation_id = 2001
@@ -69,7 +78,9 @@ def create_fake_user(
     )
 
     if permissions:
-        perm_objs = [AuthUtils.get_permission_by_name(perm) for perm in permissions]
+        perm_objs = [
+            AuthUtils.get_permission_by_name(perm=perm) for perm in permissions
+        ]
         user = AuthUtils.add_permissions_to_user(perms=perm_objs, user=user)
 
     return user
@@ -78,6 +89,13 @@ def create_fake_user(
 def get_or_create_fake_user(*args, **kwargs) -> User:
     """
     Same as create_fake_user but will not fail when user already exists.
+
+    :param args:
+    :type args:
+    :param kwargs:
+    :type kwargs:
+    :return:
+    :rtype:
     """
 
     if len(args) > 1:
@@ -87,7 +105,7 @@ def get_or_create_fake_user(*args, **kwargs) -> User:
     else:
         ValueError("character_name is not defined")
 
-    username = character_name.replace("'", "").replace(" ", "_")
+    username = character_name.replace(__old="'", __new="").replace(__old=" ", __new="_")
 
     try:
         return User.objects.get(username=username)
@@ -97,9 +115,12 @@ def get_or_create_fake_user(*args, **kwargs) -> User:
 
 def create_fleettype(**kwargs) -> FleetType:
     """
-    Create fleet type
+    Create a fleet type
+
     :param kwargs:
+    :type kwargs:
     :return:
+    :rtype:
     """
 
     if "name" not in kwargs:
@@ -111,8 +132,11 @@ def create_fleettype(**kwargs) -> FleetType:
 def create_setting(**kwargs) -> Setting:
     """
     Create setting
+
     :param kwargs:
+    :type kwargs:
     :return:
+    :rtype:
     """
 
     return Setting.objects.create(**kwargs)

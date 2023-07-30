@@ -15,11 +15,15 @@ def get_character_portrait_from_evecharacter(
 ) -> str:
     """
     Get the character portrait from EveCharacter model
-    :param size:
+
     :param character:
+    :type character:
     :param size:
+    :type size:
     :param as_html:
+    :type as_html:
     :return:
+    :rtype:
     """
 
     portrait_url = character_portrait_url(
@@ -43,11 +47,17 @@ def get_type_render_url_from_type_id(
 ) -> str:
     """
     Get type render from evetype_id
+
     :param evetype_id:
+    :type evetype_id:
     :param size:
+    :type size:
     :param evetype_name:
+    :type evetype_name:
     :param as_html:
+    :type as_html:
     :return:
+    :rtype:
     """
 
     render_url = type_render_url(type_id=evetype_id, size=size)

@@ -37,6 +37,19 @@ def clean_setting(
     Will assume `min_value` of 0 for int (can be overridden)
 
     Returns cleaned value for setting
+
+    :param name:
+    :type name:
+    :param default_value:
+    :type default_value:
+    :param min_value:
+    :type min_value:
+    :param max_value:
+    :type max_value:
+    :param required_type:
+    :type required_type:
+    :return:
+    :rtype:
     """
 
     if default_value is None and not required_type:
@@ -52,14 +65,14 @@ def clean_setting(
         cleaned_value = default_value
     else:
         if (
-            isinstance(getattr(settings, name), required_type)
-            and (min_value is None or getattr(settings, name) >= min_value)
-            and (max_value is None or getattr(settings, name) <= max_value)
+            isinstance(getattr(__o=settings, __name=name), required_type)
+            and (min_value is None or getattr(__o=settings, __name=name) >= min_value)
+            and (max_value is None or getattr(__o=settings, __name=name) <= max_value)
         ):
-            cleaned_value = getattr(settings, name)
+            cleaned_value = getattr(__o=settings, __name=name)
         else:
             logger.warning(
-                f"You setting for {name} is not valid. Please correct it. "
+                f"Your setting for {name} is not valid. Please correct it. "
                 f"Using default for now: {default_value}"
             )
             cleaned_value = default_value

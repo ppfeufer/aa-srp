@@ -27,6 +27,7 @@ from aasrp.models import FleetType, Setting, SrpLink, SrpRequest, UserSetting
 def get_mandatory_form_label_text(text: str) -> str:
     """
     Label text for mandatory form fields
+
     :param text:
     :type text:
     :return:
@@ -49,11 +50,11 @@ class SrpLinkForm(ModelForm):
     """
 
     srp_name = forms.CharField(
-        required=True, label=get_mandatory_form_label_text(_("Fleet Name"))
+        required=True, label=get_mandatory_form_label_text(text=_("Fleet Name"))
     )
     fleet_time = forms.DateTimeField(
         required=True,
-        label=get_mandatory_form_label_text(_("Fleet Time")),
+        label=get_mandatory_form_label_text(text=_("Fleet Time")),
         widget=forms.DateTimeInput(attrs={"autocomplete": "off"}),
     )
     fleet_type = forms.ModelChoiceField(
@@ -64,7 +65,7 @@ class SrpLinkForm(ModelForm):
     )
     fleet_doctrine = forms.CharField(
         required=True,
-        label=get_mandatory_form_label_text(_("Doctrine")),
+        label=get_mandatory_form_label_text(text=_("Doctrine")),
     )
     aar_link = forms.CharField(required=False, label=_("After Action Report Link"))
 
@@ -99,7 +100,7 @@ class SrpRequestForm(ModelForm):
     """
 
     killboard_link = forms.URLField(
-        label=get_mandatory_form_label_text(_("Killboard Link")),
+        label=get_mandatory_form_label_text(text=_("Killboard Link")),
         max_length=254,
         required=True,
         help_text=_(
@@ -110,7 +111,7 @@ class SrpRequestForm(ModelForm):
     additional_info = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
-        label=get_mandatory_form_label_text(_("Additional Information")),
+        label=get_mandatory_form_label_text(text=_("Additional Information")),
         help_text=_(
             "Please tell us about the circumstances of your untimely demise. "
             "Who was the FC, what doctrine was called, have changes to the fit "
@@ -129,32 +130,34 @@ class SrpRequestForm(ModelForm):
     def clean_killboard_link(self):
         """
         Check if it's a link from one of the accepted kill boards and clean it
+
         :return:
+        :rtype:
         """
 
         killboard_link = self.cleaned_data["killboard_link"]
 
         # Check if it's a link from one of the accepted kill boards
         if not any(
-            re.match(regex, killboard_link)
+            re.match(pattern=regex, string=killboard_link)
             for regex in [ZKILLBOARD_BASE_URL_REGEX, EVETOOLS_KILLBOARD_BASE_URL_REGEX]
         ):
             raise forms.ValidationError(
-                _(
+                message=_(
                     f"Invalid Link. Please use {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"  # pylint: disable=line-too-long
                 )
             )
 
         # Check if it's an actual killmail
         if not any(
-            re.match(regex, killboard_link)
+            re.match(pattern=regex, string=killboard_link)
             for regex in [
                 ZKILLBOARD_KILLMAIL_URL_REGEX,
                 EVETOOLS_KILLBOARD_KILLMAIL_URL_REGEX,
             ]
         ):
             raise forms.ValidationError(
-                _("Invalid link. Please post a link to a kill mail.")
+                message=_("Invalid link. Please post a link to a kill mail.")
             )
 
         # Check if there is already an SRP request for this kill mail
@@ -164,7 +167,7 @@ class SrpRequestForm(ModelForm):
             killboard_link__icontains="/kill/" + killmail_id
         ).exists():
             raise forms.ValidationError(
-                _(
+                message=_(
                     "There is already an SRP request for this killmail. "
                     "Please check if you got the right one."
                 )
@@ -189,7 +192,7 @@ class SrpRequestRejectForm(forms.Form):
     reject_info = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
-        label=get_mandatory_form_label_text(_("Reject Reason")),
+        label=get_mandatory_form_label_text(text=_("Reject Reason")),
         help_text=_("Please provide the reason this SRP request is rejected."),
     )
 
@@ -215,7 +218,7 @@ class SrpRequestAcceptRejectedForm(forms.Form):
     reviser_comment = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
-        label=get_mandatory_form_label_text(_("Comment")),
+        label=get_mandatory_form_label_text(text=_("Comment")),
         help_text=_(
             "Please provide the reason why this former rejected SRP request is now "
             "accepted."
