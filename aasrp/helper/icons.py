@@ -8,14 +8,15 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+# Alliance Auth
+from allianceauth.authentication.decorators import permissions_required
+
 # AA SRP
 from aasrp.models import SrpLink, SrpRequest
 
 
 @login_required
-@permission_required(
-    "aasrp.basic_access", "aasrp.manage_srp_requests", "aasrp.manage_srp"
-)
+@permission_required("aasrp.basic_access")
 def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
     """
     Getting the action buttons for the dashboard view
@@ -295,7 +296,7 @@ def get_srp_request_delete_icon(
 
 
 @login_required
-@permission_required("aasrp.manage_srp_requests", "aasrp.manage_srp")
+@permissions_required(("aasrp.manage_srp_requests", "aasrp.manage_srp"))
 def get_srp_request_action_icons(
     request: WSGIRequest, srp_link: SrpLink, srp_request: SrpRequest
 ) -> str:
