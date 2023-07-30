@@ -14,7 +14,7 @@ def allianceauth_discordbot_installed() -> bool:
     :rtype:
     """
 
-    return apps.is_installed("aadiscordbot")
+    return apps.is_installed(app_name="aadiscordbot")
 
 
 def aa_discordnotify_installed() -> bool:
@@ -25,7 +25,7 @@ def aa_discordnotify_installed() -> bool:
     :rtype:
     """
 
-    return apps.is_installed("discordnotify")
+    return apps.is_installed(app_name="discordnotify")
 
 
 def discordproxy_installed() -> bool:

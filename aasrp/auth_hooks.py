@@ -21,9 +21,9 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
         # Setup menu entry for sidebar
         MenuItemHook.__init__(
             self,
-            __title__,
-            "far fa-money-bill-alt fa-fw",
-            "aasrp:dashboard",
+            text=__title__,
+            classes="far fa-money-bill-alt fa-fw",
+            url_name="aasrp:dashboard",
             navactive=["aasrp:"],
         )
 
@@ -41,7 +41,7 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
             app_count = SrpManager.pending_requests_count_for_user(request.user)
             self.count = app_count if app_count and app_count > 0 else None
 
-            return MenuItemHook.render(self, request)
+            return MenuItemHook.render(self, request=request)
 
         return ""
 
@@ -67,4 +67,4 @@ def register_urls():
     :rtype:
     """
 
-    return UrlHook(urls, "aasrp", r"^ship-replacement/")
+    return UrlHook(urls=urls, namespace="aasrp", base_url=r"^ship-replacement/")

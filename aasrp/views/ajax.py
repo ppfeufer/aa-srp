@@ -44,7 +44,7 @@ from aasrp.helper.user import get_user_settings
 from aasrp.managers import SrpManager
 from aasrp.models import RequestComment, SrpLink, SrpRequest
 
-logger = LoggerAddTag(get_extension_logger(__name__), __title__)
+logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
 def _attempt_to_re_add_ship_information_to_request(
@@ -61,9 +61,11 @@ def _attempt_to_re_add_ship_information_to_request(
     :rtype:
     """
 
-    srp_kill_link = SrpManager.get_kill_id(srp_request.killboard_link)
+    srp_kill_link_id = SrpManager.get_kill_id(killboard_link=srp_request.killboard_link)
 
-    (ship_type_id, ship_value, victim_id) = SrpManager.get_kill_data(srp_kill_link)
+    (ship_type_id, ship_value, victim_id) = SrpManager.get_kill_data(
+        kill_id=srp_kill_link_id
+    )
     (srp_request__ship, created_from_esi) = EveType.objects.get_or_create_esi(
         id=ship_type_id
     )
@@ -116,7 +118,7 @@ def dashboard_srp_links_data(
                 "aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy"
             )
             srp_link_href = reverse_absolute(
-                "aasrp:request_srp", args=[srp_link.srp_code]
+                viewname="aasrp:request_srp", args=[srp_link.srp_code]
             )
             title = _("Copy SRP link to clipboard")
             srp_code_html += (
@@ -133,7 +135,7 @@ def dashboard_srp_links_data(
         data.append(
             {
                 "srp_name": srp_link.srp_name,
-                "creator": get_main_character_from_user(srp_link.creator),
+                "creator": get_main_character_from_user(user=srp_link.creator),
                 "fleet_time": srp_link.fleet_time,
                 "fleet_type": fleet_type,
                 "fleet_commander": srp_link.fleet_commander.character_name,
@@ -147,7 +149,7 @@ def dashboard_srp_links_data(
             }
         )
 
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data=data, safe=False)
 
 
 @login_required
@@ -193,7 +195,7 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
                 # For some reason, it seems the ship has been removed from EveType
                 # table, attempt to add it again ...
                 srp_request = _attempt_to_re_add_ship_information_to_request(
-                    srp_request
+                    srp_request=srp_request
                 )
 
                 ship_render_icon_html = get_type_render_url_from_type_id(
@@ -251,7 +253,7 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
             }
         )
 
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data=data, safe=False)
 
 
 @login_required
@@ -384,7 +386,9 @@ def srp_request_additional_information(
     except AttributeError:
         # For some reason, it seems the ship has been removed from EveType
         # table, attempt to add it again ...
-        srp_request = _attempt_to_re_add_ship_information_to_request(srp_request)
+        srp_request = _attempt_to_re_add_ship_information_to_request(
+            srp_request=srp_request
+        )
 
         ship_render_icon_html = get_type_render_url_from_type_id(
             evetype_id=srp_request.ship_id,
@@ -405,7 +409,9 @@ def srp_request_additional_information(
             srp_request=srp_request, comment_type=RequestComment.Type.REQUEST_INFO
         )
 
-        additional_info = additional_info_comment.comment.replace("\n", "<br>\n")
+        additional_info = additional_info_comment.comment.replace(
+            __old="\n", __new="<br>\n"
+        )
     except RequestComment.DoesNotExist:
         additional_info = ""
 
@@ -421,7 +427,7 @@ def srp_request_additional_information(
         "srp_request": srp_request,
         "ship_render_icon_html": ship_render_icon_html,
         "ship_type": srp_request.ship.name,
-        "requester": get_main_character_from_user(srp_request.creator),
+        "requester": get_main_character_from_user(user=srp_request.creator),
         "character": character,
         "additional_info": additional_info,
         "request_status_banner_alert_level": request_status_banner_alert_level,
@@ -431,7 +437,9 @@ def srp_request_additional_information(
     }
 
     return render(
-        request, "aasrp/ajax_render/srp_request_additional_information.html", data
+        request=request,
+        template_name="aasrp/ajax_render/srp_request_additional_information.html",
+        context=data,
     )
 
 
@@ -464,7 +472,7 @@ def srp_request_change_payout(
             data.append({"success": False})
         else:
             # check whether it's valid:
-            form = SrpRequestPayoutForm(request.POST)
+            form = SrpRequestPayoutForm(data=request.POST)
             if form.is_valid():
                 srp_payout = form.cleaned_data["value"]
 
@@ -475,7 +483,7 @@ def srp_request_change_payout(
             else:
                 data.append({"success": False})
 
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data=data, safe=False)
 
 
 @login_required
@@ -510,9 +518,9 @@ def srp_request_approve(
             form = None
 
             if srp_request.request_status == SrpRequest.Status.PENDING:
-                form = SrpRequestAcceptForm(request.POST)
+                form = SrpRequestAcceptForm(data=request.POST)
             elif srp_request.request_status == SrpRequest.Status.REJECTED:
-                form = SrpRequestAcceptRejectedForm(request.POST)
+                form = SrpRequestAcceptRejectedForm(data=request.POST)
 
             if form and form.is_valid():
                 requester = srp_request.creator
@@ -553,7 +561,7 @@ def srp_request_approve(
                     fleet_name = srp_request.srp_link.srp_name
                     srp_code = srp_request.srp_link.srp_code
                     request_code = srp_request.request_code
-                    reviser = get_main_character_from_user(request.user)
+                    reviser = get_main_character_from_user(user=request.user)
                     reviser_comment = (
                         f"\nComment:\n{reviser_comment}\n"
                         if reviser_comment != ""
@@ -568,7 +576,7 @@ def srp_request_approve(
                         f"Reviser: {reviser}\n{reviser_comment}\n{inquiry_note}"
                     )
 
-                    logger.info("Sending approval message to user")
+                    logger.info(msg="Sending approval message to user")
 
                     send_user_notification(
                         user=requester,
@@ -581,7 +589,7 @@ def srp_request_approve(
                     {"success": True, "message": _("SRP request has been approved")}
                 )
 
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data=data, safe=False)
 
 
 @login_required
@@ -613,7 +621,7 @@ def srp_request_deny(
     else:
         if request.method == "POST":
             # Create a form instance and populate it with data from the request
-            form = SrpRequestRejectForm(request.POST)
+            form = SrpRequestRejectForm(data=request.POST)
 
             # Check whether it's valid:
             if form.is_valid():
@@ -648,7 +656,7 @@ def srp_request_deny(
                     fleet_name = srp_request.srp_link.srp_name
                     srp_code = srp_request.srp_link.srp_code
                     request_code = srp_request.request_code
-                    reviser = get_main_character_from_user(request.user)
+                    reviser = get_main_character_from_user(user=request.user)
                     inquiry_note = SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
                     notification_message = (
                         f"Your SRP request regarding your {ship_name} lost during "
@@ -659,7 +667,7 @@ def srp_request_deny(
                         f"Reviser: {reviser}\n\n{inquiry_note}"
                     )
 
-                    logger.info("Sending reject message to user")
+                    logger.info(msg="Sending reject message to user")
 
                     send_user_notification(
                         user=requester,
@@ -672,7 +680,7 @@ def srp_request_deny(
                     {"success": True, "message": _("SRP request has been rejected")}
                 )
 
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data=data, safe=False)
 
 
 @login_required
@@ -706,4 +714,4 @@ def srp_request_remove(
 
         data.append({"success": True, "message": _("SRP request has been removed")})
 
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data=data, safe=False)

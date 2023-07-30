@@ -20,4 +20,4 @@ class TestFleetType(TestCase):
 
         topic = create_fleettype(name="Test Fleet Type")
 
-        self.assertEqual(str(topic), "Test Fleet Type")
+        self.assertEqual(first=str(topic), second="Test Fleet Type")

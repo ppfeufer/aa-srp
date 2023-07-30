@@ -57,7 +57,7 @@ class SrpManager:
 
         url = f"{ZKILLBOARD_API_URL}killID/{kill_id}/"
         headers = {"User-Agent": USERAGENT, "Content-Type": "application/json"}
-        request_result = requests.get(url, headers=headers, timeout=5)
+        request_result = requests.get(url=url, headers=headers, timeout=5)
 
         try:
             request_result.raise_for_status()
@@ -65,7 +65,7 @@ class SrpManager:
             error_str = str(exc)
 
             logger.warning(
-                f"Unable to get killmail details from zKillboard. Error: {error_str}",
+                msg=f"Unable to get killmail details from zKillboard. Error: {error_str}",
                 exc_info=True,
             )
 
@@ -73,7 +73,7 @@ class SrpManager:
         except requests.Timeout as exc:
             error_str = str(exc)
 
-            logger.warning("Connection to zKillboard timed out …")
+            logger.warning(msg="Connection to zKillboard timed out …")
 
             raise ValueError(error_str) from exc
 
@@ -90,10 +90,10 @@ class SrpManager:
             raise ValueError("Invalid Kill ID or Hash.") from exc
 
         ship_type = esi_killmail["victim"]["ship_type_id"]
-        logger.debug(f"Ship type for kill ID {kill_id} is {ship_type}")
         ship_value = result["zkb"]["totalValue"]
 
-        logger.debug(f"Total loss value for kill id {kill_id} is {ship_value}")
+        logger.debug(msg=f"Ship type for kill ID {kill_id} is {ship_type}")
+        logger.debug(msg=f"Total loss value for kill id {kill_id} is {ship_value}")
 
         victim_id = esi_killmail["victim"]["character_id"]
 
@@ -114,8 +114,8 @@ class SrpManager:
         # AA SRP
         from aasrp.models import SrpRequest  # pylint: disable=import-outside-toplevel
 
-        if user.has_perm("aasrp.manage_srp") or user.has_perm(
-            "aasrp.manage_srp_requests"
+        if user.has_perm(perm="aasrp.manage_srp") or user.has_perm(
+            perm="aasrp.manage_srp_requests"
         ):
             return SrpRequest.objects.filter(
                 request_status=SrpRequest.Status.PENDING
@@ -178,7 +178,7 @@ class SettingManager(models.Manager):
         :rtype:
         """
 
-        return getattr(self.first(), setting_key)
+        return getattr(__o=self.first(), __name=setting_key)
 
     def get_queryset(self):
         """

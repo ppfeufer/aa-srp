@@ -279,9 +279,9 @@ class FleetTypeAdmin(admin.ModelAdmin):
             messages.error(
                 request,
                 ngettext(
-                    "Failed to activate {failed} fleet type",
-                    "Failed to activate {failed} fleet types",
-                    failed,
+                    singular="Failed to activate {failed} fleet type",
+                    plural="Failed to activate {failed} fleet types",
+                    number=failed,
                 ).format(failed=failed),
             )
 
@@ -289,9 +289,9 @@ class FleetTypeAdmin(admin.ModelAdmin):
             messages.success(
                 request,
                 ngettext(
-                    "Activated {notifications_count} fleet type",
-                    "Activated {notifications_count} fleet types",
-                    notifications_count,
+                    singular="Activated {notifications_count} fleet type",
+                    plural="Activated {notifications_count} fleet types",
+                    number=notifications_count,
                 ).format(notifications_count=notifications_count),
             )
 
@@ -324,9 +324,9 @@ class FleetTypeAdmin(admin.ModelAdmin):
             messages.error(
                 request,
                 ngettext(
-                    "Failed to deactivate {failed} fleet type",
-                    "Failed to deactivate {failed} fleet types",
-                    failed,
+                    singular="Failed to deactivate {failed} fleet type",
+                    plural="Failed to deactivate {failed} fleet types",
+                    number=failed,
                 ).format(failed=failed),
             )
 
@@ -334,9 +334,9 @@ class FleetTypeAdmin(admin.ModelAdmin):
             messages.success(
                 request,
                 ngettext(
-                    "Deactivated {notifications_count} fleet type",
-                    "Deactivated {notifications_count} fleet types",
-                    notifications_count,
+                    singular="Deactivated {notifications_count} fleet type",
+                    plural="Deactivated {notifications_count} fleet types",
+                    number=notifications_count,
                 ).format(notifications_count=notifications_count),
             )
 

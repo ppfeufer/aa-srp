@@ -193,7 +193,7 @@ class SrpLink(models.Model):
         null=True,
         blank=True,
         default=None,
-        on_delete=models.SET(get_sentinel_user),
+        on_delete=models.SET(value=get_sentinel_user),
         help_text=_("Who created the SRP link?"),
         verbose_name=_("Creator"),
     )
@@ -316,7 +316,7 @@ class SrpRequest(models.Model):
         null=True,
         blank=True,
         default=None,
-        on_delete=models.SET(get_sentinel_user),
+        on_delete=models.SET(value=get_sentinel_user),
         help_text=_("Who created the SRP link?"),
         verbose_name=_("Creator"),
     )
@@ -461,7 +461,7 @@ class RequestComment(models.Model):
         null=True,
         blank=True,
         default=None,
-        on_delete=models.SET(get_sentinel_user),
+        on_delete=models.SET(value=get_sentinel_user),
         verbose_name=_("Creator"),
     )
 
@@ -513,7 +513,7 @@ class UserSetting(models.Model):
         null=True,
         blank=True,
         default=None,
-        on_delete=models.SET(get_sentinel_user),
+        on_delete=models.SET(value=get_sentinel_user),
         verbose_name=_("User"),
     )
 

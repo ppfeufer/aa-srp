@@ -51,8 +51,8 @@ def create_fake_user(
     :rtype:
     """
 
-    username = re.sub(r"[^\w\d@\.\+-]", "_", character_name)
-    user = AuthUtils.create_user(username)
+    username = re.sub(pattern=r"[^\w\d@\.\+-]", repl="_", string=character_name)
+    user = AuthUtils.create_user(username=username)
 
     if not corporation_id:
         corporation_id = 2001
@@ -78,7 +78,9 @@ def create_fake_user(
     )
 
     if permissions:
-        perm_objs = [AuthUtils.get_permission_by_name(perm) for perm in permissions]
+        perm_objs = [
+            AuthUtils.get_permission_by_name(perm=perm) for perm in permissions
+        ]
         user = AuthUtils.add_permissions_to_user(perms=perm_objs, user=user)
 
     return user
@@ -103,7 +105,7 @@ def get_or_create_fake_user(*args, **kwargs) -> User:
     else:
         ValueError("character_name is not defined")
 
-    username = character_name.replace("'", "").replace(" ", "_")
+    username = character_name.replace(__old="'", __new="").replace(__old=" ", __new="_")
 
     try:
         return User.objects.get(username=username)

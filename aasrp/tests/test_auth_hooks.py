@@ -28,11 +28,15 @@ class TestHooks(TestCase):
         super().setUpClass()
 
         # User cannot access
-        cls.user_1001 = create_fake_user(1001, "Peter Parker")
+        cls.user_1001 = create_fake_user(
+            character_id=1001, character_name="Peter Parker"
+        )
 
         # User can access
         cls.user_1002 = create_fake_user(
-            1002, "Bruce Wayne", permissions=["aasrp.basic_access"]
+            character_id=1002,
+            character_name="Bruce Wayne",
+            permissions=["aasrp.basic_access"],
         )
 
         cls.html_menu = f"""
@@ -52,12 +56,12 @@ class TestHooks(TestCase):
         :rtype:
         """
 
-        self.client.force_login(self.user_1002)
+        self.client.force_login(user=self.user_1002)
 
-        response = self.client.get(reverse("authentication:dashboard"))
+        response = self.client.get(path=reverse(viewname="authentication:dashboard"))
 
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertContains(response, self.html_menu, html=True)
+        self.assertEqual(first=response.status_code, second=HTTPStatus.OK)
+        self.assertContains(response=response, text=self.html_menu, html=True)
 
     def test_render_hook_fail(self):
         """
@@ -68,9 +72,9 @@ class TestHooks(TestCase):
         :rtype:
         """
 
-        self.client.force_login(self.user_1001)
+        self.client.force_login(user=self.user_1001)
 
-        response = self.client.get(reverse("authentication:dashboard"))
+        response = self.client.get(path=reverse(viewname="authentication:dashboard"))
 
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertNotContains(response, self.html_menu, html=True)
+        self.assertEqual(first=response.status_code, second=HTTPStatus.OK)
+        self.assertNotContains(response=response, text=self.html_menu, html=True)

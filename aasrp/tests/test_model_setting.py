@@ -28,7 +28,7 @@ class TestSetting(TestCase):
         setting = Setting.objects.get(pk=1)
 
         # when/then
-        self.assertEqual(str(setting), "AA-SRP Settings")
+        self.assertEqual(first=str(setting), second="AA-SRP Settings")
 
     def test_setting_save(self):
         """
@@ -45,9 +45,10 @@ class TestSetting(TestCase):
         setting.save()
 
         # then
-        self.assertEqual(setting.pk, 1)
+        self.assertEqual(first=setting.pk, second=1)
         self.assertEqual(
-            setting.srp_team_discord_channel_id, srp_team_discord_channel_id
+            first=setting.srp_team_discord_channel_id,
+            second=srp_team_discord_channel_id,
         )
 
     def test_setting_create(self):
@@ -60,7 +61,7 @@ class TestSetting(TestCase):
         """
 
         # No pk given
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(expected_exception=IntegrityError):
             create_setting()
 
     def test_setting_create_with_pk(self):
@@ -73,7 +74,7 @@ class TestSetting(TestCase):
         """
 
         # Set pk=2
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(expected_exception=IntegrityError):
             create_setting(pk=2)
 
     def test_cannot_be_deleted(self):
@@ -95,10 +96,10 @@ class TestSetting(TestCase):
         settings_first = settings.first()
 
         # See if there is still only ONE Setting object
-        self.assertEqual(settings.count(), 1)
+        self.assertEqual(first=settings.count(), second=1)
 
         # Check if both of our objects are identical
-        self.assertEqual(settings_old, settings_first)
+        self.assertEqual(first=settings_old, second=settings_first)
 
     def test_srp_team_discord_channel_id_is_not_mandatory(self):
         """
@@ -113,5 +114,5 @@ class TestSetting(TestCase):
         setting.save()
 
         # then
-        self.assertEqual(setting.pk, 1)
-        self.assertEqual(setting.srp_team_discord_channel_id, None)
+        self.assertEqual(first=setting.pk, second=1)
+        self.assertEqual(first=setting.srp_team_discord_channel_id, second=None)

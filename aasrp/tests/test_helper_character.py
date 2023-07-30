@@ -44,7 +44,7 @@ class TestSentinelUser(TestCase):
 
         sentinel_user = get_sentinel_user()
 
-        self.assertEqual(sentinel_user.username, "deleted")
+        self.assertEqual(first=sentinel_user.username, second="deleted")
 
 
 class TestGetFormattedCharacterName(TestCase):
@@ -69,7 +69,7 @@ class TestGetFormattedCharacterName(TestCase):
             character_id=1002, character_name="Thomas Riker"
         )
 
-        add_character_to_user(cls.user_main_character, cls.alt_character)
+        add_character_to_user(user=cls.user_main_character, character=cls.alt_character)
 
         cls.character_without_profile = create_eve_character(
             character_id=1003, character_name="Christopher Pike"
@@ -91,7 +91,7 @@ class TestGetFormattedCharacterName(TestCase):
             f"</small><br>{self.alt_character.character_name}"
         )
 
-        self.assertEqual(html, expected_html)
+        self.assertEqual(first=html, second=expected_html)
 
     def test_should_return_formatted_character_name_with_copy_icon(self):
         """
@@ -119,7 +119,7 @@ class TestGetFormattedCharacterName(TestCase):
             f"</small><br>{self.alt_character.character_name}{copy_icon}"
         )
 
-        self.assertEqual(html, expected_html)
+        self.assertEqual(first=html, second=expected_html)
 
     def test_should_return_formatted_character_name_with_portrait(self):
         """
@@ -148,7 +148,7 @@ class TestGetFormattedCharacterName(TestCase):
             "</span>"
         )
 
-        self.assertEqual(html, expected_html)
+        self.assertEqual(first=html, second=expected_html)
 
     def test_should_return_formatted_character_name_with_portrait_inline(self):
         """
@@ -177,7 +177,7 @@ class TestGetFormattedCharacterName(TestCase):
             "</span>"
         )
 
-        self.assertEqual(html, expected_html)
+        self.assertEqual(first=html, second=expected_html)
 
 
 class TestGetMainForCharacter(TestCase):
@@ -206,8 +206,10 @@ class TestGetMainForCharacter(TestCase):
             character_id=1004, character_name="Jean Luc Riker"
         )
 
-        add_character_to_user(cls.user_main_character, cls.alt_character)
-        add_character_to_user(cls.user_main_character, cls.alt_character_2)
+        add_character_to_user(user=cls.user_main_character, character=cls.alt_character)
+        add_character_to_user(
+            user=cls.user_main_character, character=cls.alt_character_2
+        )
 
         cls.character_without_profile = create_eve_character(
             character_id=1003, character_name="Christopher Pike"
@@ -221,9 +223,11 @@ class TestGetMainForCharacter(TestCase):
         :rtype:
         """
 
-        main_character = get_main_for_character(self.character_without_profile)
+        main_character = get_main_for_character(
+            character=self.character_without_profile
+        )
 
-        self.assertIsNone(main_character)
+        self.assertIsNone(obj=main_character)
 
     def test_get_main_for_character_raises_exception_related_object_does_not_exist(
         self,
@@ -235,9 +239,11 @@ class TestGetMainForCharacter(TestCase):
         :rtype:
         """
 
-        get_main_for_character(self.character_without_profile)
+        get_main_for_character(character=self.character_without_profile)
 
-        self.assertRaises(EveCharacter.userprofile.RelatedObjectDoesNotExist)
+        self.assertRaises(
+            expected_exception=EveCharacter.userprofile.RelatedObjectDoesNotExist
+        )
 
     def test_get_main_for_character_raises_exception_related_object_does_not_exist_2(
         self,
@@ -251,9 +257,11 @@ class TestGetMainForCharacter(TestCase):
 
         self.alt_character_2.character_ownership.user = None
 
-        get_main_for_character(self.alt_character_2)
+        get_main_for_character(character=self.alt_character_2)
 
-        self.assertRaises(CharacterOwnership.user.RelatedObjectDoesNotExist)
+        self.assertRaises(
+            expected_exception=CharacterOwnership.user.RelatedObjectDoesNotExist
+        )
 
     def test_get_main_for_character_returns_main_character(self):
         """
@@ -263,11 +271,11 @@ class TestGetMainForCharacter(TestCase):
         :rtype:
         """
 
-        main_character = get_main_for_character(self.alt_character)
+        main_character = get_main_for_character(character=self.alt_character)
 
         self.assertEqual(
-            main_character.character_name,
-            self.user_main_character.profile.main_character.character_name,
+            first=main_character.character_name,
+            second=self.user_main_character.profile.main_character.character_name,
         )
 
 
@@ -297,8 +305,10 @@ class TestGetUserForCharacter(TestCase):
             character_id=1004, character_name="Jean Luc Riker"
         )
 
-        add_character_to_user(cls.user_main_character, cls.alt_character)
-        add_character_to_user(cls.user_main_character, cls.alt_character_2)
+        add_character_to_user(user=cls.user_main_character, character=cls.alt_character)
+        add_character_to_user(
+            user=cls.user_main_character, character=cls.alt_character_2
+        )
 
         cls.character_without_profile = create_eve_character(
             character_id=1003, character_name="Christopher Pike"
@@ -312,10 +322,10 @@ class TestGetUserForCharacter(TestCase):
         :rtype:
         """
 
-        returned_user = get_user_for_character(self.character_without_profile)
+        returned_user = get_user_for_character(character=self.character_without_profile)
         sentinel_user = get_sentinel_user()
 
-        self.assertEqual(returned_user, sentinel_user)
+        self.assertEqual(first=returned_user, second=sentinel_user)
 
     def test_get_user_for_character_raises_exception_related_object_does_not_exist(
         self,
@@ -327,9 +337,11 @@ class TestGetUserForCharacter(TestCase):
         :rtype:
         """
 
-        get_user_for_character(self.character_without_profile)
+        get_user_for_character(character=self.character_without_profile)
 
-        self.assertRaises(EveCharacter.userprofile.RelatedObjectDoesNotExist)
+        self.assertRaises(
+            expected_exception=EveCharacter.userprofile.RelatedObjectDoesNotExist
+        )
 
     def test_get_user_for_character_returns_user(self):
         """
@@ -339,9 +351,11 @@ class TestGetUserForCharacter(TestCase):
         :rtype:
         """
 
-        returned_user = get_user_for_character(self.alt_character)
+        returned_user = get_user_for_character(character=self.alt_character)
 
-        self.assertEqual(returned_user, self.user_main_character.profile.user)
+        self.assertEqual(
+            first=returned_user, second=self.user_main_character.profile.user
+        )
 
     def test_get_user_for_character_returns_sentinel_user_for_none(self):
         """
@@ -353,11 +367,13 @@ class TestGetUserForCharacter(TestCase):
 
         self.alt_character_2.character_ownership.user = None
 
-        returned_user = get_user_for_character(self.alt_character_2)
+        returned_user = get_user_for_character(character=self.alt_character_2)
         expected_user = get_sentinel_user()
 
-        self.assertEqual(returned_user, expected_user)
-        self.assertRaises(CharacterOwnership.user.RelatedObjectDoesNotExist)
+        self.assertEqual(first=returned_user, second=expected_user)
+        self.assertRaises(
+            expected_exception=CharacterOwnership.user.RelatedObjectDoesNotExist
+        )
 
 
 class TestGetMainCharacterFromUser(TestCase):
@@ -390,9 +406,9 @@ class TestGetMainCharacterFromUser(TestCase):
         :rtype:
         """
 
-        character_name = get_main_character_from_user(self.user_main_character)
+        character_name = get_main_character_from_user(user=self.user_main_character)
 
-        self.assertEqual(character_name, "William T. Riker")
+        self.assertEqual(first=character_name, second="William T. Riker")
 
     def test_get_main_character_from_user_should_return_user_name(self):
         """
@@ -402,11 +418,11 @@ class TestGetMainCharacterFromUser(TestCase):
         :rtype:
         """
 
-        user = AuthUtils.create_user("John Doe")
+        user = AuthUtils.create_user(username="John Doe")
 
-        character_name = get_main_character_from_user(user)
+        character_name = get_main_character_from_user(user=user)
 
-        self.assertEqual(character_name, "John Doe")
+        self.assertEqual(first=character_name, second="John Doe")
 
     def test_get_main_character_from_user_should_return_sentinel_user(self):
         """
@@ -418,9 +434,9 @@ class TestGetMainCharacterFromUser(TestCase):
 
         user = get_sentinel_user()
 
-        character_name = get_main_character_from_user(user)
+        character_name = get_main_character_from_user(user=user)
 
-        self.assertEqual(character_name, "deleted")
+        self.assertEqual(first=character_name, second="deleted")
 
     def test_get_main_character_from_user_should_return_sentinel_user_for_none(self):
         """
@@ -432,6 +448,6 @@ class TestGetMainCharacterFromUser(TestCase):
 
         user = None
 
-        character_name = get_main_character_from_user(user)
+        character_name = get_main_character_from_user(user=user)
 
-        self.assertEqual(character_name, "deleted")
+        self.assertEqual(first=character_name, second="deleted")
