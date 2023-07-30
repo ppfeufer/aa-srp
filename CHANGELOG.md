@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning]
 ### Changed
 
 - Ukrainian translation improved
+- Minor code refactoring
 
 
 ## [1.20.0] - 2023-06-24
