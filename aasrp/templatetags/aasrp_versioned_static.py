@@ -14,6 +14,11 @@ from aasrp import __version__
 def aasrp_static(path: str) -> str:
     """
     Versioned static URL
+    Adding the app version to any static file we load through this function.
+    This is to make sure to break the browser cache on app updates.
+
+    Example: /static/myapp/css/myapp.css?ver=1.0.0
+
     :param path:
     :type path:
     :return:

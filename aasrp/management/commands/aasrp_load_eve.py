@@ -37,8 +37,13 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         """
         Start the eve type import
+
         :param args:
+        :type args:
         :param options:
+        :type options:
+        :return:
+        :rtype:
         """
 
         params = [

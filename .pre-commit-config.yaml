@@ -76,13 +76,13 @@ repos:
         args: [ --target-version=4.0 ]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.7.0
+    rev: v3.9.0
     hooks:
       - id: pyupgrade
         args: [ --py38-plus ]
 
   - repo: https://github.com/pycqa/flake8
-    rev: 6.0.0
+    rev: 6.1.0
     hooks:
       - id: flake8
 
@@ -97,14 +97,14 @@ repos:
       - id: isort
 
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 23.7.0
     hooks:
       - id: black
         args: [ --target-version=py38 ]
 
   - repo: https://github.com/asottile/blacken-docs
-    rev: 1.14.0
+    rev: 1.15.0
     hooks:
       - id: blacken-docs
-        additional_dependencies: [ black==23.3.0 ]
+        additional_dependencies: [ black==23.7.0 ]
         args: [ --target-version=py38 ]

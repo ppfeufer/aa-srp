@@ -1,0 +1,3 @@
+"""
+Initialise the views
+"""

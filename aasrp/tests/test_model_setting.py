@@ -19,20 +19,24 @@ class TestSetting(TestCase):
     def test_model_string_name(self):
         """
         Test model string name
+
         :return:
+        :rtype:
         """
 
         # given
         setting = Setting.objects.get(pk=1)
 
         # when/then
-        self.assertEqual(str(setting), "AA-SRP Settings")
+        self.assertEqual(first=str(setting), second="AA-SRP Settings")
 
     def test_setting_save(self):
         """
         Test if there can't be another setting created
         and the existing setting is changed instead
+
         :return:
+        :rtype:
         """
 
         # given
@@ -41,37 +45,44 @@ class TestSetting(TestCase):
         setting.save()
 
         # then
-        self.assertEqual(setting.pk, 1)
+        self.assertEqual(first=setting.pk, second=1)
         self.assertEqual(
-            setting.srp_team_discord_channel_id, srp_team_discord_channel_id
+            first=setting.srp_team_discord_channel_id,
+            second=srp_team_discord_channel_id,
         )
 
     def test_setting_create(self):
         """
         Test that create method throwing the following exception
         django.db.utils.IntegrityError: (1062, "Duplicate entry '1' for key 'PRIMARY'")
+
         :return:
+        :rtype:
         """
 
         # No pk given
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(expected_exception=IntegrityError):
             create_setting()
 
     def test_setting_create_with_pk(self):
         """
         Test that create method throwing the following exception no matter the given pk
         django.db.utils.IntegrityError: (1062, "Duplicate entry '1' for key 'PRIMARY'")
+
         :return:
+        :rtype:
         """
 
         # Set pk=2
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(expected_exception=IntegrityError):
             create_setting(pk=2)
 
     def test_cannot_be_deleted(self):
         """
         Test that the settings object cannot be deleted
+
         :return:
+        :rtype:
         """
 
         # given
@@ -85,14 +96,15 @@ class TestSetting(TestCase):
         settings_first = settings.first()
 
         # See if there is still only ONE Setting object
-        self.assertEqual(settings.count(), 1)
+        self.assertEqual(first=settings.count(), second=1)
 
         # Check if both of our objects are identical
-        self.assertEqual(settings_old, settings_first)
+        self.assertEqual(first=settings_old, second=settings_first)
 
     def test_srp_team_discord_channel_id_is_not_mandatory(self):
         """
         Test that we get None when the Discord Channel ID field is empty
+
         :return:
         :rtype:
         """
@@ -102,5 +114,5 @@ class TestSetting(TestCase):
         setting.save()
 
         # then
-        self.assertEqual(setting.pk, 1)
-        self.assertEqual(setting.srp_team_discord_channel_id, None)
+        self.assertEqual(first=setting.pk, second=1)
+        self.assertEqual(first=setting.srp_team_discord_channel_id, second=None)

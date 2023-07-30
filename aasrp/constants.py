@@ -11,7 +11,7 @@ from aasrp import __version__
 
 VERBOSE_NAME = "AA-SRP - A ship replacement module for Alliance Auth"
 
-verbose_name_slugified: str = slugify(VERBOSE_NAME, allow_unicode=True)
+verbose_name_slugified: str = slugify(value=VERBOSE_NAME, allow_unicode=True)
 github_url: str = "https://github.com/ppfeufer/aa-srp"
 USERAGENT = f"{verbose_name_slugified} v{__version__} {github_url}"
 
@@ -21,6 +21,7 @@ SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = _(
     "request reviser.\nPlease make sure to always add the SRP Code and the "
     "Request Code with your inquiry."
 )
+
 
 # zKillboard - https://zkillboard.com/
 ZKILLBOARD_BASE_URL = "https://zkillboard.com/"
@@ -32,6 +33,7 @@ ZKILLBOARD_KILLMAIL_URL_REGEX = r"^http[s]?:\/\/zkillboard\.com\/kill\/\d+\/"
 EVETOOLS_KILLBOARD_BASE_URL = "https://kb.evetools.org/"
 EVETOOLS_KILLBOARD_BASE_URL_REGEX = r"^http[s]?:\/\/kb\.evetools\.org\/"
 EVETOOLS_KILLBOARD_KILLMAIL_URL_REGEX = r"^http[s]?:\/\/kb\.evetools\.org\/kill\/\d+"
+
 
 # Embed colors
 DISCORD_EMBED_COLOR_INFO = 0x5BC0DE

@@ -21,24 +21,27 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
         # Setup menu entry for sidebar
         MenuItemHook.__init__(
             self,
-            __title__,
-            "far fa-money-bill-alt fa-fw",
-            "aasrp:dashboard",
+            text=__title__,
+            classes="far fa-money-bill-alt fa-fw",
+            url_name="aasrp:dashboard",
             navactive=["aasrp:"],
         )
 
     def render(self, request):
         """
         Check if the user has the permission to view this app
+
         :param request:
+        :type request:
         :return:
+        :rtype:
         """
 
         if request.user.has_perm("aasrp.basic_access"):
             app_count = SrpManager.pending_requests_count_for_user(request.user)
             self.count = app_count if app_count and app_count > 0 else None
 
-            return MenuItemHook.render(self, request)
+            return MenuItemHook.render(self, request=request)
 
         return ""
 
@@ -47,7 +50,9 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
 def register_menu():
     """
     Register our menu item
+
     :return:
+    :rtype:
     """
 
     return AaSrpMenuItem()
@@ -57,7 +62,9 @@ def register_menu():
 def register_urls():
     """
     Register our base url
+
     :return:
+    :rtype:
     """
 
-    return UrlHook(urls, "aasrp", r"^ship-replacement/")
+    return UrlHook(urls=urls, namespace="aasrp", base_url=r"^ship-replacement/")
