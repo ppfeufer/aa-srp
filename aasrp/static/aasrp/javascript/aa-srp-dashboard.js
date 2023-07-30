@@ -25,7 +25,13 @@ $(document).ready(() => {
             },
             {
                 data: 'fleet_time',
-                render: (data, type, row) => {
+                /**
+                 * Render callback
+                 *
+                 * @param data
+                 * @returns {*}
+                 */
+                render: (data) => {
                     return moment(data).utc().format(aaSrpSettings.datetimeFormat);
                 },
                 className: 'srp-link-fleet-time'
@@ -61,11 +67,9 @@ $(document).ready(() => {
                  *
                  * @param data
                  * @param type
-                 * @param row
-                 * @param meta
                  * @returns {string|*}
                  */
-                render: (data, type, row, meta) => {
+                render: (data, type) => {
                     if (type === 'display') {
                         return data.toLocaleString() + ' ISK';
                     } else {
@@ -134,7 +138,13 @@ $(document).ready(() => {
         columns: [
             {
                 data: 'request_time',
-                render: (data, type, row) => {
+                /**
+                 * Render callback
+                 *
+                 * @param data
+                 * @returns {*}
+                 */
+                render: (data) => {
                     return moment(data).utc().format(aaSrpSettings.datetimeFormat);
                 },
                 className: 'srp-request-time'
@@ -175,11 +185,9 @@ $(document).ready(() => {
                  *
                  * @param data
                  * @param type
-                 * @param row
-                 * @param meta
                  * @returns {string|*}
                  */
-                render: (data, type, row, meta) => {
+                render: (data, type) => {
                     if (type === 'display') {
                         return data.toLocaleString() + ' ISK';
                     } else {
@@ -195,11 +203,9 @@ $(document).ready(() => {
                  *
                  * @param data
                  * @param type
-                 * @param row
-                 * @param meta
                  * @returns {string|*}
                  */
-                render: (data, type, row, meta) => {
+                render: (data, type) => {
                     if (type === 'display') {
                         return data.toLocaleString() + ' ISK';
                     } else {

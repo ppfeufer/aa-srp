@@ -19,7 +19,13 @@ $(document).ready(() => {
         columns: [
             {
                 data: 'request_time',
-                render: (data, type, row) => {
+                /**
+                 * Render callback
+                 *
+                 * @param data
+                 * @returns {*}
+                 */
+                render: (data) => {
                     return moment(data).utc().format(aaSrpSettings.datetimeFormat);
                 },
                 className: 'srp-request-time'
@@ -56,11 +62,9 @@ $(document).ready(() => {
                  *
                  * @param data
                  * @param type
-                 * @param row
-                 * @param meta
                  * @returns {string|*}
                  */
-                render: (data, type, row, meta) => {
+                render: (data, type) => {
                     if (type === 'display') {
                         return data.toLocaleString() + ' ISK';
                     } else {
@@ -76,11 +80,9 @@ $(document).ready(() => {
                  *
                  * @param data
                  * @param type
-                 * @param row
-                 * @param meta
                  * @returns {string|*}
                  */
-                render: (data, type, row, meta) => {
+                render: (data, type) => {
                     if (type === 'display') {
                         return '<span class="srp-payout-amount">' + data.toLocaleString() + ' ISK</span>';
                     } else {
@@ -228,7 +230,7 @@ $(document).ready(() => {
      * When the DataTable has finished rendering and is fully initialized
      */
     srpRequestsTable.on('draw', () => {
-        // Make SRP payout field editable for pending and rejected requests
+        // Make the SRP payout field editable for pending and rejected requests
         elementSrpRequestsTable.editable({
             container: 'body',
             selector: '.srp-request-payout-amount-editable .srp-payout-amount',
@@ -236,17 +238,15 @@ $(document).ready(() => {
             type: 'number',
             placement: 'top',
             /**
-             * @param value
-             * @param response
              * @returns {boolean}
              */
-            display: (value, response) => {
+            display: () => {
                 return false;
             },
             /**
              * On success ...
              *
-             * Arrow functions doesn't work here since we need `$(this)`
+             * Arrow functions don't work here since we need `$(this)`
              *
              * @param response
              * @param newValue
@@ -340,7 +340,7 @@ $(document).ready(() => {
         const button = $(event.relatedTarget);
         const url = button.data('link');
 
-        $('#modal-button-confirm-accept-request').on('click', (event) => {
+        $('#modal-button-confirm-accept-request').on('click', () => {
             const form = modalSrpRequestAccept.find('form');
             const reviserComment = form.find('textarea[name="reviser_comment"]').val();
             const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
@@ -469,8 +469,8 @@ $(document).ready(() => {
         const button = $(event.relatedTarget);
         const url = button.data('link');
 
-        $('#modal-button-confirm-remove-request').on('click', (event) => {
-            $.get(url, (data, status) => {
+        $('#modal-button-confirm-remove-request').on('click', () => {
+            $.get(url, (data) => {
                 // Reload datatable on success and update SRP status values
                 if (data['0'].success === true) {
                     srpRequestsTable.ajax.reload((tableData) => {
