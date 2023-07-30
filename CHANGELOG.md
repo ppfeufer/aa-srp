@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+
+## [1.20.1] - 2023-07-30
+
 ### Added
 
 - Footer to promote help with the app translation
@@ -616,7 +619,7 @@ mySQL8**
 
 ### Changed
 
-- Required field hint in forms has now its own template since it is not needed in
+- Required field hint in forms now has its own template since it is not needed in
   every form to avoid confusion
 
 ### Fixed
