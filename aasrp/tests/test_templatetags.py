@@ -27,8 +27,10 @@ class TestMainCharacterName(TestCase):
 
     def test_should_contain_character_name_for_users_with_main(self):
         """
-        Should contain character name for user with main set
+        Should contain the character name for a user with a main set
+
         :return:
+        :rtype:
         """
 
         # given
@@ -43,8 +45,10 @@ class TestMainCharacterName(TestCase):
 
     def test_should_contain_user_character_name_for_users_without_main(self):
         """
-        Should return username for users without a main character
+        Should return the username for a users without a main character
+
         :return:
+        :rtype:
         """
 
         # given
@@ -59,8 +63,10 @@ class TestMainCharacterName(TestCase):
 
     def test_should_return_deleted_user_for_sentinel_user(self):
         """
-        Should return "deleted" for sentinel user
+        Should return "deleted" for the sentinel user
+
         :return:
+        :rtype:
         """
 
         # given
@@ -76,7 +82,9 @@ class TestMainCharacterName(TestCase):
     def test_should_be_empty_for_none(self):
         """
         Test should be empty
+
         :return:
+        :rtype:
         """
 
         # given
@@ -100,7 +108,9 @@ class TestMainCharacterId(TestCase):
     def test_should_contain_character_id_for_users_with_main(self):
         """
         Test should contain main character ID for users with main
+
         :return:
+        :rtype:
         """
 
         # given
@@ -115,8 +125,10 @@ class TestMainCharacterId(TestCase):
 
     def test_should_contain_dummy_id_for_users_without_main(self):
         """
-        Test should contain dummy ID (1) for users without main character
+        Test should contain a dummy ID (1) for users without a main character
+
         :return:
+        :rtype:
         """
 
         # given
@@ -131,8 +143,10 @@ class TestMainCharacterId(TestCase):
 
     def test_should_be_dummy_id_for_sentinel_user(self):
         """
-        Test should return dummy ID (1) for sentinel user
+        Test should return a dummy ID (1) for the sentinel user
+
         :return:
+        :rtype:
         """
 
         # given
@@ -147,8 +161,10 @@ class TestMainCharacterId(TestCase):
 
     def test_should_be_dummy_id_for_none(self):
         """
-        Test should return dummy ID (1) for None
+        Test should return a dummy ID (1) for None
+
         :return:
+        :rtype:
         """
 
         # given
@@ -175,8 +191,10 @@ class TestMainCharacterCorporationName(TestCase):
 
     def test_should_contain_corp_name_for_users_with_main(self):
         """
-        Test shoud return corporation name for users with main character
+        Test should return the corporation name for users with a main character
+
         :return:
+        :rtype:
         """
 
         # given
@@ -191,8 +209,10 @@ class TestMainCharacterCorporationName(TestCase):
 
     def test_should_be_empty_for_users_without_main(self):
         """
-        Test should be empty for users without main character
+        Test should be empty for users without a main character
+
         :return:
+        :rtype:
         """
 
         # given
@@ -207,8 +227,10 @@ class TestMainCharacterCorporationName(TestCase):
 
     def test_should_be_empty_for_sentinel_user(self):
         """
-        Test should be empty for sentinel user
+        Test should be empty for the sentinel user
+
         :return:
+        :rtype:
         """
 
         # given
@@ -224,7 +246,9 @@ class TestMainCharacterCorporationName(TestCase):
     def test_should_be_empty_for_none(self):
         """
         Test should be empty for None
+
         :return:
+        :rtype:
         """
 
         # given
@@ -251,8 +275,10 @@ class TestMainCorporationId(TestCase):
 
     def test_should_contain_corporation_id_for_users_with_main(self):
         """
-        Test should return main character corp ID for users with main character
+        Test should return the main character's corp ID for users with a main character
+
         :return:
+        :rtype:
         """
 
         # given
@@ -267,8 +293,10 @@ class TestMainCorporationId(TestCase):
 
     def test_should_be_dummy_id_for_users_without_main(self):
         """
-        Test should return dummy ID (1) for users without main character
+        Test should return a dummy ID (1) for users without a main character
+
         :return:
+        :rtype:
         """
 
         # given
@@ -283,8 +311,10 @@ class TestMainCorporationId(TestCase):
 
     def test_should_be_dummy_id_for_sentinel_user(self):
         """
-        Test should return dummy ID (1) for sentinel user
+        Test should returna dummy ID (1) for the sentinel user
+
         :return:
+        :rtype:
         """
 
         # given
@@ -299,8 +329,10 @@ class TestMainCorporationId(TestCase):
 
     def test_should_be_dummy_id_for_none(self):
         """
-        Test should return dummy ID (1) for None
+        Test should return a dummy ID (1) for None
+
         :return:
+        :rtype:
         """
 
         # given
@@ -327,8 +359,10 @@ class TestMainCharacterAllianceName(TestCase):
 
     def test_should_contain_alliance_name_for_users_with_main(self):
         """
-        Test should return main character alliance name for users with min character
+        Test should return the main character's alliance name for users with a main character
+
         :return:
+        :rtype:
         """
 
         # given
@@ -352,8 +386,10 @@ class TestMainCharacterAllianceName(TestCase):
 
     def test_should_be_empty_for_users_without_main(self):
         """
-        Test should be empty for users without main character
+        Test should be empty for users without a main character
+
         :return:
+        :rtype:
         """
 
         # given
@@ -368,8 +404,10 @@ class TestMainCharacterAllianceName(TestCase):
 
     def test_should_be_empty_when_main_is_not_in_an_alliance(self):
         """
-        Test should be empty when main character is not in an alliance
+        Test should be empty when a main character is not in an alliance
+
         :return:
+        :rtype:
         """
 
         # given
@@ -387,8 +425,10 @@ class TestMainCharacterAllianceName(TestCase):
 
     def test_should_be_empty_for_sentinel_user(self):
         """
-        Test should be empty for sentinel user
+        Test should be empty for the sentinel user
+
         :return:
+        :rtype:
         """
 
         # given
@@ -404,7 +444,9 @@ class TestMainCharacterAllianceName(TestCase):
     def test_should_be_empty_for_none(self):
         """
         Test should be empty for None
+
         :return:
+        :rtype:
         """
 
         # given
@@ -431,8 +473,10 @@ class TestMainAllianceId(TestCase):
 
     def test_should_contain_alliance_id_for_users_with_main(self):
         """
-        Test should return main character alliance ID for user with main character
+        Test should return the main character's alliance ID for user with a main character
+
         :return:
+        :rtype:
         """
 
         # given
@@ -455,8 +499,10 @@ class TestMainAllianceId(TestCase):
 
     def test_should_be_dummy_id_for_users_without_main(self):
         """
-        Test should return dummy ID (1) for user without main character
+        Test should return a dummy ID (1) for user without a main character
+
         :return:
+        :rtype:
         """
 
         # given
@@ -471,8 +517,10 @@ class TestMainAllianceId(TestCase):
 
     def test_should_dummy_id_when_main_is_not_in_an_alliance(self):
         """
-        Test should dummy ID (1) when main character is not in an alliance
+        Test should return a dummy ID (1) when the main character is not in an alliance
+
         :return:
+        :rtype:
         """
 
         # given
@@ -490,8 +538,10 @@ class TestMainAllianceId(TestCase):
 
     def test_should_be_dummy_id_for_sentinel_user(self):
         """
-        Test should return dummy ID (1) for sentinel user
+        Test should return a dummy ID (1) for the sentinel user
+
         :return:
+        :rtype:
         """
 
         # given
@@ -506,8 +556,10 @@ class TestMainAllianceId(TestCase):
 
     def test_should_be_dummy_id_for_none(self):
         """
-        Test should return dummy ID (1) for None
+        Test should return a dummy ID (1) for None
+
         :return:
+        :rtype:
         """
 
         # given
@@ -527,8 +579,10 @@ class TestForumVersionedStatic(TestCase):
 
     def test_versioned_static(self):
         """
-        Test should return static URL string with version
+        Test should return the static URL string with the app version
+
         :return:
+        :rtype:
         """
 
         context = Context({"version": __version__})

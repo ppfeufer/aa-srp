@@ -20,8 +20,13 @@ from aasrp.models import SrpLink, SrpRequest
 def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
     """
     Getting the action buttons for the dashboard view
+
     :param request:
+    :type request:
     :param srp_link:
+    :type srp_link:
+    :return:
+    :rtype:
     """
 
     actions = ""
@@ -122,9 +127,13 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
 def get_srp_request_status_icon(request: WSGIRequest, srp_request: SrpRequest) -> str:
     """
     Get status icon for srp request
+
     :param request:
+    :type request:
     :param srp_request:
+    :type srp_request:
     :return:
+    :rtype:
     """
 
     request_status_icon_title = _("SRP Request Pending")
@@ -165,9 +174,15 @@ def get_srp_request_details_icon(
 ) -> str:
     """
     Get details icon for an SRP request
+
     :param request:
+    :type request:
     :param srp_link:
+    :type srp_link:
     :param srp_request:
+    :type srp_request:
+    :return:
+    :rtype:
     """
 
     button_request_details_url = reverse(
@@ -195,9 +210,15 @@ def get_srp_request_accept_icon(
 ) -> str:
     """
     Get accept icon for an SRP request
+
     :param request:
+    :type request:
     :param srp_link:
+    :type srp_link:
     :param srp_request:
+    :type srp_request:
+    :return:
+    :rtype:
     """
 
     button_request_accept_url = reverse(
@@ -236,9 +257,15 @@ def get_srp_request_reject_icon(
 ) -> str:
     """
     Get reject icon for an SRP request
+
     :param request:
+    :type request:
     :param srp_link:
+    :type srp_link:
     :param srp_request:
+    :type srp_request:
+    :return:
+    :rtype:
     """
 
     button_request_reject_url = reverse(
@@ -271,9 +298,15 @@ def get_srp_request_delete_icon(
 ) -> str:
     """
     Get delete icon for an SRP request
+
     :param request:
+    :type request:
     :param srp_link:
+    :type srp_link:
     :param srp_request:
+    :type srp_request:
+    :return:
+    :rtype:
     """
 
     button_request_delete_url = reverse(
@@ -302,9 +335,15 @@ def get_srp_request_action_icons(
 ) -> str:
     """
     Get action icons for srp requests
+
     :param request:
+    :type request:
     :param srp_link:
+    :type srp_link:
     :param srp_request:
+    :type srp_request:
+    :return:
+    :rtype:
     """
 
     srp_request_action_icons = get_srp_request_details_icon(

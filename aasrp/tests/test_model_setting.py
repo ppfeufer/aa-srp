@@ -19,7 +19,9 @@ class TestSetting(TestCase):
     def test_model_string_name(self):
         """
         Test model string name
+
         :return:
+        :rtype:
         """
 
         # given
@@ -32,7 +34,9 @@ class TestSetting(TestCase):
         """
         Test if there can't be another setting created
         and the existing setting is changed instead
+
         :return:
+        :rtype:
         """
 
         # given
@@ -50,7 +54,9 @@ class TestSetting(TestCase):
         """
         Test that create method throwing the following exception
         django.db.utils.IntegrityError: (1062, "Duplicate entry '1' for key 'PRIMARY'")
+
         :return:
+        :rtype:
         """
 
         # No pk given
@@ -61,7 +67,9 @@ class TestSetting(TestCase):
         """
         Test that create method throwing the following exception no matter the given pk
         django.db.utils.IntegrityError: (1062, "Duplicate entry '1' for key 'PRIMARY'")
+
         :return:
+        :rtype:
         """
 
         # Set pk=2
@@ -71,7 +79,9 @@ class TestSetting(TestCase):
     def test_cannot_be_deleted(self):
         """
         Test that the settings object cannot be deleted
+
         :return:
+        :rtype:
         """
 
         # given
@@ -93,6 +103,7 @@ class TestSetting(TestCase):
     def test_srp_team_discord_channel_id_is_not_mandatory(self):
         """
         Test that we get None when the Discord Channel ID field is empty
+
         :return:
         :rtype:
         """

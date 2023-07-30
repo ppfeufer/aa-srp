@@ -76,7 +76,9 @@ class TestAccess(TestCase):
     def test_should_show_dashboard(self):
         """
         Test that a user with basic_access can see the srp module
+
         :return:
+        :rtype:
         """
 
         # given
@@ -91,7 +93,9 @@ class TestAccess(TestCase):
     def test_should_not_show_dashboard(self):
         """
         Test that a user without basic_access can't see the srp module
+
         :return:
+        :rtype:
         """
 
         # given
@@ -107,7 +111,9 @@ class TestAccess(TestCase):
     def test_should_show_dashboard_with_all_srp_links(self):
         """
         Test that a user with manage_srp can see all srp links
+
         :return:
+        :rtype:
         """
 
         # given
@@ -122,7 +128,9 @@ class TestAccess(TestCase):
     def test_should_not_show_dashboard_with_all_srp_links(self):
         """
         Test that a user without manage_srp can't see all srp links
+
         :return:
+        :rtype:
         """
 
         # given
@@ -138,7 +146,9 @@ class TestAccess(TestCase):
     def test_srp_link_add_with_create_srp_permission(self):
         """
         Test if a user with create_srp permission can create an SRP link
+
         :return:
+        :rtype:
         """
 
         # given
@@ -153,7 +163,9 @@ class TestAccess(TestCase):
     def test_srp_link_add_with_manage_srp_permission(self):
         """
         Test if a user with manage_srp permission can create an SRP link
+
         :return:
+        :rtype:
         """
 
         # given
@@ -168,7 +180,9 @@ class TestAccess(TestCase):
     def test_srp_link_add_without_appropriate_permission(self):
         """
         Test that a user with basic_access permission cannot create an SRP link
+
         :return:
+        :rtype:
         """
 
         # given
@@ -184,7 +198,9 @@ class TestAccess(TestCase):
     def test_srp_link_add_without_permission(self):
         """
         Test that a user without permissions canot create an SRP link
+
         :return:
+        :rtype:
         """
 
         # given
@@ -200,7 +216,9 @@ class TestAccess(TestCase):
     def test_srp_link_edit_with_create_srp_permission(self):
         """
         Test if a user with create_srp permission can edit an SRP link
+
         :return:
+        :rtype:
         """
 
         # given
@@ -217,7 +235,9 @@ class TestAccess(TestCase):
     def test_srp_link_edit_with_manage_srp_permission(self):
         """
         Test if a user with manage_srp permission can edit an SRP link
+
         :return:
+        :rtype:
         """
 
         # given
@@ -234,7 +254,9 @@ class TestAccess(TestCase):
     def test_request_srp_with_basic_access_permission(self):
         """
         Test if a user with basic_access can open the Request SRP view
+
         :return:
+        :rtype:
         """
 
         # given
@@ -251,7 +273,9 @@ class TestAccess(TestCase):
     def test_request_srp_without_permission(self):
         """
         Test that a user without access cannot open the Request SRP view
+
         :return:
+        :rtype:
         """
 
         # given
@@ -269,7 +293,9 @@ class TestAccess(TestCase):
     def test_srp_link_view_requests_with_manage_srp_permission(self):
         """
         Test if a user with manage_srp permission can view srp requests
+
         :return:
+        :rtype:
         """
 
         # given
@@ -285,8 +311,10 @@ class TestAccess(TestCase):
 
     def test_srp_link_view_requests_with_manage_srp_requests_permission(self):
         """
-        Test if a user with manage_srp_requests permission can view srp requsts
+        Test if a user with manage_srp_requests permission can view srp requests
+
         :return:
+        :rtype:
         """
 
         # given
@@ -303,7 +331,9 @@ class TestAccess(TestCase):
     def test_srp_link_view_requests_without_permission(self):
         """
         Test that a user with basic_access permission cannot view srp requests
+
         :return:
+        :rtype:
         """
 
         # given

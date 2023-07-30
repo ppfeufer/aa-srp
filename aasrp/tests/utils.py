@@ -31,15 +31,24 @@ def create_fake_user(
     **kwargs,
 ) -> User:
     """
-    Create a fake user incl. main character and (optional) permissions.
+    Create a fake user incl. Main character and (optional) permissions.
+
     :param character_id:
+    :type character_id:
     :param character_name:
+    :type character_name:
     :param corporation_id:
+    :type corporation_id:
     :param corporation_name:
+    :type corporation_name:
     :param corporation_ticker:
+    :type corporation_ticker:
     :param permissions:
+    :type permissions:
     :param kwargs:
+    :type kwargs:
     :return:
+    :rtype:
     """
 
     username = re.sub(r"[^\w\d@\.\+-]", "_", character_name)
@@ -78,6 +87,13 @@ def create_fake_user(
 def get_or_create_fake_user(*args, **kwargs) -> User:
     """
     Same as create_fake_user but will not fail when user already exists.
+
+    :param args:
+    :type args:
+    :param kwargs:
+    :type kwargs:
+    :return:
+    :rtype:
     """
 
     if len(args) > 1:
@@ -97,9 +113,12 @@ def get_or_create_fake_user(*args, **kwargs) -> User:
 
 def create_fleettype(**kwargs) -> FleetType:
     """
-    Create fleet type
+    Create a fleet type
+
     :param kwargs:
+    :type kwargs:
     :return:
+    :rtype:
     """
 
     if "name" not in kwargs:
@@ -111,8 +130,11 @@ def create_fleettype(**kwargs) -> FleetType:
 def create_setting(**kwargs) -> Setting:
     """
     Create setting
+
     :param kwargs:
+    :type kwargs:
     :return:
+    :rtype:
     """
 
     return Setting.objects.create(**kwargs)

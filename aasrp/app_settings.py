@@ -9,7 +9,9 @@ from django.apps import apps
 def allianceauth_discordbot_installed() -> bool:
     """
     Check if allianceauth-discordbot is installed and active
+
     :return:
+    :rtype:
     """
 
     return apps.is_installed("aadiscordbot")
@@ -18,7 +20,9 @@ def allianceauth_discordbot_installed() -> bool:
 def aa_discordnotify_installed() -> bool:
     """
     Check if allianceauth-discordbot is installed and active
+
     :return:
+    :rtype:
     """
 
     return apps.is_installed("discordnotify")
@@ -27,7 +31,9 @@ def aa_discordnotify_installed() -> bool:
 def discordproxy_installed() -> bool:
     """
     Check if discordproxy is installed by trying to import the DiscordClient
+
     :return:
+    :rtype:
     """
 
     try:

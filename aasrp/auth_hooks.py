@@ -30,8 +30,11 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
     def render(self, request):
         """
         Check if the user has the permission to view this app
+
         :param request:
+        :type request:
         :return:
+        :rtype:
         """
 
         if request.user.has_perm("aasrp.basic_access"):
@@ -47,7 +50,9 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
 def register_menu():
     """
     Register our menu item
+
     :return:
+    :rtype:
     """
 
     return AaSrpMenuItem()
@@ -57,7 +62,9 @@ def register_menu():
 def register_urls():
     """
     Register our base url
+
     :return:
+    :rtype:
     """
 
     return UrlHook(urls, "aasrp", r"^ship-replacement/")

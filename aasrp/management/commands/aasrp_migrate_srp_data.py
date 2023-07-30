@@ -32,7 +32,9 @@ class Command(BaseCommand):
     def _migrate_srp_data(self) -> None:
         """
         Migrate srp data from the built-in SRP module
+
         :return:
+        :rtype:
         """
 
         srp_links_migrated = 0
@@ -200,8 +202,13 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         """
         Ask before running ...
+
         :param args:
+        :type args:
         :param options:
+        :type options:
+        :return:
+        :rtype:
         """
 
         self.stdout.write(

@@ -42,9 +42,13 @@ class SingletonModel(models.Model):
     def save(self, *args, **kwargs):
         """
         Save action
+
         :param args:
+        :type args:
         :param kwargs:
+        :type kwargs:
         :return:
+        :rtype:
         """
 
         if self.__class__.objects.count():
@@ -55,9 +59,13 @@ class SingletonModel(models.Model):
     def delete(self, *args, **kwargs):
         """
         Delete action
+
         :param args:
+        :type args:
         :param kwargs:
+        :type kwargs:
         :return:
+        :rtype:
         """
 
         pass  # pylint: disable=unnecessary-pass
@@ -120,6 +128,7 @@ class FleetType(models.Model):
     def __str__(self) -> str:
         """
         Return the objects string name
+
         :return:
         :rtype:
         """
@@ -199,13 +208,22 @@ class SrpLink(models.Model):
         verbose_name_plural = _("SRP Links")
 
     def __str__(self) -> str:
+        """
+        Return the objects string name
+
+        :return:
+        :rtype:
+        """
+
         return str(self.srp_name)
 
     @property
     def total_cost(self):
         """
         Total cost for this SRP link
+
         :return:
+        :rtype:
         """
 
         return sum(
@@ -217,7 +235,9 @@ class SrpLink(models.Model):
     def total_requests(self):
         """
         Number of total SRP requests
+
         :return:
+        :rtype:
         """
 
         return self.srp_requests.count()
@@ -226,7 +246,9 @@ class SrpLink(models.Model):
     def pending_requests(self):
         """
         Number of pending SRP requests
+
         :return:
+        :rtype:
         """
 
         return self.srp_requests.filter(
@@ -237,7 +259,9 @@ class SrpLink(models.Model):
     def approved_requests(self):
         """
         Number of approved SRP requests
+
         :return:
+        :rtype:
         """
 
         return self.srp_requests.filter(
@@ -248,7 +272,9 @@ class SrpLink(models.Model):
     def rejected_requests(self):
         """
         Number of rejected SRP requests
+
         :return:
+        :rtype:
         """
 
         return self.srp_requests.filter(
@@ -259,7 +285,9 @@ class SrpLink(models.Model):
     def requests(self):
         """
         All SRP requests
+
         :return:
+        :rtype:
         """
 
         return self.srp_requests.all()
@@ -349,6 +377,13 @@ class SrpRequest(models.Model):
         verbose_name_plural = _("Requests")
 
     def __str__(self):
+        """
+        Return the objects string name
+
+        :return:
+        :rtype:
+        """
+
         # AA SRP
         from aasrp.helper.character import get_main_character_from_user
 
@@ -529,4 +564,11 @@ class Setting(SingletonModel):
         verbose_name_plural = _("settings")
 
     def __str__(self) -> str:
+        """
+        Return the objects string name
+
+        :return:
+        :rtype:
+        """
+
         return str(_("AA-SRP Settings"))

@@ -54,8 +54,11 @@ def _attempt_to_re_add_ship_information_to_request(
     If for some reason the ship gets removed from EveType table,
     srp_request.ship is None. In this case, we have to re-add the ship to prevent
     errors in our DataTables ...
+
     :param srp_request:
+    :type srp_request:
     :return:
+    :rtype:
     """
 
     srp_kill_link = SrpManager.get_kill_id(srp_request.killboard_link)
@@ -79,9 +82,13 @@ def dashboard_srp_links_data(
 ) -> JsonResponse:
     """
     Ajax request :: Get all active SRP links
+
     :param request:
+    :type request:
     :param show_all_links:
+    :type show_all_links:
     :return:
+    :rtype:
     """
 
     data = []
@@ -148,8 +155,11 @@ def dashboard_srp_links_data(
 def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
     """
     Ajax request :: Get user srp requests
+
     :param request:
+    :type request:
     :return:
+    :rtype:
     """
 
     data = []
@@ -249,8 +259,13 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
 def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResponse:
     """
     Ajax request :: Get datatable data
-    :param srp_code:
+
     :param request:
+    :type request:
+    :param srp_code:
+    :type srp_code:
+    :return:
+    :rtype:
     """
 
     data = []
@@ -338,9 +353,15 @@ def srp_request_additional_information(
 ) -> HttpResponse:
     """
     Ajax Call :: Get additional information for an SRP request
+
     :param request:
+    :type request:
     :param srp_code:
+    :type srp_code:
     :param srp_request_code:
+    :type srp_request_code:
+    :return:
+    :rtype:
     """
 
     srp_request = SrpRequest.objects.get(
@@ -421,9 +442,15 @@ def srp_request_change_payout(
 ) -> JsonResponse:
     """
     Ajax call :: Change SRP payout
+
     :param request:
+    :type request:
     :param srp_code:
+    :type srp_code:
     :param srp_request_code:
+    :type srp_request_code:
+    :return:
+    :rtype:
     """
 
     data = []
@@ -458,9 +485,15 @@ def srp_request_approve(
 ) -> JsonResponse:
     """
     Ajax call :: Approve SRP request
+
     :param request:
+    :type request:
     :param srp_code:
+    :type srp_code:
     :param srp_request_code:
+    :type srp_request_code:
+    :return:
+    :rtype:
     """
 
     data = []
@@ -558,9 +591,15 @@ def srp_request_deny(
 ) -> JsonResponse:
     """
     Ajax call :: Deny SRP request
+
     :param request:
+    :type request:
     :param srp_code:
+    :type srp_code:
     :param srp_request_code:
+    :type srp_request_code:
+    :return:
+    :rtype:
     """
 
     data = []
@@ -643,9 +682,15 @@ def srp_request_remove(
 ) -> JsonResponse:
     """
     Ajax call :: Remove SRP request
+
     :param request:
+    :type request:
     :param srp_code:
+    :type srp_code:
     :param srp_request_code:
+    :type srp_request_code:
+    :return:
+    :rtype:
     """
 
     data = []

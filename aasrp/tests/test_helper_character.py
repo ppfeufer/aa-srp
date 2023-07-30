@@ -37,7 +37,9 @@ class TestSentinelUser(TestCase):
     def test_sentinel_user(self):
         """
         Test that we get 'deleted' as username for the sentinel user
+
         :return:
+        :rtype:
         """
 
         sentinel_user = get_sentinel_user()
@@ -75,8 +77,10 @@ class TestGetFormattedCharacterName(TestCase):
 
     def test_should_return_formatted_character_name(self):
         """
-        Test should return formatted character name
+        Test should return a formatted character name
+
         :return:
+        :rtype:
         """
 
         html = get_formatted_character_name(character=self.alt_character)
@@ -91,8 +95,10 @@ class TestGetFormattedCharacterName(TestCase):
 
     def test_should_return_formatted_character_name_with_copy_icon(self):
         """
-        Test should return formatted character name with copy icon
+        Test should return a formatted character name with copy icon
+
         :return:
+        :rtype:
         """
 
         html = get_formatted_character_name(
@@ -117,8 +123,10 @@ class TestGetFormattedCharacterName(TestCase):
 
     def test_should_return_formatted_character_name_with_portrait(self):
         """
-        Test should return formatted character name with portrait
+        Test should return a formatted character name with a portrait
+
         :return:
+        :rtype:
         """
 
         html = get_formatted_character_name(
@@ -144,8 +152,10 @@ class TestGetFormattedCharacterName(TestCase):
 
     def test_should_return_formatted_character_name_with_portrait_inline(self):
         """
-        Test should return formatted character name with portrait (inline)
+        Test should return a formatted character name with a portrait (inline)
+
         :return:
+        :rtype:
         """
 
         html = get_formatted_character_name(
@@ -205,8 +215,10 @@ class TestGetMainForCharacter(TestCase):
 
     def test_get_main_for_character_returns_none(self):
         """
-        Test if we get `None` as main character
+        Test if we get `None` as the main character
+
         :return:
+        :rtype:
         """
 
         main_character = get_main_for_character(self.character_without_profile)
@@ -218,7 +230,9 @@ class TestGetMainForCharacter(TestCase):
     ):
         """
         Test if we get `EveCharacter.userprofile.RelatedObjectDoesNotExist` as exception
+
         :return:
+        :rtype:
         """
 
         get_main_for_character(self.character_without_profile)
@@ -230,7 +244,9 @@ class TestGetMainForCharacter(TestCase):
     ):
         """
         Test if we get `CharacterOwnership.user.RelatedObjectDoesNotExist` as exception
+
         :return:
+        :rtype:
         """
 
         self.alt_character_2.character_ownership.user = None
@@ -242,7 +258,9 @@ class TestGetMainForCharacter(TestCase):
     def test_get_main_for_character_returns_main_character(self):
         """
         Test if we get the main character
+
         :return:
+        :rtype:
         """
 
         main_character = get_main_for_character(self.alt_character)
@@ -289,7 +307,9 @@ class TestGetUserForCharacter(TestCase):
     def test_get_user_for_character_returns_sentinel_user(self):
         """
         Test if we get the sentinel user
+
         :return:
+        :rtype:
         """
 
         returned_user = get_user_for_character(self.character_without_profile)
@@ -302,7 +322,9 @@ class TestGetUserForCharacter(TestCase):
     ):
         """
         Test if we get `EveCharacter.userprofile.RelatedObjectDoesNotExist` as exception
+
         :return:
+        :rtype:
         """
 
         get_user_for_character(self.character_without_profile)
@@ -311,8 +333,10 @@ class TestGetUserForCharacter(TestCase):
 
     def test_get_user_for_character_returns_user(self):
         """
-        Test if we get `User` object
+        Test if we get a `User` object
+
         :return:
+        :rtype:
         """
 
         returned_user = get_user_for_character(self.alt_character)
@@ -322,7 +346,9 @@ class TestGetUserForCharacter(TestCase):
     def test_get_user_for_character_returns_sentinel_user_for_none(self):
         """
         Test if we get the sentinel user when user profile is None
+
         :return:
+        :rtype:
         """
 
         self.alt_character_2.character_ownership.user = None
@@ -359,7 +385,9 @@ class TestGetMainCharacterFromUser(TestCase):
     def test_get_main_character_from_user_should_return_character_name(self):
         """
         Test should return the main character name for a regular user
+
         :return:
+        :rtype:
         """
 
         character_name = get_main_character_from_user(self.user_main_character)
@@ -369,7 +397,9 @@ class TestGetMainCharacterFromUser(TestCase):
     def test_get_main_character_from_user_should_return_user_name(self):
         """
         Test should return just the username for a user without a character
+
         :return:
+        :rtype:
         """
 
         user = AuthUtils.create_user("John Doe")
@@ -381,7 +411,9 @@ class TestGetMainCharacterFromUser(TestCase):
     def test_get_main_character_from_user_should_return_sentinel_user(self):
         """
         Test should return "deleted" as username (Sentinel User)
+
         :return:
+        :rtype:
         """
 
         user = get_sentinel_user()
@@ -393,7 +425,9 @@ class TestGetMainCharacterFromUser(TestCase):
     def test_get_main_character_from_user_should_return_sentinel_user_for_none(self):
         """
         Test should return "deleted" (Sentinel User) if user is None
+
         :return:
+        :rtype:
         """
 
         user = None

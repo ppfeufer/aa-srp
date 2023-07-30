@@ -46,9 +46,13 @@ logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpResponse:
     """
     SRP dashboard
+
     :param request:
+    :type request:
     :param show_all_links:
+    :type show_all_links:
     :return:
+    :rtype:
     """
 
     user_settings = get_user_settings(user=request.user)
@@ -98,8 +102,11 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
 def srp_link_add(request: WSGIRequest) -> HttpResponse:
     """
     Add a SRP link
+
     :param request:
+    :type request:
     :return:
+    :rtype:
     """
 
     logger.info("Add SRP link form called by %s", request.user)
@@ -147,9 +154,13 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
     Add or edit AAR link
+
     :param request:
+    :type request:
     :param srp_code:
+    :type srp_code:
     :return:
+    :rtype:
     """
 
     request_user = request.user
@@ -202,6 +213,7 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-locals
 ) -> SrpRequest:
     """
     Saving the SRP request
+
     :param request:
     :type request:
     :param srp_link:
@@ -293,8 +305,13 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-locals
 def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
     SRP request
+
     :param request:
+    :type request:
     :param srp_code:
+    :type srp_code:
+    :return:
+    :rtype:
     """
 
     request_user = request.user
@@ -406,8 +423,13 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 def complete_srp_link(request: WSGIRequest, srp_code: str):
     """
     Mark an SRP link as completed
+
     :param request:
+    :type request:
     :param srp_code:
+    :type srp_code:
+    :return:
+    :rtype:
     """
 
     logger.info(
@@ -438,8 +460,13 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
 def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
     View SRP requests for a specific SRP code
+
     :param request:
+    :type request:
     :param srp_code:
+    :type srp_code:
+    :return:
+    :rtype:
     """
 
     logger.info(f"View SRP request for SRP code {srp_code} called by {request.user}")
@@ -476,8 +503,13 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
 def enable_srp_link(request: WSGIRequest, srp_code: str):
     """
     Enable SRP link
+
     :param request:
+    :type request:
     :param srp_code:
+    :type srp_code:
+    :return:
+    :rtype:
     """
 
     logger.info(f"Enable SRP link {srp_code} called by {request.user}")
@@ -506,8 +538,13 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
 def disable_srp_link(request: WSGIRequest, srp_code: str):
     """
     Disable SRP link
+
     :param request:
+    :type request:
     :param srp_code:
+    :type srp_code:
+    :return:
+    :rtype:
     """
 
     logger.info(f"Disable SRP link {srp_code} called by {request.user}")
@@ -536,8 +573,13 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
 def delete_srp_link(request: WSGIRequest, srp_code: str):
     """
     Delete SRP link
+
     :param request:
+    :type request:
     :param srp_code:
+    :type srp_code:
+    :return:
+    :rtype:
     """
 
     logger.info(f"Delete SRP link {srp_code} called by {request.user}")

@@ -32,8 +32,11 @@ class SrpManager:
     def get_kill_id(killboard_link: str):
         """
         Get killmail ID from zKillboard link
+
         :param killboard_link:
+        :type killboard_link:
         :return:
+        :rtype:
         """
 
         num_set = "0123456789"
@@ -45,8 +48,11 @@ class SrpManager:
     def get_kill_data(kill_id: str):
         """
         Get kill data from zKillboard
+
         :param kill_id:
+        :type kill_id:
         :return:
+        :rtype:
         """
 
         url = f"{ZKILLBOARD_API_URL}killID/{kill_id}/"
@@ -98,6 +104,11 @@ class SrpManager:
         """
         Returns the number of open SRP requests for given user
         or None if user has no permission
+
+        :param user:
+        :type user:
+        :return:
+        :rtype:
         """
 
         # AA SRP
@@ -116,8 +127,11 @@ class SrpManager:
     def get_insurance_for_ship_type(ship_type_id: int):
         """
         Getting insurance for a given ship type ID from ESI
+
         :param ship_type_id:
         :type ship_type_id:
+        :return:
+        :rtype:
         """
 
         insurance_prices = esi.client.Insurance.get_insurance_prices().result()
@@ -138,9 +152,12 @@ class SettingQuerySet(models.QuerySet):
         """
         Delete action
 
-        Override:   We don't allow deletion here, so we make sure the object
-                    is saved again and not deleted
+        Override:
+            We don't allow deletion here, so we make sure the object
+            is saved again and not deleted
+
         :return:
+        :rtype:
         """
 
         return super().update()
@@ -154,8 +171,11 @@ class SettingManager(models.Manager):
     def get_setting(self, setting_key: str) -> str:
         """
         Return the value for given setting key
+
         :param setting_key:
+        :type setting_key:
         :return:
+        :rtype:
         """
 
         return getattr(self.first(), setting_key)
@@ -163,7 +183,9 @@ class SettingManager(models.Manager):
     def get_queryset(self):
         """
         Get a Setting queryset
+
         :return:
+        :rtype:
         """
 
         return SettingQuerySet(self.model)

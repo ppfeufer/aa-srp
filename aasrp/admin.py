@@ -21,12 +21,13 @@ def custom_filter(title):
 
     class Wrapper(admin.FieldListFilter):
         """
-        Custom_filter :: wrapper
+        Custom_filter wrapper
         """
 
         def expected_parameters(self):
             """
             Expected parameters
+
             :return:
             :rtype:
             """
@@ -36,6 +37,7 @@ def custom_filter(title):
         def choices(self, changelist):
             """
             Choices
+
             :param changelist:
             :type changelist:
             :return:
@@ -45,6 +47,15 @@ def custom_filter(title):
             pass
 
         def __new__(cls, *args, **kwargs):
+            """
+            New instance
+
+            :param args:
+            :type args:
+            :param kwargs:
+            :type kwargs:
+            """
+
             instance = admin.FieldListFilter.create(*args, **kwargs)
             instance.title = title
 
@@ -63,6 +74,7 @@ class SingletonModelAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         """
         Has "add" permissions
+
         :param request:
         :type request:
         :return:
@@ -74,6 +86,7 @@ class SingletonModelAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         """
         Has "change" permissions
+
         :param request:
         :type request:
         :param obj:
@@ -87,6 +100,7 @@ class SingletonModelAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         """
         Has "delete" permissions
+
         :param request:
         :type request:
         :param obj:
@@ -121,6 +135,15 @@ class SrpLinkAdmin(admin.ModelAdmin):
     @classmethod
     @admin.display(description=_("Creator"), ordering="creator")
     def _creator(cls, obj):
+        """
+        Display the creator name
+
+        :param obj:
+        :type obj:
+        :return:
+        :rtype:
+        """
+
         creator_name = obj.creator
 
         if obj.creator.profile.main_character:
@@ -161,6 +184,15 @@ class SrpRequestAdmin(admin.ModelAdmin):
     @classmethod
     @admin.display(description=_("Requestor"), ordering="creator")
     def _creator(cls, obj):
+        """
+        Display the creator name
+
+        :param obj:
+        :type obj:
+        :return:
+        :rtype:
+        """
+
         creator_name = obj.creator
 
         if obj.creator.profile.main_character:
@@ -194,6 +226,7 @@ class FleetTypeAdmin(admin.ModelAdmin):
     def _name(self, obj):
         """
         Rewrite name
+
         :param obj:
         :type obj:
         :return:
@@ -206,6 +239,7 @@ class FleetTypeAdmin(admin.ModelAdmin):
     def _is_enabled(self, obj):
         """
         Rewrite is_enabled
+
         :param obj:
         :type obj:
         :return:
@@ -220,6 +254,7 @@ class FleetTypeAdmin(admin.ModelAdmin):
     def activate(self, request, queryset):
         """
         Mark fleet type as active
+
         :param request:
         :type request:
         :param queryset:
@@ -264,6 +299,7 @@ class FleetTypeAdmin(admin.ModelAdmin):
     def deactivate(self, request, queryset):
         """
         Mark fleet type as inactive
+
         :param request:
         :type request:
         :param queryset:

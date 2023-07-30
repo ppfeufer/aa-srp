@@ -21,7 +21,9 @@ class TestModulesInstalled(TestCase):
     def test_allianceauth_discordbot_installed_should_return_false(self):
         """
         Test allianceauth_discordbot_installed should return False
+
         :return:
+        :rtype:
         """
 
         self.assertFalse(allianceauth_discordbot_installed())
@@ -30,7 +32,9 @@ class TestModulesInstalled(TestCase):
     def test_allianceauth_discordbot_installed_should_return_true(self):
         """
         Test allianceauth_discordbot_installed should return True
+
         :return:
+        :rtype:
         """
 
         self.assertTrue(allianceauth_discordbot_installed())
@@ -39,7 +43,9 @@ class TestModulesInstalled(TestCase):
     def test_aa_discordnotify_installed_should_return_false(self):
         """
         Test aa_discordnotify_installed should return False
+
         :return:
+        :rtype:
         """
 
         self.assertFalse(aa_discordnotify_installed())
@@ -48,7 +54,9 @@ class TestModulesInstalled(TestCase):
     def test_aa_discordnotify_installed_should_return_true(self):
         """
         Test aa_discordnotify_installed should return True
+
         :return:
+        :rtype:
         """
 
         self.assertTrue(aa_discordnotify_installed())

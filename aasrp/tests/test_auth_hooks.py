@@ -47,6 +47,7 @@ class TestHooks(TestCase):
     def test_render_hook_success(self):
         """
         Test should show the link to the app in the navigation to user with access
+
         :return:
         :rtype:
         """
@@ -62,6 +63,7 @@ class TestHooks(TestCase):
         """
         Test should not show the link to the app in the
         navigation to user without access
+
         :return:
         :rtype:
         """

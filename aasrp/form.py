@@ -27,6 +27,7 @@ from aasrp.models import FleetType, Setting, SrpLink, SrpRequest, UserSetting
 def get_mandatory_form_label_text(text: str) -> str:
     """
     Label text for mandatory form fields
+
     :param text:
     :type text:
     :return:
@@ -129,7 +130,9 @@ class SrpRequestForm(ModelForm):
     def clean_killboard_link(self):
         """
         Check if it's a link from one of the accepted kill boards and clean it
+
         :return:
+        :rtype:
         """
 
         killboard_link = self.cleaned_data["killboard_link"]

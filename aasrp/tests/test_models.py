@@ -13,7 +13,9 @@ class TestFleetType(TestCase):
     def test_model_string_names(self):
         """
         Test model string names
+
         :return:
+        :rtype:
         """
 
         topic = create_fleettype(name="Test Fleet Type")

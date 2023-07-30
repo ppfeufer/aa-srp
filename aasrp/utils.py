@@ -37,6 +37,19 @@ def clean_setting(
     Will assume `min_value` of 0 for int (can be overridden)
 
     Returns cleaned value for setting
+
+    :param name:
+    :type name:
+    :param default_value:
+    :type default_value:
+    :param min_value:
+    :type min_value:
+    :param max_value:
+    :type max_value:
+    :param required_type:
+    :type required_type:
+    :return:
+    :rtype:
     """
 
     if default_value is None and not required_type:
