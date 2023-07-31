@@ -105,7 +105,7 @@ def get_or_create_fake_user(*args, **kwargs) -> User:
     else:
         ValueError("character_name is not defined")
 
-    username = character_name.replace(__old="'", __new="").replace(__old=" ", __new="_")
+    username = character_name.replace("'", "").replace(" ", "_")
 
     try:
         return User.objects.get(username=username)

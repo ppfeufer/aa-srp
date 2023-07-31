@@ -409,9 +409,7 @@ def srp_request_additional_information(
             srp_request=srp_request, comment_type=RequestComment.Type.REQUEST_INFO
         )
 
-        additional_info = additional_info_comment.comment.replace(
-            __old="\n", __new="<br>\n"
-        )
+        additional_info = additional_info_comment.comment.replace("\n", "<br>\n")
     except RequestComment.DoesNotExist:
         additional_info = ""
 

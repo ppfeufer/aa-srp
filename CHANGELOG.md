@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning]
 ### Fixed
 
 - TypeError: getattr() takes no keyword arguments
+- TypeError: str.replace() takes no keyword arguments
 
 ### Changed
 
