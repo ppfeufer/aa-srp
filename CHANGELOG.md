@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+### Fixed
+
+- TypeError: getattr() takes no keyword arguments
+
+### Changed
+
+- Footer template to make it easier for translators
+
 
 ## [1.20.1] - 2023-07-30
 
