@@ -178,7 +178,7 @@ class SettingManager(models.Manager):
         :rtype:
         """
 
-        return getattr(__o=self.first(), __name=setting_key)
+        return getattr(self.first(), setting_key)
 
     def get_queryset(self):
         """

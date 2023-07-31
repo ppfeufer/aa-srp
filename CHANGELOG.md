@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning]
 ## [In Development] - Unreleased
 
 
+## [1.20.2] - 2023-07-31
+
+### Fixed
+
+- TypeError: getattr() takes no keyword arguments
+- TypeError: str.replace() takes no keyword arguments
+
+### Changed
+
+- Footer template to make it easier for translators
+
+
 ## [1.20.1] - 2023-07-30
 
 ### Added

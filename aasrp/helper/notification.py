@@ -416,7 +416,7 @@ def notify_srp_team(srp_request: SrpRequest, additional_info: str):
         character_name = srp_request.character.character_name
         ship_type = srp_request.ship.name
         zkillboard_link = srp_request.killboard_link
-        additional_information = additional_info.replace(__old="@", __new="{@}")
+        additional_information = additional_info.replace("@", "{@}")
         srp_code = srp_request.srp_link.srp_code
         srp_link = site_base_url + reverse(
             viewname="aasrp:view_srp_requests", args=[srp_code]

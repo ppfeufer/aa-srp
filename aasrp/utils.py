@@ -65,11 +65,11 @@ def clean_setting(
         cleaned_value = default_value
     else:
         if (
-            isinstance(getattr(__o=settings, __name=name), required_type)
-            and (min_value is None or getattr(__o=settings, __name=name) >= min_value)
-            and (max_value is None or getattr(__o=settings, __name=name) <= max_value)
+            isinstance(getattr(settings, name), required_type)
+            and (min_value is None or getattr(settings, name) >= min_value)
+            and (max_value is None or getattr(settings, name) <= max_value)
         ):
-            cleaned_value = getattr(__o=settings, __name=name)
+            cleaned_value = getattr(settings, name)
         else:
             logger.warning(
                 f"Your setting for {name} is not valid. Please correct it. "

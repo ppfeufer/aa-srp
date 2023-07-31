@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-30 15:16+0200\n"
+"POT-Creation-Date: 2023-07-30 18:50+0200\n"
 "PO-Revision-Date: 2023-07-27 19:17+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/"
@@ -683,17 +683,14 @@ msgstr ""
 msgid "SRP Payout"
 msgstr ""
 
-#: templates/aasrp/partials/footer/app-translation-footer.html:4
-msgid "Join our team of translators!"
+#: templates/aasrp/partials/footer/app-translation-footer.html:5
+msgid ""
+"Do you want to help translate this app into your language or improve the "
+"existing translation?"
 msgstr ""
 
-#: templates/aasrp/partials/footer/app-translation-footer.html:7
-#, python-format
-msgid ""
-"\n"
-"            Do you want to help translate this app into your language or "
-"improve the existing translation? - %(weblate_link)s\n"
-"        "
+#: templates/aasrp/partials/footer/app-translation-footer.html:8
+msgid "Join our team of translators!"
 msgstr ""
 
 #: templates/aasrp/partials/form/required_field_hint.html:5
