@@ -59,7 +59,7 @@ def _aadiscordbot_send_private_message(
 
     if allianceauth_discordbot_installed():
         logger.debug(
-            "allianceauth-discordbot is active, trying to send private message"
+            msg="allianceauth-discordbot is active, trying to send private message"
         )
 
         # Third Party
@@ -79,8 +79,10 @@ def _aadiscordbot_send_private_message(
             send_message(user_id=user_id, message=f"**{title}**\n\n{message}")
     else:
         logger.debug(
-            "allianceauth-discordbot is not available on this "
-            "system to send the private message"
+            msg=(
+                "allianceauth-discordbot is not available on this "
+                "system to send the private message"
+            )
         )
 
 
@@ -110,7 +112,7 @@ def _aadiscordbot_send_channel_message(
 
     if allianceauth_discordbot_installed():
         logger.debug(
-            "allianceauth-discordbot is active, trying to send channel message"
+            msg="allianceauth-discordbot is active, trying to send channel message"
         )
 
         # Third Party
@@ -130,8 +132,10 @@ def _aadiscordbot_send_channel_message(
             send_message(channel_id=channel_id, message=f"**{title}**\n\n{message}")
     else:
         logger.debug(
-            "allianceauth-discordbot is not available on this "
-            "system to send the channel message"
+            msg=(
+                "allianceauth-discordbot is not available on this "
+                "system to send the channel message"
+            )
         )
 
 
@@ -167,7 +171,7 @@ def _discordproxy_send_private_message(
     client = DiscordClient()
 
     try:
-        logger.debug("Trying to send a direct message via discordproxy")
+        logger.debug(msg="Trying to send a direct message via discordproxy")
 
         if embed_message is True:
             # Third Party
@@ -192,9 +196,11 @@ def _discordproxy_send_private_message(
         # Fail silently and try if allianceauth-discordbot is available
         # as a last ditch effort to get the message out to Discord
         logger.debug(
-            "Something went wrong with discordproxy, "
-            "cannot send a direct message, trying allianceauth-discordbot "
-            f"to send the message if available. Error: {ex}"
+            msg=(
+                "Something went wrong with discordproxy, "
+                "cannot send a direct message, trying allianceauth-discordbot "
+                f"to send the message if available. Error: {ex}"
+            )
         )
 
         _aadiscordbot_send_private_message(
@@ -238,7 +244,7 @@ def _discordproxy_send_channel_message(
     client = DiscordClient()
 
     try:
-        logger.debug("Trying to send a channel message via discordproxy")
+        logger.debug(msg="Trying to send a channel message via discordproxy")
 
         if embed_message:
             # Third Party
@@ -263,9 +269,11 @@ def _discordproxy_send_channel_message(
         # Fail silently and try if allianceauth-discordbot is available
         # as a last ditch effort to get the message out to Discord
         logger.debug(
-            "Something went wrong with discordproxy, "
-            "cannot send a channel message, "
-            f"trying allianceauth-discordbot to send the message. Error: {ex}"
+            msg=(
+                "Something went wrong with discordproxy, "
+                "cannot send a channel message, "
+                f"trying allianceauth-discordbot to send the message. Error: {ex}"
+            )
         )
 
         _aadiscordbot_send_channel_message(
@@ -309,12 +317,12 @@ def send_user_notification(
     # Check if either allianceauth_discordbot or discordproxy are available
     # to send the PM
     if hasattr(user, "discord"):  # Check if the user has a Discord account
-        logger.debug("User has a Discord account")
+        logger.debug(msg="User has a Discord account")
 
         # Check if discordnotify is active
         if not aa_discordnotify_installed():
             if discordproxy_installed():
-                logger.debug("discordproxy seems to be available ...")
+                logger.debug(msg="discordproxy seems to be available ...")
 
                 _discordproxy_send_private_message(
                     user_id=int(user.discord.uid),
@@ -327,8 +335,10 @@ def send_user_notification(
                 # discordproxy not available, try if allianceauth-discordbot is
                 # available
                 logger.debug(
-                    "discordproxy not available to send a direct message, "
-                    "let's see if we can use allianceauth-discordbot if available"
+                    msg=(
+                        "discordproxy not available to send a direct message, "
+                        "let's see if we can use allianceauth-discordbot if available"
+                    )
                 )
 
                 _aadiscordbot_send_private_message(
@@ -340,10 +350,12 @@ def send_user_notification(
                 )
         else:
             logger.debug(
-                "discordnotify is active, we don't have to send the PM ourself."
+                msg="discordnotify is active, we don't have to send the PM ourself."
             )
     else:
-        logger.debug("User doesn't have a Discord account, can't send any messages ...")
+        logger.debug(
+            msg="User doesn't have a Discord account, can't send any messages ..."
+        )
 
 
 def send_message_to_discord_channel(
@@ -369,7 +381,7 @@ def send_message_to_discord_channel(
     # Check if either allianceauth_discordbot or discordproxy are available
     # to send the channel message
     if discordproxy_installed():
-        logger.debug("discordproxy seems to be available, check if we can use it")
+        logger.debug(msg="discordproxy seems to be available, check if we can use it")
 
         _discordproxy_send_channel_message(
             channel_id=channel_id,
@@ -381,8 +393,10 @@ def send_message_to_discord_channel(
     else:
         # discordproxy not available, try if allianceauth-discordbot is available
         logger.debug(
-            "discordproxy not available to send the channel message, "
-            "let's see if we can use allianceauth-discordbot"
+            msg=(
+                "discordproxy not available to send the channel message, "
+                "let's see if we can use allianceauth-discordbot"
+            )
         )
 
         _aadiscordbot_send_channel_message(
@@ -432,7 +446,7 @@ def notify_srp_team(srp_request: SrpRequest, additional_info: str):
         message += f"**SRP Link:** {srp_link}\n"
 
         logger.info(
-            "Sending SRP request notification to the SRP team channel on Discord"
+            msg="Sending SRP request notification to the SRP team channel on Discord"
         )
 
         send_message_to_discord_channel(

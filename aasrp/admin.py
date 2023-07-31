@@ -277,8 +277,8 @@ class FleetTypeAdmin(admin.ModelAdmin):
 
         if failed:
             messages.error(
-                request,
-                ngettext(
+                request=request,
+                message=ngettext(
                     singular="Failed to activate {failed} fleet type",
                     plural="Failed to activate {failed} fleet types",
                     number=failed,
@@ -287,8 +287,8 @@ class FleetTypeAdmin(admin.ModelAdmin):
 
         if queryset.count() - failed > 0:
             messages.success(
-                request,
-                ngettext(
+                request=request,
+                message=ngettext(
                     singular="Activated {notifications_count} fleet type",
                     plural="Activated {notifications_count} fleet types",
                     number=notifications_count,
@@ -322,8 +322,8 @@ class FleetTypeAdmin(admin.ModelAdmin):
 
         if failed:
             messages.error(
-                request,
-                ngettext(
+                request=request,
+                message=ngettext(
                     singular="Failed to deactivate {failed} fleet type",
                     plural="Failed to deactivate {failed} fleet types",
                     number=failed,
@@ -332,8 +332,8 @@ class FleetTypeAdmin(admin.ModelAdmin):
 
         if queryset.count() - failed > 0:
             messages.success(
-                request,
-                ngettext(
+                request=request,
+                message=ngettext(
                     singular="Deactivated {notifications_count} fleet type",
                     plural="Deactivated {notifications_count} fleet types",
                     number=notifications_count,

@@ -178,7 +178,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     # Check if the provided SRP code is valid
     if SrpLink.objects.filter(srp_code=srp_code).exists() is False:
         logger.error(
-            f"Unable to locate SRP Fleet using code {srp_code} for user {request_user}"
+            msg=f"Unable to locate SRP Fleet using code {srp_code} for user {request_user}"
         )
 
         messages.error(
@@ -333,7 +333,9 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
     request_user = request.user
 
-    logger.info(f"SRP request form for SRP code {srp_code} called by {request_user}")
+    logger.info(
+        msg=f"SRP request form for SRP code {srp_code} called by {request_user}"
+    )
 
     # Check if the provided SRP code is valid
     try:
@@ -368,7 +370,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
         form = SrpRequestForm(data=request.POST)
         form_is_valid = form.is_valid()
 
-        logger.debug(f"Request type POST contains valid form: {form_is_valid}")
+        logger.debug(msg=f"Request type POST contains valid form: {form_is_valid}")
 
         # Check whether it's valid:
         if form.is_valid():
@@ -434,7 +436,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
     # If a GET (or any other method) we'll create a blank form
     else:
-        logger.debug(f"Returning blank SRP request form for {request.user}")
+        logger.debug(msg=f"Returning blank SRP request form for {request.user}")
 
         form = SrpRequestForm()
 
