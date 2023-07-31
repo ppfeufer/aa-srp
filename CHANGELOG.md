@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning]
 
 ## [In Development] - Unreleased
 
+
+## [1.20.2] - 2023-07-31
+
 ### Fixed
 
 - TypeError: getattr() takes no keyword arguments
