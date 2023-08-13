@@ -70,7 +70,7 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
 
             messages.success(request=request, message=_("Settings saved."))
 
-            return redirect("aasrp:dashboard")
+            return redirect(to="aasrp:dashboard")
     else:
         user_settings_form = UserSettingsForm(instance=user_settings)
 
