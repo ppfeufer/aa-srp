@@ -1,22 +1,24 @@
 [build-system]
-requires = ["hatchling"]
 build-backend = "hatchling.build"
+requires = [
+    "hatchling",
+]
 
 [project]
 name = "aa-srp"
 version = "1.20.3"
 description = "Improved SRP Module for Alliance Auth"
 readme = "README.md"
-license = "GPL-3.0"
-requires-python = "~=3.8"
-authors = [
-    { name = "Peter Pfeufer", email = "develop@ppfeufer.de" },
-]
 keywords = [
     "allianceauth",
     "eveonline",
     "ship_replacement",
 ]
+license = {file = "LICENSE"}
+authors = [
+    { name = "Peter Pfeufer", email = "develop@ppfeufer.de" },
+]
+requires-python = "~=3.8"
 classifiers = [
     "Environment :: Web Environment",
     "Framework :: Django",
@@ -34,16 +36,16 @@ classifiers = [
     "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
 ]
 dependencies = [
-    "allianceauth>=3.0.0",
-    "allianceauth-app-utils>=1.19.0",
-    "django-eveuniverse>=1.2.0",
+    "allianceauth>=3",
+    "allianceauth-app-utils>=1.19",
+    "django-eveuniverse>=1.2",
 ]
-
 [project.urls]
-Homepage = "https://github.com/ppfeufer/aa-srp"
-Documentation = "https://github.com/ppfeufer/aa-srp/blob/master/README.md"
-Source = "https://github.com/ppfeufer/aa-srp.git"
 Changelog = "https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md"
+Documentation = "https://github.com/ppfeufer/aa-srp/blob/master/README.md"
+Donations = "https://ko-fi.com/ppfeufer"
+Homepage = "https://github.com/ppfeufer/aa-srp"
+Source = "https://github.com/ppfeufer/aa-srp.git"
 Tracker = "https://github.com/ppfeufer/aa-srp/issues"
 
 [tool.hatch.build]
