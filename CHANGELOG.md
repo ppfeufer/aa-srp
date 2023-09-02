@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning]
 
 ## \[In Development\] - Unreleased
 
+## \[1.20.4\] - 2023-09-02
+
+### Changed
+
+- Korean translation improved
+- Spanish translation improved
+
 ## \[1.20.3\] - 2023-08-13
 
 ### Fixed

@@ -38,6 +38,7 @@ ______________________________________________________________________
     - [Step 6: (Optional) Import From Built-in SRP Module](#step-6-optional-import-from-built-in-srp-module)
   - [Permissions](#permissions)
   - [Changelog](#changelog)
+  - [Translation Status](#translation-status)
   - [Contributing](#contributing)
 
 <!-- mdformat-toc end -->
@@ -167,18 +168,21 @@ python manage.py aasrp_migrate_srp_data
 
 See [CHANGELOG.md]
 
+## Translation Status<a name="translation-status"></a>
+
+[![Translation status](https://weblate.ppfeufer.de/widget/alliance-auth-apps/aa-srp/multi-auto.svg)](https://weblate.ppfeufer.de/engage/alliance-auth-apps/)
+
+Do you want to help translate this app into your language or improve the existing
+translation? - [Join our team of translators][weblate engage]!
+
 ## Contributing<a name="contributing"></a>
 
 You want to contribute to this project? That's cool!
 
-Please make sure to read the \[Contribution Guidelines\] (I promise, it's not much,
-just some basics)
-
-<!-- Images -->
+Please make sure to read the [Contribution Guidelines].\
+(I promise, it's not much, just some basics)
 
 <!-- Links -->
-
-\[Contribution Guidelines\]: (https://github.com/ppfeufer/aa-srp/blob/master/CONTRIBUTING.md "Contribution Guidelines"
 
 [aa srp license]: https://github.com/ppfeufer/aa-srp/blob/master/LICENSE
 [aa srp on codecov]: https://codecov.io/gh/ppfeufer/aa-srp
@@ -197,11 +201,12 @@ just some basics)
 [badge: support discord]: https://img.shields.io/discord/790364535294132234?label=discord "Support Discord"
 [badge: supported django versions]: https://img.shields.io/pypi/djversions/aa-srp?label=django "Supported Django Versions"
 [badge: supported python versions]: https://img.shields.io/pypi/pyversions/aa-srp "Supported Python Versions"
-[badge: translation status]: https://weblate.ppfeufer.de/widgets/alliance-auth-apps/-/aa-srp/svg-badge.svg "Translation Status"
+[badge: translation status]: https://weblate.ppfeufer.de/widget/alliance-auth-apps/aa-srp/svg-badge.svg "Translation Status"
 [badge: version]: https://img.shields.io/pypi/v/aa-srp?label=release "Version"
 [black code formatter documentation]: http://black.readthedocs.io/en/latest/
 [changelog.md]: https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md "CHANGELOG.md"
 [code of conduct]: https://github.com/ppfeufer/aa-srp/blob/master/CODE_OF_CONDUCT.md
+[contribution guidelines]: https://github.com/ppfeufer/aa-srp/blob/master/CONTRIBUTING.md "Contribution Guidelines"
 [discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "Discord Notify"
 [discord proxy]: https://gitlab.com/ErikKalkoken/discordproxy "Discord Proxy"
 [eve universe]: https://gitlab.com/ErikKalkoken/django-eveuniverse "Eve Universe"
