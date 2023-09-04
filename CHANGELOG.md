@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning]
 
 ## \[In Development\] - Unreleased
 
+## \[1.20.5\] - 2023-09-04
+
+### Changed
+
+- Discord notification handling moved to its own module
+- Message generation for SRP Team message simplified
+- Using `SITE_URL` from `local.py`
+
 ## \[1.20.4\] - 2023-09-02
 
 ### Changed

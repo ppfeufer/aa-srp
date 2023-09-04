@@ -2,6 +2,8 @@
 SRP Manager
 """
 
+# pylint: disable=cyclic-import
+
 # Third Party
 import requests
 

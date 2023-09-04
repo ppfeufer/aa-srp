@@ -22,6 +22,7 @@ from eveuniverse.models import EveType
 # AA SRP
 from aasrp import __title__
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
+from aasrp.discord.direct_message import send_user_notification
 from aasrp.form import (
     SrpRequestAcceptForm,
     SrpRequestAcceptRejectedForm,
@@ -39,7 +40,6 @@ from aasrp.helper.icons import (
     get_srp_request_details_icon,
     get_srp_request_status_icon,
 )
-from aasrp.helper.notification import send_user_notification
 from aasrp.helper.user import get_user_settings
 from aasrp.managers import SrpManager
 from aasrp.models import RequestComment, SrpLink, SrpRequest
@@ -63,12 +63,15 @@ def _attempt_to_re_add_ship_information_to_request(
 
     srp_kill_link_id = SrpManager.get_kill_id(killboard_link=srp_request.killboard_link)
 
-    (ship_type_id, ship_value, victim_id) = SrpManager.get_kill_data(
-        kill_id=srp_kill_link_id
-    )
-    (srp_request__ship, created_from_esi) = EveType.objects.get_or_create_esi(
-        id=ship_type_id
-    )
+    (
+        ship_type_id,
+        ship_value,  # pylint: disable=unused-variable
+        victim_id,  # pylint: disable=unused-variable
+    ) = SrpManager.get_kill_data(kill_id=srp_kill_link_id)
+    (
+        srp_request__ship,
+        created_from_esi,  # pylint: disable=unused-variable
+    ) = EveType.objects.get_or_create_esi(id=ship_type_id)
 
     srp_request.ship_name = srp_request__ship.name
     srp_request.ship = srp_request__ship
@@ -486,7 +489,7 @@ def srp_request_change_payout(
 
 @login_required
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
-def srp_request_approve(
+def srp_request_approve(  # pylint: disable=too-many-locals
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:
     """
@@ -684,7 +687,9 @@ def srp_request_deny(
 @login_required
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def srp_request_remove(
-    request: WSGIRequest, srp_code: str, srp_request_code: str
+    request: WSGIRequest,  # pylint: disable=unused-argument
+    srp_code: str,
+    srp_request_code: str,
 ) -> JsonResponse:
     """
     Ajax call :: Remove SRP request

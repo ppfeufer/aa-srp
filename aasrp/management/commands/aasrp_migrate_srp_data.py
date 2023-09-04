@@ -27,9 +27,15 @@ def get_input(text):
 
 
 class Command(BaseCommand):
-    help = "Migrate srp data from the built-in SRP module"
+    """
+    Migrate SRP data from the built-in SRP module
+    """
 
-    def _migrate_srp_data(self) -> None:
+    help = "Migrate SRP data from the built-in SRP module"
+
+    def _migrate_srp_data(  # pylint: disable=too-many-locals, too-many-statements
+        self,
+    ) -> None:
         """
         Migrate srp data from the built-in SRP module
 
@@ -145,13 +151,13 @@ class Command(BaseCommand):
 
                                 (
                                     ship_type_id,
-                                    ship_value,
-                                    victim_id,
+                                    ship_value,  # pylint: disable=unused-variable
+                                    victim_id,  # pylint: disable=unused-variable
                                 ) = SrpManager.get_kill_data(srp_kill_link)
 
                                 (
                                     srp_userrequest_ship,
-                                    created_from_esi,
+                                    created_from_esi,  # pylint: disable=unused-variable
                                 ) = EveType.objects.get_or_create_esi(id=ship_type_id)
 
                             srp_userrequest_post_time = srp_userrequest.post_time
@@ -199,7 +205,7 @@ class Command(BaseCommand):
         self.stdout.write(f"SRP requests migrated: {srp_requests_migrated}")
         self.stdout.write(f"SRP requests skipped: {srp_requests_skipped}")
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options):  # pylint: disable=unused-argument
         """
         Ask before running ...
 
