@@ -32,7 +32,7 @@ def custom_filter(title):
             :rtype:
             """
 
-            pass
+            pass  # pylint: disable=unnecessary-pass
 
         def choices(self, changelist):
             """
@@ -44,7 +44,7 @@ def custom_filter(title):
             :rtype:
             """
 
-            pass
+            pass  # pylint: disable=unnecessary-pass
 
         def __new__(cls, *args, **kwargs):
             """
@@ -71,7 +71,7 @@ class SingletonModelAdmin(admin.ModelAdmin):
 
     actions = None  # Removes the default delete action.
 
-    def has_add_permission(self, request):
+    def has_add_permission(self, request):  # pylint: disable=unused-argument
         """
         Has "add" permissions
 
@@ -83,7 +83,9 @@ class SingletonModelAdmin(admin.ModelAdmin):
 
         return self.model.objects.all().count() == 0
 
-    def has_change_permission(self, request, obj=None):
+    def has_change_permission(
+        self, request, obj=None  # pylint: disable=unused-argument
+    ):
         """
         Has "change" permissions
 
@@ -97,7 +99,9 @@ class SingletonModelAdmin(admin.ModelAdmin):
 
         return True
 
-    def has_delete_permission(self, request, obj=None):
+    def has_delete_permission(
+        self, request, obj=None  # pylint: disable=unused-argument
+    ):
         """
         Has "delete" permissions
 
@@ -272,7 +276,7 @@ class FleetTypeAdmin(admin.ModelAdmin):
                 obj.save()
 
                 notifications_count += 1
-            except Exception:
+            except Exception:  # pylint: disable=broad-exception-caught
                 failed += 1
 
         if failed:
@@ -317,7 +321,7 @@ class FleetTypeAdmin(admin.ModelAdmin):
                 obj.save()
 
                 notifications_count += 1
-            except Exception:
+            except Exception:  # pylint: disable=broad-exception-caught
                 failed += 1
 
         if failed:

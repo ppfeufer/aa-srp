@@ -38,7 +38,7 @@ def discordproxy_installed() -> bool:
 
     try:
         # Third Party
-        # pylint: disable=import-outside-toplevel
+        # pylint: disable=import-outside-toplevel, unused-import
         from discordproxy.client import DiscordClient  # noqa: F401
     except ModuleNotFoundError:
         return False

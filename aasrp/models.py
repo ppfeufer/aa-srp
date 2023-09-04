@@ -385,7 +385,9 @@ class SrpRequest(models.Model):
         """
 
         # AA SRP
-        from aasrp.helper.character import get_main_character_from_user
+        from aasrp.helper.character import (  # pylint: disable=import-outside-toplevel
+            get_main_character_from_user,
+        )
 
         character_name = self.character.character_name
         user_name = get_main_character_from_user(self.creator)
@@ -549,7 +551,7 @@ class Setting(SingletonModel):
         null=True,
         default=None,
         blank=True,
-        verbose_name=Field.SRP_TEAM_DISCORD_CHANNEL_ID.label,
+        verbose_name=Field.SRP_TEAM_DISCORD_CHANNEL_ID.label,  # pylint: disable=no-member
     )
 
     objects = SettingManager()

@@ -8,6 +8,9 @@ Do some useful stuff with a User object
 from django.contrib.auth.models import User
 from django.template.defaulttags import register
 
+# AA SRP
+from aasrp.helper.character import get_main_character_from_user
+
 
 @register.filter
 def main_character_name(user: User) -> str:
@@ -20,15 +23,7 @@ def main_character_name(user: User) -> str:
     :rtype:
     """
 
-    if user is None:
-        return ""
-
-    try:
-        return_value = user.profile.main_character.character_name
-    except AttributeError:
-        return str(user)
-
-    return return_value
+    return get_main_character_from_user(user=user)
 
 
 @register.filter
@@ -140,7 +135,7 @@ def main_character_alliance_id(user: User) -> int:
         # Check if the user is in an alliance
         try:
             return_value = int(return_value)
-        except Exception:
+        except Exception:  # pylint: disable=broad-exception-caught
             return_value = 1
     except AttributeError:
         return_value = 1

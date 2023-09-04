@@ -128,7 +128,9 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
 
 @login_required
 @permission_required("aasrp.basic_access")
-def get_srp_request_status_icon(request: WSGIRequest, srp_request: SrpRequest) -> str:
+def get_srp_request_status_icon(
+    request: WSGIRequest, srp_request: SrpRequest  # pylint: disable=unused-argument
+) -> str:
     """
     Get status icon for srp request
 
@@ -174,7 +176,9 @@ def get_srp_request_status_icon(request: WSGIRequest, srp_request: SrpRequest) -
 @login_required
 @permission_required("aasrp.basic_access")
 def get_srp_request_details_icon(
-    request: WSGIRequest, srp_link: SrpLink, srp_request: SrpRequest
+    request: WSGIRequest,  # pylint: disable=unused-argument
+    srp_link: SrpLink,
+    srp_request: SrpRequest,
 ) -> str:
     """
     Get details icon for an SRP request
@@ -210,7 +214,9 @@ def get_srp_request_details_icon(
 @login_required
 @permission_required("aasrp.basic_access")
 def get_srp_request_accept_icon(
-    request: WSGIRequest, srp_link: SrpLink, srp_request: SrpRequest
+    request: WSGIRequest,  # pylint: disable=unused-argument
+    srp_link: SrpLink,
+    srp_request: SrpRequest,
 ) -> str:
     """
     Get accept icon for an SRP request
@@ -257,7 +263,9 @@ def get_srp_request_accept_icon(
 @login_required
 @permission_required("aasrp.basic_access")
 def get_srp_request_reject_icon(
-    request: WSGIRequest, srp_link: SrpLink, srp_request: SrpRequest
+    request: WSGIRequest,  # pylint: disable=unused-argument
+    srp_link: SrpLink,
+    srp_request: SrpRequest,
 ) -> str:
     """
     Get reject icon for an SRP request
@@ -298,7 +306,9 @@ def get_srp_request_reject_icon(
 @login_required
 @permission_required("aasrp.basic_access")
 def get_srp_request_delete_icon(
-    request: WSGIRequest, srp_link: SrpLink, srp_request: SrpRequest
+    request: WSGIRequest,  # pylint: disable=unused-argument
+    srp_link: SrpLink,
+    srp_request: SrpRequest,
 ) -> str:
     """
     Get delete icon for an SRP request

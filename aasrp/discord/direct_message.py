@@ -2,7 +2,7 @@
 Handling Discord direct messages to a user
 """
 
-# pylint: disable=import-outside-toplevel
+# pylint: disable=import-outside-toplevel, duplicate-code
 
 # Standard Library
 from datetime import datetime

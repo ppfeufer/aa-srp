@@ -27,6 +27,14 @@ class Command(BaseCommand):
     help = "Preloads data required for this app from ESI"
 
     def add_arguments(self, parser):
+        """
+        Add argument to parser
+        :param parser:
+        :type parser:
+        :return:
+        :rtype:
+        """
+
         parser.add_argument(
             "--noinput",
             "--no-input",
@@ -34,7 +42,7 @@ class Command(BaseCommand):
             help="Do NOT prompt the user for input of any kind.",
         )
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options):  # pylint: disable=unused-argument
         """
         Start the eve type import
 
