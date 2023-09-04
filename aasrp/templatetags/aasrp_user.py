@@ -23,6 +23,9 @@ def main_character_name(user: User) -> str:
     :rtype:
     """
 
+    if user is None:
+        return ""
+
     return get_main_character_from_user(user=user)
 
 
