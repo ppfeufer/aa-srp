@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning]
 
 ## \[In Development\] - Unreleased
 
+### Changed
+
+- Discord notification handling moved to its own module
+
 ## \[1.20.4\] - 2023-09-02
 
 ### Changed

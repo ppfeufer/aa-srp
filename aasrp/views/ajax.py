@@ -22,6 +22,7 @@ from eveuniverse.models import EveType
 # AA SRP
 from aasrp import __title__
 from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
+from aasrp.discord.direct_message import send_user_notification
 from aasrp.form import (
     SrpRequestAcceptForm,
     SrpRequestAcceptRejectedForm,
@@ -39,7 +40,6 @@ from aasrp.helper.icons import (
     get_srp_request_details_icon,
     get_srp_request_status_icon,
 )
-from aasrp.helper.notification import send_user_notification
 from aasrp.helper.user import get_user_settings
 from aasrp.managers import SrpManager
 from aasrp.models import RequestComment, SrpLink, SrpRequest
