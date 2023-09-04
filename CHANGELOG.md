@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning]
 
 - Discord notification handling moved to its own module
 - Message generation for SRP Team message simplified
+- Using `SITE_URL` from `local.py`
 
 ## \[1.20.4\] - 2023-09-02
 

@@ -3,6 +3,7 @@ Notifications helper
 """
 
 # Django
+from django.conf import settings
 from django.urls import reverse
 
 # Alliance Auth
@@ -10,7 +11,6 @@ from allianceauth.services.hooks import get_extension_logger
 
 # Alliance Auth (External Libs)
 from app_utils.logging import LoggerAddTag
-from app_utils.urls import site_absolute_url
 
 # AA SRP
 from aasrp import __title__
@@ -37,7 +37,7 @@ def notify_srp_team(srp_request: SrpRequest, additional_info: str):
     )
 
     if srp_team_discord_channel is not None:
-        site_base_url = site_absolute_url()
+        site_base_url = settings.SITE_URL
         request_code = srp_request.request_code
         character_name = srp_request.character.character_name
         ship_type = srp_request.ship.name
