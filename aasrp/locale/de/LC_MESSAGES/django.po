@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-30 18:50+0200\n"
+"POT-Creation-Date: 2023-09-04 19:52+0200\n"
 "PO-Revision-Date: 2023-07-31 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: German <https://weblate.ppfeufer.de/projects/"
-"alliance-auth-apps/aa-srp/de/>\n"
+"Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-"
+"apps/aa-srp/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,12 +22,12 @@ msgstr ""
 msgid "Ship Replacement"
 msgstr "Schiffserstattung"
 
-#: admin.py:136 models.py:198 models.py:321 models.py:465
+#: admin.py:140 models.py:198 models.py:321 models.py:467
 #: templates/aasrp/partials/dashboard/srp_links.html:17
 msgid "Creator"
 msgstr "Ersteller"
 
-#: admin.py:185
+#: admin.py:189
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:13
 #: templates/aasrp/dashboard.html:87
 #: templates/aasrp/partials/view_requests/requests.html:16
@@ -35,46 +35,46 @@ msgstr "Ersteller"
 msgid "Requestor"
 msgstr "Anforderer"
 
-#: admin.py:225 models.py:125 models.py:182
+#: admin.py:229 models.py:125 models.py:182
 #: templates/aasrp/partials/dashboard/srp_links.html:19
 #: templates/aasrp/partials/request_srp/fleet-details.html:17
 msgid "Fleet Type"
 msgstr "Flottenart"
 
-#: admin.py:238 models.py:116
+#: admin.py:242 models.py:116
 msgid "Is enabled"
 msgstr "Ist aktiviert"
 
-#: admin.py:253
+#: admin.py:257
 msgid "Activate selected fleet types"
 msgstr "Aktiviere ausgewählte Flottenarten"
 
-#: admin.py:282
+#: admin.py:286
 #, python-brace-format
 msgid "Failed to activate {failed} fleet type"
 msgid_plural "Failed to activate {failed} fleet types"
 msgstr[0] "Aktivieren von {failed} Flottenart ist fehlgeschlagen"
 msgstr[1] "Aktivieren von {failed} Flottenarten ist fehlgeschlagen"
 
-#: admin.py:292
+#: admin.py:296
 #, python-brace-format
 msgid "Activated {notifications_count} fleet type"
 msgid_plural "Activated {notifications_count} fleet types"
 msgstr[0] "{notifications_count} Flottenart aktiviert"
 msgstr[1] "{notifications_count} Flottenarten aktiviert"
 
-#: admin.py:298
+#: admin.py:302
 msgid "Deactivate selected fleet types"
 msgstr "Deaktiviere ausgewählte Flottenarten"
 
-#: admin.py:327
+#: admin.py:331
 #, python-brace-format
 msgid "Failed to deactivate {failed} fleet type"
 msgid_plural "Failed to deactivate {failed} fleet types"
 msgstr[0] "Deaktivieren von {failed} Flottenart ist fehlgeschlagen"
 msgstr[1] "Deaktivieren von {failed} Flottenarten ist fehlgeschlagen"
 
-#: admin.py:337
+#: admin.py:341
 #, python-brace-format
 msgid "Deactivated {notifications_count} fleet type"
 msgid_plural "Deactivated {notifications_count} fleet types"
@@ -141,7 +141,7 @@ msgstr ""
 "Suche Deine Killmail auf {ZKILLBOARD_BASE_URL} oder "
 "{EVETOOLS_KILLBOARD_BASE_URL} und füge diese hier ein."
 
-#: form.py:114 models.py:347 models.py:444
+#: form.py:114 models.py:347 models.py:446
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:56
 #: templates/aasrp/dashboard.html:90 templates/aasrp/view_requests.html:82
 msgid "Additional Information"
@@ -182,7 +182,7 @@ msgstr ""
 msgid "SRP payout value"
 msgstr "SRP Auszahlungsbetrag"
 
-#: form.py:195 models.py:367 models.py:445
+#: form.py:195 models.py:367 models.py:447
 msgid "Reject Reason"
 msgstr "Ablehnungsgrund"
 
@@ -198,7 +198,7 @@ msgstr "Kommentar (Optional)"
 msgid "Leave a comment for the requestor"
 msgstr "Hinterlasse einen Kommentar für den Anfragenden"
 
-#: form.py:221 models.py:442 models.py:449 models.py:501
+#: form.py:221 models.py:444 models.py:451 models.py:503
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -251,24 +251,24 @@ msgstr "SRP Link aktivieren"
 msgid "Remove SRP Link"
 msgstr "SRP Link entfernen"
 
-#: helper/icons.py:143
+#: helper/icons.py:145
 msgid "SRP Request Pending"
 msgstr "SRP Anfrage ausstehend"
 
-#: helper/icons.py:153
+#: helper/icons.py:155
 msgid "SRP Request Approved"
 msgstr "SRP Anfrage bewilligt"
 
-#: helper/icons.py:163 views/ajax.py:675
+#: helper/icons.py:165 views/ajax.py:676
 msgid "SRP Request Rejected"
 msgstr "SRP Anfrage abgelehnt"
 
-#: helper/icons.py:197
+#: helper/icons.py:201
 #: templates/aasrp/modals/view_requests/request_details.html:13
 msgid "SRP Request Details"
 msgstr "SRP Anfrage Details"
 
-#: helper/icons.py:244
+#: helper/icons.py:250
 #: templates/aasrp/modals/view_requests/accept_rejected_request.html:13
 #: templates/aasrp/modals/view_requests/accept_rejected_request.html:39
 #: templates/aasrp/modals/view_requests/accept_request.html:13
@@ -276,13 +276,13 @@ msgstr "SRP Anfrage Details"
 msgid "Accept SRP Request"
 msgstr "SRP Anfrage akzeptieren"
 
-#: helper/icons.py:285
+#: helper/icons.py:293
 #: templates/aasrp/modals/view_requests/reject_request.html:13
 #: templates/aasrp/modals/view_requests/reject_request.html:40
 msgid "Reject SRP Request"
 msgstr "SRP Anfrage ablehnen"
 
-#: helper/icons.py:322
+#: helper/icons.py:332
 #: templates/aasrp/modals/view_requests/delete_request.html:12
 msgid "Delete SRP Request"
 msgstr "SRP Anfrage löschen"
@@ -411,94 +411,94 @@ msgstr "Anfrage"
 msgid "Requests"
 msgstr "Anfragen"
 
-#: models.py:396
+#: models.py:398
 #, python-brace-format
 msgid "{character_name} ({user_name}) SRP Request for: {ship} ({request_code})"
 msgstr ""
 "{character_name} ({user_name}) SRP Anfrage für: {ship} ({request_code})"
 
-#: models.py:414 models.py:475
+#: models.py:416 models.py:477
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:7
 msgid "SRP Request"
 msgstr "SRP Anfrage"
 
-#: models.py:417
+#: models.py:419
 msgid "Insurance Level"
 msgstr "Versicherungsstufe"
 
-#: models.py:419
+#: models.py:421
 msgid "Insurance Cost"
 msgstr "Versicherungskosten"
 
-#: models.py:420
+#: models.py:422
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:37
 #: templates/aasrp/view_requests.html:81
 msgid "Insurance Payout"
 msgstr "Versicherungsauszahlung"
 
-#: models.py:428
+#: models.py:430
 msgid "Ship Insurance"
 msgstr "Schiffsversicherung"
 
-#: models.py:429
+#: models.py:431
 msgid "Ship Insurances"
 msgstr "Schiffsversicherungen"
 
-#: models.py:443
+#: models.py:445
 msgid "SRP Request Added"
 msgstr "SRP Anfrage hinzugefügt"
 
-#: models.py:446
+#: models.py:448
 msgid "Status Changed"
 msgstr "Status geändert"
 
-#: models.py:447
+#: models.py:449
 msgid "Reviser Comment"
 msgstr "Kommentar des Revisors"
 
-#: models.py:455
+#: models.py:457
 msgid "Comment Type"
 msgstr "Kommentartyp"
 
 #. Translators: This is the time when the comment was made
-#: models.py:483
+#: models.py:485
 msgid "Comment Time"
 msgstr "Kommentarzeit"
 
 #. Translators: New SRP request status that might have been set
-#: models.py:492
+#: models.py:494
 msgid "New SRP Request Status"
 msgstr "Neuer SRP Anfragestatus"
 
-#: models.py:502
+#: models.py:504
 msgid "Comments"
 msgstr "Kommentare"
 
-#: models.py:517
+#: models.py:519
 msgid "User"
 msgstr "Nutzer"
 
-#: models.py:521
+#: models.py:523
 msgid "Disable Notifications"
 msgstr "Benachrichtigungen ausschalten"
 
-#: models.py:530 models.py:531
+#: models.py:532 models.py:533
 msgid "User Settings"
 msgstr "Benutzereinstellungen"
 
-#: models.py:545
+#: models.py:547
 msgid "SRP Team Discord Channel ID"
 msgstr "SRP Team Discord Kanal ID"
 
-#: models.py:563
+#: models.py:565
 msgid "setting"
 msgstr "Einstellung"
 
-#: models.py:564
+#: models.py:566
 msgid "settings"
 msgstr "Einstellungen"
 
-#: models.py:574
+#: models.py:576
 msgid "AA-SRP Settings"
 msgstr "AA-SRP Einstellungen"
 
@@ -806,23 +806,23 @@ msgstr "Leere Eingaben sind nicht erlaubt"
 msgid "This field is required."
 msgstr "Dies ist ein Pflichtfeld."
 
-#: views/ajax.py:112
+#: views/ajax.py:115
 msgid "Link"
 msgstr "Link"
 
-#: views/ajax.py:123
+#: views/ajax.py:126
 msgid "Copy SRP link to clipboard"
 msgstr "SRP Link in die Zwischenablage kopieren"
 
-#: views/ajax.py:589
+#: views/ajax.py:590
 msgid "SRP request has been approved"
 msgstr "SRP Anfrage wurde akzeptiert"
 
-#: views/ajax.py:680
+#: views/ajax.py:681
 msgid "SRP request has been rejected"
 msgstr "SRP Anfrage wurde abgelehnt"
 
-#: views/ajax.py:715
+#: views/ajax.py:718
 msgid "SRP request has been removed"
 msgstr "SRP Anfrage wurde entfernt"
 
@@ -840,8 +840,8 @@ msgstr ""
 msgid "SRP link \"{srp_link.srp_code}\" created"
 msgstr "SRP Link \"{srp_link.srp_code}\" erstellt"
 
-#: views/general.py:185 views/general.py:473 views/general.py:512
-#: views/general.py:559 views/general.py:596 views/general.py:633
+#: views/general.py:185 views/general.py:475 views/general.py:514
+#: views/general.py:561 views/general.py:598 views/general.py:635
 #, python-brace-format
 msgid "Unable to locate SRP code with ID {srp_code}"
 msgstr "SRP Code mit ID {srp_code} konnte nicht gefunden werden"
@@ -855,16 +855,16 @@ msgstr "AAR Link geändert"
 msgid "Submitted SRP request for your {srp_request__ship.name}."
 msgstr "SRP Anfrage für Deine {srp_request__ship.name} eingereicht."
 
-#: views/general.py:351
+#: views/general.py:353
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr "SRP Flotte zur SRP ID {srp_code} konnte nicht gefunden werden"
 
-#: views/general.py:360
+#: views/general.py:362
 msgid "This SRP link is no longer available for SRP requests."
 msgstr "Dieser Link ist nicht länger verfügbar für SRP Anfragen."
 
-#: views/general.py:398
+#: views/general.py:400
 #, python-brace-format
 msgid ""
 "Your Killmail link ({submitted_killmail_link}) is invalid or the zKillboard "
@@ -875,7 +875,7 @@ msgstr ""
 "zKillboard-API antwortet derzeit nicht. Bitte stelle sicher, dass Du "
 "entweder {ZKILLBOARD_BASE_URL} oder {EVETOOLS_KILLBOARD_BASE_URL} verwendest"
 
-#: views/general.py:429
+#: views/general.py:431
 #, python-brace-format
 msgid ""
 "Character {victim_id} does not belong to your Auth account. Please add this "
@@ -884,21 +884,21 @@ msgstr ""
 "Der Charakter {victim_id} gehört nicht zu Deinem Auth Konto. Bitte füge "
 "diesen als Zweitcharakter hinzu und versuche es noch einmal."
 
-#: views/general.py:482
+#: views/general.py:484
 msgid "SRP link marked as completed"
 msgstr "SRP Link als beendet markiert"
 
-#: views/general.py:568
+#: views/general.py:570
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr "SRP Link {srp_code} (re-)aktiviert."
 
-#: views/general.py:605
+#: views/general.py:607
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr "SRP Link {srp_code} deaktiviert."
 
-#: views/general.py:641
+#: views/general.py:643
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "SRP Link {srp_code} gelöscht."
