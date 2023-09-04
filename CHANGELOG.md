@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning]
 ### Changed
 
 - Discord notification handling moved to its own module
+- Message generation for SRP Team message simplified
 
 ## \[1.20.4\] - 2023-09-02
 

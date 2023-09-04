@@ -49,13 +49,15 @@ def notify_srp_team(srp_request: SrpRequest, additional_info: str):
         )
 
         title = "New SRP Request"
-        message = f"**Request Code:** {request_code}\n"
-        message += f"**Character:** {character_name}\n"
-        message += f"**Ship:** {ship_type}\n"
-        message += f"**zKillboard Link:** {zkillboard_link}\n"
-        message += f"**Additional Information:**\n{additional_information}\n\n"
-        message += f"**SRP Code:** {srp_code}\n"
-        message += f"**SRP Link:** {srp_link}\n"
+        message = (
+            f"**Request Code:** {request_code}\n"
+            f"**Character:** {character_name}\n"
+            f"**Ship:** {ship_type}\n"
+            f"**zKillboard Link:** {zkillboard_link}\n"
+            f"**Additional Information:**\n{additional_information}\n\n"
+            f"**SRP Code:** {srp_code}\n"
+            f"**SRP Link:** {srp_link}\n"
+        )
 
         logger.info(
             msg="Sending SRP request notification to the SRP team channel on Discord"
