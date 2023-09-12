@@ -107,6 +107,7 @@ def get_main_for_character(character: EveCharacter) -> Optional[EveCharacter]:
     try:
         userprofile = character.character_ownership.user.profile
     except (
+        AttributeError,
         EveCharacter.character_ownership.RelatedObjectDoesNotExist,
         CharacterOwnership.user.RelatedObjectDoesNotExist,
     ):
@@ -128,6 +129,7 @@ def get_user_for_character(character: EveCharacter) -> User:
     try:
         userprofile = character.character_ownership.user.profile
     except (
+        AttributeError,
         EveCharacter.character_ownership.RelatedObjectDoesNotExist,
         CharacterOwnership.user.RelatedObjectDoesNotExist,
     ):
