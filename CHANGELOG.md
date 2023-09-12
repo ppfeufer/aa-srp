@@ -7,11 +7,18 @@ and this project adheres to [Semantic Versioning]
 
 ## \[In Development\] - Unreleased
 
+## \[1.20.6\] - 2023-09-12
+
 ### Fixed
 
 - Catch `AttributeError` exception on migration from the AA built-in SRP module
 - Don't create SRP requests for non-existent users on migration from AA built-in SRP
   module
+
+### Changed
+
+- Spanish translation improved
+- Korean translation improved
 
 ## \[1.20.5\] - 2023-09-04
 
