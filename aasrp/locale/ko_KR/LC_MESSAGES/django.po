@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-04 19:52+0200\n"
-"PO-Revision-Date: 2023-09-02 14:40+0000\n"
+"PO-Revision-Date: 2023-09-05 12:12+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/ko/>\n"
+"Language-Team: Korean <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/ko/>\n"
 "Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -290,7 +290,7 @@ msgstr ""
 
 #: models.py:126
 msgid "Fleet Types"
-msgstr ""
+msgstr "함대 종류"
 
 #: models.py:149
 msgid "Active"
@@ -464,7 +464,7 @@ msgstr ""
 
 #: models.py:519
 msgid "User"
-msgstr ""
+msgstr "사용자"
 
 #: models.py:523
 msgid "Disable Notifications"
@@ -559,7 +559,7 @@ msgstr ""
 #: templates/aasrp/modals/dashboard/delete_srp_link.html:27
 #: templates/aasrp/modals/view_requests/delete_request.html:28
 msgid "Delete"
-msgstr ""
+msgstr "삭제"
 
 #: templates/aasrp/modals/dashboard/disable_srp_link.html:27
 msgid "Disable"
@@ -704,7 +704,7 @@ msgstr "번역가 팀에 참여하세요!"
 
 #: templates/aasrp/partials/form/required_field_hint.html:5
 msgid "Fields marked with an asterisk (*) are mandatory"
-msgstr ""
+msgstr "별표 (*) 표시된 항목은 필수 항목입니다"
 
 #: templates/aasrp/partials/link_add/form.html:7
 msgid "SRP Link Details"
