@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning]
 
 ## \[In Development\] - Unreleased
 
+### Fixed
+
+- Catch `AttributeError` exception on migration from the AA built-in SRP module
+
 ## \[1.20.5\] - 2023-09-04
 
 ### Changed
