@@ -124,7 +124,10 @@ class Command(BaseCommand):
                         character=srp_userrequest.character
                     )
 
-                    if srp_userrequest_creator is not None:
+                    if (
+                        srp_userrequest_creator is not None
+                        and srp_userrequest.character is not None
+                    ):
                         srp_userrequest_killboard_link = srp_userrequest.killboard_link
 
                         try:

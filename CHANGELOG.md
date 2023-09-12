@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning]
 ### Fixed
 
 - Catch `AttributeError` exception on migration from the AA built-in SRP module
+- Don't create SRP requests for non-existent users on migration from AA built-in SRP
+  module
 
 ## \[1.20.5\] - 2023-09-04
 
