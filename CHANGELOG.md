@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning]
 
 ## \[In Development\] - Unreleased
 
+## \[1.20.7\] - 2023-09-14
+
 ### Fixed
 
 - Exception: 'NoneType' object has no attribute 'character_name' when opening the
