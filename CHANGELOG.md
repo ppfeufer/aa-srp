@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning]
 
 ## \[In Development\] - Unreleased
 
+## \[1.20.7\] - 2023-09-14
+
+### Fixed
+
+- Exception: 'NoneType' object has no attribute 'character_name' when opening the
+  Dashboard view and in one of the displayed SRP links is a fleet commander who
+  doesn't exist anymore.
+
 ## \[1.20.6\] - 2023-09-12
 
 ### Fixed
