@@ -141,7 +141,7 @@ def dashboard_srp_links_data(
                 "creator": get_main_character_from_user(user=srp_link.creator),
                 "fleet_time": srp_link.fleet_time,
                 "fleet_type": fleet_type,
-                "fleet_commander": srp_link.fleet_commander.character_name,
+                # "fleet_commander": srp_link.fleet_commander.character_name,
                 "fleet_doctrine": srp_link.fleet_doctrine,
                 "aar_link": aar_link,
                 "srp_code": {"display": srp_code_html, "sort": srp_link.srp_code},
