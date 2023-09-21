@@ -1,8 +1,8 @@
 # Django
 from django.db import migrations
 
-# AA SRP
-from aasrp.utils import clean_setting
+# Alliance Auth (External Libs)
+from app_utils.app_settings import clean_setting
 
 srp_team_discord_channel_id = clean_setting(
     name="AASRP_SRP_TEAM_DISCORD_CHANNEL", default_value=None, required_type=int
@@ -28,7 +28,7 @@ def on_migrate(apps, schema_editor):
 
 def on_migrate_zero(apps, schema_editor):
     """
-    Remove default settings on migratio to zero
+    Remove default settings on migration to zero
     :param apps:
     :param schema_editor:
     :return:
