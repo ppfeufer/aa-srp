@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-04 19:52+0200\n"
+"POT-Creation-Date: 2023-09-23 00:29+0200\n"
 "PO-Revision-Date: 2023-07-31 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -40,7 +40,9 @@ msgstr "Заявитель"
 #: admin.py:229 models.py:125 models.py:182
 #: templates/aasrp/partials/dashboard/srp_links.html:19
 #: templates/aasrp/partials/request_srp/fleet-details.html:17
-msgid "Fleet Type"
+#, fuzzy
+#| msgid "Fleet Type"
+msgid "Fleet type"
 msgstr "Тип флота"
 
 #: admin.py:242 models.py:116
@@ -98,10 +100,16 @@ msgid "AA Ship Replacement v{__version__}"
 msgstr "AA Компенсация корабля v{__version__}"
 
 #: constants.py:20
+#, fuzzy
+#| msgid ""
+#| "If you have any questions regarding your SRP request, feel free to "
+#| "contact your request reviser.\n"
+#| "Please make sure to always add the SRP Code and the Request Code with "
+#| "your inquiry."
 msgid ""
 "If you have any questions regarding your SRP request, feel free to contact "
 "your request reviser.\n"
-"Please make sure to always add the SRP Code and the Request Code with your "
+"Please make sure to always add the SRP code and the request code with your "
 "inquiry."
 msgstr ""
 "Если у Вас остались вопросы по поводу SRP запроса, свяжитесь с ревизором.\n"
@@ -113,17 +121,23 @@ msgstr "Обязательное поле"
 
 #: form.py:53 templates/aasrp/partials/request_srp/fleet-details.html:13
 #: templates/aasrp/partials/view_requests/overview.html:26
-msgid "Fleet Name"
+#, fuzzy
+#| msgid "Fleet Name"
+msgid "Fleet name"
 msgstr "Название флота"
 
 #: form.py:57 models.py:185
 #: templates/aasrp/partials/dashboard/srp_links.html:18
 #: templates/aasrp/partials/view_requests/overview.html:36
-msgid "Fleet Time"
+#, fuzzy
+#| msgid "Fleet Time"
+msgid "Fleet time"
 msgstr "Время флота"
 
 #: form.py:62
-msgid "Fleet Type (optional)"
+#, fuzzy
+#| msgid "Fleet Type (optional)"
+msgid "Fleet type (optional)"
 msgstr "Тип флота (не обязательно)"
 
 #: form.py:68 models.py:171
@@ -134,11 +148,15 @@ msgid "Doctrine"
 msgstr "Формат"
 
 #: form.py:70 form.py:86
-msgid "After Action Report Link"
+#, fuzzy
+#| msgid "After Action Report Link"
+msgid "After action report link"
 msgstr "Ссылка на отчет о боевых действиях"
 
 #: form.py:103 models.py:344
-msgid "Killboard Link"
+#, fuzzy
+#| msgid "Killboard Link"
+msgid "Killboard link"
 msgstr "Ссылка на килборду"
 
 #: form.py:107
@@ -153,7 +171,9 @@ msgstr ""
 #: form.py:114 models.py:347 models.py:446
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:56
 #: templates/aasrp/dashboard.html:90 templates/aasrp/view_requests.html:82
-msgid "Additional Information"
+#, fuzzy
+#| msgid "Additional Information"
+msgid "Additional information"
 msgstr "Дополнительная информация"
 
 #: form.py:116
@@ -167,9 +187,12 @@ msgstr ""
 "фитах и так далее. Будьте настолько подробны, насколько это возможно."
 
 #: form.py:147
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Invalid Link. Please use {ZKILLBOARD_BASE_URL} or "
+#| "{EVETOOLS_KILLBOARD_BASE_URL}"
 msgid ""
-"Invalid Link. Please use {ZKILLBOARD_BASE_URL} or "
+"Invalid link. Please use {ZKILLBOARD_BASE_URL} or "
 "{EVETOOLS_KILLBOARD_BASE_URL}"
 msgstr ""
 "Некорректная ссылка. Используйте {ZKILLBOARD_BASE_URL} or "
@@ -180,8 +203,12 @@ msgid "Invalid link. Please post a link to a kill mail."
 msgstr "Некорректная ссылка. Укажите действительную ссылка на kill mail."
 
 #: form.py:171
+#, fuzzy
+#| msgid ""
+#| "There is already an SRP request for this killmail. Please check if you "
+#| "got the right one."
 msgid ""
-"There is already an SRP request for this killmail. Please check if you got "
+"There is already an SRP request for this kill mail. Please check if you got "
 "the right one."
 msgstr ""
 "Для указанного kill mail уже зарегистрирован SRP запрос. Убедитесь, что Вы "
@@ -192,7 +219,9 @@ msgid "SRP payout value"
 msgstr "SRP выплата"
 
 #: form.py:195 models.py:367 models.py:447
-msgid "Reject Reason"
+#, fuzzy
+#| msgid "Reject Reason"
+msgid "Reject reason"
 msgstr "Причина отказа"
 
 #: form.py:196
@@ -200,7 +229,9 @@ msgid "Please provide the reason this SRP request is rejected."
 msgstr "Укажите причину отказа для данного SRP запроса."
 
 #: form.py:208
-msgid "Comment (Optional)"
+#, fuzzy
+#| msgid "Comment (Optional)"
+msgid "Comment (optional)"
 msgstr "Комментарий (не обязательно)"
 
 #: form.py:209
@@ -224,7 +255,9 @@ msgid ""
 msgstr "Отключить уведомления. (Auth и Discord при установленных модулях)"
 
 #: helper/character.py:48
-msgid "Unknown Character"
+#, fuzzy
+#| msgid "Unknown Character"
+msgid "Unknown character"
 msgstr "Неизвестный пилот"
 
 #: helper/character.py:69
@@ -236,42 +269,59 @@ msgid "Request SRP"
 msgstr "Запросить SRP"
 
 #: helper/icons.py:53
-msgid "View SRP Requests"
+#, fuzzy
+#| msgid "View SRP Requests"
+msgid "View SRP requests"
 msgstr "Показать SRP запросы"
 
 #: helper/icons.py:67 templates/aasrp/partials/link_edit/form.html:20
-msgid "Add/Change AAR Link"
+#, fuzzy
+#| msgid "Add/Change AAR Link"
+msgid "Add/Change AAR link"
 msgstr "Добавить/изменить ссылку на ОБД"
 
-#: helper/icons.py:78 templates/aasrp/modals/dashboard/disable_srp_link.html:4
-#: templates/aasrp/modals/dashboard/disable_srp_link.html:13
-msgid "Disable SRP Link"
+#: helper/icons.py:78
+#, fuzzy
+#| msgid "Disable SRP Link"
+msgid "Disable SRP ink"
 msgstr "Отключить SRP ссылку"
 
 #: helper/icons.py:96 templates/aasrp/modals/dashboard/enable_srp_link.html:4
 #: templates/aasrp/modals/dashboard/enable_srp_link.html:13
-msgid "Enable SRP Link"
+#, fuzzy
+#| msgid "Enable SRP Link"
+msgid "Enable SRP link"
 msgstr "Включить SRP ссылку"
 
 #: helper/icons.py:113
-msgid "Remove SRP Link"
+#, fuzzy
+#| msgid "Remove SRP Link"
+msgid "Remove SRP ink"
 msgstr "Удалить SRP ссылку"
 
 #: helper/icons.py:145
-msgid "SRP Request Pending"
+#, fuzzy
+#| msgid "SRP Request Pending"
+msgid "SRP request pending"
 msgstr "SRP запрос обрабатывается"
 
 #: helper/icons.py:155
-msgid "SRP Request Approved"
+#, fuzzy
+#| msgid "SRP Request Approved"
+msgid "SRP request approved"
 msgstr "SRP запрос удовлетворен"
 
 #: helper/icons.py:165 views/ajax.py:676
-msgid "SRP Request Rejected"
+#, fuzzy
+#| msgid "SRP Request Rejected"
+msgid "SRP request rejected"
 msgstr "SRP запрос отклонен"
 
 #: helper/icons.py:201
 #: templates/aasrp/modals/view_requests/request_details.html:13
-msgid "SRP Request Details"
+#, fuzzy
+#| msgid "SRP Request Details"
+msgid "SRP request details"
 msgstr "Детали SRP запроса"
 
 #: helper/icons.py:250
@@ -279,18 +329,24 @@ msgstr "Детали SRP запроса"
 #: templates/aasrp/modals/view_requests/accept_rejected_request.html:39
 #: templates/aasrp/modals/view_requests/accept_request.html:13
 #: templates/aasrp/modals/view_requests/accept_request.html:36
-msgid "Accept SRP Request"
+#, fuzzy
+#| msgid "Accept SRP Request"
+msgid "Accept SRP request"
 msgstr "Удовлетворить SRP запрос"
 
 #: helper/icons.py:293
 #: templates/aasrp/modals/view_requests/reject_request.html:13
 #: templates/aasrp/modals/view_requests/reject_request.html:40
-msgid "Reject SRP Request"
+#, fuzzy
+#| msgid "Reject SRP Request"
+msgid "Reject SRP request"
 msgstr "Отклонить SRP запрос"
 
 #: helper/icons.py:332
 #: templates/aasrp/modals/view_requests/delete_request.html:12
-msgid "Delete SRP Request"
+#, fuzzy
+#| msgid "Delete SRP Request"
+msgid "Delete SRP request"
 msgstr "Удалить SRP запрос"
 
 #: models.py:108
@@ -306,7 +362,9 @@ msgid "Whether this fleet type is active or not"
 msgstr "Активен или нет данный тип флота"
 
 #: models.py:126
-msgid "Fleet Types"
+#, fuzzy
+#| msgid "Fleet Types"
+msgid "Fleet types"
 msgstr "Типы флота"
 
 #: models.py:149
@@ -322,22 +380,30 @@ msgid "Completed"
 msgstr "Завершен"
 
 #: models.py:153
-msgid "SRP Name"
+#, fuzzy
+#| msgid "SRP Name"
+msgid "SRP name"
 msgstr "Название SRP"
 
 #: models.py:158
-msgid "SRP Status"
+#, fuzzy
+#| msgid "SRP Status"
+msgid "SRP status"
 msgstr "Статус SRP"
 
 #: models.py:160 templates/aasrp/partials/dashboard/srp_links.html:22
 #: templates/aasrp/partials/dashboard/user_srp_requests.html:19
 #: templates/aasrp/partials/request_srp/fleet-details.html:14
 #: templates/aasrp/partials/view_requests/overview.html:49
-msgid "SRP Code"
+#, fuzzy
+#| msgid "SRP Code"
+msgid "SRP code"
 msgstr "Код SRP"
 
 #: models.py:168 templates/aasrp/partials/view_requests/overview.html:31
-msgid "Fleet Commander"
+#, fuzzy
+#| msgid "Fleet Commander"
+msgid "Fleet commander"
 msgstr "Командир флота"
 
 #: models.py:181
@@ -345,19 +411,25 @@ msgid "The SRP link fleet type, if it's set"
 msgstr "Тип флота для SRP ссылки, при наличии"
 
 #: models.py:187
-msgid "AAR Link"
+#, fuzzy
+#| msgid "AAR Link"
+msgid "AAR link"
 msgstr "AAR ссылка"
 
-#: models.py:197 models.py:320
+#: models.py:197
 msgid "Who created the SRP link?"
 msgstr "Кто создал SRP ссылку?"
 
 #: models.py:207 models.py:360
-msgid "SRP Link"
+#, fuzzy
+#| msgid "SRP Link"
+msgid "SRP link"
 msgstr "SRP ссылка"
 
 #: models.py:208 templates/aasrp/partials/dashboard/table.html:4
-msgid "SRP Links"
+#, fuzzy
+#| msgid "SRP Links"
+msgid "SRP links"
 msgstr "SRP ссылки"
 
 #: models.py:306 templates/aasrp/partials/view_requests/overview.html:17
@@ -374,8 +446,16 @@ msgstr "Отклонен"
 
 #: models.py:311 templates/aasrp/partials/dashboard/user_srp_requests.html:20
 #: templates/aasrp/partials/view_requests/requests.html:18
-msgid "Request Code"
+#, fuzzy
+#| msgid "Request Code"
+msgid "Request code"
 msgstr "Код Запроса"
+
+#: models.py:320
+#, fuzzy
+#| msgid "Who created the SRP link?"
+msgid "Who created the SRP request?"
+msgstr "Кто создал SRP ссылку?"
 
 #: models.py:329
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:18
@@ -387,25 +467,35 @@ msgid "Character"
 msgstr "Пилот"
 
 #: models.py:332 models.py:341
-msgid "Ship Type"
+#, fuzzy
+#| msgid "Ship Type"
+msgid "Ship type"
 msgstr "Тип корабля"
 
 #: models.py:353 templates/aasrp/dashboard.html:72
 #: templates/aasrp/view_requests.html:68
-msgid "Request Status"
+#, fuzzy
+#| msgid "Request Status"
+msgid "Request status"
 msgstr "Статус запроса"
 
 #: models.py:355
-msgid "Payout Amount"
+#, fuzzy
+#| msgid "Payout Amount"
+msgid "Payout amount"
 msgstr "Размер выплаты"
 
 #: models.py:362
-msgid "Loss Amount"
+#, fuzzy
+#| msgid "Loss Amount"
+msgid "Loss amount"
 msgstr "Оценка ущерба"
 
 #: models.py:364 templates/aasrp/partials/dashboard/user_srp_requests.html:16
 #: templates/aasrp/partials/view_requests/requests.html:15
-msgid "Request Time"
+#, fuzzy
+#| msgid "Request Time"
+msgid "Request time"
 msgstr "Время запроса"
 
 #: models.py:376
@@ -418,61 +508,87 @@ msgid "Requests"
 msgstr "Запросы"
 
 #: models.py:398
-#, python-brace-format
-msgid "{character_name} ({user_name}) SRP Request for: {ship} ({request_code})"
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "{character_name} ({user_name}) SRP Request for: {ship} ({request_code})"
+msgid "{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
 msgstr "{character_name} ({user_name}) SRP запрос для: {ship} ({request_code})"
 
 #: models.py:416 models.py:477
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:7
-msgid "SRP Request"
+#, fuzzy
+#| msgid "SRP Request"
+msgid "SRP request"
 msgstr "SRP запрос"
 
 #: models.py:419
-msgid "Insurance Level"
+#, fuzzy
+#| msgid "Insurance Level"
+msgid "Insurance level"
 msgstr "Уровень страховки"
 
 #: models.py:421
-msgid "Insurance Cost"
+#, fuzzy
+#| msgid "Insurance Cost"
+msgid "Insurance cost"
 msgstr "Стоимость страховки"
 
 #: models.py:422
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:37
 #: templates/aasrp/view_requests.html:81
-msgid "Insurance Payout"
+#, fuzzy
+#| msgid "Insurance Payout"
+msgid "Insurance payout"
 msgstr "Страховая выплата"
 
 #: models.py:430
-msgid "Ship Insurance"
+#, fuzzy
+#| msgid "Ship Insurance"
+msgid "Ship insurance"
 msgstr "Страховка корабля"
 
 #: models.py:431
-msgid "Ship Insurances"
+#, fuzzy
+#| msgid "Ship Insurances"
+msgid "Ship insurances"
 msgstr "Страховки корабля"
 
 #: models.py:445
-msgid "SRP Request Added"
-msgstr "SRP запрос добавлен"
+#, fuzzy
+#| msgid "SRP request added."
+msgid "SRP request added"
+msgstr "SRP запрос добавлен."
 
 #: models.py:448
-msgid "Status Changed"
+#, fuzzy
+#| msgid "Status Changed"
+msgid "Status changed"
 msgstr "Статус изменился"
 
 #: models.py:449
-msgid "Reviser Comment"
+#, fuzzy
+#| msgid "Reviser Comment"
+msgid "Reviser comment"
 msgstr "Комментарий ревизора"
 
 #: models.py:457
-msgid "Comment Type"
+#, fuzzy
+#| msgid "Comment Type"
+msgid "Comment type"
 msgstr "Тип комментария"
 
 #. Translators: This is the time when the comment was made
 #: models.py:485
-msgid "Comment Time"
+#, fuzzy
+#| msgid "Comment Time"
+msgid "Comment time"
 msgstr "Время комментария"
 
 #. Translators: New SRP request status that might have been set
 #: models.py:494
-msgid "New SRP Request Status"
+#, fuzzy
+#| msgid "New SRP Request Status"
+msgid "New SRP request status"
 msgstr "Статус нового запроса SRP"
 
 #: models.py:504
@@ -484,27 +600,37 @@ msgid "User"
 msgstr "Пользователь"
 
 #: models.py:523
-msgid "Disable Notifications"
+#, fuzzy
+#| msgid "Disable Notifications"
+msgid "Disable notifications"
 msgstr "Отключить уведомления"
 
 #: models.py:532 models.py:533
-msgid "User Settings"
+#, fuzzy
+#| msgid "User Settings"
+msgid "User settings"
 msgstr "Настройки пользователя"
 
 #: models.py:547
-msgid "SRP Team Discord Channel ID"
+#, fuzzy
+#| msgid "SRP Team Discord Channel ID"
+msgid "SRP team Discord channel ID"
 msgstr "Идентификатор канала Discord команды SRP"
 
 #: models.py:565
-msgid "setting"
-msgstr "настройка"
+#, fuzzy
+#| msgid "Settings"
+msgid "Setting"
+msgstr "Настройки"
 
-#: models.py:566
-msgid "settings"
-msgstr "настройки"
+#: models.py:566 templates/aasrp/partials/dashboard/table.html:6
+msgid "Settings"
+msgstr "Настройки"
 
 #: models.py:576
-msgid "AA-SRP Settings"
+#, fuzzy
+#| msgid "AA-SRP Settings"
+msgid "AA-SRP settings"
 msgstr "Настройки AA-SRP"
 
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:25
@@ -516,7 +642,9 @@ msgid "Ship"
 msgstr "Тип корабля"
 
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:64
-msgid "Request History"
+#, fuzzy
+#| msgid "Request History"
+msgid "Request history"
 msgstr "История SRP запроса"
 
 #: templates/aasrp/ajax_render/srp_request_additional_information.html:86
@@ -528,31 +656,45 @@ msgid "SRP request status has changed to"
 msgstr "Статус SRP запроса измене на"
 
 #: templates/aasrp/dashboard.html:77
-msgid "Are you sure you want to (re-)activate the following SRP Link?"
+#, fuzzy
+#| msgid "Are you sure you want to (re-)activate the following SRP Link?"
+msgid "Are you sure you want to (re-)activate the following SRP link?"
 msgstr "Вы уверены, что хотите (ре-)активировать следующую SRP ссылку?"
 
 #: templates/aasrp/dashboard.html:80
-msgid "Are you sure you want to disable the following SRP Link?"
+#, fuzzy
+#| msgid "Are you sure you want to disable the following SRP Link?"
+msgid "Are you sure you want to disable the following SRP link?"
 msgstr "Вы уверены, что хотите отключить следующую SRP ссылку?"
 
 #: templates/aasrp/dashboard.html:83
+#, fuzzy
+#| msgid ""
+#| "Are you sure you want to delete the following SRP Link and all SRP "
+#| "requests tied to it?"
 msgid ""
-"Are you sure you want to delete the following SRP Link and all SRP requests "
+"Are you sure you want to delete the following SRP link and all SRP requests "
 "tied to it?"
 msgstr ""
 "Вы уверены, что хотите удалить следующую SRP ссылку и все связанные SRP "
 "запросы?"
 
 #: templates/aasrp/dashboard.html:91 templates/aasrp/view_requests.html:83
-msgid "Reject Information"
+#, fuzzy
+#| msgid "Reject Information"
+msgid "Reject information"
 msgstr "Причина отказа"
 
 #: templates/aasrp/link_add.html:5 templates/aasrp/link_add.html:8
-msgid "Create SRP Link"
+#, fuzzy
+#| msgid "Create SRP Link"
+msgid "Create SRP link"
 msgstr "Создание SRP ссылки"
 
 #: templates/aasrp/link_edit.html:5
-msgid "SRP Link Edit"
+#, fuzzy
+#| msgid "SRP Link Edit"
+msgid "SRP link edit"
 msgstr "Редактирование SRP ссылки"
 
 #: templates/aasrp/link_edit.html:8
@@ -561,7 +703,9 @@ msgstr "Добавление/редактирование ссылки отче�
 
 #: templates/aasrp/modals/dashboard/delete_srp_link.html:4
 #: templates/aasrp/modals/dashboard/delete_srp_link.html:13
-msgid "Delete SRP Link"
+#, fuzzy
+#| msgid "Delete SRP Link"
+msgid "Delete SRP link"
 msgstr "Удаление SRP ссылки"
 
 #: templates/aasrp/modals/dashboard/delete_srp_link.html:22
@@ -579,6 +723,13 @@ msgstr "Отмена"
 #: templates/aasrp/modals/view_requests/delete_request.html:28
 msgid "Delete"
 msgstr "Удалить"
+
+#: templates/aasrp/modals/dashboard/disable_srp_link.html:4
+#: templates/aasrp/modals/dashboard/disable_srp_link.html:13
+#, fuzzy
+#| msgid "Disable SRP Link"
+msgid "Disable SRP link"
+msgstr "Отключить SRP ссылку"
 
 #: templates/aasrp/modals/dashboard/disable_srp_link.html:27
 msgid "Disable"
@@ -610,7 +761,9 @@ msgstr "Вы уверены, что хотите удалит данный SRP �
 #: templates/aasrp/modals/view_requests/mark_complete_modal.html:12
 #: templates/aasrp/modals/view_requests/mark_complete_modal.html:44
 #: templates/aasrp/partials/view_requests/overview.html:70
-msgid "Mark Completed"
+#, fuzzy
+#| msgid "Mark Completed"
+msgid "Mark completed"
 msgstr "Отметка об исполнении"
 
 #: templates/aasrp/modals/view_requests/mark_complete_modal.html:17
@@ -655,19 +808,27 @@ msgid "Are you sure you want to reject this SRP request?"
 msgstr "Вы уверены, что хотите отклонить данный SRP запрос?"
 
 #: templates/aasrp/partials/dashboard/buttons.html:6
-msgid "View All"
+#, fuzzy
+#| msgid "View All"
+msgid "View all"
 msgstr "Посмотреть все"
 
 #: templates/aasrp/partials/dashboard/buttons.html:12
-msgid "Add SRP Link"
+#, fuzzy
+#| msgid "Add SRP Link"
+msgid "Add SRP link"
 msgstr "Добавить SRP ссылку"
 
 #: templates/aasrp/partials/dashboard/srp_links.html:7
-msgid "Total SRP Cost"
+#, fuzzy
+#| msgid "Total SRP Cost"
+msgid "Total SRP cost"
 msgstr "Общая стоимость SRP"
 
 #: templates/aasrp/partials/dashboard/srp_links.html:16
-msgid "SRP Link Name"
+#, fuzzy
+#| msgid "SRP Link Name"
+msgid "SRP link name"
 msgstr "Название SRP ссылки"
 
 #: templates/aasrp/partials/dashboard/srp_links.html:21
@@ -676,7 +837,9 @@ msgid "AAR"
 msgstr "ОБД"
 
 #: templates/aasrp/partials/dashboard/srp_links.html:23
-msgid "Fleet ISK Cost"
+#, fuzzy
+#| msgid "Fleet ISK Cost"
+msgid "Fleet ISK cost"
 msgstr "Стоимость флота ISK"
 
 #: templates/aasrp/partials/dashboard/srp_links.html:24
@@ -691,23 +854,27 @@ msgid "Actions"
 msgstr "Действия"
 
 #: templates/aasrp/partials/dashboard/table.html:5
-msgid "Your SRP Requests"
+#, fuzzy
+#| msgid "Your SRP Requests"
+msgid "Your SRP requests"
 msgstr "Ваши SRP запросы"
 
-#: templates/aasrp/partials/dashboard/table.html:6
-msgid "Settings"
-msgstr "Настройки"
-
 #: templates/aasrp/partials/dashboard/user_settings.html:8
-msgid "Notification Settings"
+#, fuzzy
+#| msgid "Notification Settings"
+msgid "Notification settings"
 msgstr "Настройки уведомлений"
 
 #: templates/aasrp/partials/dashboard/user_settings.html:20
-msgid "Change Settings"
+#, fuzzy
+#| msgid "Change Settings"
+msgid "Change settings"
 msgstr "Изменить настройки"
 
 #: templates/aasrp/partials/dashboard/user_srp_requests.html:7
-msgid "Your Total SRP Cost"
+#, fuzzy
+#| msgid "Your Total SRP Cost"
+msgid "Your total SRP cost"
 msgstr "Ваша общая стоимость SRP"
 
 #: templates/aasrp/partials/dashboard/user_srp_requests.html:18
@@ -716,12 +883,16 @@ msgstr "Флот"
 
 #: templates/aasrp/partials/dashboard/user_srp_requests.html:22
 #: templates/aasrp/partials/view_requests/requests.html:20
-msgid "ISK Lost"
+#, fuzzy
+#| msgid "ISK Lost"
+msgid "ISK lost"
 msgstr "Потерянные ISK"
 
 #: templates/aasrp/partials/dashboard/user_srp_requests.html:23
 #: templates/aasrp/partials/view_requests/requests.html:22
-msgid "SRP Payout"
+#, fuzzy
+#| msgid "SRP Payout"
+msgid "SRP payout"
 msgstr "SRP выплата"
 
 #: templates/aasrp/partials/footer/app-translation-footer.html:5
@@ -741,19 +912,27 @@ msgid "Fields marked with an asterisk (*) are mandatory"
 msgstr "Поля, отмеченные (*) обязательны"
 
 #: templates/aasrp/partials/link_add/form.html:7
-msgid "SRP Link Details"
+#, fuzzy
+#| msgid "SRP Link Details"
+msgid "SRP link details"
 msgstr "Информация о SRP ссылке"
 
 #: templates/aasrp/partials/link_add/form.html:22
-msgid "Create Link"
+#, fuzzy
+#| msgid "Create Link"
+msgid "Create link"
 msgstr "Создать ссылку"
 
 #: templates/aasrp/partials/link_edit/form.html:7
-msgid "After Action Report"
+#, fuzzy
+#| msgid "After Action Report"
+msgid "After action report"
 msgstr "Отчет о боевых действиях"
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:7
-msgid "SRP / Fleet Details"
+#, fuzzy
+#| msgid "SRP / Fleet Details"
+msgid "SRP / Fleet details"
 msgstr "Информация о флоте"
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:21
@@ -761,15 +940,21 @@ msgid "FC"
 msgstr "ФК"
 
 #: templates/aasrp/partials/request_srp/fleet-details.html:27
-msgid "Read Here"
+#, fuzzy
+#| msgid "Read Here"
+msgid "Read here"
 msgstr "Прочитать отчет"
 
 #: templates/aasrp/partials/request_srp/form.html:8
-msgid "Your SRP Request"
+#, fuzzy
+#| msgid "Your SRP Request"
+msgid "Your SRP request"
 msgstr "Ваш SRP запрос"
 
 #: templates/aasrp/partials/request_srp/form.html:23
-msgid "Submit SRP Request"
+#, fuzzy
+#| msgid "Submit SRP Request"
+msgid "Submit SRP request"
 msgstr "Отправить SRP запрос"
 
 #: templates/aasrp/partials/view_requests/overview.html:7
@@ -781,7 +966,9 @@ msgid "Total"
 msgstr "Всего"
 
 #: templates/aasrp/partials/view_requests/overview.html:57
-msgid "SRP Cost"
+#, fuzzy
+#| msgid "SRP Cost"
+msgid "SRP cost"
 msgstr "Стоимость SRP"
 
 #: templates/aasrp/partials/view_requests/overview.html:76
@@ -790,7 +977,9 @@ msgstr "Вернуться к обзору SRP"
 
 #: templates/aasrp/partials/view_requests/requests.html:6
 #: templates/aasrp/view_requests.html:6
-msgid "SRP Requests"
+#, fuzzy
+#| msgid "SRP Requests"
+msgid "SRP requests"
 msgstr "SRP запросы"
 
 #: templates/aasrp/partials/view_requests/requests.html:23
@@ -873,9 +1062,13 @@ msgid "This SRP link is no longer available for SRP requests."
 msgstr "Эта SRP ссылка больше недоступна для создания SRP запросов."
 
 #: views/general.py:400
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Your Killmail link ({submitted_killmail_link}) is invalid or the "
+#| "zKillboard API is not answering at the moment. Please make sure you are "
+#| "using either {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
 msgid ""
-"Your Killmail link ({submitted_killmail_link}) is invalid or the zKillboard "
+"Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard "
 "API is not answering at the moment. Please make sure you are using either "
 "{ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
 msgstr ""
