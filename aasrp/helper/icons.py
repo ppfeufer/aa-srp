@@ -50,7 +50,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
             viewname="aasrp:view_srp_requests", args=[srp_link.srp_code]
         )
         btn_icon = '<i class="fas fa-eye"></i>'
-        btn_title = _("View SRP Requests")
+        btn_title = _("View SRP requests")
         actions += (
             f'<a href="{button_view_url}" '
             'class="btn btn-primary btn-sm btn-icon-aasrp" '
@@ -64,7 +64,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
                         viewname="aasrp:edit_srp_link", args=[srp_link.srp_code]
                     )
                     btn_icon = '<i class="far fa-newspaper"></i>'
-                    btn_title = _("Add/Change AAR Link")
+                    btn_title = _("Add/Change AAR link")
                     actions += (
                         f'<a href="{button_edit_url}" '
                         'class="btn btn-info btn-sm btn-icon-aasrp" '
@@ -75,7 +75,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
                         viewname="aasrp:disable_srp_link", args=[srp_link.srp_code]
                     )
                     btn_icon = '<i class="fas fa-ban"></i>'
-                    btn_title = _("Disable SRP Link")
+                    btn_title = _("Disable SRP ink")
                     modal_id = "disable-srp-link"
                     data_name = srp_link.srp_name + " (" + srp_link.srp_code + ")"
 
@@ -93,7 +93,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
                         viewname="aasrp:enable_srp_link", args=[srp_link.srp_code]
                     )
                     btn_icon = '<i class="fas fa-check"></i>'
-                    btn_title = _("Enable SRP Link")
+                    btn_title = _("Enable SRP link")
                     modal_id = "enable-srp-link"
                     data_name = srp_link.srp_name + " (" + srp_link.srp_code + ")"
 
@@ -110,7 +110,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
                     viewname="aasrp:delete_srp_link", args=[srp_link.srp_code]
                 )
                 btn_icon = '<i class="far fa-trash-alt"></i>'
-                btn_title = _("Remove SRP Link")
+                btn_title = _("Remove SRP ink")
                 modal_id = "delete-srp-link"
                 data_name = srp_link.srp_name + " (" + srp_link.srp_code + ")"
 
@@ -142,7 +142,7 @@ def get_srp_request_status_icon(
     :rtype:
     """
 
-    request_status_icon_title = _("SRP Request Pending")
+    request_status_icon_title = _("SRP request pending")
     srp_request_status_icon = (
         '<button class="btn btn-info btn-sm btn-icon-aasrp btn-icon-aasrp-status" '
         f'title="{request_status_icon_title}">'
@@ -152,7 +152,7 @@ def get_srp_request_status_icon(
 
     if srp_request.request_status == SrpRequest.Status.APPROVED:
         btn_classes = "btn btn-success btn-sm btn-icon-aasrp btn-icon-aasrp-status"
-        request_status_icon_title = _("SRP Request Approved")
+        request_status_icon_title = _("SRP request approved")
         srp_request_status_icon = (
             f'<button class="{btn_classes}" '
             f'title="{request_status_icon_title}">'
@@ -162,7 +162,7 @@ def get_srp_request_status_icon(
 
     if srp_request.request_status == SrpRequest.Status.REJECTED:
         btn_classes = "btn btn-danger btn-sm btn-icon-aasrp btn-icon-aasrp-status"
-        request_status_icon_title = _("SRP Request Rejected")
+        request_status_icon_title = _("SRP request rejected")
         srp_request_status_icon = (
             f'<button class="{btn_classes}" '
             f'title="{request_status_icon_title}">'
@@ -198,7 +198,7 @@ def get_srp_request_details_icon(
         args=[srp_link.srp_code, srp_request.request_code],
     )
 
-    title = _("SRP Request Details")
+    title = _("SRP request details")
 
     srp_request_details_icon = (
         f'<button data-link="{button_request_details_url}" '
@@ -247,7 +247,7 @@ def get_srp_request_accept_icon(
     )
 
     icon = '<i class="fas fa-check"></i>'
-    title = _("Accept SRP Request")
+    title = _("Accept SRP request")
 
     srp_request_accept_icon = (
         f'<button data-link="{button_request_accept_url}" '
@@ -290,7 +290,7 @@ def get_srp_request_reject_icon(
         button_request_reject_state = ' disabled="disabled"'
 
     icon = '<i class="fas fa-ban"></i>'
-    title = _("Reject SRP Request")
+    title = _("Reject SRP request")
 
     srp_request_reject_icon = (
         f'<button data-link="{button_request_reject_url}" '
@@ -329,7 +329,7 @@ def get_srp_request_delete_icon(
     )
 
     icon = '<i class="fas fa-trash-alt"></i>'
-    title = _("Delete SRP Request")
+    title = _("Delete SRP request")
 
     srp_request_delete_icon = (
         f'<button data-link="{button_request_delete_url}" '

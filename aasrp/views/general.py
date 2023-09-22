@@ -397,7 +397,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 )
 
                 error_message_text = _(
-                    f"Your Killmail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"  # pylint: disable=line-too-long
+                    f"Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"  # pylint: disable=line-too-long
                 )
 
                 messages.error(request=request, message=error_message_text)

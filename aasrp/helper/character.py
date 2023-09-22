@@ -45,7 +45,7 @@ def get_formatted_character_name(
     try:
         character_name = character.character_name
     except AttributeError:
-        character_name = _("Unknown Character")
+        character_name = _("Unknown character")
 
         return (
             "<span class='aasrp-character-portrait-character-name'>"

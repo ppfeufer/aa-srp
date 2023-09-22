@@ -4,7 +4,7 @@
 
 <div class="alert alert-{{ request_status_banner_alert_level }}">
     <div class="text-center">
-        {% translate "SRP Request" %} {{ request_status }}
+        {% translate "SRP request" %} {{ request_status }}
     </div>
 </div>
 
@@ -34,7 +34,7 @@
 
     {% if insurance_information %}
         <div class="col-sm-6">
-            <p><b>{% translate "Insurance Payout" %}</b></p>
+            <p><b>{% translate "Insurance payout" %}</b></p>
             <table class="table table-condensed table-striped">
                 <tbody>
                     {% for insurance_level in insurance_information %}
@@ -53,7 +53,7 @@
 
 <div class="clearfix modal-srp-details modal-srp-details-additional-information">
     <div class="col-sm-12">
-        <p><b>{% translate "Additional Information" %}</b></p>
+        <p><b>{% translate "Additional information" %}</b></p>
         <p>{{ additional_info|safe }}</p>
     </div>
 </div>
@@ -61,7 +61,7 @@
 {% if request_history %}
     <div class="clearfix modal-srp-details modal-srp-details-request-history">
         <div class="col-sm-12">
-            <p><b>{% translate "Request History" %}</b></p>
+            <p><b>{% translate "Request history" %}</b></p>
 
             {% for comment in request_history %}
                 <div class="request-history-comment row">

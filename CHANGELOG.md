@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning]
 
 ## \[In Development\] - Unreleased
 
+### Fixed
+
+- Capitalization for translatable strings
+
 ### Changed
 
 - Use `clean_setting` function from `allianceauth´app-utils` instead of reinventing the

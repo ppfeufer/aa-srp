@@ -3,13 +3,13 @@
 <div class="pull-right">
     {% if perms.aasrp.manage_srp %}
         <a href="{% url 'aasrp:all' %}" class="btn btn-primary btn-tabs">
-            {% translate "View All" %}
+            {% translate "View all" %}
         </a>
     {% endif %}
 
     {% if perms.aasrp.create_srp or perms.aasrp.manage_srp %}
         <a href="{% url 'aasrp:add_srp_link' %}" class="btn btn-success btn-tabs">
-            {% translate "Add SRP Link" %}
+            {% translate "Add SRP link" %}
         </a>
     {% endif %}
 </div>

@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block aasrp_header %}
-    {% translate "SRP Requests" as translated_header %}
+    {% translate "SRP requests" as translated_header %}
     {% include "aasrp/partials/header/h1.html" with header_text=translated_header %}
 {% endblock %}
 
@@ -65,7 +65,7 @@
             },
             translation: {
                 filter: {
-                    requestStatus: '{% translate "Request Status" %}',
+                    requestStatus: '{% translate "Request status" %}',
                     ship: '{% translate "Ship" %}',
                     character: '{% translate "Character" %}'
                 },
@@ -78,9 +78,9 @@
                             requestor: '{% translate "Requestor" %}',
                             character: '{% translate "Character" %}',
                             ship: '{% translate "Ship" %}',
-                            insurance: '{% translate "Insurance Payout" %}',
-                            additionalInformation: '{% translate "Additional Information" %}',
-                            rejectInformation: '{% translate "Reject Information" %}'
+                            insurance: '{% translate "Insurance payout" %}',
+                            additionalInformation: '{% translate "Additional information" %}',
+                            rejectInformation: '{% translate "Reject information" %}'
                         }
                     },
                     form: {
