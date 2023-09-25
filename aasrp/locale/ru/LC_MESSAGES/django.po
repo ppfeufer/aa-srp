@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-23 00:29+0200\n"
-"PO-Revision-Date: 2023-07-31 17:40+0000\n"
+"PO-Revision-Date: 2023-09-25 14:42+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/ru/>\n"
+"Language-Team: Russian <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : "
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: __init__.py:12 templates/aasrp/base.html:5 templates/aasrp/dashboard.html:7
 msgid "Ship Replacement"
@@ -40,8 +40,6 @@ msgstr "Заявитель"
 #: admin.py:229 models.py:125 models.py:182
 #: templates/aasrp/partials/dashboard/srp_links.html:19
 #: templates/aasrp/partials/request_srp/fleet-details.html:17
-#, fuzzy
-#| msgid "Fleet Type"
 msgid "Fleet type"
 msgstr "Тип флота"
 
@@ -121,8 +119,6 @@ msgstr "Обязательное поле"
 
 #: form.py:53 templates/aasrp/partials/request_srp/fleet-details.html:13
 #: templates/aasrp/partials/view_requests/overview.html:26
-#, fuzzy
-#| msgid "Fleet Name"
 msgid "Fleet name"
 msgstr "Название флота"
 
@@ -246,8 +242,7 @@ msgstr "Комментарий"
 msgid ""
 "Please provide the reason why this former rejected SRP request is now "
 "accepted."
-msgstr ""
-"Укажите причину удовлетворения SRP запроса, который ранее был отклонен."
+msgstr "Укажите причину удовлетворения SRP запроса, который ранее был отклонен."
 
 #: form.py:238
 msgid ""
@@ -362,8 +357,6 @@ msgid "Whether this fleet type is active or not"
 msgstr "Активен или нет данный тип флота"
 
 #: models.py:126
-#, fuzzy
-#| msgid "Fleet Types"
 msgid "Fleet types"
 msgstr "Типы флота"
 
@@ -467,8 +460,6 @@ msgid "Character"
 msgstr "Пилот"
 
 #: models.py:332 models.py:341
-#, fuzzy
-#| msgid "Ship Type"
 msgid "Ship type"
 msgstr "Тип корабля"
 
@@ -554,10 +545,8 @@ msgid "Ship insurances"
 msgstr "Страховки корабля"
 
 #: models.py:445
-#, fuzzy
-#| msgid "SRP request added."
 msgid "SRP request added"
-msgstr "SRP запрос добавлен."
+msgstr "SRP запрос добавлен"
 
 #: models.py:448
 #, fuzzy
@@ -918,8 +907,6 @@ msgid "SRP link details"
 msgstr "Информация о SRP ссылке"
 
 #: templates/aasrp/partials/link_add/form.html:22
-#, fuzzy
-#| msgid "Create Link"
 msgid "Create link"
 msgstr "Создать ссылку"
 
