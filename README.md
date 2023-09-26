@@ -213,11 +213,11 @@ Please make sure to read the [Contribution Guidelines].\
 [discord proxy]: https://gitlab.com/ErikKalkoken/discordproxy "Discord Proxy"
 [eve universe]: https://gitlab.com/ErikKalkoken/django-eveuniverse "Eve Universe"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[image: aa srp dashboard]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/aa-srp-dashboard.jpg "AA SRP Dashboard"
-[image: aa srp dashboard (view all)]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/aa-srp-dashboard-view-all.jpg "AA SRP Dashboard (View All)"
-[image: srp request details]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/aa-srp-request-details.jpg "SRP Request Details"
-[image: srp requests overview]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/aa-srp-requests-overview.jpg "SRP Requests Overview"
-[image: your srp requests view]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/aa-srp-your-requests.jpg "Your SRP Requests View"
+[image: aa srp dashboard]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/aa-srp-dashboard.jpg "AA SRP Dashboard"
+[image: aa srp dashboard (view all)]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/aa-srp-dashboard-view-all.jpg "AA SRP Dashboard (View All)"
+[image: srp request details]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/aa-srp-request-details.jpg "SRP Request Details"
+[image: srp requests overview]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/aa-srp-requests-overview.jpg "SRP Requests Overview"
+[image: your srp requests view]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/aa-srp-your-requests.jpg "Your SRP Requests View"
 [ppfeufer on ko-fi]: https://ko-fi.com/N4N8CL1BY
 [pre-commit.ci status]: https://results.pre-commit.ci/latest/github/ppfeufer/aa-srp/master "pre-commit.ci"
 [support discord]: https://discord.gg/zmh52wnfvM

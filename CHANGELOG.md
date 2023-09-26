@@ -7,14 +7,18 @@ and this project adheres to [Semantic Versioning]
 
 ## \[In Development\] - Unreleased
 
+## \[1.20.8\] - 2023-09-26
+
 ### Fixed
 
 - Capitalization for translatable strings
 
 ### Changed
 
-- Use `clean_setting` function from `allianceauth´app-utils` instead of reinventing the
+- Use `clean_setting` function from `allianceauth-app-utils` instead of reinventing the
   wheel and have our own
+- Translations updated
+- Test suite updated
 
 ## \[1.20.7\] - 2023-09-14
 
@@ -895,5 +899,5 @@ python manage.py aasrp_update_db_relations
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
 [keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
 [semantic versioning]: http://semver.org/ "Semantic Versioning"
-[tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/aasrp/docs/screenshots/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
+[tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
 [v1.16.0 (yanked)]: https://github.com/ppfeufer/aa-srp/releases/tag/v1.16.0 "1.16.0 (YANKED)"
