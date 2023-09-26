@@ -226,7 +226,7 @@ class FleetTypeAdmin(admin.ModelAdmin):
     list_filter = ("is_enabled",)
     ordering = ("name",)
 
-    @admin.display(description=_("Fleet Type"), ordering="name")
+    @admin.display(description=_("Fleet type"), ordering="name")
     def _name(self, obj):
         """
         Rewrite name

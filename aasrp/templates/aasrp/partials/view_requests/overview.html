@@ -23,17 +23,17 @@
         <!-- middle left panel-->
         <div class="col-md-3 panel-srp-request-overview-column">
             <div class="panel-srp-request-overview-cell">
-                <dt>{% translate "Fleet Name" %}:</dt>
+                <dt>{% translate "Fleet name" %}:</dt>
                 <dd>{{ srp_link.srp_name }}</dd>
             </div>
 
             <div class="panel-srp-request-overview-cell">
-                <dt>{% translate "Fleet Commander" %}:</dt>
+                <dt>{% translate "Fleet commander" %}:</dt>
                 <dd>{{ srp_link.fleet_commander }}</dd>
             </div>
 
             <div class="panel-srp-request-overview-cell">
-                <dt>{% translate "Fleet Time" %}:</dt>
+                <dt>{% translate "Fleet time" %}:</dt>
                 <dd>{{ srp_link.fleet_time|date:"Y-m-d H:i" }}</dd>
             </div>
         </div>
@@ -46,7 +46,7 @@
             </div>
 
             <div class="panel-srp-request-overview-cell">
-                <dt>{% translate "SRP Code" %}:</dt>
+                <dt>{% translate "SRP code" %}:</dt>
                 <dd>{{ srp_link.srp_code }}</dd>
             </div>
         </div>
@@ -54,7 +54,7 @@
         <!-- right panel -->
         <div class="col-md-3 panel-srp-request-overview-column">
             <div class="panel-srp-request-overview-cell">
-                <dt>{% translate "SRP Cost" %}:</dt>
+                <dt>{% translate "SRP cost" %}:</dt>
                 <dd class="srp-fleet-total-amount">{{ srp_link.total_cost|intcomma }} ISK</dd>
             </div>
         </div>
@@ -67,7 +67,7 @@
                 data-target="#srp-link-mark-complete-modal"
                 data-modal-type="modal-action"
             >
-                {% translate "Mark Completed" %}
+                {% translate "Mark completed" %}
             </button>
         {% endif %}
 

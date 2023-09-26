@@ -673,7 +673,7 @@ def srp_request_deny(
                     send_user_notification(
                         user=requester,
                         level="danger",
-                        title=_("SRP Request Rejected"),
+                        title=_("SRP request rejected"),
                         message=notification_message,
                     )
 

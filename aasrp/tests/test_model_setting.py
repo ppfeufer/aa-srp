@@ -28,7 +28,7 @@ class TestSetting(TestCase):
         setting = Setting.objects.get(pk=1)
 
         # when/then
-        self.assertEqual(first=str(setting), second="AA-SRP Settings")
+        self.assertEqual(first=str(setting), second="AA-SRP settings")
 
     def test_setting_save(self):
         """

@@ -50,16 +50,16 @@ class SrpLinkForm(ModelForm):
     """
 
     srp_name = forms.CharField(
-        required=True, label=get_mandatory_form_label_text(text=_("Fleet Name"))
+        required=True, label=get_mandatory_form_label_text(text=_("Fleet name"))
     )
     fleet_time = forms.DateTimeField(
         required=True,
-        label=get_mandatory_form_label_text(text=_("Fleet Time")),
+        label=get_mandatory_form_label_text(text=_("Fleet time")),
         widget=forms.DateTimeInput(attrs={"autocomplete": "off"}),
     )
     fleet_type = forms.ModelChoiceField(
         required=False,
-        label=_("Fleet Type (optional)"),
+        label=_("Fleet type (optional)"),
         queryset=FleetType.objects.filter(is_enabled=True),
         # empty_label=_("Please select a fleet type"),
     )
@@ -67,7 +67,7 @@ class SrpLinkForm(ModelForm):
         required=True,
         label=get_mandatory_form_label_text(text=_("Doctrine")),
     )
-    aar_link = forms.CharField(required=False, label=_("After Action Report Link"))
+    aar_link = forms.CharField(required=False, label=_("After action report link"))
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
@@ -83,7 +83,7 @@ class SrpLinkUpdateForm(ModelForm):
     Edit SRP link update form
     """
 
-    aar_link = forms.CharField(required=False, label=_("After Action Report Link"))
+    aar_link = forms.CharField(required=False, label=_("After action report link"))
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
@@ -100,7 +100,7 @@ class SrpRequestForm(ModelForm):
     """
 
     killboard_link = forms.URLField(
-        label=get_mandatory_form_label_text(text=_("Killboard Link")),
+        label=get_mandatory_form_label_text(text=_("Killboard link")),
         max_length=254,
         required=True,
         help_text=_(
@@ -111,7 +111,7 @@ class SrpRequestForm(ModelForm):
     additional_info = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
-        label=get_mandatory_form_label_text(text=_("Additional Information")),
+        label=get_mandatory_form_label_text(text=_("Additional information")),
         help_text=_(
             "Please tell us about the circumstances of your untimely demise. "
             "Who was the FC, what doctrine was called, have changes to the fit "
@@ -144,7 +144,7 @@ class SrpRequestForm(ModelForm):
         ):
             raise forms.ValidationError(
                 message=_(
-                    f"Invalid Link. Please use {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"  # pylint: disable=line-too-long
+                    f"Invalid link. Please use {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"  # pylint: disable=line-too-long
                 )
             )
 
@@ -168,7 +168,7 @@ class SrpRequestForm(ModelForm):
         ).exists():
             raise forms.ValidationError(
                 message=_(
-                    "There is already an SRP request for this killmail. "
+                    "There is already an SRP request for this kill mail. "
                     "Please check if you got the right one."
                 )
             )
@@ -192,7 +192,7 @@ class SrpRequestRejectForm(forms.Form):
     reject_info = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=True,
-        label=get_mandatory_form_label_text(text=_("Reject Reason")),
+        label=get_mandatory_form_label_text(text=_("Reject reason")),
         help_text=_("Please provide the reason this SRP request is rejected."),
     )
 
@@ -205,7 +205,7 @@ class SrpRequestAcceptForm(forms.Form):
     reviser_comment = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
         required=False,
-        label=_("Comment (Optional)"),
+        label=_("Comment (optional)"),
         help_text=_("Leave a comment for the requestor"),
     )
 
