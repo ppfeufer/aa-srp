@@ -13,8 +13,10 @@ and this project adheres to [Semantic Versioning]
 
 ### Changed
 
-- Use `clean_setting` function from `allianceauth´app-utils` instead of reinventing the
+- Use `clean_setting` function from `allianceauth-app-utils` instead of reinventing the
   wheel and have our own
+- Translations updated
+- Test suite updated
 
 ## \[1.20.7\] - 2023-09-14
 
