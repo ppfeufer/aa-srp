@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning]
 
 ## \[In Development\] - Unreleased
 
+## \[1.20.8\] - 2023-09-26
+
 ### Fixed
 
 - Capitalization for translatable strings
