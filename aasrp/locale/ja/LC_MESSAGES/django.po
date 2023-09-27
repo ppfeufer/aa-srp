@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-27 12:22+0200\n"
+"POT-Creation-Date: 2023-09-27 12:59+0200\n"
 "PO-Revision-Date: 2023-09-24 13:13+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -546,7 +546,7 @@ msgstr ""
 #: templates/aasrp/modals/view_requests/accept_rejected_request.html:35
 #: templates/aasrp/modals/view_requests/accept_request.html:32
 #: templates/aasrp/modals/view_requests/delete_request.html:24
-#: templates/aasrp/modals/view_requests/mark_complete_modal.html:39
+#: templates/aasrp/modals/view_requests/mark_complete_modal.html:43
 #: templates/aasrp/modals/view_requests/reject_request.html:35
 msgid "Cancel"
 msgstr ""
@@ -589,7 +589,7 @@ msgid "Are you sure you want to delete this SRP request?"
 msgstr ""
 
 #: templates/aasrp/modals/view_requests/mark_complete_modal.html:12
-#: templates/aasrp/modals/view_requests/mark_complete_modal.html:44
+#: templates/aasrp/modals/view_requests/mark_complete_modal.html:48
 #: templates/aasrp/partials/view_requests/overview.html:70
 msgid "Mark completed"
 msgstr ""
@@ -612,11 +612,19 @@ msgid ""
 "\n"
 "                            This SRP link still has "
 "%(number_pending_requests)s pending\n"
-"                            SRP request(s). Are you absolutely certain you "
+"                            SRP request. Are you absolutely certain you want "
+"to mark\n"
+"                            this SRP link as completed?\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            This SRP link still has "
+"%(number_pending_requests)s pending\n"
+"                            SRP requests. Are you absolutely certain you "
 "want to mark\n"
 "                            this SRP link as completed?\n"
 "                        "
-msgstr ""
+msgstr[0] ""
 
 #: templates/aasrp/modals/view_requests/reject_request.html:18
 msgid "Are you sure you want to reject this SRP request?"
