@@ -24,9 +24,13 @@
 
                 {% if srp_link.pending_requests > 0 %}
                     <p class="alert alert-warning">
-                        {% blocktranslate with number_pending_requests=srp_link.pending_requests %}
+                        {% blocktranslate count number_pending_requests=srp_link.pending_requests %}
                             This SRP link still has {{ number_pending_requests }} pending
-                            SRP request(s). Are you absolutely certain you want to mark
+                            SRP request. Are you absolutely certain you want to mark
+                            this SRP link as completed?
+                        {% plural %}
+                            This SRP link still has {{ number_pending_requests }} pending
+                            SRP requests. Are you absolutely certain you want to mark
                             this SRP link as completed?
                         {% endblocktranslate %}
                     </p>
