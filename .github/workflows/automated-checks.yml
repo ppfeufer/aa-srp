@@ -99,7 +99,7 @@ jobs:
 
       - name: Run Tox
         env:
-          TOX_ENV: aa_stable
+          TOX_ENV: allianceauth-stable
           DB_HOST: 127.0.0.1
           DB_USER: root
           DB_PASSWORD: temp_password_aa_tox_tests

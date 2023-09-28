@@ -41,7 +41,7 @@ dependencies = [
     "django-eveuniverse>=1.2",
 ]
 [project.optional-dependencies]
-test_tests_aa_stable = [
+tests-allianceauth-stable = [
     "aa-discordnotify",
     "aa-forum",
     "allianceauth-discordbot",
