@@ -38,6 +38,8 @@ jobs:
     needs: [pre-commit]
     name: AA Latest (Python ${{ matrix.python-version }}, Django ${{ matrix.django-version }} with ${{ matrix.database }})
     runs-on: ubuntu-latest
+    env:
+      TOX_ENV: aa_stable
 
     strategy:
       # Set Python and Django version to test for the stable release of AllianceAuth
@@ -98,14 +100,13 @@ jobs:
           python -m pip install --upgrade tox tox-gh-actions
 
       - name: Run Tox
-        # Run tox using the version of Python in `PATH`
-        run: tox -v
         env:
           DJANGO: ${{ matrix.django-version }}
-          ALLIANCEAUTH: stable
           DB_HOST: 127.0.0.1
           DB_USER: root
           DB_PASSWORD: temp_password_aa_tox_tests
+        # Run tox using the version of Python in `PATH`
+        run: tox -v -e ${{ env.TOX_ENV }}
 
       - name: Upload Coverage Artifacts
         if: ${{
