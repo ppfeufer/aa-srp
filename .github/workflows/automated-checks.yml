@@ -38,8 +38,6 @@ jobs:
     needs: [pre-commit]
     name: AA Latest (Python ${{ matrix.python-version }}, Django ${{ matrix.django-version }} with ${{ matrix.database }})
     runs-on: ubuntu-latest
-    env:
-      TOX_ENV: aa_stable
 
     strategy:
       # Set Python and Django version to test for the stable release of AllianceAuth
@@ -101,7 +99,7 @@ jobs:
 
       - name: Run Tox
         env:
-          DJANGO: ${{ matrix.django-version }}
+          TOX_ENV: aa_stable
           DB_HOST: 127.0.0.1
           DB_USER: root
           DB_PASSWORD: temp_password_aa_tox_tests
