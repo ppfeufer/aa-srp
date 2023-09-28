@@ -40,6 +40,15 @@ dependencies = [
     "allianceauth-app-utils>=1.19",
     "django-eveuniverse>=1.2",
 ]
+[project.optional-dependencies]
+test = [
+    "aa-discordnotify",
+    "aa-forum",
+    "allianceauth-discordbot",
+    "coverage",
+    "django-webtest",
+    "Faker",
+]
 [project.urls]
 Changelog = "https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md"
 Documentation = "https://github.com/ppfeufer/aa-srp/blob/master/README.md"
