@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-27 12:59+0200\n"
-"PO-Revision-Date: 2023-09-28 11:42+0000\n"
+"PO-Revision-Date: 2023-10-01 12:43+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/de/>\n"
@@ -856,7 +856,7 @@ msgstr ""
 #: views/general.py:146
 #, python-brace-format
 msgid "SRP link \"{srp_link.srp_code}\" created"
-msgstr "SRP Link \"{srp_link.srp_code}\" erstellt"
+msgstr "SRP Link „{srp_link.srp_code}“ erstellt"
 
 #: views/general.py:185 views/general.py:475 views/general.py:514
 #: views/general.py:561 views/general.py:598 views/general.py:635
