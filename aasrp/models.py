@@ -547,11 +547,34 @@ class Setting(SingletonModel):
             "SRP team Discord channel ID"
         )
 
+        LOSS_VALUE_SOURCE = "loss_value_source", _("Loss value source")
+
+    class LossValueSource(models.TextChoices):
+        """
+        Choices for Setting.LossValueSource
+        """
+
+        FITTED_VALUE = "fittedValue", _("Fitted value (Ship and Fitting)")
+        TOTAL_VALUE = "totalValue", _("Total value (Ship, Fitting and Cargo)")
+
     srp_team_discord_channel_id = models.PositiveBigIntegerField(
-        null=True,
-        default=None,
         blank=True,
+        default=None,
+        null=True,
         verbose_name=Field.SRP_TEAM_DISCORD_CHANNEL_ID.label,  # pylint: disable=no-member
+    )
+
+    loss_value_source = models.CharField(
+        choices=LossValueSource.choices,
+        default=LossValueSource.TOTAL_VALUE,
+        help_text=_(
+            "The source for the loss value of a killmail. "
+            "Fitted value is the value of the ship and its fitting. "
+            "Total value is the value of the ship, its fitting and the cargo. "
+            "(Default: Total value)"
+        ),
+        max_length=11,
+        verbose_name=Field.LOSS_VALUE_SOURCE.label,  # pylint: disable=no-member
     )
 
     objects = SettingManager()
