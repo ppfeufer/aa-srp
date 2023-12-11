@@ -91,8 +91,13 @@ class SrpManager:
         except Exception as exc:
             raise ValueError("Invalid Kill ID or Hash.") from exc
 
+        # AA SRP
+        from aasrp.models import Setting  # pylint: disable=import-outside-toplevel
+
+        loss_value_field = Setting.objects.get_setting(Setting.Field.LOSS_VALUE_SOURCE)
+
         ship_type = esi_killmail["victim"]["ship_type_id"]
-        ship_value = result["zkb"]["totalValue"]
+        ship_value = result["zkb"][loss_value_field]
 
         logger.debug(msg=f"Ship type for kill ID {kill_id} is {ship_type}")
         logger.debug(msg=f"Total loss value for kill id {kill_id} is {ship_value}")
