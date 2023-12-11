@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-01 15:01+0200\n"
+"POT-Creation-Date: 2023-12-11 23:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -493,15 +493,34 @@ msgstr ""
 msgid "SRP team Discord channel ID"
 msgstr ""
 
-#: aasrp/models.py:565
+#: aasrp/models.py:550
+msgid "Loss value source"
+msgstr ""
+
+#: aasrp/models.py:557
+msgid "Fitted value (Ship and Fitting)"
+msgstr ""
+
+#: aasrp/models.py:558
+msgid "Total value (Ship, Fitting and Cargo)"
+msgstr ""
+
+#: aasrp/models.py:571
+msgid ""
+"The source for the loss value of a killmail. Fitted value is the value of "
+"the ship and its fitting. Total value is the value of the ship, its fitting "
+"and the cargo. (Default: Total value)"
+msgstr ""
+
+#: aasrp/models.py:588
 msgid "Setting"
 msgstr ""
 
-#: aasrp/models.py:566 aasrp/templates/aasrp/partials/dashboard/table.html:6
+#: aasrp/models.py:589 aasrp/templates/aasrp/partials/dashboard/table.html:6
 msgid "Settings"
 msgstr ""
 
-#: aasrp/models.py:576
+#: aasrp/models.py:599
 msgid "AA-SRP settings"
 msgstr ""
 
