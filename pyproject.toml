@@ -6,7 +6,7 @@ requires = [
 
 [project]
 name = "aa-srp"
-version = "1.20.8"
+version = "1.21.0"
 description = "Improved SRP Module for Alliance Auth"
 readme = "README.md"
 keywords = [

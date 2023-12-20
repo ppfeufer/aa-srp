@@ -2,14 +2,52 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog]
-and this project adheres to [Semantic Versioning]
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
+
+<!--
+GitHub MD Syntax:
+https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+
+Highlighting:
+https://docs.github.com/assets/cb-41128/mw-1440/images/help/writing/alerts-rendered.webp
+
+> [!NOTE]
+> Highlights information that users should take into account, even when skimming.
+
+> [!IMPORTANT]
+> Crucial information necessary for users to succeed.
+
+> [!WARNING]
+> Critical content demanding immediate user attention due to potential risks.
+-->
 
 ## \[In Development\] - Unreleased
+
+<!--
+Section Order:
+
+### Added
+### Fixed
+### Changed
+### Deprecated
+### Removed
+### Security
+-->
+
+## \[1.21.0\] - 2023-12-20
+
+### Added
+
+- Setting for loss value source \[#153\]
 
 ### Fixed
 
 - Pluralisation in a template string
+
+### Changed
+
+- German translation updated
 
 ## \[1.20.8\] - 2023-09-26
 
@@ -29,7 +67,7 @@ and this project adheres to [Semantic Versioning]
 ### Fixed
 
 - Exception: 'NoneType' object has no attribute 'character_name' when opening the
-  Dashboard view and in one of the displayed SRP links is a fleet commander who
+  Dashboard view, and in one of the displayed SRP links is a fleet commander who
   doesn't exist anymore.
 
 ## \[1.20.6\] - 2023-09-12
@@ -50,7 +88,7 @@ and this project adheres to [Semantic Versioning]
 ### Changed
 
 - Discord notification handling moved to its own module
-- Message generation for SRP Team message simplified
+- Message generation for the SRP Team message simplified
 - Using `SITE_URL` from `local.py`
 
 ## \[1.20.4\] - 2023-09-02
@@ -901,7 +939,5 @@ python manage.py aasrp_update_db_relations
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
-[semantic versioning]: http://semver.org/ "Semantic Versioning"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
 [v1.16.0 (yanked)]: https://github.com/ppfeufer/aa-srp/releases/tag/v1.16.0 "1.16.0 (YANKED)"
