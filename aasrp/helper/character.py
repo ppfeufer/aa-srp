@@ -136,26 +136,3 @@ def get_user_for_character(character: EveCharacter) -> User:
         return get_sentinel_user()
 
     return userprofile.user
-
-
-def get_main_character_from_user(user: User) -> str:
-    """
-    Get the main character from a user
-
-    :param user:
-    :type user:
-    :return:
-    :rtype:
-    """
-
-    if user is None:
-        sentinel_user = get_sentinel_user()
-
-        return sentinel_user.username
-
-    try:
-        return_value = user.profile.main_character.character_name
-    except AttributeError:
-        return str(user)
-
-    return return_value

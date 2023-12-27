@@ -12,6 +12,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
 from allianceauth.authentication.decorators import permissions_required
+from allianceauth.framework.api.user import get_main_character_name_from_user
 from allianceauth.services.hooks import get_extension_logger
 
 # Alliance Auth (External Libs)
@@ -29,10 +30,7 @@ from aasrp.form import (
     SrpRequestPayoutForm,
     SrpRequestRejectForm,
 )
-from aasrp.helper.character import (
-    get_formatted_character_name,
-    get_main_character_from_user,
-)
+from aasrp.helper.character import get_formatted_character_name
 from aasrp.helper.eve_images import get_type_render_url_from_type_id
 from aasrp.helper.icons import (
     get_dashboard_action_icons,
@@ -138,7 +136,7 @@ def dashboard_srp_links_data(
         data.append(
             {
                 "srp_name": srp_link.srp_name,
-                "creator": get_main_character_from_user(user=srp_link.creator),
+                "creator": get_main_character_name_from_user(user=srp_link.creator),
                 "fleet_time": srp_link.fleet_time,
                 "fleet_type": fleet_type,
                 # "fleet_commander": srp_link.fleet_commander.character_name,
@@ -329,7 +327,7 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
         data.append(
             {
                 "request_time": srp_request.post_time,
-                "requester": get_main_character_from_user(srp_request.creator),
+                "requester": get_main_character_name_from_user(srp_request.creator),
                 "character_html": {
                     "display": character_display,
                     "sort": character_sort,
@@ -428,7 +426,7 @@ def srp_request_additional_information(
         "srp_request": srp_request,
         "ship_render_icon_html": ship_render_icon_html,
         "ship_type": srp_request.ship.name,
-        "requester": get_main_character_from_user(user=srp_request.creator),
+        "requester": get_main_character_name_from_user(user=srp_request.creator),
         "character": character,
         "additional_info": additional_info,
         "request_status_banner_alert_level": request_status_banner_alert_level,
@@ -562,7 +560,7 @@ def srp_request_approve(  # pylint: disable=too-many-locals
                     fleet_name = srp_request.srp_link.srp_name
                     srp_code = srp_request.srp_link.srp_code
                     request_code = srp_request.request_code
-                    reviser = get_main_character_from_user(user=request.user)
+                    reviser = get_main_character_name_from_user(user=request.user)
                     reviser_comment = (
                         f"\nComment:\n{reviser_comment}\n"
                         if reviser_comment != ""
@@ -657,7 +655,7 @@ def srp_request_deny(
                     fleet_name = srp_request.srp_link.srp_name
                     srp_code = srp_request.srp_link.srp_code
                     request_code = srp_request.request_code
-                    reviser = get_main_character_from_user(user=request.user)
+                    reviser = get_main_character_name_from_user(user=request.user)
                     inquiry_note = SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
                     notification_message = (
                         f"Your SRP request regarding your {ship_name} lost during "
