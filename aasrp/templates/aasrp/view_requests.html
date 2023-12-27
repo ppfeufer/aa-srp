@@ -2,9 +2,8 @@
 
 {% load i18n %}
 
-{% block aasrp_header %}
-    {% translate "SRP requests" as translated_header %}
-    {% include "aasrp/partials/header/h1.html" with header_text=translated_header %}
+{% block page_title %}
+    {% translate "SRP requests" %}
 {% endblock %}
 
 {% block aasrp_body %}

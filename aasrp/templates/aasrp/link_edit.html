@@ -2,11 +2,8 @@
 
 {% load i18n %}
 
-{% block page_title %}{% translate "SRP link edit" %}{% endblock %}
-
-{% block aasrp_header %}
-    {% translate "Add/Edit After Action Report Link" as translated_header %}
-    {% include "aasrp/partials/header/h1.html" with header_text=translated_header %}
+{% block page_title %}
+    {% translate "Add/Edit After Action Report Link" %}
 {% endblock %}
 
 {% block aasrp_body %}
