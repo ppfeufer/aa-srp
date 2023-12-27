@@ -9,7 +9,6 @@ from django.test import TestCase
 # Alliance Auth
 from allianceauth.authentication.models import CharacterOwnership
 from allianceauth.eveonline.models import EveCharacter
-from allianceauth.tests.auth_utils import AuthUtils
 
 # Alliance Auth (External Libs)
 from app_utils.testing import (
@@ -21,7 +20,6 @@ from app_utils.testing import (
 # AA SRP
 from aasrp.helper.character import (
     get_formatted_character_name,
-    get_main_character_from_user,
     get_main_for_character,
     get_user_for_character,
 )
@@ -374,80 +372,3 @@ class TestGetUserForCharacter(TestCase):
         self.assertRaises(
             expected_exception=CharacterOwnership.user.RelatedObjectDoesNotExist
         )
-
-
-class TestGetMainCharacterFromUser(TestCase):
-    """
-    Tests for get_main_character_from_user
-    """
-
-    @classmethod
-    def setUpClass(cls) -> None:
-        """
-        Set up groups and users
-        """
-
-        super().setUpClass()
-        cls.group = Group.objects.create(name="Enterprise Crew")
-
-        cls.user_main_character = create_fake_user(
-            character_id=1001, character_name="William T. Riker"
-        )
-
-        cls.character_without_profile = create_eve_character(
-            character_id=1003, character_name="Christopher Pike"
-        )
-
-    def test_get_main_character_from_user_should_return_character_name(self):
-        """
-        Test should return the main character name for a regular user
-
-        :return:
-        :rtype:
-        """
-
-        character_name = get_main_character_from_user(user=self.user_main_character)
-
-        self.assertEqual(first=character_name, second="William T. Riker")
-
-    def test_get_main_character_from_user_should_return_user_name(self):
-        """
-        Test should return just the username for a user without a character
-
-        :return:
-        :rtype:
-        """
-
-        user = AuthUtils.create_user(username="John Doe")
-
-        character_name = get_main_character_from_user(user=user)
-
-        self.assertEqual(first=character_name, second="John Doe")
-
-    def test_get_main_character_from_user_should_return_sentinel_user(self):
-        """
-        Test should return "deleted" as username (Sentinel User)
-
-        :return:
-        :rtype:
-        """
-
-        user = get_sentinel_user()
-
-        character_name = get_main_character_from_user(user=user)
-
-        self.assertEqual(first=character_name, second="deleted")
-
-    def test_get_main_character_from_user_should_return_sentinel_user_for_none(self):
-        """
-        Test should return "deleted" (Sentinel User) if user is None
-
-        :return:
-        :rtype:
-        """
-
-        user = None
-
-        character_name = get_main_character_from_user(user=user)
-
-        self.assertEqual(first=character_name, second="deleted")

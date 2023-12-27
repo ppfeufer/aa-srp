@@ -81,7 +81,7 @@ class TestMainCharacterName(TestCase):
         # then
         self.assertEqual(first=result, second="deleted")
 
-    def test_should_be_empty_for_none(self):
+    def test_should_be_deleted_for_none(self):
         """
         Test should be empty
 
@@ -94,7 +94,7 @@ class TestMainCharacterName(TestCase):
         # when
         result = self.template.render(context=context)
         # then
-        self.assertEqual(first=result, second="")
+        self.assertEqual(first=result, second="deleted")
 
 
 class TestMainCharacterId(TestCase):

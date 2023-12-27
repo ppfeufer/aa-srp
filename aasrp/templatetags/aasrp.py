@@ -7,9 +7,11 @@ from django.contrib.auth.models import User
 from django.template.defaulttags import register
 from django.templatetags.static import static
 
+# Alliance Auth
+from allianceauth.framework.api.user import get_main_character_name_from_user
+
 # AA SRP
 from aasrp import __version__
-from aasrp.helper.character import get_main_character_from_user
 
 
 @register.simple_tag
@@ -44,10 +46,7 @@ def main_character_name(user: User) -> str:
     :rtype:
     """
 
-    if user is None:
-        return ""
-
-    return get_main_character_from_user(user=user)
+    return get_main_character_name_from_user(user=user)
 
 
 @register.filter
