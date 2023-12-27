@@ -3,8 +3,11 @@
 {% load i18n %}
 {% load static %}
 
+{% block header_nav_collapse_left %}
+    {% include "aasrp/partials/dashboard/navigation.html" %}
+{% endblock %}
+
 {% block aasrp_body %}
-    {% include "aasrp/partials/dashboard/buttons.html" %}
     {% include "aasrp/partials/dashboard/table.html" %}
 
     <!-- modals -->

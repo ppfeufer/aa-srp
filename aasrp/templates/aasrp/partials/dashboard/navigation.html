@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% if perms.aasrp.create_srp or perms.aasrp.manage_srp %}
+    <li class="nav-item">
+        <a href="{% url 'aasrp:add_srp_link' %}" class="nav-link">
+            {% translate "Add SRP link" %}
+        </a>
+    </li>
+{% endif %}
+
+{% if perms.aasrp.manage_srp %}
+    <li class="nav-item">
+        <a href="{% url 'aasrp:all' %}" class="nav-link">
+            {% translate "View all" %}
+        </a>
+    </li>
+{% endif %}
