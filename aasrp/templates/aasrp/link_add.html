@@ -20,15 +20,9 @@
     {% include "bundles/jquery-datetimepicker-js.html" %}
 
     <script>
-        let theme = 'default';
-        {% if NIGHT_MODE %}
-            // Override for night mode
-            theme = 'dark';
-        {% endif %}
-
         $('#id_fleet_time').datetimepicker({
             setlocale: '{{ LANGUAGE_CODE }}',
-            theme: theme,
+            theme: 'default',
             maskInput: true,
             format: 'Y-m-d H:i',
             dayOfWeekStart: 1,
