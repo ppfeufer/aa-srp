@@ -6,7 +6,6 @@ requires = [
 
 [project]
 name = "aa-srp"
-version = "1.21.0"
 description = "Improved SRP Module for Alliance Auth"
 readme = "README.md"
 keywords = [
@@ -32,8 +31,12 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Internet :: WWW/HTTP",
     "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+]
+dynamic = [
+    "version",
 ]
 dependencies = [
     "allianceauth>=3",
@@ -61,3 +64,6 @@ Tracker = "https://github.com/ppfeufer/aa-srp/issues"
 include = [
     "/aasrp",
 ]
+
+[tool.hatch.version]
+path = "aasrp/__init__.py"
