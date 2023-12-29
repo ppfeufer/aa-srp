@@ -79,7 +79,7 @@ $(document).ready(() => {
                         return data;
                     }
                 },
-                className: 'srp-link-total-cost text-right'
+                className: 'srp-link-total-cost text-end'
             },
             {
                 data: 'srp_status',
@@ -87,11 +87,11 @@ $(document).ready(() => {
             },
             {
                 data: 'pending_requests',
-                className: 'srp-link-pending-requests'
+                className: 'srp-link-pending-requests text-end'
             },
             {
                 data: 'actions',
-                className: 'srp-link-actions'
+                className: 'srp-link-actions text-end'
             }
         ],
         columnDefs: [
