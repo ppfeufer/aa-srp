@@ -39,12 +39,12 @@
 
             <div class="modal-footer">
                 <button id="modal-button-cancel-mark-complete" type="button" class="btn btn-default btn-sm" data-dismiss="modal">
-                    <i class="far fa-hand-paper"></i>
+                    <i class="fa-regular fa-hand"></i>
                     {% translate "Cancel" %}
                 </button>
 
                 <a href="{% url 'aasrp:complete_srp_link' srp_link.srp_code %}" id="modal-button-confirm-mark-complete" role="button" class="btn btn-success btn-sm">
-                    <i class="fas fa-check"></i>
+                    <i class="fa-solid fa-check"></i>
                     {% translate "Mark completed" %}
                 </a>
             </div>

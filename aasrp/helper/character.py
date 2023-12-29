@@ -69,7 +69,7 @@ def get_formatted_character_name(
         title = _("Copy character name to clipboard")
         character_name_formatted += (
             "<i "
-            'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
+            'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon fa-regular fa-copy" '
             f'data-clipboard-text="{character_name}" title="{title}"></i>'
         )
 
