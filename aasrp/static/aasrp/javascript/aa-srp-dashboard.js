@@ -4,6 +4,7 @@ $(document).ready(() => {
     'use strict';
 
     const tableSrpLinks = $('#table_tab-srp-links');
+    const tableUserSrpRequests = $('#table_tab-user-srp-requests');
 
     /**
      * Table: SRP Links
@@ -130,7 +131,7 @@ $(document).ready(() => {
      */
     let userSrpAmount = 0;
 
-    $('#tab_aasrp_user_srp_requests').DataTable({
+    tableUserSrpRequests.DataTable({
         ajax: {
             url: aaSrpSettings.url.userSrpRequests,
             dataSrc: '',
@@ -190,12 +191,12 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return data.toLocaleString() + ' ISK';
+                        return `${data.toLocaleString()} ISK`;
                     } else {
                         return data;
                     }
                 },
-                className: 'srp-request-zkb-loss-amount text-right'
+                className: 'srp-request-zkb-loss-amount text-end'
             },
             {
                 data: 'payout_amount',
@@ -208,12 +209,12 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return data.toLocaleString() + ' ISK';
+                        return `${data.toLocaleString()} ISK`;
                     } else {
                         return data;
                     }
                 },
-                className: 'srp-request-payout text-right'
+                className: 'srp-request-payout text-end'
             },
             {
                 data: 'request_status_icon',
@@ -253,7 +254,8 @@ $(document).ready(() => {
                 }
             ],
             autoSize: false,
-            bootstrap: true
+            bootstrap: true,
+            bootstrap_version: 5
         },
         /**
          * When ever a row is created ...
