@@ -218,7 +218,7 @@ $(document).ready(() => {
             },
             {
                 data: 'request_status_icon',
-                className: 'srp-request-status text-center'
+                className: 'srp-request-status text-end'
             },
             // Hidden columns
             {data: 'request_status'},
