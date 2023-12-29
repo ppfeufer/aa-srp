@@ -4,11 +4,15 @@
 {% load static %}
 
 {% block header_nav_collapse_left %}
+    {% include "aasrp/partials/dashboard/tabs-navigation.html" %}
+{% endblock %}
+
+{% block header_nav_collapse_right %}
     {% include "aasrp/partials/dashboard/navigation.html" %}
 {% endblock %}
 
 {% block aasrp_body %}
-    {% include "aasrp/partials/dashboard/table.html" %}
+    {% include "aasrp/partials/dashboard/tabs-content.html" %}
 
     <!-- modals -->
     {% include "aasrp/modals/dashboard/enable_srp_link.html" %}
