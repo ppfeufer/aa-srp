@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <!-- active srp links tab -->
-<div role="tabpanel" class="tab-pane fade in active" id="{{ tab_name }}">
+<div class="tab-pane fade show active" id="{{ tab_name }}" role="tabpanel" aria-labelledby="tab-srp-links">
     <div class="alert alert-info" role="alert">
         <div class="text-right srp-dashboard-total-isk-cost">
             {% translate "Total SRP cost" %}:
@@ -26,6 +26,7 @@
                     <th>{% translate "Actions" %}</th>
                 </tr>
             </thead>
+
             <tbody></tbody>
         </table>
     </div>
