@@ -22,7 +22,7 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
         MenuItemHook.__init__(
             self,
             text=__title__,
-            classes="far fa-money-bill-alt fa-fw",
+            classes="fa-regular fa-money-bill-1",
             url_name="aasrp:dashboard",
             navactive=["aasrp:"],
         )

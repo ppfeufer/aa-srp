@@ -115,9 +115,7 @@ def dashboard_srp_links_data(
 
         srp_code_html = srp_link.srp_code
         if srp_link.srp_status == SrpLink.Status.ACTIVE:
-            css_classes = (
-                "aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy"
-            )
+            css_classes = "aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon fa-regular fa-copy"
             srp_link_href = reverse_absolute(
                 viewname="aasrp:request_srp", args=[srp_link.srp_code]
             )
