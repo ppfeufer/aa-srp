@@ -177,6 +177,25 @@ class TestGetFormattedCharacterName(TestCase):
 
         self.assertEqual(first=html, second=expected_html)
 
+    def test_should_return_unknown_character_name(self):
+        """
+        Test should return "Unknown Character" for a broken EveCharacter object,
+        e.g., when the EveCharacter object is None
+
+        :return:
+        :rtype:
+        """
+
+        html = get_formatted_character_name(character=None)
+
+        expected_html = (
+            "<span class='aasrp-character-portrait-character-name'>"
+            "Unknown character"
+            "</span>"
+        )
+
+        self.assertEqual(first=html, second=expected_html)
+
 
 class TestGetMainForCharacter(TestCase):
     """
