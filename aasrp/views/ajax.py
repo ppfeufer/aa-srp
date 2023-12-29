@@ -185,32 +185,32 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
         killboard_link = ""
 
         if srp_request.killboard_link:
-            try:
-                ship_render_icon_html = get_type_render_url_from_type_id(
-                    evetype_id=srp_request.ship_id,
-                    evetype_name=srp_request.ship.name,
-                    size=32,
-                    as_html=True,
-                )
-            except AttributeError:
-                # For some reason, it seems the ship has been removed from EveType
-                # table, attempt to add it again ...
-                srp_request = _attempt_to_re_add_ship_information_to_request(
-                    srp_request=srp_request
-                )
-
-                ship_render_icon_html = get_type_render_url_from_type_id(
-                    evetype_id=srp_request.ship_id,
-                    evetype_name=srp_request.ship.name,
-                    size=32,
-                    as_html=True,
-                )
+            # try:
+            #     ship_render_icon_html = get_type_render_url_from_type_id(
+            #         evetype_id=srp_request.ship_id,
+            #         evetype_name=srp_request.ship.name,
+            #         size=32,
+            #         as_html=True,
+            #     )
+            # except AttributeError:
+            #     # For some reason, it seems the ship has been removed from EveType
+            #     # table, attempt to add it again ...
+            #     srp_request = _attempt_to_re_add_ship_information_to_request(
+            #         srp_request=srp_request
+            #     )
+            #
+            #     ship_render_icon_html = get_type_render_url_from_type_id(
+            #         evetype_id=srp_request.ship_id,
+            #         evetype_name=srp_request.ship.name,
+            #         size=32,
+            #         as_html=True,
+            #     )
 
             zkb_link = srp_request.killboard_link
             zkb_link_text = srp_request.ship.name
             killboard_link = (
                 f'<a href="{zkb_link}" target="_blank">'
-                f"{ship_render_icon_html}"
+                # f"{ship_render_icon_html}"
                 f"<span>{zkb_link_text}</span>"
                 "</a>"
             )
@@ -224,7 +224,7 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
         )
 
         character_display = get_formatted_character_name(
-            character=srp_request.character, with_portrait=True
+            character=srp_request.character, with_portrait=False
         )
         character_sort = get_formatted_character_name(character=srp_request.character)
 
@@ -286,30 +286,30 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
     for srp_request in srp_requests:
         killboard_link = ""
         if srp_request.killboard_link:
-            try:
-                ship_render_icon_html = get_type_render_url_from_type_id(
-                    evetype_id=srp_request.ship_id,
-                    evetype_name=srp_request.ship.name,
-                    size=32,
-                    as_html=True,
-                )
-            except AttributeError:
-                # For some reason, it seems the ship has been removed from EveType
-                # table, attempt to add it again ...
-                srp_request = _attempt_to_re_add_ship_information_to_request(
-                    srp_request
-                )
-
-                ship_render_icon_html = get_type_render_url_from_type_id(
-                    evetype_id=srp_request.ship_id,
-                    evetype_name=srp_request.ship.name,
-                    size=32,
-                    as_html=True,
-                )
+            # try:
+            #     ship_render_icon_html = get_type_render_url_from_type_id(
+            #         evetype_id=srp_request.ship_id,
+            #         evetype_name=srp_request.ship.name,
+            #         size=32,
+            #         as_html=True,
+            #     )
+            # except AttributeError:
+            #     # For some reason, it seems the ship has been removed from EveType
+            #     # table, attempt to add it again ...
+            #     srp_request = _attempt_to_re_add_ship_information_to_request(
+            #         srp_request
+            #     )
+            #
+            #     ship_render_icon_html = get_type_render_url_from_type_id(
+            #         evetype_id=srp_request.ship_id,
+            #         evetype_name=srp_request.ship.name,
+            #         size=32,
+            #         as_html=True,
+            #     )
 
             killboard_link = (
                 f'<a href="{srp_request.killboard_link}" target="_blank">'
-                f"{ship_render_icon_html}"
+                # f"{ship_render_icon_html}"
                 f"<span>{srp_request.ship.name}</span></a>"
             )
 
@@ -320,7 +320,7 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
             request=request, srp_link=srp_request.srp_link, srp_request=srp_request
         )
         character_display = get_formatted_character_name(
-            character=srp_request.character, with_portrait=True, with_copy_icon=True
+            character=srp_request.character, with_portrait=False, with_copy_icon=True
         )
         character_sort = get_formatted_character_name(character=srp_request.character)
 
