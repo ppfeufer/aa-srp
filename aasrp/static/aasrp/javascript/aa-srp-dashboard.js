@@ -3,12 +3,14 @@
 $(document).ready(() => {
     'use strict';
 
+    const tableSrpLinks = $('#table_tab-srp-links');
+
     /**
-     * Table :: SRP Links
+     * Table: SRP Links
      */
     let totalSrpAmount = 0;
 
-    $('#tab_aasrp_srp_links').DataTable({
+    tableSrpLinks.DataTable({
         ajax: {
             url: aaSrpSettings.url.availableSrpLinks,
             dataSrc: '',
@@ -71,7 +73,7 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return data.toLocaleString() + ' ISK';
+                        return `${data.toLocaleString()} ISK`;
                     } else {
                         return data;
                     }
@@ -118,14 +120,13 @@ $(document).ready(() => {
 
             totalSrpAmount += parseInt(data.srp_costs);
 
-            $('.srp-dashboard-total-isk-cost-amount').html(
-                totalSrpAmount.toLocaleString() + ' ISK'
-            );
+            $('.srp-dashboard-total-isk-cost-amount')
+                .html(`${totalSrpAmount.toLocaleString()} ISK`);
         }
     });
 
     /**
-     * Table :: User's own SRP requests
+     * Table: User's own SRP requests
      */
     let userSrpAmount = 0;
 
