@@ -54,7 +54,7 @@
         const urlChangeSrpAmount = '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}';
 
         const aaSrpSettings = {
-            datetimeFormat: 'YYYY-MM-DD HH:mm',
+            datetimeFormat: 'YYYY-MM-DD<br>HH:mm',
             srpCode: '{{ srp_link.srp_code }}',
             csrfToken: '{{ csrf_token }}',
             url: {
