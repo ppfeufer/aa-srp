@@ -1,17 +1,8 @@
 @media all {
-    .aa-srp .nav-tabs > li.active > a {
-        background-color: rgb(236 240 241);
-        color: rgb(0 0 0);
-    }
-
-    .aa-srp .btn-tabs {
-        border-width: 1px;
-    }
-
     .btn-icon-aasrp {
-        height: 36px;
+        height: 2rem;
         margin: 0.1rem;
-        width: 36px;
+        width: 2rem;
     }
 
     .btn-icon-aasrp-status {
