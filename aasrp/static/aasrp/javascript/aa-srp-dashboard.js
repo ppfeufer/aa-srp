@@ -161,16 +161,33 @@ $(document).ready(() => {
             },
             {
                 data: 'fleet_name',
-                className: 'srp-request-fleet-name'
+                /**
+                 * Render callback
+                 *
+                 * @param data
+                 * @param type
+                 * @param row
+                 * @returns {string}
+                 */
+                render: (data, type, row) => {
+                    return `
+                        <p>${row.fleet_name}</p>
+                        <p class="small text-muted">
+                            ${aaSrpSettings.translation.dataTable.content.srpCode}: ${row.srp_code}
+                            <br>${aaSrpSettings.translation.dataTable.content.srpCode}: ${row.request_code}
+                        </p>
+                    `;
+                },
+                className: 'srp-request-fleet-details'
             },
-            {
-                data: 'srp_code',
-                className: 'srp-request-srp-code'
-            },
-            {
-                data: 'request_code',
-                className: 'srp-request-code'
-            },
+            // {
+            //     data: 'srp_code',
+            //     className: 'srp-request-srp-code'
+            // },
+            // {
+            //     data: 'request_code',
+            //     className: 'srp-request-code'
+            // },
             {
                 data: 'ship_html',
                 render: {
@@ -228,11 +245,11 @@ $(document).ready(() => {
         columnDefs: [
             {
                 orderable: false,
-                targets: [8]
+                targets: [6]
             },
             {
                 visible: false,
-                targets: [9, 10, 11]
+                targets: [7, 8, 9]
             }
         ],
         order: [
@@ -241,15 +258,15 @@ $(document).ready(() => {
         filterDropDown: {
             columns: [
                 {
-                    idx: 11,
+                    idx: 9,
                     title: aaSrpSettings.translation.filter.character
                 },
                 {
-                    idx: 10,
+                    idx: 8,
                     title: aaSrpSettings.translation.filter.ship
                 },
                 {
-                    idx: 9,
+                    idx: 7,
                     title: aaSrpSettings.translation.filter.requestStatus
                 }
             ],
