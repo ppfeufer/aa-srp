@@ -3,25 +3,25 @@
 <!-- own srp requests tab -->
 <div class="tab-pane fade" id="{{ tab_name }}" role="tabpanel" aria-labelledby="tab-srp-links">
     <div class="alert alert-info" role="alert">
-        <div class="text-right srp-dashboard-user-isk-cost">
+        <div class="text-end srp-dashboard-user-isk-cost">
             {% translate "Your total SRP cost" %}:
             <span class="srp-dashboard-user-isk-cost-amount"></span>
         </div>
     </div>
 
     <div class="table-responsive">
-        <table class="table table-striped align-middle table-aasrp table-srp-requests table-vertical-middle" id="table_{{ tab_name }}" style="width: 100%;">
+        <table class="table table-striped table-aasrp table-srp-requests" id="table_{{ tab_name }}" style="width: 100%;">
             <thead>
                 <tr>
-                    <th>{% translate "Request time" %}</th>
-                    <th>{% translate "Character" %}</th>
-                    <th>{% translate "Fleet" %}</th>
-                    <th>{% translate "SRP code" %}</th>
-                    <th>{% translate "Request code" %}</th>
-                    <th>{% translate "Ship" %}</th>
-                    <th>{% translate "ISK lost" %}</th>
-                    <th>{% translate "SRP payout" %}</th>
-                    <th><!-- {% translate "Status" %} --></th>
+                    <th class="w-auto">{% translate "Request time" %}</th>
+                    <th class="w-auto">{% translate "Character" %}</th>
+                    <th class="w-auto">{% translate "Request details" %}</th>
+{#                    <th class="w-auto">{% translate "SRP code" %}</th>#}
+{#                    <th class="w-auto">{% translate "Request code" %}</th>#}
+                    <th class="w-auto">{% translate "Ship" %}</th>
+                    <th class="w-auto">{% translate "ISK lost" %}</th>
+                    <th class="w-auto">{% translate "SRP payout" %}</th>
+                    <th class="w-auto"><!-- {% translate "Status" %} --></th>
                 </tr>
             </thead>
 
