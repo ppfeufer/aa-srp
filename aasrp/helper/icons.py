@@ -82,8 +82,8 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
                     actions += (
                         '<a class="btn btn-warning btn-sm btn-icon-aasrp" '
                         f'title="{btn_title}" '
-                        'data-toggle="modal" '
-                        f'data-target="#{modal_id}" '
+                        'data-bs-toggle="modal" '
+                        f'data-bs-target="#{modal_id}" '
                         f'data-url="{button_disable_url}" '
                         f'data-name="{data_name}">{btn_icon}</a>'
                     )
@@ -100,8 +100,8 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
                     actions += (
                         '<a class="btn btn-success btn-sm btn-icon-aasrp" '
                         f'title="{btn_title}" '
-                        'data-toggle="modal" '
-                        f'data-target="#{modal_id}" '
+                        'data-bs-toggle="modal" '
+                        f'data-bs-target="#{modal_id}" '
                         f'data-url="{button_enable_url}" '
                         f'data-name="{data_name}">{btn_icon}</a>'
                     )
@@ -117,8 +117,8 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
                 actions += (
                     '<a class="btn btn-danger btn-sm btn-icon-aasrp" '
                     f'title="{btn_title}" '
-                    'data-toggle="modal" '
-                    f'data-target="#{modal_id}" '
+                    'data-bs-toggle="modal" '
+                    f'data-bs-target="#{modal_id}" '
                     f'data-url="{button_remove_url}" '
                     f'data-name="{data_name}">{btn_icon}</a>'
                 )
@@ -202,8 +202,8 @@ def get_srp_request_details_icon(
 
     srp_request_details_icon = (
         f'<button data-link="{button_request_details_url}" '
-        'data-toggle="modal" '
-        'data-target="#srp-request-details" '
+        'data-bs-toggle="modal" '
+        'data-bs-target="#srp-request-details" '
         'class="btn btn-primary btn-sm btn-icon-aasrp" '
         f'title="{title}"><i class="fa-solid fa-circle-info"></i></button>'
     )
@@ -251,8 +251,8 @@ def get_srp_request_accept_icon(
 
     srp_request_accept_icon = (
         f'<button data-link="{button_request_accept_url}" '
-        'data-toggle="modal" '
-        f'data-target="{modal_target}" '
+        'data-bs-toggle="modal" '
+        f'data-bs-target="{modal_target}" '
         'class="btn btn-success btn-sm btn-icon-aasrp" '
         f'title="{title}"{button_request_accept_state}>{icon}</button>'
     )
@@ -294,8 +294,8 @@ def get_srp_request_reject_icon(
 
     srp_request_reject_icon = (
         f'<button data-link="{button_request_reject_url}" '
-        'data-toggle="modal" '
-        'data-target="#srp-request-reject" '
+        'data-bs-toggle="modal" '
+        'data-bs-target="#srp-request-reject" '
         'class="btn btn-warning btn-sm btn-icon-aasrp" '
         f'title="{title}"{button_request_reject_state}>{icon}</button>'
     )
@@ -333,8 +333,8 @@ def get_srp_request_delete_icon(
 
     srp_request_delete_icon = (
         f'<button data-link="{button_request_delete_url}" '
-        'data-toggle="modal" '
-        'data-target="#srp-request-remove" '
+        'data-bs-toggle="modal" '
+        'data-bs-target="#srp-request-remove" '
         'class="btn btn-danger btn-sm btn-icon-aasrp" '
         f'title="{title}">{icon}</button>'
     )

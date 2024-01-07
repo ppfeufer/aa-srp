@@ -5,11 +5,11 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="{% translate 'Close' %}">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <div class="modal-title fs-5">
+                    {% translate "Mark completed" %}
+                </div>
 
-                <div class="modal-title">{% translate "Mark completed" %}</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
             </div>
 
             <div class="modal-body">
@@ -38,7 +38,7 @@
             </div>
 
             <div class="modal-footer">
-                <button id="modal-button-cancel-mark-complete" type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                <button id="modal-button-cancel-mark-complete" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
                     <i class="fa-regular fa-hand"></i>
                     {% translate "Cancel" %}
                 </button>

@@ -289,7 +289,7 @@ $(document).ready(() => {
             userSrpAmount += parseInt(data.payout_amount);
 
             $('.srp-dashboard-user-isk-cost-amount').html(
-                userSrpAmount.toLocaleString() + ' ISK'
+                `${userSrpAmount.toLocaleString()} ISK`
             );
         }
     });
@@ -311,7 +311,7 @@ $(document).ready(() => {
         modalEnableSrpLink.find('#modal-button-confirm-enable-srp-link')
             .attr('href', url);
         modalEnableSrpLink.find('.modal-body').html(
-            aaSrpSettings.translation.modal.enableSrpLink.body + '<br>"' + name + '"'
+            `${aaSrpSettings.translation.modal.enableSrpLink.body}<p class="fw-bold">${name}</p>`
         );
     }).on('hide.bs.modal', () => {
         modalEnableSrpLink.find('.modal-body').html('');
@@ -326,7 +326,7 @@ $(document).ready(() => {
         modalDisableSrpLink.find('#modal-button-confirm-disable-srp-link')
             .attr('href', url);
         modalDisableSrpLink.find('.modal-body').html(
-            aaSrpSettings.translation.modal.disableSrpLink.body + '<br>"' + name + '"'
+            `${aaSrpSettings.translation.modal.disableSrpLink.body}<p class="fw-bold">${name}</p>`
         );
     }).on('hide.bs.modal', () => {
         modalDisableSrpLink.find('.modal-body').html('');
@@ -341,7 +341,7 @@ $(document).ready(() => {
         modalDeleteSrpLink.find('#modal-button-confirm-delete-srp-link')
             .attr('href', url);
         modalDeleteSrpLink.find('.modal-body').html(
-            aaSrpSettings.translation.modal.deleteSrpLink.body + '<br>"' + name + '"'
+            `${aaSrpSettings.translation.modal.deleteSrpLink.body}<p class="fw-bold">${name}</p>`
         );
     }).on('hide.bs.modal', () => {
         modalDeleteSrpLink.find('.modal-body').html('');
