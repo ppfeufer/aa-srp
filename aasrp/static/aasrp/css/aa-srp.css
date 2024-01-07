@@ -80,6 +80,10 @@
         margin-left: 1rem;
     }
 
+    .aa-srp-modal-header > h5 {
+        border-bottom: 1px solid var(--bs-secondary-bg-subtle);
+    }
+
     .srp-request-payout-amount-editable .srp-payout-amount {
         border-bottom: dashed 1px rgb(0 136 204);
         cursor: pointer;
@@ -98,16 +102,11 @@
         display: block;
     }
 
-    .modal-srp-details-request-history .request-history-comment {
-        border-bottom: 1px solid rgb(229 229 229);
-        margin-top: 1rem;
-        padding-bottom: 1rem;
-    }
-
     .modal-srp-details-request-history .request-history-comment:last-child {
         border-bottom: none;
         padding-bottom: initial;
     }
+
 }
 
 @media all and (min-width: 992px) {
