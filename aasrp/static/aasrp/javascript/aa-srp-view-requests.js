@@ -66,7 +66,7 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return data.toLocaleString() + ' ISK';
+                        return `${data.toLocaleString()} ISK`;
                     } else {
                         return data;
                     }
@@ -84,7 +84,7 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return '<span class="srp-payout-amount">' + data.toLocaleString() + ' ISK</span>';
+                        return `<span class="srp-payout-amount">${data.toLocaleString()} ISK</span>`;
                     } else {
                         return data;
                     }
@@ -179,7 +179,7 @@ $(document).ready(() => {
                     .addClass('srp-request-' + srpRequestCode)
                     .attr(
                         'data-params',
-                        '{csrfmiddlewaretoken:\'' + aaSrpSettings.csrfToken + '\'}'
+                        `{csrfmiddlewaretoken:'${aaSrpSettings.csrfToken}'}`
                     )
                     .attr('data-pk', srpRequestCode)
                     .attr('data-tooltip', 'enable')
@@ -205,7 +205,7 @@ $(document).ready(() => {
         newValue = parseInt(newValue);
 
         // Update payout value formatted
-        const newValueFormatted = newValue.toLocaleString() + ' ISK';
+        const newValueFormatted = `${newValue.toLocaleString()} ISK`;
 
         // Update the element
         element
@@ -223,7 +223,7 @@ $(document).ready(() => {
             totalSrpAmount += parseInt(payoutElement.getAttribute('data-value'));
         });
 
-        $('.srp-fleet-total-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
+        $('.srp-fleet-total-amount').html(`${totalSrpAmount.toLocaleString()} ISK`);
     };
 
     /**
@@ -302,7 +302,7 @@ $(document).ready(() => {
         });
 
         // Update fleet total SRP amount
-        $('.srp-fleet-total-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
+        $('.srp-fleet-total-amount').html(`${totalSrpAmount.toLocaleString()} ISK`);
 
         // Update requests counts
         $('.srp-requests-total-count').html(requestsTotal);
@@ -382,14 +382,12 @@ $(document).ready(() => {
                 .val();
 
             if (reviserComment === '') {
-                const errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
-                    '<p>' + aaSrpSettings.translation.modal.form.error.fieldRequired + '</p>' +
-                    '</div>';
+                const errorMessage = `<div class="aa-callout aa-callout-danger aasrp-form-field-errors clearfix"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
 
                 form.find('.aasrp-form-field-errors').remove();
 
                 $(errorMessage).insertAfter(
-                    $('textarea[name="accept_rejected_request_comment"]')
+                    $('textarea[name="reviser_comment"]')
                 );
             } else {
                 const posting = $.post(
@@ -430,9 +428,7 @@ $(document).ready(() => {
                 .val();
 
             if (rejectInfo === '') {
-                const errorMessage = '<div class="aa-callout aa-callout-danger aasrp-form-field-errors clearfix">' +
-                    '<p>' + aaSrpSettings.translation.modal.form.error.fieldRequired + '</p>' +
-                    '</div>';
+                const errorMessage = `<div class="aa-callout aa-callout-danger aasrp-form-field-errors clearfix"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
 
                 form.find('.aasrp-form-field-errors').remove();
 
