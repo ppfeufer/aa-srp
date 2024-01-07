@@ -362,7 +362,7 @@ $(document).ready(() => {
                 }
             });
 
-            modalSrpRequestAccept.modal('toggle');
+            modalSrpRequestAccept.modal('hide');
         });
     }).on('hide.bs.modal', () => {
         modalSrpRequestAccept.find('textarea[name="reject_info"]').val('');
@@ -408,7 +408,7 @@ $(document).ready(() => {
                     }
                 });
 
-                modalSrpRequestAcceptRejected.modal('toggle');
+                modalSrpRequestAcceptRejected.modal('hide');
             }
         });
     }).on('hide.bs.modal', () => {
@@ -430,7 +430,7 @@ $(document).ready(() => {
                 .val();
 
             if (rejectInfo === '') {
-                const errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
+                const errorMessage = '<div class="aa-callout aa-callout-danger aasrp-form-field-errors clearfix">' +
                     '<p>' + aaSrpSettings.translation.modal.form.error.fieldRequired + '</p>' +
                     '</div>';
 
@@ -454,7 +454,7 @@ $(document).ready(() => {
                     }
                 });
 
-                modalSrpRequestReject.modal('toggle');
+                modalSrpRequestReject.modal('hide');
             }
         });
     }).on('hide.bs.modal', () => {
@@ -478,6 +478,8 @@ $(document).ready(() => {
                     });
                 }
             });
+
+            modalSrpRequestRemove.modal('hide');
         });
     }).on('hide.bs.modal', () => {
         modalSrpRequestRemove.find('textarea[name="reject_info"]').val('');
