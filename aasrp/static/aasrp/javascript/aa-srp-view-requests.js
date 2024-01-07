@@ -410,9 +410,9 @@ $(document).ready(() => {
             }
         });
     }).on('hide.bs.modal', () => {
-        modalSrpRequestAcceptRejected.find('textarea[name="reject_info"]').val('');
+        modalSrpRequestAcceptRejected.find('textarea[name="reviser_comment"]').val('');
 
-        $('.aasrp-form-field-error').remove();
+        $('.aasrp-form-field-errors').remove();
         $('#modal-button-confirm-accept-rejected-request').unbind('click');
     });
 
