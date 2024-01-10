@@ -4,6 +4,7 @@ Test auth_hooks
 
 # Standard Library
 from http import HTTPStatus
+from unittest.mock import Mock, patch
 
 # Django
 from django.test import TestCase
@@ -11,12 +12,13 @@ from django.urls import reverse
 
 # AA SRP
 from aasrp import __title__
+from aasrp.auth_hooks import AaSrpMenuItem, register_menu
 from aasrp.tests.utils import create_fake_user
 
 
-class TestHooks(TestCase):
+class TestMenuItemHtml(TestCase):
     """
-    Test the app hook into allianceauth
+    Test the html of the menu item
     """
 
     @classmethod
@@ -78,3 +80,69 @@ class TestHooks(TestCase):
 
         self.assertEqual(first=response.status_code, second=HTTPStatus.OK)
         self.assertNotContains(response=response, text=self.html_menu, html=True)
+
+
+class TestAaSrpMenuItem(TestCase):
+    """
+    Test the menu item
+    """
+
+    def setUp(self):
+        """
+        Set up the test
+
+        :return:
+        :rtype:
+        """
+
+        self.request = Mock()
+        self.request.path = reverse(viewname="authentication:dashboard")
+        self.menu_item = AaSrpMenuItem()
+
+    def test_render_no_permission(self):
+        """
+        Test should return empty string if user has no permission
+
+        :return:
+        :rtype:
+        """
+
+        self.request.user.has_perm.return_value = False
+        result = self.menu_item.render(self.request)
+
+        self.assertEqual(result, "")
+
+    @patch("aasrp.auth_hooks.SrpManager.pending_requests_count_for_user")
+    def test_render_with_permission(self, mock_pending_requests):
+        """
+        Test should return html if a user has permission
+
+        :param mock_pending_requests:
+        :type mock_pending_requests:
+        :return:
+        :rtype:
+        """
+
+        self.request.user.has_perm.return_value = True
+        mock_pending_requests.return_value = 5
+        result = self.menu_item.render(self.request)
+
+        self.assertIsInstance(result, str)
+
+
+class TestRegisterMenu(TestCase):
+    """
+    Test register menu
+    """
+
+    def test_register_menu(self):
+        """
+        Test should return menu item
+
+        :return:
+        :rtype:
+        """
+
+        result = register_menu()
+
+        self.assertIsInstance(result, AaSrpMenuItem)
