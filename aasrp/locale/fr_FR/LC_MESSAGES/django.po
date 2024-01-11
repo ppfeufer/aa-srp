@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-11 23:59+0100\n"
+"POT-Creation-Date: 2024-01-11 07:07+0100\n"
 "PO-Revision-Date: 2023-09-24 13:13+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -228,7 +228,9 @@ msgid "Add/Change AAR link"
 msgstr ""
 
 #: aasrp/helper/icons.py:78
-msgid "Disable SRP ink"
+#: aasrp/templates/aasrp/modals/dashboard/disable_srp_link.html:4
+#: aasrp/templates/aasrp/modals/dashboard/disable_srp_link.html:13
+msgid "Disable SRP link"
 msgstr ""
 
 #: aasrp/helper/icons.py:96
@@ -596,11 +598,6 @@ msgstr ""
 #: aasrp/templates/aasrp/modals/dashboard/delete_srp_link.html:27
 #: aasrp/templates/aasrp/modals/view_requests/delete_request.html:28
 msgid "Delete"
-msgstr ""
-
-#: aasrp/templates/aasrp/modals/dashboard/disable_srp_link.html:4
-#: aasrp/templates/aasrp/modals/dashboard/disable_srp_link.html:13
-msgid "Disable SRP link"
 msgstr ""
 
 #: aasrp/templates/aasrp/modals/dashboard/disable_srp_link.html:27

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-11 23:59+0100\n"
+"POT-Creation-Date: 2024-01-11 07:07+0100\n"
 "PO-Revision-Date: 2024-01-11 06:01+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/"
@@ -137,8 +137,8 @@ msgid ""
 "Find your kill mail on {ZKILLBOARD_BASE_URL} or "
 "{EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."
 msgstr ""
-"找到你的舰船KB，点击右上角三个点，点击 {ZKILLBOARD_BASE_URL} "
-"并将其复制到这里，或者 {EVETOOLS_KILLBOARD_BASE_URL} 复制到这里。"
+"找到你的舰船KB，点击右上角三个点，点击 {ZKILLBOARD_BASE_URL} 并将其复制到这"
+"里，或者 {EVETOOLS_KILLBOARD_BASE_URL} 复制到这里。"
 
 #: aasrp/form.py:114 aasrp/models.py:347 aasrp/models.py:446
 #: aasrp/templates/aasrp/ajax_render/srp_request_additional_information.html:56
@@ -231,8 +231,10 @@ msgid "Add/Change AAR link"
 msgstr ""
 
 #: aasrp/helper/icons.py:78
-msgid "Disable SRP ink"
-msgstr "禁用的舰船补损链接"
+#: aasrp/templates/aasrp/modals/dashboard/disable_srp_link.html:4
+#: aasrp/templates/aasrp/modals/dashboard/disable_srp_link.html:13
+msgid "Disable SRP link"
+msgstr "取消舰船补损链接"
 
 #: aasrp/helper/icons.py:96
 #: aasrp/templates/aasrp/modals/dashboard/enable_srp_link.html:4
@@ -513,8 +515,9 @@ msgid ""
 "The source for the loss value of a killmail. Fitted value is the value of "
 "the ship and its fitting. Total value is the value of the ship, its fitting "
 "and the cargo. (Default: Total value)"
-msgstr "一个击毁报告的损失价值来源。装配价值是指这条船和它装备的价值。总价值是指船只"
-"、其装备还有货舱内货物的价值。(默认:总价值)"
+msgstr ""
+"一个击毁报告的损失价值来源。装配价值是指这条船和它装备的价值。总价值是指船"
+"只、其装备还有货舱内货物的价值。(默认:总价值)"
 
 #: aasrp/models.py:588
 msgid "Setting"
@@ -602,11 +605,6 @@ msgstr "频道"
 msgid "Delete"
 msgstr "删除"
 
-#: aasrp/templates/aasrp/modals/dashboard/disable_srp_link.html:4
-#: aasrp/templates/aasrp/modals/dashboard/disable_srp_link.html:13
-msgid "Disable SRP link"
-msgstr "取消舰船补损链接"
-
 #: aasrp/templates/aasrp/modals/dashboard/disable_srp_link.html:27
 msgid "Disable"
 msgstr "取消"
@@ -652,9 +650,8 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                        "
-"你确定你要将这个舰船补损链接标记为已完成并将其关闭吗？一旦完成，"
-"这个飞行员将不能再次使用这个链接递交舰船补损请求\n"
+"                        你确定你要将这个舰船补损链接标记为已完成并将其关闭"
+"吗？一旦完成，这个飞行员将不能再次使用这个链接递交舰船补损请求\n"
 "                    "
 
 #: aasrp/templates/aasrp/modals/view_requests/mark_complete_modal.html:27
@@ -677,8 +674,8 @@ msgid_plural ""
 "                        "
 msgstr[0] ""
 "\n"
-"                            这个舰船补损链接仍然有%(number_pending_requests)"
-"s 在发送\n"
+"                            这个舰船补损链接仍然"
+"有%(number_pending_requests)s 在发送\n"
 "舰船请求。 你确定要将其标记成已完成状态吗？\n"
 "                        "
 
@@ -904,16 +901,17 @@ msgid ""
 "API is not answering at the moment. Please make sure you are using either "
 "{ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
 msgstr ""
-"你的击杀报告链接 {submitted_killmail_link} "
-"是无效的或者KB网上目前没有你的数据。请确保你使用了正确的 "
-"{ZKILLBOARD_BASE_URL} 或者是 {EVETOOLS_KILLBOARD_BASE_URL}"
+"你的击杀报告链接 {submitted_killmail_link} 是无效的或者KB网上目前没有你的数"
+"据。请确保你使用了正确的 {ZKILLBOARD_BASE_URL} 或者是 "
+"{EVETOOLS_KILLBOARD_BASE_URL}"
 
 #: aasrp/views/general.py:431
 #, python-brace-format
 msgid ""
 "Character {victim_id} does not belong to your Auth account. Please add this "
 "character as an alt to your main and try again."
-msgstr "角色 {victim_id} 不属于你的Auth账户。请将此角色添加到主角色中，然后再试一次。"
+msgstr ""
+"角色 {victim_id} 不属于你的Auth账户。请将此角色添加到主角色中，然后再试一次。"
 
 #: aasrp/views/general.py:484
 msgid "SRP link marked as completed"

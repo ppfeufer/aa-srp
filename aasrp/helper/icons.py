@@ -75,7 +75,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
                         viewname="aasrp:disable_srp_link", args=[srp_link.srp_code]
                     )
                     btn_icon = '<i class="fas fa-ban"></i>'
-                    btn_title = _("Disable SRP ink")
+                    btn_title = _("Disable SRP link")
                     modal_id = "disable-srp-link"
                     data_name = srp_link.srp_name + " (" + srp_link.srp_code + ")"
 
