@@ -44,7 +44,7 @@
 
         <p>
             {{ ship_render_icon_html|safe }}
-            <span style="display: inline-block; vertical-align: middle;">
+            <span class="d-inline-block align-middle">
                 <a href="{{ srp_request.killboard_link }}" target="_blank">{{ ship_type }}</a>
                 <span class="d-block">{{ srp_request.loss_amount|floatformat:2|intcomma }} ISK</span>
             </span>
