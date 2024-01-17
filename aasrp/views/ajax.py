@@ -435,7 +435,7 @@ def srp_request_additional_information(
 
     return render(
         request=request,
-        template_name="aasrp/ajax_render/srp_request_additional_information.html",
+        template_name="aasrp/ajax-render/srp-request-additional-information.html",
         context=data,
     )
 
