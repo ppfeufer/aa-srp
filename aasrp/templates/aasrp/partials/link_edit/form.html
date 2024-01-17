@@ -1,4 +1,4 @@
-{% load bootstrap %}
+{% load django_bootstrap5 %}
 {% load i18n %}
 
 <div class="card card-default">
@@ -13,12 +13,11 @@
             {% csrf_token %}
 
             <fieldset class="aa-srp-edit-link-form col-md-6 col-md-offset-3">
-                {{ form|bootstrap }}
+                {% bootstrap_form form %}
 
                 <div class="form-group aasrp-form-group text-end clearfix">
-                    <button class="btn btn-primary" type="submit">
-                        {% translate "Add/Change AAR link" %}
-                    </button>
+                    {% translate "Add/Change AAR link" as button_text %}
+                    {% bootstrap_button button_class="btn btn-primary" type="submit" content=button_text %}
                 </div>
             </fieldset>
         </form>
