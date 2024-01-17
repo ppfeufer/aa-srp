@@ -64,7 +64,7 @@
                     {% for insurance_level in insurance_information %}
                         <tr>
                             <td>{{ insurance_level.insurance_level }}</td>
-                            <td class="text-right">
+                            <td class="text-end">
                                 {{ insurance_level.insurance_payout|floatformat:2|intcomma}} ISK
                             </td>
                         </tr>
