@@ -1,14 +1,14 @@
 {% load i18n %}
 
-<div class="col-md-4 col-md-push-8">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="panel-title">
+<div class="col-md-4 order-md-last">
+    <div class="card card-default mb-3">
+        <div class="card-header">
+            <div class="card-title mb-0">
                 {% translate "SRP / Fleet details" %}
             </div>
         </div>
 
-        <div class="panel-body">
+        <div class="card-body">
             <ul class="list-unstyled">
                 <li><b>{% translate "Fleet name" %}:</b> {{ srp_link }}</li>
                 <li><b>{% translate "SRP code" %}:</b> {{ srp_link.srp_code }}</li>
