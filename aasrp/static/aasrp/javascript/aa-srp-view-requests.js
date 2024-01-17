@@ -71,7 +71,7 @@ $(document).ready(() => {
                         return data;
                     }
                 },
-                className: 'srp-request-zbk-loss-amount text-right'
+                className: 'srp-request-zbk-loss-amount text-end'
             },
             {
                 data: 'payout_amount',
@@ -89,7 +89,7 @@ $(document).ready(() => {
                         return data;
                     }
                 },
-                className: 'srp-request-payout text-right'
+                className: 'srp-request-payout text-end'
             },
             {
                 data: 'request_status_icon',
@@ -97,7 +97,7 @@ $(document).ready(() => {
             },
             {
                 data: 'actions',
-                className: 'srp-request-actions'
+                className: 'srp-request-actions text-end'
             },
 
             /**
@@ -143,7 +143,8 @@ $(document).ready(() => {
                 }
             ],
             autoSize: false,
-            bootstrap: true
+            bootstrap: true,
+            bootstrap_version: 5,
         },
         paging: false,
         /**

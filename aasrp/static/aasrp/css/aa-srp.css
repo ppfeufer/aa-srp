@@ -31,15 +31,11 @@
         font-weight: bold;
     }
 
-    .panel-srp-request-overview-column {
+    .card-srp-request-overview-cell {
         margin-bottom: 1rem;
     }
 
-    .panel-srp-request-overview-cell {
-        margin-bottom: 1rem;
-    }
-
-    .panel-srp-request-overview-cell:last-child {
+    .card-srp-request-overview-cell:last-child {
         margin-bottom: 0;
     }
 
@@ -64,20 +60,12 @@
         font-size: 80%;
     }
 
-    .aa-srp .table-vertical-middle td {
-        vertical-align: middle;
-    }
-
     .aa-srp .text-aasrp-form-description {
         font-weight: 400;
     }
 
     .aa-srp-fa-icon {
         cursor: pointer;
-    }
-
-    .aa-srp-fa-icon-right {
-        margin-left: 1rem;
     }
 
     .aa-srp-modal-header > h5 {
@@ -107,39 +95,6 @@
         padding-bottom: initial;
     }
 
-}
-
-@media all and (min-width: 992px) {
-    .panel-srp-request-overview-column {
-        margin-bottom: 0;
-    }
-}
-
-/* DataTables
-------------------------------------------------------------------------------------- */
-@media all {
-    .dataTables_wrapper > .form-inline {
-        margin-bottom: 1rem;
-    }
-
-    .dataTables_wrapper > .form-inline select {
-        margin-bottom: 1rem;
-        margin-right: 1rem;
-    }
-
-    .dataTables_wrapper > .form-inline select:last-child {
-        margin-right: 0;
-    }
-
-    .dataTables_length select {
-        margin: 0 1rem;
-    }
-}
-
-@media (min-width: 768px) {
-    .dataTables_wrapper > .form-inline select:first-child {
-        margin-left: 1rem;
-    }
 }
 
 /* Editable Popup

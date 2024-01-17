@@ -365,6 +365,8 @@ def get_srp_request_action_icons(
     )
 
     if srp_link.srp_status in (SrpLink.Status.ACTIVE, SrpLink.Status.CLOSED):
+        srp_request_action_icons += "<br>"
+
         # Accept
         srp_request_action_icons += get_srp_request_accept_icon(
             request=request, srp_link=srp_link, srp_request=srp_request

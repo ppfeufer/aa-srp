@@ -174,7 +174,7 @@ $(document).ready(() => {
                         <p>${row.fleet_name}</p>
                         <p class="small text-muted">
                             ${aaSrpSettings.translation.dataTable.content.srpCode}: ${row.srp_code}
-                            <br>${aaSrpSettings.translation.dataTable.content.srpCode}: ${row.request_code}
+                            <br>${aaSrpSettings.translation.dataTable.content.requestCode}: ${row.request_code}
                         </p>
                     `;
                 },
