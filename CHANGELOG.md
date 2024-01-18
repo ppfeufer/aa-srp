@@ -47,6 +47,7 @@ Section Order:
 
 - Compatibility with AAv4
 - Tests for Python 3.12 (Still allowed to fail)
+- Native lazy loading support for images
 
 ### Changed
 
