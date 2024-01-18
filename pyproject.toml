@@ -40,8 +40,8 @@ dynamic = [
 ]
 dependencies = [
     "allianceauth>=4.0.0a5",
-    "allianceauth-app-utils>=1.19",
-    "django-eveuniverse>=1.2",
+    "allianceauth-app-utils>=1.25",
+    "django-eveuniverse>=1.5.4",
 ]
 [project.optional-dependencies]
 tests-allianceauth-latest = [

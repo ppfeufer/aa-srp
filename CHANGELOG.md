@@ -35,11 +35,38 @@ Section Order:
 ### Security
 -->
 
+> \[!NOTE\]
+>
+> **This version needs at least Alliance Auth v4.0.0!**
+>
+> Please make sure to update your Alliance Auth instance before
+> you install this version, otherwise an update to Alliance Auth will
+> be pulled in unsupervised.
+
+### Added
+
+- Compatibility with AAv4
+- Tests for Python 3.12 (Still allowed to fail)
+
+### Changed
+
+- Minimum requirements
+  - allianceauth>=4.0.0
+  - allianceauth-app-utils>=1.25
+  - django-eveuniverse>=1.5.4
+- Updated translations
+- Updated test suite
+- General code cleanup and modernization
+
+### Removed
+
+- Compatibility with AAv3
+
 ## \[1.21.0\] - 2023-12-20
 
 ### Added
 
-- Setting for loss value source \[#153\]
+- Setting for the loss value source \[#153\]
 
 ### Fixed
 
@@ -141,7 +168,7 @@ If you by any chance installed
 you have to reset the migrations **before** updating to this version. This release contains
 multiple migrations from the development process that have been combined.
 
-To reset the migration from the Alpha version, simply run:
+To reset the migration from the Alpha version, run:
 
 ```shell
 python manage.py migrate aasrp 0009
@@ -320,8 +347,8 @@ mySQL8**
 
 ### Changed
 
-- RGB notations in CSS files modernised
-- Bottom border colour for changeable payout value for SRP requests that'd been
+- RGB notations in CSS files modernized
+- Bottom border color for changeable payout value for SRP requests that'd been
   rejected. Now it's not that prominent anymore and doesn't look like a pending SRP
   request
 - Modal window handling improved
@@ -349,7 +376,7 @@ mySQL8**
 ### Changed
 
 - Moved SRP recalculation to its own function
-- Highlight colour for SRP amount changed
+- Highlight color for SRP amount changed
 
 <!-- Links and images -->
 
@@ -497,7 +524,7 @@ mySQL8**
 
 ### Changed
 
-- Try harder with the Discord messages. (`discordproxy` is the prioritised way to
+- Try harder with the Discord messages. (`discordproxy` is the prioritized way to
   send messages to Discord, but if anything fails with it, always try for
   `allianceauth-discordbot` to get the message out)
 
@@ -549,7 +576,7 @@ mySQL8**
 
 ### Changed
 
-- General code cleanup and modernisation
+- General code cleanup and modernization
 - Switched to Alliance Auth App Utils for some helper functions
 
 ### Removed
@@ -741,7 +768,7 @@ some manual work, so please update step by step.**
 
 ### Fixed
 
-- An issue where too many notifications where created on request accept
+- An issue where too many notifications where created on when a request was accepted
 
 ### Added
 
@@ -771,7 +798,7 @@ v0.1.0-beta.16.**
 
 ### Migrate SRP request comments
 
-To migrate the comments from SRP requests to their own model, simply run
+To migrate the comments from SRP requests to their own model, run:
 (Make sure you ran migrations before running this command.)
 
 ```shell
@@ -887,7 +914,7 @@ manual work to it. First you need to add the EveUniverse module to your
 ### Step 2: Static Collection and Migration
 
 Now that EveUniverse is installed, you need to run the static collection and
-migration. Don't forget to restart your supervisor afterwards.
+migration. Remember to restart your supervisor afterward.
 
 ```shell
 python manage.py collectstatic
