@@ -183,7 +183,7 @@ $(document).ready(() => {
                         `{csrfmiddlewaretoken:'${aaSrpSettings.csrfToken}'}`
                     )
                     .attr('data-pk', srpRequestCode)
-                    .attr('data-tooltip', 'enable')
+                    // .attr('data-bs-title', aaSrpSettings.translation.changeSrpPayoutAmount)
                     .attr('title', aaSrpSettings.translation.changeSrpPayoutAmount)
                     .attr(
                         'data-url',
@@ -269,7 +269,7 @@ $(document).ready(() => {
         });
 
         // Show bootstrap tooltips
-        $('[data-tooltip="enable"]').tooltip();
+        // $('[data-tooltip="enable"]').tooltip();
     });
 
     /**
