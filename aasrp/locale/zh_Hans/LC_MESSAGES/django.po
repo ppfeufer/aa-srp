@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-11 07:07+0100\n"
-"PO-Revision-Date: 2024-01-11 06:01+0000\n"
+"PO-Revision-Date: 2024-02-06 07:10+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/zh_Hans/>\n"
@@ -385,7 +385,7 @@ msgstr "谁创建的舰船补损请求？"
 #: aasrp/templates/aasrp/view_requests.html:70
 #: aasrp/templates/aasrp/view_requests.html:79
 msgid "Character"
-msgstr "角色"
+msgstr ""
 
 #: aasrp/models.py:332 aasrp/models.py:341
 msgid "Ship type"
@@ -598,7 +598,7 @@ msgstr "删除舰船补损链接"
 #: aasrp/templates/aasrp/modals/view_requests/mark_complete_modal.html:43
 #: aasrp/templates/aasrp/modals/view_requests/reject_request.html:35
 msgid "Cancel"
-msgstr "频道"
+msgstr ""
 
 #: aasrp/templates/aasrp/modals/dashboard/delete_srp_link.html:27
 #: aasrp/templates/aasrp/modals/view_requests/delete_request.html:28
