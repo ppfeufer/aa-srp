@@ -39,7 +39,7 @@ dynamic = [
     "version",
 ]
 dependencies = [
-    "allianceauth>=4.0.0a5",
+    "allianceauth>=4.0.0b1",
     "allianceauth-app-utils>=1.25",
     "django-eveuniverse>=1.5.4",
 ]
