@@ -3,12 +3,15 @@
 $(document).ready(() => {
     'use strict';
 
+    const tableSrpLinks = $('#table_tab-srp-links');
+    const tableUserSrpRequests = $('#table_tab-user-srp-requests');
+
     /**
-     * Table :: SRP Links
+     * Table: SRP Links
      */
     let totalSrpAmount = 0;
 
-    $('#tab_aasrp_srp_links').DataTable({
+    tableSrpLinks.DataTable({
         ajax: {
             url: aaSrpSettings.url.availableSrpLinks,
             dataSrc: '',
@@ -71,12 +74,12 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return data.toLocaleString() + ' ISK';
+                        return `${data.toLocaleString()} ISK`;
                     } else {
                         return data;
                     }
                 },
-                className: 'srp-link-total-cost text-right'
+                className: 'srp-link-total-cost text-end'
             },
             {
                 data: 'srp_status',
@@ -84,11 +87,11 @@ $(document).ready(() => {
             },
             {
                 data: 'pending_requests',
-                className: 'srp-link-pending-requests'
+                className: 'srp-link-pending-requests text-end'
             },
             {
                 data: 'actions',
-                className: 'srp-link-actions'
+                className: 'srp-link-actions text-end'
             }
         ],
         columnDefs: [
@@ -118,18 +121,17 @@ $(document).ready(() => {
 
             totalSrpAmount += parseInt(data.srp_costs);
 
-            $('.srp-dashboard-total-isk-cost-amount').html(
-                totalSrpAmount.toLocaleString() + ' ISK'
-            );
+            $('.srp-dashboard-total-isk-cost-amount')
+                .html(`${totalSrpAmount.toLocaleString()} ISK`);
         }
     });
 
     /**
-     * Table :: User's own SRP requests
+     * Table: User's own SRP requests
      */
     let userSrpAmount = 0;
 
-    $('#tab_aasrp_user_srp_requests').DataTable({
+    tableUserSrpRequests.DataTable({
         ajax: {
             url: aaSrpSettings.url.userSrpRequests,
             dataSrc: '',
@@ -159,16 +161,33 @@ $(document).ready(() => {
             },
             {
                 data: 'fleet_name',
-                className: 'srp-request-fleet-name'
+                /**
+                 * Render callback
+                 *
+                 * @param data
+                 * @param type
+                 * @param row
+                 * @returns {string}
+                 */
+                render: (data, type, row) => {
+                    return `
+                        <p>${row.fleet_name}</p>
+                        <p class="small text-muted">
+                            ${aaSrpSettings.translation.dataTable.content.srpCode}: ${row.srp_code}
+                            <br>${aaSrpSettings.translation.dataTable.content.requestCode}: ${row.request_code}
+                        </p>
+                    `;
+                },
+                className: 'srp-request-fleet-details'
             },
-            {
-                data: 'srp_code',
-                className: 'srp-request-srp-code'
-            },
-            {
-                data: 'request_code',
-                className: 'srp-request-code'
-            },
+            // {
+            //     data: 'srp_code',
+            //     className: 'srp-request-srp-code'
+            // },
+            // {
+            //     data: 'request_code',
+            //     className: 'srp-request-code'
+            // },
             {
                 data: 'ship_html',
                 render: {
@@ -189,12 +208,12 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return data.toLocaleString() + ' ISK';
+                        return `${data.toLocaleString()} ISK`;
                     } else {
                         return data;
                     }
                 },
-                className: 'srp-request-zkb-loss-amount text-right'
+                className: 'srp-request-zkb-loss-amount text-end'
             },
             {
                 data: 'payout_amount',
@@ -207,16 +226,16 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return data.toLocaleString() + ' ISK';
+                        return `${data.toLocaleString()} ISK`;
                     } else {
                         return data;
                     }
                 },
-                className: 'srp-request-payout text-right'
+                className: 'srp-request-payout text-end'
             },
             {
                 data: 'request_status_icon',
-                className: 'srp-request-status text-center'
+                className: 'srp-request-status text-end'
             },
             // Hidden columns
             {data: 'request_status'},
@@ -226,11 +245,11 @@ $(document).ready(() => {
         columnDefs: [
             {
                 orderable: false,
-                targets: [8]
+                targets: [6]
             },
             {
                 visible: false,
-                targets: [9, 10, 11]
+                targets: [7, 8, 9]
             }
         ],
         order: [
@@ -239,20 +258,21 @@ $(document).ready(() => {
         filterDropDown: {
             columns: [
                 {
-                    idx: 11,
+                    idx: 9,
                     title: aaSrpSettings.translation.filter.character
                 },
                 {
-                    idx: 10,
+                    idx: 8,
                     title: aaSrpSettings.translation.filter.ship
                 },
                 {
-                    idx: 9,
+                    idx: 7,
                     title: aaSrpSettings.translation.filter.requestStatus
                 }
             ],
             autoSize: false,
-            bootstrap: true
+            bootstrap: true,
+            bootstrap_version: 5
         },
         /**
          * When ever a row is created ...
@@ -269,7 +289,7 @@ $(document).ready(() => {
             userSrpAmount += parseInt(data.payout_amount);
 
             $('.srp-dashboard-user-isk-cost-amount').html(
-                userSrpAmount.toLocaleString() + ' ISK'
+                `${userSrpAmount.toLocaleString()} ISK`
             );
         }
     });
@@ -291,7 +311,7 @@ $(document).ready(() => {
         modalEnableSrpLink.find('#modal-button-confirm-enable-srp-link')
             .attr('href', url);
         modalEnableSrpLink.find('.modal-body').html(
-            aaSrpSettings.translation.modal.enableSrpLink.body + '<br>"' + name + '"'
+            `${aaSrpSettings.translation.modal.enableSrpLink.body}<p class="fw-bold">${name}</p>`
         );
     }).on('hide.bs.modal', () => {
         modalEnableSrpLink.find('.modal-body').html('');
@@ -306,7 +326,7 @@ $(document).ready(() => {
         modalDisableSrpLink.find('#modal-button-confirm-disable-srp-link')
             .attr('href', url);
         modalDisableSrpLink.find('.modal-body').html(
-            aaSrpSettings.translation.modal.disableSrpLink.body + '<br>"' + name + '"'
+            `${aaSrpSettings.translation.modal.disableSrpLink.body}<p class="fw-bold">${name}</p>`
         );
     }).on('hide.bs.modal', () => {
         modalDisableSrpLink.find('.modal-body').html('');
@@ -321,7 +341,7 @@ $(document).ready(() => {
         modalDeleteSrpLink.find('#modal-button-confirm-delete-srp-link')
             .attr('href', url);
         modalDeleteSrpLink.find('.modal-body').html(
-            aaSrpSettings.translation.modal.deleteSrpLink.body + '<br>"' + name + '"'
+            `${aaSrpSettings.translation.modal.deleteSrpLink.body}<p class="fw-bold">${name}</p>`
         );
     }).on('hide.bs.modal', () => {
         modalDeleteSrpLink.find('.modal-body').html('');

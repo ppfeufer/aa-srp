@@ -1,0 +1,140 @@
+{% load aasrp %}
+{% load humanize %}
+{% load i18n %}
+
+<div class="alert alert-{{ request_status_banner_alert_level }}">
+    <div class="text-center">
+        {% translate "SRP request status" %}: <b>{{ request_status }}</b>
+    </div>
+</div>
+
+<div class="row modal-srp-details modal-srp-details-requester clearfix">
+    <div class="col-sm-6">
+        <header class="aa-srp-modal-header">
+            <h5>
+                {% translate "Requestor" %}
+            </h5>
+        </header>
+
+        <p>
+            {{ requester }}
+        </p>
+    </div>
+
+    <div class="col-sm-6">
+        <header class="aa-srp-modal-header">
+            <h5>
+                {% translate "Character" %}
+            </h5>
+        </header>
+
+        <p>
+            {{ character|safe }}
+        </p>
+    </div>
+</div>
+
+<div class="row modal-srp-details modal-srp-details-ship clearfix">
+    <div class="col-sm-6">
+        <header class="aa-srp-modal-header">
+            <h5>
+                {% translate "Ship" %}
+            </h5>
+        </header>
+
+        <p>
+            {{ ship_render_icon_html|safe }}
+            <span class="d-inline-block align-middle">
+                <a href="{{ srp_request.killboard_link }}" target="_blank">{{ ship_type }}</a>
+                <span class="d-block">{{ srp_request.loss_amount|floatformat:2|intcomma }} ISK</span>
+            </span>
+        </p>
+    </div>
+
+    {% if insurance_information %}
+        <div class="col-sm-6">
+            <header class="aa-srp-modal-header">
+                <h5>
+                    {% translate "Insurance payout" %}
+                </h5>
+            </header>
+
+            <table class="table table-striped table-hover">
+                <tbody>
+                    {% for insurance_level in insurance_information %}
+                        <tr>
+                            <td>{{ insurance_level.insurance_level }}</td>
+                            <td class="text-end">
+                                {{ insurance_level.insurance_payout|floatformat:2|intcomma}} ISK
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</div>
+
+<div class="row modal-srp-details modal-srp-details-additional-information clearfix">
+    <div class="col-sm-12">
+        <header class="aa-srp-modal-header">
+            <h5>
+                {% translate "Additional information" %}
+            </h5>
+        </header>
+
+        {{ additional_info|linebreaks }}
+    </div>
+</div>
+
+{% if request_history %}
+    <div class="row modal-srp-details modal-srp-details-request-history clearfix">
+        <div class="col-sm-12">
+            <header class="aa-srp-modal-header">
+                <h5>
+                    {% translate "Request history" %}
+                </h5>
+            </header>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>{% translate "Action" %}</th>
+                        <th>{% translate "User" %}</th>
+                        <th>{% translate "Comment" %}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for comment in request_history %}
+                        <tr>
+                            <td>
+                                <b>{{ comment.get_comment_type_display }}</b>
+                            </td>
+
+                            <td>
+                                {{ comment.creator|main_character_name }}
+
+                                {% if comment.comment_time %}
+                                    <small class="d-block">{{ comment.comment_time|date:'Y-m-d H:i' }}</small>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if comment.new_status %}
+                                    {% if comment.new_status == "Pending" %}
+                                        {% translate "SRP request has been added." %}
+                                    {% else %}
+                                        {% translate "SRP request status has changed to" %}: <b>{{ comment.get_new_status_display }}</b>
+                                    {% endif %}
+                                {% else %}
+                                    {{ comment.comment|default_if_none:""|linebreaks }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}

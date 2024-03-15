@@ -1,0 +1,81 @@
+{% load i18n %}
+{% load humanize %}
+
+<div class="card card-default card-srp-request-overview mb-3">
+    <div class="card-header">
+        <div class="card-title mb-0">
+            {% translate "Overview" %}
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <!-- left card -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card-srp-request-overview-cell">
+                    <dt>{% translate "Requests" %}:</dt>
+                    <dd>{% translate "Total" %}: <span class="srp-requests-total-count">{{ srp_link.total_requests }}</span></dd>
+                    <dd>{% translate "Pending" %}: <span class="srp-requests-pending-count">{{ srp_link.pending_requests }}</span></dd>
+                    <dd>{% translate "Approved" %}: <span class="srp-requests-approved-count">{{ srp_link.approved_requests }}</span></dd>
+                    <dd>{% translate "Rejected" %}: <span class="srp-requests-rejected-count">{{ srp_link.rejected_requests }}</span></dd>
+                </div>
+            </div>
+
+            <!-- middle left card-->
+            <div class="col-md-6 col-lg-3">
+                <div class="card-srp-request-overview-cell">
+                    <dt>{% translate "Fleet name" %}:</dt>
+                    <dd>{{ srp_link.srp_name }}</dd>
+                </div>
+
+                <div class="card-srp-request-overview-cell">
+                    <dt>{% translate "Fleet commander" %}:</dt>
+                    <dd>{{ srp_link.fleet_commander }}</dd>
+                </div>
+
+                <div class="card-srp-request-overview-cell">
+                    <dt>{% translate "Fleet time" %}:</dt>
+                    <dd>{{ srp_link.fleet_time|date:"Y-m-d H:i" }}</dd>
+                </div>
+            </div>
+
+            <!-- middle right card -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card-srp-request-overview-cell">
+                    <dt>{% translate "Doctrine" %}:</dt>
+                    <dd>{{ srp_link.fleet_doctrine }}</dd>
+                </div>
+
+                <div class="card-srp-request-overview-cell">
+                    <dt>{% translate "SRP code" %}:</dt>
+                    <dd>{{ srp_link.srp_code }}</dd>
+                </div>
+            </div>
+
+            <!-- right card -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card-srp-request-overview-cell">
+                    <dt>{% translate "SRP cost" %}:</dt>
+                    <dd class="srp-fleet-total-amount">{{ srp_link.total_cost|intcomma }} ISK</dd>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        {% if srp_link.srp_status != "Completed" %}
+            <button class="btn btn-primary btn-sm float-end"
+                data-bs-toggle="modal"
+                data-bs-target="#srp-link-mark-complete-modal"
+                data-modal-type="modal-action"
+            >
+                {% translate "Mark completed" %}
+            </button>
+        {% endif %}
+
+        <a class="btn btn-primary btn-sm" href="{% url 'aasrp:dashboard' %}">
+            <i class="fa-solid fa-circle-left"></i>
+            {% translate "Back to SRP overview" %}
+        </a>
+    </div>
+</div>

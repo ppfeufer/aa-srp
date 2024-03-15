@@ -24,7 +24,7 @@ class TestMainCharacterName(TestCase):
     def setUpClass(cls) -> None:
         super().setUpClass()
         cls.template = Template(
-            template_string="{% load aasrp_user %}{{ user|main_character_name }}"
+            template_string="{% load aasrp %}{{ user|main_character_name }}"
         )
 
     def test_should_contain_character_name_for_users_with_main(self):
@@ -81,7 +81,7 @@ class TestMainCharacterName(TestCase):
         # then
         self.assertEqual(first=result, second="deleted")
 
-    def test_should_be_empty_for_none(self):
+    def test_should_be_deleted_for_none(self):
         """
         Test should be empty
 
@@ -94,7 +94,7 @@ class TestMainCharacterName(TestCase):
         # when
         result = self.template.render(context=context)
         # then
-        self.assertEqual(first=result, second="")
+        self.assertEqual(first=result, second="deleted")
 
 
 class TestMainCharacterId(TestCase):
@@ -106,7 +106,7 @@ class TestMainCharacterId(TestCase):
     def setUpClass(cls) -> None:
         super().setUpClass()
         cls.template = Template(
-            template_string="{% load aasrp_user %}{{ user|main_character_id }}"
+            template_string="{% load aasrp %}{{ user|main_character_id }}"
         )
 
     def test_should_contain_character_id_for_users_with_main(self):
@@ -190,7 +190,7 @@ class TestMainCharacterCorporationName(TestCase):
     def setUpClass(cls) -> None:
         super().setUpClass()
         cls.template = Template(
-            template_string="{% load aasrp_user %}{{ user|main_character_corporation_name }}"
+            template_string="{% load aasrp %}{{ user|main_character_corporation_name }}"
         )
 
     def test_should_contain_corp_name_for_users_with_main(self):
@@ -280,7 +280,7 @@ class TestMainCorporationId(TestCase):
     def setUpClass(cls) -> None:
         super().setUpClass()
         cls.template = Template(
-            template_string="{% load aasrp_user %}{{ user|main_character_corporation_id }}"
+            template_string="{% load aasrp %}{{ user|main_character_corporation_id }}"
         )
 
     def test_should_contain_corporation_id_for_users_with_main(self):
@@ -370,7 +370,7 @@ class TestMainCharacterAllianceName(TestCase):
     def setUpClass(cls) -> None:
         super().setUpClass()
         cls.template = Template(
-            template_string="{% load aasrp_user %}{{ user|main_character_alliance_name }}"
+            template_string="{% load aasrp %}{{ user|main_character_alliance_name }}"
         )
 
     def test_should_contain_alliance_name_for_users_with_main(self):
@@ -489,7 +489,7 @@ class TestMainAllianceId(TestCase):
     def setUpClass(cls) -> None:
         super().setUpClass()
         cls.template = Template(
-            template_string="{% load aasrp_user %}{{ user|main_character_alliance_id }}"
+            template_string="{% load aasrp %}{{ user|main_character_alliance_id }}"
         )
 
     def test_should_contain_alliance_id_for_users_with_main(self):
@@ -614,8 +614,7 @@ class TestForumVersionedStatic(TestCase):
         context = Context(dict_={"version": __version__})
         template_to_render = Template(
             template_string=(
-                "{% load aasrp_versioned_static %}"
-                "{% aasrp_static 'aasrp/css/aa-srp.min.css' %}"
+                "{% load aasrp %}{% aasrp_static 'aasrp/css/aa-srp.min.css' %}"
             )
         )
 

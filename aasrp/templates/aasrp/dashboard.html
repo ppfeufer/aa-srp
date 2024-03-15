@@ -3,25 +3,26 @@
 {% load i18n %}
 {% load static %}
 
-{% block aasrp_header %}
-    {% translate "Ship Replacement" as translated_header %}
-    {% include "aasrp/partials/header/h1.html" with header_text=translated_header %}
+{% block header_nav_collapse_left %}
+    {% include "aasrp/partials/dashboard/tabs-navigation.html" %}
+{% endblock %}
+
+{% block header_nav_collapse_right %}
+    {% include "aasrp/partials/dashboard/navigation.html" %}
 {% endblock %}
 
 {% block aasrp_body %}
-    {% include "aasrp/partials/dashboard/buttons.html" %}
-    {% include "aasrp/partials/dashboard/table.html" %}
+    {% include "aasrp/partials/dashboard/tabs-content.html" %}
 
     <!-- modals -->
-    {% include "aasrp/modals/dashboard/enable_srp_link.html" %}
-    {% include "aasrp/modals/dashboard/disable_srp_link.html" %}
-    {% include "aasrp/modals/dashboard/delete_srp_link.html" %}
-    {% include "aasrp/modals/view_requests/request_details.html" %}
+    {% include "aasrp/modals/dashboard/enable-srp-link.html" %}
+    {% include "aasrp/modals/dashboard/disable-srp-link.html" %}
+    {% include "aasrp/modals/dashboard/delete-srp-link.html" %}
+    {% include "aasrp/modals/view-requests/request-details.html" %}
 {% endblock %}
 
 {% block extra_css %}
-    {% include "bundles/datatables-css.html" %}
-    {% include "aasrp/bundles/aa-bootstrap-fix-css.html" %}
+    {% include "bundles/datatables-css-bs5.html" %}
     {% include "aasrp/bundles/aa-srp-css.html" %}
     {% include "aasrp/bundles/aa-srp-form-css.html" %}
 {% endblock %}
@@ -42,7 +43,7 @@
         });
     </script>
 
-    {% include "bundles/datatables-js.html" %}
+    {% include "bundles/datatables-js-bs5.html" %}
     {% include "bundles/moment-js.html" with locale=True %}
     {% include "bundles/filterdropdown-js.html" %}
 
@@ -58,7 +59,7 @@
         {% endif %}
 
         const aaSrpSettings = {
-            datetimeFormat: 'YYYY-MM-DD HH:mm',
+            datetimeFormat: 'YYYY-MM-DD<br>HH:mm',
             url: {
                 availableSrpLinks: urlAvailableSrpLinks,
                 userSrpRequests: urlUserSrpRequests
@@ -72,15 +73,21 @@
                     requestStatus: "{% translate 'Request status' %}",
                     character: "{% translate 'Character' %}",
                 },
+                dataTable: {
+                    content: {
+                        srpCode: "{% translate 'SRP code' %}",
+                        requestCode: "{% translate 'Request code' %}"
+                    }
+                },
                 modal: {
                     enableSrpLink: {
-                        body: "{% translate 'Are you sure you want to (re-)activate the following SRP link?' %}"
+                        body: "<p>{% translate 'Are you sure you want to (re-)activate the following SRP link?' %}</p>"
                     },
                     disableSrpLink: {
-                        body: "{% translate 'Are you sure you want to disable the following SRP link?' %}"
+                        body: "<p>{% translate 'Are you sure you want to disable the following SRP link?' %}</p>"
                     },
                     deleteSrpLink: {
-                        body: "{% translate 'Are you sure you want to delete the following SRP link and all SRP requests tied to it?' %}"
+                        body: "<p>{% translate 'Are you sure you want to delete the following SRP link and all SRP requests tied to it?' %}</p>"
                     },
                     srpDetails: {
                         body: {

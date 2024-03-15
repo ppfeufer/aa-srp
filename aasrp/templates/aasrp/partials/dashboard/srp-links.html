@@ -1,0 +1,33 @@
+{% load i18n %}
+
+<!-- active srp links tab -->
+<div class="tab-pane fade show active" id="{{ tab_name }}" role="tabpanel" aria-labelledby="tab-srp-links">
+    <div class="alert alert-info" role="alert">
+        <div class="text-end srp-dashboard-total-isk-cost">
+            {% translate "Total SRP cost" %}:
+            <span class="srp-dashboard-total-isk-cost-amount"></span>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-aasrp table-srp-links w-100" id="table_{{ tab_name }}">
+            <thead>
+                <tr>
+                    <th class="w-auto">{% translate "SRP link name" %}</th>
+                    <th class="w-auto">{% translate "Creator" %}</th>
+                    <th class="w-auto">{% translate "Fleet time" %}</th>
+                    <th class="w-auto">{% translate "Fleet type" %}</th>
+                    <th class="w-auto">{% translate "Doctrine" %}</th>
+                    <th class="w-auto">{% translate "AAR" %}</th>
+                    <th class="w-auto">{% translate "SRP code" %}</th>
+                    <th class="w-auto">{% translate "SRP cost" %}</th>
+                    <th class="w-auto">{% translate "Status" %}</th>
+                    <th class="w-auto">{% translate "Requests" %}</th>
+                    <th class="w-auto">{% translate "Actions" %}</th>
+                </tr>
+            </thead>
+
+            <tbody></tbody>
+        </table>
+    </div>
+</div>

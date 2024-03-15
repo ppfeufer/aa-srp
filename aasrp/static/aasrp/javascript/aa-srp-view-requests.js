@@ -66,12 +66,12 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return data.toLocaleString() + ' ISK';
+                        return `${data.toLocaleString()} ISK`;
                     } else {
                         return data;
                     }
                 },
-                className: 'srp-request-zbk-loss-amount text-right'
+                className: 'srp-request-zbk-loss-amount text-end'
             },
             {
                 data: 'payout_amount',
@@ -84,12 +84,12 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return '<span class="srp-payout-amount">' + data.toLocaleString() + ' ISK</span>';
+                        return `<span class="srp-payout-amount">${data.toLocaleString()} ISK</span>`;
                     } else {
                         return data;
                     }
                 },
-                className: 'srp-request-payout text-right'
+                className: 'srp-request-payout text-end'
             },
             {
                 data: 'request_status_icon',
@@ -97,7 +97,7 @@ $(document).ready(() => {
             },
             {
                 data: 'actions',
-                className: 'srp-request-actions'
+                className: 'srp-request-actions text-end'
             },
 
             /**
@@ -143,7 +143,8 @@ $(document).ready(() => {
                 }
             ],
             autoSize: false,
-            bootstrap: true
+            bootstrap: true,
+            bootstrap_version: 5,
         },
         paging: false,
         /**
@@ -179,10 +180,10 @@ $(document).ready(() => {
                     .addClass('srp-request-' + srpRequestCode)
                     .attr(
                         'data-params',
-                        '{csrfmiddlewaretoken:\'' + aaSrpSettings.csrfToken + '\'}'
+                        `{csrfmiddlewaretoken:'${aaSrpSettings.csrfToken}'}`
                     )
                     .attr('data-pk', srpRequestCode)
-                    .attr('data-tooltip', 'enable')
+                    // .attr('data-bs-title', aaSrpSettings.translation.changeSrpPayoutAmount)
                     .attr('title', aaSrpSettings.translation.changeSrpPayoutAmount)
                     .attr(
                         'data-url',
@@ -205,7 +206,7 @@ $(document).ready(() => {
         newValue = parseInt(newValue);
 
         // Update payout value formatted
-        const newValueFormatted = newValue.toLocaleString() + ' ISK';
+        const newValueFormatted = `${newValue.toLocaleString()} ISK`;
 
         // Update the element
         element
@@ -223,7 +224,7 @@ $(document).ready(() => {
             totalSrpAmount += parseInt(payoutElement.getAttribute('data-value'));
         });
 
-        $('.srp-fleet-total-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
+        $('.srp-fleet-total-amount').html(`${totalSrpAmount.toLocaleString()} ISK`);
     };
 
     /**
@@ -268,7 +269,7 @@ $(document).ready(() => {
         });
 
         // Show bootstrap tooltips
-        $('[data-tooltip="enable"]').tooltip();
+        // $('[data-tooltip="enable"]').tooltip();
     });
 
     /**
@@ -302,7 +303,7 @@ $(document).ready(() => {
         });
 
         // Update fleet total SRP amount
-        $('.srp-fleet-total-amount').html(totalSrpAmount.toLocaleString() + ' ISK');
+        $('.srp-fleet-total-amount').html(`${totalSrpAmount.toLocaleString()} ISK`);
 
         // Update requests counts
         $('.srp-requests-total-count').html(requestsTotal);
@@ -362,7 +363,7 @@ $(document).ready(() => {
                 }
             });
 
-            modalSrpRequestAccept.modal('toggle');
+            modalSrpRequestAccept.modal('hide');
         });
     }).on('hide.bs.modal', () => {
         modalSrpRequestAccept.find('textarea[name="reject_info"]').val('');
@@ -382,14 +383,12 @@ $(document).ready(() => {
                 .val();
 
             if (reviserComment === '') {
-                const errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
-                    '<p>' + aaSrpSettings.translation.modal.form.error.fieldRequired + '</p>' +
-                    '</div>';
+                const errorMessage = `<div class="aa-callout aa-callout-danger aasrp-form-field-errors clearfix"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
 
                 form.find('.aasrp-form-field-errors').remove();
 
                 $(errorMessage).insertAfter(
-                    $('textarea[name="accept_rejected_request_comment"]')
+                    $('textarea[name="reviser_comment"]')
                 );
             } else {
                 const posting = $.post(
@@ -408,13 +407,13 @@ $(document).ready(() => {
                     }
                 });
 
-                modalSrpRequestAcceptRejected.modal('toggle');
+                modalSrpRequestAcceptRejected.modal('hide');
             }
         });
     }).on('hide.bs.modal', () => {
-        modalSrpRequestAcceptRejected.find('textarea[name="reject_info"]').val('');
+        modalSrpRequestAcceptRejected.find('textarea[name="reviser_comment"]').val('');
 
-        $('.aasrp-form-field-error').remove();
+        $('.aasrp-form-field-errors').remove();
         $('#modal-button-confirm-accept-rejected-request').unbind('click');
     });
 
@@ -430,9 +429,7 @@ $(document).ready(() => {
                 .val();
 
             if (rejectInfo === '') {
-                const errorMessage = '<div class="aasrp-form-field-errors clearfix">' +
-                    '<p>' + aaSrpSettings.translation.modal.form.error.fieldRequired + '</p>' +
-                    '</div>';
+                const errorMessage = `<div class="aa-callout aa-callout-danger aasrp-form-field-errors clearfix"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
 
                 form.find('.aasrp-form-field-errors').remove();
 
@@ -454,7 +451,7 @@ $(document).ready(() => {
                     }
                 });
 
-                modalSrpRequestReject.modal('toggle');
+                modalSrpRequestReject.modal('hide');
             }
         });
     }).on('hide.bs.modal', () => {
@@ -478,6 +475,8 @@ $(document).ready(() => {
                     });
                 }
             });
+
+            modalSrpRequestRemove.modal('hide');
         });
     }).on('hide.bs.modal', () => {
         modalSrpRequestRemove.find('textarea[name="reject_info"]').val('');

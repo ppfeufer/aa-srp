@@ -1,0 +1,19 @@
+{% extends "aasrp/base.html" %}
+
+{% load i18n %}
+
+{% block page_title %}
+    {% translate "Request SRP" %}
+{% endblock %}
+
+{% block aasrp_body %}
+    <div class="row">
+        {% include "aasrp/partials/request-srp/fleet-details.html" %}
+        {% include "aasrp/partials/request-srp/form.html" %}
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    {% include "aasrp/bundles/aa-srp-css.html" %}
+    {% include "aasrp/bundles/aa-srp-form-css.html" %}
+{% endblock %}

@@ -10,6 +10,7 @@ from django.utils.translation import gettext as _
 
 # Alliance Auth
 from allianceauth.eveonline.models import EveCharacter
+from allianceauth.framework.api.user import get_main_character_name_from_user
 
 # Alliance Auth (External Libs)
 from eveuniverse.models import EveType
@@ -384,13 +385,8 @@ class SrpRequest(models.Model):
         :rtype:
         """
 
-        # AA SRP
-        from aasrp.helper.character import (  # pylint: disable=import-outside-toplevel
-            get_main_character_from_user,
-        )
-
         character_name = self.character.character_name
-        user_name = get_main_character_from_user(self.creator)
+        user_name = get_main_character_name_from_user(self.creator)
         ship = self.ship.name
         request_code = self.request_code
 

@@ -154,7 +154,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 
     context = {"form": form}
 
-    return render(request=request, template_name="aasrp/link_add.html", context=context)
+    return render(request=request, template_name="aasrp/link-add.html", context=context)
 
 
 @login_required
@@ -210,7 +210,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     context = {"srp_code": srp_code, "form": form}
 
     return render(
-        request=request, template_name="aasrp/link_edit.html", context=context
+        request=request, template_name="aasrp/link-edit.html", context=context
     )
 
 
@@ -443,7 +443,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
     context = {"srp_link": srp_link, "form": form}
 
     return render(
-        request=request, template_name="aasrp/request_srp.html", context=context
+        request=request, template_name="aasrp/request-srp.html", context=context
     )
 
 
@@ -531,7 +531,7 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
     }
 
     return render(
-        request=request, template_name="aasrp/view_requests.html", context=context
+        request=request, template_name="aasrp/view-requests.html", context=context
     )
 
 

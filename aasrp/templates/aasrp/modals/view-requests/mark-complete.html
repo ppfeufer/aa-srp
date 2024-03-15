@@ -1,0 +1,53 @@
+{% load i18n %}
+
+<!-- request mark as completed modal -->
+<div class="modal fade" id="srp-link-mark-complete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title fs-5">
+                    {% translate "Mark completed" %}
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    {% blocktranslate %}
+                        Are you sure you want to mark this SRP link as completed and
+                        close it for good? Be aware that once it's completed,
+                        your pilots can no longer file SRP requests for
+                        this link / fleet.
+                    {% endblocktranslate %}
+                </p>
+
+                {% if srp_link.pending_requests > 0 %}
+                    <p class="alert alert-warning">
+                        {% blocktranslate count number_pending_requests=srp_link.pending_requests %}
+                            This SRP link still has {{ number_pending_requests }} pending
+                            SRP request. Are you absolutely certain you want to mark
+                            this SRP link as completed?
+                        {% plural %}
+                            This SRP link still has {{ number_pending_requests }} pending
+                            SRP requests. Are you absolutely certain you want to mark
+                            this SRP link as completed?
+                        {% endblocktranslate %}
+                    </p>
+                {% endif %}
+            </div>
+
+            <div class="modal-footer">
+                <button id="modal-button-cancel-mark-complete" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                    <i class="fa-regular fa-hand"></i>
+                    {% translate "Cancel" %}
+                </button>
+
+                <a href="{% url 'aasrp:complete_srp_link' srp_link.srp_code %}" id="modal-button-confirm-mark-complete" role="button" class="btn btn-success btn-sm">
+                    <i class="fa-solid fa-check"></i>
+                    {% translate "Mark completed" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

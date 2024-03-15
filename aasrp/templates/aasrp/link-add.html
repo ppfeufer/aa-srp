@@ -1,0 +1,32 @@
+{% extends "aasrp/base.html" %}
+
+{% load i18n %}
+
+{% block page_title %}
+    {% translate "Create SRP link" %}
+{% endblock %}
+
+{% block aasrp_body %}
+    {% include "aasrp/partials/link-add/form.html" %}
+{% endblock %}
+
+{% block extra_css %}
+    {% include "bundles/jquery-datetimepicker-css.html" %}
+    {% include "aasrp/bundles/aa-srp-css.html" %}
+    {% include "aasrp/bundles/aa-srp-form-css.html" %}
+{% endblock %}
+
+{% block extra_javascript %}
+    {% include "bundles/jquery-datetimepicker-js.html" %}
+
+    <script>
+        $('#id_fleet_time').datetimepicker({
+            setlocale: '{{ LANGUAGE_CODE }}',
+            theme: 'default',
+            maskInput: true,
+            format: 'Y-m-d H:i',
+            dayOfWeekStart: 1,
+            step: 15
+        });
+    </script>
+{% endblock %}

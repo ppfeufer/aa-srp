@@ -1,0 +1,26 @@
+{% load django_bootstrap5 %}
+{% load i18n %}
+
+<!-- user settings tab -->
+<div class="tab-pane fade" id="{{ tab_name }}" role="tabpanel" aria-labelledby="tab-srp-links">
+    <div class="card card-default border-0">
+        <div class="card-header">
+            <div class="card-title mb-0">
+                {% translate "Notification settings" %}
+            </div>
+        </div>
+
+        <div class="card-body">
+            <form autocomplete="off" action="{% url 'aasrp:dashboard' %}" method="post">
+                {% csrf_token %}
+
+                <fieldset class="aa-srp-request-form">
+                    {% bootstrap_form user_settings_form %}
+
+                    {% translate "Change settings" as button_text %}
+                    {% bootstrap_button button_type="submit" content=button_text %}
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

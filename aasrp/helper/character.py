@@ -69,7 +69,7 @@ def get_formatted_character_name(
         title = _("Copy character name to clipboard")
         character_name_formatted += (
             "<i "
-            'class="aa-srp-fa-icon aa-srp-fa-icon-right copy-text-fa-icon far fa-copy" '
+            'class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" '
             f'data-clipboard-text="{character_name}" title="{title}"></i>'
         )
 
@@ -136,26 +136,3 @@ def get_user_for_character(character: EveCharacter) -> User:
         return get_sentinel_user()
 
     return userprofile.user
-
-
-def get_main_character_from_user(user: User) -> str:
-    """
-    Get the main character from a user
-
-    :param user:
-    :type user:
-    :return:
-    :rtype:
-    """
-
-    if user is None:
-        sentinel_user = get_sentinel_user()
-
-        return sentinel_user.username
-
-    try:
-        return_value = user.profile.main_character.character_name
-    except AttributeError:
-        return str(user)
-
-    return return_value

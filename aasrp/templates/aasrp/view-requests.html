@@ -1,0 +1,100 @@
+{% extends "aasrp/base.html" %}
+
+{% load i18n %}
+
+{% block page_title %}
+    {% translate "SRP requests" %}
+{% endblock %}
+
+{% block aasrp_body %}
+    {% include "aasrp/partials/view-requests/overview.html" %}
+    {% include "aasrp/partials/view-requests/requests.html" %}
+
+    {% include "aasrp/modals/view-requests/request-details.html" %}
+    {% include "aasrp/modals/view-requests/mark-complete.html" %}
+    {% include "aasrp/modals/view-requests/accept-request.html" %}
+    {% include "aasrp/modals/view-requests/accept-rejected-request.html" %}
+    {% include "aasrp/modals/view-requests/reject-request.html" %}
+    {% include "aasrp/modals/view-requests/delete-request.html" %}
+{% endblock %}
+
+{% block extra_css %}
+    {% include "bundles/datatables-css.html" %}
+    {% include "aasrp/bundles/x-editable-css.html" %}
+
+    {% include "aasrp/bundles/aa-srp-css.html" %}
+    {% include "aasrp/bundles/aa-srp-form-css.html" %}
+{% endblock %}
+
+{% block extra_javascript %}
+    {% include "bundles/clipboard-js.html" %}
+
+    <script>
+        const clipboard = new ClipboardJS('.copy-text-fa-icon');
+
+        clipboard.on('success', function (e) {
+            e.clearSelection();
+        });
+
+        clipboard.on('error', function (e) {
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
+        });
+    </script>
+
+    {% include "aasrp/bundles/x-editable-js.html" %}
+    {% include "bundles/moment-js.html" with locale=True %}
+    {% include "bundles/datatables-js.html" %}
+    {% include "bundles/filterdropdown-js.html" %}
+
+    <script>
+        /**
+         * passing some settings to our JS
+         */
+        const urlRequestsForSrpLink = '{% url "aasrp:ajax_srp_link_view_requests_data" srp_link.srp_code %}';
+        const urlChangeSrpAmount = '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}';
+
+        const aaSrpSettings = {
+            datetimeFormat: 'YYYY-MM-DD<br>HH:mm',
+            srpCode: '{{ srp_link.srp_code }}',
+            csrfToken: '{{ csrf_token }}',
+            url: {
+                requestsForSrpLink: urlRequestsForSrpLink,
+                changeSrpAmount: urlChangeSrpAmount
+            },
+            translation: {
+                filter: {
+                    requestStatus: '{% translate "Request status" %}',
+                    ship: '{% translate "Ship" %}',
+                    character: '{% translate "Character" %}'
+                },
+                changeSrpPayoutAmount: '{% translate "Click here to change the payout amount for this SRP request." %}',
+                changeSrpPayoutHeader: '{% translate "Enter SRP payout value" %}',
+                editableValidate: '{% translate "Empty values are not allowed" %}',
+                modal: {
+                    srpDetails: {
+                        body: {
+                            requestor: '{% translate "Requestor" %}',
+                            character: '{% translate "Character" %}',
+                            ship: '{% translate "Ship" %}',
+                            insurance: '{% translate "Insurance payout" %}',
+                            additionalInformation: '{% translate "Additional information" %}',
+                            rejectInformation: '{% translate "Reject information" %}'
+                        }
+                    },
+                    form: {
+                        error: {
+                            fieldRequired: '{% translate "This field is required." %}'
+                        }
+                    }
+                }
+            }
+        };
+
+        $(document).ready(() => {
+            $('[data-tooltip="payout-hint"]').tooltip();
+        });
+    </script>
+
+    {% include "aasrp/bundles/aa-srp-view-requests-js.html" %}
+{% endblock %}

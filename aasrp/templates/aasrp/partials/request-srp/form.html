@@ -1,0 +1,30 @@
+{% load django_bootstrap5 %}
+{% load i18n %}
+
+<div class="col-md-8">
+    <div class="card card-default">
+        <div class="card-header">
+            <div class="card-title mb-0">
+                {% translate "Your SRP request" %}
+            </div>
+        </div>
+
+        <div class="card-body">
+            <form autocomplete="off" action="{% url 'aasrp:request_srp' srp_link.srp_code %}" method="post">
+                {% csrf_token %}
+
+                <fieldset class="aa-srp-request-form">
+                    {% bootstrap_form form %}
+
+                    {% include "aasrp/partials/form/required-field-hint.html" %}
+
+                    <div class="form-group aasrp-form-group text-end clearfix">
+                        <button class="btn btn-primary" type="submit">
+                            {% translate "Submit SRP request" %}
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

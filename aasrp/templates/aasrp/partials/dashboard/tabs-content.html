@@ -1,0 +1,11 @@
+{% load i18n %}
+
+<div class="card">
+    <div class="card-body">
+        <div class="tab-content">
+            {% include "aasrp/partials/dashboard/srp-links.html" with tab_name="tab-srp-links" %}
+            {% include "aasrp/partials/dashboard/user-srp-requests.html" with tab_name="tab-user-srp-requests" %}
+            {% include "aasrp/partials/dashboard/user-settings.html" with tab_name="tab-user-settings" %}
+        </div>
+    </div>
+</div>

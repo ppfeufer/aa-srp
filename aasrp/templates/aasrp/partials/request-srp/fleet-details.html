@@ -1,0 +1,32 @@
+{% load i18n %}
+
+<div class="col-md-4 order-md-last">
+    <div class="card card-default mb-3">
+        <div class="card-header">
+            <div class="card-title mb-0">
+                {% translate "SRP / Fleet details" %}
+            </div>
+        </div>
+
+        <div class="card-body">
+            <ul class="list-unstyled">
+                <li><b>{% translate "Fleet name" %}:</b> {{ srp_link }}</li>
+                <li><b>{% translate "SRP code" %}:</b> {{ srp_link.srp_code }}</li>
+
+                {% if srp_link.fleet_type %}
+                    <li><b>{% translate "Fleet type" %}:</b> {{ srp_link.fleet_type }}</li>
+                {% endif %}
+
+                {% if srp_link.fleet_commander %}
+                    <li><b>{% translate "FC" %}:</b> {{ srp_link.fleet_commander }}</li>
+                {% endif %}
+
+                <li><b>{% translate "Doctrine" %}:</b> {{ srp_link.fleet_doctrine }}</li>
+
+                {% if srp_link.aar_link %}
+                    <li><b>{% translate "AAR" %}:</b> <a href="{{ srp_link.aar_link }}">{% translate "Read here" %}</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

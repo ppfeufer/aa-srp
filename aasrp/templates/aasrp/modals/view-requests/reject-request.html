@@ -1,0 +1,45 @@
+{% load bootstrap %}
+{% load i18n %}
+
+<!-- reject request modal -->
+<div class="modal fade" id="srp-request-reject" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title fs-5">
+                    {% translate "Reject SRP request" %}
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    {% translate "Are you sure you want to reject this SRP request?" %}
+                </p>
+
+                <form autocomplete="off" method="post">
+                    {% csrf_token %}
+
+                    <fieldset class="aa-srp-request-form">
+                        {{ forms.reject_request|bootstrap }}
+
+                        {% include "aasrp/partials/form/required-field-hint.html" %}
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button id="modal-button-cancel-reject-request" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                    <i class="fa-regular fa-hand"></i>
+                    {% translate "Cancel" %}
+                </button>
+
+                <button id="modal-button-confirm-reject-request" type="button" class="btn btn-warning btn-sm">
+                    <i class="fa-solid fa-ban"></i>
+                    {% translate "Reject SRP request" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
