@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023.
+# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 01:12+0100\n"
-"PO-Revision-Date: 2023-12-13 01:04+0000\n"
+"PO-Revision-Date: 2024-03-16 10:04+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/de/>\n"
+"Language-Team: German <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.4.2\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
 #: aasrp/templates/aasrp/base.html:10
@@ -548,10 +548,8 @@ msgid "AA-SRP settings"
 msgstr "AA-SRP Einstellungen"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:7
-#, fuzzy
-#| msgid "New SRP request status"
 msgid "SRP request status"
-msgstr "Neuer SRP Anfragestatus"
+msgstr "SRP Anfragestatus"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
 #: aasrp/templates/aasrp/dashboard.html:72
@@ -568,16 +566,12 @@ msgid "Request history"
 msgstr "Anfrageverlauf"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:102
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
-msgstr "Aktionen"
+msgstr "Aktion"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:126
-#, fuzzy
-#| msgid "SRP request has been approved"
 msgid "SRP request has been added."
-msgstr "SRP Anfrage wurde akzeptiert"
+msgstr "SRP Anfrage wurde hinzugefügt."
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:128
 msgid "SRP request status has changed to"
@@ -775,8 +769,6 @@ msgid "Your total SRP cost"
 msgstr "Deine gesamten SRP Kosten"
 
 #: aasrp/templates/aasrp/partials/dashboard/user-srp-requests.html:18
-#, fuzzy
-#| msgid "SRP request details"
 msgid "Request details"
 msgstr "SRP Anfrage Details"
 
