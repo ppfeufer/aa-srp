@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 01:12+0100\n"
-"PO-Revision-Date: 2024-02-06 07:10+0000\n"
+"PO-Revision-Date: 2024-03-22 12:56+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.3.1\n"
+"X-Generator: Weblate 5.4.2\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
 #: aasrp/templates/aasrp/base.html:10
@@ -385,7 +385,7 @@ msgstr "谁创建的舰船补损请求？"
 #: aasrp/templates/aasrp/view-requests.html:69
 #: aasrp/templates/aasrp/view-requests.html:78
 msgid "Character"
-msgstr ""
+msgstr "角色"
 
 #: aasrp/models.py:333 aasrp/models.py:342
 msgid "Ship type"
@@ -559,10 +559,8 @@ msgid "Action"
 msgstr "行动"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:126
-#, fuzzy
-#| msgid "SRP request has been approved"
 msgid "SRP request has been added."
-msgstr "舰船补损请求已被接受"
+msgstr "舰船补损请求已被接受."
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:128
 msgid "SRP request status has changed to"
@@ -622,7 +620,7 @@ msgstr "关闭"
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:43
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:35
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:25
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:29
