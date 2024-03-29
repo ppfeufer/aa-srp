@@ -35,6 +35,14 @@ Section Order:
 ### Security
 -->
 
+### Fixed
+
+- Use Bootstrap 5 CSS and JS for Datatables in the SRP request view
+
+### Changed
+
+- Re-add tooltip to SRP payout value field in the SRP request view
+
 ## \[2.0.0\] - 2024-03-16
 
 > \[!NOTE\]

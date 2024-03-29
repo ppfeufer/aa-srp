@@ -1,4 +1,4 @@
-/* global aaSrpSettings, moment */
+/* global aaSrpSettings, bootstrap, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -84,7 +84,7 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return `<span class="srp-payout-amount">${data.toLocaleString()} ISK</span>`;
+                        return `<span class="srp-payout-tooltip"><span class="srp-payout-amount">${data.toLocaleString()} ISK</span></span>`;
                     } else {
                         return data;
                     }
@@ -176,19 +176,29 @@ $(document).ready(() => {
                     .addClass('srp-request-payout-amount-editable');
 
                 $(row)
+                    .find('span.srp-payout-tooltip')
+                    .attr(
+                        'data-bs-tooltip',
+                        'aa-srp-tooltip'
+                    )
+                    .attr(
+                        'title',
+                        aaSrpSettings.translation.changeSrpPayoutAmount
+                    );
+
+                $(row)
                     .find('span.srp-payout-amount')
                     .addClass('srp-request-' + srpRequestCode)
+                    .attr('data-pk', srpRequestCode)
                     .attr(
                         'data-params',
                         `{csrfmiddlewaretoken:'${aaSrpSettings.csrfToken}'}`
                     )
-                    .attr('data-pk', srpRequestCode)
-                    // .attr('data-bs-title', aaSrpSettings.translation.changeSrpPayoutAmount)
-                    .attr('title', aaSrpSettings.translation.changeSrpPayoutAmount)
                     .attr(
                         'data-url',
                         aaSrpSettings.url.changeSrpAmount.replace(
-                            'SRP_REQUEST_CODE', srpRequestCode
+                            'SRP_REQUEST_CODE',
+                            srpRequestCode
                         )
                     );
             }
@@ -269,7 +279,13 @@ $(document).ready(() => {
         });
 
         // Show bootstrap tooltips
-        // $('[data-tooltip="enable"]').tooltip();
+        [].slice.call(
+            document.querySelectorAll(
+                '[data-bs-tooltip="aa-srp-tooltip"]'
+            )
+        ).map((tooltipTriggerEl) => {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
     });
 
     /**
