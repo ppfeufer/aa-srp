@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 01:12+0100\n"
-"PO-Revision-Date: 2024-01-12 19:05+0000\n"
+"PO-Revision-Date: 2024-04-07 13:07+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/fr/>\n"
+"Language-Team: French <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/fr/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.3.1\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
 #: aasrp/templates/aasrp/base.html:10
@@ -41,15 +41,15 @@ msgstr ""
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
-msgstr ""
+msgstr "Type de flotte"
 
 #: aasrp/admin.py:242 aasrp/models.py:117
 msgid "Is enabled"
-msgstr ""
+msgstr "Est activé"
 
 #: aasrp/admin.py:257
 msgid "Activate selected fleet types"
-msgstr ""
+msgstr "Activer les types de flotte sélectionnés"
 
 #: aasrp/admin.py:286
 #, python-brace-format
@@ -62,26 +62,26 @@ msgstr[1] ""
 #, python-brace-format
 msgid "Activated {notifications_count} fleet type"
 msgid_plural "Activated {notifications_count} fleet types"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{notifications_count} type de flotte activé"
+msgstr[1] "{notifications_count} types de flottes activé"
 
 #: aasrp/admin.py:302
 msgid "Deactivate selected fleet types"
-msgstr ""
+msgstr "Désactiver les types de flotte sélectionnés"
 
 #: aasrp/admin.py:331
 #, python-brace-format
 msgid "Failed to deactivate {failed} fleet type"
 msgid_plural "Failed to deactivate {failed} fleet types"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Échec de la désactivation de {failed} type de flotte"
+msgstr[1] "Échec de la désactivation de {failed} types de flotte"
 
 #: aasrp/admin.py:341
 #, python-brace-format
 msgid "Deactivated {notifications_count} fleet type"
 msgid_plural "Deactivated {notifications_count} fleet types"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{notifications_count} type de flotte désactivé"
+msgstr[1] "{notifications_count} types de flotte désactivés"
 
 #. Translators: This is the app name and version, which will appear in the Django Backend
 #: aasrp/apps.py:21
@@ -105,7 +105,7 @@ msgstr "Ce champ est obligatoire"
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:13
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:27
 msgid "Fleet name"
-msgstr ""
+msgstr "Nom de la flotte"
 
 #: aasrp/form.py:57 aasrp/models.py:186
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
