@@ -22,7 +22,7 @@ https://docs.github.com/assets/cb-41128/mw-1440/images/help/writing/alerts-rende
 > Critical content demanding immediate user attention due to potential risks.
 -->
 
-## \[In Development\] - Unreleased
+## \[In Development\] – Unreleased
 
 <!--
 Section Order:
@@ -35,13 +35,15 @@ Section Order:
 ### Security
 -->
 
+## \[2.0.1\] - 2024-05-09
+
 ### Fixed
 
 - Use Bootstrap 5 CSS and JS for Datatables in the SRP request view
 
 ### Changed
 
-- Re-add tooltip to SRP payout value field in the SRP request view
+- Re-add the tooltip to SRP payout value field in the SRP request view
 
 ## \[2.0.0\] - 2024-03-16
 
