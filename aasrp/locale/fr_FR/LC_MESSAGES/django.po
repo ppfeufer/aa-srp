@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 01:12+0100\n"
-"PO-Revision-Date: 2024-04-07 13:07+0000\n"
+"PO-Revision-Date: 2024-05-08 16:13+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/fr/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
 #: aasrp/templates/aasrp/base.html:10
@@ -286,7 +286,7 @@ msgstr ""
 
 #: aasrp/models.py:110
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: aasrp/models.py:116
 msgid "Whether this fleet type is active or not"
@@ -386,7 +386,7 @@ msgstr ""
 
 #: aasrp/models.py:333 aasrp/models.py:342
 msgid "Ship type"
-msgstr ""
+msgstr "Type de vaisseaux"
 
 #: aasrp/models.py:354 aasrp/templates/aasrp/dashboard.html:73
 #: aasrp/templates/aasrp/view-requests.html:67
