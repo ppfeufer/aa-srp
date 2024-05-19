@@ -10,7 +10,15 @@
         aria-controls="tab-srp-links"
         aria-selected="true"
     >
-        {% translate "SRP links" %}
+        {% if perms.aasrp.manage_srp %}
+            {% if request.resolver_match.url_name == "srp_links_all" %}
+                {% translate "SRP links (all)" %}
+            {% else %}
+                {% translate "SRP links (active)" %}
+            {% endif %}
+        {% else %}
+            {% translate "SRP links" %}
+        {% endif %}
     </a>
 </li>
 
