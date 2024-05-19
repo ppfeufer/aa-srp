@@ -11,10 +11,10 @@ from aasrp.views import ajax, general
 app_name: str = "aasrp"
 
 urlpatterns = [
-    path(route="", view=general.dashboard, name="dashboard"),
+    path(route="", view=general.srp_links, name="dashboard"),
     path(
         route="all/",
-        view=general.dashboard,
+        view=general.srp_links,
         kwargs={"show_all_links": True},
         name="all",
     ),

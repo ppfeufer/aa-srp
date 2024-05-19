@@ -38,12 +38,12 @@ from aasrp.helper.user import get_user_settings
 from aasrp.managers import SrpManager
 from aasrp.models import Insurance, RequestComment, SrpLink, SrpRequest
 
-logger = LoggerAddTag(get_extension_logger(__name__), __title__)
+logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
 @login_required
 @permission_required("aasrp.basic_access")
-def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpResponse:
+def srp_links(request: WSGIRequest, show_all_links: bool = False) -> HttpResponse:
     """
     SRP dashboard
 
@@ -57,7 +57,7 @@ def dashboard(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
 
     user_settings = get_user_settings(user=request.user)
 
-    # If this is a POST request, we need to process the form data
+    # If this is a POST request, we need to process the form data.
     if request.method == "POST":
         user_settings_form = UserSettingsForm(data=request.POST, instance=user_settings)
 
@@ -117,9 +117,9 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 
     logger.info(msg=f"Add SRP link form called by {request_user}")
 
-    # If this is a POST request, we need to process the form data
+    # If this is a POST request, we need to process the form data.
     if request.method == "POST":
-        # Create a form instance and populate it with data from the request
+        # Create a form instance and populate it with data from the request.
         form = SrpLinkForm(data=request.POST)
 
         # Check whether it's valid:
@@ -148,7 +148,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 
             return redirect(to="aasrp:dashboard")
 
-    # If a GET (or any other method) we'll create a blank form
+    # If a GET (or any other method) we'll create a blank form.
     else:
         form = SrpLinkForm()
 
@@ -189,7 +189,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
     srp_link = SrpLink.objects.get(srp_code=srp_code)
 
-    # If this is a POST request, we need to process the form data
+    # If this is a POST request, we need to process the form data.
     if request.method == "POST":
         # Create a form instance and populate it with data
         form = SrpLinkUpdateForm(data=request.POST, instance=srp_link)
@@ -366,9 +366,9 @@ def request_srp(  # pylint: disable=too-many-locals
 
         return redirect(to="aasrp:dashboard")
 
-    # If this is a POST request, we need to process the form data
+    # If this is a POST request, we need to process the form data.
     if request.method == "POST":
-        # Create a form instance and populate it with data from the request
+        # Create a form instance and populate it with data from the request.
         form = SrpRequestForm(data=request.POST)
         form_is_valid = form.is_valid()
 
@@ -425,7 +425,7 @@ def request_srp(  # pylint: disable=too-many-locals
                     additional_info=srp_request_additional_info,
                 )
 
-                # Send a message to the srp team in their discord channel
+                # Send a message to the srp team in their discord channel.
                 notify_srp_team(
                     srp_request=srp_request, additional_info=srp_request_additional_info
                 )
@@ -441,7 +441,7 @@ def request_srp(  # pylint: disable=too-many-locals
 
             return redirect(to="aasrp:dashboard")
 
-    # If a GET (or any other method) we'll create a blank form
+    # If a GET (or any other method) we'll create a blank form.
     else:
         logger.debug(msg=f"Returning blank SRP request form for {request.user}")
 
