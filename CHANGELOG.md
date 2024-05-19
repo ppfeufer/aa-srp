@@ -47,6 +47,7 @@ Section Order:
 
 - "View all" button now switches between "View all" and "View active" to make it
   more obvious what it does
+- Better navigation item names
 
 ## \[2.0.2\] - 2024-05-16
 
