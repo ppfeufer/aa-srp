@@ -43,6 +43,11 @@ Section Order:
   which caused an error in the SRP request form.
   This has been fixed now.
 
+### Changed
+
+- "View all" button now switches between "View all" and "View active" to make it
+  more obvious what it does
+
 ## \[2.0.2\] - 2024-05-16
 
 ### Changed

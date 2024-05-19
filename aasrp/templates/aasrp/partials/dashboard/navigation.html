@@ -2,9 +2,15 @@
 
 {% if perms.aasrp.manage_srp %}
     <li class="nav-item">
-        <a href="{% url 'aasrp:all' %}" class="nav-link py-0">
-            <span class="btn btn-secondary">{% translate "View all" %}</span>
-        </a>
+        {% if request.resolver_match.url_name == "srp_links_all" %}
+            <a href="{% url 'aasrp:srp_links' %}" class="nav-link py-0">
+                <span class="btn btn-secondary">{% translate "View active" %}</span>
+            </a>
+        {% else %}
+            <a href="{% url 'aasrp:srp_links_all' %}" class="nav-link py-0">
+                <span class="btn btn-secondary">{% translate "View all" %}</span>
+            </a>
+        {% endif %}
     </li>
 {% endif %}
 
