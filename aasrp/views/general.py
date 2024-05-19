@@ -70,7 +70,7 @@ def srp_links(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
 
             messages.success(request=request, message=_("Settings saved."))
 
-            return redirect(to="aasrp:dashboard")
+            return redirect(to="aasrp:srp_links")
     else:
         user_settings_form = UserSettingsForm(instance=user_settings)
 
@@ -85,7 +85,7 @@ def srp_links(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
                 ),
             )
 
-            return redirect(to="aasrp:dashboard")
+            return redirect(to="aasrp:srp_links")
 
         logger_message = f"Dashboard with all SRP links called by {request.user}"
 
@@ -146,7 +146,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
                 request=request, message=_(f'SRP link "{srp_link.srp_code}" created')
             )
 
-            return redirect(to="aasrp:dashboard")
+            return redirect(to="aasrp:srp_links")
 
     # If a GET (or any other method) we'll create a blank form.
     else:
@@ -185,7 +185,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
             request=request, message=_(f"Unable to locate SRP code with ID {srp_code}")
         )
 
-        return redirect(to="aasrp:dashboard")
+        return redirect(to="aasrp:srp_links")
 
     srp_link = SrpLink.objects.get(srp_code=srp_code)
 
@@ -203,7 +203,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
             messages.success(request=request, message=_("AAR link changed"))
 
-            return redirect(to="aasrp:dashboard")
+            return redirect(to="aasrp:srp_links")
     else:
         form = SrpLinkUpdateForm(instance=srp_link)
 
@@ -355,7 +355,7 @@ def request_srp(  # pylint: disable=too-many-locals
             message=_(f"Unable to locate SRP Fleet using SRP code {srp_code}"),
         )
 
-        return redirect("aasrp:dashboard")
+        return redirect("aasrp:srp_links")
 
     # Check if the SRP link is still open
     if srp_link.srp_status != SrpLink.Status.ACTIVE:
@@ -364,7 +364,7 @@ def request_srp(  # pylint: disable=too-many-locals
             message=_("This SRP link is no longer available for SRP requests."),
         )
 
-        return redirect(to="aasrp:dashboard")
+        return redirect(to="aasrp:srp_links")
 
     # If this is a POST request, we need to process the form data.
     if request.method == "POST":
@@ -409,7 +409,7 @@ def request_srp(  # pylint: disable=too-many-locals
 
                 messages.error(request=request, message=error_message_text)
 
-                return redirect(to="aasrp:dashboard")
+                return redirect(to="aasrp:srp_links")
 
             if request.user.character_ownerships.filter(
                 character__character_id=str(victim_id)
@@ -430,7 +430,7 @@ def request_srp(  # pylint: disable=too-many-locals
                     srp_request=srp_request, additional_info=srp_request_additional_info
                 )
 
-                return redirect(to="aasrp:dashboard")
+                return redirect(to="aasrp:srp_links")
 
             messages.error(
                 request=request,
@@ -439,7 +439,7 @@ def request_srp(  # pylint: disable=too-many-locals
                 ),
             )
 
-            return redirect(to="aasrp:dashboard")
+            return redirect(to="aasrp:srp_links")
 
     # If a GET (or any other method) we'll create a blank form.
     else:
@@ -482,7 +482,7 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
             request=request, message=_(f"Unable to locate SRP code with ID {srp_code}")
         )
 
-        return redirect(to="aasrp:dashboard")
+        return redirect(to="aasrp:srp_links")
 
     srp_link = SrpLink.objects.get(srp_code=srp_code)
     srp_link.srp_status = SrpLink.Status.COMPLETED
@@ -490,7 +490,7 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
 
     messages.success(request=request, message=_("SRP link marked as completed"))
 
-    return redirect(to="aasrp:dashboard")
+    return redirect(to="aasrp:srp_links")
 
 
 @login_required
@@ -521,7 +521,7 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
             request=request, message=_(f"Unable to locate SRP code with ID {srp_code}")
         )
 
-        return redirect(to="aasrp:dashboard")
+        return redirect(to="aasrp:srp_links")
 
     srp_link = SrpLink.objects.get(srp_code=srp_code)
     reject_form = SrpRequestRejectForm()
@@ -568,7 +568,7 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
             request=request, message=_(f"Unable to locate SRP code with ID {srp_code}")
         )
 
-        return redirect(to="aasrp:dashboard")
+        return redirect(to="aasrp:srp_links")
 
     srp_link = SrpLink.objects.get(srp_code=srp_code)
     srp_link.srp_status = SrpLink.Status.ACTIVE
@@ -576,7 +576,7 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
 
     messages.success(request=request, message=_(f"SRP link {srp_code} (re-)activated."))
 
-    return redirect(to="aasrp:dashboard")
+    return redirect(to="aasrp:srp_links")
 
 
 @login_required
@@ -605,7 +605,7 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
             request=request, message=_(f"Unable to locate SRP code with ID {srp_code}")
         )
 
-        return redirect(to="aasrp:dashboard")
+        return redirect(to="aasrp:srp_links")
 
     srp_link = SrpLink.objects.get(srp_code=srp_code)
     srp_link.srp_status = SrpLink.Status.CLOSED
@@ -613,7 +613,7 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
 
     messages.success(request=request, message=_(f"SRP link {srp_code} disabled."))
 
-    return redirect(to="aasrp:dashboard")
+    return redirect(to="aasrp:srp_links")
 
 
 @login_required
@@ -642,11 +642,11 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
             request=request, message=_(f"Unable to locate SRP code with ID {srp_code}")
         )
 
-        return redirect(to="aasrp:dashboard")
+        return redirect(to="aasrp:srp_links")
 
     srp_link = SrpLink.objects.get(srp_code=srp_code)
     srp_link.delete()
 
     messages.success(request=request, message=_(f"SRP link {srp_code} deleted."))
 
-    return redirect(to="aasrp:dashboard")
+    return redirect(to="aasrp:srp_links")

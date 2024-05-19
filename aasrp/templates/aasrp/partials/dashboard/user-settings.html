@@ -11,7 +11,7 @@
         </div>
 
         <div class="card-body">
-            <form autocomplete="off" action="{% url 'aasrp:dashboard' %}" method="post">
+            <form autocomplete="off" action="{% url 'aasrp:srp_links' %}" method="post">
                 {% csrf_token %}
 
                 <fieldset class="aa-srp-request-form">

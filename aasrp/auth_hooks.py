@@ -22,7 +22,7 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
             self,
             text=__title__,
             classes="fa-regular fa-money-bill-1",
-            url_name="aasrp:dashboard",
+            url_name="aasrp:srp_links",
             navactive=["aasrp:"],
         )
 

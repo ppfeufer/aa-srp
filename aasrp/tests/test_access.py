@@ -91,7 +91,7 @@ class TestAccess(TestCase):
         self.client.force_login(self.user_with_basic_access)
 
         # when
-        res = self.client.get(path=reverse("aasrp:dashboard"))
+        res = self.client.get(path=reverse("aasrp:srp_links"))
 
         # then
         self.assertEqual(first=res.status_code, second=200)
@@ -108,7 +108,7 @@ class TestAccess(TestCase):
         self.client.force_login(user=self.user_without_access)
 
         # when
-        res = self.client.get(path=reverse("aasrp:dashboard"))
+        res = self.client.get(path=reverse("aasrp:srp_links"))
 
         # then
         self.assertNotEqual(first=res.status_code, second=200)
@@ -126,7 +126,7 @@ class TestAccess(TestCase):
         self.client.force_login(user=self.user_with_manage_srp)
 
         # when
-        res = self.client.get(path=reverse("aasrp:all"))
+        res = self.client.get(path=reverse("aasrp:srp_links_all"))
 
         # then
         self.assertEqual(first=res.status_code, second=200)
@@ -143,7 +143,7 @@ class TestAccess(TestCase):
         self.client.force_login(user=self.user_with_basic_access)
 
         # when
-        res = self.client.get(path=reverse("aasrp:all"))
+        res = self.client.get(path=reverse("aasrp:srp_links_all"))
 
         # then
         self.assertNotEqual(first=res.status_code, second=200)

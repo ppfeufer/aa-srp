@@ -44,7 +44,7 @@ class TestMenuItemHtml(TestCase):
         cls.html_menu = f"""
             <li class="d-flex flex-wrap m-2 p-2 pt-0 pb-0 mt-0 mb-0 me-0 pe-0">
                 <i class="nav-link fa-regular fa-money-bill-1 fa-fw align-self-center me-3 "></i>
-                <a class="nav-link flex-fill align-self-center me-auto" href="{reverse('aasrp:dashboard')}">
+                <a class="nav-link flex-fill align-self-center me-auto" href="{reverse('aasrp:srp_links')}">
                     {__title__}
                 </a>
             </li>
