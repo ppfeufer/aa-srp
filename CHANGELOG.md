@@ -35,6 +35,14 @@ Section Order:
 ### Security
 -->
 
+### Fixed
+
+- Kill mail detection from zKillboard's API response.\
+  Under certain circumstances,
+  the zKillboard API returns more than one kill mail in the response,
+  which caused an error in the SRP request form.
+  This has been fixed now.
+
 ## \[2.0.2\] - 2024-05-16
 
 ### Changed
