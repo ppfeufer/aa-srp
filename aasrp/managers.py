@@ -47,7 +47,7 @@ class SrpManager:
         return kill_id
 
     @staticmethod
-    def get_kill_data(kill_id: str):
+    def get_kill_data(kill_id: str):  # pylint: disable=too-many-locals
         """
         Get kill data from zKillboard
 
@@ -67,7 +67,7 @@ class SrpManager:
             error_str = str(exc)
 
             logger.warning(
-                msg=f"Unable to get killmail details from zKillboard. Error: {error_str}",
+                msg=f"Unable to get kill mail details from zKillboard. Error: {error_str}",
                 exc_info=True,
             )
 
@@ -79,7 +79,25 @@ class SrpManager:
 
             raise ValueError(error_str) from exc
 
-        result = request_result.json()[0]
+        result_killmails = request_result.json()
+        result = None
+        for killmail in result_killmails:
+            if killmail["killmail_id"] == int(kill_id):
+                result = killmail
+
+        if not result:
+            logger.warning(
+                msg=(
+                    "Couldn't find any kill mail information in zKillboard's API response. "
+                    "This is likely an issue with zKillboard."
+                ),
+                exc_info=True,
+            )
+
+            raise ValueError(
+                "Couldn't find any kill mail information in zKillboard's API response. "
+                "This is likely an issue with zKillboard."
+            )
 
         try:
             killmail_id = result["killmail_id"]
