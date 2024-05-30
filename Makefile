@@ -9,6 +9,7 @@ package = aasrp
 .DEFAULT_GOAL := help
 
 # Help
+.PHONY: help
 help:
 	@echo ""
 	@echo "$(appname_verbose) Makefile"
@@ -26,9 +27,9 @@ help:
 	@echo ""
 
 # Translation files
+.PHONY: translationfiles
 translationfiles:
 	@echo "Creating or updating translation files"
-	#cd $(package); \
 	@django-admin makemessages \
 		-l cs \
 		-l de \
@@ -47,6 +48,7 @@ translationfiles:
 		--ignore 'build/*'
 
 # Graph models
+.PHONY: graph_models
 graph_models:
 	@echo "Creating a graph of the models"
 	@python ../myauth/manage.py \
@@ -56,6 +58,7 @@ graph_models:
 		-o $(appname)-models.png
 
 # Coverage
+.PHONY: coverage
 coverage:
 	@echo "Running tests and creating a coverage report"
 	@rm -rf htmlcov
@@ -68,12 +71,14 @@ coverage:
 	coverage report -m
 
 # Build test
+.PHONY: build_test
 build_test:
 	@echo "Building the package"
 	@rm -rf dist
 	@python3 -m build
 
 # Tox tests
+.PHONY: tox_tests
 tox_tests:
 	@echo "Running tests with tox"
 	@export USE_MYSQL=False; \
@@ -81,6 +86,7 @@ tox_tests:
 	rm -rf .tox/
 
 # Pre-commit checks
+.PHONY: pre-commit-checks
 pre-commit-checks:
 	@echo "Running pre-commit checks"
 	@pre-commit run --all-files
