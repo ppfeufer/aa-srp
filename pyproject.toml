@@ -13,7 +13,7 @@ keywords = [
     "eveonline",
     "ship_replacement",
 ]
-license = {file = "LICENSE"}
+license = { file = "LICENSE" }
 authors = [
     { name = "Peter Pfeufer", email = "develop@ppfeufer.de" },
 ]
@@ -39,26 +39,24 @@ dynamic = [
     "version",
 ]
 dependencies = [
-    "allianceauth<5.0.0,>=4",
+    "allianceauth<5,>=4",
     "allianceauth-app-utils>=1.25",
     "django-eveuniverse>=1.5.4",
 ]
-[project.optional-dependencies]
-tests-allianceauth-latest = [
+optional-dependencies.tests-allianceauth-latest = [
     "aa-discordnotify",
     "aa-forum",
     "allianceauth-discordbot",
     "coverage",
     "django-webtest",
-    "Faker",
+    "faker",
 ]
-[project.urls]
-Changelog = "https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md"
-Documentation = "https://github.com/ppfeufer/aa-srp/blob/master/README.md"
-Donations = "https://ko-fi.com/ppfeufer"
-Homepage = "https://github.com/ppfeufer/aa-srp"
-Source = "https://github.com/ppfeufer/aa-srp.git"
-Tracker = "https://github.com/ppfeufer/aa-srp/issues"
+urls.Changelog = "https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md"
+urls.Documentation = "https://github.com/ppfeufer/aa-srp/blob/master/README.md"
+urls.Donations = "https://ko-fi.com/ppfeufer"
+urls.Homepage = "https://github.com/ppfeufer/aa-srp"
+urls.Source = "https://github.com/ppfeufer/aa-srp.git"
+urls.Tracker = "https://github.com/ppfeufer/aa-srp/issues"
 
 [tool.hatch.build]
 include = [
