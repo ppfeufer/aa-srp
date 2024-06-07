@@ -5,13 +5,14 @@
 # Nikolay <nick.postnikov@gmail.com>, 2023, 2024.
 # Max <mark25@inbox.ru>, 2023, 2024.
 # Dromiel <dimhry@yandex.ru>, 2024.
+# Roycce_ <malyasov.roma@mail.ru>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 01:12+0100\n"
-"PO-Revision-Date: 2024-05-10 14:11+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2024-06-07 13:27+0000\n"
+"Last-Translator: Roycce_ <malyasov.roma@mail.ru>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/ru/>\n"
 "Language: ru\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : "
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.5.5\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
 #: aasrp/templates/aasrp/base.html:10
@@ -553,10 +554,8 @@ msgid "AA-SRP settings"
 msgstr "Настройки AA-SRP"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:7
-#, fuzzy
-#| msgid "New SRP request status"
 msgid "SRP request status"
-msgstr "Новый статус запроса SRP, который мог быть установлен"
+msgstr "Статус запроса SRP"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
 #: aasrp/templates/aasrp/dashboard.html:72
@@ -573,16 +572,12 @@ msgid "Request history"
 msgstr "История SRP запроса"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:102
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
-msgstr "Действия"
+msgstr "Действие"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:126
-#, fuzzy
-#| msgid "SRP request has been approved"
 msgid "SRP request has been added."
-msgstr "SRP запрос был удовлетворен"
+msgstr "SRP запрос был добавлен."
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:128
 msgid "SRP request status has changed to"
@@ -801,10 +796,8 @@ msgid "Your total SRP cost"
 msgstr "Ваша общая стоимость SRP"
 
 #: aasrp/templates/aasrp/partials/dashboard/user-srp-requests.html:18
-#, fuzzy
-#| msgid "SRP request details"
 msgid "Request details"
-msgstr "Детали SRP запроса"
+msgstr "Запросить детали"
 
 #: aasrp/templates/aasrp/partials/dashboard/user-srp-requests.html:20
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:20
