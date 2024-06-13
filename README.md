@@ -19,28 +19,27 @@ SRP Module for [Alliance Auth]
 
 ______________________________________________________________________
 
-<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=1 -->
+<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
 
-- [AA SRP](#aa-srp)
-  - [Overview](#overview)
-    - [Features](#features)
-    - [Screenshots](#screenshots)
-      - [Dashboard](#dashboard)
-      - [Dashboard (View All)](#dashboard-view-all)
-      - [Your SRP Requests](#your-srp-requests)
-      - [SRP Requests Overview](#srp-requests-overview)
-      - [SRP Request Details](#srp-request-details)
-  - [Installation](#installation)
-    - [Step 1: Install the Package](#step-1-install-the-package)
-    - [Step 2: Configure Alliance Auth](#step-2-configure-alliance-auth)
-    - [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
-    - [Step 4: Preload Eve Universe Data](#step-4-preload-eve-universe-data)
-    - [Step 5: Setting up Permissions](#step-5-setting-up-permissions)
-    - [Step 6: (Optional) Import From Built-in SRP Module](#step-6-optional-import-from-built-in-srp-module)
-  - [Permissions](#permissions)
-  - [Changelog](#changelog)
-  - [Translation Status](#translation-status)
-  - [Contributing](#contributing)
+- [Overview](#overview)
+  - [Features](#features)
+  - [Screenshots](#screenshots)
+    - [Dashboard](#dashboard)
+    - [Dashboard (View All)](#dashboard-view-all)
+    - [Your SRP Requests](#your-srp-requests)
+    - [SRP Requests Overview](#srp-requests-overview)
+    - [SRP Request Details](#srp-request-details)
+- [Installation](#installation)
+  - [Step 1: Install the Package](#step-1-install-the-package)
+  - [Step 2: Configure Alliance Auth](#step-2-configure-alliance-auth)
+  - [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
+  - [Step 4: Preload Eve Universe Data](#step-4-preload-eve-universe-data)
+  - [Step 5: Setting up Permissions](#step-5-setting-up-permissions)
+  - [Step 6: (Optional) Import From Built-in SRP Module](#step-6-optional-import-from-built-in-srp-module)
+- [Permissions](#permissions)
+- [Changelog](#changelog)
+- [Translation Status](#translation-status)
+- [Contributing](#contributing)
 
 <!-- mdformat-toc end -->
 
