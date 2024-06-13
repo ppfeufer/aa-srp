@@ -1,0 +1,18 @@
+{% load django_bootstrap5 %}
+{% load i18n %}
+
+<!-- user settings tab -->
+<div class="card">
+    <div class="card-body">
+        <form autocomplete="off" action="{% url 'aasrp:user_settings' %}" method="post">
+            {% csrf_token %}
+
+            <fieldset class="aa-srp-request-form">
+                {% bootstrap_form user_settings_form %}
+
+                {% translate "Save settings" as button_text %}
+                {% bootstrap_button button_type="submit" content=button_text %}
+            </fieldset>
+        </form>
+    </div>
+</div>

@@ -3,22 +3,13 @@
 {% load i18n %}
 {% load static %}
 
-{% block header_nav_collapse_left %}
-    {% include "aasrp/partials/dashboard/tabs-navigation.html" %}
-{% endblock %}
-
-{% block header_nav_collapse_right %}
-    {% include "aasrp/partials/dashboard/navigation.html" %}
-{% endblock %}
-
 {% block aasrp_body %}
-    {% include "aasrp/partials/dashboard/tabs-content.html" %}
+    {% include "aasrp/partials/dashboard/srp-links.html" %}
 
     <!-- modals -->
     {% include "aasrp/modals/dashboard/enable-srp-link.html" %}
     {% include "aasrp/modals/dashboard/disable-srp-link.html" %}
     {% include "aasrp/modals/dashboard/delete-srp-link.html" %}
-    {% include "aasrp/modals/view-requests/request-details.html" %}
 {% endblock %}
 
 {% block extra_css %}
@@ -51,7 +42,6 @@
         /**
          * Passing some setting to our JS
          */
-        const urlUserSrpRequests = "{% url 'aasrp:ajax_dashboard_user_srp_requests_data' %}";
         let urlAvailableSrpLinks = "{% url 'aasrp:ajax_dashboard_srp_links_data' %}";
         {% if show_all_links %}
             // Override for "view all"
@@ -61,8 +51,7 @@
         const aaSrpSettings = {
             datetimeFormat: 'YYYY-MM-DD<br>HH:mm',
             url: {
-                availableSrpLinks: urlAvailableSrpLinks,
-                userSrpRequests: urlUserSrpRequests
+                availableSrpLinks: urlAvailableSrpLinks
             },
             dataTable: {
                 paging: {{ show_all_links|yesno:"true,false" }}
@@ -89,19 +78,10 @@
                     deleteSrpLink: {
                         body: "<p>{% translate 'Are you sure you want to delete the following SRP link and all SRP requests tied to it?' %}</p>"
                     },
-                    srpDetails: {
-                        body: {
-                            requestor: '{% translate "Requestor" %}',
-                            character: '{% translate "Character" %}',
-                            ship: '{% translate "Ship" %}',
-                            additionalInformation: '{% translate "Additional information" %}',
-                            rejectInformation: '{% translate "Reject information" %}'
-                        }
-                    }
                 }
             }
         };
     </script>
 
-    {% include "aasrp/bundles/aa-srp-dashboard-js.html" %}
+    {% include "aasrp/bundles/srp-links-js.html" %}
 {% endblock %}

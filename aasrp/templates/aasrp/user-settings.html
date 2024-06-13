@@ -1,0 +1,11 @@
+{% extends "aasrp/base.html" %}
+
+{% load i18n %}
+
+{% block page_title %}
+    {% translate "My settings" %} » {% translate "Ship Replacement" %}
+{% endblock %}
+
+{% block aasrp_body %}
+    {% include "aasrp/partials/user-settings/form.html" %}
+{% endblock %}

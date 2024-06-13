@@ -1,0 +1,67 @@
+{% extends "aasrp/base.html" %}
+
+{% load i18n %}
+
+{% block page_title %}
+    {% translate "My SRP requests" %} » {% translate "Ship Replacement" %}
+{% endblock %}
+
+{% block aasrp_body %}
+    {% include "aasrp/partials/view-own-requests/user-srp-requests.html" with tab_name="tab-user-srp-requests" %}
+    {% include "aasrp/modals/view-requests/request-details.html" %}
+{% endblock %}
+
+{% block extra_css %}
+    {% include "bundles/datatables-css-bs5.html" %}
+    {% include "aasrp/bundles/aa-srp-css.html" %}
+    {% include "aasrp/bundles/aa-srp-form-css.html" %}
+{% endblock %}
+
+{% block extra_javascript %}
+    {% include "bundles/datatables-js-bs5.html" %}
+    {% include "bundles/moment-js.html" with locale=True %}
+    {% include "bundles/filterdropdown-js.html" %}
+
+    <script>
+        /**
+         * Passing some setting to our JS
+         */
+        const urlUserSrpRequests = "{% url 'aasrp:ajax_dashboard_user_srp_requests_data' %}";
+
+        const aaSrpSettings = {
+            datetimeFormat: 'YYYY-MM-DD<br>HH:mm',
+            url: {
+                userSrpRequests: urlUserSrpRequests
+            },
+            dataTable: {
+                paging: {{ show_all_links|yesno:"true,false" }}
+            },
+            translation: {
+                filter: {
+                    ship: "{% translate 'Ship' %}",
+                    requestStatus: "{% translate 'Request status' %}",
+                    character: "{% translate 'Character' %}",
+                },
+                dataTable: {
+                    content: {
+                        srpCode: "{% translate 'SRP code' %}",
+                        requestCode: "{% translate 'Request code' %}"
+                    }
+                },
+                modal: {
+                    srpDetails: {
+                        body: {
+                            requestor: '{% translate "Requestor" %}',
+                            character: '{% translate "Character" %}',
+                            ship: '{% translate "Ship" %}',
+                            additionalInformation: '{% translate "Additional information" %}',
+                            rejectInformation: '{% translate "Reject information" %}'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+
+    {% include "aasrp/bundles/my-srp-requests-js.html" %}
+{% endblock %}

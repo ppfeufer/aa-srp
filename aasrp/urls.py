@@ -11,13 +11,19 @@ from aasrp.views import ajax, general
 app_name: str = "aasrp"
 
 urlpatterns = [
-    path(route="", view=general.dashboard, name="dashboard"),
+    path(route="", view=general.srp_links, name="srp_links"),
     path(
         route="all/",
-        view=general.dashboard,
+        view=general.srp_links,
         kwargs={"show_all_links": True},
-        name="all",
+        name="srp_links_all",
     ),
+    path(
+        route="my-srp-requests/",
+        view=general.view_own_requests,
+        name="own_srp_requests",
+    ),
+    path(route="my-settings/", view=general.user_settings, name="user_settings"),
     path(route="add/", view=general.srp_link_add, name="add_srp_link"),
     path(
         route="srp-link/<str:srp_code>/edit/",

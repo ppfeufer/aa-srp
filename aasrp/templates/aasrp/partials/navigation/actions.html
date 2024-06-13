@@ -1,0 +1,23 @@
+{% load i18n %}
+
+{% if perms.aasrp.manage_srp %}
+    <li class="nav-item">
+        {% if request.resolver_match.url_name == "srp_links_all" %}
+            <a href="{% url 'aasrp:srp_links' %}" class="nav-link py-0">
+                <span class="btn btn-secondary">{% translate "View active" %}</span>
+            </a>
+        {% else %}
+            <a href="{% url 'aasrp:srp_links_all' %}" class="nav-link py-0">
+                <span class="btn btn-secondary">{% translate "View all" %}</span>
+            </a>
+        {% endif %}
+    </li>
+{% endif %}
+
+{% if perms.aasrp.create_srp or perms.aasrp.manage_srp %}
+    <li class="nav-item">
+        <a href="{% url 'aasrp:add_srp_link' %}" class="nav-link py-0">
+            <span class="btn btn-success">{% translate "Add SRP link" %}</span>
+        </a>
+    </li>
+{% endif %}

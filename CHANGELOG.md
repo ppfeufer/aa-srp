@@ -38,10 +38,16 @@ Section Order:
 ### Fixed
 
 - Kill mail detection from zKillboard's API response.\
-  Under certain circumstances,
-  the zKillboard API returns more than one kill mail in the response,
-  which caused an error in the SRP request form.
+  Under certain circumstances, the zKillboard API returns more than one kill mail in
+  the response, which caused an error in the SRP request form.
   This has been fixed now.
+
+### Changed
+
+- "View all" button now switches between "View all" and "View active" to make it
+  more obvious what it does
+- Better navigation item names
+- Top navigation improved
 
 ## \[2.0.2\] - 2024-05-16
 
