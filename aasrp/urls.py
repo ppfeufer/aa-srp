@@ -18,6 +18,12 @@ urlpatterns = [
         kwargs={"show_all_links": True},
         name="srp_links_all",
     ),
+    path(
+        route="my-srp-requests/",
+        view=general.view_own_requests,
+        name="own_srp_requests",
+    ),
+    path(route="my-settings/", view=general.user_settings, name="user_settings"),
     path(route="add/", view=general.srp_link_add, name="add_srp_link"),
     path(
         route="srp-link/<str:srp_code>/edit/",

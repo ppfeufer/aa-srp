@@ -1,15 +1,14 @@
 {% extends "aasrp/base.html" %}
 
 {% load i18n %}
-{% load static %}
+
+{% block page_title %}
+    {% translate "My SRP requests" %}
+{% endblock %}
 
 {% block aasrp_body %}
-    {% include "aasrp/partials/dashboard/srp-links.html" %}
-
-    <!-- modals -->
-    {% include "aasrp/modals/dashboard/enable-srp-link.html" %}
-    {% include "aasrp/modals/dashboard/disable-srp-link.html" %}
-    {% include "aasrp/modals/dashboard/delete-srp-link.html" %}
+    {% include "aasrp/partials/view-own-requests/user-srp-requests.html" with tab_name="tab-user-srp-requests" %}
+    {% include "aasrp/modals/view-requests/request-details.html" %}
 {% endblock %}
 
 {% block extra_css %}
@@ -19,21 +18,6 @@
 {% endblock %}
 
 {% block extra_javascript %}
-    {% include "bundles/clipboard-js.html" %}
-
-    <script>
-        const clipboard = new ClipboardJS('.copy-text-fa-icon');
-
-        clipboard.on('success', function (e) {
-            e.clearSelection();
-        });
-
-        clipboard.on('error', function (e) {
-            console.error('Action:', e.action);
-            console.error('Trigger:', e.trigger);
-        });
-    </script>
-
     {% include "bundles/datatables-js-bs5.html" %}
     {% include "bundles/moment-js.html" with locale=True %}
     {% include "bundles/filterdropdown-js.html" %}

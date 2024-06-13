@@ -1,14 +1,20 @@
 {% load i18n %}
+{% load navactive %}
 
 <li class="nav-item" role="presentation">
+    {% if perms.aasrp.manage_srp %}
+        {% if request.resolver_match.url_name == "srp_links_all" %}
+            {% url 'aasrp:srp_links_all' as url_srp_links %}
+        {% else %}
+            {% url 'aasrp:srp_links' as url_srp_links %}
+        {% endif %}
+    {% else %}
+        {% url 'aasrp:srp_links' as url_srp_links %}
+    {% endif %}
+
     <a
-        class="nav-link active"
-        id="srp-links"
-        data-bs-toggle="tab"
-        href="#tab-srp-links"
-        role="tab"
-        aria-controls="tab-srp-links"
-        aria-selected="true"
+        class="nav-link {% navactive request 'aasrp:srp_links aasrp:srp_links_all' %}"
+        href="{{ url_srp_links }}"
     >
         {% if perms.aasrp.manage_srp %}
             {% if request.resolver_match.url_name == "srp_links_all" %}
@@ -24,13 +30,8 @@
 
 <li class="nav-item" role="presentation">
     <a
-        class="nav-link"
-        id="user-srp-requests"
-        data-bs-toggle="tab"
-        href="#tab-user-srp-requests"
-        role="tab"
-        aria-controls="tab-user-srp-requests"
-        aria-selected="true"
+        class="nav-link {% navactive request 'aasrp:own_srp_requests' %}"
+        href="{% url 'aasrp:own_srp_requests' %}"
     >
         {% translate "My SRP requests" %}
     </a>
@@ -38,13 +39,8 @@
 
 <li class="nav-item" role="presentation">
     <a
-        class="nav-link"
-        id="user-settings"
-        data-bs-toggle="tab"
-        href="#tab-user-settings"
-        role="tab"
-        aria-controls="tab-user-settings"
-        aria-selected="true"
+        class="nav-link {% navactive request 'aasrp:user_settings' %}"
+        href="{% url 'aasrp:user_settings' %}"
     >
         {% translate "My settings" %}
     </a>

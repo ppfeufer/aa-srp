@@ -55,25 +55,6 @@ def srp_links(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
     :rtype:
     """
 
-    user_settings = get_user_settings(user=request.user)
-
-    # If this is a POST request, we need to process the form data.
-    if request.method == "POST":
-        user_settings_form = UserSettingsForm(data=request.POST, instance=user_settings)
-
-        # Check whether it's valid:
-        if user_settings_form.is_valid():
-            user_settings.disable_notifications = user_settings_form.cleaned_data[
-                "disable_notifications"
-            ]
-            user_settings.save()
-
-            messages.success(request=request, message=_("Settings saved."))
-
-            return redirect(to="aasrp:srp_links")
-    else:
-        user_settings_form = UserSettingsForm(instance=user_settings)
-
     logger_message = f"Dashboard with available SRP links called by {request.user}"
 
     if show_all_links is True:
@@ -91,13 +72,69 @@ def srp_links(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
 
     logger.info(msg=logger_message)
 
-    context = {
-        "show_all_links": show_all_links,
-        "user_settings_form": user_settings_form,
-    }
+    context = {"show_all_links": show_all_links}
 
     return render(
         request=request, template_name="aasrp/dashboard.html", context=context
+    )
+
+
+@login_required
+@permission_required("aasrp.basic_access")
+def view_own_requests(request: WSGIRequest) -> HttpResponse:
+    """
+    View own SRP requests
+
+    :param request:
+    :type request:
+    :return:
+    :rtype:
+    """
+
+    logger.info(msg=f"Own SRP requests view called by {request.user}")
+
+    return render(request=request, template_name="aasrp/view-own-requests.html")
+
+
+@login_required
+@permission_required("aasrp.basic_access")
+def user_settings(request: WSGIRequest) -> HttpResponse:
+    """
+    User settings
+
+    :param request:
+    :type request:
+    :return:
+    :rtype:
+    """
+
+    current_user_settings = get_user_settings(user=request.user)
+
+    # If this is a POST request, we need to process the form data.
+    if request.method == "POST":
+        user_settings_form = UserSettingsForm(
+            data=request.POST, instance=current_user_settings
+        )
+
+        # Check whether it's valid:
+        if user_settings_form.is_valid():
+            current_user_settings.disable_notifications = (
+                user_settings_form.cleaned_data["disable_notifications"]
+            )
+            current_user_settings.save()
+
+            messages.success(request=request, message=_("Settings saved."))
+
+            return redirect(to="aasrp:user_settings")
+    else:
+        user_settings_form = UserSettingsForm(instance=current_user_settings)
+
+    logger.info(msg=f"User settings view called by {request.user}")
+
+    context = {"user_settings_form": user_settings_form}
+
+    return render(
+        request=request, template_name="aasrp/user-settings.html", context=context
     )
 
 
