@@ -35,6 +35,12 @@ Section Order:
 ### Security
 -->
 
+## \[2.1.0\] - 2024-06-13
+
+### Added
+
+- Integrity hashes to CSS and JS files to prevent tampering
+
 ### Fixed
 
 - Kill mail detection from zKillboard's API response.\
