@@ -148,7 +148,7 @@ $(document).ready(() => {
         },
         paging: false,
         /**
-         * When ever a row is created ...
+         * When ever a row is created …
          *
          * @param row
          * @param data
@@ -209,7 +209,7 @@ $(document).ready(() => {
      * Helper function: Refresh the Payout Amount field
      *
      * @param element
-     * @param {int} newValue
+     * @param {int|string} newValue
      * @private
      */
     const _refreshSrpAmountField = (element, newValue) => {
@@ -241,7 +241,7 @@ $(document).ready(() => {
      * When the DataTable has finished rendering and is fully initialized
      */
     srpRequestsTable.on('draw', () => {
-        // Make the SRP payout field editable for pending and rejected requests
+        // Make the SRP payout field editable for pending and rejected requests.
         elementSrpRequestsTable.editable({
             container: 'body',
             selector: '.srp-request-payout-amount-editable .srp-payout-amount',
@@ -255,9 +255,9 @@ $(document).ready(() => {
                 return false;
             },
             /**
-             * On success ...
+             * On success …
              *
-             * Arrow functions don't work here since we need `$(this)`
+             * Arrow functions don't work here since we need `$(this)`.
              *
              * @param response
              * @param newValue

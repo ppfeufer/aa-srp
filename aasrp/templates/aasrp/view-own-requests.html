@@ -27,16 +27,10 @@
          * Passing some setting to our JS
          */
         const urlUserSrpRequests = "{% url 'aasrp:ajax_dashboard_user_srp_requests_data' %}";
-        let urlAvailableSrpLinks = "{% url 'aasrp:ajax_dashboard_srp_links_data' %}";
-        {% if show_all_links %}
-            // Override for "view all"
-            urlAvailableSrpLinks = "{% url 'aasrp:ajax_dashboard_srp_links_all_data' %}";
-        {% endif %}
 
         const aaSrpSettings = {
             datetimeFormat: 'YYYY-MM-DD<br>HH:mm',
             url: {
-                availableSrpLinks: urlAvailableSrpLinks,
                 userSrpRequests: urlUserSrpRequests
             },
             dataTable: {
@@ -55,15 +49,6 @@
                     }
                 },
                 modal: {
-                    enableSrpLink: {
-                        body: "<p>{% translate 'Are you sure you want to (re-)activate the following SRP link?' %}</p>"
-                    },
-                    disableSrpLink: {
-                        body: "<p>{% translate 'Are you sure you want to disable the following SRP link?' %}</p>"
-                    },
-                    deleteSrpLink: {
-                        body: "<p>{% translate 'Are you sure you want to delete the following SRP link and all SRP requests tied to it?' %}</p>"
-                    },
                     srpDetails: {
                         body: {
                             requestor: '{% translate "Requestor" %}',
@@ -78,5 +63,5 @@
         };
     </script>
 
-    {% include "aasrp/bundles/aa-srp-dashboard-js.html" %}
+    {% include "aasrp/bundles/my-srp-requests-js.html" %}
 {% endblock %}
