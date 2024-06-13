@@ -9,11 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-16 01:12+0100\n"
+"POT-Creation-Date: 2024-06-13 15:45+0200\n"
 "PO-Revision-Date: 2024-05-10 14:10+0000\n"
 "Last-Translator: Author50CO <tkddlschry@gmail.com>\n"
-"Language-Team: Korean <https://weblate.ppfeufer.de/projects/"
-"alliance-auth-apps/aa-srp/ko/>\n"
+"Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-"
+"apps/aa-srp/ko/>\n"
 "Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,26 +22,31 @@ msgstr ""
 "X-Generator: Weblate 5.5.3\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
-#: aasrp/templates/aasrp/base.html:10
+#: aasrp/templates/aasrp/base.html:10 aasrp/templates/aasrp/link-add.html:6
+#: aasrp/templates/aasrp/link-edit.html:6
+#: aasrp/templates/aasrp/request-srp.html:6
+#: aasrp/templates/aasrp/user-settings.html:6
+#: aasrp/templates/aasrp/view-own-requests.html:6
+#: aasrp/templates/aasrp/view-requests.html:6
 msgid "Ship Replacement"
 msgstr "SRP"
 
 #: aasrp/admin.py:140 aasrp/models.py:199 aasrp/models.py:322
 #: aasrp/models.py:463
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:17
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
 msgid "Creator"
 msgstr "생성자"
 
 #: aasrp/admin.py:189
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
-#: aasrp/templates/aasrp/dashboard.html:94
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
+#: aasrp/templates/aasrp/view-own-requests.html:54
 #: aasrp/templates/aasrp/view-requests.html:77
 msgid "Requestor"
 msgstr "요청자"
 
 #: aasrp/admin.py:229 aasrp/models.py:126 aasrp/models.py:183
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
 msgstr "함대 종류"
@@ -109,7 +114,7 @@ msgid "Fleet name"
 msgstr "함대 이름"
 
 #: aasrp/form.py:57 aasrp/models.py:186
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:37
 msgid "Fleet time"
 msgstr "함대 시각"
@@ -119,7 +124,7 @@ msgid "Fleet type (optional)"
 msgstr "함대 종류 (선택)"
 
 #: aasrp/form.py:68 aasrp/models.py:172
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:45
 msgid "Doctrine"
@@ -139,12 +144,12 @@ msgid ""
 "Find your kill mail on {ZKILLBOARD_BASE_URL} or "
 "{EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."
 msgstr ""
-"{ZKILLBOARD_BASE_URL} 또는{EVETOOLS_KILLBOARD_BASE_URL} 에서 킬메일 링크를 "
-"찾아 첨부하시기 바랍니다."
+"{ZKILLBOARD_BASE_URL} 또는{EVETOOLS_KILLBOARD_BASE_URL} 에서 킬메일 링크를 찾"
+"아 첨부하시기 바랍니다."
 
 #: aasrp/form.py:114 aasrp/models.py:348 aasrp/models.py:442
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
-#: aasrp/templates/aasrp/dashboard.html:97
+#: aasrp/templates/aasrp/view-own-requests.html:57
 #: aasrp/templates/aasrp/view-requests.html:81
 msgid "Additional information"
 msgstr "추가 정보"
@@ -155,8 +160,8 @@ msgid ""
 "FC, what doctrine was called, have changes to the fit been requested and so "
 "on. Be as detailed as you can."
 msgstr ""
-"당신이 사망하게 된 경위를 설명하십시오. FC 이름, 독트린, 독트린에서 변경된 "
-"모듈과 그 이유 등. 최대한 상세히 작성하여 주십시오."
+"당신이 사망하게 된 경위를 설명하십시오. FC 이름, 독트린, 독트린에서 변경된 모"
+"듈과 그 이유 등. 최대한 상세히 작성하여 주십시오."
 
 #: aasrp/form.py:147
 #, python-brace-format
@@ -169,14 +174,16 @@ msgstr ""
 
 #: aasrp/form.py:160
 msgid "Invalid link. Please post a link to a kill mail."
-msgstr "유효하지 않은 링크입니다. 올바른 킬메일 링크를 입력하여 주시기 바랍니다."
+msgstr ""
+"유효하지 않은 링크입니다. 올바른 킬메일 링크를 입력하여 주시기 바랍니다."
 
 #: aasrp/form.py:171
 msgid ""
 "There is already an SRP request for this kill mail. Please check if you got "
 "the right one."
-msgstr "이미 이 킬메일에 대한 요청이 생성되어 있습니다. 내용을 다시 검토하여 "
-"주십시오."
+msgstr ""
+"이미 이 킬메일에 대한 요청이 생성되어 있습니다. 내용을 다시 검토하여 주십시"
+"오."
 
 #: aasrp/form.py:184
 msgid "SRP payout value"
@@ -324,10 +331,11 @@ msgstr "SRP 이름"
 msgid "SRP status"
 msgstr "SRP 상태"
 
-#: aasrp/models.py:161 aasrp/templates/aasrp/dashboard.html:78
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:22
+#: aasrp/models.py:161 aasrp/templates/aasrp/dashboard.html:67
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:50
+#: aasrp/templates/aasrp/view-own-requests.html:47
 msgid "SRP code"
 msgstr "SRP 코드"
 
@@ -353,7 +361,7 @@ msgid "SRP link"
 msgstr "SRP 주소"
 
 #: aasrp/models.py:209
-#: aasrp/templates/aasrp/partials/dashboard/tabs-navigation.html:13
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:26
 msgid "SRP links"
 msgstr "SRP 링크"
 
@@ -372,8 +380,9 @@ msgstr "승인됨"
 msgid "Rejected"
 msgstr "거부됨"
 
-#: aasrp/models.py:312 aasrp/templates/aasrp/dashboard.html:79
+#: aasrp/models.py:312 aasrp/templates/aasrp/dashboard.html:68
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
+#: aasrp/templates/aasrp/view-own-requests.html:48
 msgid "Request code"
 msgstr "SRP 코드"
 
@@ -383,10 +392,11 @@ msgstr "누가 SRP 요청을 생성했나요?"
 
 #: aasrp/models.py:330
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:27
-#: aasrp/templates/aasrp/dashboard.html:74
-#: aasrp/templates/aasrp/dashboard.html:95
-#: aasrp/templates/aasrp/partials/dashboard/user-srp-requests.html:17
+#: aasrp/templates/aasrp/dashboard.html:63
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:18
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:17
+#: aasrp/templates/aasrp/view-own-requests.html:43
+#: aasrp/templates/aasrp/view-own-requests.html:55
 #: aasrp/templates/aasrp/view-requests.html:69
 #: aasrp/templates/aasrp/view-requests.html:78
 msgid "Character"
@@ -396,7 +406,8 @@ msgstr "캐릭터"
 msgid "Ship type"
 msgstr "함선 종류"
 
-#: aasrp/models.py:354 aasrp/templates/aasrp/dashboard.html:73
+#: aasrp/models.py:354 aasrp/templates/aasrp/dashboard.html:62
+#: aasrp/templates/aasrp/view-own-requests.html:42
 #: aasrp/templates/aasrp/view-requests.html:67
 msgid "Request status"
 msgstr "요청 상태"
@@ -410,7 +421,7 @@ msgid "Loss amount"
 msgstr "손실액"
 
 #: aasrp/models.py:365
-#: aasrp/templates/aasrp/partials/dashboard/user-srp-requests.html:16
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:17
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:15
 msgid "Request time"
 msgstr "요청 시간"
@@ -420,7 +431,7 @@ msgid "Request"
 msgstr "요청"
 
 #: aasrp/models.py:378
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:25
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:26
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:16
 msgid "Requests"
 msgstr "요청"
@@ -523,8 +534,8 @@ msgid ""
 "the ship and its fitting. Total value is the value of the ship, its fitting "
 "and the cargo. (Default: Total value)"
 msgstr ""
-"킬메일의 손실 금액에 대한 자료입니다. 함선 금액은 피팅된 모듈과 헐의 "
-"가격이며, 총액은 카고의 화물을 포함합니다.(기본값:총액)"
+"킬메일의 손실 금액에 대한 자료입니다. 함선 금액은 피팅된 모듈과 헐의 가격이"
+"며, 총액은 카고의 화물을 포함합니다.(기본값:총액)"
 
 #: aasrp/models.py:584
 #, fuzzy
@@ -533,7 +544,6 @@ msgid "Setting"
 msgstr "설정"
 
 #: aasrp/models.py:585
-#: aasrp/templates/aasrp/partials/dashboard/tabs-navigation.html:41
 msgid "Settings"
 msgstr "설정"
 
@@ -546,10 +556,11 @@ msgid "SRP request status"
 msgstr "SRP 요청 상태"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
-#: aasrp/templates/aasrp/dashboard.html:72
-#: aasrp/templates/aasrp/dashboard.html:96
-#: aasrp/templates/aasrp/partials/dashboard/user-srp-requests.html:19
+#: aasrp/templates/aasrp/dashboard.html:61
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:19
+#: aasrp/templates/aasrp/view-own-requests.html:41
+#: aasrp/templates/aasrp/view-own-requests.html:56
 #: aasrp/templates/aasrp/view-requests.html:68
 #: aasrp/templates/aasrp/view-requests.html:79
 msgid "Ship"
@@ -571,26 +582,19 @@ msgstr "SRP 요청이 추가되었습니다."
 msgid "SRP request status has changed to"
 msgstr ""
 
-#: aasrp/templates/aasrp/dashboard.html:84
+#: aasrp/templates/aasrp/dashboard.html:73
 msgid "Are you sure you want to (re-)activate the following SRP link?"
 msgstr "해당 SRP 세션을 활성화 하시겠습니까?"
 
-#: aasrp/templates/aasrp/dashboard.html:87
+#: aasrp/templates/aasrp/dashboard.html:76
 msgid "Are you sure you want to disable the following SRP link?"
 msgstr "해당 SRP 세션을 비활성화 하시겠습니까?"
 
-#: aasrp/templates/aasrp/dashboard.html:90
+#: aasrp/templates/aasrp/dashboard.html:79
 msgid ""
 "Are you sure you want to delete the following SRP link and all SRP requests "
 "tied to it?"
 msgstr "해당 SRP 세션 및 요청들을 모두 삭제 하시겠습니까?"
-
-#: aasrp/templates/aasrp/dashboard.html:98
-#: aasrp/templates/aasrp/view-requests.html:82
-#, fuzzy
-#| msgid "Additional Information"
-msgid "Reject information"
-msgstr "추가 정보"
 
 #: aasrp/templates/aasrp/link-add.html:6
 msgid "Create SRP link"
@@ -670,8 +674,8 @@ msgid ""
 msgstr ""
 "\n"
 "                        이 SRP 링크를 완료된 것으로 표시하시겠습니까?\n"
-"                        이를 진행할 경우 더이상 SRP요청을 입력받을 수 "
-"없습니다\n"
+"                        이를 진행할 경우 더이상 SRP요청을 입력받을 수 없습니"
+"다\n"
 "                    "
 
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:27
@@ -698,72 +702,34 @@ msgstr[0] ""
 msgid "Are you sure you want to reject this SRP request?"
 msgstr "이 요청을 거부 하시겠습니까?"
 
-#: aasrp/templates/aasrp/partials/dashboard/navigation.html:6
-msgid "View all"
-msgstr "모두 보기"
-
-#: aasrp/templates/aasrp/partials/dashboard/navigation.html:14
-msgid "Add SRP link"
-msgstr "SRP 세션 추가"
-
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:7
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:8
 msgid "Total SRP cost"
 msgstr "SRP 총액"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:16
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:17
 msgid "SRP link name"
 msgstr "세션 이름"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:22
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:27
 msgid "AAR"
 msgstr "AAR"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:58
 msgid "SRP cost"
 msgstr "SRP 금액"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:24
-#: aasrp/templates/aasrp/partials/dashboard/user-srp-requests.html:22
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:25
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:23
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:25
 msgid "Status"
 msgstr "상태"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:26
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:27
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:26
 msgid "Actions"
 msgstr ""
-
-#: aasrp/templates/aasrp/partials/dashboard/tabs-navigation.html:27
-msgid "Your SRP requests"
-msgstr "SRP 요청 목록"
-
-#: aasrp/templates/aasrp/partials/dashboard/user-settings.html:9
-msgid "Notification settings"
-msgstr "알림 세팅"
-
-#: aasrp/templates/aasrp/partials/dashboard/user-settings.html:20
-msgid "Change settings"
-msgstr "설정 변경"
-
-#: aasrp/templates/aasrp/partials/dashboard/user-srp-requests.html:7
-msgid "Your total SRP cost"
-msgstr "SRP 반환금 총계"
-
-#: aasrp/templates/aasrp/partials/dashboard/user-srp-requests.html:18
-msgid "Request details"
-msgstr "내용"
-
-#: aasrp/templates/aasrp/partials/dashboard/user-srp-requests.html:20
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:20
-msgid "ISK lost"
-msgstr "손실액"
-
-#: aasrp/templates/aasrp/partials/dashboard/user-srp-requests.html:21
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:22
-msgid "SRP payout"
-msgstr "SRP 지불금"
 
 #: aasrp/templates/aasrp/partials/footer/app-translation-footer.html:5
 msgid ""
@@ -793,6 +759,46 @@ msgstr "SRP 주소 생성"
 msgid "After action report"
 msgstr "AAR"
 
+#: aasrp/templates/aasrp/partials/navigation/actions.html:7
+#, fuzzy
+#| msgid "View all"
+msgid "View active"
+msgstr "모두 보기"
+
+#: aasrp/templates/aasrp/partials/navigation/actions.html:11
+msgid "View all"
+msgstr "모두 보기"
+
+#: aasrp/templates/aasrp/partials/navigation/actions.html:20
+msgid "Add SRP link"
+msgstr "SRP 세션 추가"
+
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:21
+#, fuzzy
+#| msgid "SRP links"
+msgid "SRP links (all)"
+msgstr "SRP 링크"
+
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:23
+#, fuzzy
+#| msgid "SRP link name"
+msgid "SRP links (active)"
+msgstr "세션 이름"
+
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:36
+#: aasrp/templates/aasrp/view-own-requests.html:6
+#, fuzzy
+#| msgid "SRP requests"
+msgid "My SRP requests"
+msgstr "요청 목록"
+
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:45
+#: aasrp/templates/aasrp/user-settings.html:6
+#, fuzzy
+#| msgid "settings"
+msgid "My settings"
+msgstr "설정"
+
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:7
 msgid "SRP / Fleet details"
 msgstr ""
@@ -813,6 +819,32 @@ msgstr "SRP 요청 목록"
 msgid "Submit SRP request"
 msgstr "SRP 요청 제출"
 
+#: aasrp/templates/aasrp/partials/user-settings/form.html:13
+#, fuzzy
+#| msgid "Change settings"
+msgid "Save settings"
+msgstr "설정 변경"
+
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:8
+#, fuzzy
+#| msgid "Total SRP cost"
+msgid "My total SRP cost"
+msgstr "SRP 총액"
+
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:19
+msgid "Request details"
+msgstr "내용"
+
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:21
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:20
+msgid "ISK lost"
+msgstr "손실액"
+
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:22
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:22
+msgid "SRP payout"
+msgstr "SRP 지불금"
+
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:7
 msgid "Overview"
 msgstr ""
@@ -832,7 +864,15 @@ msgstr "요청 목록"
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:23
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
-msgstr "클릭하여 값을 수정할 수 있으며, Enter 로 저장, ESC로 취소할 수 있습니다."
+msgstr ""
+"클릭하여 값을 수정할 수 있으며, Enter 로 저장, ESC로 취소할 수 있습니다."
+
+#: aasrp/templates/aasrp/view-own-requests.html:58
+#: aasrp/templates/aasrp/view-requests.html:82
+#, fuzzy
+#| msgid "Additional Information"
+msgid "Reject information"
+msgstr "추가 정보"
 
 #: aasrp/templates/aasrp/view-requests.html:71
 msgid "Click here to change the payout amount for this SRP request."
@@ -870,78 +910,86 @@ msgstr "SRP 요청이 거부되었습니다"
 msgid "SRP request has been removed"
 msgstr "SRP 요청이 삭제되었습니다"
 
-#: aasrp/views/general.py:71
-msgid "Settings saved."
-msgstr "설정 저장됨."
-
-#: aasrp/views/general.py:84
+#: aasrp/views/general.py:65
 msgid "You do not have the needed permissions to view all SRP links"
 msgstr "SRP 링크들을 조회하기 위한 권한이 없습니다"
 
-#: aasrp/views/general.py:146
+#: aasrp/views/general.py:126
+msgid "Settings saved."
+msgstr "설정 저장됨."
+
+#: aasrp/views/general.py:183
 #, python-brace-format
 msgid "SRP link \"{srp_link.srp_code}\" created"
 msgstr "SRP 세션{srp_link.srp_code} 이 생성됨"
 
-#: aasrp/views/general.py:185 aasrp/views/general.py:475
-#: aasrp/views/general.py:514 aasrp/views/general.py:561
-#: aasrp/views/general.py:598 aasrp/views/general.py:635
+#: aasrp/views/general.py:222 aasrp/views/general.py:519
+#: aasrp/views/general.py:558 aasrp/views/general.py:605
+#: aasrp/views/general.py:642 aasrp/views/general.py:679
 #, python-brace-format
 msgid "Unable to locate SRP code with ID {srp_code}"
 msgstr "다음 링크의 SRP 세션을 생성할 수 없습니다 ({srp_code})"
 
-#: aasrp/views/general.py:204
+#: aasrp/views/general.py:241
 msgid "AAR link changed"
 msgstr "AAR 링크 변경됨"
 
-#: aasrp/views/general.py:314
+#: aasrp/views/general.py:351
 #, python-brace-format
 msgid "Submitted SRP request for your {srp_request__ship.name}."
-msgstr "다음 링크에 대한 SRP 요청이 제출되었습니다. ({srp_request__ship.name})."
+msgstr ""
+"다음 링크에 대한 SRP 요청이 제출되었습니다. ({srp_request__ship.name})."
 
-#: aasrp/views/general.py:353
+#: aasrp/views/general.py:392
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr "다음 SRP 코드에 의한 세션 생성이 실패하였습니다. ({srp_code})"
 
-#: aasrp/views/general.py:362
+#: aasrp/views/general.py:401
 msgid "This SRP link is no longer available for SRP requests."
 msgstr "해당 SRP 세션은 더이상 이용할 수 없습니다."
 
-#: aasrp/views/general.py:400
+#: aasrp/views/general.py:440
+msgid ""
+"Something went wrong, your kill mail ({submitted_killmail_link}) could not "
+"be parsed: {str(err)}"
+msgstr ""
+
+#: aasrp/views/general.py:444
 #, python-brace-format
 msgid ""
 "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard "
 "API is not answering at the moment. Please make sure you are using either "
 "{ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
 msgstr ""
-"킬메일 링크({submitted_killmail_link})가 유효하지 않거나 API에서 자료를 "
-"받아올 수 없습니다. {ZKILLBOARD_BASE_URL} 또는 {EVETOOLS_KILLBOARD_BASE_URL} "
-"를 이용하고 링크를 확인해 주십시오"
+"킬메일 링크({submitted_killmail_link})가 유효하지 않거나 API에서 자료를 받아"
+"올 수 없습니다. {ZKILLBOARD_BASE_URL} 또는 {EVETOOLS_KILLBOARD_BASE_URL} 를 "
+"이용하고 링크를 확인해 주십시오"
 
-#: aasrp/views/general.py:431
+#: aasrp/views/general.py:475
 #, python-brace-format
 msgid ""
 "Character {victim_id} does not belong to your Auth account. Please add this "
 "character as an alt to your main and try again."
-msgstr "{victim_id} 는 사용자의 계정에 속해있지 않습니다. 캐릭터를 추가하거나 "
-"오탈자를 확인한 후 다시 시도해 주십시오."
+msgstr ""
+"{victim_id} 는 사용자의 계정에 속해있지 않습니다. 캐릭터를 추가하거나 오탈자"
+"를 확인한 후 다시 시도해 주십시오."
 
-#: aasrp/views/general.py:484
+#: aasrp/views/general.py:528
 msgid "SRP link marked as completed"
 msgstr "종료된 SRP 세션"
 
-#: aasrp/views/general.py:570
+#: aasrp/views/general.py:614
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr "SRP 세션 {srp_code} 이 활성화 되었습니다."
 
-#: aasrp/views/general.py:607
+#: aasrp/views/general.py:651
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr "SRP 세션 {srp_code} 이 비활성화 되었습니다."
 
-#: aasrp/views/general.py:643
+#: aasrp/views/general.py:687
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "SRP 세션 {srp_code} 이 삭제 되었습니다."
