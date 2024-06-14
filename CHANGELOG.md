@@ -39,6 +39,10 @@ Section Order:
 
 - SRP request status now shows its translated value in the SRP request detail modal
 
+### Changed
+
+- German translation updated
+
 ## \[2.1.0\] - 2024-06-13
 
 ### Added
