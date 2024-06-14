@@ -340,7 +340,7 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
                 "payout_amount": srp_request.payout_amount,
                 "request_status_icon": srp_request_status_icon,
                 "actions": srp_request_action_icons,
-                "request_status": srp_request.request_status,
+                "request_status": srp_request.get_request_status_display(),
             }
         )
 
@@ -428,7 +428,7 @@ def srp_request_additional_information(
         "character": character,
         "additional_info": additional_info,
         "request_status_banner_alert_level": request_status_banner_alert_level,
-        "request_status": srp_request.request_status,
+        "request_status": srp_request.get_request_status_display(),
         "insurance_information": insurance_information,
         "request_history": request_history,
     }
