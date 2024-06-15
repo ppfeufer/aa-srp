@@ -35,6 +35,8 @@ Section Order:
 ### Security
 -->
 
+## \[2.1.1\] - 2024-06-15
+
 ### Fixed
 
 - SRP request status now shows its translated value in the SRP request detail modal
