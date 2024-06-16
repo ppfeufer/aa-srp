@@ -4,7 +4,6 @@ Helper for our tests
 
 # Standard Library
 import re
-from typing import List
 
 # Third Party
 from faker import Faker
@@ -27,7 +26,7 @@ def create_fake_user(
     corporation_id: int = None,
     corporation_name: str = None,
     corporation_ticker: str = None,
-    permissions: List[str] = None,
+    permissions: list[str] = None,
     **kwargs,
 ) -> User:
     """
