@@ -2,9 +2,6 @@
 Some helper functions, so we don't mess up other files too much
 """
 
-# Standard Library
-from typing import Optional
-
 # Django
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
@@ -94,7 +91,7 @@ def get_formatted_character_name(
     return return_value
 
 
-def get_main_for_character(character: EveCharacter) -> Optional[EveCharacter]:
+def get_main_for_character(character: EveCharacter) -> EveCharacter | None:
     """
     Get the main character for a given eve character
 
