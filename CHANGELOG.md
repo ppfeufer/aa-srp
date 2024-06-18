@@ -35,6 +35,8 @@ Section Order:
 ### Security
 -->
 
+## \[2.2.0\] - 2024-06-18
+
 ### Fixed
 
 - SRP payout not editable in translated views
