@@ -104,7 +104,7 @@ $(document).ready(() => {
              * Hidden columns
              */
             {data: 'ship'},
-            {data: 'request_status'},
+            {data: 'request_status_translated'},
             {data: 'character'}
         ],
         columnDefs: [

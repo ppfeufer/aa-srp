@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Fixed
+
+- SRP payout not editable in translated views
+
 ### Removed
 
 - Support for Python 3.8 and Python 3.9
