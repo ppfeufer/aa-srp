@@ -248,7 +248,7 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
                 "request_status_icon": (
                     srp_request_details_icon + srp_request_status_icon
                 ),
-                "request_status": srp_request.request_status,
+                "request_status": srp_request.get_request_status_display(),
             }
         )
 
@@ -340,7 +340,8 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
                 "payout_amount": srp_request.payout_amount,
                 "request_status_icon": srp_request_status_icon,
                 "actions": srp_request_action_icons,
-                "request_status": srp_request.get_request_status_display(),
+                "request_status_translated": srp_request.get_request_status_display(),
+                "request_status": srp_request.request_status,
             }
         )
 
