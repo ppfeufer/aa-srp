@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-13 15:45+0200\n"
+"POT-Creation-Date: 2024-06-18 06:38+0200\n"
 "PO-Revision-Date: 2024-06-07 13:27+0000\n"
 "Last-Translator: Roycce_ <malyasov.roma@mail.ru>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -237,11 +237,11 @@ msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "Отключить уведомления. (Auth и Discord при установленных модулях)"
 
-#: aasrp/helper/character.py:48
+#: aasrp/helper/character.py:45
 msgid "Unknown character"
 msgstr "Неизвестный пилот"
 
-#: aasrp/helper/character.py:69
+#: aasrp/helper/character.py:66
 msgid "Copy character name to clipboard"
 msgstr "Скопировать имя пилота в буфер обмена"
 
@@ -282,7 +282,7 @@ msgstr "SRP запрос обрабатывается"
 msgid "SRP request approved"
 msgstr "SRP запрос удовлетворен"
 
-#: aasrp/helper/icons.py:165 aasrp/views/ajax.py:672
+#: aasrp/helper/icons.py:165 aasrp/views/ajax.py:673
 msgid "SRP request rejected"
 msgstr "SRP запрос отклонен"
 
@@ -942,15 +942,15 @@ msgstr "Ссылка"
 msgid "Copy SRP link to clipboard"
 msgstr "Скопировать SRP ссылку в буфер обмена"
 
-#: aasrp/views/ajax.py:586
+#: aasrp/views/ajax.py:587
 msgid "SRP request has been approved"
 msgstr "SRP запрос был удовлетворен"
 
-#: aasrp/views/ajax.py:677
+#: aasrp/views/ajax.py:678
 msgid "SRP request has been rejected"
 msgstr "SRP запрос был отклонен"
 
-#: aasrp/views/ajax.py:714
+#: aasrp/views/ajax.py:715
 msgid "SRP request has been removed"
 msgstr "SRP запрос был удален"
 
