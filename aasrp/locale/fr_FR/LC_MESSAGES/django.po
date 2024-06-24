@@ -26,13 +26,13 @@ msgstr ""
 #: aasrp/templates/aasrp/view-own-requests.html:6
 #: aasrp/templates/aasrp/view-requests.html:6
 msgid "Ship Replacement"
-msgstr ""
+msgstr "Remplacement de vaisseau"
 
 #: aasrp/admin.py:140 aasrp/models.py:199 aasrp/models.py:322
 #: aasrp/models.py:463
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
 msgid "Creator"
-msgstr ""
+msgstr "Créateur"
 
 #: aasrp/admin.py:189
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
@@ -212,11 +212,11 @@ msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
 
-#: aasrp/helper/character.py:45
+#: aasrp/helper/character.py:45 aasrp/helper/character.py:48
 msgid "Unknown character"
 msgstr ""
 
-#: aasrp/helper/character.py:66
+#: aasrp/helper/character.py:66 aasrp/helper/character.py:69
 msgid "Copy character name to clipboard"
 msgstr ""
 
@@ -257,7 +257,7 @@ msgstr ""
 msgid "SRP request approved"
 msgstr ""
 
-#: aasrp/helper/icons.py:165 aasrp/views/ajax.py:673
+#: aasrp/helper/icons.py:165 aasrp/views/ajax.py:673 aasrp/views/ajax.py:672
 msgid "SRP request rejected"
 msgstr ""
 
@@ -861,15 +861,15 @@ msgstr ""
 msgid "Copy SRP link to clipboard"
 msgstr ""
 
-#: aasrp/views/ajax.py:587
+#: aasrp/views/ajax.py:587 aasrp/views/ajax.py:586
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:678
+#: aasrp/views/ajax.py:678 aasrp/views/ajax.py:677
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:715
+#: aasrp/views/ajax.py:715 aasrp/views/ajax.py:714
 msgid "SRP request has been removed"
 msgstr ""
 
