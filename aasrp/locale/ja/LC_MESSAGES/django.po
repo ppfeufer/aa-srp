@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-18 06:38+0200\n"
+"POT-Creation-Date: 2024-06-25 19:06+0200\n"
 "PO-Revision-Date: 2024-05-10 14:11+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -733,15 +733,15 @@ msgstr ""
 msgid "After action report"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:7
+#: aasrp/templates/aasrp/partials/navigation/actions.html:8
 msgid "View active"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:11
+#: aasrp/templates/aasrp/partials/navigation/actions.html:12
 msgid "View all"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:20
+#: aasrp/templates/aasrp/partials/navigation/actions.html:22
 msgid "Add SRP link"
 msgstr ""
 

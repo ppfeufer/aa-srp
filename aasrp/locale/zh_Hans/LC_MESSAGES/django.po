@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-18 06:38+0200\n"
+"POT-Creation-Date: 2024-06-25 19:06+0200\n"
 "PO-Revision-Date: 2024-05-21 17:11+0000\n"
 "Last-Translator: Isaac Yin <isaacyin42@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/"
@@ -757,17 +757,17 @@ msgstr "创建链接"
 msgid "After action report"
 msgstr "在行动报告之后"
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:7
+#: aasrp/templates/aasrp/partials/navigation/actions.html:8
 #, fuzzy
 #| msgid "View all"
 msgid "View active"
 msgstr "浏览全部"
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:11
+#: aasrp/templates/aasrp/partials/navigation/actions.html:12
 msgid "View all"
 msgstr "浏览全部"
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:20
+#: aasrp/templates/aasrp/partials/navigation/actions.html:22
 msgid "Add SRP link"
 msgstr "添加舰船补损链接"
 

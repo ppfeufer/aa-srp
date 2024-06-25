@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-18 06:38+0200\n"
+"POT-Creation-Date: 2024-06-25 19:06+0200\n"
 "PO-Revision-Date: 2024-05-10 14:11+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -212,11 +212,11 @@ msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
 
-#: aasrp/helper/character.py:45 aasrp/helper/character.py:48
+#: aasrp/helper/character.py:45
 msgid "Unknown character"
 msgstr ""
 
-#: aasrp/helper/character.py:66 aasrp/helper/character.py:69
+#: aasrp/helper/character.py:66
 msgid "Copy character name to clipboard"
 msgstr ""
 
@@ -257,7 +257,7 @@ msgstr ""
 msgid "SRP request approved"
 msgstr ""
 
-#: aasrp/helper/icons.py:165 aasrp/views/ajax.py:673 aasrp/views/ajax.py:672
+#: aasrp/helper/icons.py:165 aasrp/views/ajax.py:673
 msgid "SRP request rejected"
 msgstr ""
 
@@ -739,15 +739,15 @@ msgstr ""
 msgid "After action report"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:7
+#: aasrp/templates/aasrp/partials/navigation/actions.html:8
 msgid "View active"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:11
+#: aasrp/templates/aasrp/partials/navigation/actions.html:12
 msgid "View all"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:20
+#: aasrp/templates/aasrp/partials/navigation/actions.html:22
 msgid "Add SRP link"
 msgstr ""
 
@@ -861,15 +861,15 @@ msgstr ""
 msgid "Copy SRP link to clipboard"
 msgstr ""
 
-#: aasrp/views/ajax.py:587 aasrp/views/ajax.py:586
+#: aasrp/views/ajax.py:587
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:678 aasrp/views/ajax.py:677
+#: aasrp/views/ajax.py:678
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:715 aasrp/views/ajax.py:714
+#: aasrp/views/ajax.py:715
 msgid "SRP request has been removed"
 msgstr ""
 
