@@ -1,7 +1,7 @@
 # Makefile for AA SRP
 
 # Variables
-appname = aa-arp
+appname = aa-srp
 appname_verbose = AA SRP
 package = aasrp
 
