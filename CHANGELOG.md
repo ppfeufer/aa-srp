@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- "View all/active" button now is only shown when in the SRP links view
+
 ## \[2.2.0\] - 2024-06-18
 
 ### Fixed
