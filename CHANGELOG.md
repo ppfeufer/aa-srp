@@ -38,6 +38,7 @@ Section Order:
 ### Changed
 
 - "View all/active" button now is only shown when in the SRP links view
+- French translation updated
 
 ## \[2.2.0\] - 2024-06-18
 
