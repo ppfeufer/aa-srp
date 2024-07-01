@@ -4,13 +4,14 @@
 # Peter Pfeufer <info@ppfeufer.de>, 2023, 2024.
 # Dehao Wu <wudehao2000@163.com>, 2024.
 # Isaac Yin <isaacyin42@gmail.com>, 2024.
+# luffe <luffe8864@foxmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-25 19:06+0200\n"
-"PO-Revision-Date: 2024-05-21 17:11+0000\n"
-"Last-Translator: Isaac Yin <isaacyin42@gmail.com>\n"
+"PO-Revision-Date: 2024-07-01 04:27+0000\n"
+"Last-Translator: luffe <luffe8864@foxmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5.5\n"
+"X-Generator: Weblate 5.6.1\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
 #: aasrp/templates/aasrp/base.html:10 aasrp/templates/aasrp/link-add.html:6
@@ -90,7 +91,7 @@ msgstr[0] "未激活 {notifications_count} 舰队类型"
 #: aasrp/apps.py:21
 #, python-brace-format
 msgid "AA Ship Replacement v{__version__}"
-msgstr ""
+msgstr "联盟舰船补损 v{__version__}"
 
 #: aasrp/constants.py:20
 msgid ""
@@ -237,7 +238,7 @@ msgstr "查看舰船补损情况"
 #: aasrp/helper/icons.py:67
 #: aasrp/templates/aasrp/partials/link-edit/form.html:19
 msgid "Add/Change AAR link"
-msgstr ""
+msgstr "增加或修改舰船补损链接"
 
 #: aasrp/helper/icons.py:78
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:4
@@ -346,7 +347,7 @@ msgstr "如果这个舰队类型有舰船补损链接，请设置"
 
 #: aasrp/models.py:188
 msgid "AAR link"
-msgstr ""
+msgstr "舰船补损链接"
 
 #: aasrp/models.py:198
 msgid "Who created the SRP link?"
@@ -544,10 +545,8 @@ msgid "AA-SRP settings"
 msgstr "补损设置"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:7
-#, fuzzy
-#| msgid "New SRP request status"
 msgid "SRP request status"
-msgstr "新的舰船补损请求状态"
+msgstr "舰船补损请求状态"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
 #: aasrp/templates/aasrp/dashboard.html:61
@@ -565,8 +564,6 @@ msgid "Request history"
 msgstr "请求历史记录"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:102
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
 msgstr "行动"
 
@@ -713,7 +710,7 @@ msgstr "舰船补损链接名字"
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:22
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:27
 msgid "AAR"
-msgstr ""
+msgstr "舰船补损"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:58
@@ -758,10 +755,8 @@ msgid "After action report"
 msgstr "在行动报告之后"
 
 #: aasrp/templates/aasrp/partials/navigation/actions.html:8
-#, fuzzy
-#| msgid "View all"
 msgid "View active"
-msgstr "浏览全部"
+msgstr "浏览行动"
 
 #: aasrp/templates/aasrp/partials/navigation/actions.html:12
 msgid "View all"
@@ -772,30 +767,22 @@ msgid "Add SRP link"
 msgstr "添加舰船补损链接"
 
 #: aasrp/templates/aasrp/partials/navigation/top-navigation.html:21
-#, fuzzy
-#| msgid "SRP links"
 msgid "SRP links (all)"
-msgstr "舰船补损链接"
+msgstr "舰船补损链接 (全部)"
 
 #: aasrp/templates/aasrp/partials/navigation/top-navigation.html:23
-#, fuzzy
-#| msgid "SRP link name"
 msgid "SRP links (active)"
-msgstr "舰船补损链接名字"
+msgstr "舰船补损链接（已激活）"
 
 #: aasrp/templates/aasrp/partials/navigation/top-navigation.html:36
 #: aasrp/templates/aasrp/view-own-requests.html:6
-#, fuzzy
-#| msgid "SRP requests"
 msgid "My SRP requests"
-msgstr "舰船补损请求"
+msgstr "我的舰船补损请求"
 
 #: aasrp/templates/aasrp/partials/navigation/top-navigation.html:45
 #: aasrp/templates/aasrp/user-settings.html:6
-#, fuzzy
-#| msgid "User settings"
 msgid "My settings"
-msgstr "用户设置"
+msgstr "我的设置"
 
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:7
 msgid "SRP / Fleet details"
@@ -818,22 +805,16 @@ msgid "Submit SRP request"
 msgstr "保存舰船补损请求"
 
 #: aasrp/templates/aasrp/partials/user-settings/form.html:13
-#, fuzzy
-#| msgid "Change settings"
 msgid "Save settings"
-msgstr "更改设置"
+msgstr "保存设置"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:8
-#, fuzzy
-#| msgid "Total SRP cost"
 msgid "My total SRP cost"
-msgstr "舰船补损总共花费"
+msgstr "我的舰船补损总共花费"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:19
-#, fuzzy
-#| msgid "SRP request details"
 msgid "Request details"
-msgstr "舰船补损请求具体详情"
+msgstr "请求具体详情"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:21
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:20
@@ -949,7 +930,8 @@ msgstr "此舰船补损链接不再适用于舰船补损请求。"
 msgid ""
 "Something went wrong, your kill mail ({submitted_killmail_link}) could not "
 "be parsed: {str(err)}"
-msgstr ""
+msgstr "很抱歉，你的击杀报告链接 ({submitted_killmail_link}) 暂时无法被解析: "
+"{str(err)}"
 
 #: aasrp/views/general.py:444
 #, python-brace-format
