@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-25 19:06+0200\n"
+"POT-Creation-Date: 2024-07-07 13:41+0200\n"
 "PO-Revision-Date: 2024-05-10 14:11+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Polish <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -244,34 +244,34 @@ msgstr ""
 msgid "Disable SRP link"
 msgstr ""
 
-#: aasrp/helper/icons.py:96
+#: aasrp/helper/icons.py:97
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:9
 msgid "Enable SRP link"
 msgstr ""
 
-#: aasrp/helper/icons.py:113
+#: aasrp/helper/icons.py:115
 msgid "Remove SRP ink"
 msgstr ""
 
-#: aasrp/helper/icons.py:145
+#: aasrp/helper/icons.py:148
 msgid "SRP request pending"
 msgstr ""
 
-#: aasrp/helper/icons.py:155
+#: aasrp/helper/icons.py:158
 msgid "SRP request approved"
 msgstr ""
 
-#: aasrp/helper/icons.py:165 aasrp/views/ajax.py:673
+#: aasrp/helper/icons.py:168 aasrp/views/ajax.py:674
 msgid "SRP request rejected"
 msgstr ""
 
-#: aasrp/helper/icons.py:201
+#: aasrp/helper/icons.py:204
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr ""
 
-#: aasrp/helper/icons.py:250
+#: aasrp/helper/icons.py:254
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
@@ -279,13 +279,13 @@ msgstr ""
 msgid "Accept SRP request"
 msgstr ""
 
-#: aasrp/helper/icons.py:293
+#: aasrp/helper/icons.py:298
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:40
 msgid "Reject SRP request"
 msgstr ""
 
-#: aasrp/helper/icons.py:332
+#: aasrp/helper/icons.py:338
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr ""
@@ -867,15 +867,15 @@ msgstr ""
 msgid "Copy SRP link to clipboard"
 msgstr ""
 
-#: aasrp/views/ajax.py:587
+#: aasrp/views/ajax.py:588
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:678
+#: aasrp/views/ajax.py:679
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:715
+#: aasrp/views/ajax.py:716
 msgid "SRP request has been removed"
 msgstr ""
 

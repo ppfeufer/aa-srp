@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-25 19:06+0200\n"
+"POT-Creation-Date: 2024-07-07 13:41+0200\n"
 "PO-Revision-Date: 2024-07-01 04:27+0000\n"
 "Last-Translator: luffe <luffe8864@foxmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/"
@@ -246,34 +246,34 @@ msgstr "增加或修改舰船补损链接"
 msgid "Disable SRP link"
 msgstr "取消舰船补损链接"
 
-#: aasrp/helper/icons.py:96
+#: aasrp/helper/icons.py:97
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:9
 msgid "Enable SRP link"
 msgstr "可用的舰船补损链接"
 
-#: aasrp/helper/icons.py:113
+#: aasrp/helper/icons.py:115
 msgid "Remove SRP ink"
 msgstr "撤销舰船补损链接"
 
-#: aasrp/helper/icons.py:145
+#: aasrp/helper/icons.py:148
 msgid "SRP request pending"
 msgstr "舰船补损请求已发送"
 
-#: aasrp/helper/icons.py:155
+#: aasrp/helper/icons.py:158
 msgid "SRP request approved"
 msgstr "舰船补损请求已被接受"
 
-#: aasrp/helper/icons.py:165 aasrp/views/ajax.py:673
+#: aasrp/helper/icons.py:168 aasrp/views/ajax.py:674
 msgid "SRP request rejected"
 msgstr "舰船补损请求已被拒绝"
 
-#: aasrp/helper/icons.py:201
+#: aasrp/helper/icons.py:204
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr "舰船补损请求具体详情"
 
-#: aasrp/helper/icons.py:250
+#: aasrp/helper/icons.py:254
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
@@ -281,13 +281,13 @@ msgstr "舰船补损请求具体详情"
 msgid "Accept SRP request"
 msgstr "接受舰船补损请求"
 
-#: aasrp/helper/icons.py:293
+#: aasrp/helper/icons.py:298
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:40
 msgid "Reject SRP request"
 msgstr "拒绝舰船补损请求"
 
-#: aasrp/helper/icons.py:332
+#: aasrp/helper/icons.py:338
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr "删除舰船补损请求"
@@ -876,15 +876,15 @@ msgstr "链接"
 msgid "Copy SRP link to clipboard"
 msgstr "复制这个舰船补损链接到粘贴板"
 
-#: aasrp/views/ajax.py:587
+#: aasrp/views/ajax.py:588
 msgid "SRP request has been approved"
 msgstr "舰船补损请求已被接受"
 
-#: aasrp/views/ajax.py:678
+#: aasrp/views/ajax.py:679
 msgid "SRP request has been rejected"
 msgstr "舰船补损请求已被拒绝"
 
-#: aasrp/views/ajax.py:715
+#: aasrp/views/ajax.py:716
 msgid "SRP request has been removed"
 msgstr "舰船补损请求已被移除"
 
@@ -930,7 +930,8 @@ msgstr "此舰船补损链接不再适用于舰船补损请求。"
 msgid ""
 "Something went wrong, your kill mail ({submitted_killmail_link}) could not "
 "be parsed: {str(err)}"
-msgstr "很抱歉，你的击杀报告链接 ({submitted_killmail_link}) 暂时无法被解析: "
+msgstr ""
+"很抱歉，你的击杀报告链接 ({submitted_killmail_link}) 暂时无法被解析: "
 "{str(err)}"
 
 #: aasrp/views/general.py:444

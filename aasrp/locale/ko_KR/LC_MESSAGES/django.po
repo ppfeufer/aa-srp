@@ -9,11 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-25 19:06+0200\n"
+"POT-Creation-Date: 2024-07-07 13:41+0200\n"
 "PO-Revision-Date: 2024-07-07 11:27+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: Korean <https://weblate.ppfeufer.de/projects/"
-"alliance-auth-apps/aa-srp/ko/>\n"
+"Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-"
+"apps/aa-srp/ko/>\n"
 "Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -249,34 +249,34 @@ msgstr "AAR 링크 추가/변경"
 msgid "Disable SRP link"
 msgstr "SRP 항목 비활성화"
 
-#: aasrp/helper/icons.py:96
+#: aasrp/helper/icons.py:97
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:9
 msgid "Enable SRP link"
 msgstr "SRP 항목 생성"
 
-#: aasrp/helper/icons.py:113
+#: aasrp/helper/icons.py:115
 msgid "Remove SRP ink"
 msgstr "SRP 항목 삭제"
 
-#: aasrp/helper/icons.py:145
+#: aasrp/helper/icons.py:148
 msgid "SRP request pending"
 msgstr "SRP 요청 게시됨"
 
-#: aasrp/helper/icons.py:155
+#: aasrp/helper/icons.py:158
 msgid "SRP request approved"
 msgstr "SRP 요청 승인됨"
 
-#: aasrp/helper/icons.py:165 aasrp/views/ajax.py:673
+#: aasrp/helper/icons.py:168 aasrp/views/ajax.py:674
 msgid "SRP request rejected"
 msgstr "SRP 요청 거부됨"
 
-#: aasrp/helper/icons.py:201
+#: aasrp/helper/icons.py:204
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr "SRP 세부사항"
 
-#: aasrp/helper/icons.py:250
+#: aasrp/helper/icons.py:254
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
@@ -284,13 +284,13 @@ msgstr "SRP 세부사항"
 msgid "Accept SRP request"
 msgstr "SRP 요청 수락"
 
-#: aasrp/helper/icons.py:293
+#: aasrp/helper/icons.py:298
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:40
 msgid "Reject SRP request"
 msgstr "SRP 요청 거부"
 
-#: aasrp/helper/icons.py:332
+#: aasrp/helper/icons.py:338
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr "SRP 요청 삭제"
@@ -898,15 +898,15 @@ msgstr "링크"
 msgid "Copy SRP link to clipboard"
 msgstr "복사"
 
-#: aasrp/views/ajax.py:587
+#: aasrp/views/ajax.py:588
 msgid "SRP request has been approved"
 msgstr "SRP 요청이 수락되었습니다"
 
-#: aasrp/views/ajax.py:678
+#: aasrp/views/ajax.py:679
 msgid "SRP request has been rejected"
 msgstr "SRP 요청이 거부되었습니다"
 
-#: aasrp/views/ajax.py:715
+#: aasrp/views/ajax.py:716
 msgid "SRP request has been removed"
 msgstr "SRP 요청이 삭제되었습니다"
 

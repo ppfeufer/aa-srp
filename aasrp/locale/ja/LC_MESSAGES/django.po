@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-25 19:06+0200\n"
+"POT-Creation-Date: 2024-07-07 13:41+0200\n"
 "PO-Revision-Date: 2024-07-07 11:27+0000\n"
 "Last-Translator: Xrandier <xrandier@gmail.com>\n"
-"Language-Team: Japanese <https://weblate.ppfeufer.de/projects/"
-"alliance-auth-apps/aa-srp/ja/>\n"
+"Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-"
+"apps/aa-srp/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -140,8 +140,9 @@ msgstr "キルへのURL"
 msgid ""
 "Find your kill mail on {ZKILLBOARD_BASE_URL} or "
 "{EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."
-msgstr "{ZKILLBOARD_BASE_URL} または{EVETOOLS_KILLBOARD_BASE_URL} "
-"からキルを張り付けてください。"
+msgstr ""
+"{ZKILLBOARD_BASE_URL} または{EVETOOLS_KILLBOARD_BASE_URL} からキルを張り付け"
+"てください。"
 
 #: aasrp/form.py:114 aasrp/models.py:348 aasrp/models.py:442
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
@@ -155,7 +156,8 @@ msgid ""
 "Please tell us about the circumstances of your untimely demise. Who was the "
 "FC, what doctrine was called, have changes to the fit been requested and so "
 "on. Be as detailed as you can."
-msgstr "お悔やみ申し上げます。どのように亡くなったのかお聞かせください。艦隊長（FC）"
+msgstr ""
+"お悔やみ申し上げます。どのように亡くなったのかお聞かせください。艦隊長（FC）"
 "は誰だった？装着機器は何だった？できるだけ詳しく教えてください。"
 
 #: aasrp/form.py:147
@@ -210,8 +212,9 @@ msgstr "以前却下されたこのSRPリクエストが今受理された理由
 #: aasrp/form.py:238
 msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
-msgstr "通知を無効にする。（AuthおよびDiscord、該当するモジュールが装着されている場合"
-"）"
+msgstr ""
+"通知を無効にする。（AuthおよびDiscord、該当するモジュールが装着されている場"
+"合）"
 
 #: aasrp/helper/character.py:45
 msgid "Unknown character"
@@ -240,34 +243,34 @@ msgstr "AARリンク追加または変更"
 msgid "Disable SRP link"
 msgstr "SRPリンクを無効にする"
 
-#: aasrp/helper/icons.py:96
+#: aasrp/helper/icons.py:97
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:9
 msgid "Enable SRP link"
 msgstr "SRPリンクを有効にする"
 
-#: aasrp/helper/icons.py:113
+#: aasrp/helper/icons.py:115
 msgid "Remove SRP ink"
 msgstr "SRPリンクを削除"
 
-#: aasrp/helper/icons.py:145
+#: aasrp/helper/icons.py:148
 msgid "SRP request pending"
 msgstr "SRP承認待ち"
 
-#: aasrp/helper/icons.py:155
+#: aasrp/helper/icons.py:158
 msgid "SRP request approved"
 msgstr "SRP承認済み"
 
-#: aasrp/helper/icons.py:165 aasrp/views/ajax.py:673
+#: aasrp/helper/icons.py:168 aasrp/views/ajax.py:674
 msgid "SRP request rejected"
 msgstr "SRP却下済み"
 
-#: aasrp/helper/icons.py:201
+#: aasrp/helper/icons.py:204
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr "SRP依頼の詳細"
 
-#: aasrp/helper/icons.py:250
+#: aasrp/helper/icons.py:254
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
@@ -275,13 +278,13 @@ msgstr "SRP依頼の詳細"
 msgid "Accept SRP request"
 msgstr "SRP依頼を承認する"
 
-#: aasrp/helper/icons.py:293
+#: aasrp/helper/icons.py:298
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:40
 msgid "Reject SRP request"
 msgstr "SRP依頼を却下する"
 
-#: aasrp/helper/icons.py:332
+#: aasrp/helper/icons.py:338
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr "SRP依頼を削除する"
@@ -859,15 +862,15 @@ msgstr ""
 msgid "Copy SRP link to clipboard"
 msgstr ""
 
-#: aasrp/views/ajax.py:587
+#: aasrp/views/ajax.py:588
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:678
+#: aasrp/views/ajax.py:679
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:715
+#: aasrp/views/ajax.py:716
 msgid "SRP request has been removed"
 msgstr ""
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-25 19:06+0200\n"
+"POT-Creation-Date: 2024-07-07 13:41+0200\n"
 "PO-Revision-Date: 2024-06-14 14:27+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -255,34 +255,34 @@ msgstr "AAR Link hinzufügen/ändern"
 msgid "Disable SRP link"
 msgstr "SRP Link deaktivieren"
 
-#: aasrp/helper/icons.py:96
+#: aasrp/helper/icons.py:97
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:9
 msgid "Enable SRP link"
 msgstr "SRP Link aktivieren"
 
-#: aasrp/helper/icons.py:113
+#: aasrp/helper/icons.py:115
 msgid "Remove SRP ink"
 msgstr "SRP Link entfernen"
 
-#: aasrp/helper/icons.py:145
+#: aasrp/helper/icons.py:148
 msgid "SRP request pending"
 msgstr "SRP Anfrage ausstehend"
 
-#: aasrp/helper/icons.py:155
+#: aasrp/helper/icons.py:158
 msgid "SRP request approved"
 msgstr "SRP Anfrage bewilligt"
 
-#: aasrp/helper/icons.py:165 aasrp/views/ajax.py:673
+#: aasrp/helper/icons.py:168 aasrp/views/ajax.py:674
 msgid "SRP request rejected"
 msgstr "SRP Anfrage abgelehnt"
 
-#: aasrp/helper/icons.py:201
+#: aasrp/helper/icons.py:204
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr "SRP Anfrage Details"
 
-#: aasrp/helper/icons.py:250
+#: aasrp/helper/icons.py:254
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
@@ -290,13 +290,13 @@ msgstr "SRP Anfrage Details"
 msgid "Accept SRP request"
 msgstr "SRP Anfrage akzeptieren"
 
-#: aasrp/helper/icons.py:293
+#: aasrp/helper/icons.py:298
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:40
 msgid "Reject SRP request"
 msgstr "SRP Anfrage ablehnen"
 
-#: aasrp/helper/icons.py:332
+#: aasrp/helper/icons.py:338
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr "SRP Anfrage löschen"
@@ -899,15 +899,15 @@ msgstr "Link"
 msgid "Copy SRP link to clipboard"
 msgstr "SRP Link in die Zwischenablage kopieren"
 
-#: aasrp/views/ajax.py:587
+#: aasrp/views/ajax.py:588
 msgid "SRP request has been approved"
 msgstr "SRP Anfrage wurde akzeptiert"
 
-#: aasrp/views/ajax.py:678
+#: aasrp/views/ajax.py:679
 msgid "SRP request has been rejected"
 msgstr "SRP Anfrage wurde abgelehnt"
 
-#: aasrp/views/ajax.py:715
+#: aasrp/views/ajax.py:716
 msgid "SRP request has been removed"
 msgstr "SRP Anfrage wurde entfernt"
 
