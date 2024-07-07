@@ -1,16 +1,16 @@
-/* global moment, aaSrpSettings */
+/* global moment, aaSrpSettings, bootstrap */
 
 $(document).ready(() => {
     'use strict';
 
-    const tableSrpLinks = $('#table_tab-srp-links');
+    const elementTableSrpLinks = $('#table_tab-srp-links');
 
     /**
      * Table: SRP Links
      */
     let totalSrpAmount = 0;
 
-    tableSrpLinks.DataTable({
+    const tableSrpLinks = elementTableSrpLinks.DataTable({
         ajax: {
             url: aaSrpSettings.url.availableSrpLinks,
             dataSrc: '',
@@ -123,6 +123,20 @@ $(document).ready(() => {
             $('.srp-dashboard-total-isk-cost-amount')
                 .html(`${totalSrpAmount.toLocaleString()} ISK`);
         }
+    });
+
+    /**
+     * When the DataTable has finished rendering and is fully initialized
+     */
+    tableSrpLinks.on('draw', () => {
+        // Show bootstrap tooltips
+        [].slice.call(
+            document.querySelectorAll(
+                '[data-bs-tooltip="aa-srp"]'
+            )
+        ).map((tooltipTriggerEl) => {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
     });
 
     /**

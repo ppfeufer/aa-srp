@@ -179,7 +179,7 @@ $(document).ready(() => {
                     .find('span.srp-payout-tooltip')
                     .attr(
                         'data-bs-tooltip',
-                        'aa-srp-tooltip'
+                        'aa-srp'
                     )
                     .attr(
                         'title',
@@ -281,7 +281,7 @@ $(document).ready(() => {
         // Show bootstrap tooltips
         [].slice.call(
             document.querySelectorAll(
-                '[data-bs-tooltip="aa-srp-tooltip"]'
+                '[data-bs-tooltip="aa-srp"]'
             )
         ).map((tooltipTriggerEl) => {
             return new bootstrap.Tooltip(tooltipTriggerEl);
