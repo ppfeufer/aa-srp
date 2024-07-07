@@ -122,7 +122,8 @@ def dashboard_srp_links_data(
             title = _("Copy SRP link to clipboard")
             srp_code_html += (
                 f'<i class="{css_classes}" '
-                f'data-clipboard-text="{srp_link_href}" title="{title}"></i>'
+                f'data-clipboard-text="{srp_link_href}" title="{title}" '
+                'data-bs-tooltip="aa-srp"></i>'
             )
 
         actions = get_dashboard_action_icons(request=request, srp_link=srp_link)

@@ -1,16 +1,16 @@
-/* global aaSrpSettings, moment */
+/* global aaSrpSettings, bootstrap, moment */
 
 $(document).ready(() => {
     'use strict';
 
-    const tableUserSrpRequests = $('#table_tab-user-srp-requests');
+    const elementTableUserSrpRequests = $('#table_tab-user-srp-requests');
 
     /**
      * Table: User's own SRP requests
      */
     let userSrpAmount = 0;
 
-    tableUserSrpRequests.DataTable({
+    const tableUserSrpRequests = elementTableUserSrpRequests.DataTable({
         ajax: {
             url: aaSrpSettings.url.userSrpRequests,
             dataSrc: '',
@@ -171,6 +171,20 @@ $(document).ready(() => {
                 `${userSrpAmount.toLocaleString()} ISK`
             );
         }
+    });
+
+    /**
+     * When the DataTable has finished rendering and is fully initialized
+     */
+    tableUserSrpRequests.on('draw', () => {
+        // Show bootstrap tooltips
+        [].slice.call(
+            document.querySelectorAll(
+                '[data-bs-tooltip="aa-srp"]'
+            )
+        ).map((tooltipTriggerEl) => {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
     });
 
     /**

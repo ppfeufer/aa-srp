@@ -67,7 +67,8 @@ def get_formatted_character_name(
         character_name_formatted += (
             "<i "
             'class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" '
-            f'data-clipboard-text="{character_name}" title="{title}"></i>'
+            f'data-clipboard-text="{character_name}" title="{title}" '
+            'data-bs-tooltip="aa-srp"></i>'
         )
 
     return_value = character_name_formatted
