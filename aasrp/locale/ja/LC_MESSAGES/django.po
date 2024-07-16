@@ -2,15 +2,16 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Xrandier <xrandier@gmail.com>, 2024.
+# Peter Pfeufer <info@ppfeufer.de>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-07 13:41+0200\n"
-"PO-Revision-Date: 2024-07-07 11:27+0000\n"
-"Last-Translator: Xrandier <xrandier@gmail.com>\n"
-"Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/ja/>\n"
+"PO-Revision-Date: 2024-07-16 04:03+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"Language-Team: Japanese <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -102,7 +103,7 @@ msgstr ""
 
 #: aasrp/form.py:37
 msgid "This field is mandatory"
-msgstr "必須"
+msgstr "この欄は必須です"
 
 #: aasrp/form.py:53
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:13
