@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-07 13:41+0200\n"
-"PO-Revision-Date: 2024-07-01 04:27+0000\n"
+"PO-Revision-Date: 2024-07-16 04:03+0000\n"
 "Last-Translator: luffe <luffe8864@foxmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/zh_Hans/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.1\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
 #: aasrp/templates/aasrp/base.html:10 aasrp/templates/aasrp/link-add.html:6
@@ -91,7 +91,7 @@ msgstr[0] "未激活 {notifications_count} 舰队类型"
 #: aasrp/apps.py:21
 #, python-brace-format
 msgid "AA Ship Replacement v{__version__}"
-msgstr "联盟舰船补损 v{__version__}"
+msgstr "AA Ship Replacement v{__version__}"
 
 #: aasrp/constants.py:20
 msgid ""
