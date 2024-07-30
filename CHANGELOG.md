@@ -35,6 +35,8 @@ Section Order:
 ### Security
 -->
 
+## \[2.3.0\] - 2024-07-30
+
 ### Added
 
 - Bootstrap tooltips
@@ -45,6 +47,7 @@ Section Order:
 - Chinese translation updated
 - French translation updated
 - Japanese translation updated
+- Korean translation updated
 
 ## \[2.2.0\] - 2024-06-18
 
