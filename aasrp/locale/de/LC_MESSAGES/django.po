@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 23:31+0200\n"
+"POT-Creation-Date: 2024-08-11 23:40+0200\n"
 "PO-Revision-Date: 2024-08-11 19:01+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -143,7 +143,7 @@ msgstr "Killboard Link"
 #: aasrp/form.py:113
 #, python-brace-format
 msgid ""
-"Find your kill mail on {zkilboard_base_url},  {evetools_base_url} or "
+"Find your kill mail on {zkilboard_base_url}, {evetools_base_url} or "
 "{eve_kill_base_url} and paste the link here."
 msgstr ""
 

@@ -110,7 +110,7 @@ class SrpRequestForm(ModelForm):
         max_length=254,
         required=True,
         help_text=_(
-            f"Find your kill mail on {zkilboard_base_url},  {evetools_base_url} or {eve_kill_base_url} and paste the link here."  # pylint: disable=line-too-long
+            f"Find your kill mail on {zkilboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."  # pylint: disable=line-too-long
         ),
     )
 
