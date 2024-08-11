@@ -22,17 +22,25 @@ SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = _(
     "request code with your inquiry."
 )
 
-
-# zKillboard - https://zkillboard.com/
-ZKILLBOARD_BASE_URL = "https://zkillboard.com/"
-ZKILLBOARD_API_URL = "https://zkillboard.com/api/"
-ZKILLBOARD_BASE_URL_REGEX = r"^http[s]?:\/\/zkillboard\.com\/"
-ZKILLBOARD_KILLMAIL_URL_REGEX = r"^http[s]?:\/\/zkillboard\.com\/kill\/\d+\/"
-
-# EveTools Killboard - https://kb.evetools.org/
-EVETOOLS_KILLBOARD_BASE_URL = "https://kb.evetools.org/"
-EVETOOLS_KILLBOARD_BASE_URL_REGEX = r"^http[s]?:\/\/kb\.evetools\.org\/"
-EVETOOLS_KILLBOARD_KILLMAIL_URL_REGEX = r"^http[s]?:\/\/kb\.evetools\.org\/kill\/\d+"
+# Killboard URLs and regex
+KILLBOARD_DATA = {
+    "zKillboard": {
+        "base_url": "https://zkillboard.com/",
+        "api_url": "https://zkillboard.com/api/",
+        "base_url_regex": r"^http[s]?:\/\/zkillboard\.com\/",
+        "killmail_url_regex": r"^http[s]?:\/\/zkillboard\.com\/kill\/\d+\/",
+    },
+    "EveTools": {
+        "base_url": "https://kb.evetools.org/",
+        "base_url_regex": r"^http[s]?:\/\/kb\.evetools\.org\/",
+        "killmail_url_regex": r"^http[s]?:\/\/kb\.evetools\.org\/kill\/\d+",
+    },
+    "EVE-KILL": {
+        "base_url": "https://eve-kill.com/",
+        "base_url_regex": r"^http[s]?:\/\/eve-kill\.com\/",
+        "killmail_url_regex": r"^http[s]?:\/\/eve-kill\.com\/kill\/\d+",
+    },
+}
 
 
 # Embed colors

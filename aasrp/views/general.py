@@ -23,7 +23,7 @@ from eveuniverse.models import EveType
 
 # AA SRP
 from aasrp import __title__
-from aasrp.constants import EVETOOLS_KILLBOARD_BASE_URL, ZKILLBOARD_BASE_URL
+from aasrp.constants import KILLBOARD_DATA
 from aasrp.form import (
     SrpLinkForm,
     SrpLinkUpdateForm,
@@ -440,8 +440,10 @@ def request_srp(  # pylint: disable=too-many-locals
                         f"Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {str(err)}"  # pylint: disable=line-too-long
                     )
                 else:
+                    zkillboard_base_url = KILLBOARD_DATA["zKillboard"]["base_url"]
+                    evetools_killboard_base_url = KILLBOARD_DATA["EveTools"]["base_url"]
                     error_message_text = _(
-                        f"Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"  # pylint: disable=line-too-long
+                        f"Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url} or {evetools_killboard_base_url}"  # pylint: disable=line-too-long
                     )
 
                 messages.error(request=request, message=error_message_text)
