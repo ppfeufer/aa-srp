@@ -11,4 +11,17 @@
     .aa-srp form label .form-field-required {
         font-weight: bold;
     }
+
+    .aa-srp form .aa-srp-form-submitted-info {
+        display: none;
+    }
+
+    .aa-srp form.is-submitting .aa-srp-form-submitted-info {
+        display: block;
+    }
+
+    .aa-srp form.is-submitting button[type="submit"] {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
 }
