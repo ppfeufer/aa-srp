@@ -19,11 +19,20 @@
                     {% include "aasrp/partials/form/required-field-hint.html" %}
 
                     <div class="form-group aasrp-form-group text-end clearfix">
-                        <button class="btn btn-primary" type="submit">
-                            {% translate "Submit SRP request" %}
-                        </button>
+                        {% translate "Submit SRP request" as button_text %}
+                        {% bootstrap_button button_type="submit" content=button_text %}
                     </div>
                 </fieldset>
+
+                <div class="col-sm-12 aa-srp-form-submitted-info mt-3">
+                    <div class="aa-callout aa-callout-info">
+                        <p>{% translate "Working on it, please be patient …" %}</p>
+
+                        <p>
+                            {% translate "Fetching kill mail information, this might take a moment …" %}
+                        </p>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
