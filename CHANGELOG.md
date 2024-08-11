@@ -35,9 +35,21 @@ Section Order:
 ### Security
 -->
 
+## \[2.3.1\] - 2024-08-11
+
+### Added
+
+- Prepared Czech translation for when Alliance Auth supports it
+
 ### Fixed
 
 - Request form being sent multiple times when clicked multiple times
+
+### Changed
+
+- French translation updated
+- German translation updated
+- Japanese translation updated
 
 ## \[2.3.0\] - 2024-07-30
 
