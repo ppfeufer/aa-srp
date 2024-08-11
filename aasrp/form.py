@@ -17,7 +17,7 @@ from aasrp.managers import SrpManager
 from aasrp.models import FleetType, Setting, SrpLink, SrpRequest, UserSetting
 
 # Killboard URLs
-zkilboard_base_url: str = KILLBOARD_DATA["zKillboard"]["base_url"]
+zkillboard_base_url: str = KILLBOARD_DATA["zKillboard"]["base_url"]
 evetools_base_url: str = KILLBOARD_DATA["EveTools"]["base_url"]
 eve_kill_base_url: str = KILLBOARD_DATA["EVE-KILL"]["base_url"]
 
@@ -110,7 +110,7 @@ class SrpRequestForm(ModelForm):
         max_length=254,
         required=True,
         help_text=_(
-            f"Find your kill mail on {zkilboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."  # pylint: disable=line-too-long
+            f"Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."  # pylint: disable=line-too-long
         ),
     )
 
@@ -154,7 +154,7 @@ class SrpRequestForm(ModelForm):
         ):
             raise forms.ValidationError(
                 message=_(
-                    f"Invalid link. Please use {zkilboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"  # pylint: disable=line-too-long
+                    f"Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"  # pylint: disable=line-too-long
                 )
             )
 
