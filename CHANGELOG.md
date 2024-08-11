@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Fixed
+
+- Request form being sent multiple times when clicked multiple times
+
 ## \[2.3.0\] - 2024-07-30
 
 ### Added
