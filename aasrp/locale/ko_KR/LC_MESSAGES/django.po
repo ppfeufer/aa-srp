@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-07 13:41+0200\n"
+"POT-Creation-Date: 2024-08-11 20:55+0200\n"
 "PO-Revision-Date: 2024-07-07 11:27+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -40,8 +40,8 @@ msgstr "생성자"
 #: aasrp/admin.py:189
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
-#: aasrp/templates/aasrp/view-own-requests.html:54
-#: aasrp/templates/aasrp/view-requests.html:77
+#: aasrp/templates/aasrp/view-own-requests.html:55
+#: aasrp/templates/aasrp/view-requests.html:78
 msgid "Requestor"
 msgstr "요청자"
 
@@ -149,8 +149,8 @@ msgstr ""
 
 #: aasrp/form.py:114 aasrp/models.py:348 aasrp/models.py:442
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:57
-#: aasrp/templates/aasrp/view-requests.html:81
+#: aasrp/templates/aasrp/view-own-requests.html:58
+#: aasrp/templates/aasrp/view-requests.html:82
 msgid "Additional information"
 msgstr "추가 정보"
 
@@ -331,11 +331,11 @@ msgstr "SRP 이름"
 msgid "SRP status"
 msgstr "SRP 상태"
 
-#: aasrp/models.py:161 aasrp/templates/aasrp/dashboard.html:67
+#: aasrp/models.py:161 aasrp/templates/aasrp/dashboard.html:68
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:50
-#: aasrp/templates/aasrp/view-own-requests.html:47
+#: aasrp/templates/aasrp/view-own-requests.html:48
 msgid "SRP code"
 msgstr "SRP 코드"
 
@@ -380,9 +380,9 @@ msgstr "승인됨"
 msgid "Rejected"
 msgstr "거부됨"
 
-#: aasrp/models.py:312 aasrp/templates/aasrp/dashboard.html:68
+#: aasrp/models.py:312 aasrp/templates/aasrp/dashboard.html:69
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
-#: aasrp/templates/aasrp/view-own-requests.html:48
+#: aasrp/templates/aasrp/view-own-requests.html:49
 msgid "Request code"
 msgstr "SRP 코드"
 
@@ -392,13 +392,13 @@ msgstr "누가 SRP 요청을 생성했나요?"
 
 #: aasrp/models.py:330
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:27
-#: aasrp/templates/aasrp/dashboard.html:63
+#: aasrp/templates/aasrp/dashboard.html:64
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:18
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:17
-#: aasrp/templates/aasrp/view-own-requests.html:43
-#: aasrp/templates/aasrp/view-own-requests.html:55
-#: aasrp/templates/aasrp/view-requests.html:69
-#: aasrp/templates/aasrp/view-requests.html:78
+#: aasrp/templates/aasrp/view-own-requests.html:44
+#: aasrp/templates/aasrp/view-own-requests.html:56
+#: aasrp/templates/aasrp/view-requests.html:70
+#: aasrp/templates/aasrp/view-requests.html:79
 msgid "Character"
 msgstr "캐릭터"
 
@@ -406,9 +406,9 @@ msgstr "캐릭터"
 msgid "Ship type"
 msgstr "함선 종류"
 
-#: aasrp/models.py:354 aasrp/templates/aasrp/dashboard.html:62
-#: aasrp/templates/aasrp/view-own-requests.html:42
-#: aasrp/templates/aasrp/view-requests.html:67
+#: aasrp/models.py:354 aasrp/templates/aasrp/dashboard.html:63
+#: aasrp/templates/aasrp/view-own-requests.html:43
+#: aasrp/templates/aasrp/view-requests.html:68
 msgid "Request status"
 msgstr "요청 상태"
 
@@ -455,7 +455,7 @@ msgstr "보험 가입금"
 
 #: aasrp/models.py:418
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
-#: aasrp/templates/aasrp/view-requests.html:80
+#: aasrp/templates/aasrp/view-requests.html:81
 msgid "Insurance payout"
 msgstr "보험금"
 
@@ -556,13 +556,13 @@ msgid "SRP request status"
 msgstr "SRP 요청 상태"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
-#: aasrp/templates/aasrp/dashboard.html:61
+#: aasrp/templates/aasrp/dashboard.html:62
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:19
-#: aasrp/templates/aasrp/view-own-requests.html:41
-#: aasrp/templates/aasrp/view-own-requests.html:56
-#: aasrp/templates/aasrp/view-requests.html:68
-#: aasrp/templates/aasrp/view-requests.html:79
+#: aasrp/templates/aasrp/view-own-requests.html:42
+#: aasrp/templates/aasrp/view-own-requests.html:57
+#: aasrp/templates/aasrp/view-requests.html:69
+#: aasrp/templates/aasrp/view-requests.html:80
 msgid "Ship"
 msgstr "함선"
 
@@ -582,15 +582,15 @@ msgstr "SRP 요청이 추가되었습니다."
 msgid "SRP request status has changed to"
 msgstr ""
 
-#: aasrp/templates/aasrp/dashboard.html:73
+#: aasrp/templates/aasrp/dashboard.html:74
 msgid "Are you sure you want to (re-)activate the following SRP link?"
 msgstr "해당 SRP 세션을 활성화 하시겠습니까?"
 
-#: aasrp/templates/aasrp/dashboard.html:76
+#: aasrp/templates/aasrp/dashboard.html:77
 msgid "Are you sure you want to disable the following SRP link?"
 msgstr "해당 SRP 세션을 비활성화 하시겠습니까?"
 
-#: aasrp/templates/aasrp/dashboard.html:79
+#: aasrp/templates/aasrp/dashboard.html:80
 msgid ""
 "Are you sure you want to delete the following SRP link and all SRP requests "
 "tied to it?"
@@ -815,9 +815,17 @@ msgstr ""
 msgid "Your SRP request"
 msgstr "SRP 요청 목록"
 
-#: aasrp/templates/aasrp/partials/request-srp/form.html:23
+#: aasrp/templates/aasrp/partials/request-srp/form.html:22
 msgid "Submit SRP request"
 msgstr "SRP 요청 제출"
+
+#: aasrp/templates/aasrp/partials/request-srp/form.html:29
+msgid "Working on it, please be patient …"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/request-srp/form.html:32
+msgid "Fetching kill mail information, this might take a moment …"
+msgstr ""
 
 #: aasrp/templates/aasrp/partials/user-settings/form.html:13
 #, fuzzy
@@ -867,26 +875,26 @@ msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr ""
 "클릭하여 값을 수정할 수 있으며, Enter 로 저장, ESC로 취소할 수 있습니다."
 
-#: aasrp/templates/aasrp/view-own-requests.html:58
-#: aasrp/templates/aasrp/view-requests.html:82
+#: aasrp/templates/aasrp/view-own-requests.html:59
+#: aasrp/templates/aasrp/view-requests.html:83
 #, fuzzy
 #| msgid "Additional Information"
 msgid "Reject information"
 msgstr "추가 정보"
 
-#: aasrp/templates/aasrp/view-requests.html:71
+#: aasrp/templates/aasrp/view-requests.html:72
 msgid "Click here to change the payout amount for this SRP request."
 msgstr "이곳을 클릭하여 SRP 지급금 변경가능."
 
-#: aasrp/templates/aasrp/view-requests.html:72
+#: aasrp/templates/aasrp/view-requests.html:73
 msgid "Enter SRP payout value"
 msgstr "SRP 금액 입력"
 
-#: aasrp/templates/aasrp/view-requests.html:73
+#: aasrp/templates/aasrp/view-requests.html:74
 msgid "Empty values are not allowed"
 msgstr "값을 입력하여 주십시오"
 
-#: aasrp/templates/aasrp/view-requests.html:87
+#: aasrp/templates/aasrp/view-requests.html:88
 msgid "This field is required."
 msgstr "필수 항목입니다."
 

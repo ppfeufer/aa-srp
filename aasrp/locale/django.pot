@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-30 10:53+0200\n"
+"POT-Creation-Date: 2024-08-11 20:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,8 +37,8 @@ msgstr ""
 #: aasrp/admin.py:189
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
-#: aasrp/templates/aasrp/view-own-requests.html:54
-#: aasrp/templates/aasrp/view-requests.html:77
+#: aasrp/templates/aasrp/view-own-requests.html:55
+#: aasrp/templates/aasrp/view-requests.html:78
 msgid "Requestor"
 msgstr ""
 
@@ -146,8 +146,8 @@ msgstr ""
 
 #: aasrp/form.py:114 aasrp/models.py:348 aasrp/models.py:442
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:57
-#: aasrp/templates/aasrp/view-requests.html:81
+#: aasrp/templates/aasrp/view-own-requests.html:58
+#: aasrp/templates/aasrp/view-requests.html:82
 msgid "Additional information"
 msgstr ""
 
@@ -321,11 +321,11 @@ msgstr ""
 msgid "SRP status"
 msgstr ""
 
-#: aasrp/models.py:161 aasrp/templates/aasrp/dashboard.html:67
+#: aasrp/models.py:161 aasrp/templates/aasrp/dashboard.html:68
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:50
-#: aasrp/templates/aasrp/view-own-requests.html:47
+#: aasrp/templates/aasrp/view-own-requests.html:48
 msgid "SRP code"
 msgstr ""
 
@@ -370,9 +370,9 @@ msgstr ""
 msgid "Rejected"
 msgstr ""
 
-#: aasrp/models.py:312 aasrp/templates/aasrp/dashboard.html:68
+#: aasrp/models.py:312 aasrp/templates/aasrp/dashboard.html:69
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
-#: aasrp/templates/aasrp/view-own-requests.html:48
+#: aasrp/templates/aasrp/view-own-requests.html:49
 msgid "Request code"
 msgstr ""
 
@@ -382,13 +382,13 @@ msgstr ""
 
 #: aasrp/models.py:330
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:27
-#: aasrp/templates/aasrp/dashboard.html:63
+#: aasrp/templates/aasrp/dashboard.html:64
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:18
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:17
-#: aasrp/templates/aasrp/view-own-requests.html:43
-#: aasrp/templates/aasrp/view-own-requests.html:55
-#: aasrp/templates/aasrp/view-requests.html:69
-#: aasrp/templates/aasrp/view-requests.html:78
+#: aasrp/templates/aasrp/view-own-requests.html:44
+#: aasrp/templates/aasrp/view-own-requests.html:56
+#: aasrp/templates/aasrp/view-requests.html:70
+#: aasrp/templates/aasrp/view-requests.html:79
 msgid "Character"
 msgstr ""
 
@@ -396,9 +396,9 @@ msgstr ""
 msgid "Ship type"
 msgstr ""
 
-#: aasrp/models.py:354 aasrp/templates/aasrp/dashboard.html:62
-#: aasrp/templates/aasrp/view-own-requests.html:42
-#: aasrp/templates/aasrp/view-requests.html:67
+#: aasrp/models.py:354 aasrp/templates/aasrp/dashboard.html:63
+#: aasrp/templates/aasrp/view-own-requests.html:43
+#: aasrp/templates/aasrp/view-requests.html:68
 msgid "Request status"
 msgstr ""
 
@@ -445,7 +445,7 @@ msgstr ""
 
 #: aasrp/models.py:418
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
-#: aasrp/templates/aasrp/view-requests.html:80
+#: aasrp/templates/aasrp/view-requests.html:81
 msgid "Insurance payout"
 msgstr ""
 
@@ -540,13 +540,13 @@ msgid "SRP request status"
 msgstr ""
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
-#: aasrp/templates/aasrp/dashboard.html:61
+#: aasrp/templates/aasrp/dashboard.html:62
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:19
-#: aasrp/templates/aasrp/view-own-requests.html:41
-#: aasrp/templates/aasrp/view-own-requests.html:56
-#: aasrp/templates/aasrp/view-requests.html:68
-#: aasrp/templates/aasrp/view-requests.html:79
+#: aasrp/templates/aasrp/view-own-requests.html:42
+#: aasrp/templates/aasrp/view-own-requests.html:57
+#: aasrp/templates/aasrp/view-requests.html:69
+#: aasrp/templates/aasrp/view-requests.html:80
 msgid "Ship"
 msgstr ""
 
@@ -566,15 +566,15 @@ msgstr ""
 msgid "SRP request status has changed to"
 msgstr ""
 
-#: aasrp/templates/aasrp/dashboard.html:73
+#: aasrp/templates/aasrp/dashboard.html:74
 msgid "Are you sure you want to (re-)activate the following SRP link?"
 msgstr ""
 
-#: aasrp/templates/aasrp/dashboard.html:76
+#: aasrp/templates/aasrp/dashboard.html:77
 msgid "Are you sure you want to disable the following SRP link?"
 msgstr ""
 
-#: aasrp/templates/aasrp/dashboard.html:79
+#: aasrp/templates/aasrp/dashboard.html:80
 msgid ""
 "Are you sure you want to delete the following SRP link and all SRP requests "
 "tied to it?"
@@ -783,8 +783,16 @@ msgstr ""
 msgid "Your SRP request"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/request-srp/form.html:23
+#: aasrp/templates/aasrp/partials/request-srp/form.html:22
 msgid "Submit SRP request"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/request-srp/form.html:29
+msgid "Working on it, please be patient …"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/request-srp/form.html:32
+msgid "Fetching kill mail information, this might take a moment …"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/user-settings/form.html:13
@@ -830,24 +838,24 @@ msgstr ""
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr ""
 
-#: aasrp/templates/aasrp/view-own-requests.html:58
-#: aasrp/templates/aasrp/view-requests.html:82
+#: aasrp/templates/aasrp/view-own-requests.html:59
+#: aasrp/templates/aasrp/view-requests.html:83
 msgid "Reject information"
 msgstr ""
 
-#: aasrp/templates/aasrp/view-requests.html:71
+#: aasrp/templates/aasrp/view-requests.html:72
 msgid "Click here to change the payout amount for this SRP request."
 msgstr ""
 
-#: aasrp/templates/aasrp/view-requests.html:72
+#: aasrp/templates/aasrp/view-requests.html:73
 msgid "Enter SRP payout value"
 msgstr ""
 
-#: aasrp/templates/aasrp/view-requests.html:73
+#: aasrp/templates/aasrp/view-requests.html:74
 msgid "Empty values are not allowed"
 msgstr ""
 
-#: aasrp/templates/aasrp/view-requests.html:87
+#: aasrp/templates/aasrp/view-requests.html:88
 msgid "This field is required."
 msgstr ""
 
