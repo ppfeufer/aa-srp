@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-11 23:45+0200\n"
-"PO-Revision-Date: 2024-08-11 19:01+0000\n"
+"PO-Revision-Date: 2024-08-11 21:51+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/de/>\n"
+"Language-Team: German <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -146,6 +146,8 @@ msgid ""
 "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or "
 "{eve_kill_base_url} and paste the link here."
 msgstr ""
+"Suche Deine Kill-Mail auf {zkillboard_base_url}, {evetools_base_url} oder "
+"{eve_kill_base_url} und füge den Link hier ein."
 
 #: aasrp/form.py:120 aasrp/models.py:348 aasrp/models.py:442
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
@@ -170,6 +172,8 @@ msgid ""
 "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or "
 "{eve_kill_base_url}"
 msgstr ""
+"Ungültiger Link. Bitte verwende {zkillboard_base_url}, {evetools_base_url} "
+"oder {eve_kill_base_url}"
 
 #: aasrp/form.py:171
 msgid "Invalid link. Please post a link to a kill mail."
@@ -965,11 +969,7 @@ msgstr ""
 "nicht analysiert werden: {str(err)}"
 
 #: aasrp/views/general.py:447
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Your kill mail link ({submitted_killmail_link}) is invalid or the "
-#| "zKillboard API is not answering at the moment. Please make sure you are "
-#| "using either {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
+#, python-brace-format
 msgid ""
 "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard "
 "API is not answering at the moment. Please make sure you are using either "
@@ -977,7 +977,8 @@ msgid ""
 msgstr ""
 "Dein Killmail-Link ({submitted_killmail_link}) ist ungültig oder die "
 "zKillboard-API antwortet derzeit nicht. Bitte stelle sicher, dass Du "
-"entweder {ZKILLBOARD_BASE_URL} oder {EVETOOLS_KILLBOARD_BASE_URL} verwendest"
+"entweder {zkillboard_base_url}, {evetools_base_url} oder {eve_kill_base_url} "
+"verwendest"
 
 #: aasrp/views/general.py:478
 #, python-brace-format
@@ -1006,3 +1007,19 @@ msgstr "SRP Link {srp_code} deaktiviert."
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "SRP Link {srp_code} gelöscht."
+
+#: aasrp/form.py:113
+#, python-brace-format
+msgid ""
+"Find your kill mail on {zkilboard_base_url}, {evetools_base_url} or "
+"{eve_kill_base_url} and paste the link here."
+msgstr ""
+"Finde Deine Killmail auf {zkillboard_base_url}, {evetools_base_url} oder "
+"{eve_kill_base_url} und poste den Link hier."
+
+#: aasrp/form.py:157
+#, python-brace-format
+msgid ""
+"Invalid link. Please use {zkilboard_base_url}, {evetools_base_url} or "
+"{eve_kill_base_url}"
+msgstr ""
