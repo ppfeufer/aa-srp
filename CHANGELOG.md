@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Added
+
+- [EVE-KILL](https://eve-kill.com/) to the list of valid killboards for posting kill mails in SRP requests
+
 ## \[2.3.1\] - 2024-08-11
 
 ### Added

@@ -19,7 +19,7 @@ from app_utils.logging import LoggerAddTag
 
 # AA SRP
 from aasrp import __title__
-from aasrp.constants import USERAGENT, ZKILLBOARD_API_URL
+from aasrp.constants import KILLBOARD_DATA, USERAGENT
 from aasrp.providers import esi
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
@@ -57,7 +57,8 @@ class SrpManager:
         :rtype:
         """
 
-        url = f"{ZKILLBOARD_API_URL}killID/{kill_id}/"
+        zkillboard_api_url = KILLBOARD_DATA["zKillboard"]["api_url"]
+        url = f"{zkillboard_api_url}killID/{kill_id}/"
         headers = {"User-Agent": USERAGENT, "Content-Type": "application/json"}
         request_result = requests.get(url=url, headers=headers, timeout=5)
 

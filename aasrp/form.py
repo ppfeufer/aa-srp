@@ -12,16 +12,22 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 # AA SRP
-from aasrp.constants import (
-    EVETOOLS_KILLBOARD_BASE_URL,
-    EVETOOLS_KILLBOARD_BASE_URL_REGEX,
-    EVETOOLS_KILLBOARD_KILLMAIL_URL_REGEX,
-    ZKILLBOARD_BASE_URL,
-    ZKILLBOARD_BASE_URL_REGEX,
-    ZKILLBOARD_KILLMAIL_URL_REGEX,
-)
+from aasrp.constants import KILLBOARD_DATA
 from aasrp.managers import SrpManager
 from aasrp.models import FleetType, Setting, SrpLink, SrpRequest, UserSetting
+
+# Killboard URLs
+zkilboard_base_url: str = KILLBOARD_DATA["zKillboard"]["base_url"]
+evetools_base_url: str = KILLBOARD_DATA["EveTools"]["base_url"]
+eve_kill_base_url: str = KILLBOARD_DATA["EVE-KILL"]["base_url"]
+
+# Killboard regex
+zkillboard_base_url_regex: str = KILLBOARD_DATA["zKillboard"]["base_url_regex"]
+zkillboard_killmail_url_regex: str = KILLBOARD_DATA["zKillboard"]["killmail_url_regex"]
+evetools_base_url_regex: str = KILLBOARD_DATA["EveTools"]["base_url_regex"]
+evetools_killmail_url_regex: str = KILLBOARD_DATA["EveTools"]["killmail_url_regex"]
+eve_kill_base_url_regex: str = KILLBOARD_DATA["EVE-KILL"]["base_url_regex"]
+eve_kill_killmail_url_regex: str = KILLBOARD_DATA["EVE-KILL"]["killmail_url_regex"]
 
 
 def get_mandatory_form_label_text(text: str) -> str:
@@ -104,7 +110,7 @@ class SrpRequestForm(ModelForm):
         max_length=254,
         required=True,
         help_text=_(
-            f"Find your kill mail on {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."  # pylint: disable=line-too-long
+            f"Find your kill mail on {zkilboard_base_url},  {evetools_base_url} or {eve_kill_base_url} and paste the link here."  # pylint: disable=line-too-long
         ),
     )
 
@@ -140,11 +146,15 @@ class SrpRequestForm(ModelForm):
         # Check if it's a link from one of the accepted kill boards
         if not any(
             re.match(pattern=regex, string=killboard_link)
-            for regex in [ZKILLBOARD_BASE_URL_REGEX, EVETOOLS_KILLBOARD_BASE_URL_REGEX]
+            for regex in [
+                zkillboard_base_url_regex,
+                evetools_base_url_regex,
+                eve_kill_base_url_regex,
+            ]
         ):
             raise forms.ValidationError(
                 message=_(
-                    f"Invalid link. Please use {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"  # pylint: disable=line-too-long
+                    f"Invalid link. Please use {zkilboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"  # pylint: disable=line-too-long
                 )
             )
 
@@ -152,8 +162,9 @@ class SrpRequestForm(ModelForm):
         if not any(
             re.match(pattern=regex, string=killboard_link)
             for regex in [
-                ZKILLBOARD_KILLMAIL_URL_REGEX,
-                EVETOOLS_KILLBOARD_KILLMAIL_URL_REGEX,
+                zkillboard_killmail_url_regex,
+                evetools_killmail_url_regex,
+                eve_kill_killmail_url_regex,
             ]
         ):
             raise forms.ValidationError(
