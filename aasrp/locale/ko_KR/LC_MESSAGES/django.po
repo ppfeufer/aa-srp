@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 20:55+0200\n"
+"POT-Creation-Date: 2024-08-11 23:31+0200\n"
 "PO-Revision-Date: 2024-07-07 11:27+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -103,58 +103,56 @@ msgstr ""
 "SRP 요청에 대한 질문이 있다면 요청을 검토하는 사람에게 질문하세요.\n"
 "질문할 때 SRP 코드와 요청 코드를 추가했는지 꼭 확인해 주세요."
 
-#: aasrp/form.py:37
+#: aasrp/form.py:43
 msgid "This field is mandatory"
 msgstr "필수 항목입니다"
 
-#: aasrp/form.py:53
+#: aasrp/form.py:59
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:13
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:27
 msgid "Fleet name"
 msgstr "함대 이름"
 
-#: aasrp/form.py:57 aasrp/models.py:186
+#: aasrp/form.py:63 aasrp/models.py:186
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:37
 msgid "Fleet time"
 msgstr "함대 시각"
 
-#: aasrp/form.py:62
+#: aasrp/form.py:68
 msgid "Fleet type (optional)"
 msgstr "함대 종류 (선택)"
 
-#: aasrp/form.py:68 aasrp/models.py:172
+#: aasrp/form.py:74 aasrp/models.py:172
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:45
 msgid "Doctrine"
 msgstr "독트린"
 
-#: aasrp/form.py:70 aasrp/form.py:86
+#: aasrp/form.py:76 aasrp/form.py:92
 msgid "After action report link"
 msgstr "AAR 링크"
 
-#: aasrp/form.py:103 aasrp/models.py:345
+#: aasrp/form.py:109 aasrp/models.py:345
 msgid "Killboard link"
 msgstr "킬보드 링크"
 
-#: aasrp/form.py:107
+#: aasrp/form.py:113
 #, python-brace-format
 msgid ""
-"Find your kill mail on {ZKILLBOARD_BASE_URL} or "
-"{EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."
+"Find your kill mail on {zkilboard_base_url},  {evetools_base_url} or "
+"{eve_kill_base_url} and paste the link here."
 msgstr ""
-"{ZKILLBOARD_BASE_URL} 또는{EVETOOLS_KILLBOARD_BASE_URL} 에서 킬메일 링크를 찾"
-"아 첨부하시기 바랍니다."
 
-#: aasrp/form.py:114 aasrp/models.py:348 aasrp/models.py:442
+#: aasrp/form.py:120 aasrp/models.py:348 aasrp/models.py:442
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:58
 #: aasrp/templates/aasrp/view-requests.html:82
 msgid "Additional information"
 msgstr "추가 정보"
 
-#: aasrp/form.py:116
+#: aasrp/form.py:122
 msgid ""
 "Please tell us about the circumstances of your untimely demise. Who was the "
 "FC, what doctrine was called, have changes to the fit been requested and so "
@@ -163,21 +161,19 @@ msgstr ""
 "당신이 사망하게 된 경위를 설명하십시오. FC 이름, 독트린, 독트린에서 변경된 모"
 "듈과 그 이유 등. 최대한 상세히 작성하여 주십시오."
 
-#: aasrp/form.py:147
+#: aasrp/form.py:157
 #, python-brace-format
 msgid ""
-"Invalid link. Please use {ZKILLBOARD_BASE_URL} or "
-"{EVETOOLS_KILLBOARD_BASE_URL}"
+"Invalid link. Please use {zkilboard_base_url}, {evetools_base_url} or "
+"{eve_kill_base_url}"
 msgstr ""
-"링크를 찾을 수 없습니다. {ZKILLBOARD_BASE_URL} 또는 "
-"{EVETOOLS_KILLBOARD_BASE_URL} 를 참고하십시오"
 
-#: aasrp/form.py:160
+#: aasrp/form.py:171
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr ""
 "유효하지 않은 링크입니다. 올바른 킬메일 링크를 입력하여 주시기 바랍니다."
 
-#: aasrp/form.py:171
+#: aasrp/form.py:182
 msgid ""
 "There is already an SRP request for this kill mail. Please check if you got "
 "the right one."
@@ -185,39 +181,39 @@ msgstr ""
 "이미 이 킬메일에 대한 요청이 생성되어 있습니다. 내용을 다시 검토하여 주십시"
 "오."
 
-#: aasrp/form.py:184
+#: aasrp/form.py:195
 msgid "SRP payout value"
 msgstr "SRP 반환금"
 
-#: aasrp/form.py:195 aasrp/models.py:368 aasrp/models.py:443
+#: aasrp/form.py:206 aasrp/models.py:368 aasrp/models.py:443
 msgid "Reject reason"
 msgstr "반송 사유"
 
-#: aasrp/form.py:196
+#: aasrp/form.py:207
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "이 요청이 거부된 사유를 작성하십시오."
 
-#: aasrp/form.py:208
+#: aasrp/form.py:219
 msgid "Comment (optional)"
 msgstr "내용 (선택)"
 
-#: aasrp/form.py:209
+#: aasrp/form.py:220
 msgid "Leave a comment for the requestor"
 msgstr "요청자에게 메모 남기기"
 
-#: aasrp/form.py:221 aasrp/models.py:440 aasrp/models.py:447
+#: aasrp/form.py:232 aasrp/models.py:440 aasrp/models.py:447
 #: aasrp/models.py:499
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
 msgid "Comment"
 msgstr "메모"
 
-#: aasrp/form.py:223
+#: aasrp/form.py:234
 msgid ""
 "Please provide the reason why this former rejected SRP request is now "
 "accepted."
 msgstr "이미 거부되었던 요청이 이제서 수락된 이유를 작성하여 주십시오."
 
-#: aasrp/form.py:238
+#: aasrp/form.py:249
 msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "알람 비활성화. (AA, 디스코드, 또는 동기화된 모듈)"
@@ -931,9 +927,9 @@ msgstr "설정 저장됨."
 msgid "SRP link \"{srp_link.srp_code}\" created"
 msgstr "SRP 세션{srp_link.srp_code} 이 생성됨"
 
-#: aasrp/views/general.py:222 aasrp/views/general.py:519
-#: aasrp/views/general.py:558 aasrp/views/general.py:605
-#: aasrp/views/general.py:642 aasrp/views/general.py:679
+#: aasrp/views/general.py:222 aasrp/views/general.py:522
+#: aasrp/views/general.py:561 aasrp/views/general.py:608
+#: aasrp/views/general.py:645 aasrp/views/general.py:682
 #, python-brace-format
 msgid "Unable to locate SRP code with ID {srp_code}"
 msgstr "다음 링크의 SRP 세션을 생성할 수 없습니다 ({srp_code})"
@@ -963,18 +959,22 @@ msgid ""
 "be parsed: {str(err)}"
 msgstr ""
 
-#: aasrp/views/general.py:444
-#, python-brace-format
+#: aasrp/views/general.py:447
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Your kill mail link ({submitted_killmail_link}) is invalid or the "
+#| "zKillboard API is not answering at the moment. Please make sure you are "
+#| "using either {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
 msgid ""
 "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard "
 "API is not answering at the moment. Please make sure you are using either "
-"{ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
+"{zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
 msgstr ""
 "킬메일 링크({submitted_killmail_link})가 유효하지 않거나 API에서 자료를 받아"
 "올 수 없습니다. {ZKILLBOARD_BASE_URL} 또는 {EVETOOLS_KILLBOARD_BASE_URL} 를 "
 "이용하고 링크를 확인해 주십시오"
 
-#: aasrp/views/general.py:475
+#: aasrp/views/general.py:478
 #, python-brace-format
 msgid ""
 "Character {victim_id} does not belong to your Auth account. Please add this "
@@ -983,21 +983,21 @@ msgstr ""
 "{victim_id} 는 사용자의 계정에 속해있지 않습니다. 캐릭터를 추가하거나 오탈자"
 "를 확인한 후 다시 시도해 주십시오."
 
-#: aasrp/views/general.py:528
+#: aasrp/views/general.py:531
 msgid "SRP link marked as completed"
 msgstr "종료된 SRP 세션"
 
-#: aasrp/views/general.py:614
+#: aasrp/views/general.py:617
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr "SRP 세션 {srp_code} 이 활성화 되었습니다."
 
-#: aasrp/views/general.py:651
+#: aasrp/views/general.py:654
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr "SRP 세션 {srp_code} 이 비활성화 되었습니다."
 
-#: aasrp/views/general.py:687
+#: aasrp/views/general.py:690
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "SRP 세션 {srp_code} 이 삭제 되었습니다."

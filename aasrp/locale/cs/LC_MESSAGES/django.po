@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 20:55+0200\n"
+"POT-Creation-Date: 2024-08-11 23:31+0200\n"
 "PO-Revision-Date: 2024-08-06 07:28+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Czech <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -111,112 +111,112 @@ msgid ""
 "inquiry."
 msgstr ""
 
-#: aasrp/form.py:37
+#: aasrp/form.py:43
 msgid "This field is mandatory"
 msgstr "Toto pole je povinné"
 
-#: aasrp/form.py:53
+#: aasrp/form.py:59
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:13
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:27
 msgid "Fleet name"
 msgstr ""
 
-#: aasrp/form.py:57 aasrp/models.py:186
+#: aasrp/form.py:63 aasrp/models.py:186
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:37
 msgid "Fleet time"
 msgstr ""
 
-#: aasrp/form.py:62
+#: aasrp/form.py:68
 msgid "Fleet type (optional)"
 msgstr ""
 
-#: aasrp/form.py:68 aasrp/models.py:172
+#: aasrp/form.py:74 aasrp/models.py:172
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:45
 msgid "Doctrine"
 msgstr ""
 
-#: aasrp/form.py:70 aasrp/form.py:86
+#: aasrp/form.py:76 aasrp/form.py:92
 msgid "After action report link"
 msgstr ""
 
-#: aasrp/form.py:103 aasrp/models.py:345
+#: aasrp/form.py:109 aasrp/models.py:345
 msgid "Killboard link"
 msgstr ""
 
-#: aasrp/form.py:107
+#: aasrp/form.py:113
 #, python-brace-format
 msgid ""
-"Find your kill mail on {ZKILLBOARD_BASE_URL} or "
-"{EVETOOLS_KILLBOARD_BASE_URL} and paste the link here."
+"Find your kill mail on {zkilboard_base_url},  {evetools_base_url} or "
+"{eve_kill_base_url} and paste the link here."
 msgstr ""
 
-#: aasrp/form.py:114 aasrp/models.py:348 aasrp/models.py:442
+#: aasrp/form.py:120 aasrp/models.py:348 aasrp/models.py:442
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:58
 #: aasrp/templates/aasrp/view-requests.html:82
 msgid "Additional information"
 msgstr ""
 
-#: aasrp/form.py:116
+#: aasrp/form.py:122
 msgid ""
 "Please tell us about the circumstances of your untimely demise. Who was the "
 "FC, what doctrine was called, have changes to the fit been requested and so "
 "on. Be as detailed as you can."
 msgstr ""
 
-#: aasrp/form.py:147
+#: aasrp/form.py:157
 #, python-brace-format
 msgid ""
-"Invalid link. Please use {ZKILLBOARD_BASE_URL} or "
-"{EVETOOLS_KILLBOARD_BASE_URL}"
-msgstr ""
-
-#: aasrp/form.py:160
-msgid "Invalid link. Please post a link to a kill mail."
+"Invalid link. Please use {zkilboard_base_url}, {evetools_base_url} or "
+"{eve_kill_base_url}"
 msgstr ""
 
 #: aasrp/form.py:171
+msgid "Invalid link. Please post a link to a kill mail."
+msgstr ""
+
+#: aasrp/form.py:182
 msgid ""
 "There is already an SRP request for this kill mail. Please check if you got "
 "the right one."
 msgstr ""
 
-#: aasrp/form.py:184
+#: aasrp/form.py:195
 msgid "SRP payout value"
 msgstr ""
 
-#: aasrp/form.py:195 aasrp/models.py:368 aasrp/models.py:443
+#: aasrp/form.py:206 aasrp/models.py:368 aasrp/models.py:443
 msgid "Reject reason"
 msgstr ""
 
-#: aasrp/form.py:196
+#: aasrp/form.py:207
 msgid "Please provide the reason this SRP request is rejected."
 msgstr ""
 
-#: aasrp/form.py:208
+#: aasrp/form.py:219
 msgid "Comment (optional)"
 msgstr ""
 
-#: aasrp/form.py:209
+#: aasrp/form.py:220
 msgid "Leave a comment for the requestor"
 msgstr ""
 
-#: aasrp/form.py:221 aasrp/models.py:440 aasrp/models.py:447
+#: aasrp/form.py:232 aasrp/models.py:440 aasrp/models.py:447
 #: aasrp/models.py:499
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
 msgid "Comment"
 msgstr ""
 
-#: aasrp/form.py:223
+#: aasrp/form.py:234
 msgid ""
 "Please provide the reason why this former rejected SRP request is now "
 "accepted."
 msgstr ""
 
-#: aasrp/form.py:238
+#: aasrp/form.py:249
 msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
@@ -905,9 +905,9 @@ msgstr ""
 msgid "SRP link \"{srp_link.srp_code}\" created"
 msgstr ""
 
-#: aasrp/views/general.py:222 aasrp/views/general.py:519
-#: aasrp/views/general.py:558 aasrp/views/general.py:605
-#: aasrp/views/general.py:642 aasrp/views/general.py:679
+#: aasrp/views/general.py:222 aasrp/views/general.py:522
+#: aasrp/views/general.py:561 aasrp/views/general.py:608
+#: aasrp/views/general.py:645 aasrp/views/general.py:682
 #, python-brace-format
 msgid "Unable to locate SRP code with ID {srp_code}"
 msgstr ""
@@ -936,36 +936,36 @@ msgid ""
 "be parsed: {str(err)}"
 msgstr ""
 
-#: aasrp/views/general.py:444
+#: aasrp/views/general.py:447
 #, python-brace-format
 msgid ""
 "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard "
 "API is not answering at the moment. Please make sure you are using either "
-"{ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
+"{zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
 msgstr ""
 
-#: aasrp/views/general.py:475
+#: aasrp/views/general.py:478
 #, python-brace-format
 msgid ""
 "Character {victim_id} does not belong to your Auth account. Please add this "
 "character as an alt to your main and try again."
 msgstr ""
 
-#: aasrp/views/general.py:528
+#: aasrp/views/general.py:531
 msgid "SRP link marked as completed"
 msgstr ""
 
-#: aasrp/views/general.py:614
+#: aasrp/views/general.py:617
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr ""
 
-#: aasrp/views/general.py:651
+#: aasrp/views/general.py:654
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr ""
 
-#: aasrp/views/general.py:687
+#: aasrp/views/general.py:690
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""
