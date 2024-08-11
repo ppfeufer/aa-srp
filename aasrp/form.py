@@ -22,8 +22,8 @@ evetools_base_url: str = KILLBOARD_DATA["EveTools"]["base_url"]
 eve_kill_base_url: str = KILLBOARD_DATA["EVE-KILL"]["base_url"]
 
 # Killboard regex
-zkilboard_base_url_regex: str = KILLBOARD_DATA["zKillboard"]["base_url_regex"]
-zkilboard_killmail_url_regex: str = KILLBOARD_DATA["zKillboard"]["killmail_url_regex"]
+zkillboard_base_url_regex: str = KILLBOARD_DATA["zKillboard"]["base_url_regex"]
+zkillboard_killmail_url_regex: str = KILLBOARD_DATA["zKillboard"]["killmail_url_regex"]
 evetools_base_url_regex: str = KILLBOARD_DATA["EveTools"]["base_url_regex"]
 evetools_killmail_url_regex: str = KILLBOARD_DATA["EveTools"]["killmail_url_regex"]
 eve_kill_base_url_regex: str = KILLBOARD_DATA["EVE-KILL"]["base_url_regex"]
@@ -147,7 +147,7 @@ class SrpRequestForm(ModelForm):
         if not any(
             re.match(pattern=regex, string=killboard_link)
             for regex in [
-                zkilboard_base_url_regex,
+                zkillboard_base_url_regex,
                 evetools_base_url_regex,
                 eve_kill_base_url_regex,
             ]
@@ -162,7 +162,7 @@ class SrpRequestForm(ModelForm):
         if not any(
             re.match(pattern=regex, string=killboard_link)
             for regex in [
-                zkilboard_killmail_url_regex,
+                zkillboard_killmail_url_regex,
                 evetools_killmail_url_regex,
                 eve_kill_killmail_url_regex,
             ]

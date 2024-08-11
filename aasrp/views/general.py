@@ -440,10 +440,11 @@ def request_srp(  # pylint: disable=too-many-locals
                         f"Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {str(err)}"  # pylint: disable=line-too-long
                     )
                 else:
-                    zkillboard_base_url = KILLBOARD_DATA["zKillboard"]["base_url"]
-                    evetools_killboard_base_url = KILLBOARD_DATA["EveTools"]["base_url"]
+                    zkillboard_base_url: str = KILLBOARD_DATA["zKillboard"]["base_url"]
+                    evetools_base_url: str = KILLBOARD_DATA["EveTools"]["base_url"]
+                    eve_kill_base_url: str = KILLBOARD_DATA["EVE-KILL"]["base_url"]
                     error_message_text = _(
-                        f"Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url} or {evetools_killboard_base_url}"  # pylint: disable=line-too-long
+                        f"Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"  # pylint: disable=line-too-long
                     )
 
                 messages.error(request=request, message=error_message_text)
