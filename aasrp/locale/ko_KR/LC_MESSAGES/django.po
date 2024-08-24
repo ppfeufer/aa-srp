@@ -10,10 +10,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-11 23:45+0200\n"
-"PO-Revision-Date: 2024-07-07 11:27+0000\n"
+"PO-Revision-Date: 2024-08-12 14:23+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/ko/>\n"
+"Language-Team: Korean <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/ko/>\n"
 "Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -817,7 +817,7 @@ msgstr "SRP 요청 제출"
 
 #: aasrp/templates/aasrp/partials/request-srp/form.html:29
 msgid "Working on it, please be patient …"
-msgstr ""
+msgstr "작업 중입니다, 잠시만 기다려 주세요 …"
 
 #: aasrp/templates/aasrp/partials/request-srp/form.html:32
 msgid "Fetching kill mail information, this might take a moment …"
