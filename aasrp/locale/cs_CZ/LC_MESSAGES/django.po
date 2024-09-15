@@ -1,23 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# Peter Pfeufer <info@ppfeufer.de>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-11 23:45+0200\n"
-"PO-Revision-Date: 2024-05-10 14:11+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
-"Language-Team: Dutch <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/nl/>\n"
-"Language: nl\n"
+"PO-Revision-Date: 2024-08-06 07:28+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"Language-Team: Czech <https://weblate.ppfeufer.de/projects/alliance-auth-"
+"apps/aa-srp/cs/>\n"
+"Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.3\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
 #: aasrp/templates/aasrp/base.html:10 aasrp/templates/aasrp/link-add.html:6
@@ -51,7 +51,7 @@ msgstr ""
 
 #: aasrp/admin.py:242 aasrp/models.py:117
 msgid "Is enabled"
-msgstr ""
+msgstr "Aktivní"
 
 #: aasrp/admin.py:257
 msgid "Activate selected fleet types"
@@ -63,6 +63,8 @@ msgid "Failed to activate {failed} fleet type"
 msgid_plural "Failed to activate {failed} fleet types"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #: aasrp/admin.py:296
 #, python-brace-format
@@ -70,6 +72,8 @@ msgid "Activated {notifications_count} fleet type"
 msgid_plural "Activated {notifications_count} fleet types"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #: aasrp/admin.py:302
 msgid "Deactivate selected fleet types"
@@ -81,6 +85,8 @@ msgid "Failed to deactivate {failed} fleet type"
 msgid_plural "Failed to deactivate {failed} fleet types"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #: aasrp/admin.py:341
 #, python-brace-format
@@ -88,6 +94,8 @@ msgid "Deactivated {notifications_count} fleet type"
 msgid_plural "Deactivated {notifications_count} fleet types"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #. Translators: This is the app name and version, which will appear in the Django Backend
 #: aasrp/apps.py:21
@@ -105,7 +113,7 @@ msgstr ""
 
 #: aasrp/form.py:43
 msgid "This field is mandatory"
-msgstr ""
+msgstr "Toto pole je povinné"
 
 #: aasrp/form.py:59
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:13
@@ -491,7 +499,7 @@ msgstr ""
 #: aasrp/models.py:515
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:103
 msgid "User"
-msgstr ""
+msgstr "Uživatel"
 
 #: aasrp/models.py:519
 msgid "Disable notifications"
@@ -621,7 +629,7 @@ msgstr ""
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:25
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:29
 msgid "Delete"
-msgstr ""
+msgstr "Smazat"
 
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:25
 msgid "Disable"
@@ -678,6 +686,8 @@ msgid_plural ""
 "                        "
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:18
 msgid "Are you sure you want to reject this SRP request?"
@@ -717,10 +727,12 @@ msgid ""
 "Do you want to help translate this app into your language or improve the "
 "existing translation?"
 msgstr ""
+"Chceš pomoc s překladem této aplikace do tvého jazyka, nebo vylepšit "
+"současný překlad?"
 
 #: aasrp/templates/aasrp/partials/footer/app-translation-footer.html:8
 msgid "Join our team of translators!"
-msgstr ""
+msgstr "Připoj se k našemu týmu překladatelů!"
 
 #: aasrp/templates/aasrp/partials/form/required-field-hint.html:5
 msgid "Fields marked with an asterisk (*) are mandatory"
