@@ -35,9 +35,21 @@ Section Order:
 ### Security
 -->
 
+## \[2.4.0\] - 2024-09-16
+
 ### Added
 
 - [EVE-KILL](https://eve-kill.com/) to the list of valid killboards for posting kill mails in SRP requests
+
+### Changed
+
+- Dependencies updated
+  - `allianceauth`>=4.3.1
+- French translation improved
+- German translation improved
+- Korean translation improved
+- Russian translation improved
+- Lingua codes updated to match Alliance Auth v4.3.1
 
 ## \[2.3.1\] - 2024-08-11
 

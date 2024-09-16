@@ -51,7 +51,7 @@ ______________________________________________________________________
 
 - Overview of SRP links
 - Overview of your own SRP requests and their status
-- Accepting kill mails from [zKillboard] and [EveTools Killboard]
+- Accepting kill mails from [zKillboard], [EveTools Killboard] and [EVE-Kill]
 - SRP Request administration is mostly done via ajax and without page reloads
 - Use modern DataTables with filters where ever they're useful
 - Tables fully searchable and sortable
@@ -221,6 +221,7 @@ Please make sure to read the [Contribution Guidelines].\
 [discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "Discord Notify"
 [discord proxy]: https://gitlab.com/ErikKalkoken/discordproxy "Discord Proxy"
 [eve universe]: https://gitlab.com/ErikKalkoken/django-eveuniverse "Eve Universe"
+[eve-kill]: https://eve-kill.com/ "EVE-Kill"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
 [image: aa srp dashboard]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/aa-srp-dashboard.jpg "AA SRP Dashboard"
 [image: aa srp dashboard (view all)]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/aa-srp-dashboard-view-all.jpg "AA SRP Dashboard (View All)"
