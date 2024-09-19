@@ -2,6 +2,9 @@
 Django admin declarations
 """
 
+# Third Party
+from solo.admin import SingletonModelAdmin
+
 # Django
 from django.contrib import admin, messages
 from django.utils.translation import gettext_lazy as _
@@ -62,58 +65,6 @@ def custom_filter(title):
             return instance
 
     return Wrapper
-
-
-class SingletonModelAdmin(admin.ModelAdmin):
-    """
-    Prevents Django admin users deleting the singleton or adding extra rows.
-    """
-
-    actions = None  # Removes the default delete action.
-
-    def has_add_permission(self, request):  # pylint: disable=unused-argument
-        """
-        Has "add" permissions
-
-        :param request:
-        :type request:
-        :return:
-        :rtype:
-        """
-
-        return self.model.objects.all().count() == 0
-
-    def has_change_permission(
-        self, request, obj=None  # pylint: disable=unused-argument
-    ):
-        """
-        Has "change" permissions
-
-        :param request:
-        :type request:
-        :param obj:
-        :type obj:
-        :return:
-        :rtype:
-        """
-
-        return True
-
-    def has_delete_permission(
-        self, request, obj=None  # pylint: disable=unused-argument
-    ):
-        """
-        Has "delete" permissions
-
-        :param request:
-        :type request:
-        :param obj:
-        :type obj:
-        :return:
-        :rtype:
-        """
-
-        return False
 
 
 @admin.register(SrpLink)

@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Switch to `django-solo` to provide the singleton for the settings model, instead of the custom implementation
+
 ## \[2.4.0\] - 2024-09-16
 
 ### Added

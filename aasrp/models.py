@@ -2,6 +2,9 @@
 Our Models
 """
 
+# Third Party
+from solo.models import SingletonModel
+
 # Django
 from django.contrib.auth.models import User
 from django.db import models
@@ -26,50 +29,6 @@ def get_sentinel_user():
     """
 
     return User.objects.get_or_create(username="deleted")[0]
-
-
-class SingletonModel(models.Model):
-    """
-    SingletonModel
-    """
-
-    class Meta:  # pylint: disable=too-few-public-methods
-        """
-        Model meta definitions
-        """
-
-        abstract = True
-
-    def save(self, *args, **kwargs):
-        """
-        Save action
-
-        :param args:
-        :type args:
-        :param kwargs:
-        :type kwargs:
-        :return:
-        :rtype:
-        """
-
-        if self.__class__.objects.count():
-            self.pk = self.__class__.objects.first().pk
-
-        super().save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        """
-        Delete action
-
-        :param args:
-        :type args:
-        :param kwargs:
-        :type kwargs:
-        :return:
-        :rtype:
-        """
-
-        pass  # pylint: disable=unnecessary-pass
 
 
 class AaSrp(models.Model):
