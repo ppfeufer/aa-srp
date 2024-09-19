@@ -9,11 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 23:45+0200\n"
+"POT-Creation-Date: 2024-09-19 20:14+0200\n"
 "PO-Revision-Date: 2024-08-12 14:23+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: Korean <https://weblate.ppfeufer.de/projects/"
-"alliance-auth-apps/aa-srp/ko/>\n"
+"Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-"
+"apps/aa-srp/ko/>\n"
 "Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,13 +31,13 @@ msgstr ""
 msgid "Ship Replacement"
 msgstr "SRP"
 
-#: aasrp/admin.py:140 aasrp/models.py:199 aasrp/models.py:322
-#: aasrp/models.py:463
+#: aasrp/admin.py:91 aasrp/models.py:158 aasrp/models.py:281
+#: aasrp/models.py:422
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
 msgid "Creator"
 msgstr "생성자"
 
-#: aasrp/admin.py:189
+#: aasrp/admin.py:140
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
 #: aasrp/templates/aasrp/view-own-requests.html:55
@@ -45,43 +45,43 @@ msgstr "생성자"
 msgid "Requestor"
 msgstr "요청자"
 
-#: aasrp/admin.py:229 aasrp/models.py:126 aasrp/models.py:183
+#: aasrp/admin.py:180 aasrp/models.py:85 aasrp/models.py:142
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
 msgstr "함대 종류"
 
-#: aasrp/admin.py:242 aasrp/models.py:117
+#: aasrp/admin.py:193 aasrp/models.py:76
 msgid "Is enabled"
 msgstr "활성화"
 
-#: aasrp/admin.py:257
+#: aasrp/admin.py:208
 msgid "Activate selected fleet types"
 msgstr "선택된 플릿을 필터에서 활성화"
 
-#: aasrp/admin.py:286
+#: aasrp/admin.py:237
 #, python-brace-format
 msgid "Failed to activate {failed} fleet type"
 msgid_plural "Failed to activate {failed} fleet types"
 msgstr[0] "{failed} 개의 함대 종류 활성화에 실패 했습니다"
 
-#: aasrp/admin.py:296
+#: aasrp/admin.py:247
 #, python-brace-format
 msgid "Activated {notifications_count} fleet type"
 msgid_plural "Activated {notifications_count} fleet types"
 msgstr[0] "{notifications_count} 개의 함대 종류 활성화됨"
 
-#: aasrp/admin.py:302
+#: aasrp/admin.py:253
 msgid "Deactivate selected fleet types"
 msgstr "선택된 플릿을 필터에서 제외"
 
-#: aasrp/admin.py:331
+#: aasrp/admin.py:282
 #, python-brace-format
 msgid "Failed to deactivate {failed} fleet type"
 msgid_plural "Failed to deactivate {failed} fleet types"
 msgstr[0] "{failed} 개의 함대 종류 비활성화에 실패했습니다"
 
-#: aasrp/admin.py:341
+#: aasrp/admin.py:292
 #, python-brace-format
 msgid "Deactivated {notifications_count} fleet type"
 msgid_plural "Deactivated {notifications_count} fleet types"
@@ -113,7 +113,7 @@ msgstr "필수 항목입니다"
 msgid "Fleet name"
 msgstr "함대 이름"
 
-#: aasrp/form.py:63 aasrp/models.py:186
+#: aasrp/form.py:63 aasrp/models.py:145
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:37
 msgid "Fleet time"
@@ -123,7 +123,7 @@ msgstr "함대 시각"
 msgid "Fleet type (optional)"
 msgstr "함대 종류 (선택)"
 
-#: aasrp/form.py:74 aasrp/models.py:172
+#: aasrp/form.py:74 aasrp/models.py:131
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:45
@@ -134,7 +134,7 @@ msgstr "독트린"
 msgid "After action report link"
 msgstr "AAR 링크"
 
-#: aasrp/form.py:109 aasrp/models.py:345
+#: aasrp/form.py:109 aasrp/models.py:304
 msgid "Killboard link"
 msgstr "킬보드 링크"
 
@@ -145,7 +145,7 @@ msgid ""
 "{eve_kill_base_url} and paste the link here."
 msgstr ""
 
-#: aasrp/form.py:120 aasrp/models.py:348 aasrp/models.py:442
+#: aasrp/form.py:120 aasrp/models.py:307 aasrp/models.py:401
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:58
 #: aasrp/templates/aasrp/view-requests.html:82
@@ -185,7 +185,7 @@ msgstr ""
 msgid "SRP payout value"
 msgstr "SRP 반환금"
 
-#: aasrp/form.py:206 aasrp/models.py:368 aasrp/models.py:443
+#: aasrp/form.py:206 aasrp/models.py:327 aasrp/models.py:402
 msgid "Reject reason"
 msgstr "반송 사유"
 
@@ -201,8 +201,8 @@ msgstr "내용 (선택)"
 msgid "Leave a comment for the requestor"
 msgstr "요청자에게 메모 남기기"
 
-#: aasrp/form.py:232 aasrp/models.py:440 aasrp/models.py:447
-#: aasrp/models.py:499
+#: aasrp/form.py:232 aasrp/models.py:399 aasrp/models.py:406
+#: aasrp/models.py:458
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
 msgid "Comment"
 msgstr "메모"
@@ -291,43 +291,43 @@ msgstr "SRP 요청 거부"
 msgid "Delete SRP request"
 msgstr "SRP 요청 삭제"
 
-#: aasrp/models.py:109
+#: aasrp/models.py:68
 msgid "Descriptive name of your fleet type"
 msgstr "함대 종류에 대해 설명해주세요"
 
-#: aasrp/models.py:110
+#: aasrp/models.py:69
 msgid "Name"
 msgstr "이름"
 
-#: aasrp/models.py:116
+#: aasrp/models.py:75
 msgid "Whether this fleet type is active or not"
 msgstr "함대 종류 활성화 여부"
 
-#: aasrp/models.py:127
+#: aasrp/models.py:86
 msgid "Fleet types"
 msgstr "함대 종류"
 
-#: aasrp/models.py:150
+#: aasrp/models.py:109
 msgid "Active"
 msgstr "Active"
 
-#: aasrp/models.py:151
+#: aasrp/models.py:110
 msgid "Closed"
 msgstr "Closed"
 
-#: aasrp/models.py:152
+#: aasrp/models.py:111
 msgid "Completed"
 msgstr "Completed"
 
-#: aasrp/models.py:154
+#: aasrp/models.py:113
 msgid "SRP name"
 msgstr "SRP 이름"
 
-#: aasrp/models.py:159
+#: aasrp/models.py:118
 msgid "SRP status"
 msgstr "SRP 상태"
 
-#: aasrp/models.py:161 aasrp/templates/aasrp/dashboard.html:68
+#: aasrp/models.py:120 aasrp/templates/aasrp/dashboard.html:68
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:50
@@ -335,58 +335,58 @@ msgstr "SRP 상태"
 msgid "SRP code"
 msgstr "SRP 코드"
 
-#: aasrp/models.py:169
+#: aasrp/models.py:128
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:32
 msgid "Fleet commander"
 msgstr "함대 지휘관"
 
-#: aasrp/models.py:182
+#: aasrp/models.py:141
 msgid "The SRP link fleet type, if it's set"
 msgstr "함대 종류 SRP 링크(설정된 경우)"
 
-#: aasrp/models.py:188
+#: aasrp/models.py:147
 msgid "AAR link"
 msgstr "AAR 링크"
 
-#: aasrp/models.py:198
+#: aasrp/models.py:157
 msgid "Who created the SRP link?"
 msgstr "SRP 링크를 누가 생성했나요?"
 
-#: aasrp/models.py:208 aasrp/models.py:361
+#: aasrp/models.py:167 aasrp/models.py:320
 msgid "SRP link"
 msgstr "SRP 주소"
 
-#: aasrp/models.py:209
+#: aasrp/models.py:168
 #: aasrp/templates/aasrp/partials/navigation/top-navigation.html:26
 msgid "SRP links"
 msgstr "SRP 링크"
 
-#: aasrp/models.py:307
+#: aasrp/models.py:266
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:18
 msgid "Pending"
 msgstr "요청됨"
 
-#: aasrp/models.py:308
+#: aasrp/models.py:267
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:19
 msgid "Approved"
 msgstr "승인됨"
 
-#: aasrp/models.py:309
+#: aasrp/models.py:268
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:20
 msgid "Rejected"
 msgstr "거부됨"
 
-#: aasrp/models.py:312 aasrp/templates/aasrp/dashboard.html:69
+#: aasrp/models.py:271 aasrp/templates/aasrp/dashboard.html:69
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
 #: aasrp/templates/aasrp/view-own-requests.html:49
 msgid "Request code"
 msgstr "SRP 코드"
 
-#: aasrp/models.py:321
+#: aasrp/models.py:280
 msgid "Who created the SRP request?"
 msgstr "누가 SRP 요청을 생성했나요?"
 
-#: aasrp/models.py:330
+#: aasrp/models.py:289
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:27
 #: aasrp/templates/aasrp/dashboard.html:64
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:18
@@ -398,133 +398,133 @@ msgstr "누가 SRP 요청을 생성했나요?"
 msgid "Character"
 msgstr "캐릭터"
 
-#: aasrp/models.py:333 aasrp/models.py:342
+#: aasrp/models.py:292 aasrp/models.py:301
 msgid "Ship type"
 msgstr "함선 종류"
 
-#: aasrp/models.py:354 aasrp/templates/aasrp/dashboard.html:63
+#: aasrp/models.py:313 aasrp/templates/aasrp/dashboard.html:63
 #: aasrp/templates/aasrp/view-own-requests.html:43
 #: aasrp/templates/aasrp/view-requests.html:68
 msgid "Request status"
 msgstr "요청 상태"
 
-#: aasrp/models.py:356
+#: aasrp/models.py:315
 msgid "Payout amount"
 msgstr "반환 금액"
 
-#: aasrp/models.py:363
+#: aasrp/models.py:322
 msgid "Loss amount"
 msgstr "손실액"
 
-#: aasrp/models.py:365
+#: aasrp/models.py:324
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:17
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:15
 msgid "Request time"
 msgstr "요청 시간"
 
-#: aasrp/models.py:377
+#: aasrp/models.py:336
 msgid "Request"
 msgstr "요청"
 
-#: aasrp/models.py:378
+#: aasrp/models.py:337
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:26
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:16
 msgid "Requests"
 msgstr "요청"
 
-#: aasrp/models.py:394
+#: aasrp/models.py:353
 #, python-brace-format
 msgid "{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
 msgstr "{character_name}{user_name} 에 의한 요청 {ship}{request_code}"
 
-#: aasrp/models.py:412 aasrp/models.py:473
+#: aasrp/models.py:371 aasrp/models.py:432
 msgid "SRP request"
 msgstr "SRP 요청"
 
-#: aasrp/models.py:415
+#: aasrp/models.py:374
 msgid "Insurance level"
 msgstr "보험등급"
 
-#: aasrp/models.py:417
+#: aasrp/models.py:376
 msgid "Insurance cost"
 msgstr "보험 가입금"
 
-#: aasrp/models.py:418
+#: aasrp/models.py:377
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
 #: aasrp/templates/aasrp/view-requests.html:81
 msgid "Insurance payout"
 msgstr "보험금"
 
-#: aasrp/models.py:426
+#: aasrp/models.py:385
 msgid "Ship insurance"
 msgstr "함선 보험"
 
-#: aasrp/models.py:427
+#: aasrp/models.py:386
 msgid "Ship insurances"
 msgstr "함선 보험"
 
-#: aasrp/models.py:441
+#: aasrp/models.py:400
 msgid "SRP request added"
 msgstr "SRP 요청 추가됨"
 
-#: aasrp/models.py:444
+#: aasrp/models.py:403
 msgid "Status changed"
 msgstr "상태 변경됨"
 
-#: aasrp/models.py:445
+#: aasrp/models.py:404
 msgid "Reviser comment"
 msgstr "수정자 의견"
 
-#: aasrp/models.py:453
+#: aasrp/models.py:412
 msgid "Comment type"
 msgstr "코멘트 종류"
 
 #. Translators: This is the time when the comment was made
-#: aasrp/models.py:481
+#: aasrp/models.py:440
 msgid "Comment time"
 msgstr "작성 시간"
 
 #. Translators: New SRP request status that might have been set
-#: aasrp/models.py:490
+#: aasrp/models.py:449
 msgid "New SRP request status"
 msgstr "새 SRP 요청 상태"
 
-#: aasrp/models.py:500
+#: aasrp/models.py:459
 msgid "Comments"
 msgstr "코멘트"
 
-#: aasrp/models.py:515
+#: aasrp/models.py:474
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:103
 msgid "User"
 msgstr "사용자"
 
-#: aasrp/models.py:519
+#: aasrp/models.py:478
 msgid "Disable notifications"
 msgstr "알람 비활성화"
 
-#: aasrp/models.py:528 aasrp/models.py:529
+#: aasrp/models.py:487 aasrp/models.py:488
 #, fuzzy
 #| msgid "settings"
 msgid "User settings"
 msgstr "설정"
 
-#: aasrp/models.py:543
+#: aasrp/models.py:502
 msgid "SRP team Discord channel ID"
 msgstr "SRP 팀 디스코드 채널 아이디"
 
-#: aasrp/models.py:546
+#: aasrp/models.py:505
 msgid "Loss value source"
 msgstr "손실금 출처"
 
-#: aasrp/models.py:553
+#: aasrp/models.py:512
 msgid "Fitted value (Ship and Fitting)"
 msgstr "피팅 금액 (헐+피팅)"
 
-#: aasrp/models.py:554
+#: aasrp/models.py:513
 msgid "Total value (Ship, Fitting and Cargo)"
 msgstr "총액 (헐, 피팅, 카고)"
 
-#: aasrp/models.py:567
+#: aasrp/models.py:526
 msgid ""
 "The source for the loss value of a killmail. Fitted value is the value of "
 "the ship and its fitting. Total value is the value of the ship, its fitting "
@@ -533,17 +533,17 @@ msgstr ""
 "킬메일의 손실 금액에 대한 자료입니다. 함선 금액은 피팅된 모듈과 헐의 가격이"
 "며, 총액은 카고의 화물을 포함합니다.(기본값:총액)"
 
-#: aasrp/models.py:584
+#: aasrp/models.py:543
 #, fuzzy
 #| msgid "Settings"
 msgid "Setting"
 msgstr "설정"
 
-#: aasrp/models.py:585
+#: aasrp/models.py:544
 msgid "Settings"
 msgstr "설정"
 
-#: aasrp/models.py:595
+#: aasrp/models.py:554
 msgid "AA-SRP settings"
 msgstr "SRP 설정"
 
