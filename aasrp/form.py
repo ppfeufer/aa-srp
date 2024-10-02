@@ -14,7 +14,14 @@ from django.utils.translation import gettext_lazy as _
 # AA SRP
 from aasrp.constants import KILLBOARD_DATA
 from aasrp.managers import SrpManager
-from aasrp.models import FleetType, Setting, SrpLink, SrpRequest, UserSetting
+from aasrp.models import (
+    FleetType,
+    RequestComment,
+    Setting,
+    SrpLink,
+    SrpRequest,
+    UserSetting,
+)
 
 # Killboard URLs
 zkillboard_base_url: str = KILLBOARD_DATA["zKillboard"]["base_url"]
@@ -55,33 +62,35 @@ class SrpLinkForm(ModelForm):
     New SRP lnk form
     """
 
-    srp_name = forms.CharField(
-        required=True, label=get_mandatory_form_label_text(text=_("Fleet name"))
-    )
-    fleet_time = forms.DateTimeField(
-        required=True,
-        label=get_mandatory_form_label_text(text=_("Fleet time")),
-        widget=forms.DateTimeInput(attrs={"autocomplete": "off"}),
-    )
-    fleet_type = forms.ModelChoiceField(
-        required=False,
-        label=_("Fleet type (optional)"),
-        queryset=FleetType.objects.filter(is_enabled=True),
-        # empty_label=_("Please select a fleet type"),
-    )
-    fleet_doctrine = forms.CharField(
-        required=True,
-        label=get_mandatory_form_label_text(text=_("Doctrine")),
-    )
-    aar_link = forms.CharField(required=False, label=_("After action report link"))
-
     class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta definitions
         """
 
         model = SrpLink
+
         fields = ["srp_name", "fleet_time", "fleet_type", "fleet_doctrine", "aar_link"]
+        labels = {
+            "srp_name": get_mandatory_form_label_text(text=_("Fleet name")),
+            "fleet_time": get_mandatory_form_label_text(text=_("Fleet time")),
+            "fleet_type": _("Fleet type (optional)"),
+            "fleet_doctrine": get_mandatory_form_label_text(text=_("Doctrine")),
+            "aar_link": _("After action report link"),
+        }
+        querysets = {
+            "fleet_type": FleetType.objects.filter(is_enabled=True),
+        }
+        widgets = {
+            "srp_name": forms.TextInput(attrs={"placeholder": _("Fleet name")}),
+            "fleet_time": forms.DateTimeInput(
+                attrs={"autocomplete": "off", "placeholder": _("Fleet time")}
+            ),
+            "fleet_type": forms.Select(attrs={"placeholder": _("Fleet type")}),
+            "fleet_doctrine": forms.TextInput(attrs={"placeholder": _("Doctrine")}),
+            "aar_link": forms.TextInput(
+                attrs={"placeholder": _("After action report link")}
+            ),
+        }
 
 
 class SrpLinkUpdateForm(ModelForm):
@@ -89,15 +98,15 @@ class SrpLinkUpdateForm(ModelForm):
     Edit SRP link update form
     """
 
-    aar_link = forms.CharField(required=False, label=_("After action report link"))
-
     class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta definitions
         """
 
         model = SrpLink
+
         fields = ["aar_link"]
+        labels = {"aar_link": _("After action report link")}
 
 
 class SrpRequestForm(ModelForm):
@@ -105,33 +114,42 @@ class SrpRequestForm(ModelForm):
     SRP request form
     """
 
-    killboard_link = forms.URLField(
-        label=get_mandatory_form_label_text(text=_("Killboard link")),
-        max_length=254,
-        required=True,
-        help_text=_(
-            f"Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."  # pylint: disable=line-too-long
-        ),
-    )
-
-    additional_info = forms.CharField(
-        widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
-        required=True,
-        label=get_mandatory_form_label_text(text=_("Additional information")),
-        help_text=_(
-            "Please tell us about the circumstances of your untimely demise. "
-            "Who was the FC, what doctrine was called, have changes to the fit "
-            "been requested and so on. Be as detailed as you can."
-        ),
-    )
-
     class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta definitions
         """
 
         model = SrpRequest
+
         fields = ["killboard_link", "additional_info"]
+        help_texts = {
+            "killboard_link": _(
+                f"Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."  # pylint: disable=line-too-long
+            ),
+            "additional_info": _(
+                "Please tell us about the circumstances of your untimely demise. "
+                "Who was the FC, what doctrine was called, have changes to the fit "
+                "been requested and so on. Be as detailed as you can."
+            ),
+        }
+        labels = {
+            "killboard_link": get_mandatory_form_label_text(text=_("Killboard link")),
+            "additional_info": get_mandatory_form_label_text(
+                text=_("Additional information")
+            ),
+        }
+        widgets = {
+            "killboard_link": forms.URLInput(
+                attrs={"placeholder": _("Killboard link")}
+            ),
+            "additional_info": forms.Textarea(
+                attrs={
+                    "placeholder": _("Additional information"),
+                    "rows": 10,
+                    "cols": 20,
+                }
+            ),
+        }
 
     def clean_killboard_link(self):
         """
@@ -195,46 +213,96 @@ class SrpRequestPayoutForm(forms.Form):
     value = forms.CharField(label=_("SRP payout value"), max_length=254, required=True)
 
 
-class SrpRequestRejectForm(forms.Form):
+class SrpRequestRejectForm(ModelForm):
     """
     SRP request reject form
     """
 
-    reject_info = forms.CharField(
-        widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
-        required=True,
-        label=get_mandatory_form_label_text(text=_("Reject reason")),
-        help_text=_("Please provide the reason this SRP request is rejected."),
-    )
+    class Meta:
+        """
+        Meta definitions
+        """
+
+        model = RequestComment
+
+        fields = ["comment"]
+        labels = {
+            "comment": get_mandatory_form_label_text(text=_("Reject reason")),
+        }
+        widgets = {
+            "comment": forms.Textarea(
+                attrs={
+                    "rows": 10,
+                    "cols": 20,
+                    # "placeholder": _("Reject reason"),
+                    "required": "required",
+                }
+            ),
+        }
 
 
-class SrpRequestAcceptForm(forms.Form):
+class SrpRequestAcceptForm(ModelForm):
     """
     SRP request accept form
     """
 
-    reviser_comment = forms.CharField(
-        widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
-        required=False,
-        label=_("Comment (optional)"),
-        help_text=_("Leave a comment for the requestor"),
-    )
+    class Meta:
+        """
+        Meta definitions
+        """
+
+        model = RequestComment
+
+        fields = ["comment"]
+        help_texts = {
+            "comment": _("Leave a comment for the requestor"),
+        }
+        labels = {
+            "comment": _("Comment (optional)"),
+        }
+        widgets = {
+            "comment": forms.Textarea(
+                attrs={
+                    "rows": 10,
+                    "cols": 20,
+                    # "placeholder": _("Reject reason"),
+                }
+            ),
+        }
 
 
-class SrpRequestAcceptRejectedForm(forms.Form):
+class SrpRequestAcceptRejectedForm(ModelForm):
     """
     SRP request accept rejected form
     """
 
-    reviser_comment = forms.CharField(
-        widget=forms.Textarea(attrs={"rows": 10, "cols": 20, "input_type": "textarea"}),
-        required=True,
-        label=get_mandatory_form_label_text(text=_("Comment")),
-        help_text=_(
-            "Please provide the reason why this former rejected SRP request is now "
-            "accepted."
-        ),
-    )
+    class Meta:
+        """
+        Meta definitions
+        """
+
+        model = RequestComment
+
+        fields = ["comment"]
+        help_texts = {
+            "comment": _(
+                "Please provide the reason why this former "
+                "rejected SRP request is now accepted."
+            ),
+        }
+        labels = {
+            "comment": get_mandatory_form_label_text(text=_("Comment")),
+        }
+        widgets = {
+            "comment": forms.Textarea(
+                attrs={
+                    "rows": 10,
+                    "cols": 20,
+                    # "placeholder": _("Reject reason"),
+                    "required": "required",
+                }
+            ),
+        }
 
 
 class UserSettingsForm(ModelForm):
@@ -242,22 +310,20 @@ class UserSettingsForm(ModelForm):
     User settings form
     """
 
-    disable_notifications = forms.BooleanField(
-        initial=False,
-        required=False,
-        label=_(
-            "Disable notifications. "
-            "(Auth and Discord, if a relevant module is installed)"
-        ),
-    )
-
     class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta definitions
         """
 
         model = UserSetting
+
         fields = ["disable_notifications"]
+        labels = {
+            "disable_notifications": _(
+                "Disable notifications. "
+                "(Auth and Discord, if a relevant module is installed)"
+            ),
+        }
 
 
 class SettingAdminForm(forms.ModelForm):
@@ -271,5 +337,6 @@ class SettingAdminForm(forms.ModelForm):
         """
 
         model = Setting
+
         fields = "__all__"
         widgets = {"default_embed_color": forms.TextInput(attrs={"type": "color"})}
