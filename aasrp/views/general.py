@@ -251,7 +251,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     )
 
 
-def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-locals
+def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-locals, too-many-positional-arguments
     request: WSGIRequest,
     srp_link: SrpLink,
     killmail_link: str,
