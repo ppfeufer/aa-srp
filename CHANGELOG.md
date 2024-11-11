@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Switch forms to `ModelForm` where possible
+
 ## \[2.5.0\] - 2024-09-19
 
 ### Changed
