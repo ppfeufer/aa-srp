@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-19 20:14+0200\n"
+"POT-Creation-Date: 2024-11-11 01:50+0100\n"
 "PO-Revision-Date: 2024-08-08 17:28+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -44,7 +44,7 @@ msgstr "作成者"
 msgid "Requestor"
 msgstr "依頼者"
 
-#: aasrp/admin.py:180 aasrp/models.py:85 aasrp/models.py:142
+#: aasrp/admin.py:180 aasrp/form.py:88 aasrp/models.py:85 aasrp/models.py:142
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
@@ -102,56 +102,45 @@ msgstr ""
 "請求に関してご質問がある場合は、担当者にお気軽にお問い合わせください。\n"
 "必ず請求番号（SRPコード）と依頼コード（リクエストコード）も書いてください。"
 
-#: aasrp/form.py:43
+#: aasrp/form.py:50
 msgid "This field is mandatory"
 msgstr "この欄は必須です"
 
-#: aasrp/form.py:59
+#: aasrp/form.py:74 aasrp/form.py:84
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:13
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:27
 msgid "Fleet name"
 msgstr "艦隊名"
 
-#: aasrp/form.py:63 aasrp/models.py:145
+#: aasrp/form.py:75 aasrp/form.py:86 aasrp/models.py:145
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:37
 msgid "Fleet time"
 msgstr "艦隊開始時間"
 
-#: aasrp/form.py:68
+#: aasrp/form.py:76
 msgid "Fleet type (optional)"
 msgstr "艦隊種類（可選）"
 
-#: aasrp/form.py:74 aasrp/models.py:131
+#: aasrp/form.py:77 aasrp/form.py:89 aasrp/models.py:131
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:45
 msgid "Doctrine"
 msgstr "装着機器（モジュール）"
 
-#: aasrp/form.py:76 aasrp/form.py:92
+#: aasrp/form.py:78 aasrp/form.py:91 aasrp/form.py:109
 msgid "After action report link"
 msgstr "事後報告書リンク"
 
-#: aasrp/form.py:109 aasrp/models.py:304
-msgid "Killboard link"
-msgstr "キルへのURL"
-
-#: aasrp/form.py:113
+#: aasrp/form.py:127
 #, python-brace-format
 msgid ""
 "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or "
 "{eve_kill_base_url} and paste the link here."
 msgstr ""
 
-#: aasrp/form.py:120 aasrp/models.py:307 aasrp/models.py:401
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:58
-#: aasrp/templates/aasrp/view-requests.html:82
-msgid "Additional information"
-msgstr "その他"
-
-#: aasrp/form.py:122
+#: aasrp/form.py:130
 msgid ""
 "Please tell us about the circumstances of your untimely demise. Who was the "
 "FC, what doctrine was called, have changes to the fit been requested and so "
@@ -160,56 +149,67 @@ msgstr ""
 "お悔やみ申し上げます。どのように亡くなったのかお聞かせください。艦隊長（FC）"
 "は誰だった？装着機器は何だった？できるだけ詳しく教えてください。"
 
-#: aasrp/form.py:157
+#: aasrp/form.py:136 aasrp/form.py:143 aasrp/models.py:304
+msgid "Killboard link"
+msgstr "キルへのURL"
+
+#: aasrp/form.py:138 aasrp/form.py:147 aasrp/models.py:307 aasrp/models.py:401
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
+#: aasrp/templates/aasrp/view-own-requests.html:58
+#: aasrp/templates/aasrp/view-requests.html:82
+msgid "Additional information"
+msgstr "その他"
+
+#: aasrp/form.py:175
 #, python-brace-format
 msgid ""
 "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or "
 "{eve_kill_base_url}"
 msgstr ""
 
-#: aasrp/form.py:171
+#: aasrp/form.py:189
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr ""
 
-#: aasrp/form.py:182
+#: aasrp/form.py:200
 msgid ""
 "There is already an SRP request for this kill mail. Please check if you got "
 "the right one."
 msgstr ""
 
-#: aasrp/form.py:195
+#: aasrp/form.py:213
 msgid "SRP payout value"
 msgstr ""
 
-#: aasrp/form.py:206 aasrp/models.py:327 aasrp/models.py:402
-msgid "Reject reason"
-msgstr ""
-
-#: aasrp/form.py:207
+#: aasrp/form.py:230
 msgid "Please provide the reason this SRP request is rejected."
 msgstr ""
 
-#: aasrp/form.py:219
-msgid "Comment (optional)"
-msgstr "コメント（任意）"
+#: aasrp/form.py:233 aasrp/models.py:327 aasrp/models.py:402
+msgid "Reject reason"
+msgstr ""
 
-#: aasrp/form.py:220
+#: aasrp/form.py:261
 msgid "Leave a comment for the requestor"
 msgstr "依頼者へのコメント"
 
-#: aasrp/form.py:232 aasrp/models.py:399 aasrp/models.py:406
-#: aasrp/models.py:458
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
-msgid "Comment"
-msgstr "コメント"
+#: aasrp/form.py:264
+msgid "Comment (optional)"
+msgstr "コメント（任意）"
 
-#: aasrp/form.py:234
+#: aasrp/form.py:292
 msgid ""
 "Please provide the reason why this former rejected SRP request is now "
 "accepted."
 msgstr "以前却下されたこのSRPリクエストが今受理された理由を教えてください。"
 
-#: aasrp/form.py:249
+#: aasrp/form.py:297 aasrp/models.py:399 aasrp/models.py:406
+#: aasrp/models.py:458
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
+msgid "Comment"
+msgstr "コメント"
+
+#: aasrp/form.py:326
 msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
@@ -274,7 +274,7 @@ msgstr "SRP依頼の詳細"
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:37
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:38
 msgid "Accept SRP request"
 msgstr "SRP依頼を承認する"
 
@@ -614,7 +614,7 @@ msgstr ""
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:35
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:32
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:33
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:24
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:43
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:35

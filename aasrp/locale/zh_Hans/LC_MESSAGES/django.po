@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-19 20:14+0200\n"
+"POT-Creation-Date: 2024-11-11 01:50+0100\n"
 "PO-Revision-Date: 2024-07-16 04:03+0000\n"
 "Last-Translator: luffe <luffe8864@foxmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/"
@@ -45,7 +45,7 @@ msgstr "创建者"
 msgid "Requestor"
 msgstr "请求者"
 
-#: aasrp/admin.py:180 aasrp/models.py:85 aasrp/models.py:142
+#: aasrp/admin.py:180 aasrp/form.py:88 aasrp/models.py:85 aasrp/models.py:142
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
@@ -103,56 +103,45 @@ msgstr ""
 "如果您对您的舰船补损请求有任何疑问，请随时联系您的舰船补损官。\n"
 "请确保始终添加舰船补损代码和请求代码在您查询的时候。"
 
-#: aasrp/form.py:43
+#: aasrp/form.py:50
 msgid "This field is mandatory"
 msgstr "这个字段是必填的"
 
-#: aasrp/form.py:59
+#: aasrp/form.py:74 aasrp/form.py:84
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:13
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:27
 msgid "Fleet name"
 msgstr "舰队名字"
 
-#: aasrp/form.py:63 aasrp/models.py:145
+#: aasrp/form.py:75 aasrp/form.py:86 aasrp/models.py:145
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:37
 msgid "Fleet time"
 msgstr "舰队时间"
 
-#: aasrp/form.py:68
+#: aasrp/form.py:76
 msgid "Fleet type (optional)"
 msgstr "舰队类型（可选）"
 
-#: aasrp/form.py:74 aasrp/models.py:131
+#: aasrp/form.py:77 aasrp/form.py:89 aasrp/models.py:131
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:45
 msgid "Doctrine"
 msgstr "舰船要求"
 
-#: aasrp/form.py:76 aasrp/form.py:92
+#: aasrp/form.py:78 aasrp/form.py:91 aasrp/form.py:109
 msgid "After action report link"
 msgstr "在行动后报告链接"
 
-#: aasrp/form.py:109 aasrp/models.py:304
-msgid "Killboard link"
-msgstr "KB网链接"
-
-#: aasrp/form.py:113
+#: aasrp/form.py:127
 #, python-brace-format
 msgid ""
 "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or "
 "{eve_kill_base_url} and paste the link here."
 msgstr ""
 
-#: aasrp/form.py:120 aasrp/models.py:307 aasrp/models.py:401
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:58
-#: aasrp/templates/aasrp/view-requests.html:82
-msgid "Additional information"
-msgstr "附加说明"
-
-#: aasrp/form.py:122
+#: aasrp/form.py:130
 msgid ""
 "Please tell us about the circumstances of your untimely demise. Who was the "
 "FC, what doctrine was called, have changes to the fit been requested and so "
@@ -161,56 +150,67 @@ msgstr ""
 "请告诉我们与你损失有关的具体情况。 FC 名称、建制名称、是否有要求更改的配置等"
 "等…… 尽可能详细。"
 
-#: aasrp/form.py:157
+#: aasrp/form.py:136 aasrp/form.py:143 aasrp/models.py:304
+msgid "Killboard link"
+msgstr "KB网链接"
+
+#: aasrp/form.py:138 aasrp/form.py:147 aasrp/models.py:307 aasrp/models.py:401
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
+#: aasrp/templates/aasrp/view-own-requests.html:58
+#: aasrp/templates/aasrp/view-requests.html:82
+msgid "Additional information"
+msgstr "附加说明"
+
+#: aasrp/form.py:175
 #, python-brace-format
 msgid ""
 "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or "
 "{eve_kill_base_url}"
 msgstr ""
 
-#: aasrp/form.py:171
+#: aasrp/form.py:189
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr "无效链接。请发送你的击杀报告在此。"
 
-#: aasrp/form.py:182
+#: aasrp/form.py:200
 msgid ""
 "There is already an SRP request for this kill mail. Please check if you got "
 "the right one."
 msgstr "该击毁报告已被补损。请检查你是否发送了正确的击毁报告。"
 
-#: aasrp/form.py:195
+#: aasrp/form.py:213
 msgid "SRP payout value"
 msgstr "舰船补损价格"
 
-#: aasrp/form.py:206 aasrp/models.py:327 aasrp/models.py:402
-msgid "Reject reason"
-msgstr "拒绝原因"
-
-#: aasrp/form.py:207
+#: aasrp/form.py:230
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "请提供拒绝该舰船补损的理由。"
 
-#: aasrp/form.py:219
-msgid "Comment (optional)"
-msgstr "备注（可选）"
+#: aasrp/form.py:233 aasrp/models.py:327 aasrp/models.py:402
+msgid "Reject reason"
+msgstr "拒绝原因"
 
-#: aasrp/form.py:220
+#: aasrp/form.py:261
 msgid "Leave a comment for the requestor"
 msgstr "请写一段评论"
 
-#: aasrp/form.py:232 aasrp/models.py:399 aasrp/models.py:406
-#: aasrp/models.py:458
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
-msgid "Comment"
-msgstr "评论"
+#: aasrp/form.py:264
+msgid "Comment (optional)"
+msgstr "备注（可选）"
 
-#: aasrp/form.py:234
+#: aasrp/form.py:292
 msgid ""
 "Please provide the reason why this former rejected SRP request is now "
 "accepted."
 msgstr "请说明原因为什么先前拒绝该舰船补损但现在又发放了该舰船补损。"
 
-#: aasrp/form.py:249
+#: aasrp/form.py:297 aasrp/models.py:399 aasrp/models.py:406
+#: aasrp/models.py:458
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
+msgid "Comment"
+msgstr "评论"
+
+#: aasrp/form.py:326
 msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "禁用通知。(Auth和Discord，如果安装了相应模块)"
@@ -273,7 +273,7 @@ msgstr "舰船补损请求具体详情"
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:37
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:38
 msgid "Accept SRP request"
 msgstr "接受舰船补损请求"
 
@@ -615,7 +615,7 @@ msgstr "关闭"
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:35
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:32
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:33
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:24
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:43
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:35

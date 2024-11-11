@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-19 20:14+0200\n"
+"POT-Creation-Date: 2024-11-11 01:50+0100\n"
 "PO-Revision-Date: 2024-08-11 21:51+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -42,7 +42,7 @@ msgstr "Ersteller"
 msgid "Requestor"
 msgstr "Anforderer"
 
-#: aasrp/admin.py:180 aasrp/models.py:85 aasrp/models.py:142
+#: aasrp/admin.py:180 aasrp/form.py:88 aasrp/models.py:85 aasrp/models.py:142
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
@@ -105,42 +105,38 @@ msgstr ""
 "Manager.\n"
 "Bitte stelle sicher immer den SRP Code und den Anfrage Code mit anzugeben."
 
-#: aasrp/form.py:43
+#: aasrp/form.py:50
 msgid "This field is mandatory"
 msgstr "Dies ist ein Pflichtfeld"
 
-#: aasrp/form.py:59
+#: aasrp/form.py:74 aasrp/form.py:84
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:13
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:27
 msgid "Fleet name"
 msgstr "Flottenname"
 
-#: aasrp/form.py:63 aasrp/models.py:145
+#: aasrp/form.py:75 aasrp/form.py:86 aasrp/models.py:145
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:37
 msgid "Fleet time"
 msgstr "Flottenzeit"
 
-#: aasrp/form.py:68
+#: aasrp/form.py:76
 msgid "Fleet type (optional)"
 msgstr "Flottenart (optional)"
 
-#: aasrp/form.py:74 aasrp/models.py:131
+#: aasrp/form.py:77 aasrp/form.py:89 aasrp/models.py:131
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:45
 msgid "Doctrine"
 msgstr "Doktrin"
 
-#: aasrp/form.py:76 aasrp/form.py:92
+#: aasrp/form.py:78 aasrp/form.py:91 aasrp/form.py:109
 msgid "After action report link"
 msgstr "Link zum Flottenbericht"
 
-#: aasrp/form.py:109 aasrp/models.py:304
-msgid "Killboard link"
-msgstr "Killboard Link"
-
-#: aasrp/form.py:113
+#: aasrp/form.py:127
 #, python-brace-format
 msgid ""
 "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or "
@@ -149,14 +145,7 @@ msgstr ""
 "Suche Deine Kill-Mail auf {zkillboard_base_url}, {evetools_base_url} oder "
 "{eve_kill_base_url} und füge den Link hier ein."
 
-#: aasrp/form.py:120 aasrp/models.py:307 aasrp/models.py:401
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:58
-#: aasrp/templates/aasrp/view-requests.html:82
-msgid "Additional information"
-msgstr "Zusätzliche Informationen"
-
-#: aasrp/form.py:122
+#: aasrp/form.py:130
 msgid ""
 "Please tell us about the circumstances of your untimely demise. Who was the "
 "FC, what doctrine was called, have changes to the fit been requested and so "
@@ -166,7 +155,18 @@ msgstr ""
 "hieß die Doktrin, wurden Änderungen am Fitting gefordert und so weiter. Sei "
 "so detailliert wie möglich."
 
-#: aasrp/form.py:157
+#: aasrp/form.py:136 aasrp/form.py:143 aasrp/models.py:304
+msgid "Killboard link"
+msgstr "Killboard Link"
+
+#: aasrp/form.py:138 aasrp/form.py:147 aasrp/models.py:307 aasrp/models.py:401
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
+#: aasrp/templates/aasrp/view-own-requests.html:58
+#: aasrp/templates/aasrp/view-requests.html:82
+msgid "Additional information"
+msgstr "Zusätzliche Informationen"
+
+#: aasrp/form.py:175
 #, python-brace-format
 msgid ""
 "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or "
@@ -175,11 +175,11 @@ msgstr ""
 "Ungültiger Link. Bitte verwende {zkillboard_base_url}, {evetools_base_url} "
 "oder {eve_kill_base_url}"
 
-#: aasrp/form.py:171
+#: aasrp/form.py:189
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr "Ungültiger Link. Bitte poste einen Link zu einer Killmail."
 
-#: aasrp/form.py:182
+#: aasrp/form.py:200
 msgid ""
 "There is already an SRP request for this kill mail. Please check if you got "
 "the right one."
@@ -187,33 +187,27 @@ msgstr ""
 "Es gibt bereits eine SRP Anfrage für diese Killmail. Bitte prüfe, dass Du "
 "die Richtige hast."
 
-#: aasrp/form.py:195
+#: aasrp/form.py:213
 msgid "SRP payout value"
 msgstr "SRP Auszahlungsbetrag"
 
-#: aasrp/form.py:206 aasrp/models.py:327 aasrp/models.py:402
-msgid "Reject reason"
-msgstr "Ablehnungsgrund"
-
-#: aasrp/form.py:207
+#: aasrp/form.py:230
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "Bitte gib einen Grund für die Ablehnung der SRP Anfrage an."
 
-#: aasrp/form.py:219
-msgid "Comment (optional)"
-msgstr "Kommentar (Optional)"
+#: aasrp/form.py:233 aasrp/models.py:327 aasrp/models.py:402
+msgid "Reject reason"
+msgstr "Ablehnungsgrund"
 
-#: aasrp/form.py:220
+#: aasrp/form.py:261
 msgid "Leave a comment for the requestor"
 msgstr "Hinterlasse einen Kommentar für den Anfragenden"
 
-#: aasrp/form.py:232 aasrp/models.py:399 aasrp/models.py:406
-#: aasrp/models.py:458
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
-msgid "Comment"
-msgstr "Kommentar"
+#: aasrp/form.py:264
+msgid "Comment (optional)"
+msgstr "Kommentar (Optional)"
 
-#: aasrp/form.py:234
+#: aasrp/form.py:292
 msgid ""
 "Please provide the reason why this former rejected SRP request is now "
 "accepted."
@@ -221,7 +215,13 @@ msgstr ""
 "Bitte geben Sie den Grund an, warum dieser zuvor abgelehnte SRP Anfrage "
 "jetzt akzeptiert wird."
 
-#: aasrp/form.py:249
+#: aasrp/form.py:297 aasrp/models.py:399 aasrp/models.py:406
+#: aasrp/models.py:458
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
+msgid "Comment"
+msgstr "Kommentar"
+
+#: aasrp/form.py:326
 msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
@@ -286,7 +286,7 @@ msgstr "SRP Anfrage Details"
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:37
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:38
 msgid "Accept SRP request"
 msgstr "SRP Anfrage akzeptieren"
 
@@ -632,7 +632,7 @@ msgstr "Schließen"
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:35
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:32
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:33
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:24
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:43
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:35
