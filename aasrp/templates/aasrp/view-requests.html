@@ -52,17 +52,12 @@
         /**
          * passing some settings to our JS
          */
-        const urlRequestsForSrpLink = '{% url "aasrp:ajax_srp_link_view_requests_data" srp_link.srp_code %}';
-        const urlChangeSrpAmount = '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}';
-
-        const aaSrpSettings = {
-            datetimeFormat: 'YYYY-MM-DD<br>HH:mm',
-            locale: '{{ LANGUAGE_CODE }}',
+        const aaSrpSettings = Object.assign({}, aaSrpSettingsDefaults, {
             srpCode: '{{ srp_link.srp_code }}',
             csrfToken: '{{ csrf_token }}',
             url: {
-                requestsForSrpLink: urlRequestsForSrpLink,
-                changeSrpAmount: urlChangeSrpAmount
+                requestsForSrpLink: '{% url "aasrp:ajax_srp_link_view_requests_data" srp_link.srp_code %}',
+                changeSrpAmount: '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}'
             },
             translation: {
                 filter: {
@@ -91,10 +86,6 @@
                     }
                 }
             }
-        };
-
-        $(document).ready(() => {
-            $('[data-tooltip="payout-hint"]').tooltip();
         });
     </script>
 
