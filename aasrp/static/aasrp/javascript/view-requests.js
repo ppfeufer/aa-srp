@@ -359,14 +359,14 @@ $(document).ready(() => {
 
         $('#modal-button-confirm-accept-request').on('click', () => {
             const form = modalSrpRequestAccept.find('form');
-            const reviserComment = form.find('textarea[name="reviser_comment"]').val();
+            const reviserComment = form.find('textarea[name="comment"]').val();
             const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
                 .val();
 
             const posting = $.post(
                 url,
                 {
-                    reviser_comment: reviserComment,
+                    comment: reviserComment,
                     csrfmiddlewaretoken: csrfMiddlewareToken
                 }
             );
@@ -382,7 +382,7 @@ $(document).ready(() => {
             modalSrpRequestAccept.modal('hide');
         });
     }).on('hide.bs.modal', () => {
-        modalSrpRequestAccept.find('textarea[name="reject_info"]').val('');
+        modalSrpRequestAccept.find('textarea[name="comment"]').val('');
 
         $('#modal-button-confirm-accept-request').unbind('click');
     });
@@ -394,7 +394,7 @@ $(document).ready(() => {
 
         $('#modal-button-confirm-accept-rejected-request').on('click', () => {
             const form = modalSrpRequestAcceptRejected.find('form');
-            const reviserComment = form.find('textarea[name="reviser_comment"]').val();
+            const reviserComment = form.find('textarea[name="comment"]').val();
             const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
                 .val();
 
@@ -404,13 +404,13 @@ $(document).ready(() => {
                 form.find('.aasrp-form-field-errors').remove();
 
                 $(errorMessage).insertAfter(
-                    $('textarea[name="reviser_comment"]')
+                    $('textarea[name="comment"]')
                 );
             } else {
                 const posting = $.post(
                     url,
                     {
-                        reviser_comment: reviserComment,
+                        comment: reviserComment,
                         csrfmiddlewaretoken: csrfMiddlewareToken
                     }
                 );
@@ -427,7 +427,7 @@ $(document).ready(() => {
             }
         });
     }).on('hide.bs.modal', () => {
-        modalSrpRequestAcceptRejected.find('textarea[name="reviser_comment"]').val('');
+        modalSrpRequestAcceptRejected.find('textarea[name="comment"]').val('');
 
         $('.aasrp-form-field-errors').remove();
         $('#modal-button-confirm-accept-rejected-request').unbind('click');
@@ -440,7 +440,7 @@ $(document).ready(() => {
 
         $('#modal-button-confirm-reject-request').on('click', () => {
             const form = modalSrpRequestReject.find('form');
-            const rejectInfo = form.find('textarea[name="reject_info"]').val();
+            const rejectInfo = form.find('textarea[name="comment"]').val();
             const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
                 .val();
 
@@ -449,12 +449,12 @@ $(document).ready(() => {
 
                 form.find('.aasrp-form-field-errors').remove();
 
-                $(errorMessage).insertAfter($('textarea[name="reject_info"]'));
+                $(errorMessage).insertAfter($('textarea[name="comment"]'));
             } else {
                 const posting = $.post(
                     url,
                     {
-                        reject_info: rejectInfo,
+                        comment: rejectInfo,
                         csrfmiddlewaretoken: csrfMiddlewareToken
                     }
                 );
@@ -471,7 +471,7 @@ $(document).ready(() => {
             }
         });
     }).on('hide.bs.modal', () => {
-        modalSrpRequestReject.find('textarea[name="reject_info"]').val('');
+        modalSrpRequestReject.find('textarea[name="comment"]').val('');
 
         $('.aasrp-form-field-errors').remove();
         $('#modal-button-confirm-reject-request').unbind('click');
@@ -495,7 +495,7 @@ $(document).ready(() => {
             modalSrpRequestRemove.modal('hide');
         });
     }).on('hide.bs.modal', () => {
-        modalSrpRequestRemove.find('textarea[name="reject_info"]').val('');
+        modalSrpRequestRemove.find('textarea[name="comment"]').val('');
 
         $('#modal-button-confirm-remove-request').unbind('click');
     });

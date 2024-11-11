@@ -20,6 +20,7 @@
 
                 <form autocomplete="off" method="post">
                     {% csrf_token %}
+
                     {{ forms.accept_request|bootstrap }}
 
                     {% include "aasrp/partials/form/required-field-hint.html" %}

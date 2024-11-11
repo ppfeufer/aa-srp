@@ -527,7 +527,7 @@ def srp_request_approve(  # pylint: disable=too-many-locals
                 srp_isk_loss = srp_request.loss_amount
 
                 # Reviser comment
-                reviser_comment = form.cleaned_data["reviser_comment"]
+                reviser_comment = form.cleaned_data["comment"]
 
                 if srp_payout == 0:
                     srp_request.payout_amount = srp_isk_loss
@@ -624,7 +624,7 @@ def srp_request_deny(
 
             # Check whether it's valid:
             if form.is_valid():
-                reject_info = form.cleaned_data["reject_info"]
+                reject_info = form.cleaned_data["comment"]
                 requester = srp_request.creator
 
                 srp_request.payout_amount = 0
