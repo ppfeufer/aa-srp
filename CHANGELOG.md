@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Localized numeric values
+
 ## \[2.5.1\] - 2024-11-11
 
 ### Changed

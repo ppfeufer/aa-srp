@@ -73,7 +73,7 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return `${data.toLocaleString()} ISK`;
+                        return `${data.toLocaleString(aaSrpSettings.locale)} ISK`;
                     } else {
                         return data;
                     }
@@ -121,7 +121,7 @@ $(document).ready(() => {
             totalSrpAmount += parseInt(data.srp_costs);
 
             $('.srp-dashboard-total-isk-cost-amount')
-                .html(`${totalSrpAmount.toLocaleString()} ISK`);
+                .html(`${totalSrpAmount.toLocaleString(aaSrpSettings.locale)} ISK`);
         }
     });
 
