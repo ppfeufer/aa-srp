@@ -226,6 +226,9 @@ class SrpRequestRejectForm(ModelForm):
         model = RequestComment
 
         fields = ["comment"]
+        help_texts = {
+            "comment": _("Please provide the reason this SRP request is rejected."),
+        }
         labels = {
             "comment": get_mandatory_form_label_text(text=_("Reject reason")),
         }
