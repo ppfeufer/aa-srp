@@ -49,9 +49,7 @@
             urlAvailableSrpLinks = "{% url 'aasrp:ajax_dashboard_srp_links_all_data' %}";
         {% endif %}
 
-        const aaSrpSettings = {
-            datetimeFormat: 'YYYY-MM-DD<br>HH:mm',
-            locale: '{{ LANGUAGE_CODE }}',
+        const aaSrpSettings = Object.assign({}, aaSrpSettingsDefaults, {
             url: {
                 availableSrpLinks: urlAvailableSrpLinks
             },
@@ -60,29 +58,29 @@
             },
             translation: {
                 filter: {
-                    ship: "{% translate 'Ship' %}",
-                    requestStatus: "{% translate 'Request status' %}",
-                    character: "{% translate 'Character' %}",
+                    ship: '{% translate "Ship" %}',
+                    requestStatus: '{% translate "Request status" %}',
+                    character: '{% translate "Character" %}',
                 },
                 dataTable: {
                     content: {
-                        srpCode: "{% translate 'SRP code' %}",
-                        requestCode: "{% translate 'Request code' %}"
+                        srpCode: '{% translate "SRP code" %}',
+                        requestCode: '{% translate "Request code" %}'
                     }
                 },
                 modal: {
                     enableSrpLink: {
-                        body: "<p>{% translate 'Are you sure you want to (re-)activate the following SRP link?' %}</p>"
+                        body: '<p>{% translate "Are you sure you want to (re-)activate the following SRP link?" %}</p>'
                     },
                     disableSrpLink: {
-                        body: "<p>{% translate 'Are you sure you want to disable the following SRP link?' %}</p>"
+                        body: '<p>{% translate "Are you sure you want to disable the following SRP link?" %}</p>'
                     },
                     deleteSrpLink: {
-                        body: "<p>{% translate 'Are you sure you want to delete the following SRP link and all SRP requests tied to it?' %}</p>"
+                        body: '<p>{% translate "Are you sure you want to delete the following SRP link and all SRP requests tied to it?" %}</p>'
                     },
                 }
             }
-        };
+        });
     </script>
 
     {% include "aasrp/bundles/srp-links-js.html" %}

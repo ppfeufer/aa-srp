@@ -27,27 +27,20 @@
         /**
          * Passing some setting to our JS
          */
-        const urlUserSrpRequests = "{% url 'aasrp:ajax_dashboard_user_srp_requests_data' %}";
-
-        const aaSrpSettings = {
-            datetimeFormat: 'YYYY-MM-DD<br>HH:mm',
-            locale: '{{ LANGUAGE_CODE }}',
+        const aaSrpSettings = Object.assign({}, aaSrpSettingsDefaults, {
             url: {
-                userSrpRequests: urlUserSrpRequests
-            },
-            dataTable: {
-                paging: {{ show_all_links|yesno:"true,false" }}
+                userSrpRequests: '{% url "aasrp:ajax_dashboard_user_srp_requests_data" %}'
             },
             translation: {
                 filter: {
-                    ship: "{% translate 'Ship' %}",
-                    requestStatus: "{% translate 'Request status' %}",
-                    character: "{% translate 'Character' %}",
+                    ship: '{% translate "Ship" %}',
+                    requestStatus: '{% translate "Request status" %}',
+                    character: '{% translate "Character" %}',
                 },
                 dataTable: {
                     content: {
-                        srpCode: "{% translate 'SRP code' %}",
-                        requestCode: "{% translate 'Request code' %}"
+                        srpCode: '{% translate "SRP code" %}',
+                        requestCode: '{% translate "Request code" %}'
                     }
                 },
                 modal: {
@@ -62,7 +55,7 @@
                     }
                 }
             }
-        };
+        });
     </script>
 
     {% include "aasrp/bundles/my-srp-requests-js.html" %}

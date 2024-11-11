@@ -38,6 +38,7 @@ Section Order:
 ### Changed
 
 - Localized numeric values
+- Some inline JS improvements
 
 ## \[2.5.1\] - 2024-11-11
 
