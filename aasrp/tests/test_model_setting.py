@@ -25,7 +25,7 @@ class TestSetting(TestCase):
         """
 
         # given
-        setting = Setting.objects.get(pk=1)
+        setting = Setting.objects.get(pk=Setting.singleton_instance_id)
 
         # when/then
         self.assertEqual(first=str(setting), second="AA-SRP settings")
@@ -45,7 +45,7 @@ class TestSetting(TestCase):
         setting.save()
 
         # then
-        self.assertEqual(first=setting.pk, second=1)
+        self.assertEqual(first=setting.pk, second=Setting.singleton_instance_id)
         self.assertEqual(
             first=setting.srp_team_discord_channel_id,
             second=srp_team_discord_channel_id,
@@ -54,7 +54,7 @@ class TestSetting(TestCase):
     def test_setting_create(self):
         """
         Test that create method throwing the following exception
-        django.db.utils.IntegrityError: (1062, "Duplicate entry '1' for key 'PRIMARY'")
+        `django.db.utils.IntegrityError`: (1062, "Duplicate entry '1' for key 'PRIMARY'")
 
         :return:
         :rtype:
@@ -86,7 +86,7 @@ class TestSetting(TestCase):
         """
 
         # given
-        settings_old = Setting.objects.get(pk=1)
+        settings_old = Setting.objects.get(pk=Setting.singleton_instance_id)
 
         # when
         Setting.objects.all().delete()
@@ -114,5 +114,5 @@ class TestSetting(TestCase):
         setting.save()
 
         # then
-        self.assertEqual(first=setting.pk, second=1)
+        self.assertEqual(first=setting.pk, second=Setting.singleton_instance_id)
         self.assertEqual(first=setting.srp_team_discord_channel_id, second=None)
