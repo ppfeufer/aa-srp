@@ -18,7 +18,7 @@ class TestSetting(TestCase):
 
     def test_model_string_name(self):
         """
-        Test model string name
+        Test Setting model string name
 
         :return:
         :rtype:
@@ -29,6 +29,76 @@ class TestSetting(TestCase):
 
         # when/then
         self.assertEqual(first=str(setting), second="AA-SRP settings")
+
+    def test_model_verbose_names(self):
+        """
+        Test Setting model verbose names
+
+        :return:
+        :rtype:
+        """
+
+        self.assertEqual(first=Setting._meta.verbose_name, second="Setting")
+        self.assertEqual(first=Setting._meta.verbose_name_plural, second="Setting")
+
+    def test_default_setting(self):
+        """
+        Test that the default settings are created
+
+        :return:
+        :rtype:
+        """
+
+        # given
+        setting = Setting.get_solo()
+
+        # then
+        self.assertEqual(first=setting.pk, second=Setting.singleton_instance_id)
+        self.assertEqual(first=setting.srp_team_discord_channel_id, second=None)
+        self.assertEqual(first=setting.loss_value_source, second="totalValue")
+
+    def test_set_discord_channel_id(self):
+        """
+        Test if the discord channel ID can be set
+
+        :return:
+        :rtype:
+        """
+
+        # given
+        srp_team_discord_channel_id = 123456789
+        setting = Setting.get_solo()
+
+        # when
+        setting.srp_team_discord_channel_id = srp_team_discord_channel_id
+        setting.save()
+
+        # then
+        setting = Setting.get_solo()
+        self.assertEqual(
+            first=setting.srp_team_discord_channel_id,
+            second=srp_team_discord_channel_id,
+        )
+
+    def test_set_loss_value_source(self):
+        """
+        Test if the loss value source can be set
+
+        :return:
+        :rtype:
+        """
+
+        # given
+        loss_value_source = "fittedValue"
+        setting = Setting.get_solo()
+
+        # when
+        setting.loss_value_source = loss_value_source
+        setting.save()
+
+        # then
+        setting = Setting.get_solo()
+        self.assertEqual(first=setting.loss_value_source, second=loss_value_source)
 
     def test_setting_save(self):
         """
@@ -51,7 +121,7 @@ class TestSetting(TestCase):
             second=srp_team_discord_channel_id,
         )
 
-    def test_setting_create(self):
+    def test_setting_create_should_throw_exception(self):
         """
         Test that create method throwing the following exception
         `django.db.utils.IntegrityError`: (1062, "Duplicate entry '1' for key 'PRIMARY'")
@@ -64,7 +134,7 @@ class TestSetting(TestCase):
         with self.assertRaises(expected_exception=IntegrityError):
             create_setting()
 
-    def test_setting_create_with_pk(self):
+    def test_setting_create_with_pk_should_fail(self):
         """
         Test that create method throwing the following exception no matter the given pk
         django.db.utils.IntegrityError: (1062, "Duplicate entry '1' for key 'PRIMARY'")
@@ -100,19 +170,3 @@ class TestSetting(TestCase):
 
         # Check if both of our objects are identical
         self.assertEqual(first=settings_old, second=settings_first)
-
-    def test_srp_team_discord_channel_id_is_not_mandatory(self):
-        """
-        Test that we get None when the Discord Channel ID field is empty
-
-        :return:
-        :rtype:
-        """
-
-        # given
-        setting = Setting()
-        setting.save()
-
-        # then
-        self.assertEqual(first=setting.pk, second=Setting.singleton_instance_id)
-        self.assertEqual(first=setting.srp_team_discord_channel_id, second=None)
