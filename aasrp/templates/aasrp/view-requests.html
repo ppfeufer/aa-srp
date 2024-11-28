@@ -27,32 +27,11 @@
 {% endblock %}
 
 {% block extra_javascript %}
-    {% include "bundles/clipboard-js.html" %}
-    {% include "aasrp/bundles/aa-srp-form-js.html" %}
-
-    <script>
-        const clipboard = new ClipboardJS('.copy-text-fa-icon');
-
-        clipboard.on('success', function (e) {
-            e.clearSelection();
-        });
-
-        clipboard.on('error', function (e) {
-            console.error('Action:', e.action);
-            console.error('Trigger:', e.trigger);
-        });
-    </script>
-
-    {% include "aasrp/bundles/x-editable-js.html" %}
-    {% include "bundles/moment-js.html" with locale=True %}
-    {% include "bundles/datatables-js-bs5.html" %}
-    {% include "bundles/filterdropdown-js.html" %}
-
     <script>
         /**
          * passing some settings to our JS
          */
-        const aaSrpSettings = Object.assign({}, aaSrpSettingsDefaults, {
+        const aaSrpJsSettingsOverride = {
             srpCode: '{{ srp_link.srp_code }}',
             csrfToken: '{{ csrf_token }}',
             url: {
@@ -86,8 +65,29 @@
                     }
                 }
             }
+        };
+    </script>
+
+    {% include "bundles/clipboard-js.html" %}
+    {% include "aasrp/bundles/aa-srp-js.html" %}
+    {% include "aasrp/bundles/aa-srp-form-js.html" %}
+
+    <script>
+        const clipboard = new ClipboardJS('.copy-text-fa-icon');
+
+        clipboard.on('success', function (e) {
+            e.clearSelection();
+        });
+
+        clipboard.on('error', function (e) {
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
         });
     </script>
 
+    {% include "aasrp/bundles/x-editable-js.html" %}
+    {% include "bundles/moment-js.html" with locale=True %}
+    {% include "bundles/datatables-js-bs5.html" %}
+    {% include "bundles/filterdropdown-js.html" %}
     {% include "aasrp/bundles/view-requests-js.html" %}
 {% endblock %}

@@ -11,6 +11,7 @@ $(document).ready(() => {
     let totalSrpAmount = 0;
 
     const tableSrpLinks = elementTableSrpLinks.DataTable({
+        language: aaSrpSettings.dataTable.translation,
         ajax: {
             url: aaSrpSettings.url.availableSrpLinks,
             dataSrc: '',
