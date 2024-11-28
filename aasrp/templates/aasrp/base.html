@@ -26,11 +26,36 @@
 
         <div class="aa-srp-body">
             <script>
-                const aaSrpSettingsDefaults = {
+                const aaSrpJsSettingsDefaults = {
                     datetimeFormat: 'YYYY-MM-DD<br>HH:mm',
                     locale: '{{ LANGUAGE_CODE }}',
                     dataTable: {
-                        paging: true
+                        paging: true,
+                        translation: {
+                            decimal: '{% translate "." context "Decimal separator" %}',
+                            thousands: '{% translate "," context "Thousands separator" %}',
+                            emptyTable: '{% translate "No data available in this table" %}',
+                            info: '{% translate "Showing _END_ entries" context "Keep _END_ as it is. It will be replaced by a number." %}',
+                            infoFiltered: '{% translate "(filtered from _MAX_ total entries)" context "Keep _MAX_ as it is. It will be replaced by a number." %}',
+                            infoEmpty: '{% translate "No records available" %}',
+                            infoPostFix: '',
+                            lengthMenu: '_MENU_',
+                            loadingRecords: '{% translate "Loading …" %}',
+                            processing: '{% translate "Processing …" %}',
+                            zeroRecords: '{% translate "Nothing found, sorry …" %}',
+                            search: '_INPUT_',
+                            searchPlaceholder: '{% translate "Search …" %}',
+                            paginate: {
+                                first: '{% translate "First" %}',
+                                last: '{% translate "Last" %}',
+                                next: '{% translate "Next" %}',
+                                previous: '{% translate "Previous" %}'
+                            },
+                            aria: {
+                                sortAscending: '{% translate ": activate to sort column ascending" %}',
+                                sortDescending: '{% translate ": activate to sort column descending" %}'
+                            }
+                        }
                     },
                 };
             </script>

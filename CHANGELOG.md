@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Added
+
+- Proper JS settings override
+
 ### Changed
 
 - Localized numeric values

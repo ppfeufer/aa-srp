@@ -19,26 +19,6 @@
 {% endblock %}
 
 {% block extra_javascript %}
-    {% include "bundles/clipboard-js.html" %}
-    {% include "aasrp/bundles/aa-srp-form-js.html" %}
-
-    <script>
-        const clipboard = new ClipboardJS('.copy-text-fa-icon');
-
-        clipboard.on('success', function (e) {
-            e.clearSelection();
-        });
-
-        clipboard.on('error', function (e) {
-            console.error('Action:', e.action);
-            console.error('Trigger:', e.trigger);
-        });
-    </script>
-
-    {% include "bundles/datatables-js-bs5.html" %}
-    {% include "bundles/moment-js.html" with locale=True %}
-    {% include "bundles/filterdropdown-js.html" %}
-
     <script>
         /**
          * Passing some setting to our JS
@@ -49,7 +29,7 @@
             urlAvailableSrpLinks = "{% url 'aasrp:ajax_dashboard_srp_links_all_data' %}";
         {% endif %}
 
-        const aaSrpSettings = Object.assign({}, aaSrpSettingsDefaults, {
+        const aaSrpJsSettingsOverride = {
             url: {
                 availableSrpLinks: urlAvailableSrpLinks
             },
@@ -80,8 +60,28 @@
                     },
                 }
             }
+        };
+    </script>
+
+    {% include "bundles/clipboard-js.html" %}
+    {% include "aasrp/bundles/aa-srp-js.html" %}
+    {% include "aasrp/bundles/aa-srp-form-js.html" %}
+
+    <script>
+        const clipboard = new ClipboardJS('.copy-text-fa-icon');
+
+        clipboard.on('success', function (e) {
+            e.clearSelection();
+        });
+
+        clipboard.on('error', function (e) {
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
         });
     </script>
 
+    {% include "bundles/datatables-js-bs5.html" %}
+    {% include "bundles/moment-js.html" with locale=True %}
+    {% include "bundles/filterdropdown-js.html" %}
     {% include "aasrp/bundles/srp-links-js.html" %}
 {% endblock %}

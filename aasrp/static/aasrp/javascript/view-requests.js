@@ -11,6 +11,7 @@ $(document).ready(() => {
      * @type {*|jQuery}
      */
     const srpRequestsTable = elementSrpRequestsTable.DataTable({
+        language: aaSrpSettings.dataTable.translation,
         ajax: {
             url: aaSrpSettings.url.requestsForSrpLink,
             dataSrc: '',

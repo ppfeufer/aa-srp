@@ -11,6 +11,7 @@ $(document).ready(() => {
     let userSrpAmount = 0;
 
     const tableUserSrpRequests = elementTableUserSrpRequests.DataTable({
+        language: aaSrpSettings.dataTable.translation,
         ajax: {
             url: aaSrpSettings.url.userSrpRequests,
             dataSrc: '',
