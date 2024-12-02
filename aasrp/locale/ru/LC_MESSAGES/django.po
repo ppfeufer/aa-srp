@@ -11,17 +11,17 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 15:20+0100\n"
-"PO-Revision-Date: 2024-08-12 14:23+0000\n"
+"PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/ru/>\n"
+"Language-Team: Russian <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : "
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
 #: aasrp/templates/aasrp/base.html:10 aasrp/templates/aasrp/link-add.html:6
@@ -592,70 +592,70 @@ msgstr "Статус SRP запроса измене на"
 #: aasrp/templates/aasrp/base.html:35
 msgctxt "Decimal separator"
 msgid "."
-msgstr ""
+msgstr ","
 
 #: aasrp/templates/aasrp/base.html:36
 msgctxt "Thousands separator"
 msgid ","
-msgstr ""
+msgstr " "
 
 #: aasrp/templates/aasrp/base.html:37
 msgid "No data available in this table"
-msgstr ""
+msgstr "Данные в таблице отсутствуют"
 
 #: aasrp/templates/aasrp/base.html:38
 msgctxt "Keep _END_ as it is. It will be replaced by a number."
 msgid "Showing _END_ entries"
-msgstr ""
+msgstr "Отображаются _END_ записей"
 
 #: aasrp/templates/aasrp/base.html:39
 msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
 msgid "(filtered from _MAX_ total entries)"
-msgstr ""
+msgstr "(отфильтрованы из _MAX_ записей)"
 
 #: aasrp/templates/aasrp/base.html:40
 msgid "No records available"
-msgstr ""
+msgstr "Записи недоступны"
 
 #: aasrp/templates/aasrp/base.html:43
 msgid "Loading …"
-msgstr ""
+msgstr "Загрузка …"
 
 #: aasrp/templates/aasrp/base.html:44
 msgid "Processing …"
-msgstr ""
+msgstr "Обработка …"
 
 #: aasrp/templates/aasrp/base.html:45
 msgid "Nothing found, sorry …"
-msgstr ""
+msgstr "Ничего не найдено …"
 
 #: aasrp/templates/aasrp/base.html:47
 msgid "Search …"
-msgstr ""
+msgstr "Поиск…"
 
 #: aasrp/templates/aasrp/base.html:49
 msgid "First"
-msgstr ""
+msgstr "Первый"
 
 #: aasrp/templates/aasrp/base.html:50
 msgid "Last"
-msgstr ""
+msgstr "Последний"
 
 #: aasrp/templates/aasrp/base.html:51
 msgid "Next"
-msgstr ""
+msgstr "Следующий"
 
 #: aasrp/templates/aasrp/base.html:52
 msgid "Previous"
-msgstr ""
+msgstr "Предыдущий"
 
 #: aasrp/templates/aasrp/base.html:55
 msgid ": activate to sort column ascending"
-msgstr ""
+msgstr ": активируйте для сортировки по возрастанию"
 
 #: aasrp/templates/aasrp/base.html:56
 msgid ": activate to sort column descending"
-msgstr ""
+msgstr ": активируйте для сортировки по убыванию"
 
 #: aasrp/templates/aasrp/dashboard.html:53
 msgid "Are you sure you want to (re-)activate the following SRP link?"
