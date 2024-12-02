@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 15:20+0100\n"
-"PO-Revision-Date: 2024-05-10 14:10+0000\n"
-"Last-Translator: Mak3rco <depormanuf1@gmail.com>\n"
-"Language-Team: Spanish <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/es/>\n"
+"PO-Revision-Date: 2024-12-02 17:40+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"Language-Team: Spanish <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
 #: aasrp/templates/aasrp/base.html:10 aasrp/templates/aasrp/link-add.html:6
@@ -47,10 +47,8 @@ msgstr "Solicitante"
 #: aasrp/admin.py:180 aasrp/form.py:88 aasrp/models.py:85 aasrp/models.py:142
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
-#, fuzzy
-#| msgid "Fleet Type"
 msgid "Fleet type"
-msgstr "Tipo de Flota"
+msgstr "Tipo de flota"
 
 #: aasrp/admin.py:193 aasrp/models.py:76
 msgid "Is enabled"
@@ -622,7 +620,7 @@ msgstr ""
 #: aasrp/templates/aasrp/base.html:35
 msgctxt "Decimal separator"
 msgid "."
-msgstr ""
+msgstr "."
 
 #: aasrp/templates/aasrp/base.html:36
 msgctxt "Thousands separator"
