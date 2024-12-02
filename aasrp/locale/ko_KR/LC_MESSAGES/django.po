@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 15:20+0100\n"
-"PO-Revision-Date: 2024-08-12 14:23+0000\n"
+"PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/ko/>\n"
+"Language-Team: Korean <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-srp/ko/>\n"
 "Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
 #: aasrp/templates/aasrp/base.html:10 aasrp/templates/aasrp/link-add.html:6
@@ -581,70 +581,70 @@ msgstr ""
 #: aasrp/templates/aasrp/base.html:35
 msgctxt "Decimal separator"
 msgid "."
-msgstr ""
+msgstr "."
 
 #: aasrp/templates/aasrp/base.html:36
 msgctxt "Thousands separator"
 msgid ","
-msgstr ""
+msgstr ","
 
 #: aasrp/templates/aasrp/base.html:37
 msgid "No data available in this table"
-msgstr ""
+msgstr "테이블에 유효한 데이터가 없습니다"
 
 #: aasrp/templates/aasrp/base.html:38
 msgctxt "Keep _END_ as it is. It will be replaced by a number."
 msgid "Showing _END_ entries"
-msgstr ""
+msgstr "_END_ 개의 결과 표시중"
 
 #: aasrp/templates/aasrp/base.html:39
 msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
 msgid "(filtered from _MAX_ total entries)"
-msgstr ""
+msgstr "(총 _MAX_ 개의 결과 에서 필터링됨)"
 
 #: aasrp/templates/aasrp/base.html:40
 msgid "No records available"
-msgstr ""
+msgstr "사용 가능한 레코드가 없습니다"
 
 #: aasrp/templates/aasrp/base.html:43
 msgid "Loading …"
-msgstr ""
+msgstr "로딩 …"
 
 #: aasrp/templates/aasrp/base.html:44
 msgid "Processing …"
-msgstr ""
+msgstr "처리 중 …"
 
 #: aasrp/templates/aasrp/base.html:45
 msgid "Nothing found, sorry …"
-msgstr ""
+msgstr "아무것도 찾지 못했습니다, 죄송합니다 …"
 
 #: aasrp/templates/aasrp/base.html:47
 msgid "Search …"
-msgstr ""
+msgstr "검색 …"
 
 #: aasrp/templates/aasrp/base.html:49
 msgid "First"
-msgstr ""
+msgstr "첫 번째"
 
 #: aasrp/templates/aasrp/base.html:50
 msgid "Last"
-msgstr ""
+msgstr "마지막"
 
 #: aasrp/templates/aasrp/base.html:51
 msgid "Next"
-msgstr ""
+msgstr "다음"
 
 #: aasrp/templates/aasrp/base.html:52
 msgid "Previous"
-msgstr ""
+msgstr "이전"
 
 #: aasrp/templates/aasrp/base.html:55
 msgid ": activate to sort column ascending"
-msgstr ""
+msgstr ": 열 오름차순으로 정렬 활성화"
 
 #: aasrp/templates/aasrp/base.html:56
 msgid ": activate to sort column descending"
-msgstr ""
+msgstr ": 열 내림차순으로 정렬 활성화"
 
 #: aasrp/templates/aasrp/dashboard.html:53
 msgid "Are you sure you want to (re-)activate the following SRP link?"
