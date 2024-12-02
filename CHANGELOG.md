@@ -22,7 +22,7 @@ https://docs.github.com/assets/cb-41128/mw-1440/images/help/writing/alerts-rende
 > Critical content demanding immediate user attention due to potential risks.
 -->
 
-## \[In Development\] – Unreleased
+## [In Development] – Unreleased
 
 <!--
 Section Order:
@@ -44,19 +44,19 @@ Section Order:
 - Localized numeric values
 - Some inline JS improvements
 
-## \[2.5.1\] - 2024-11-11
+## [2.5.1] - 2024-11-11
 
 ### Changed
 
 - Switch forms to `ModelForm` where possible
 
-## \[2.5.0\] - 2024-09-19
+## [2.5.0] - 2024-09-19
 
 ### Changed
 
 - Switch to `django-solo` to provide the singleton for the settings model, instead of the custom implementation
 
-## \[2.4.0\] - 2024-09-16
+## [2.4.0] - 2024-09-16
 
 ### Added
 
@@ -72,7 +72,7 @@ Section Order:
 - Russian translation improved
 - Lingua codes updated to match Alliance Auth v4.3.1
 
-## \[2.3.1\] - 2024-08-11
+## [2.3.1] - 2024-08-11
 
 ### Added
 
@@ -88,7 +88,7 @@ Section Order:
 - German translation updated
 - Japanese translation updated
 
-## \[2.3.0\] - 2024-07-30
+## [2.3.0] - 2024-07-30
 
 ### Added
 
@@ -102,7 +102,7 @@ Section Order:
 - Japanese translation updated
 - Korean translation updated
 
-## \[2.2.0\] - 2024-06-18
+## [2.2.0] - 2024-06-18
 
 ### Fixed
 
@@ -112,7 +112,7 @@ Section Order:
 
 - Support for Python 3.8 and Python 3.9
 
-## \[2.1.1\] - 2024-06-15
+## [2.1.1] - 2024-06-15
 
 ### Fixed
 
@@ -122,7 +122,7 @@ Section Order:
 
 - German translation updated
 
-## \[2.1.0\] - 2024-06-13
+## [2.1.0] - 2024-06-13
 
 ### Added
 
@@ -142,13 +142,13 @@ Section Order:
 - Better navigation item names
 - Top navigation improved
 
-## \[2.0.2\] - 2024-05-16
+## [2.0.2] - 2024-05-16
 
 ### Changed
 
 - Translations updated
 
-## \[2.0.1\] - 2024-05-09
+## [2.0.1] - 2024-05-09
 
 ### Fixed
 
@@ -158,9 +158,9 @@ Section Order:
 
 - Re-add the tooltip to SRP payout value field in the SRP request view
 
-## \[2.0.0\] - 2024-03-16
+## [2.0.0] - 2024-03-16
 
-> \[!NOTE\]
+> [!NOTE]
 >
 > **This version needs at least Alliance Auth v4.0.0!**
 >
@@ -187,9 +187,9 @@ Section Order:
 
 - Compatibility to Alliance Auth v3
 
-## \[2.0.0-beta.2\] - 2024-02-19
+## [2.0.0-beta.2] - 2024-02-19
 
-> \[!NOTE\]
+> [!NOTE]
 >
 > **This version needs at least Alliance Auth v4.0.0b1!**
 >
@@ -201,9 +201,9 @@ Section Order:
 
 - Project classifier in `pyproject.toml`
 
-## \[2.0.0-beta.1\] - 2024-02-18
+## [2.0.0-beta.1] - 2024-02-18
 
-> \[!NOTE\]
+> [!NOTE]
 >
 > **This version needs at least Alliance Auth v4.0.0b1!**
 >
@@ -230,15 +230,15 @@ Section Order:
 
 - Compatibility to Alliance Auth v3
 
-## \[1.21.0\] - 2023-12-20
+## [1.21.0] - 2023-12-20
 
-> \[!NOTE\]
+> [!NOTE]
 >
 > **This is the last version compatible with Alliance Auth v3.**
 
 ### Added
 
-- Setting for the loss value source \[#153\]
+- Setting for the loss value source [#153]
 
 ### Fixed
 
@@ -248,7 +248,7 @@ Section Order:
 
 - German translation updated
 
-## \[1.20.8\] - 2023-09-26
+## [1.20.8] - 2023-09-26
 
 ### Fixed
 
@@ -261,7 +261,7 @@ Section Order:
 - Translations updated
 - Test suite updated
 
-## \[1.20.7\] - 2023-09-14
+## [1.20.7] - 2023-09-14
 
 ### Fixed
 
@@ -269,7 +269,7 @@ Section Order:
   Dashboard view, and in one of the displayed SRP links is a fleet commander who
   doesn't exist anymore.
 
-## \[1.20.6\] - 2023-09-12
+## [1.20.6] - 2023-09-12
 
 ### Fixed
 
@@ -282,7 +282,7 @@ Section Order:
 - Spanish translation improved
 - Korean translation improved
 
-## \[1.20.5\] - 2023-09-04
+## [1.20.5] - 2023-09-04
 
 ### Changed
 
@@ -290,20 +290,20 @@ Section Order:
 - Message generation for the SRP Team message simplified
 - Using `SITE_URL` from `local.py`
 
-## \[1.20.4\] - 2023-09-02
+## [1.20.4] - 2023-09-02
 
 ### Changed
 
 - Korean translation improved
 - Spanish translation improved
 
-## \[1.20.3\] - 2023-08-13
+## [1.20.3] - 2023-08-13
 
 ### Fixed
 
 - Bootstrap CSS fix
 
-## \[1.20.2\] - 2023-07-31
+## [1.20.2] - 2023-07-31
 
 ### Fixed
 
@@ -314,7 +314,7 @@ Section Order:
 
 - Footer template to make it easier for translators
 
-## \[1.20.1\] - 2023-07-30
+## [1.20.1] - 2023-07-30
 
 ### Added
 
@@ -325,7 +325,7 @@ Section Order:
 - Ukrainian translation improved
 - Minor code refactoring
 
-## \[1.20.0\] - 2023-06-24
+## [1.20.0] - 2023-06-24
 
 **This release includes all the changes from
 [v1.20.0-alpha.1](https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md#1200-alpha1---2023-06-21)
@@ -392,7 +392,7 @@ After that, update all other apps that need to be updated following the usual pr
   `SrpRequest` model
 - SRP code in discord channel message
 
-## \[1.20.0-alpha.1\] - 2023-06-21
+## [1.20.0-alpha.1] - 2023-06-21
 
 ### Changed
 
@@ -404,7 +404,7 @@ After that, update all other apps that need to be updated following the usual pr
   - Manager
 - Views split into their respective files, makes it easier to maintain
 
-## \[1.19.0\] - 2023-04-26
+## [1.19.0] - 2023-04-26
 
 ### Changed
 
@@ -414,7 +414,7 @@ After that, update all other apps that need to be updated following the usual pr
 
 - Text labels consistency ([#100])
 
-## \[1.18.0\] - 2023-04-16
+## [1.18.0] - 2023-04-16
 
 ### Added
 
@@ -429,20 +429,20 @@ After that, update all other apps that need to be updated following the usual pr
 - Label in AAR Form
 - Translation strings ([#94])
 
-## \[1.17.1\] - 2023-04-13
+## [1.17.1] - 2023-04-13
 
 ### Changed
 
 - German translation updated
 
-## \[1.17.0\] - 2023-03-06
+## [1.17.0] - 2023-03-06
 
 ### Added
 
 - Fleet type to SRP links (optional) ([#83])
 - SRP details to SRP request form ([#84])
 
-## \[1.16.4\] - 2022-11-26
+## [1.16.4] - 2022-11-26
 
 ### Fixed
 
@@ -458,7 +458,7 @@ After that, update all other apps that need to be updated following the usual pr
 
 <!-- Links -->
 
-## \[1.16.3\] - 2022-09-23
+## [1.16.3] - 2022-09-23
 
 ### Added
 
@@ -469,13 +469,13 @@ After that, update all other apps that need to be updated following the usual pr
 
 - Made request detail modals a bit larger
 
-## \[1.16.2\] - 2022-09-15
+## [1.16.2] - 2022-09-15
 
 ### Fixed
 
 - User settings are now fetched for the right user
 
-## \[1.16.1\] - 2022-08-06
+## [1.16.1] - 2022-08-06
 
 ### Update Information
 
@@ -505,7 +505,7 @@ If you haven't installed v1.16.0 yet, you can just update as usual.
 
 <!-- Links -->
 
-## \[1.16.0\] - 2022-08-04 \[YANKED\]
+## [1.16.0] - 2022-08-04 [YANKED]
 
 **This release has been yanked from Pypi due to a migration error on systems with
 mySQL8**
@@ -537,7 +537,7 @@ mySQL8**
 - Deprecated `type` attribute from `style` tags
 - Tests for non-stable version of Alliance Auth
 
-## \[1.15.2\] - 2022-07-21
+## [1.15.2] - 2022-07-21
 
 ### Added
 
@@ -552,13 +552,13 @@ mySQL8**
 
 <!-- Links and images -->
 
-## \[1.15.1\] - 2022-07-11
+## [1.15.1] - 2022-07-11
 
 ### Fixed
 
 - JS order in template
 
-## \[1.15.0\] - 2022-07-11
+## [1.15.0] - 2022-07-11
 
 ### Fixed
 
@@ -578,7 +578,7 @@ mySQL8**
 - Unnecessary `{% load humanize %}` statements from templates
 - Unused JavaScript and CSS
 
-## \[1.14.0\] - 2022-06-18
+## [1.14.0] - 2022-06-18
 
 ### Cleanup
 
@@ -595,13 +595,13 @@ mySQL8**
 - Minimum requirements
   - Python (>= 3.8)
 
-## \[1.13.4\] - 2022-06-14
+## [1.13.4] - 2022-06-14
 
 ### Fixed
 
 - Notifications to Discord when using `allianceauth-discordbot`
 
-## \[1.13.3\] - 2022-06-05
+## [1.13.3] - 2022-06-05
 
 ### Fixed
 
@@ -616,7 +616,7 @@ mySQL8**
   Discord account registered with Alliance Auth first, so we don't have to do all
   the other checks if the user doesn't
 
-## \[1.13.2\] - 2022-05-18
+## [1.13.2] - 2022-05-18
 
 ### Fixed
 
@@ -626,13 +626,13 @@ mySQL8**
 
 - HTML for an ajax call result moved to its own template
 
-## \[1.13.1\] - 2022-03-06
+## [1.13.1] - 2022-03-06
 
 ### Fixed
 
 - Reverted JS arrow function back to a normal function, since we need `$(this)` here
 
-## \[1.13.0\] - 2022-03-02
+## [1.13.0] - 2022-03-02
 
 ### Added
 
@@ -646,20 +646,20 @@ mySQL8**
 
 - Deprecated settings
 
-## \[1.12.0\] - 2022-02-28
+## [1.12.0] - 2022-02-28
 
 ### Fixed
 
-- \[Compatibility\] AA 3.x / Django 4 :: ImportError: cannot import name
+- [Compatibility] AA 3.x / Django 4 :: ImportError: cannot import name
   'ugettext_lazy' from 'django.utils.translation'
 
-## \[1.11.2\] - 2022-02-26
+## [1.11.2] - 2022-02-26
 
 ### Fixed
 
 - Modal windows
 
-## \[1.11.1\] - 2022-02-25
+## [1.11.1] - 2022-02-25
 
 ### Added
 
@@ -675,7 +675,7 @@ mySQL8**
 
 - JavaScript modernised
 
-## \[1.11.0\] - 2022-02-02
+## [1.11.0] - 2022-02-02
 
 ### Changed
 
@@ -688,7 +688,7 @@ mySQL8**
   where they're no longer needed. No one should have a version that's older than a
   year ...
 
-## \[1.10.3\] - 2022-01-24
+## [1.10.3] - 2022-01-24
 
 ### Fixed
 
@@ -700,7 +700,7 @@ mySQL8**
   send messages to Discord, but if anything fails with it, always try for
   `allianceauth-discordbot` to get the message out)
 
-## \[1.10.2\] - 2022-01-22
+## [1.10.2] - 2022-01-22
 
 ### Added
 
@@ -713,7 +713,7 @@ mySQL8**
 - Import from a module that might not even be there at all, which could have
   resulted in Discord PMs not being delivered
 
-## \[1.10.1\] - 2022-01-21
+## [1.10.1] - 2022-01-21
 
 ### Added
 
@@ -727,7 +727,7 @@ mySQL8**
 
 - Access for users with `manage_srp_requests`
 
-## \[1.10.0\] - 2022-01-12
+## [1.10.0] - 2022-01-12
 
 ### Added
 
@@ -740,7 +740,7 @@ mySQL8**
 - Minimum requirements
   - Alliance Auth v2.9.4
 
-## \[1.9.0\] - 2022-01-02
+## [1.9.0] - 2022-01-02
 
 ### Added
 
@@ -755,7 +755,7 @@ mySQL8**
 
 - Non-used code
 
-## \[1.8.0\] - 2021-11-30
+## [1.8.0] - 2021-11-30
 
 ### Changed
 
@@ -763,7 +763,7 @@ mySQL8**
   - Python 3.7
   - Alliance Auth v2.9.3
 
-## \[1.7.4\] - 2021-11-16
+## [1.7.4] - 2021-11-16
 
 ### Fixed
 
@@ -781,7 +781,7 @@ mySQL8**
   - Django Eveuniverse (>= 0.8.2)
   - Python (>= 3.7)
 
-## \[1.7.3\] - 2021-10-27
+## [1.7.3] - 2021-10-27
 
 ### Fixed
 
@@ -790,19 +790,19 @@ mySQL8**
   which has changed. We now use our own ESI provider for everything ESI related.
 - Get the sentry username when a creator/reviser has been deleted
 
-## \[1.7.2\] - 2021-08-18
+## [1.7.2] - 2021-08-18
 
 ### Changed
 
 - Improved performance by reducing the number of SQL queries
 
-## \[1.7.1\] - 2021-07-08
+## [1.7.1] - 2021-07-08
 
 ### Added
 
 - Check for compatibility with Python 3.9 and Django 3.2
 
-## \[1.7.0\] - 2021-07-04
+## [1.7.0] - 2021-07-04
 
 ### Added
 
@@ -810,38 +810,38 @@ mySQL8**
 
 <!-- Links -->
 
-## \[1.6.1\] - 2021-07-01
+## [1.6.1] - 2021-07-01
 
 ### Changed
 
 - Masked the `@` symbol in additional information text in the Discord message to the
   SRP team to not accidentally ping in case a Discord ping was copied in there
 
-## \[1.6.0\] - 2021-06-08
+## [1.6.0] - 2021-06-08
 
 ### Changed
 
 - Check for valid zKillboard URL is now done completely via regular expressions.
 
-## \[1.5.0\] - 2021-05-27
+## [1.5.0] - 2021-05-27
 
 ### Added
 
 - Insurance information to SRP request details modal (Only for new SRP requests)
 
-## \[1.4.2\] - 2021-05-06
+## [1.4.2] - 2021-05-06
 
 ### Fixed
 
 - Autocomplete from date/time field removed, so the datepicker works again properly
 
-## \[1.4.1\] - 2021-05-05
+## [1.4.1] - 2021-05-05
 
 ### Fixed
 
 - Using Django application registry instead of directly accessing `INSTALLED_APPS`
 
-## \[1.4.0\] - 2021-04-20
+## [1.4.0] - 2021-04-20
 
 ### Fixed
 
@@ -852,7 +852,7 @@ mySQL8**
 - Forms now using form generation via django-bootstrap-form instead of own template
   construct that was falling apart already
 
-## \[1.3.3\] - 2020-04-13
+## [1.3.3] - 2020-04-13
 
 ### Fixed
 
@@ -862,7 +862,7 @@ mySQL8**
 
 - Using regular expression to determine if we're looking at a kill mail link or not
 
-## \[1.3.2\] - 2021-04-06
+## [1.3.2] - 2021-04-06
 
 ### Changed
 
@@ -873,33 +873,33 @@ mySQL8**
 
 - Copy to clipboard should only be available for active SRP links
 
-## \[1.3.1\] - 2021-03-26
+## [1.3.1] - 2021-03-26
 
 ### Fixed
 
 - `exception=IndexError('list index out of range')` for Discord notifications on new
   SRP request
 
-## \[1.3.0\] - 2021-03-26
+## [1.3.0] - 2021-03-26
 
 ### Added
 
 - Copy to clipboard for the SRP link in SRP dashboard view
 - Copy to clipboard for pilot name in SRP link view
 
-## \[1.2.2\] - 2021-03-14
+## [1.2.2] - 2021-03-14
 
 ### Changed
 
 - Notification functions moved to its own module to avoid code duplications
 
-## \[1.2.1\] - 2021-03-14
+## [1.2.1] - 2021-03-14
 
 ### Fixed
 
 - SRP cost info bar removed from user settings tab
 
-## \[1.2.0\] - 2021-03-14
+## [1.2.0] - 2021-03-14
 
 ### Added
 
@@ -914,20 +914,20 @@ mySQL8**
 
 - Enabled paging for SRP link table on dashboard in "View All" mode
 
-## \[1.1.0\] - 2021-03-02
+## [1.1.0] - 2021-03-02
 
 ### Added
 
 - Option to notify the SRP team in their Discord channels about new SRP requests. (You
   need to have [AA-Discordbot] installed and configured to use this option)
 
-## \[1.0.1\] - 2021-02-09
+## [1.0.1] - 2021-02-09
 
 ### Fixed
 
 - Discord PM on approval or reject goes to the reviewer instead of the requester (#11)
 
-## \[1.0.0\] - 2021-02-06
+## [1.0.0] - 2021-02-06
 
 This has now been tested long enough by my corp, and it's time to fully release the
 module now, so here we go ...
@@ -948,7 +948,7 @@ some manual work, so please update step by step.**
 - Discord notification via PM to the user on SRP request approval or rejection if the
   [AA-Discordbot] is installed
 
-## \[0.1.0-beta.16\] - 2021-02-06
+## [0.1.0-beta.16] - 2021-02-06
 
 ### Changed
 
@@ -977,13 +977,13 @@ To migrate the comments from SRP requests to their own model, run:
 python manage.py aasrp_migrate_to_comments
 ```
 
-## \[0.1.0-beta.15\] - 2021-02-04
+## [0.1.0-beta.15] - 2021-02-04
 
 ### Fixed
 
 - Modal headers
 
-## \[0.1.0-beta.14\] - 2021-02-02
+## [0.1.0-beta.14] - 2021-02-02
 
 ### Changed
 
@@ -992,13 +992,13 @@ python manage.py aasrp_migrate_to_comments
   fails
 - Form error messages formatted
 
-## \[0.1.0-beta.13\] - 2021-01-27
+## [0.1.0-beta.13] - 2021-01-27
 
 ### Changed
 
 - EVE/UTC tz handling optimized
 
-## \[0.1.0-beta.12\] - 2021-01-26
+## [0.1.0-beta.12] - 2021-01-26
 
 ### Fixed
 
@@ -1010,7 +1010,7 @@ python manage.py aasrp_migrate_to_comments
 - SRP request details modal in "Your SRP Requests" tab on dashboard view
 - SRP request status to details modal
 
-## \[0.1.0-beta.11\] - 2021-01-26
+## [0.1.0-beta.11] - 2021-01-26
 
 ### Changed
 
@@ -1019,7 +1019,7 @@ python manage.py aasrp_migrate_to_comments
 - Moved useragent to constants
 - JS re-organized
 
-## \[0.1.0-beta.10\] - 2021-01-11
+## [0.1.0-beta.10] - 2021-01-11
 
 ### Added
 
@@ -1029,20 +1029,20 @@ python manage.py aasrp_migrate_to_comments
 
 - Module call in init file
 
-## \[0.1.0-beta.9\] - 2021-01-06
+## [0.1.0-beta.9] - 2021-01-06
 
 ### Added
 
 - Mandatory reason on SRP reject
 - Type hints to classes and functions
 
-## \[0.1.0-beta.8\] - 2021-01-06
+## [0.1.0-beta.8] - 2021-01-06
 
 ### Fixed
 
 - Filter dropdowns for character again -.-
 
-## \[0.1.0-beta.7\] - 2021-01-06
+## [0.1.0-beta.7] - 2021-01-06
 
 ### Fixed
 
@@ -1050,13 +1050,13 @@ python manage.py aasrp_migrate_to_comments
 - zKillboard link with icon in request detail modal
 - Filter dropdowns for character
 
-## \[0.1.0-beta.6\] - 2021-01-05
+## [0.1.0-beta.6] - 2021-01-05
 
 ### Added
 
 - Character portraits and ship icons
 
-## \[0.1.0-beta.5\] - 2021-01-05
+## [0.1.0-beta.5] - 2021-01-05
 
 ### Changed
 
@@ -1116,13 +1116,13 @@ is just another simple command.
 python manage.py aasrp_update_db_relations
 ```
 
-## \[0.1.0-beta.4\] - 2020-12-28
+## [0.1.0-beta.4] - 2020-12-28
 
 ### Fixed
 
 - Permissions on "Edit AAR Link" view some ajax requests
 
-## \[0.1.0-beta.3\] - 2020-12-28
+## [0.1.0-beta.3] - 2020-12-28
 
 - First public beta release
 
