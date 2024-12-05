@@ -35,6 +35,12 @@ Section Order:
 ### Security
 -->
 
+## [2.5.3] - 2024-12-05
+
+### Changed
+
+- Discord Proxy settings are now also applied to DM messages, missed that one in the last release …
+
 ## [2.5.2] - 2024-12-05
 
 ### Added

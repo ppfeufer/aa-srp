@@ -21,6 +21,9 @@ from app_utils.logging import LoggerAddTag
 # AA SRP
 from aasrp import __title__
 from aasrp.app_settings import (
+    DISCORDPROXY_HOST,
+    DISCORDPROXY_PORT,
+    DISCORDPROXY_TIMEOUT,
     aa_discordnotify_installed,
     allianceauth_discordbot_installed,
     discordproxy_installed,
@@ -112,7 +115,8 @@ def _discordproxy_send_private_message(
     from discordproxy.client import DiscordClient
     from discordproxy.exceptions import DiscordProxyException
 
-    client = DiscordClient()
+    target = f"{DISCORDPROXY_HOST}:{DISCORDPROXY_PORT}"
+    client = DiscordClient(target=target, timeout=DISCORDPROXY_TIMEOUT)
 
     try:
         logger.debug(msg="Trying to send a direct message via discordproxy")
