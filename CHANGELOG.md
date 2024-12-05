@@ -38,6 +38,7 @@ Section Order:
 ### Added
 
 - Proper JS settings override
+- Optional settings for Discord Proxy. Comes in handy when used in a Docker environment. (#240)
 
 ### Changed
 
