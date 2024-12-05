@@ -35,6 +35,8 @@ Section Order:
 ### Security
 -->
 
+## [2.5.2] - 2024-12-05
+
 ### Added
 
 - Proper JS settings override
