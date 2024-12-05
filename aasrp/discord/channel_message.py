@@ -18,7 +18,13 @@ from app_utils.logging import LoggerAddTag
 
 # AA SRP
 from aasrp import __title__
-from aasrp.app_settings import allianceauth_discordbot_installed, discordproxy_installed
+from aasrp.app_settings import (
+    DISCORDPROXY_HOST,
+    DISCORDPROXY_PORT,
+    DISCORDPROXY_TIMEOUT,
+    allianceauth_discordbot_installed,
+    discordproxy_installed,
+)
 from aasrp.constants import DISCORD_EMBED_COLOR_MAP
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
@@ -106,7 +112,8 @@ def _discordproxy_send_channel_message(
     from discordproxy.client import DiscordClient
     from discordproxy.exceptions import DiscordProxyException
 
-    client = DiscordClient()
+    target = f"{DISCORDPROXY_HOST}:{DISCORDPROXY_PORT}"
+    client = DiscordClient(target=target, timeout=DISCORDPROXY_TIMEOUT)
 
     try:
         logger.debug(msg="Trying to send a channel message via discordproxy")

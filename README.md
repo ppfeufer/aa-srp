@@ -36,6 +36,7 @@ ______________________________________________________________________
   - [Step 4: Preload Eve Universe Data](#step-4-preload-eve-universe-data)
   - [Step 5: Setting up Permissions](#step-5-setting-up-permissions)
   - [Step 6: (Optional) Import From Built-in SRP Module](#step-6-optional-import-from-built-in-srp-module)
+  - [Step 7: (Optional) Settings for Discord Proxy (If Used)](#step-7-optional-settings-for-discord-proxy-if-used)
 - [Permissions](#permissions)
 - [Changelog](#changelog)
 - [Translation Status](#translation-status)
@@ -164,6 +165,15 @@ To import your SRP information from the built-in SRP module, run the following c
 ```shell
 python manage.py aasrp_migrate_srp_data
 ```
+
+### Step 7: (Optional) Settings for Discord Proxy (If Used)<a name="step-7-optional-settings-for-discord-proxy-if-used"></a>
+
+If you are using [Discord Proxy] to send Discord messages, you can configure the host and port in your `local.py` settings.
+
+| Name                | Description                                      | Default     |
+| ------------------- | ------------------------------------------------ | ----------- |
+| `DISCORDPROXY_HOST` | Hostname used to communicate with Discord Proxy. | `localhost` |
+| `DISCORDPROXY_PORT` | Port used to communicate with Discord Proxy.     | `50051`     |
 
 ## Permissions<a name="permissions"></a>
 
