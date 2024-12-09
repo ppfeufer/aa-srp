@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 15:20+0100\n"
-"PO-Revision-Date: 2024-12-02 17:40+0000\n"
+"PO-Revision-Date: 2024-12-09 18:15+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/fr/>\n"
@@ -333,7 +333,7 @@ msgstr ""
 #: aasrp/models.py:128
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:32
 msgid "Fleet commander"
-msgstr ""
+msgstr "Commandant de flotte"
 
 #: aasrp/models.py:141
 msgid "The SRP link fleet type, if it's set"
