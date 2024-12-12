@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024.
 # Houbi_Houba <paul.lacape@live.fr>, 2024.
+# balbozorre <loic.petiot2002@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 15:20+0100\n"
-"PO-Revision-Date: 2024-12-02 17:40+0000\n"
-"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"PO-Revision-Date: 2024-12-11 23:15+0000\n"
+"Last-Translator: balbozorre <loic.petiot2002@gmail.com>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-srp/fr/>\n"
 "Language: fr_FR\n"
@@ -93,7 +94,7 @@ msgstr[1] "{notifications_count} types de flotte désactivés"
 #: aasrp/apps.py:21
 #, python-brace-format
 msgid "AA Ship Replacement v{__version__}"
-msgstr ""
+msgstr "AA Remplacement des Vaisseaux v{__version__}"
 
 #: aasrp/constants.py:20
 msgid ""
@@ -102,6 +103,10 @@ msgid ""
 "Please make sure to always add the SRP code and the request code with your "
 "inquiry."
 msgstr ""
+"Si vous avez des questions concernant votre demande de SRP, n'hésitez pas à "
+"contacter la personne gérant les requêtes\n"
+"Veillez à toujours joindre le code de SRP ainsi que le code de requête à "
+"vôtre demande."
 
 #: aasrp/form.py:50
 msgid "This field is mandatory"
@@ -121,7 +126,7 @@ msgstr ""
 
 #: aasrp/form.py:76
 msgid "Fleet type (optional)"
-msgstr ""
+msgstr "Type de flotte (facultatif)"
 
 #: aasrp/form.py:77 aasrp/form.py:89 aasrp/models.py:131
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
@@ -132,7 +137,7 @@ msgstr "Doctrine"
 
 #: aasrp/form.py:78 aasrp/form.py:91 aasrp/form.py:109
 msgid "After action report link"
-msgstr ""
+msgstr "Lien du rapport de combat"
 
 #: aasrp/form.py:127
 #, python-brace-format
@@ -140,6 +145,8 @@ msgid ""
 "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or "
 "{eve_kill_base_url} and paste the link here."
 msgstr ""
+"Trouvez votre rapport de décès sur {zkillboard_base_url}, {evetools_base_url}"
+" ou {eve_kill_base_url} et collez le lien ici."
 
 #: aasrp/form.py:130
 msgid ""
@@ -147,17 +154,21 @@ msgid ""
 "FC, what doctrine was called, have changes to the fit been requested and so "
 "on. Be as detailed as you can."
 msgstr ""
+"Veuillez nous raconter les circonstances de vôtre décès prématuré. Qui était "
+"le commandant de flotte (FC), quelle doctrine était utilisée, s'il vous a "
+"été demandé de faire des changement sur l'équipement et ainsi de suite. "
+"Fournissez le plus de détails que vous pouvez."
 
 #: aasrp/form.py:136 aasrp/form.py:143 aasrp/models.py:304
 msgid "Killboard link"
-msgstr ""
+msgstr "Lien vers Killboard"
 
 #: aasrp/form.py:138 aasrp/form.py:147 aasrp/models.py:307 aasrp/models.py:401
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:47
 #: aasrp/templates/aasrp/view-requests.html:57
 msgid "Additional information"
-msgstr ""
+msgstr "Informations complémentaires"
 
 #: aasrp/form.py:175
 #, python-brace-format
@@ -165,57 +176,65 @@ msgid ""
 "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or "
 "{eve_kill_base_url}"
 msgstr ""
+"Lien invalide. Veuillez utiliser {zkillboard_base_url}, {evetools_base_url} "
+"ou {eve_kill_base_url}"
 
 #: aasrp/form.py:189
 msgid "Invalid link. Please post a link to a kill mail."
-msgstr ""
+msgstr "Lien invalide. Veuillez fournir un lien vers un rapport de décès."
 
 #: aasrp/form.py:200
 msgid ""
 "There is already an SRP request for this kill mail. Please check if you got "
 "the right one."
 msgstr ""
+"Il y a déjà une demande de SRP pour ce rapport de décès. Veuillez vérifier "
+"qu'il s'agit du bon rapport."
 
 #: aasrp/form.py:213
 msgid "SRP payout value"
-msgstr ""
+msgstr "Valeur du paiement de SRP"
 
 #: aasrp/form.py:230
 msgid "Please provide the reason this SRP request is rejected."
-msgstr ""
+msgstr "Veuillez fournir la raison du rejet de cette demande de SRP."
 
 #: aasrp/form.py:233 aasrp/models.py:327 aasrp/models.py:402
 msgid "Reject reason"
-msgstr ""
+msgstr "Raison du rejet"
 
 #: aasrp/form.py:261
 msgid "Leave a comment for the requestor"
-msgstr ""
+msgstr "Laissez un commentaire pour le demandeur"
 
 #: aasrp/form.py:264
 msgid "Comment (optional)"
-msgstr ""
+msgstr "Commentaire (facultatif)"
 
 #: aasrp/form.py:292
 msgid ""
 "Please provide the reason why this former rejected SRP request is now "
 "accepted."
 msgstr ""
+"Veuillez fournir la raison pour laquelle cette demande de SRP a finalement "
+"été acceptée."
 
 #: aasrp/form.py:297 aasrp/models.py:399 aasrp/models.py:406
 #: aasrp/models.py:458
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
 msgid "Comment"
-msgstr ""
+msgstr "Commentaire"
 
 #: aasrp/form.py:326
 msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
+"Désactiver les notifications. (Auth et Discord, si un module approprié est "
+"installé)"
 
 #: aasrp/helper/character.py:45
 msgid "Unknown character"
-msgstr ""
+msgstr "Personnage inconnu"
 
 #: aasrp/helper/character.py:66
 msgid "Copy character name to clipboard"
@@ -223,16 +242,16 @@ msgstr ""
 
 #: aasrp/helper/icons.py:39 aasrp/templates/aasrp/request-srp.html:6
 msgid "Request SRP"
-msgstr ""
+msgstr "Requête de SRP"
 
 #: aasrp/helper/icons.py:53
 msgid "View SRP requests"
-msgstr ""
+msgstr "Voir les demandes de SRP"
 
 #: aasrp/helper/icons.py:67
 #: aasrp/templates/aasrp/partials/link-edit/form.html:19
 msgid "Add/Change AAR link"
-msgstr ""
+msgstr "Ajouter/Modif. rapport"
 
 #: aasrp/helper/icons.py:78
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:4
@@ -252,20 +271,20 @@ msgstr ""
 
 #: aasrp/helper/icons.py:148
 msgid "SRP request pending"
-msgstr ""
+msgstr "Demande de SRP en attente"
 
 #: aasrp/helper/icons.py:158
 msgid "SRP request approved"
-msgstr ""
+msgstr "Demande de SRP acceptée"
 
 #: aasrp/helper/icons.py:168 aasrp/views/ajax.py:674
 msgid "SRP request rejected"
-msgstr ""
+msgstr "Demande de SRP rejetée"
 
 #: aasrp/helper/icons.py:204
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
-msgstr ""
+msgstr "Détails de la demande de SRP"
 
 #: aasrp/helper/icons.py:254
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
@@ -288,7 +307,7 @@ msgstr ""
 
 #: aasrp/models.py:68
 msgid "Descriptive name of your fleet type"
-msgstr ""
+msgstr "Nom descriptif de votre type de flotte"
 
 #: aasrp/models.py:69
 msgid "Name"
@@ -296,11 +315,11 @@ msgstr "Nom"
 
 #: aasrp/models.py:75
 msgid "Whether this fleet type is active or not"
-msgstr ""
+msgstr "Si ce type de flotte est actif ou non"
 
 #: aasrp/models.py:86
 msgid "Fleet types"
-msgstr ""
+msgstr "Types de flotte"
 
 #: aasrp/models.py:109
 msgid "Active"
@@ -316,11 +335,11 @@ msgstr ""
 
 #: aasrp/models.py:113
 msgid "SRP name"
-msgstr ""
+msgstr "Nom de SRP"
 
 #: aasrp/models.py:118
 msgid "SRP status"
-msgstr ""
+msgstr "Status du SRP"
 
 #: aasrp/models.py:120 aasrp/templates/aasrp/dashboard.html:47
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
@@ -328,12 +347,12 @@ msgstr ""
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:50
 #: aasrp/templates/aasrp/view-own-requests.html:37
 msgid "SRP code"
-msgstr ""
+msgstr "Code de SRP"
 
 #: aasrp/models.py:128
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:32
 msgid "Fleet commander"
-msgstr ""
+msgstr "Commandant de flotte"
 
 #: aasrp/models.py:141
 msgid "The SRP link fleet type, if it's set"
@@ -345,16 +364,16 @@ msgstr ""
 
 #: aasrp/models.py:157
 msgid "Who created the SRP link?"
-msgstr ""
+msgstr "Qui a crée le lien de SRP ?"
 
 #: aasrp/models.py:167 aasrp/models.py:320
 msgid "SRP link"
-msgstr ""
+msgstr "Lien de SRP"
 
 #: aasrp/models.py:168
 #: aasrp/templates/aasrp/partials/navigation/top-navigation.html:26
 msgid "SRP links"
-msgstr ""
+msgstr "Liens de SRP"
 
 #: aasrp/models.py:266
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:18
