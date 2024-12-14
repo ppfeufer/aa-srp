@@ -35,6 +35,16 @@ Section Order:
 ### Security
 -->
 
+## [2.5.4] - 2024-12-14
+
+### Added
+
+- Python 3.13 to the test matrix
+
+### Changed
+
+- Translations updated
+
 ## [2.5.3] - 2024-12-05
 
 ### Changed
