@@ -2,18 +2,24 @@
 Constants
 """
 
+# Third Party
+from requests.__version__ import __version__ as requests_version
+
 # Django
-from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+
+# Alliance Auth
+from esi import __version__ as esi_version
 
 # AA SRP
 from aasrp import __version__
 
-VERBOSE_NAME = "AA-SRP - A ship replacement module for Alliance Auth"
-
-verbose_name_slugified: str = slugify(value=VERBOSE_NAME, allow_unicode=True)
-github_url: str = "https://github.com/ppfeufer/aa-srp"
-USERAGENT = f"{verbose_name_slugified} v{__version__} {github_url}"
+APP_NAME = "aa-srp"
+GITHUB_URL = f"https://github.com/ppfeufer/{APP_NAME}"
+USER_AGENT_ESI = f"{APP_NAME}/{__version__} +{GITHUB_URL} via django-esi/{esi_version}"
+USER_AGENT_REQUESTS = (
+    f"{APP_NAME}/{__version__} +{GITHUB_URL} via requests/{requests_version}"
+)
 
 
 SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = _(
