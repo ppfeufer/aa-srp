@@ -6,7 +6,7 @@ Providers
 from esi.clients import EsiClientProvider
 
 # AA SRP
-from aasrp.constants import USERAGENT
+from aasrp.constants import USER_AGENT_ESI
 
 # ESI client
-esi = EsiClientProvider(app_info_text=USERAGENT)
+esi = EsiClientProvider(app_info_text=USER_AGENT_ESI)
