@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Fixed
+
+- Escaping translation strings to fix potential issues with French and Italian translations
+
 ### Changed
 
 - Set user agent according to MDN guidelines

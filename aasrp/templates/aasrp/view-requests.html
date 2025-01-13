@@ -27,6 +27,18 @@
 {% endblock %}
 
 {% block extra_javascript %}
+    {% translate "Request status" as translateRequestStatus %}
+    {% translate "Ship" as translateShip %}
+    {% translate "Character" as translateCharacter %}
+    {% translate "Click here to change the payout amount for this SRP request." as translateChangeSrpPayoutAmount %}
+    {% translate "Enter SRP payout value" as translateChangeSrpPayoutHeader %}
+    {% translate "Empty values are not allowed" as translateEditableValidate %}
+    {% translate "This field is required." as translateFieldRequired %}
+    {% translate "Requestor" as translateRequestor %}
+    {% translate "Insurance payout" as translateInsurancePayout %}
+    {% translate "Additional information" as translateAdditionalInformation %}
+    {% translate "Reject information" as translateRejectInformation %}
+
     <script>
         /**
          * passing some settings to our JS
@@ -40,27 +52,27 @@
             },
             translation: {
                 filter: {
-                    requestStatus: '{% translate "Request status" %}',
-                    ship: '{% translate "Ship" %}',
-                    character: '{% translate "Character" %}'
+                    requestStatus: '{{ translateRequestStatus|escapejs }}',
+                    ship: '{{ translateShip|escapejs }}',
+                    character: '{{ translateCharacter|escapejs }}'
                 },
-                changeSrpPayoutAmount: '{% translate "Click here to change the payout amount for this SRP request." %}',
-                changeSrpPayoutHeader: '{% translate "Enter SRP payout value" %}',
-                editableValidate: '{% translate "Empty values are not allowed" %}',
+                changeSrpPayoutAmount: '{{ translateChangeSrpPayoutAmount|escapejs }}',
+                changeSrpPayoutHeader: '{{ translateChangeSrpPayoutHeader|escapejs }}',
+                editableValidate: '{{ translateEditableValidate|escapejs }}',
                 modal: {
                     srpDetails: {
                         body: {
-                            requestor: '{% translate "Requestor" %}',
-                            character: '{% translate "Character" %}',
-                            ship: '{% translate "Ship" %}',
-                            insurance: '{% translate "Insurance payout" %}',
-                            additionalInformation: '{% translate "Additional information" %}',
-                            rejectInformation: '{% translate "Reject information" %}'
+                            requestor: '{{ translateRequestor|escapejs }}',
+                            character: '{{ translateCharacter|escapejs }}',
+                            ship: '{{ translateShip|escapejs }}',
+                            insurance: '{{ translateInsurancePayout|escapejs }}',
+                            additionalInformation: '{{ translateAdditionalInformation|escapejs }}',
+                            rejectInformation: '{{ translateRejectInformation|escapejs }}'
                         }
                     },
                     form: {
                         error: {
-                            fieldRequired: '{% translate "This field is required." %}'
+                            fieldRequired: '{{ translateFieldRequired|escapejs }}'
                         }
                     }
                 }
