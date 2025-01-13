@@ -10,17 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2024-12-14 18:56+0100\n"
+"POT-Creation-Date: 2025-01-13 15:09+0100\n"
 "PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/ru/>\n"
+"Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : "
-"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 5.8.4\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
@@ -42,8 +40,8 @@ msgstr "Создатель"
 #: aasrp/admin.py:140
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
-#: aasrp/templates/aasrp/view-own-requests.html:44
-#: aasrp/templates/aasrp/view-requests.html:53
+#: aasrp/templates/aasrp/view-own-requests.html:26
+#: aasrp/templates/aasrp/view-requests.html:37
 msgid "Requestor"
 msgstr "Заявитель"
 
@@ -107,12 +105,10 @@ msgstr[3] "Деактивировать {notifications_count} тип флота"
 msgid "AA Ship Replacement v{__version__}"
 msgstr "AA Компенсация корабля v{__version__}"
 
-#: aasrp/constants.py:20
+#: aasrp/constants.py:26
 msgid ""
-"If you have any questions regarding your SRP request, feel free to contact "
-"your request reviser.\n"
-"Please make sure to always add the SRP code and the request code with your "
-"inquiry."
+"If you have any questions regarding your SRP request, feel free to contact your request reviser.\n"
+"Please make sure to always add the SRP code and the request code with your inquiry."
 msgstr ""
 "Если у Вас остались вопросы по поводу SRP запроса, свяжитесь с ревизором.\n"
 "Убедитесь, что в обращении указаны Код SRP и Код Запроса."
@@ -150,20 +146,12 @@ msgstr "Ссылка на отчет о боевых действиях"
 
 #: aasrp/form.py:127
 #, python-brace-format
-msgid ""
-"Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or "
-"{eve_kill_base_url} and paste the link here."
+msgid "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
 msgstr ""
 
 #: aasrp/form.py:130
-msgid ""
-"Please tell us about the circumstances of your untimely demise. Who was the "
-"FC, what doctrine was called, have changes to the fit been requested and so "
-"on. Be as detailed as you can."
-msgstr ""
-"Пожалуйста, расскажите нам об обстоятельствах вашей безвременной кончины. "
-"Кто был ФК, какая требовалась доктрина, были ли анонсированы изменения в "
-"фитах и так далее. Будьте настолько подробны, насколько это возможно."
+msgid "Please tell us about the circumstances of your untimely demise. Who was the FC, what doctrine was called, have changes to the fit been requested and so on. Be as detailed as you can."
+msgstr "Пожалуйста, расскажите нам об обстоятельствах вашей безвременной кончины. Кто был ФК, какая требовалась доктрина, были ли анонсированы изменения в фитах и так далее. Будьте настолько подробны, насколько это возможно."
 
 #: aasrp/form.py:136 aasrp/form.py:143 aasrp/models.py:304
 msgid "Killboard link"
@@ -171,16 +159,14 @@ msgstr "Ссылка на килборду"
 
 #: aasrp/form.py:138 aasrp/form.py:147 aasrp/models.py:307 aasrp/models.py:401
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:47
-#: aasrp/templates/aasrp/view-requests.html:57
+#: aasrp/templates/aasrp/view-own-requests.html:27
+#: aasrp/templates/aasrp/view-requests.html:39
 msgid "Additional information"
 msgstr "Дополнительная информация"
 
 #: aasrp/form.py:175
 #, python-brace-format
-msgid ""
-"Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or "
-"{eve_kill_base_url}"
+msgid "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
 msgstr ""
 
 #: aasrp/form.py:189
@@ -188,12 +174,8 @@ msgid "Invalid link. Please post a link to a kill mail."
 msgstr "Некорректная ссылка. Укажите действительную ссылка на kill mail."
 
 #: aasrp/form.py:200
-msgid ""
-"There is already an SRP request for this kill mail. Please check if you got "
-"the right one."
-msgstr ""
-"Для указанного kill mail уже зарегистрирован SRP запрос. Убедитесь, что Вы "
-"указали верную ссылку."
+msgid "There is already an SRP request for this kill mail. Please check if you got the right one."
+msgstr "Для указанного kill mail уже зарегистрирован SRP запрос. Убедитесь, что Вы указали верную ссылку."
 
 #: aasrp/form.py:213
 msgid "SRP payout value"
@@ -216,11 +198,8 @@ msgid "Comment (optional)"
 msgstr "Комментарий (не обязательно)"
 
 #: aasrp/form.py:292
-msgid ""
-"Please provide the reason why this former rejected SRP request is now "
-"accepted."
-msgstr ""
-"Укажите причину удовлетворения SRP запроса, который ранее был отклонен."
+msgid "Please provide the reason why this former rejected SRP request is now accepted."
+msgstr "Укажите причину удовлетворения SRP запроса, который ранее был отклонен."
 
 #: aasrp/form.py:297 aasrp/models.py:399 aasrp/models.py:406
 #: aasrp/models.py:458
@@ -229,8 +208,7 @@ msgid "Comment"
 msgstr "Комментарий"
 
 #: aasrp/form.py:326
-msgid ""
-"Disable notifications. (Auth and Discord, if a relevant module is installed)"
+msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "Отключить уведомления. (Auth и Discord при установленных модулях)"
 
 #: aasrp/helper/character.py:45
@@ -342,11 +320,11 @@ msgstr "Название SRP"
 msgid "SRP status"
 msgstr "Статус SRP"
 
-#: aasrp/models.py:120 aasrp/templates/aasrp/dashboard.html:47
+#: aasrp/models.py:120 aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:50
-#: aasrp/templates/aasrp/view-own-requests.html:37
+#: aasrp/templates/aasrp/view-own-requests.html:24
 msgid "SRP code"
 msgstr "Код SRP"
 
@@ -391,9 +369,9 @@ msgstr "Удовлетворен"
 msgid "Rejected"
 msgstr "Отклонен"
 
-#: aasrp/models.py:271 aasrp/templates/aasrp/dashboard.html:48
+#: aasrp/models.py:271 aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
-#: aasrp/templates/aasrp/view-own-requests.html:38
+#: aasrp/templates/aasrp/view-own-requests.html:25
 msgid "Request code"
 msgstr "Код Запроса"
 
@@ -403,13 +381,11 @@ msgstr "Кто создал SRP ссылку?"
 
 #: aasrp/models.py:289
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:27
-#: aasrp/templates/aasrp/dashboard.html:43
+#: aasrp/templates/aasrp/dashboard.html:24
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:18
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:17
-#: aasrp/templates/aasrp/view-own-requests.html:33
-#: aasrp/templates/aasrp/view-own-requests.html:45
-#: aasrp/templates/aasrp/view-requests.html:45
-#: aasrp/templates/aasrp/view-requests.html:54
+#: aasrp/templates/aasrp/view-own-requests.html:23
+#: aasrp/templates/aasrp/view-requests.html:32
 msgid "Character"
 msgstr "Пилот"
 
@@ -417,9 +393,9 @@ msgstr "Пилот"
 msgid "Ship type"
 msgstr "Тип корабля"
 
-#: aasrp/models.py:313 aasrp/templates/aasrp/dashboard.html:42
-#: aasrp/templates/aasrp/view-own-requests.html:32
-#: aasrp/templates/aasrp/view-requests.html:43
+#: aasrp/models.py:313 aasrp/templates/aasrp/dashboard.html:23
+#: aasrp/templates/aasrp/view-own-requests.html:22
+#: aasrp/templates/aasrp/view-requests.html:30
 msgid "Request status"
 msgstr "Статус запроса"
 
@@ -466,7 +442,7 @@ msgstr "Стоимость страховки"
 
 #: aasrp/models.py:377
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
-#: aasrp/templates/aasrp/view-requests.html:56
+#: aasrp/templates/aasrp/view-requests.html:38
 msgid "Insurance payout"
 msgstr "Страховая выплата"
 
@@ -538,13 +514,8 @@ msgid "Total value (Ship, Fitting and Cargo)"
 msgstr "Итоговое значение (Корабль, оснастка и трюм)"
 
 #: aasrp/models.py:526
-msgid ""
-"The source for the loss value of a killmail. Fitted value is the value of "
-"the ship and its fitting. Total value is the value of the ship, its fitting "
-"and the cargo. (Default: Total value)"
-msgstr ""
-"Источник суммы потерь сообщения о смерти. Цена оснастки и корабля. Общее "
-"значение стоимости корабля, оснастки и трюма"
+msgid "The source for the loss value of a killmail. Fitted value is the value of the ship and its fitting. Total value is the value of the ship, its fitting and the cargo. (Default: Total value)"
+msgstr "Источник суммы потерь сообщения о смерти. Цена оснастки и корабля. Общее значение стоимости корабля, оснастки и трюма"
 
 #: aasrp/models.py:543
 msgid "Setting"
@@ -563,13 +534,11 @@ msgid "SRP request status"
 msgstr "Статус запроса SRP"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
-#: aasrp/templates/aasrp/dashboard.html:41
+#: aasrp/templates/aasrp/dashboard.html:22
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:19
-#: aasrp/templates/aasrp/view-own-requests.html:31
-#: aasrp/templates/aasrp/view-own-requests.html:46
-#: aasrp/templates/aasrp/view-requests.html:44
-#: aasrp/templates/aasrp/view-requests.html:55
+#: aasrp/templates/aasrp/view-own-requests.html:21
+#: aasrp/templates/aasrp/view-requests.html:31
 msgid "Ship"
 msgstr "Тип корабля"
 
@@ -589,89 +558,85 @@ msgstr "SRP запрос был добавлен."
 msgid "SRP request status has changed to"
 msgstr "Статус SRP запроса измене на"
 
-#: aasrp/templates/aasrp/base.html:35
+#: aasrp/templates/aasrp/base.html:28
 msgctxt "Decimal separator"
 msgid "."
 msgstr ","
 
-#: aasrp/templates/aasrp/base.html:36
+#: aasrp/templates/aasrp/base.html:29
 msgctxt "Thousands separator"
 msgid ","
 msgstr " "
 
-#: aasrp/templates/aasrp/base.html:37
+#: aasrp/templates/aasrp/base.html:30
 msgid "No data available in this table"
 msgstr "Данные в таблице отсутствуют"
 
-#: aasrp/templates/aasrp/base.html:38
+#: aasrp/templates/aasrp/base.html:31
 msgctxt "Keep _END_ as it is. It will be replaced by a number."
 msgid "Showing _END_ entries"
 msgstr "Отображаются _END_ записей"
 
-#: aasrp/templates/aasrp/base.html:39
+#: aasrp/templates/aasrp/base.html:32
 msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(отфильтрованы из _MAX_ записей)"
 
-#: aasrp/templates/aasrp/base.html:40
+#: aasrp/templates/aasrp/base.html:33
 msgid "No records available"
 msgstr "Записи недоступны"
 
-#: aasrp/templates/aasrp/base.html:43
+#: aasrp/templates/aasrp/base.html:34
 msgid "Loading …"
 msgstr "Загрузка …"
 
-#: aasrp/templates/aasrp/base.html:44
+#: aasrp/templates/aasrp/base.html:35
 msgid "Processing …"
 msgstr "Обработка …"
 
-#: aasrp/templates/aasrp/base.html:45
+#: aasrp/templates/aasrp/base.html:36
 msgid "Nothing found, sorry …"
 msgstr "Ничего не найдено …"
 
-#: aasrp/templates/aasrp/base.html:47
+#: aasrp/templates/aasrp/base.html:37
 msgid "Search …"
 msgstr "Поиск…"
 
-#: aasrp/templates/aasrp/base.html:49
+#: aasrp/templates/aasrp/base.html:38
 msgid "First"
 msgstr "Первый"
 
-#: aasrp/templates/aasrp/base.html:50
+#: aasrp/templates/aasrp/base.html:39
 msgid "Last"
 msgstr "Последний"
 
-#: aasrp/templates/aasrp/base.html:51
+#: aasrp/templates/aasrp/base.html:40
 msgid "Next"
 msgstr "Следующий"
 
-#: aasrp/templates/aasrp/base.html:52
+#: aasrp/templates/aasrp/base.html:41
 msgid "Previous"
 msgstr "Предыдущий"
 
-#: aasrp/templates/aasrp/base.html:55
+#: aasrp/templates/aasrp/base.html:42
 msgid ": activate to sort column ascending"
 msgstr ": активируйте для сортировки по возрастанию"
 
-#: aasrp/templates/aasrp/base.html:56
+#: aasrp/templates/aasrp/base.html:43
 msgid ": activate to sort column descending"
 msgstr ": активируйте для сортировки по убыванию"
 
-#: aasrp/templates/aasrp/dashboard.html:53
+#: aasrp/templates/aasrp/dashboard.html:27
 msgid "Are you sure you want to (re-)activate the following SRP link?"
 msgstr "Вы уверены, что хотите (ре-)активировать эту SRP ссылку?"
 
-#: aasrp/templates/aasrp/dashboard.html:56
+#: aasrp/templates/aasrp/dashboard.html:28
 msgid "Are you sure you want to disable the following SRP link?"
 msgstr "Вы уверены, что хотите отключить эту SRP ссылку?"
 
-#: aasrp/templates/aasrp/dashboard.html:59
-msgid ""
-"Are you sure you want to delete the following SRP link and all SRP requests "
-"tied to it?"
-msgstr ""
-"Вы уверены, что хотите удалить эту SRP ссылку и все связанные с ней SRP "
-"запросы?"
+#: aasrp/templates/aasrp/dashboard.html:29
+msgid "Are you sure you want to delete the following SRP link and all SRP requests tied to it?"
+msgstr "Вы уверены, что хотите удалить эту SRP ссылку и все связанные с ней SRP запросы?"
 
 #: aasrp/templates/aasrp/link-add.html:6
 msgid "Create SRP link"
@@ -741,10 +706,8 @@ msgstr "Отметить как исполнено"
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:17
 msgid ""
 "\n"
-"                        Are you sure you want to mark this SRP link as "
-"completed and\n"
-"                        close it for good? Be aware that once it's "
-"completed,\n"
+"                        Are you sure you want to mark this SRP link as completed and\n"
+"                        close it for good? Be aware that once it's completed,\n"
 "                        your pilots can no longer file SRP requests for\n"
 "                        this link / fleet.\n"
 "                    "
@@ -760,50 +723,38 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                            This SRP link still has "
-"%(number_pending_requests)s pending\n"
-"                            SRP request. Are you absolutely certain you want "
-"to mark\n"
+"                            This SRP link still has %(number_pending_requests)s pending\n"
+"                            SRP request. Are you absolutely certain you want to mark\n"
 "                            this SRP link as completed?\n"
 "                        "
 msgid_plural ""
 "\n"
-"                            This SRP link still has "
-"%(number_pending_requests)s pending\n"
-"                            SRP requests. Are you absolutely certain you "
-"want to mark\n"
+"                            This SRP link still has %(number_pending_requests)s pending\n"
+"                            SRP requests. Are you absolutely certain you want to mark\n"
 "                            this SRP link as completed?\n"
 "                        "
 msgstr[0] ""
 "\n"
-"                            Эта SRP ссылка все еще имеет "
-"%(number_pending_requests)s активный\n"
-"                            SRP запрос. Вы точно уверены, что хотите "
-"отметить\n"
+"                            Эта SRP ссылка все еще имеет %(number_pending_requests)s активный\n"
+"                            SRP запрос. Вы точно уверены, что хотите отметить\n"
 "                            эту SRP ссылку как завершенную?\n"
 "                        "
 msgstr[1] ""
 "\n"
-"                            Эта SRP ссылка все еще имеет "
-"%(number_pending_requests)s активных\n"
-"                            SRP запросов. Вы точно уверены, что хотите "
-"отметить\n"
+"                            Эта SRP ссылка все еще имеет %(number_pending_requests)s активных\n"
+"                            SRP запросов. Вы точно уверены, что хотите отметить\n"
 "                            эту SRP ссылку как завершенную?\n"
 "                        "
 msgstr[2] ""
 "\n"
-"                            Эта SRP ссылка все еще имеет "
-"%(number_pending_requests)s активных\n"
-"                            SRP запросов. Вы точно уверены, что хотите "
-"отметить\n"
+"                            Эта SRP ссылка все еще имеет %(number_pending_requests)s активных\n"
+"                            SRP запросов. Вы точно уверены, что хотите отметить\n"
 "                            эту SRP ссылку как завершенную?\n"
 "                        "
 msgstr[3] ""
 "\n"
-"                            Эта SRP ссылка все еще имеет "
-"%(number_pending_requests)s активных\n"
-"                            SRP запросов. Вы точно уверены, что хотите "
-"отметить\n"
+"                            Эта SRP ссылка все еще имеет %(number_pending_requests)s активных\n"
+"                            SRP запросов. Вы точно уверены, что хотите отметить\n"
 "                            эту SRP ссылку как завершенную?\n"
 "                        "
 
@@ -841,12 +792,8 @@ msgid "Actions"
 msgstr "Действия"
 
 #: aasrp/templates/aasrp/partials/footer/app-translation-footer.html:5
-msgid ""
-"Do you want to help translate this app into your language or improve the "
-"existing translation?"
-msgstr ""
-"Вы хотите помочь перевести это приложение на ваш язык или улучшить текущий "
-"перевод?"
+msgid "Do you want to help translate this app into your language or improve the existing translation?"
+msgstr "Вы хотите помочь перевести это приложение на ваш язык или улучшить текущий перевод?"
 
 #: aasrp/templates/aasrp/partials/footer/app-translation-footer.html:8
 msgid "Join our team of translators!"
@@ -981,28 +928,26 @@ msgstr "SRP запросы"
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:23
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
-msgstr ""
-"Кликните на значение для редактирования, Enter для сохранения, ESC для "
-"отмены."
+msgstr "Кликните на значение для редактирования, Enter для сохранения, ESC для отмены."
 
-#: aasrp/templates/aasrp/view-own-requests.html:48
-#: aasrp/templates/aasrp/view-requests.html:58
+#: aasrp/templates/aasrp/view-own-requests.html:28
+#: aasrp/templates/aasrp/view-requests.html:40
 msgid "Reject information"
 msgstr "Причина отказа"
 
-#: aasrp/templates/aasrp/view-requests.html:47
+#: aasrp/templates/aasrp/view-requests.html:33
 msgid "Click here to change the payout amount for this SRP request."
 msgstr "Кликните для изменения размера SRP выплаты."
 
-#: aasrp/templates/aasrp/view-requests.html:48
+#: aasrp/templates/aasrp/view-requests.html:34
 msgid "Enter SRP payout value"
 msgstr "Введите размер SRP выплаты"
 
-#: aasrp/templates/aasrp/view-requests.html:49
+#: aasrp/templates/aasrp/view-requests.html:35
 msgid "Empty values are not allowed"
 msgstr "Пустое значение недопустимо"
 
-#: aasrp/templates/aasrp/view-requests.html:63
+#: aasrp/templates/aasrp/view-requests.html:36
 msgid "This field is required."
 msgstr "Это поле необходимо."
 
@@ -1065,34 +1010,19 @@ msgid "This SRP link is no longer available for SRP requests."
 msgstr "Эта SRP ссылка больше недоступна для создания SRP запросов."
 
 #: aasrp/views/general.py:440
-msgid ""
-"Something went wrong, your kill mail ({submitted_killmail_link}) could not "
-"be parsed: {str(err)}"
+msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {str(err)}"
 msgstr ""
 
 #: aasrp/views/general.py:447
 #, fuzzy, python-brace-format
-#| msgid ""
-#| "Your kill mail link ({submitted_killmail_link}) is invalid or the "
-#| "zKillboard API is not answering at the moment. Please make sure you are "
-#| "using either {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
-msgid ""
-"Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard "
-"API is not answering at the moment. Please make sure you are using either "
-"{zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
-msgstr ""
-"Ваша ссылка ({submitted_killmail_link}) некорректна или zKillboard в "
-"настоящее время не отвечает. Убедитесь, что вы используете "
-"{ZKILLBOARD_BASE_URL} или {EVETOOLS_KILLBOARD_BASE_URL}"
+#| msgid "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
+msgid "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
+msgstr "Ваша ссылка ({submitted_killmail_link}) некорректна или zKillboard в настоящее время не отвечает. Убедитесь, что вы используете {ZKILLBOARD_BASE_URL} или {EVETOOLS_KILLBOARD_BASE_URL}"
 
 #: aasrp/views/general.py:478
 #, python-brace-format
-msgid ""
-"Character {victim_id} does not belong to your Auth account. Please add this "
-"character as an alt to your main and try again."
-msgstr ""
-"Пилот {victim_id} не зарегистрирован в Вашем Auth аккаунте. Добавьте пилота "
-"альтом и повторите запрос."
+msgid "Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."
+msgstr "Пилот {victim_id} не зарегистрирован в Вашем Auth аккаунте. Добавьте пилота альтом и повторите запрос."
 
 #: aasrp/views/general.py:531
 msgid "SRP link marked as completed"
