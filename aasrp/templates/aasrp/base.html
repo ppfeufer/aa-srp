@@ -25,6 +25,23 @@
         </div>
 
         <div class="aa-srp-body">
+            {% translate "." context "Decimal separator" as decimalSeparator %}
+            {% translate "," context "Thousands separator" as thousandsSeparator %}
+            {% translate "No data available in this table" as emptyTable %}
+            {% translate "Showing _END_ entries" as info context "Keep _END_ as it is. It will be replaced by a number." %}
+            {% translate "(filtered from _MAX_ total entries)" as infoFiltered context "Keep _MAX_ as it is. It will be replaced by a number." %}
+            {% translate "No records available" as infoEmpty %}
+            {% translate "Loading …" as loadingRecords %}
+            {% translate "Processing …" as processing %}
+            {% translate "Nothing found, sorry …" as zeroRecords%}
+            {% translate "Search …" as searchPaceholder %}
+            {% translate "First" as paginateFirst %}
+            {% translate "Last" as paginateLast %}
+            {% translate "Next" as paginateNext %}
+            {% translate "Previous" as paginatePrevious %}
+            {% translate ": activate to sort column ascending" as ariaSortAscending %}
+            {% translate ": activate to sort column descending" as ariaSortDescending %}
+
             <script>
                 const aaSrpJsSettingsDefaults = {
                     datetimeFormat: 'YYYY-MM-DD<br>HH:mm',
@@ -32,31 +49,31 @@
                     dataTable: {
                         paging: true,
                         translation: {
-                            decimal: '{% translate "." context "Decimal separator" %}',
-                            thousands: '{% translate "," context "Thousands separator" %}',
-                            emptyTable: '{% translate "No data available in this table" %}',
-                            info: '{% translate "Showing _END_ entries" context "Keep _END_ as it is. It will be replaced by a number." %}',
-                            infoFiltered: '{% translate "(filtered from _MAX_ total entries)" context "Keep _MAX_ as it is. It will be replaced by a number." %}',
-                            infoEmpty: '{% translate "No records available" %}',
+                            decimal: '{{ decimalSeparator|escapejs }}',
+                            thousands: '{{ thousandsSeparator|escapejs }}',
+                            emptyTable: '{{ emptyTable|escapejs }}',
+                            info: '{{ info|escapejs }}',
+                            infoFiltered: '{{ infoFiltered|escapejs }}',
+                            infoEmpty: '{{ infoEmpty|escapejs }}',
                             infoPostFix: '',
                             lengthMenu: '_MENU_',
-                            loadingRecords: '{% translate "Loading …" %}',
-                            processing: '{% translate "Processing …" %}',
-                            zeroRecords: '{% translate "Nothing found, sorry …" %}',
+                            loadingRecords: '{{ loadingRecords|escapejs }}',
+                            processing: '{{ processing|escapejs }}',
+                            zeroRecords: '{{ zeroRecords|escapejs }}',
                             search: '_INPUT_',
-                            searchPlaceholder: '{% translate "Search …" %}',
+                            searchPlaceholder: '{{ searchPaceholder|escapejs }}',
                             paginate: {
-                                first: '{% translate "First" %}',
-                                last: '{% translate "Last" %}',
-                                next: '{% translate "Next" %}',
-                                previous: '{% translate "Previous" %}'
+                                first: '{{ paginateFirst|escapejs }}',
+                                last: '{{ paginateLast|escapejs }}',
+                                next: '{{ paginateNext|escapejs }}',
+                                previous: '{{ paginatePrevious|escapejs }}'
                             },
                             aria: {
-                                sortAscending: '{% translate ": activate to sort column ascending" %}',
-                                sortDescending: '{% translate ": activate to sort column descending" %}'
+                                sortAscending: '{{ ariaSortAscending|escapejs }}',
+                                sortDescending: '{{ ariaSortDescending|escapejs }}'
                             }
                         }
-                    },
+                    }
                 };
             </script>
 

@@ -19,6 +19,15 @@
 {% endblock %}
 
 {% block extra_javascript %}
+    {% translate "Ship" as translateShip %}
+    {% translate "Request status" as translateRequestStatus %}
+    {% translate "Character" as translateCharacter %}
+    {% translate "SRP code" as translateSrpCode %}
+    {% translate "Request code" as translateRequestCode %}
+    {% translate "Are you sure you want to (re-)activate the following SRP link?" as translateEnableSrpLink %}
+    {% translate "Are you sure you want to disable the following SRP link?" as translateDisableSrpLink %}
+    {% translate "Are you sure you want to delete the following SRP link and all SRP requests tied to it?" as translateDeleteSrpLink %}
+
     <script>
         /**
          * Passing some setting to our JS
@@ -38,25 +47,25 @@
             },
             translation: {
                 filter: {
-                    ship: '{% translate "Ship" %}',
-                    requestStatus: '{% translate "Request status" %}',
-                    character: '{% translate "Character" %}',
+                    ship: '{{ translateShip|escapejs }}',
+                    requestStatus: '{{ translateRequestStatus|escapejs }}',
+                    character: '{{ translateCharacter|escapejs }}',
                 },
                 dataTable: {
                     content: {
-                        srpCode: '{% translate "SRP code" %}',
-                        requestCode: '{% translate "Request code" %}'
+                        srpCode: '{{ translateSrpCode|escapejs }}',
+                        requestCode: '{{ translateRequestCode|escapejs }}',
                     }
                 },
                 modal: {
                     enableSrpLink: {
-                        body: '<p>{% translate "Are you sure you want to (re-)activate the following SRP link?" %}</p>'
+                        body: '<p>{{ translateEnableSrpLink|escapejs }}</p>'
                     },
                     disableSrpLink: {
-                        body: '<p>{% translate "Are you sure you want to disable the following SRP link?" %}</p>'
+                        body: '<p>{{ translateDisableSrpLink|escapejs }}</p>'
                     },
                     deleteSrpLink: {
-                        body: '<p>{% translate "Are you sure you want to delete the following SRP link and all SRP requests tied to it?" %}</p>'
+                        body: '<p>{{ translateDeleteSrpLink|escapejs }}</p>'
                     },
                 }
             }
