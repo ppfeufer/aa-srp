@@ -9,11 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2024-12-14 18:56+0100\n"
+"POT-Creation-Date: 2025-01-13 15:09+0100\n"
 "PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-srp/ko/>\n"
+"Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ko/>\n"
 "Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,8 +39,8 @@ msgstr "생성자"
 #: aasrp/admin.py:140
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
-#: aasrp/templates/aasrp/view-own-requests.html:44
-#: aasrp/templates/aasrp/view-requests.html:53
+#: aasrp/templates/aasrp/view-own-requests.html:26
+#: aasrp/templates/aasrp/view-requests.html:37
 msgid "Requestor"
 msgstr "요청자"
 
@@ -93,12 +92,10 @@ msgstr[0] "{notifications_count} 개의 함대 종류 비활성화됨"
 msgid "AA Ship Replacement v{__version__}"
 msgstr "AA Ship Replacement v{__version__}"
 
-#: aasrp/constants.py:20
+#: aasrp/constants.py:26
 msgid ""
-"If you have any questions regarding your SRP request, feel free to contact "
-"your request reviser.\n"
-"Please make sure to always add the SRP code and the request code with your "
-"inquiry."
+"If you have any questions regarding your SRP request, feel free to contact your request reviser.\n"
+"Please make sure to always add the SRP code and the request code with your inquiry."
 msgstr ""
 "SRP 요청에 대한 질문이 있다면 요청을 검토하는 사람에게 질문하세요.\n"
 "질문할 때 SRP 코드와 요청 코드를 추가했는지 꼭 확인해 주세요."
@@ -136,19 +133,12 @@ msgstr "AAR 링크"
 
 #: aasrp/form.py:127
 #, python-brace-format
-msgid ""
-"Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or "
-"{eve_kill_base_url} and paste the link here."
+msgid "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
 msgstr ""
 
 #: aasrp/form.py:130
-msgid ""
-"Please tell us about the circumstances of your untimely demise. Who was the "
-"FC, what doctrine was called, have changes to the fit been requested and so "
-"on. Be as detailed as you can."
-msgstr ""
-"당신이 사망하게 된 경위를 설명하십시오. FC 이름, 독트린, 독트린에서 변경된 모"
-"듈과 그 이유 등. 최대한 상세히 작성하여 주십시오."
+msgid "Please tell us about the circumstances of your untimely demise. Who was the FC, what doctrine was called, have changes to the fit been requested and so on. Be as detailed as you can."
+msgstr "당신이 사망하게 된 경위를 설명하십시오. FC 이름, 독트린, 독트린에서 변경된 모듈과 그 이유 등. 최대한 상세히 작성하여 주십시오."
 
 #: aasrp/form.py:136 aasrp/form.py:143 aasrp/models.py:304
 msgid "Killboard link"
@@ -156,30 +146,23 @@ msgstr "킬보드 링크"
 
 #: aasrp/form.py:138 aasrp/form.py:147 aasrp/models.py:307 aasrp/models.py:401
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:47
-#: aasrp/templates/aasrp/view-requests.html:57
+#: aasrp/templates/aasrp/view-own-requests.html:27
+#: aasrp/templates/aasrp/view-requests.html:39
 msgid "Additional information"
 msgstr "추가 정보"
 
 #: aasrp/form.py:175
 #, python-brace-format
-msgid ""
-"Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or "
-"{eve_kill_base_url}"
+msgid "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
 msgstr ""
 
 #: aasrp/form.py:189
 msgid "Invalid link. Please post a link to a kill mail."
-msgstr ""
-"유효하지 않은 링크입니다. 올바른 킬메일 링크를 입력하여 주시기 바랍니다."
+msgstr "유효하지 않은 링크입니다. 올바른 킬메일 링크를 입력하여 주시기 바랍니다."
 
 #: aasrp/form.py:200
-msgid ""
-"There is already an SRP request for this kill mail. Please check if you got "
-"the right one."
-msgstr ""
-"이미 이 킬메일에 대한 요청이 생성되어 있습니다. 내용을 다시 검토하여 주십시"
-"오."
+msgid "There is already an SRP request for this kill mail. Please check if you got the right one."
+msgstr "이미 이 킬메일에 대한 요청이 생성되어 있습니다. 내용을 다시 검토하여 주십시오."
 
 #: aasrp/form.py:213
 msgid "SRP payout value"
@@ -202,9 +185,7 @@ msgid "Comment (optional)"
 msgstr "내용 (선택)"
 
 #: aasrp/form.py:292
-msgid ""
-"Please provide the reason why this former rejected SRP request is now "
-"accepted."
+msgid "Please provide the reason why this former rejected SRP request is now accepted."
 msgstr "이미 거부되었던 요청이 이제서 수락된 이유를 작성하여 주십시오."
 
 #: aasrp/form.py:297 aasrp/models.py:399 aasrp/models.py:406
@@ -214,8 +195,7 @@ msgid "Comment"
 msgstr "메모"
 
 #: aasrp/form.py:326
-msgid ""
-"Disable notifications. (Auth and Discord, if a relevant module is installed)"
+msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "알람 비활성화. (AA, 디스코드, 또는 동기화된 모듈)"
 
 #: aasrp/helper/character.py:45
@@ -327,11 +307,11 @@ msgstr "SRP 이름"
 msgid "SRP status"
 msgstr "SRP 상태"
 
-#: aasrp/models.py:120 aasrp/templates/aasrp/dashboard.html:47
+#: aasrp/models.py:120 aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:50
-#: aasrp/templates/aasrp/view-own-requests.html:37
+#: aasrp/templates/aasrp/view-own-requests.html:24
 msgid "SRP code"
 msgstr "SRP 코드"
 
@@ -376,9 +356,9 @@ msgstr "승인됨"
 msgid "Rejected"
 msgstr "거부됨"
 
-#: aasrp/models.py:271 aasrp/templates/aasrp/dashboard.html:48
+#: aasrp/models.py:271 aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
-#: aasrp/templates/aasrp/view-own-requests.html:38
+#: aasrp/templates/aasrp/view-own-requests.html:25
 msgid "Request code"
 msgstr "SRP 코드"
 
@@ -388,13 +368,11 @@ msgstr "누가 SRP 요청을 생성했나요?"
 
 #: aasrp/models.py:289
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:27
-#: aasrp/templates/aasrp/dashboard.html:43
+#: aasrp/templates/aasrp/dashboard.html:24
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:18
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:17
-#: aasrp/templates/aasrp/view-own-requests.html:33
-#: aasrp/templates/aasrp/view-own-requests.html:45
-#: aasrp/templates/aasrp/view-requests.html:45
-#: aasrp/templates/aasrp/view-requests.html:54
+#: aasrp/templates/aasrp/view-own-requests.html:23
+#: aasrp/templates/aasrp/view-requests.html:32
 msgid "Character"
 msgstr "캐릭터"
 
@@ -402,9 +380,9 @@ msgstr "캐릭터"
 msgid "Ship type"
 msgstr "함선 종류"
 
-#: aasrp/models.py:313 aasrp/templates/aasrp/dashboard.html:42
-#: aasrp/templates/aasrp/view-own-requests.html:32
-#: aasrp/templates/aasrp/view-requests.html:43
+#: aasrp/models.py:313 aasrp/templates/aasrp/dashboard.html:23
+#: aasrp/templates/aasrp/view-own-requests.html:22
+#: aasrp/templates/aasrp/view-requests.html:30
 msgid "Request status"
 msgstr "요청 상태"
 
@@ -451,7 +429,7 @@ msgstr "보험 가입금"
 
 #: aasrp/models.py:377
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
-#: aasrp/templates/aasrp/view-requests.html:56
+#: aasrp/templates/aasrp/view-requests.html:38
 msgid "Insurance payout"
 msgstr "보험금"
 
@@ -525,13 +503,8 @@ msgid "Total value (Ship, Fitting and Cargo)"
 msgstr "총액 (헐, 피팅, 카고)"
 
 #: aasrp/models.py:526
-msgid ""
-"The source for the loss value of a killmail. Fitted value is the value of "
-"the ship and its fitting. Total value is the value of the ship, its fitting "
-"and the cargo. (Default: Total value)"
-msgstr ""
-"킬메일의 손실 금액에 대한 자료입니다. 함선 금액은 피팅된 모듈과 헐의 가격이"
-"며, 총액은 카고의 화물을 포함합니다.(기본값:총액)"
+msgid "The source for the loss value of a killmail. Fitted value is the value of the ship and its fitting. Total value is the value of the ship, its fitting and the cargo. (Default: Total value)"
+msgstr "킬메일의 손실 금액에 대한 자료입니다. 함선 금액은 피팅된 모듈과 헐의 가격이며, 총액은 카고의 화물을 포함합니다.(기본값:총액)"
 
 #: aasrp/models.py:543
 #, fuzzy
@@ -552,13 +525,11 @@ msgid "SRP request status"
 msgstr "SRP 요청 상태"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
-#: aasrp/templates/aasrp/dashboard.html:41
+#: aasrp/templates/aasrp/dashboard.html:22
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:19
-#: aasrp/templates/aasrp/view-own-requests.html:31
-#: aasrp/templates/aasrp/view-own-requests.html:46
-#: aasrp/templates/aasrp/view-requests.html:44
-#: aasrp/templates/aasrp/view-requests.html:55
+#: aasrp/templates/aasrp/view-own-requests.html:21
+#: aasrp/templates/aasrp/view-requests.html:31
 msgid "Ship"
 msgstr "함선"
 
@@ -578,86 +549,84 @@ msgstr "SRP 요청이 추가되었습니다."
 msgid "SRP request status has changed to"
 msgstr ""
 
-#: aasrp/templates/aasrp/base.html:35
+#: aasrp/templates/aasrp/base.html:28
 msgctxt "Decimal separator"
 msgid "."
 msgstr "."
 
-#: aasrp/templates/aasrp/base.html:36
+#: aasrp/templates/aasrp/base.html:29
 msgctxt "Thousands separator"
 msgid ","
 msgstr ","
 
-#: aasrp/templates/aasrp/base.html:37
+#: aasrp/templates/aasrp/base.html:30
 msgid "No data available in this table"
 msgstr "테이블에 유효한 데이터가 없습니다"
 
-#: aasrp/templates/aasrp/base.html:38
+#: aasrp/templates/aasrp/base.html:31
 msgctxt "Keep _END_ as it is. It will be replaced by a number."
 msgid "Showing _END_ entries"
 msgstr "_END_ 개의 결과 표시중"
 
-#: aasrp/templates/aasrp/base.html:39
+#: aasrp/templates/aasrp/base.html:32
 msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(총 _MAX_ 개의 결과 에서 필터링됨)"
 
-#: aasrp/templates/aasrp/base.html:40
+#: aasrp/templates/aasrp/base.html:33
 msgid "No records available"
 msgstr "사용 가능한 레코드가 없습니다"
 
-#: aasrp/templates/aasrp/base.html:43
+#: aasrp/templates/aasrp/base.html:34
 msgid "Loading …"
 msgstr "로딩 …"
 
-#: aasrp/templates/aasrp/base.html:44
+#: aasrp/templates/aasrp/base.html:35
 msgid "Processing …"
 msgstr "처리 중 …"
 
-#: aasrp/templates/aasrp/base.html:45
+#: aasrp/templates/aasrp/base.html:36
 msgid "Nothing found, sorry …"
 msgstr "아무것도 찾지 못했습니다, 죄송합니다 …"
 
-#: aasrp/templates/aasrp/base.html:47
+#: aasrp/templates/aasrp/base.html:37
 msgid "Search …"
 msgstr "검색 …"
 
-#: aasrp/templates/aasrp/base.html:49
+#: aasrp/templates/aasrp/base.html:38
 msgid "First"
 msgstr "첫 번째"
 
-#: aasrp/templates/aasrp/base.html:50
+#: aasrp/templates/aasrp/base.html:39
 msgid "Last"
 msgstr "마지막"
 
-#: aasrp/templates/aasrp/base.html:51
+#: aasrp/templates/aasrp/base.html:40
 msgid "Next"
 msgstr "다음"
 
-#: aasrp/templates/aasrp/base.html:52
+#: aasrp/templates/aasrp/base.html:41
 msgid "Previous"
 msgstr "이전"
 
-#: aasrp/templates/aasrp/base.html:55
+#: aasrp/templates/aasrp/base.html:42
 msgid ": activate to sort column ascending"
 msgstr ": 열 오름차순으로 정렬 활성화"
 
-#: aasrp/templates/aasrp/base.html:56
+#: aasrp/templates/aasrp/base.html:43
 msgid ": activate to sort column descending"
 msgstr ": 열 내림차순으로 정렬 활성화"
 
-#: aasrp/templates/aasrp/dashboard.html:53
+#: aasrp/templates/aasrp/dashboard.html:27
 msgid "Are you sure you want to (re-)activate the following SRP link?"
 msgstr "해당 SRP 세션을 활성화 하시겠습니까?"
 
-#: aasrp/templates/aasrp/dashboard.html:56
+#: aasrp/templates/aasrp/dashboard.html:28
 msgid "Are you sure you want to disable the following SRP link?"
 msgstr "해당 SRP 세션을 비활성화 하시겠습니까?"
 
-#: aasrp/templates/aasrp/dashboard.html:59
-msgid ""
-"Are you sure you want to delete the following SRP link and all SRP requests "
-"tied to it?"
+#: aasrp/templates/aasrp/dashboard.html:29
+msgid "Are you sure you want to delete the following SRP link and all SRP requests tied to it?"
 msgstr "해당 SRP 세션 및 요청들을 모두 삭제 하시겠습니까?"
 
 #: aasrp/templates/aasrp/link-add.html:6
@@ -728,36 +697,29 @@ msgstr ""
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:17
 msgid ""
 "\n"
-"                        Are you sure you want to mark this SRP link as "
-"completed and\n"
-"                        close it for good? Be aware that once it's "
-"completed,\n"
+"                        Are you sure you want to mark this SRP link as completed and\n"
+"                        close it for good? Be aware that once it's completed,\n"
 "                        your pilots can no longer file SRP requests for\n"
 "                        this link / fleet.\n"
 "                    "
 msgstr ""
 "\n"
 "                        이 SRP 링크를 완료된 것으로 표시하시겠습니까?\n"
-"                        이를 진행할 경우 더이상 SRP요청을 입력받을 수 없습니"
-"다\n"
+"                        이를 진행할 경우 더이상 SRP요청을 입력받을 수 없습니다\n"
 "                    "
 
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:27
 #, python-format
 msgid ""
 "\n"
-"                            This SRP link still has "
-"%(number_pending_requests)s pending\n"
-"                            SRP request. Are you absolutely certain you want "
-"to mark\n"
+"                            This SRP link still has %(number_pending_requests)s pending\n"
+"                            SRP request. Are you absolutely certain you want to mark\n"
 "                            this SRP link as completed?\n"
 "                        "
 msgid_plural ""
 "\n"
-"                            This SRP link still has "
-"%(number_pending_requests)s pending\n"
-"                            SRP requests. Are you absolutely certain you "
-"want to mark\n"
+"                            This SRP link still has %(number_pending_requests)s pending\n"
+"                            SRP requests. Are you absolutely certain you want to mark\n"
 "                            this SRP link as completed?\n"
 "                        "
 msgstr[0] ""
@@ -796,9 +758,7 @@ msgid "Actions"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/footer/app-translation-footer.html:5
-msgid ""
-"Do you want to help translate this app into your language or improve the "
-"existing translation?"
+msgid "Do you want to help translate this app into your language or improve the existing translation?"
 msgstr "이 앱을 번역하거나 기존 번역을 개선하고 싶으신가요?"
 
 #: aasrp/templates/aasrp/partials/footer/app-translation-footer.html:8
@@ -936,29 +896,28 @@ msgstr "요청 목록"
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:23
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
-msgstr ""
-"클릭하여 값을 수정할 수 있으며, Enter 로 저장, ESC로 취소할 수 있습니다."
+msgstr "클릭하여 값을 수정할 수 있으며, Enter 로 저장, ESC로 취소할 수 있습니다."
 
-#: aasrp/templates/aasrp/view-own-requests.html:48
-#: aasrp/templates/aasrp/view-requests.html:58
+#: aasrp/templates/aasrp/view-own-requests.html:28
+#: aasrp/templates/aasrp/view-requests.html:40
 #, fuzzy
 #| msgid "Additional Information"
 msgid "Reject information"
 msgstr "추가 정보"
 
-#: aasrp/templates/aasrp/view-requests.html:47
+#: aasrp/templates/aasrp/view-requests.html:33
 msgid "Click here to change the payout amount for this SRP request."
 msgstr "이곳을 클릭하여 SRP 지급금 변경가능."
 
-#: aasrp/templates/aasrp/view-requests.html:48
+#: aasrp/templates/aasrp/view-requests.html:34
 msgid "Enter SRP payout value"
 msgstr "SRP 금액 입력"
 
-#: aasrp/templates/aasrp/view-requests.html:49
+#: aasrp/templates/aasrp/view-requests.html:35
 msgid "Empty values are not allowed"
 msgstr "값을 입력하여 주십시오"
 
-#: aasrp/templates/aasrp/view-requests.html:63
+#: aasrp/templates/aasrp/view-requests.html:36
 msgid "This field is required."
 msgstr "필수 항목입니다."
 
@@ -1009,8 +968,7 @@ msgstr "AAR 링크 변경됨"
 #: aasrp/views/general.py:351
 #, python-brace-format
 msgid "Submitted SRP request for your {srp_request__ship.name}."
-msgstr ""
-"다음 링크에 대한 SRP 요청이 제출되었습니다. ({srp_request__ship.name})."
+msgstr "다음 링크에 대한 SRP 요청이 제출되었습니다. ({srp_request__ship.name})."
 
 #: aasrp/views/general.py:392
 #, python-brace-format
@@ -1022,34 +980,19 @@ msgid "This SRP link is no longer available for SRP requests."
 msgstr "해당 SRP 세션은 더이상 이용할 수 없습니다."
 
 #: aasrp/views/general.py:440
-msgid ""
-"Something went wrong, your kill mail ({submitted_killmail_link}) could not "
-"be parsed: {str(err)}"
+msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {str(err)}"
 msgstr ""
 
 #: aasrp/views/general.py:447
 #, fuzzy, python-brace-format
-#| msgid ""
-#| "Your kill mail link ({submitted_killmail_link}) is invalid or the "
-#| "zKillboard API is not answering at the moment. Please make sure you are "
-#| "using either {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
-msgid ""
-"Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard "
-"API is not answering at the moment. Please make sure you are using either "
-"{zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
-msgstr ""
-"킬메일 링크({submitted_killmail_link})가 유효하지 않거나 API에서 자료를 받아"
-"올 수 없습니다. {ZKILLBOARD_BASE_URL} 또는 {EVETOOLS_KILLBOARD_BASE_URL} 를 "
-"이용하고 링크를 확인해 주십시오"
+#| msgid "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
+msgid "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
+msgstr "킬메일 링크({submitted_killmail_link})가 유효하지 않거나 API에서 자료를 받아올 수 없습니다. {ZKILLBOARD_BASE_URL} 또는 {EVETOOLS_KILLBOARD_BASE_URL} 를 이용하고 링크를 확인해 주십시오"
 
 #: aasrp/views/general.py:478
 #, python-brace-format
-msgid ""
-"Character {victim_id} does not belong to your Auth account. Please add this "
-"character as an alt to your main and try again."
-msgstr ""
-"{victim_id} 는 사용자의 계정에 속해있지 않습니다. 캐릭터를 추가하거나 오탈자"
-"를 확인한 후 다시 시도해 주십시오."
+msgid "Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."
+msgstr "{victim_id} 는 사용자의 계정에 속해있지 않습니다. 캐릭터를 추가하거나 오탈자를 확인한 후 다시 시도해 주십시오."
 
 #: aasrp/views/general.py:531
 msgid "SRP link marked as completed"
