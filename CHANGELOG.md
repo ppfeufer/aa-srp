@@ -35,6 +35,12 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Use `django-sri` for sri hashes
+- Minimum requirements
+  - Alliance Auth >= 4.6.0
+
 ## [2.5.5] - 2025-01-13
 
 ### Fixed
