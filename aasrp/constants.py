@@ -2,6 +2,9 @@
 Constants
 """
 
+# Standard Library
+import os
+
 # Third Party
 from requests.__version__ import __version__ as requests_version
 
@@ -20,6 +23,11 @@ USER_AGENT_ESI = f"{APP_NAME}/{__version__} +{GITHUB_URL} via django-esi/{esi_ve
 USER_AGENT_REQUESTS = (
     f"{APP_NAME}/{__version__} +{GITHUB_URL} via requests/{requests_version}"
 )
+
+# aa-srp/aasrp
+AA_SRP_BASE_DIR = os.path.join(os.path.dirname(__file__))
+# aa-srp/aasrp/static/aasrp
+AA_SRP_STATIC_DIR = os.path.join(AA_SRP_BASE_DIR, "static", "aasrp")
 
 
 SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = _(
