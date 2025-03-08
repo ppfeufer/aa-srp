@@ -37,6 +37,7 @@ Section Order:
 
 ### Changed
 
+- Templatetag code improved
 - Rewrite user agent
 - Improve Datatables localization
 

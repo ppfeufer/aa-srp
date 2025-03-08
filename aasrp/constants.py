@@ -21,6 +21,7 @@ from aasrp import __version__ as app_version
 APP_NAME = "aa-srp"
 APP_NAME_VERBOSE = "AA SRP"
 APP_NAME_VERBOSE_USERAGENT = "AA-SRP"
+PACKAGE_NAME = "aasrp"
 GITHUB_URL = f"https://github.com/ppfeufer/{APP_NAME}"
 
 
@@ -34,9 +35,9 @@ class UserAgent(Enum):
 
 
 # aa-srp/aasrp
-AA_SRP_BASE_DIR = os.path.join(os.path.dirname(__file__))
+APP_BASE_DIR = os.path.join(os.path.dirname(__file__))
 # aa-srp/aasrp/static/aasrp
-AA_SRP_STATIC_DIR = os.path.join(AA_SRP_BASE_DIR, "static", "aasrp")
+APP_STATIC_DIR = os.path.join(APP_BASE_DIR, "static", "aasrp")
 
 
 SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = _(

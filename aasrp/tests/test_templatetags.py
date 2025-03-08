@@ -11,6 +11,7 @@ from allianceauth.tests.auth_utils import AuthUtils
 
 # AA SRP
 from aasrp import __version__
+from aasrp.constants import PACKAGE_NAME
 from aasrp.helper.static_files import calculate_integrity_hash
 from aasrp.models import get_sentinel_user
 from aasrp.tests.utils import create_fake_user
@@ -625,13 +626,13 @@ class TestVersionedStatic(TestCase):
         rendered_template = template_to_render.render(context=context)
 
         expected_static_css_src = (
-            f'/static/aasrp/css/aa-srp.min.css?v={context["version"]}'
+            f'/static/{PACKAGE_NAME}/css/aa-srp.min.css?v={context["version"]}'
         )
         expected_static_css_src_integrity = calculate_integrity_hash(
             "css/aa-srp.min.css"
         )
         expected_static_js_src = (
-            f'/static/aasrp/javascript/aa-srp.min.js?v={context["version"]}'
+            f'/static/{PACKAGE_NAME}/javascript/aa-srp.min.js?v={context["version"]}'
         )
         expected_static_js_src_integrity = calculate_integrity_hash(
             "javascript/aa-srp.min.js"
@@ -665,8 +666,27 @@ class TestVersionedStatic(TestCase):
         rendered_template = template_to_render.render(context=context)
 
         expected_static_css_src = (
-            f'/static/aasrp/css/aa-srp.min.css?v={context["version"]}'
+            f'/static/{PACKAGE_NAME}/css/aa-srp.min.css?v={context["version"]}'
         )
 
         self.assertIn(member=expected_static_css_src, container=rendered_template)
         self.assertNotIn(member="integrity=", container=rendered_template)
+
+    @override_settings(DEBUG=False)
+    def test_invalid_file_type(self) -> None:
+        """
+        Test should raise a ValueError for an invalid file type
+
+        :return:
+        :rtype:
+        """
+
+        context = Context({"version": __version__})
+        template_to_render = Template(
+            template_string=(
+                "{% load aasrp %}" "{% aasrp_static 'invalid/invalid.txt' %}"
+            )
+        )
+
+        with self.assertRaises(ValueError):
+            template_to_render.render(context=context)
