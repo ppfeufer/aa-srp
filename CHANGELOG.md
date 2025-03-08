@@ -41,6 +41,8 @@ Section Order:
 ### Security
 -->
 
+## [2.6.1] - 2025-03-08
+
 ### Changed
 
 - Improve JavaScript number formatting
