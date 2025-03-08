@@ -11,7 +11,7 @@ $(document).ready(() => {
     let userSrpAmount = 0;
 
     const tableUserSrpRequests = elementTableUserSrpRequests.DataTable({
-        language: aaSrpSettings.dataTable.translation,
+        language: aaSrpSettings.dataTable.language,
         ajax: {
             url: aaSrpSettings.url.userSrpRequests,
             dataSrc: '',
@@ -26,8 +26,15 @@ $(document).ready(() => {
                  * @param data
                  * @returns {*}
                  */
-                render: (data) => {
-                    return moment(data).utc().format(aaSrpSettings.datetimeFormat);
+                render: {
+                    _: (data) => {
+                        return data === null ? '' : moment(data).utc().format(
+                            aaSrpSettings.datetimeFormat
+                        );
+                    },
+                    sort: (data) => {
+                        return data === null ? '' : data;
+                    }
                 },
                 className: 'srp-request-time'
             },

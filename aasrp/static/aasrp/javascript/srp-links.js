@@ -11,7 +11,7 @@ $(document).ready(() => {
     let totalSrpAmount = 0;
 
     const tableSrpLinks = elementTableSrpLinks.DataTable({
-        language: aaSrpSettings.dataTable.translation,
+        language: aaSrpSettings.dataTable.language,
         ajax: {
             url: aaSrpSettings.url.availableSrpLinks,
             dataSrc: '',
@@ -34,8 +34,15 @@ $(document).ready(() => {
                  * @param data
                  * @returns {*}
                  */
-                render: (data) => {
-                    return moment(data).utc().format(aaSrpSettings.datetimeFormat);
+                render: {
+                    _: (data) => {
+                        return data === null ? '' : moment(data).utc().format(
+                            aaSrpSettings.datetimeFormat
+                        );
+                    },
+                    sort: (data) => {
+                        return data === null ? '' : data;
+                    }
                 },
                 className: 'srp-link-fleet-time'
             },

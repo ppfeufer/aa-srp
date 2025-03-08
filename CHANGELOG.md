@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Improve Datatables localization
+
 ## [2.6.0] - 2025-02-02
 
 ### Changed
