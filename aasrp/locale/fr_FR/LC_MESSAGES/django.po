@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-01-13 15:09+0100\n"
+"POT-Creation-Date: 2025-03-08 16:55+0100\n"
 "PO-Revision-Date: 2025-01-10 18:15+0000\n"
 "Last-Translator: Onyx <The_Onyx_best@hotmail.com>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/fr/>\n"
@@ -20,8 +20,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 5.9.2\n"
 
-#: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
-#: aasrp/templates/aasrp/base.html:10 aasrp/templates/aasrp/link-add.html:6
+#: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:7
+#: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
 #: aasrp/templates/aasrp/link-edit.html:6
 #: aasrp/templates/aasrp/request-srp.html:6
 #: aasrp/templates/aasrp/user-settings.html:6
@@ -96,7 +96,7 @@ msgstr[1] "{notifications_count} types de flotte désactivés"
 msgid "AA Ship Replacement v{__version__}"
 msgstr "AA Remplacement des Vaisseaux v{__version__}"
 
-#: aasrp/constants.py:26
+#: aasrp/constants.py:44
 msgid ""
 "If you have any questions regarding your SRP request, feel free to contact your request reviser.\n"
 "Please make sure to always add the SRP code and the request code with your inquiry."
@@ -549,74 +549,6 @@ msgstr "La demande de SRP à été ajoutée."
 msgid "SRP request status has changed to"
 msgstr ""
 
-#: aasrp/templates/aasrp/base.html:28
-msgctxt "Decimal separator"
-msgid "."
-msgstr "."
-
-#: aasrp/templates/aasrp/base.html:29
-msgctxt "Thousands separator"
-msgid ","
-msgstr ","
-
-#: aasrp/templates/aasrp/base.html:30
-msgid "No data available in this table"
-msgstr "Aucune donnée disponible dans cette table"
-
-#: aasrp/templates/aasrp/base.html:31
-msgctxt "Keep _END_ as it is. It will be replaced by a number."
-msgid "Showing _END_ entries"
-msgstr "Montre les _END_ entrées"
-
-#: aasrp/templates/aasrp/base.html:32
-msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
-msgid "(filtered from _MAX_ total entries)"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:33
-msgid "No records available"
-msgstr "Aucun enregistrement disponible"
-
-#: aasrp/templates/aasrp/base.html:34
-msgid "Loading …"
-msgstr "Chargement …"
-
-#: aasrp/templates/aasrp/base.html:35
-msgid "Processing …"
-msgstr "Traitement …"
-
-#: aasrp/templates/aasrp/base.html:36
-msgid "Nothing found, sorry …"
-msgstr "Rien n'a été trouvé, désolé …"
-
-#: aasrp/templates/aasrp/base.html:37
-msgid "Search …"
-msgstr "Recherche …"
-
-#: aasrp/templates/aasrp/base.html:38
-msgid "First"
-msgstr "Premier"
-
-#: aasrp/templates/aasrp/base.html:39
-msgid "Last"
-msgstr "Dernier"
-
-#: aasrp/templates/aasrp/base.html:40
-msgid "Next"
-msgstr "Suivant"
-
-#: aasrp/templates/aasrp/base.html:41
-msgid "Previous"
-msgstr "Précèdent"
-
-#: aasrp/templates/aasrp/base.html:42
-msgid ": activate to sort column ascending"
-msgstr ": activer pour trier les colonnes par ordre croissant"
-
-#: aasrp/templates/aasrp/base.html:43
-msgid ": activate to sort column descending"
-msgstr ": activer pour trier les colonnes dans l'ordre décroissant"
-
 #: aasrp/templates/aasrp/dashboard.html:27
 msgid "Are you sure you want to (re-)activate the following SRP link?"
 msgstr "Êtes-vous sûr de vouloir (ré-)activer le lien de SRP suivant?"
@@ -990,3 +922,51 @@ msgstr ""
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""
+
+#~ msgctxt "Decimal separator"
+#~ msgid "."
+#~ msgstr "."
+
+#~ msgctxt "Thousands separator"
+#~ msgid ","
+#~ msgstr ","
+
+#~ msgid "No data available in this table"
+#~ msgstr "Aucune donnée disponible dans cette table"
+
+#~ msgctxt "Keep _END_ as it is. It will be replaced by a number."
+#~ msgid "Showing _END_ entries"
+#~ msgstr "Montre les _END_ entrées"
+
+#~ msgid "No records available"
+#~ msgstr "Aucun enregistrement disponible"
+
+#~ msgid "Loading …"
+#~ msgstr "Chargement …"
+
+#~ msgid "Processing …"
+#~ msgstr "Traitement …"
+
+#~ msgid "Nothing found, sorry …"
+#~ msgstr "Rien n'a été trouvé, désolé …"
+
+#~ msgid "Search …"
+#~ msgstr "Recherche …"
+
+#~ msgid "First"
+#~ msgstr "Premier"
+
+#~ msgid "Last"
+#~ msgstr "Dernier"
+
+#~ msgid "Next"
+#~ msgstr "Suivant"
+
+#~ msgid "Previous"
+#~ msgstr "Précèdent"
+
+#~ msgid ": activate to sort column ascending"
+#~ msgstr ": activer pour trier les colonnes par ordre croissant"
+
+#~ msgid ": activate to sort column descending"
+#~ msgstr ": activer pour trier les colonnes dans l'ordre décroissant"
