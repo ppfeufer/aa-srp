@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-01-13 15:09+0100\n"
+"POT-Creation-Date: 2025-03-08 16:55+0100\n"
 "PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ru/>\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 5.8.4\n"
 
-#: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
-#: aasrp/templates/aasrp/base.html:10 aasrp/templates/aasrp/link-add.html:6
+#: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:7
+#: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
 #: aasrp/templates/aasrp/link-edit.html:6
 #: aasrp/templates/aasrp/request-srp.html:6
 #: aasrp/templates/aasrp/user-settings.html:6
@@ -105,7 +105,7 @@ msgstr[3] "Деактивировать {notifications_count} тип флота"
 msgid "AA Ship Replacement v{__version__}"
 msgstr "AA Компенсация корабля v{__version__}"
 
-#: aasrp/constants.py:26
+#: aasrp/constants.py:44
 msgid ""
 "If you have any questions regarding your SRP request, feel free to contact your request reviser.\n"
 "Please make sure to always add the SRP code and the request code with your inquiry."
@@ -558,74 +558,6 @@ msgstr "SRP запрос был добавлен."
 msgid "SRP request status has changed to"
 msgstr "Статус SRP запроса измене на"
 
-#: aasrp/templates/aasrp/base.html:28
-msgctxt "Decimal separator"
-msgid "."
-msgstr ","
-
-#: aasrp/templates/aasrp/base.html:29
-msgctxt "Thousands separator"
-msgid ","
-msgstr " "
-
-#: aasrp/templates/aasrp/base.html:30
-msgid "No data available in this table"
-msgstr "Данные в таблице отсутствуют"
-
-#: aasrp/templates/aasrp/base.html:31
-msgctxt "Keep _END_ as it is. It will be replaced by a number."
-msgid "Showing _END_ entries"
-msgstr "Отображаются _END_ записей"
-
-#: aasrp/templates/aasrp/base.html:32
-msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
-msgid "(filtered from _MAX_ total entries)"
-msgstr "(отфильтрованы из _MAX_ записей)"
-
-#: aasrp/templates/aasrp/base.html:33
-msgid "No records available"
-msgstr "Записи недоступны"
-
-#: aasrp/templates/aasrp/base.html:34
-msgid "Loading …"
-msgstr "Загрузка …"
-
-#: aasrp/templates/aasrp/base.html:35
-msgid "Processing …"
-msgstr "Обработка …"
-
-#: aasrp/templates/aasrp/base.html:36
-msgid "Nothing found, sorry …"
-msgstr "Ничего не найдено …"
-
-#: aasrp/templates/aasrp/base.html:37
-msgid "Search …"
-msgstr "Поиск…"
-
-#: aasrp/templates/aasrp/base.html:38
-msgid "First"
-msgstr "Первый"
-
-#: aasrp/templates/aasrp/base.html:39
-msgid "Last"
-msgstr "Последний"
-
-#: aasrp/templates/aasrp/base.html:40
-msgid "Next"
-msgstr "Следующий"
-
-#: aasrp/templates/aasrp/base.html:41
-msgid "Previous"
-msgstr "Предыдущий"
-
-#: aasrp/templates/aasrp/base.html:42
-msgid ": activate to sort column ascending"
-msgstr ": активируйте для сортировки по возрастанию"
-
-#: aasrp/templates/aasrp/base.html:43
-msgid ": activate to sort column descending"
-msgstr ": активируйте для сортировки по убыванию"
-
 #: aasrp/templates/aasrp/dashboard.html:27
 msgid "Are you sure you want to (re-)activate the following SRP link?"
 msgstr "Вы уверены, что хотите (ре-)активировать эту SRP ссылку?"
@@ -1042,3 +974,55 @@ msgstr "SRP ссылка {srp_code} отключена."
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "SRP ссылка {srp_code} удалена."
+
+#~ msgctxt "Decimal separator"
+#~ msgid "."
+#~ msgstr ","
+
+#~ msgctxt "Thousands separator"
+#~ msgid ","
+#~ msgstr " "
+
+#~ msgid "No data available in this table"
+#~ msgstr "Данные в таблице отсутствуют"
+
+#~ msgctxt "Keep _END_ as it is. It will be replaced by a number."
+#~ msgid "Showing _END_ entries"
+#~ msgstr "Отображаются _END_ записей"
+
+#~ msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
+#~ msgid "(filtered from _MAX_ total entries)"
+#~ msgstr "(отфильтрованы из _MAX_ записей)"
+
+#~ msgid "No records available"
+#~ msgstr "Записи недоступны"
+
+#~ msgid "Loading …"
+#~ msgstr "Загрузка …"
+
+#~ msgid "Processing …"
+#~ msgstr "Обработка …"
+
+#~ msgid "Nothing found, sorry …"
+#~ msgstr "Ничего не найдено …"
+
+#~ msgid "Search …"
+#~ msgstr "Поиск…"
+
+#~ msgid "First"
+#~ msgstr "Первый"
+
+#~ msgid "Last"
+#~ msgstr "Последний"
+
+#~ msgid "Next"
+#~ msgstr "Следующий"
+
+#~ msgid "Previous"
+#~ msgstr "Предыдущий"
+
+#~ msgid ": activate to sort column ascending"
+#~ msgstr ": активируйте для сортировки по возрастанию"
+
+#~ msgid ": activate to sort column descending"
+#~ msgstr ": активируйте для сортировки по убыванию"
