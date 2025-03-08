@@ -95,7 +95,7 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return `${data.toLocaleString(aaSrpSettings.locale)} ISK`;
+                        return `${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK`;
                     } else {
                         return data;
                     }
@@ -113,7 +113,7 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return `${data.toLocaleString(aaSrpSettings.locale)} ISK`;
+                        return `${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK`;
                     } else {
                         return data;
                     }
@@ -176,7 +176,7 @@ $(document).ready(() => {
             userSrpAmount += parseInt(data.payout_amount);
 
             $('.srp-dashboard-user-isk-cost-amount').html(
-                `${userSrpAmount.toLocaleString(aaSrpSettings.locale)} ISK`
+                `${new Intl.NumberFormat(aaSrpSettings.locale).format(userSrpAmount)} ISK`
             );
         }
     });

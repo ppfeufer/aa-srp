@@ -74,7 +74,7 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return `${data.toLocaleString(aaSrpSettings.locale)} ISK`;
+                        return `${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK`;
                     } else {
                         return data;
                     }
@@ -92,7 +92,7 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return `<span class="srp-payout-tooltip"><span class="srp-payout-amount">${data.toLocaleString(aaSrpSettings.locale)} ISK</span></span>`;
+                        return `<span class="srp-payout-tooltip"><span class="srp-payout-amount">${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK</span></span>`;
                     } else {
                         return data;
                     }
@@ -224,7 +224,7 @@ $(document).ready(() => {
         newValue = parseInt(newValue);
 
         // Update payout value formatted
-        const newValueFormatted = `${newValue.toLocaleString(aaSrpSettings.locale)} ISK`;
+        const newValueFormatted = `${new Intl.NumberFormat(aaSrpSettings.locale).format(newValue)} ISK`;
 
         // Update the element
         element
@@ -242,7 +242,7 @@ $(document).ready(() => {
             totalSrpAmount += parseInt(payoutElement.getAttribute('data-value'));
         });
 
-        $('.srp-fleet-total-amount').html(`${totalSrpAmount.toLocaleString(aaSrpSettings.locale)} ISK`);
+        $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
     };
 
     /**
@@ -327,7 +327,7 @@ $(document).ready(() => {
         });
 
         // Update fleet total SRP amount
-        $('.srp-fleet-total-amount').html(`${totalSrpAmount.toLocaleString(aaSrpSettings.locale)} ISK`);
+        $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
 
         // Update requests counts
         $('.srp-requests-total-count').html(requestsTotal);
