@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-01-13 15:09+0100\n"
+"POT-Creation-Date: 2025-03-08 16:55+0100\n"
 "PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ko/>\n"
@@ -20,8 +20,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.8.4\n"
 
-#: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
-#: aasrp/templates/aasrp/base.html:10 aasrp/templates/aasrp/link-add.html:6
+#: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:7
+#: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
 #: aasrp/templates/aasrp/link-edit.html:6
 #: aasrp/templates/aasrp/request-srp.html:6
 #: aasrp/templates/aasrp/user-settings.html:6
@@ -92,7 +92,7 @@ msgstr[0] "{notifications_count} 개의 함대 종류 비활성화됨"
 msgid "AA Ship Replacement v{__version__}"
 msgstr "AA Ship Replacement v{__version__}"
 
-#: aasrp/constants.py:26
+#: aasrp/constants.py:44
 msgid ""
 "If you have any questions regarding your SRP request, feel free to contact your request reviser.\n"
 "Please make sure to always add the SRP code and the request code with your inquiry."
@@ -549,74 +549,6 @@ msgstr "SRP 요청이 추가되었습니다."
 msgid "SRP request status has changed to"
 msgstr ""
 
-#: aasrp/templates/aasrp/base.html:28
-msgctxt "Decimal separator"
-msgid "."
-msgstr "."
-
-#: aasrp/templates/aasrp/base.html:29
-msgctxt "Thousands separator"
-msgid ","
-msgstr ","
-
-#: aasrp/templates/aasrp/base.html:30
-msgid "No data available in this table"
-msgstr "테이블에 유효한 데이터가 없습니다"
-
-#: aasrp/templates/aasrp/base.html:31
-msgctxt "Keep _END_ as it is. It will be replaced by a number."
-msgid "Showing _END_ entries"
-msgstr "_END_ 개의 결과 표시중"
-
-#: aasrp/templates/aasrp/base.html:32
-msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
-msgid "(filtered from _MAX_ total entries)"
-msgstr "(총 _MAX_ 개의 결과 에서 필터링됨)"
-
-#: aasrp/templates/aasrp/base.html:33
-msgid "No records available"
-msgstr "사용 가능한 레코드가 없습니다"
-
-#: aasrp/templates/aasrp/base.html:34
-msgid "Loading …"
-msgstr "로딩 …"
-
-#: aasrp/templates/aasrp/base.html:35
-msgid "Processing …"
-msgstr "처리 중 …"
-
-#: aasrp/templates/aasrp/base.html:36
-msgid "Nothing found, sorry …"
-msgstr "아무것도 찾지 못했습니다, 죄송합니다 …"
-
-#: aasrp/templates/aasrp/base.html:37
-msgid "Search …"
-msgstr "검색 …"
-
-#: aasrp/templates/aasrp/base.html:38
-msgid "First"
-msgstr "첫 번째"
-
-#: aasrp/templates/aasrp/base.html:39
-msgid "Last"
-msgstr "마지막"
-
-#: aasrp/templates/aasrp/base.html:40
-msgid "Next"
-msgstr "다음"
-
-#: aasrp/templates/aasrp/base.html:41
-msgid "Previous"
-msgstr "이전"
-
-#: aasrp/templates/aasrp/base.html:42
-msgid ": activate to sort column ascending"
-msgstr ": 열 오름차순으로 정렬 활성화"
-
-#: aasrp/templates/aasrp/base.html:43
-msgid ": activate to sort column descending"
-msgstr ": 열 내림차순으로 정렬 활성화"
-
 #: aasrp/templates/aasrp/dashboard.html:27
 msgid "Are you sure you want to (re-)activate the following SRP link?"
 msgstr "해당 SRP 세션을 활성화 하시겠습니까?"
@@ -1012,3 +944,55 @@ msgstr "SRP 세션 {srp_code} 이 비활성화 되었습니다."
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "SRP 세션 {srp_code} 이 삭제 되었습니다."
+
+#~ msgctxt "Decimal separator"
+#~ msgid "."
+#~ msgstr "."
+
+#~ msgctxt "Thousands separator"
+#~ msgid ","
+#~ msgstr ","
+
+#~ msgid "No data available in this table"
+#~ msgstr "테이블에 유효한 데이터가 없습니다"
+
+#~ msgctxt "Keep _END_ as it is. It will be replaced by a number."
+#~ msgid "Showing _END_ entries"
+#~ msgstr "_END_ 개의 결과 표시중"
+
+#~ msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
+#~ msgid "(filtered from _MAX_ total entries)"
+#~ msgstr "(총 _MAX_ 개의 결과 에서 필터링됨)"
+
+#~ msgid "No records available"
+#~ msgstr "사용 가능한 레코드가 없습니다"
+
+#~ msgid "Loading …"
+#~ msgstr "로딩 …"
+
+#~ msgid "Processing …"
+#~ msgstr "처리 중 …"
+
+#~ msgid "Nothing found, sorry …"
+#~ msgstr "아무것도 찾지 못했습니다, 죄송합니다 …"
+
+#~ msgid "Search …"
+#~ msgstr "검색 …"
+
+#~ msgid "First"
+#~ msgstr "첫 번째"
+
+#~ msgid "Last"
+#~ msgstr "마지막"
+
+#~ msgid "Next"
+#~ msgstr "다음"
+
+#~ msgid "Previous"
+#~ msgstr "이전"
+
+#~ msgid ": activate to sort column ascending"
+#~ msgstr ": 열 오름차순으로 정렬 활성화"
+
+#~ msgid ": activate to sort column descending"
+#~ msgstr ": 열 내림차순으로 정렬 활성화"

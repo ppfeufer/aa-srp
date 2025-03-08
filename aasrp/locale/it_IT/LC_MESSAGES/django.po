@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-01-13 15:09+0100\n"
+"POT-Creation-Date: 2025-03-08 16:55+0100\n"
 "PO-Revision-Date: 2024-12-22 21:15+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Italian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/it/>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.9.2\n"
 
-#: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:6
-#: aasrp/templates/aasrp/base.html:10 aasrp/templates/aasrp/link-add.html:6
+#: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:7
+#: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
 #: aasrp/templates/aasrp/link-edit.html:6
 #: aasrp/templates/aasrp/request-srp.html:6
 #: aasrp/templates/aasrp/user-settings.html:6
@@ -93,7 +93,7 @@ msgstr[1] ""
 msgid "AA Ship Replacement v{__version__}"
 msgstr ""
 
-#: aasrp/constants.py:26
+#: aasrp/constants.py:44
 msgid ""
 "If you have any questions regarding your SRP request, feel free to contact your request reviser.\n"
 "Please make sure to always add the SRP code and the request code with your inquiry."
@@ -542,74 +542,6 @@ msgstr ""
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:128
 msgid "SRP request status has changed to"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:28
-msgctxt "Decimal separator"
-msgid "."
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:29
-msgctxt "Thousands separator"
-msgid ","
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:30
-msgid "No data available in this table"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:31
-msgctxt "Keep _END_ as it is. It will be replaced by a number."
-msgid "Showing _END_ entries"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:32
-msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
-msgid "(filtered from _MAX_ total entries)"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:33
-msgid "No records available"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:34
-msgid "Loading …"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:35
-msgid "Processing …"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:36
-msgid "Nothing found, sorry …"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:37
-msgid "Search …"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:38
-msgid "First"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:39
-msgid "Last"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:40
-msgid "Next"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:41
-msgid "Previous"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:42
-msgid ": activate to sort column ascending"
-msgstr ""
-
-#: aasrp/templates/aasrp/base.html:43
-msgid ": activate to sort column descending"
 msgstr ""
 
 #: aasrp/templates/aasrp/dashboard.html:27
