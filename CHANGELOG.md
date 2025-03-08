@@ -37,6 +37,7 @@ Section Order:
 
 ### Changed
 
+- Rewrite user agent
 - Improve Datatables localization
 
 ## [2.6.0] - 2025-02-02

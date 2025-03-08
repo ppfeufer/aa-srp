@@ -4,6 +4,7 @@ Constants
 
 # Standard Library
 import os
+from enum import Enum
 
 # Third Party
 from requests.__version__ import __version__ as requests_version
@@ -15,14 +16,22 @@ from django.utils.translation import gettext_lazy as _
 from esi import __version__ as esi_version
 
 # AA SRP
-from aasrp import __version__
+from aasrp import __version__ as app_version
 
 APP_NAME = "aa-srp"
+APP_NAME_VERBOSE = "AA SRP"
+APP_NAME_VERBOSE_USERAGENT = "AA-SRP"
 GITHUB_URL = f"https://github.com/ppfeufer/{APP_NAME}"
-USER_AGENT_ESI = f"{APP_NAME}/{__version__} +{GITHUB_URL} via django-esi/{esi_version}"
-USER_AGENT_REQUESTS = (
-    f"{APP_NAME}/{__version__} +{GITHUB_URL} via requests/{requests_version}"
-)
+
+
+class UserAgent(Enum):
+    """
+    UserAgent
+    """
+
+    ESI = f"{APP_NAME_VERBOSE_USERAGENT}/{app_version} (+{GITHUB_URL}) Django-ESI/{esi_version}"
+    REQUESTS = f"{APP_NAME_VERBOSE_USERAGENT}/{app_version} (+{GITHUB_URL}) requests/{requests_version}"
+
 
 # aa-srp/aasrp
 AA_SRP_BASE_DIR = os.path.join(os.path.dirname(__file__))
