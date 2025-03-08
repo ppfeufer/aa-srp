@@ -17,7 +17,7 @@ from app_utils.logging import LoggerAddTag
 
 # AA SRP
 from aasrp import __title__
-from aasrp.constants import AA_SRP_STATIC_DIR
+from aasrp.constants import APP_STATIC_DIR
 
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
@@ -25,15 +25,16 @@ logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__
 def calculate_integrity_hash(relative_file_path: str) -> str:
     """
     Calculates the integrity hash for a given static file
+
     :param self:
     :type self:
-    :param relative_file_path: The file path relative to the `aa-srp/aasrp/static/aasrp` folder
+    :param relative_file_path: The file path relative to the `{APP_NAME}/{PACKAGE_NAME}/static/{PACKAGE_NAME}` folder
     :type relative_file_path: str
     :return: The integrity hash
     :rtype: str
     """
 
-    file_path = os.path.join(AA_SRP_STATIC_DIR, relative_file_path)
+    file_path = os.path.join(APP_STATIC_DIR, relative_file_path)
     integrity_hash = calculate_integrity(
         path=Path(file_path), algorithm=Algorithm.SHA512
     )
