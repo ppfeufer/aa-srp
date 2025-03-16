@@ -18,8 +18,7 @@ ci:
   autoupdate_branch: ''
   autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
   autoupdate_schedule: monthly
-  skip:
-    - eslint  # Fails due to missing node environment in CI
+  skip: []
   submodules: false
 
 # Globally exclude files
@@ -133,10 +132,10 @@ repos:
         name: ESLint
         description: Check for problems in JavaScript files.
         language: node
-#        additional_dependencies:
-#          # eslint itself needs to be here when using additional_dependencies.
-#          - eslint@9.21.0 # https://github.com/eslint/eslint/releases/latest
-#          - globals@16.0.0  # https://github.com/sindresorhus/globals/releases/latest
+        additional_dependencies:
+          # eslint itself needs to be here when using additional_dependencies.
+          - eslint@9.21.0 # https://github.com/eslint/eslint/releases/latest
+          - globals@16.0.0  # https://github.com/sindresorhus/globals/releases/latest
 
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
     rev: 1a160bc61f659e8f9071d6ae8b5f5fce98ce7898  # frozen: v16.15.0

@@ -1,9 +1,9 @@
-import globals from 'globals';
-import js from '@eslint/js';
+const globals = require('globals');
+const js = require('@eslint/js');
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 
-export default [
+module.exports = [
     {
         languageOptions: {
             globals: {
