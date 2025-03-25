@@ -92,7 +92,7 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return `<span class="srp-payout-tooltip"><span class="srp-payout-amount">${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK</span></span>`;
+                        return `<span class="srp-payout-tooltip"><span class="srp-payout-amount">${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK</span></span><i class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" data-clipboard-text="${data}" data-bs-tooltip="aa-srp" aria-label="Copy payout to clipboard" data-bs-original-title="Copy payout to clipboard"></i>`;
                     } else {
                         return data;
                     }
