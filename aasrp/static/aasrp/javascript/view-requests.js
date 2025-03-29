@@ -52,6 +52,20 @@ $(document).ready(() => {
             },
             {
                 data: 'request_code',
+                /**
+                 * Render callback
+                 *
+                 * @param data
+                 * @param type
+                 * @returns {string|*}
+                 */
+                render: (data, type) => {
+                    if (type === 'display') {
+                        return `${data} nbsp; <i class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" data-clipboard-text="${data}" data-bs-tooltip="aa-srp" aria-label="Copy code to clipboard" data-bs-original-title="Copy code to clipboard"></i>`;
+                    } else {
+                        return data;
+                    }
+                },
                 className: 'srp-request-code'
             },
             {
