@@ -45,6 +45,10 @@ Section Order:
 
 - Use framework CSS classes (Bootstrap and AA Framework) instead of custom CSS
 
+### Removed
+
+- Unused code
+
 ## [2.6.1] - 2025-03-08
 
 ### Changed
