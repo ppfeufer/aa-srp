@@ -92,7 +92,7 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return `<span class="srp-payout-tooltip"><span class="srp-payout-amount">${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK</span></span>`;
+                        return `<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK</span></span>`;
                     } else {
                         return data;
                     }

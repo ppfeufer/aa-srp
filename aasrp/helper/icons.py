@@ -147,14 +147,16 @@ def get_srp_request_status_icon(
 
     request_status_icon_title = _("SRP request pending")
     srp_request_status_icon = (
-        '<button class="btn btn-info btn-sm btn-icon-aasrp btn-icon-aasrp-status" '
+        '<button class="btn btn-info btn-sm btn-icon-aasrp btn-icon-aasrp-status cursor-default" '
         f'title="{request_status_icon_title}" data-bs-tooltip="aa-srp">'
         '<i class="fa-solid fa-clock"></i>'
         "</button>"
     )
 
     if srp_request.request_status == SrpRequest.Status.APPROVED:
-        btn_classes = "btn btn-success btn-sm btn-icon-aasrp btn-icon-aasrp-status"
+        btn_classes = (
+            "btn btn-success btn-sm btn-icon-aasrp btn-icon-aasrp-status cursor-default"
+        )
         request_status_icon_title = _("SRP request approved")
         srp_request_status_icon = (
             f'<button class="{btn_classes}" '
@@ -164,7 +166,9 @@ def get_srp_request_status_icon(
         )
 
     if srp_request.request_status == SrpRequest.Status.REJECTED:
-        btn_classes = "btn btn-danger btn-sm btn-icon-aasrp btn-icon-aasrp-status"
+        btn_classes = (
+            "btn btn-danger btn-sm btn-icon-aasrp btn-icon-aasrp-status cursor-default"
+        )
         request_status_icon_title = _("SRP request rejected")
         srp_request_status_icon = (
             f'<button class="{btn_classes}" '
