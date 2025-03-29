@@ -38,6 +38,9 @@
     {% translate "Insurance payout" as translateInsurancePayout %}
     {% translate "Additional information" as translateAdditionalInformation %}
     {% translate "Reject information" as translateRejectInformation %}
+    {% translate "Copy request code to clipboard" as translateCopyRequestCodeToClipboard %}
+    {% translate "Copy payout amount to clipboard" as translateCopyPayoutAmountToClipboard %}
+
 
     <script>
         /**
@@ -51,6 +54,8 @@
                 changeSrpAmount: '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}'
             },
             translation: {
+                copyRequestCodeToClipboard: '{{ translateCopyRequestCodeToClipboard|escapejs }}',
+                copyPayoutAmountToClipboard: '{{ translateCopyPayoutAmountToClipboard|escapejs }}',
                 filter: {
                     requestStatus: '{{ translateRequestStatus|escapejs }}',
                     ship: '{{ translateShip|escapejs }}',
