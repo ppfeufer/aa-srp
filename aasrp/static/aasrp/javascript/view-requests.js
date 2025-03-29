@@ -61,7 +61,18 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return `<span>${data}<i class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" data-clipboard-text="${data}" data-bs-tooltip="aa-srp" aria-label="${aaSrpSettings.translation.copyRequestCodeToClipboard}" title="${aaSrpSettings.translation.copyRequestCodeToClipboard}"></i></span>`;
+                        return `
+                            <span>
+                                ${data}
+                                <i 
+                                    class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" 
+                                    data-bs-tooltip="aa-srp" 
+                                    data-clipboard-text="${data}" 
+                                    aria-label="${aaSrpSettings.translation.copyRequestCodeToClipboard}" 
+                                    title="${aaSrpSettings.translation.copyRequestCodeToClipboard}">
+                                </i>
+                            </span>
+                        `;
                     } else {
                         return data;
                     }
@@ -106,8 +117,20 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return `<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK</span><i class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" data-clipboard-text="${data}" data-bs-tooltip="aa-srp" aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}" title="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"></i></span>`;
-
+                        return `
+                            <span class="srp-payout-tooltip">
+                                <span class="srp-payout-amount d-block cursor-pointer">
+                                    ${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK
+                                </span>
+                                <i 
+                                    class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" 
+                                    data-clipboard-text="${data}" 
+                                    data-bs-tooltip="aa-srp" 
+                                    aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}" 
+                                    title="${aaSrpSettings.translation.copyPayoutAmountToClipboard}">
+                                </i>
+                            </span>
+                        `;
                     } else {
                         return data;
                     }
