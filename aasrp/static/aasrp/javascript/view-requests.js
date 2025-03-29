@@ -61,7 +61,7 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
-                        return `${data} <i class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" data-clipboard-text="${data}" data-bs-tooltip="aa-srp" aria-label="Copy code to clipboard" data-bs-original-title="Copy code to clipboard"></i>`;
+                        return `<span class="srp-request-code">${data} <i class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" data-clipboard-text="${data}" data-bs-tooltip="aa-srp" aria-label="Copy code to clipboard" data-bs-original-title="Copy code to clipboard"></i></span>`;
                     } else {
                         return data;
                     }
