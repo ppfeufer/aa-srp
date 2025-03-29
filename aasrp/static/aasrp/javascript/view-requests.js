@@ -64,13 +64,7 @@ $(document).ready(() => {
                         return `
                             <span>
                                 ${data}
-                                <i 
-                                    class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" 
-                                    data-bs-tooltip="aa-srp" 
-                                    data-clipboard-text="${data}" 
-                                    aria-label="${aaSrpSettings.translation.copyRequestCodeToClipboard}" 
-                                    title="${aaSrpSettings.translation.copyRequestCodeToClipboard}">
-                                </i>
+                                <i class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" data-bs-tooltip="aa-srp" data-clipboard-text="${data}" aria-label="${aaSrpSettings.translation.copyRequestCodeToClipboard}" title="${aaSrpSettings.translation.copyRequestCodeToClipboard}"></i>
                             </span>
                         `;
                     } else {
@@ -122,13 +116,7 @@ $(document).ready(() => {
                                 <span class="srp-payout-amount d-block cursor-pointer">
                                     ${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK
                                 </span>
-                                <i 
-                                    class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" 
-                                    data-clipboard-text="${data}" 
-                                    data-bs-tooltip="aa-srp" 
-                                    aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}" 
-                                    title="${aaSrpSettings.translation.copyPayoutAmountToClipboard}">
-                                </i>
+                                <i class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" data-clipboard-text="${data}" data-bs-tooltip="aa-srp" aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}" title="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"></i>
                             </span>
                         `;
                     } else {
