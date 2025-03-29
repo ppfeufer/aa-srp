@@ -105,7 +105,7 @@ class TestGetFormattedCharacterName(TestCase):
 
         copy_icon = (
             "<i "
-            'class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" '
+            'class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2 cursor-pointer" '
             f'data-clipboard-text="{self.alt_character.character_name}" '
             'title="Copy character name to clipboard" data-bs-tooltip="aa-srp"></i>'
         )
@@ -189,7 +189,7 @@ class TestGetFormattedCharacterName(TestCase):
         html = get_formatted_character_name(character=None)
 
         expected_html = (
-            "<span class='aasrp-character-portrait-character-name'>"
+            "<span class='aasrp-character-portrait-character-name d-inline-block'>"
             "Unknown character"
             "</span>"
         )

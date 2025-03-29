@@ -45,7 +45,7 @@ def get_formatted_character_name(
         character_name = _("Unknown character")
 
         return (
-            "<span class='aasrp-character-portrait-character-name'>"
+            "<span class='aasrp-character-portrait-character-name d-inline-block'>"
             f"{character_name}"
             "</span>"
         )
@@ -66,7 +66,7 @@ def get_formatted_character_name(
         title = _("Copy character name to clipboard")
         character_name_formatted += (
             "<i "
-            'class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" '
+            'class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2 cursor-pointer" '
             f'data-clipboard-text="{character_name}" title="{title}" '
             'data-bs-tooltip="aa-srp"></i>'
         )
