@@ -15,58 +15,6 @@ from aasrp.form import SettingAdminForm
 from aasrp.models import FleetType, RequestComment, Setting, SrpLink, SrpRequest
 
 
-def custom_filter(title):
-    """
-    Custom filter for model properties
-    :param title:
-    :return:
-    """
-
-    class Wrapper(admin.FieldListFilter):
-        """
-        Custom_filter wrapper
-        """
-
-        def expected_parameters(self):
-            """
-            Expected parameters
-
-            :return:
-            :rtype:
-            """
-
-            pass  # pylint: disable=unnecessary-pass
-
-        def choices(self, changelist):
-            """
-            Choices
-
-            :param changelist:
-            :type changelist:
-            :return:
-            :rtype:
-            """
-
-            pass  # pylint: disable=unnecessary-pass
-
-        def __new__(cls, *args, **kwargs):
-            """
-            New instance
-
-            :param args:
-            :type args:
-            :param kwargs:
-            :type kwargs:
-            """
-
-            instance = admin.FieldListFilter.create(*args, **kwargs)
-            instance.title = title
-
-            return instance
-
-    return Wrapper
-
-
 @admin.register(SrpLink)
 class SrpLinkAdmin(admin.ModelAdmin):
     """
