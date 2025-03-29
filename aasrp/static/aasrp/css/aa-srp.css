@@ -5,16 +5,8 @@
         width: 2rem;
     }
 
-    .btn-icon-aasrp-status {
-        cursor: default;
-    }
-
     .btn-icon-aasrp-status:focus {
         border: inherit;
-    }
-
-    .srp-payout-amount {
-        display: inline-block;
     }
 
     .srp-payout-amount-changed {
@@ -52,10 +44,6 @@
         vertical-align: baseline;
     }
 
-    .aasrp-character-portrait-character-name {
-        display: inline-block;
-    }
-
     .aasrp-character-portrait-character-name small {
         font-size: 80%;
     }
@@ -64,30 +52,20 @@
         font-weight: 400;
     }
 
-    .aa-srp-fa-icon {
-        cursor: pointer;
-    }
-
     .aa-srp-modal-header > h5 {
         border-bottom: 1px solid var(--bs-secondary-bg-subtle);
     }
 
     .srp-request-payout-amount-editable .srp-payout-amount {
         border-bottom: dashed 1px rgb(0 136 204);
-        cursor: pointer;
-        display: block;
     }
 
     .srp-request-status-rejected .srp-request-payout-amount-editable .srp-payout-amount {
         border-bottom: dashed 1px rgb(192 192 192);
-        cursor: pointer;
-        display: block;
     }
 
     .srp-request-payout-amount-editable .srp-payout-amount-changed {
         border-bottom: dashed 1px rgb(204 71 0) !important;
-        cursor: pointer;
-        display: block;
     }
 
     .modal-srp-details-request-history .request-history-comment:last-child {
