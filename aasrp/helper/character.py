@@ -65,10 +65,10 @@ def get_formatted_character_name(
     if with_copy_icon is True:
         title = _("Copy character name to clipboard")
         character_name_formatted += (
-            "<i "
+            "<sup><i "
             'class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2 cursor-pointer" '
             f'data-clipboard-text="{character_name}" title="{title}" '
-            'data-bs-tooltip="aa-srp"></i>'
+            'data-bs-tooltip="aa-srp"></i></sup>'
         )
 
     return_value = character_name_formatted

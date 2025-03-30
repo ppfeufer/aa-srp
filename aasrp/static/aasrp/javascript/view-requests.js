@@ -1,4 +1,4 @@
-/* global aaSrpSettings, bootstrap, moment */
+/* global aaSrpSettings, bootstrap, copyToClipboardIcon, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -22,16 +22,26 @@ $(document).ready(() => {
                 data: 'request_time',
                 /**
                  * Render callback
-                 *
-                 * @param data
-                 * @returns {*}
                  */
                 render: {
+                    /**
+                     * Display callback
+                     *
+                     * @param {int|string} data
+                     * @returns {string|*}
+                     * @private
+                     */
                     _: (data) => {
                         return data === null ? '' : moment(data).utc().format(
                             aaSrpSettings.datetimeFormat
                         );
                     },
+                    /**
+                     * Sort callback
+                     *
+                     * @param {int|string} data
+                     * @returns {string|*}
+                     */
                     sort: (data) => {
                         return data === null ? '' : data;
                     }
@@ -52,6 +62,29 @@ $(document).ready(() => {
             },
             {
                 data: 'request_code',
+                /**
+                 * Render callback
+                 */
+                render:  {
+                    /**
+                     * Display callback
+                     *
+                     * @param {string} data
+                     * @returns {string}
+                     */
+                    _: (data) => {
+                        return data === null ? '' : `<span>${data}<sup>${copyToClipboardIcon(data, aaSrpSettings.translation.copyRequestCodeToClipboard)}</sup></span>`;
+                    },
+                    /**
+                     * Sort callback
+                     *
+                     * @param {string} data
+                     * @returns {string|*}
+                     */
+                    sort: (data) => {
+                        return data === null ? '' : data;
+                    }
+                },
                 className: 'srp-request-code'
             },
             {
@@ -68,8 +101,8 @@ $(document).ready(() => {
                 /**
                  * Render callback
                  *
-                 * @param data
-                 * @param type
+                 * @param {int|string} data
+                 * @param {string} type
                  * @returns {string|*}
                  */
                 render: (data, type) => {
@@ -85,16 +118,36 @@ $(document).ready(() => {
                 data: 'payout_amount',
                 /**
                  * Render callback
-                 *
-                 * @param data
-                 * @param type
-                 * @returns {string|*}
                  */
-                render: (data, type) => {
-                    if (type === 'display') {
-                        return `<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK</span></span>`;
-                    } else {
-                        return data;
+                render: {
+                    /**
+                     * Display callback
+                     *
+                     * @param {int|string} data
+                     * @returns {string}
+                     */
+                    _: (data) => {
+                        if (data === null) {
+                            return '';
+                        }
+
+                        const copyButton = copyToClipboardIcon(
+                            data,
+                            aaSrpSettings.translation.copyPayoutAmountToClipboard
+                        );
+                        const payout = `${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK`;
+                        const payoutField = `<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">${payout}</span></span>`;
+
+                        return `<span class="srp-payout d-flex justify-content-end align-items-baseline">${payoutField}<sup>${copyButton}</sup></span>`;
+                    },
+                    /**
+                     * Sort callback
+                     *
+                     * @param {int|string} data
+                     * @returns {string|*}
+                     */
+                    sort: (data) => {
+                        return data === null ? '' : data;
                     }
                 },
                 className: 'srp-request-payout text-end'
@@ -243,6 +296,10 @@ $(document).ready(() => {
         });
 
         $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
+
+        // Update copy to clipboard icon value
+        const copyToClipboard = element.parent().parent().find('.copy-to-clipboard i');
+        copyToClipboard.attr('data-clipboard-text', newValue);
     };
 
     /**
