@@ -50,7 +50,7 @@ pre-commit run black
 
 The JavaScript code follows [ECMAScript 6 (or ES6 for short)][ecmascript 6] or newer
 rules. The use of arrow functions is preferred and `this` or `$(this)` should be
-prevented. Functions need to be declared before their use and the JavaScript code
+prevented. Functions need to be declared before their use, and the JavaScript code
 should follow `'use strict';`.
 
 Indent size: 4 spaces
@@ -72,7 +72,7 @@ This project uses minified and compressed JavaScript files with source maps crea
 To do so, run:
 
 ```shell
-uglifyjs script.js -o script.min.js --source-map "url='script.min.js.map'" --compress --mangle
+uglifyjs script.js -o script.min.js --source-map "url='script.min.js.map'" --compress reduce_vars=false,templates=false --mangle
 ```
 
 ### CSS<a name="css"></a>
@@ -97,7 +97,7 @@ This project uses minified CSS files with source maps created by [CSSO]. Make su
 to add/update them as well if you add or change CSS.
 
 ```shell
-csso -i styles.css -o styles.min.css  -s file
+csso -i styles.css -o styles.min.css -s file
 ```
 
 ### pre-commit<a name="pre-commit"></a>
