@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AA SRP 2.6.1\n"
+"Project-Id-Version: AA SRP 2.7.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-03-30 07:20+0200\n"
+"POT-Creation-Date: 2025-03-31 01:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -212,11 +212,11 @@ msgid ""
 "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
 
-#: aasrp/helper/character.py:45
+#: aasrp/helper/character.py:46
 msgid "Unknown character"
 msgstr ""
 
-#: aasrp/helper/character.py:66
+#: aasrp/helper/character.py:67
 msgid "Copy character name to clipboard"
 msgstr ""
 
@@ -257,7 +257,7 @@ msgstr ""
 msgid "SRP request approved"
 msgstr ""
 
-#: aasrp/helper/icons.py:172 aasrp/views/ajax.py:674
+#: aasrp/helper/icons.py:172 aasrp/views/ajax.py:671
 msgid "SRP request rejected"
 msgstr ""
 
@@ -863,7 +863,7 @@ msgstr ""
 msgid "Copy payout amount to clipboard"
 msgstr ""
 
-#: aasrp/views/ajax.py:113
+#: aasrp/views/ajax.py:114
 msgid "Link"
 msgstr ""
 
@@ -871,15 +871,15 @@ msgstr ""
 msgid "Copy SRP link to clipboard"
 msgstr ""
 
-#: aasrp/views/ajax.py:588
+#: aasrp/views/ajax.py:585
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:679
+#: aasrp/views/ajax.py:676
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:716
+#: aasrp/views/ajax.py:713
 msgid "SRP request has been removed"
 msgstr ""
 

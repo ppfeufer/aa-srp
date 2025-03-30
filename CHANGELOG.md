@@ -41,6 +41,8 @@ Section Order:
 ### Security
 -->
 
+## [2.7.0] - 2025-03-31
+
 ### Added
 
 - Copy to clipboard buttons for request code and SRP payout ([#266](https://github.com/ppfeufer/aa-srp/issues/266))
