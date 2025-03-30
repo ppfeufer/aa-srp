@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-03-08 16:55+0100\n"
+"POT-Creation-Date: 2025-03-31 01:41+0200\n"
 "PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ru/>\n"
@@ -31,13 +31,13 @@ msgstr ""
 msgid "Ship Replacement"
 msgstr "Компенсация боевых потерь (SRP)"
 
-#: aasrp/admin.py:91 aasrp/models.py:158 aasrp/models.py:281
+#: aasrp/admin.py:39 aasrp/models.py:158 aasrp/models.py:281
 #: aasrp/models.py:422
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
 msgid "Creator"
 msgstr "Создатель"
 
-#: aasrp/admin.py:140
+#: aasrp/admin.py:88
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
 #: aasrp/templates/aasrp/view-own-requests.html:26
@@ -45,21 +45,21 @@ msgstr "Создатель"
 msgid "Requestor"
 msgstr "Заявитель"
 
-#: aasrp/admin.py:180 aasrp/form.py:88 aasrp/models.py:85 aasrp/models.py:142
+#: aasrp/admin.py:128 aasrp/form.py:88 aasrp/models.py:85 aasrp/models.py:142
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
 msgstr "Тип флота"
 
-#: aasrp/admin.py:193 aasrp/models.py:76
+#: aasrp/admin.py:141 aasrp/models.py:76
 msgid "Is enabled"
 msgstr "Разрешен"
 
-#: aasrp/admin.py:208
+#: aasrp/admin.py:156
 msgid "Activate selected fleet types"
 msgstr "Разрешить выбранные типы флота"
 
-#: aasrp/admin.py:237
+#: aasrp/admin.py:185
 #, python-brace-format
 msgid "Failed to activate {failed} fleet type"
 msgid_plural "Failed to activate {failed} fleet types"
@@ -68,7 +68,7 @@ msgstr[1] "Не удалось разрешить {failed} типа флота"
 msgstr[2] "Не удалось разрешить {failed} типов флота"
 msgstr[3] "Не удалось разрешить {failed} тип флота"
 
-#: aasrp/admin.py:247
+#: aasrp/admin.py:195
 #, python-brace-format
 msgid "Activated {notifications_count} fleet type"
 msgid_plural "Activated {notifications_count} fleet types"
@@ -77,11 +77,11 @@ msgstr[1] "Разрешены {notifications_count} типа флота"
 msgstr[2] "Разрешены {notifications_count} типов флота"
 msgstr[3] "Разрешены {notifications_count} тип флота"
 
-#: aasrp/admin.py:253
+#: aasrp/admin.py:201
 msgid "Deactivate selected fleet types"
 msgstr "Запретить выбранные типы флотов"
 
-#: aasrp/admin.py:282
+#: aasrp/admin.py:230
 #, python-brace-format
 msgid "Failed to deactivate {failed} fleet type"
 msgid_plural "Failed to deactivate {failed} fleet types"
@@ -90,7 +90,7 @@ msgstr[1] "Не удалось деактивировать {failed} типа ф
 msgstr[2] "Не удалось деактивировать {failed} типов флота"
 msgstr[3] "Не удалось деактивировать {failed} тип флота"
 
-#: aasrp/admin.py:292
+#: aasrp/admin.py:240
 #, python-brace-format
 msgid "Deactivated {notifications_count} fleet type"
 msgid_plural "Deactivated {notifications_count} fleet types"
@@ -211,11 +211,11 @@ msgstr "Комментарий"
 msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "Отключить уведомления. (Auth и Discord при установленных модулях)"
 
-#: aasrp/helper/character.py:45
+#: aasrp/helper/character.py:46
 msgid "Unknown character"
 msgstr "Неизвестный пилот"
 
-#: aasrp/helper/character.py:66
+#: aasrp/helper/character.py:67
 msgid "Copy character name to clipboard"
 msgstr "Скопировать имя пилота в буфер обмена"
 
@@ -252,20 +252,20 @@ msgstr "Удалить SRP ссылку"
 msgid "SRP request pending"
 msgstr "SRP запрос обрабатывается"
 
-#: aasrp/helper/icons.py:158
+#: aasrp/helper/icons.py:160
 msgid "SRP request approved"
 msgstr "SRP запрос удовлетворен"
 
-#: aasrp/helper/icons.py:168 aasrp/views/ajax.py:674
+#: aasrp/helper/icons.py:172 aasrp/views/ajax.py:671
 msgid "SRP request rejected"
 msgstr "SRP запрос отклонен"
 
-#: aasrp/helper/icons.py:204
+#: aasrp/helper/icons.py:208
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr "Детали SRP запроса"
 
-#: aasrp/helper/icons.py:254
+#: aasrp/helper/icons.py:258
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
@@ -273,13 +273,13 @@ msgstr "Детали SRP запроса"
 msgid "Accept SRP request"
 msgstr "Удовлетворить SRP запрос"
 
-#: aasrp/helper/icons.py:298
+#: aasrp/helper/icons.py:302
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:40
 msgid "Reject SRP request"
 msgstr "Отклонить SRP запрос"
 
-#: aasrp/helper/icons.py:338
+#: aasrp/helper/icons.py:342
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr "Удалить SRP запрос"
@@ -883,7 +883,19 @@ msgstr "Пустое значение недопустимо"
 msgid "This field is required."
 msgstr "Это поле необходимо."
 
-#: aasrp/views/ajax.py:113
+#: aasrp/templates/aasrp/view-requests.html:41
+#, fuzzy
+#| msgid "Copy character name to clipboard"
+msgid "Copy request code to clipboard"
+msgstr "Скопировать имя пилота в буфер обмена"
+
+#: aasrp/templates/aasrp/view-requests.html:42
+#, fuzzy
+#| msgid "Copy character name to clipboard"
+msgid "Copy payout amount to clipboard"
+msgstr "Скопировать имя пилота в буфер обмена"
+
+#: aasrp/views/ajax.py:114
 msgid "Link"
 msgstr "Ссылка"
 
@@ -891,15 +903,15 @@ msgstr "Ссылка"
 msgid "Copy SRP link to clipboard"
 msgstr "Скопировать SRP ссылку в буфер обмена"
 
-#: aasrp/views/ajax.py:588
+#: aasrp/views/ajax.py:585
 msgid "SRP request has been approved"
 msgstr "SRP запрос был удовлетворен"
 
-#: aasrp/views/ajax.py:679
+#: aasrp/views/ajax.py:676
 msgid "SRP request has been rejected"
 msgstr "SRP запрос был отклонен"
 
-#: aasrp/views/ajax.py:716
+#: aasrp/views/ajax.py:713
 msgid "SRP request has been removed"
 msgstr "SRP запрос был удален"
 
