@@ -141,7 +141,7 @@ class TestGetFormattedCharacterName(TestCase):
 
         expected_html = (
             f"{character_portrait_html}<br>"
-            "<span class='aasrp-character-portrait-character-name'>"
+            "<span class='aasrp-character-portrait-character-name d-inline-block'>"
             f"{formatted_character_name}"
             "</span>"
         )
@@ -170,7 +170,7 @@ class TestGetFormattedCharacterName(TestCase):
 
         expected_html = (
             f"{character_portrait_html}"
-            "<span class='aasrp-character-portrait-character-name'>"
+            "<span class='aasrp-character-portrait-character-name d-inline-block'>"
             f"{formatted_character_name}"
             "</span>"
         )

@@ -84,7 +84,7 @@ def get_formatted_character_name(
 
         return_value = (
             f"{character_portrait_html}{line_break}"
-            "<span class='aasrp-character-portrait-character-name'>"
+            "<span class='aasrp-character-portrait-character-name d-inline-block'>"
             f"{character_name_formatted}"
             "</span>"
         )
