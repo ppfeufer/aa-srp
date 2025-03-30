@@ -65,11 +65,7 @@ $(document).ready(() => {
                         const ctcTitle = `title="${aaSrpSettings.translation.copyRequestCodeToClipboard}"`;
                         const ctcLabel = `aria-label="${aaSrpSettings.translation.copyRequestCodeToClipboard}"`;
                         const ctcIcon = `<i class="${ctcIconClass}" data-bs-tooltip="aa-srp" data-clipboard-text="${data}" ${ctcLabel} ${ctcTitle}></i>`;
-                        return `
-                            <span>
-                                ${data} ${ctcIcon}
-                            </span>
-                        `;
+                        return `<span>${data} ${ctcIcon}</span>`;
                     } else {
                         return data;
                     }
@@ -117,14 +113,7 @@ $(document).ready(() => {
                         const ctcTitle = `title="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"`;
                         const ctcLabel = `aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"`;
                         const ctcIcon = `<i class="${ctcIconClass}" data-bs-tooltip="aa-srp" data-clipboard-text="${data}" ${ctcLabel} ${ctcTitle}></i>`;
-                        return `
-                            <span class="srp-payout-tooltip">
-                                <span class="srp-payout-amount d-block cursor-pointer">
-                                    ${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK
-                                </span>
-                            </span>
-                            ${ctcIcon}
-                        `;
+                        return `<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK</span></span> ${ctcIcon}`;
                     } else {
                         return data;
                     }
@@ -277,12 +266,9 @@ $(document).ready(() => {
         $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
 
         //Update tooltip value by first selecting parent and then selecting the icon
-        const parent = element.closest('td');
-        if (parent) {
-            const ctcIcon = parent.children('i')[0];
-            ctcIcon
-                .attr('data-clipboard-text', newValue)    
-        }
+        const ctcElement = element.closest('td').find('i');
+        ctcElement
+            .attr('data-clipboard-text', newValue);
     };
 
     /**
