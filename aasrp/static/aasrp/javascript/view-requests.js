@@ -116,7 +116,7 @@ $(document).ready(() => {
                     if (type === 'display') {
                         const ctcTitle = `title="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"`;
                         const ctcLabel = `aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"`;
-                        const ctcIcon = `<i class="${ctcIconClass}" data-bs-tooltip="aa-srp-payout" data-clipboard-text="${data}" ${ctcLabel} ${ctcTitle}></i>`;
+                        const ctcIcon = `<i class="${ctcIconClass}" data-bs-tooltip="aa-srp" data-clipboard-text="${data}" ${ctcLabel} ${ctcTitle}></i>`;
                         return `
                             <span class="srp-payout-tooltip">
                                 <span class="srp-payout-amount d-block cursor-pointer">
@@ -278,9 +278,11 @@ $(document).ready(() => {
 
         //Update tooltip value by first selecting parent and then selecting the icon
         const parent = element.closest('td');
-        const ctcIcon = parent.querySelector('i');
-        ctcIcon
-            .attr('data-clipboard-text', newValue)
+        if (parent) {
+            const ctcIcon = parent.children('i')[0];
+            ctcIcon
+                .attr('data-clipboard-text', newValue)    
+        }
     };
 
     /**
