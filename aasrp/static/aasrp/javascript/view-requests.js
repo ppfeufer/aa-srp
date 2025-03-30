@@ -267,7 +267,9 @@ $(document).ready(() => {
         $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
 
         //Update tooltip value by first selecting parent and then selecting the icon
-        element.parent().parent().find('i').attr('data-clipboard-text', newValue);
+        const elementSrpSpan = element.parent();
+        const elementSrpWrapper = elementSrpSpan.parent();
+        elementSrpWrapper.find('i').attr('data-clipboard-text', newValue);
     };
 
     /**
