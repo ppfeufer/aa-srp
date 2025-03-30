@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.6.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-03-29 18:49+0100\n"
+"POT-Creation-Date: 2025-03-30 07:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -853,6 +853,14 @@ msgstr ""
 
 #: aasrp/templates/aasrp/view-requests.html:36
 msgid "This field is required."
+msgstr ""
+
+#: aasrp/templates/aasrp/view-requests.html:41
+msgid "Copy request code to clipboard"
+msgstr ""
+
+#: aasrp/templates/aasrp/view-requests.html:42
+msgid "Copy payout amount to clipboard"
 msgstr ""
 
 #: aasrp/views/ajax.py:113

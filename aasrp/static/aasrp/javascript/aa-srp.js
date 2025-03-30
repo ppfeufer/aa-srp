@@ -62,3 +62,17 @@ if (typeof aaSrpJsSettingsOverride !== 'undefined') {
         aaSrpJsSettingsOverride
     );
 }
+
+/**
+ * Generates a copy-to-clipboard icon with the specified data and title.
+ *
+ * @param {string} data - The data to be copied to the clipboard.
+ * @param {string} title - The title for the tooltip.
+ * @returns {`<span class="copy-to-clipboard">${string}</span>`} The HTML string for the copy-to-clipboard icon.
+ */
+const copyToClipboardIcon = (data, title) => { // eslint-disable-line no-unused-vars
+    const ctcIconClasses = 'aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2 cursor-pointer';
+    const ctcIcon = `<i class="${ctcIconClasses}" data-clipboard-text="${data}" data-bs-tooltip="aa-srp" aria-label="${title}" title="${title}"></i>`;
+
+    return `<span class="copy-to-clipboard">${ctcIcon}</span>`;
+};

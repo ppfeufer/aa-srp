@@ -104,10 +104,10 @@ class TestGetFormattedCharacterName(TestCase):
         )
 
         copy_icon = (
-            "<i "
+            "<sup><i "
             'class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2 cursor-pointer" '
             f'data-clipboard-text="{self.alt_character.character_name}" '
-            'title="Copy character name to clipboard" data-bs-tooltip="aa-srp"></i>'
+            'title="Copy character name to clipboard" data-bs-tooltip="aa-srp"></i></sup>'
         )
 
         expected_html = (

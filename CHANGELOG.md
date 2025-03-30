@@ -41,6 +41,10 @@ Section Order:
 ### Security
 -->
 
+### Added
+
+- Copy to clipboard buttons for request code and SRP payout (#266)
+
 ### Changed
 
 - Use framework CSS classes (Bootstrap and AA Framework) instead of custom CSS
