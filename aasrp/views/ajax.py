@@ -33,6 +33,7 @@ from aasrp.form import (
 from aasrp.helper.character import get_formatted_character_name
 from aasrp.helper.eve_images import get_type_render_url_from_type_id
 from aasrp.helper.icons import (
+    copy_to_clipboard_icon,
     get_dashboard_action_icons,
     get_srp_request_action_icons,
     get_srp_request_details_icon,
@@ -115,16 +116,12 @@ def dashboard_srp_links_data(
 
         srp_code_html = srp_link.srp_code
         if srp_link.srp_status == SrpLink.Status.ACTIVE:
-            css_classes = "aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2 cursor-pointer"
             srp_link_href = reverse_absolute(
                 viewname="aasrp:request_srp", args=[srp_link.srp_code]
             )
             title = _("Copy SRP link to clipboard")
-            srp_code_html += (
-                f'<sup><i class="{css_classes}" '
-                f'data-clipboard-text="{srp_link_href}" title="{title}" '
-                'data-bs-tooltip="aa-srp"></i></sup>'
-            )
+            copy_icon = copy_to_clipboard_icon(data=srp_link_href, title=title)
+            srp_code_html += f"<sup>{copy_icon}</sup>"
 
         actions = get_dashboard_action_icons(request=request, srp_link=srp_link)
 

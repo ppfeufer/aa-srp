@@ -103,12 +103,14 @@ class TestGetFormattedCharacterName(TestCase):
             character=self.alt_character, with_copy_icon=True
         )
 
-        copy_icon = (
-            "<sup><i "
-            'class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2 cursor-pointer" '
+        icon = (
+            '<span class="copy-to-clipboard-icon"><i '
+            'class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" '
             f'data-clipboard-text="{self.alt_character.character_name}" '
-            'title="Copy character name to clipboard" data-bs-tooltip="aa-srp"></i></sup>'
+            'title="Copy character name to clipboard" data-bs-tooltip="aa-srp"></i></span>'
         )
+
+        copy_icon = f"<sup>{icon}</sup>"
 
         expected_html = (
             "<small class='text-muted'>"
