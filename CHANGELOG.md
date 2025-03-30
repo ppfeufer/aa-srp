@@ -47,6 +47,7 @@ Section Order:
 
 ### Changed
 
+- Datatables render callbacks unified
 - Use framework CSS classes (Bootstrap and AA Framework) instead of custom CSS
 
 ### Removed

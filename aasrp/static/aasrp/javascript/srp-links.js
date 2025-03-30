@@ -30,16 +30,25 @@ $(document).ready(() => {
                 data: 'fleet_time',
                 /**
                  * Render callback
-                 *
-                 * @param data
-                 * @returns {*}
                  */
                 render: {
-                    _: (data) => {
+                    /**
+                     * Display callback
+                     *
+                     * @param {string} data
+                     * @returns {string|*}
+                     */
+                    display: (data) => {
                         return data === null ? '' : moment(data).utc().format(
                             aaSrpSettings.datetimeFormat
                         );
                     },
+                    /**
+                     * Sort callback
+                     *
+                     * @param {string} data
+                     * @returns {string|*}
+                     */
                     sort: (data) => {
                         return data === null ? '' : data;
                     }
@@ -66,7 +75,7 @@ $(document).ready(() => {
                 data: 'srp_code',
                 render: {
                     display: 'display',
-                    _: 'sort'
+                    sort: 'sort'
                 },
                 className: 'srp-link-code'
             },
@@ -74,16 +83,25 @@ $(document).ready(() => {
                 data: 'srp_costs',
                 /**
                  * Render callback
-                 *
-                 * @param data
-                 * @param type
-                 * @returns {string|*}
                  */
-                render: (data, type) => {
-                    if (type === 'display') {
-                        return `${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK`;
-                    } else {
-                        return data;
+                render: {
+                    /**
+                     * Display callback
+                     *
+                     * @param {int|string} data
+                     * @returns {string}
+                     */
+                    display: (data) => {
+                        return data === null ? '' : `${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK`;
+                    },
+                    /**
+                     * Filter callback
+                     *
+                     * @param {int|string} data
+                     * @returns {int|string|*}
+                     */
+                    sort: (data) => {
+                        return data === null ? '' : data;
                     }
                 },
                 className: 'srp-link-total-cost text-end'
