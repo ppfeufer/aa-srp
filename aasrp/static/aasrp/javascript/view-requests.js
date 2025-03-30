@@ -114,7 +114,7 @@ $(document).ready(() => {
                         const ctcLabel = `aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"`;
                         const ctcIcon = `<i class="${ctcIconClass}" data-bs-tooltip="aa-srp" data-clipboard-text="${data}" ${ctcLabel} ${ctcTitle}></i>`;
                         const innerSpan = `<span class="srp-payout-amount d-block cursor-pointer">${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK</span>`;
-                        return `<span class="srp-payout-tooltip">${innerSpan}</span> ${ctcIcon}`;
+                        return `<span class='srp-payout-wrapper'><span class="srp-payout-tooltip">${innerSpan}</span> ${ctcIcon}</span>`;
                     } else {
                         return data;
                     }
