@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-03-08 16:55+0100\n"
+"POT-Creation-Date: 2025-03-31 01:41+0200\n"
 "PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ko/>\n"
@@ -30,13 +30,13 @@ msgstr ""
 msgid "Ship Replacement"
 msgstr "SRP"
 
-#: aasrp/admin.py:91 aasrp/models.py:158 aasrp/models.py:281
+#: aasrp/admin.py:39 aasrp/models.py:158 aasrp/models.py:281
 #: aasrp/models.py:422
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
 msgid "Creator"
 msgstr "생성자"
 
-#: aasrp/admin.py:140
+#: aasrp/admin.py:88
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
 #: aasrp/templates/aasrp/view-own-requests.html:26
@@ -44,43 +44,43 @@ msgstr "생성자"
 msgid "Requestor"
 msgstr "요청자"
 
-#: aasrp/admin.py:180 aasrp/form.py:88 aasrp/models.py:85 aasrp/models.py:142
+#: aasrp/admin.py:128 aasrp/form.py:88 aasrp/models.py:85 aasrp/models.py:142
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
 msgstr "함대 종류"
 
-#: aasrp/admin.py:193 aasrp/models.py:76
+#: aasrp/admin.py:141 aasrp/models.py:76
 msgid "Is enabled"
 msgstr "활성화"
 
-#: aasrp/admin.py:208
+#: aasrp/admin.py:156
 msgid "Activate selected fleet types"
 msgstr "선택된 플릿을 필터에서 활성화"
 
-#: aasrp/admin.py:237
+#: aasrp/admin.py:185
 #, python-brace-format
 msgid "Failed to activate {failed} fleet type"
 msgid_plural "Failed to activate {failed} fleet types"
 msgstr[0] "{failed} 개의 함대 종류 활성화에 실패 했습니다"
 
-#: aasrp/admin.py:247
+#: aasrp/admin.py:195
 #, python-brace-format
 msgid "Activated {notifications_count} fleet type"
 msgid_plural "Activated {notifications_count} fleet types"
 msgstr[0] "{notifications_count} 개의 함대 종류 활성화됨"
 
-#: aasrp/admin.py:253
+#: aasrp/admin.py:201
 msgid "Deactivate selected fleet types"
 msgstr "선택된 플릿을 필터에서 제외"
 
-#: aasrp/admin.py:282
+#: aasrp/admin.py:230
 #, python-brace-format
 msgid "Failed to deactivate {failed} fleet type"
 msgid_plural "Failed to deactivate {failed} fleet types"
 msgstr[0] "{failed} 개의 함대 종류 비활성화에 실패했습니다"
 
-#: aasrp/admin.py:292
+#: aasrp/admin.py:240
 #, python-brace-format
 msgid "Deactivated {notifications_count} fleet type"
 msgid_plural "Deactivated {notifications_count} fleet types"
@@ -198,11 +198,11 @@ msgstr "메모"
 msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "알람 비활성화. (AA, 디스코드, 또는 동기화된 모듈)"
 
-#: aasrp/helper/character.py:45
+#: aasrp/helper/character.py:46
 msgid "Unknown character"
 msgstr "알 수 없는 캐릭터"
 
-#: aasrp/helper/character.py:66
+#: aasrp/helper/character.py:67
 msgid "Copy character name to clipboard"
 msgstr "캐릭터 이름 복사"
 
@@ -239,20 +239,20 @@ msgstr "SRP 항목 삭제"
 msgid "SRP request pending"
 msgstr "SRP 요청 게시됨"
 
-#: aasrp/helper/icons.py:158
+#: aasrp/helper/icons.py:160
 msgid "SRP request approved"
 msgstr "SRP 요청 승인됨"
 
-#: aasrp/helper/icons.py:168 aasrp/views/ajax.py:674
+#: aasrp/helper/icons.py:172 aasrp/views/ajax.py:671
 msgid "SRP request rejected"
 msgstr "SRP 요청 거부됨"
 
-#: aasrp/helper/icons.py:204
+#: aasrp/helper/icons.py:208
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr "SRP 세부사항"
 
-#: aasrp/helper/icons.py:254
+#: aasrp/helper/icons.py:258
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
@@ -260,13 +260,13 @@ msgstr "SRP 세부사항"
 msgid "Accept SRP request"
 msgstr "SRP 요청 수락"
 
-#: aasrp/helper/icons.py:298
+#: aasrp/helper/icons.py:302
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:40
 msgid "Reject SRP request"
 msgstr "SRP 요청 거부"
 
-#: aasrp/helper/icons.py:338
+#: aasrp/helper/icons.py:342
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr "SRP 요청 삭제"
@@ -853,7 +853,19 @@ msgstr "값을 입력하여 주십시오"
 msgid "This field is required."
 msgstr "필수 항목입니다."
 
-#: aasrp/views/ajax.py:113
+#: aasrp/templates/aasrp/view-requests.html:41
+#, fuzzy
+#| msgid "Copy character name to clipboard"
+msgid "Copy request code to clipboard"
+msgstr "캐릭터 이름 복사"
+
+#: aasrp/templates/aasrp/view-requests.html:42
+#, fuzzy
+#| msgid "Copy character name to clipboard"
+msgid "Copy payout amount to clipboard"
+msgstr "캐릭터 이름 복사"
+
+#: aasrp/views/ajax.py:114
 msgid "Link"
 msgstr "링크"
 
@@ -861,15 +873,15 @@ msgstr "링크"
 msgid "Copy SRP link to clipboard"
 msgstr "복사"
 
-#: aasrp/views/ajax.py:588
+#: aasrp/views/ajax.py:585
 msgid "SRP request has been approved"
 msgstr "SRP 요청이 수락되었습니다"
 
-#: aasrp/views/ajax.py:679
+#: aasrp/views/ajax.py:676
 msgid "SRP request has been rejected"
 msgstr "SRP 요청이 거부되었습니다"
 
-#: aasrp/views/ajax.py:716
+#: aasrp/views/ajax.py:713
 msgid "SRP request has been removed"
 msgstr "SRP 요청이 삭제되었습니다"
 
