@@ -12,6 +12,7 @@ from allianceauth.eveonline.models import EveCharacter
 
 # AA SRP
 from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
+from aasrp.helper.icons import copy_to_clipboard_icon
 from aasrp.models import get_sentinel_user
 
 
@@ -64,12 +65,8 @@ def get_formatted_character_name(
 
     if with_copy_icon is True:
         title = _("Copy character name to clipboard")
-        character_name_formatted += (
-            "<sup><i "
-            'class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2 cursor-pointer" '
-            f'data-clipboard-text="{character_name}" title="{title}" '
-            'data-bs-tooltip="aa-srp"></i></sup>'
-        )
+        copy_icon = copy_to_clipboard_icon(data=character_name, title=title)
+        character_name_formatted += f"<sup>{copy_icon}</sup>"
 
     return_value = character_name_formatted
 

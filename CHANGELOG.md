@@ -43,7 +43,7 @@ Section Order:
 
 ### Added
 
-- Copy to clipboard buttons for request code and SRP payout (#266)
+- Copy to clipboard buttons for request code and SRP payout ([#266](https://github.com/ppfeufer/aa-srp/issues/266))
 
 ### Changed
 

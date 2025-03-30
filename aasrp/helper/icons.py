@@ -395,3 +395,25 @@ def get_srp_request_action_icons(
             )
 
     return srp_request_action_icons
+
+
+def copy_to_clipboard_icon(data: str, title: str) -> str:
+    """
+    Get copy to clipboard icon
+
+    :param data:
+    :type data:
+    :param title:
+    :type title:
+    :return:
+    :rtype:
+    """
+
+    icon_classes = "copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer"
+    icon = (
+        f'<i class="{icon_classes}" '
+        f'data-clipboard-text="{data}" title="{title}" '
+        'data-bs-tooltip="aa-srp"></i>'
+    )
+
+    return f'<span class="copy-to-clipboard-icon">{icon}</span>'

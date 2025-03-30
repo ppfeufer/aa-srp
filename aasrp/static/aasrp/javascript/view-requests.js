@@ -307,7 +307,7 @@ $(document).ready(() => {
         $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
 
         // Update copy to clipboard icon value
-        const copyToClipboard = element.parent().parent().find('.copy-to-clipboard i');
+        const copyToClipboard = element.parent().parent().find('.copy-to-clipboard-icon i');
         copyToClipboard.attr('data-clipboard-text', newValue);
     };
 
