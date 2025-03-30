@@ -113,7 +113,8 @@ $(document).ready(() => {
                         const ctcTitle = `title="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"`;
                         const ctcLabel = `aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"`;
                         const ctcIcon = `<i class="${ctcIconClass}" data-bs-tooltip="aa-srp" data-clipboard-text="${data}" ${ctcLabel} ${ctcTitle}></i>`;
-                        return `<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK</span></span> ${ctcIcon}`;
+                        const innerSpan = `<span class="srp-payout-amount d-block cursor-pointer">${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK</span>`;
+                        return `<span class="srp-payout-tooltip">${innerSpan}</span> ${ctcIcon}`;
                     } else {
                         return data;
                     }
