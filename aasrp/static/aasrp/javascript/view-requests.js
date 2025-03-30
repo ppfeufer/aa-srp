@@ -4,6 +4,7 @@ $(document).ready(() => {
     'use strict';
 
     const elementSrpRequestsTable = $('#tab_aasrp_srp_requests');
+    const ctcIconClass = "aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2";
 
     /**
      * Table :: SRP Requests
@@ -61,10 +62,12 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
+                        const ctcTitle = `title="${aaSrpSettings.translation.copyRequestCodeToClipboard}"`;
+                        const ctcLabel = `aria-label="${aaSrpSettings.translation.copyRequestCodeToClipboard}"`;
+                        const ctcIcon = `<i class="${ctcIconClass}" data-bs-tooltip="aa-srp" data-clipboard-text="${data}" ${ctcLabel} ${ctcTitle}></i>`;
                         return `
                             <span>
-                                ${data}
-                                <i class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" data-bs-tooltip="aa-srp" data-clipboard-text="${data}" aria-label="${aaSrpSettings.translation.copyRequestCodeToClipboard}" title="${aaSrpSettings.translation.copyRequestCodeToClipboard}"></i>
+                                ${data} ${ctcIcon}
                             </span>
                         `;
                     } else {
@@ -111,12 +114,19 @@ $(document).ready(() => {
                  */
                 render: (data, type) => {
                     if (type === 'display') {
+                        const ctcTitle = `title="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"`;
+                        const ctcLabel = `aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"`;
+                        const ctcIcon = `<i class="${ctcIconClass}" data-bs-tooltip="aa-srp-payout" data-clipboard-text="${data}" ${ctcLabel} ${ctcTitle}></i>`;
                         return `
-                            <span class="srp-payout-tooltip">
-                                <span class="srp-payout-amount d-block cursor-pointer">
-                                    ${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK
+                            <span>
+                                <span class="srp-payout-tooltip">
+                                    <span class="srp-payout-amount d-block cursor-pointer">
+                                        ${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK
+                                    </span>
                                 </span>
-                                <i class="aa-srp-fa-icon copy-text-fa-icon fa-regular fa-copy ms-2" data-clipboard-text="${data}" data-bs-tooltip="aa-srp" aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}" title="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"></i>
+                                <span>
+                                    ${ctcIcon}
+                                </span>
                             </span>
                         `;
                     } else {
@@ -269,6 +279,12 @@ $(document).ready(() => {
         });
 
         $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
+
+        //Update tooltip value by first selecting parent and then selecting the icon
+        const parent = innerSpan.closest('.srp-payout-tooltip');
+        const ctcIcon = parent.querySelector('i');
+        ctcIcon
+            .attr('data-clipboard-text', newValue)
     };
 
     /**
