@@ -31,7 +31,7 @@ $(document).ready(() => {
                      * @returns {string|*}
                      * @private
                      */
-                    _: (data) => {
+                    display: (data) => {
                         return data === null ? '' : moment(data).utc().format(
                             aaSrpSettings.datetimeFormat
                         );
@@ -56,7 +56,7 @@ $(document).ready(() => {
                 data: 'character_html',
                 render: {
                     display: 'display',
-                    _: 'sort'
+                    sort: 'sort'
                 },
                 className: 'srp-request-character'
             },
@@ -72,7 +72,7 @@ $(document).ready(() => {
                      * @param {string} data
                      * @returns {string}
                      */
-                    _: (data) => {
+                    display: (data) => {
                         return data === null ? '' : `<span>${data}<sup>${copyToClipboardIcon(data, aaSrpSettings.translation.copyRequestCodeToClipboard)}</sup></span>`;
                     },
                     /**
@@ -91,7 +91,7 @@ $(document).ready(() => {
                 data: 'ship_html',
                 render: {
                     display: 'display',
-                    _: 'sort'
+                    sort: 'sort'
                 },
                 className: 'srp-request-ship'
             },
@@ -100,16 +100,25 @@ $(document).ready(() => {
                 data: 'zbk_loss_amount',
                 /**
                  * Render callback
-                 *
-                 * @param {int|string} data
-                 * @param {string} type
-                 * @returns {string|*}
                  */
-                render: (data, type) => {
-                    if (type === 'display') {
-                        return `${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK`;
-                    } else {
-                        return data;
+                render: {
+                    /**
+                     * Display callback
+                     *
+                     * @param {int|string} data
+                     * @returns {string}
+                     */
+                    display: (data) => {
+                        return data === null ? '' : `${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK`;
+                    },
+                    /**
+                     * Sort callback
+                     *
+                     * @param {int|string} data
+                     * @returns {string|*}
+                     */
+                    sort: (data) => {
+                        return data === null ? '' : data;
                     }
                 },
                 className: 'srp-request-zbk-loss-amount text-end'
@@ -126,7 +135,7 @@ $(document).ready(() => {
                      * @param {int|string} data
                      * @returns {string}
                      */
-                    _: (data) => {
+                    display: (data) => {
                         if (data === null) {
                             return '';
                         }
