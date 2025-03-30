@@ -118,16 +118,12 @@ $(document).ready(() => {
                         const ctcLabel = `aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"`;
                         const ctcIcon = `<i class="${ctcIconClass}" data-bs-tooltip="aa-srp-payout" data-clipboard-text="${data}" ${ctcLabel} ${ctcTitle}></i>`;
                         return `
-                            <span>
-                                <span class="srp-payout-tooltip">
-                                    <span class="srp-payout-amount d-block cursor-pointer">
-                                        ${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK
-                                    </span>
-                                </span>
-                                <span>
-                                    ${ctcIcon}
+                            <span class="srp-payout-tooltip">
+                                <span class="srp-payout-amount d-block cursor-pointer">
+                                    ${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK
                                 </span>
                             </span>
+                            ${ctcIcon}
                         `;
                     } else {
                         return data;
@@ -281,7 +277,7 @@ $(document).ready(() => {
         $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
 
         //Update tooltip value by first selecting parent and then selecting the icon
-        const parent = innerSpan.closest('.srp-payout-tooltip');
+        const parent = element.closest('td');
         const ctcIcon = parent.querySelector('i');
         ctcIcon
             .attr('data-clipboard-text', newValue)
