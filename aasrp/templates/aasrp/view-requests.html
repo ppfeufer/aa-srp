@@ -38,8 +38,6 @@
     {% translate "Insurance payout" as translateInsurancePayout %}
     {% translate "Additional information" as translateAdditionalInformation %}
     {% translate "Reject information" as translateRejectInformation %}
-    {% translate "Copy request code to clipboard" as translateCopyRequestCodeToClipboard %}
-    {% translate "Copy payout amount to clipboard" as translateCopyPayoutAmountToClipboard %}
 
     <script>
         /**
@@ -61,8 +59,6 @@
                 changeSrpPayoutAmount: '{{ translateChangeSrpPayoutAmount|escapejs }}',
                 changeSrpPayoutHeader: '{{ translateChangeSrpPayoutHeader|escapejs }}',
                 editableValidate: '{{ translateEditableValidate|escapejs }}',
-                copyRequestCodeToClipboard: '{{ translateCopyRequestCodeToClipboard|escapejs }}',
-                copyPayoutAmountToClipboard: '{{ translateCopyPayoutAmountToClipboard|escapejs }}',
                 modal: {
                     srpDetails: {
                         body: {

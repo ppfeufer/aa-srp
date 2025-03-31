@@ -5,7 +5,9 @@ Some helper functions, so we don't mess up other files too much
 # Django
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
+from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.safestring import SafeString
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
@@ -397,23 +399,19 @@ def get_srp_request_action_icons(
     return srp_request_action_icons
 
 
-def copy_to_clipboard_icon(data: str, title: str) -> str:
+def copy_to_clipboard_icon(data: str, title: str) -> SafeString:
     """
     Get copy to clipboard icon
 
-    :param data:
-    :type data:
-    :param title:
-    :type title:
-    :return:
-    :rtype:
+    :param data: The data to be copied to the clipboard
+    :type data: str
+    :param title: The title for the icon
+    :type title: str
+    :return: The HTML for the copy to clipboard icon
+    :rtype: SafeString
     """
 
-    icon_classes = "copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer"
-    icon = (
-        f'<i class="{icon_classes}" '
-        f'data-clipboard-text="{data}" title="{title}" '
-        'data-bs-tooltip="aa-srp"></i>'
+    return render_to_string(
+        template_name="aasrp/partials/common/copy-to-clipboard-icon.html",
+        context={"data": data, "title": title},
     )
-
-    return f'<span class="copy-to-clipboard-icon">{icon}</span>'

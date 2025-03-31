@@ -41,6 +41,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Copy to Clipboard icon moved to Django template
+
 ## [2.7.0] - 2025-03-31
 
 ### Added

@@ -39,6 +39,8 @@ from aasrp.helper.icons import (
     get_srp_request_details_icon,
     get_srp_request_status_icon,
 )
+from aasrp.helper.numbers import l10n_number_format
+from aasrp.helper.srp_data import payout_amount_html, request_code_html
 from aasrp.helper.user import get_user_settings
 from aasrp.managers import SrpManager
 from aasrp.models import RequestComment, SrpLink, SrpRequest
@@ -315,26 +317,40 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
         srp_request_action_icons = get_srp_request_action_icons(
             request=request, srp_link=srp_request.srp_link, srp_request=srp_request
         )
-        character_display = get_formatted_character_name(
-            character=srp_request.character, with_portrait=True, with_copy_icon=True
-        )
-        character_sort = get_formatted_character_name(character=srp_request.character)
 
         data.append(
             {
                 "request_time": srp_request.post_time,
                 "requester": get_main_character_name_from_user(srp_request.creator),
                 "character_html": {
-                    "display": character_display,
-                    "sort": character_sort,
+                    "display": get_formatted_character_name(
+                        character=srp_request.character,
+                        with_portrait=True,
+                        with_copy_icon=True,
+                    ),
+                    "sort": srp_request.character.character_name,
                 },
                 "character": srp_request.character.character_name,
+                "request_code_html": {
+                    "display": request_code_html(request_code=srp_request.request_code),
+                    "sort": srp_request.request_code,
+                },
                 "request_code": srp_request.request_code,
                 "srp_code": srp_request.srp_link.srp_code,
                 "ship_html": {"display": killboard_link, "sort": srp_request.ship.name},
                 "ship": srp_request.ship.name,
                 "zkb_link": killboard_link,
+                "zkb_loss_amount_html": {
+                    "display": l10n_number_format(srp_request.loss_amount),
+                    "sort": srp_request.loss_amount,
+                },
                 "zbk_loss_amount": srp_request.loss_amount,
+                "payout_amount_html": {
+                    "display": payout_amount_html(
+                        payout_amount=srp_request.payout_amount
+                    ),
+                    "sort": srp_request.payout_amount,
+                },
                 "payout_amount": srp_request.payout_amount,
                 "request_status_icon": srp_request_status_icon,
                 "actions": srp_request_action_icons,
@@ -343,7 +359,7 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
             }
         )
 
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data=data, safe=False)
 
 
 @login_required
