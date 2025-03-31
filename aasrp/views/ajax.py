@@ -39,8 +39,11 @@ from aasrp.helper.icons import (
     get_srp_request_details_icon,
     get_srp_request_status_icon,
 )
-from aasrp.helper.numbers import l10n_number_format
-from aasrp.helper.srp_data import payout_amount_html, request_code_html
+from aasrp.helper.srp_data import (
+    payout_amount_html,
+    request_code_html,
+    zkillboard_loss_amount_html,
+)
 from aasrp.helper.user import get_user_settings
 from aasrp.managers import SrpManager
 from aasrp.models import RequestComment, SrpLink, SrpRequest
@@ -341,7 +344,7 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
                 "ship": srp_request.ship.name,
                 "zkb_link": killboard_link,
                 "zkb_loss_amount_html": {
-                    "display": l10n_number_format(srp_request.loss_amount),
+                    "display": zkillboard_loss_amount_html(srp_request.loss_amount),
                     "sort": srp_request.loss_amount,
                 },
                 "zbk_loss_amount": srp_request.loss_amount,
