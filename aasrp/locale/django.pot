@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.7.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-03-31 01:41+0200\n"
+"POT-Creation-Date: 2025-04-01 00:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -220,53 +220,53 @@ msgstr ""
 msgid "Copy character name to clipboard"
 msgstr ""
 
-#: aasrp/helper/icons.py:39 aasrp/templates/aasrp/request-srp.html:6
+#: aasrp/helper/icons.py:43 aasrp/templates/aasrp/request-srp.html:6
 msgid "Request SRP"
 msgstr ""
 
-#: aasrp/helper/icons.py:53
+#: aasrp/helper/icons.py:57
 msgid "View SRP requests"
 msgstr ""
 
-#: aasrp/helper/icons.py:67
+#: aasrp/helper/icons.py:71
 #: aasrp/templates/aasrp/partials/link-edit/form.html:19
 msgid "Add/Change AAR link"
 msgstr ""
 
-#: aasrp/helper/icons.py:78
+#: aasrp/helper/icons.py:82
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:9
 msgid "Disable SRP link"
 msgstr ""
 
-#: aasrp/helper/icons.py:97
+#: aasrp/helper/icons.py:101
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:9
 msgid "Enable SRP link"
 msgstr ""
 
-#: aasrp/helper/icons.py:115
+#: aasrp/helper/icons.py:119
 msgid "Remove SRP ink"
 msgstr ""
 
-#: aasrp/helper/icons.py:148
+#: aasrp/helper/icons.py:152
 msgid "SRP request pending"
 msgstr ""
 
-#: aasrp/helper/icons.py:160
+#: aasrp/helper/icons.py:164
 msgid "SRP request approved"
 msgstr ""
 
-#: aasrp/helper/icons.py:172 aasrp/views/ajax.py:671
+#: aasrp/helper/icons.py:176 aasrp/views/ajax.py:688
 msgid "SRP request rejected"
 msgstr ""
 
-#: aasrp/helper/icons.py:208
+#: aasrp/helper/icons.py:212
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr ""
 
-#: aasrp/helper/icons.py:258
+#: aasrp/helper/icons.py:262
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
@@ -274,15 +274,23 @@ msgstr ""
 msgid "Accept SRP request"
 msgstr ""
 
-#: aasrp/helper/icons.py:302
+#: aasrp/helper/icons.py:306
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:40
 msgid "Reject SRP request"
 msgstr ""
 
-#: aasrp/helper/icons.py:342
+#: aasrp/helper/icons.py:346
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
+msgstr ""
+
+#: aasrp/helper/srp_data.py:21
+msgid "Copy request code to clipboard"
+msgstr ""
+
+#: aasrp/helper/srp_data.py:40
+msgid "Copy payout amount to clipboard"
 msgstr ""
 
 #: aasrp/models.py:68
@@ -855,31 +863,23 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: aasrp/templates/aasrp/view-requests.html:41
-msgid "Copy request code to clipboard"
-msgstr ""
-
-#: aasrp/templates/aasrp/view-requests.html:42
-msgid "Copy payout amount to clipboard"
-msgstr ""
-
-#: aasrp/views/ajax.py:114
+#: aasrp/views/ajax.py:117
 msgid "Link"
 msgstr ""
 
-#: aasrp/views/ajax.py:122
+#: aasrp/views/ajax.py:125
 msgid "Copy SRP link to clipboard"
 msgstr ""
 
-#: aasrp/views/ajax.py:585
+#: aasrp/views/ajax.py:602
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:676
+#: aasrp/views/ajax.py:693
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:713
+#: aasrp/views/ajax.py:730
 msgid "SRP request has been removed"
 msgstr ""
 

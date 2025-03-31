@@ -24,6 +24,7 @@ from aasrp.helper.character import (
     get_user_for_character,
 )
 from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
+from aasrp.helper.icons import copy_to_clipboard_icon
 from aasrp.models import get_sentinel_user
 
 
@@ -99,15 +100,15 @@ class TestGetFormattedCharacterName(TestCase):
         :rtype:
         """
 
+        self.maxDiff = None
+
         html = get_formatted_character_name(
             character=self.alt_character, with_copy_icon=True
         )
 
-        icon = (
-            '<span class="copy-to-clipboard-icon"><i '
-            'class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" '
-            f'data-clipboard-text="{self.alt_character.character_name}" '
-            'title="Copy character name to clipboard" data-bs-tooltip="aa-srp"></i></span>'
+        icon = copy_to_clipboard_icon(
+            data=self.alt_character.character_name,
+            title="Copy character name to clipboard",
         )
 
         copy_icon = f"<sup>{icon}</sup>"

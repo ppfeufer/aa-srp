@@ -1,4 +1,4 @@
-/* global aaSrpSettings, bootstrap, copyToClipboardIcon, moment */
+/* global aaSrpSettings, bootstrap, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -56,34 +56,20 @@ $(document).ready(() => {
                 data: 'character_html',
                 render: {
                     display: 'display',
+                    filter: 'sort',
                     sort: 'sort'
                 },
                 className: 'srp-request-character'
             },
             {
-                data: 'request_code',
+                data: 'request_code_html',
                 /**
                  * Render callback
                  */
                 render:  {
-                    /**
-                     * Display callback
-                     *
-                     * @param {string} data
-                     * @returns {string}
-                     */
-                    display: (data) => {
-                        return data === null ? '' : `<span>${data}<sup>${copyToClipboardIcon(data, aaSrpSettings.translation.copyRequestCodeToClipboard)}</sup></span>`;
-                    },
-                    /**
-                     * Sort callback
-                     *
-                     * @param {string} data
-                     * @returns {string|*}
-                     */
-                    sort: (data) => {
-                        return data === null ? '' : data;
-                    }
+                    display: 'display',
+                    filter: 'sort',
+                    sort: 'sort'
                 },
                 className: 'srp-request-code'
             },
@@ -91,73 +77,33 @@ $(document).ready(() => {
                 data: 'ship_html',
                 render: {
                     display: 'display',
+                    filter: 'sort',
                     sort: 'sort'
                 },
                 className: 'srp-request-ship'
             },
             // {data: 'zkb_link'},
             {
-                data: 'zbk_loss_amount',
+                data: 'zkb_loss_amount_html',
                 /**
                  * Render callback
                  */
                 render: {
-                    /**
-                     * Display callback
-                     *
-                     * @param {int|string} data
-                     * @returns {string}
-                     */
-                    display: (data) => {
-                        return data === null ? '' : `${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK`;
-                    },
-                    /**
-                     * Sort callback
-                     *
-                     * @param {int|string} data
-                     * @returns {string|*}
-                     */
-                    sort: (data) => {
-                        return data === null ? '' : data;
-                    }
+                    display: 'display',
+                    filter: 'sort',
+                    sort: 'sort'
                 },
                 className: 'srp-request-zbk-loss-amount text-end'
             },
             {
-                data: 'payout_amount',
+                data: 'payout_amount_html',
                 /**
                  * Render callback
                  */
                 render: {
-                    /**
-                     * Display callback
-                     *
-                     * @param {int|string} data
-                     * @returns {string}
-                     */
-                    display: (data) => {
-                        if (data === null) {
-                            return '';
-                        }
-
-                        const copyButton = copyToClipboardIcon(
-                            data,
-                            aaSrpSettings.translation.copyPayoutAmountToClipboard
-                        );
-                        const payout = `${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK`;
-                        const payoutField = `<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">${payout}</span></span>`;
-
-                        return `<span class="srp-payout d-flex justify-content-end align-items-baseline">${payoutField}<sup>${copyButton}</sup></span>`;
-                    },
-                    /**
-                     * Sort callback
-                     *
-                     * @param {int|string} data
-                     * @returns {string|*}
-                     */
-                    sort: (data) => {
-                        return data === null ? '' : data;
-                    }
+                    display: 'display',
+                    filter: 'sort',
+                    sort: 'sort'
                 },
                 className: 'srp-request-payout text-end'
             },
