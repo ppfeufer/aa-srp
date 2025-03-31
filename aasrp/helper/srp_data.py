@@ -45,6 +45,23 @@ def payout_amount_html(payout_amount: int) -> str:
         data=str(payout_amount), title=_("Copy payout amount to clipboard")
     )
     payout_amount_localized = l10n_number_format(payout_amount)
-    payout_field = f'<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">{payout_amount_localized}</span></span>'
+    payout_field = f'<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">{payout_amount_localized} ISK</span></span>'
 
     return f'<span class="srp-payout d-flex justify-content-end align-items-baseline">{payout_field}<sup>{payout_amount_ctc_icon}</sup></span>'
+
+
+def zkillboard_loss_amount_html(loss_amount: int) -> str:
+    """
+    Get HTML for localized zkillboard loss amount
+
+    :param request:
+    :type request:
+    :param loss_amount:
+    :type loss_amount:
+    :return:
+    :rtype:
+    """
+
+    loss_amount_localized = l10n_number_format(loss_amount)
+
+    return f"{loss_amount_localized} ISK"
