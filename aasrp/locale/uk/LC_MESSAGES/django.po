@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-03-31 01:41+0200\n"
+"POT-Creation-Date: 2025-04-01 02:41+0200\n"
 "PO-Revision-Date: 2025-03-23 11:24+0000\n"
 "Last-Translator: M <skrypets@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/uk/>\n"
@@ -38,7 +38,7 @@ msgstr "Автор"
 #: aasrp/admin.py:88
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
-#: aasrp/templates/aasrp/view-own-requests.html:26
+#: aasrp/templates/aasrp/view-own-requests.html:24
 #: aasrp/templates/aasrp/view-requests.html:37
 msgid "Requestor"
 msgstr "Заявник"
@@ -157,7 +157,7 @@ msgstr "посилання на Killboard"
 
 #: aasrp/form.py:138 aasrp/form.py:147 aasrp/models.py:307 aasrp/models.py:401
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:27
+#: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:39
 msgid "Additional information"
 msgstr "Додаткова інформація"
@@ -217,53 +217,53 @@ msgstr "Невідомий персонаж"
 msgid "Copy character name to clipboard"
 msgstr "Скопіювати ім'я персонажа в буфер обміну"
 
-#: aasrp/helper/icons.py:39 aasrp/templates/aasrp/request-srp.html:6
+#: aasrp/helper/icons.py:41 aasrp/templates/aasrp/request-srp.html:6
 msgid "Request SRP"
 msgstr "Запит на SRP"
 
-#: aasrp/helper/icons.py:53
+#: aasrp/helper/icons.py:55
 msgid "View SRP requests"
 msgstr "Переглянути SRP запити"
 
-#: aasrp/helper/icons.py:67
+#: aasrp/helper/icons.py:69
 #: aasrp/templates/aasrp/partials/link-edit/form.html:19
 msgid "Add/Change AAR link"
 msgstr "Додати/змінити посилання на AAR"
 
-#: aasrp/helper/icons.py:78
+#: aasrp/helper/icons.py:80
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:9
 msgid "Disable SRP link"
 msgstr "Вимкнути SRP-посилання"
 
-#: aasrp/helper/icons.py:97
+#: aasrp/helper/icons.py:99
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:9
 msgid "Enable SRP link"
 msgstr "Увімкнути SRP-посилання"
 
-#: aasrp/helper/icons.py:115
+#: aasrp/helper/icons.py:117
 msgid "Remove SRP ink"
 msgstr "Видалити SRP-посилання"
 
-#: aasrp/helper/icons.py:148
+#: aasrp/helper/icons.py:150
 msgid "SRP request pending"
 msgstr "Запит на SRP очікує розгляду"
 
-#: aasrp/helper/icons.py:160
+#: aasrp/helper/icons.py:162
 msgid "SRP request approved"
 msgstr "Запит на SRP затверджено"
 
-#: aasrp/helper/icons.py:172 aasrp/views/ajax.py:671
+#: aasrp/helper/icons.py:174 aasrp/views/ajax.py:705
 msgid "SRP request rejected"
 msgstr "Запит на SRP відхилено"
 
-#: aasrp/helper/icons.py:208
+#: aasrp/helper/icons.py:210
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr "Деталі запиту на SRP"
 
-#: aasrp/helper/icons.py:258
+#: aasrp/helper/icons.py:260
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
@@ -271,16 +271,42 @@ msgstr "Деталі запиту на SRP"
 msgid "Accept SRP request"
 msgstr "Прийняти запит на SRP"
 
-#: aasrp/helper/icons.py:302
+#: aasrp/helper/icons.py:304
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:40
 msgid "Reject SRP request"
 msgstr "Відхилити запит на SRP"
 
-#: aasrp/helper/icons.py:342
+#: aasrp/helper/icons.py:344
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr "Видалити запит на SRP"
+
+#: aasrp/helper/srp_data.py:27
+#, fuzzy
+#| msgid "Copy character name to clipboard"
+msgid "Copy request code to clipboard"
+msgstr "Скопіювати ім'я персонажа в буфер обміну"
+
+#: aasrp/helper/srp_data.py:46
+#, fuzzy
+#| msgid "Copy character name to clipboard"
+msgid "Copy payout amount to clipboard"
+msgstr "Скопіювати ім'я персонажа в буфер обміну"
+
+#: aasrp/helper/srp_data.py:79 aasrp/models.py:120
+#: aasrp/templates/aasrp/dashboard.html:25
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
+#: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:50
+msgid "SRP code"
+msgstr "Код SRP"
+
+#: aasrp/helper/srp_data.py:80 aasrp/models.py:271
+#: aasrp/templates/aasrp/dashboard.html:26
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:18
+msgid "Request code"
+msgstr "Код запиту"
 
 #: aasrp/models.py:68
 msgid "Descriptive name of your fleet type"
@@ -317,14 +343,6 @@ msgstr "Назва SRP"
 #: aasrp/models.py:118
 msgid "SRP status"
 msgstr "Статус SRP"
-
-#: aasrp/models.py:120 aasrp/templates/aasrp/dashboard.html:25
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
-#: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:50
-#: aasrp/templates/aasrp/view-own-requests.html:24
-msgid "SRP code"
-msgstr "Код SRP"
 
 #: aasrp/models.py:128
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:32
@@ -366,12 +384,6 @@ msgstr "Затверджено"
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:20
 msgid "Rejected"
 msgstr "Відхилено"
-
-#: aasrp/models.py:271 aasrp/templates/aasrp/dashboard.html:26
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:18
-#: aasrp/templates/aasrp/view-own-requests.html:25
-msgid "Request code"
-msgstr "Код запиту"
 
 #: aasrp/models.py:280
 msgid "Who created the SRP request?"
@@ -842,7 +854,7 @@ msgstr "Запити на SRP"
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr "Натисніть на значення для редагування, натисніть Enter для збереження, ESC для скасування."
 
-#: aasrp/templates/aasrp/view-own-requests.html:28
+#: aasrp/templates/aasrp/view-own-requests.html:26
 #: aasrp/templates/aasrp/view-requests.html:40
 msgid "Reject information"
 msgstr "Інформація про відхилення"
@@ -863,35 +875,23 @@ msgstr "Порожні значення не валідні"
 msgid "This field is required."
 msgstr "Це поле обов’язкове."
 
-#: aasrp/templates/aasrp/view-requests.html:41
-#, fuzzy
-#| msgid "Copy character name to clipboard"
-msgid "Copy request code to clipboard"
-msgstr "Скопіювати ім'я персонажа в буфер обміну"
-
-#: aasrp/templates/aasrp/view-requests.html:42
-#, fuzzy
-#| msgid "Copy character name to clipboard"
-msgid "Copy payout amount to clipboard"
-msgstr "Скопіювати ім'я персонажа в буфер обміну"
-
-#: aasrp/views/ajax.py:114
+#: aasrp/views/ajax.py:120
 msgid "Link"
 msgstr "Посилання"
 
-#: aasrp/views/ajax.py:122
+#: aasrp/views/ajax.py:128
 msgid "Copy SRP link to clipboard"
 msgstr "Скопіювати SRP-посилання у буфер обміну"
 
-#: aasrp/views/ajax.py:585
+#: aasrp/views/ajax.py:619
 msgid "SRP request has been approved"
 msgstr "SRP запит одобрено"
 
-#: aasrp/views/ajax.py:676
+#: aasrp/views/ajax.py:710
 msgid "SRP request has been rejected"
 msgstr "Запит SRP відхилено"
 
-#: aasrp/views/ajax.py:713
+#: aasrp/views/ajax.py:747
 msgid "SRP request has been removed"
 msgstr "Запит SRP видалено"
 
