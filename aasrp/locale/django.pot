@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.7.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-01 01:44+0200\n"
+"POT-Creation-Date: 2025-04-01 02:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgstr ""
 #: aasrp/admin.py:88
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
-#: aasrp/templates/aasrp/view-own-requests.html:26
+#: aasrp/templates/aasrp/view-own-requests.html:24
 #: aasrp/templates/aasrp/view-requests.html:37
 msgid "Requestor"
 msgstr ""
@@ -153,7 +153,7 @@ msgstr ""
 
 #: aasrp/form.py:138 aasrp/form.py:147 aasrp/models.py:307 aasrp/models.py:401
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:27
+#: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:39
 msgid "Additional information"
 msgstr ""
@@ -257,7 +257,7 @@ msgstr ""
 msgid "SRP request approved"
 msgstr ""
 
-#: aasrp/helper/icons.py:174 aasrp/views/ajax.py:690
+#: aasrp/helper/icons.py:174 aasrp/views/ajax.py:705
 msgid "SRP request rejected"
 msgstr ""
 
@@ -285,12 +285,26 @@ msgstr ""
 msgid "Delete SRP request"
 msgstr ""
 
-#: aasrp/helper/srp_data.py:26
+#: aasrp/helper/srp_data.py:27
 msgid "Copy request code to clipboard"
 msgstr ""
 
-#: aasrp/helper/srp_data.py:45
+#: aasrp/helper/srp_data.py:46
 msgid "Copy payout amount to clipboard"
+msgstr ""
+
+#: aasrp/helper/srp_data.py:79 aasrp/models.py:120
+#: aasrp/templates/aasrp/dashboard.html:25
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
+#: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:50
+msgid "SRP code"
+msgstr ""
+
+#: aasrp/helper/srp_data.py:80 aasrp/models.py:271
+#: aasrp/templates/aasrp/dashboard.html:26
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:18
+msgid "Request code"
 msgstr ""
 
 #: aasrp/models.py:68
@@ -327,14 +341,6 @@ msgstr ""
 
 #: aasrp/models.py:118
 msgid "SRP status"
-msgstr ""
-
-#: aasrp/models.py:120 aasrp/templates/aasrp/dashboard.html:25
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
-#: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:50
-#: aasrp/templates/aasrp/view-own-requests.html:24
-msgid "SRP code"
 msgstr ""
 
 #: aasrp/models.py:128
@@ -376,12 +382,6 @@ msgstr ""
 #: aasrp/models.py:268
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:20
 msgid "Rejected"
-msgstr ""
-
-#: aasrp/models.py:271 aasrp/templates/aasrp/dashboard.html:26
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:18
-#: aasrp/templates/aasrp/view-own-requests.html:25
-msgid "Request code"
 msgstr ""
 
 #: aasrp/models.py:280
@@ -842,7 +842,7 @@ msgstr ""
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr ""
 
-#: aasrp/templates/aasrp/view-own-requests.html:28
+#: aasrp/templates/aasrp/view-own-requests.html:26
 #: aasrp/templates/aasrp/view-requests.html:40
 msgid "Reject information"
 msgstr ""
@@ -863,23 +863,23 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: aasrp/views/ajax.py:119
+#: aasrp/views/ajax.py:120
 msgid "Link"
 msgstr ""
 
-#: aasrp/views/ajax.py:127
+#: aasrp/views/ajax.py:128
 msgid "Copy SRP link to clipboard"
 msgstr ""
 
-#: aasrp/views/ajax.py:604
+#: aasrp/views/ajax.py:619
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:695
+#: aasrp/views/ajax.py:710
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:732
+#: aasrp/views/ajax.py:747
 msgid "SRP request has been removed"
 msgstr ""
 

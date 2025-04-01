@@ -75,34 +75,20 @@ $(document).ready(() => {
                 data: 'srp_code',
                 render: {
                     display: 'display',
+                    filter: 'sort',
                     sort: 'sort'
                 },
                 className: 'srp-link-code'
             },
             {
-                data: 'srp_costs',
+                data: 'srp_costs_html',
                 /**
                  * Render callback
                  */
                 render: {
-                    /**
-                     * Display callback
-                     *
-                     * @param {int|string} data
-                     * @returns {string}
-                     */
-                    display: (data) => {
-                        return data === null ? '' : `${new Intl.NumberFormat(aaSrpSettings.locale).format(data)} ISK`;
-                    },
-                    /**
-                     * Filter callback
-                     *
-                     * @param {int|string} data
-                     * @returns {int|string|*}
-                     */
-                    sort: (data) => {
-                        return data === null ? '' : data;
-                    }
+                    display: 'display',
+                    filter: 'sort',
+                    sort: 'sort'
                 },
                 className: 'srp-link-total-cost text-end'
             },
