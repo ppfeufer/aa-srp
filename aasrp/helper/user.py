@@ -19,6 +19,4 @@ def get_user_settings(user: User) -> UserSetting:
     :rtype:
     """
 
-    user_settings, _ = UserSetting.objects.get_or_create(user=user)
-
-    return user_settings
+    return UserSetting.objects.get_or_create(user=user)[0]

@@ -63,53 +63,36 @@ class SrpManager:
             "User-Agent": UserAgent.REQUESTS.value,
             "Content-Type": "application/json",
         }
-        request_result = requests.get(url=url, headers=headers, timeout=5)
-
         try:
+            request_result = requests.get(url=url, headers=headers, timeout=5)
             request_result.raise_for_status()
-        except requests.HTTPError as exc:
-            error_str = str(exc)
-
-            logger.warning(
-                msg=f"Unable to get kill mail details from zKillboard. Error: {error_str}",
-                exc_info=True,
-            )
-
-            raise ValueError(error_str) from exc
-        except requests.Timeout as exc:
-            error_str = str(exc)
-
-            logger.warning(msg="Connection to zKillboard timed out …")
-
-            raise ValueError(error_str) from exc
-
-        result_killmails = request_result.json()
-        result = None
-        for killmail in result_killmails:
-            if killmail["killmail_id"] == int(kill_id):
-                result = killmail
-
-        if not result:
-            logger.warning(
-                msg=(
-                    "Couldn't find any kill mail information in zKillboard's API response. "
-                    "This is likely an issue with zKillboard."
+            result_killmails = request_result.json()
+            result = next(
+                (
+                    killmail
+                    for killmail in result_killmails
+                    if killmail["killmail_id"] == int(kill_id)
                 ),
-                exc_info=True,
+                None,
             )
-
-            raise ValueError(
-                "Couldn't find any kill mail information in zKillboard's API response. "
-                "This is likely an issue with zKillboard."
-            )
-
-        try:
+            if not result:
+                raise ValueError(
+                    "Couldn't find any kill mail information in zKillboard's API response. This is likely an issue with zKillboard."
+                )
             killmail_id = result["killmail_id"]
             killmail_hash = result["zkb"]["hash"]
-
             esi_killmail = esi.client.Killmails.get_killmails_killmail_id_killmail_hash(
                 killmail_id=killmail_id, killmail_hash=killmail_hash
             ).result()
+        except requests.HTTPError as exc:
+            logger.warning(
+                f"Unable to get kill mail details from zKillboard. Error: {exc}",
+                exc_info=True,
+            )
+            raise ValueError(str(exc)) from exc
+        except requests.Timeout as exc:
+            logger.warning("Connection to zKillboard timed out", exc_info=True)
+            raise ValueError(str(exc)) from exc
         except Exception as exc:
             raise ValueError("Invalid Kill ID or Hash.") from exc
 
@@ -117,14 +100,12 @@ class SrpManager:
         from aasrp.models import Setting  # pylint: disable=import-outside-toplevel
 
         loss_value_field = Setting.objects.get_setting(Setting.Field.LOSS_VALUE_SOURCE)
-
         ship_type = esi_killmail["victim"]["ship_type_id"]
         ship_value = result["zkb"][loss_value_field]
-
-        logger.debug(msg=f"Ship type for kill ID {kill_id} is {ship_type}")
-        logger.debug(msg=f"Total loss value for kill id {kill_id} is {ship_value}")
-
         victim_id = esi_killmail["victim"]["character_id"]
+
+        logger.debug(f"Ship type for kill ID {kill_id} is {ship_type}")
+        logger.debug(f"Total loss value for kill id {kill_id} is {ship_value}")
 
         return ship_type, ship_value, victim_id
 
@@ -163,13 +144,16 @@ class SrpManager:
         :rtype:
         """
 
-        insurance_prices = esi.client.Insurance.get_insurance_prices().result()
+        insurance = next(
+            (
+                i
+                for i in esi.client.Insurance.get_insurance_prices().result()
+                if i["type_id"] == ship_type_id
+            ),
+            None,
+        )
 
-        for insurance in insurance_prices:
-            if insurance["type_id"] == ship_type_id:
-                return insurance
-
-        return None
+        return insurance
 
 
 class SettingQuerySet(models.QuerySet):
