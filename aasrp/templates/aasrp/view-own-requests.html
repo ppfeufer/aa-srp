@@ -21,8 +21,6 @@
     {% translate "Ship" as translationShip %}
     {% translate "Request status" as translationRequestStatus %}
     {% translate "Character" as translationCharacter %}
-    {% translate "SRP code" as translationSrpCode %}
-    {% translate "Request code" as translationRequestCode %}
     {% translate "Requestor" as translationRequestor %}
     {% translate "Additional information" as translationAdditionalInformation %}
     {% translate "Reject information" as translationRejectInformation %}
@@ -40,12 +38,6 @@
                     ship: '{{ translationShip|escapejs }}',
                     requestStatus: '{{ translationRequestStatus|escapejs }}',
                     character: '{{ translationCharacter|escapejs }}',
-                },
-                dataTable: {
-                    content: {
-                        srpCode: '{{ translationSrpCode|escapejs }}',
-                        requestCode: '{{ translationRequestCode|escapejs }}',
-                    }
                 },
                 modal: {
                     srpDetails: {

@@ -43,6 +43,7 @@ Section Order:
 
 ### Changed
 
+- JavaScript rendering reduced, let Python do the heavy lifting
 - Copy to Clipboard icon moved to Django template
 
 ## [2.7.0] - 2025-03-31

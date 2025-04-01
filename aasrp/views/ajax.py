@@ -40,9 +40,10 @@ from aasrp.helper.icons import (
     get_srp_request_status_icon,
 )
 from aasrp.helper.srp_data import (
+    localized_isk_value,
     payout_amount_html,
     request_code_html,
-    zkillboard_loss_amount_html,
+    request_fleet_details_html,
 )
 from aasrp.helper.user import get_user_settings
 from aasrp.managers import SrpManager
@@ -145,6 +146,10 @@ def dashboard_srp_links_data(
                 "aar_link": aar_link,
                 "srp_code": {"display": srp_code_html, "sort": srp_link.srp_code},
                 "srp_costs": srp_link.total_cost,
+                "srp_costs_html": {
+                    "display": localized_isk_value(srp_link.total_cost),
+                    "sort": srp_link.total_cost,
+                },
                 "srp_status": srp_link.srp_status,
                 "pending_requests": srp_link.pending_requests,
                 "actions": actions,
@@ -232,22 +237,32 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
         data.append(
             {
                 "request_time": srp_request.post_time,
+                "character": srp_request.character.character_name,
                 "character_html": {
                     "display": character_display,
                     "sort": character_sort,
                 },
-                "character": srp_request.character.character_name,
-                "fleet_name": srp_request.srp_link.srp_name,
+                "fleet_name_html": {
+                    "display": request_fleet_details_html(srp_request=srp_request),
+                    "sort": srp_request.srp_link.srp_name,
+                },
                 "srp_code": srp_request.srp_link.srp_code,
                 "request_code": srp_request.request_code,
+                "ship": srp_request.ship.name,
                 "ship_html": {
                     "display": killboard_link,
                     "sort": srp_request.ship.name,
                 },
-                "ship": srp_request.ship.name,
                 "zkb_link": killboard_link,
-                "zbk_loss_amount": srp_request.loss_amount,
+                "zkb_loss_amount_html": {
+                    "display": localized_isk_value(srp_request.loss_amount),
+                    "sort": srp_request.loss_amount,
+                },
                 "payout_amount": srp_request.payout_amount,
+                "payout_amount_html": {
+                    "display": localized_isk_value(srp_request.payout_amount),
+                    "sort": srp_request.loss_amount,
+                },
                 "request_status_icon": (
                     srp_request_details_icon + srp_request_status_icon
                 ),
@@ -344,7 +359,7 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
                 "ship": srp_request.ship.name,
                 "zkb_link": killboard_link,
                 "zkb_loss_amount_html": {
-                    "display": zkillboard_loss_amount_html(srp_request.loss_amount),
+                    "display": localized_isk_value(srp_request.loss_amount),
                     "sort": srp_request.loss_amount,
                 },
                 "zbk_loss_amount": srp_request.loss_amount,
