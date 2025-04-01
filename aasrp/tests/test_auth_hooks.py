@@ -18,7 +18,7 @@ from aasrp.tests.utils import create_fake_user
 
 class TestMenuItemHtml(TestCase):
     """
-    Test the html of the menu item
+    Test the HTML of the menu item
     """
 
     @classmethod
