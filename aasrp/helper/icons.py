@@ -3,23 +3,57 @@ Some helper functions, so we don't mess up other files too much
 """
 
 # Django
-from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.safestring import SafeString
 from django.utils.translation import gettext_lazy as _
 
-# Alliance Auth
-from allianceauth.authentication.decorators import permissions_required
-
 # AA SRP
 from aasrp.models import SrpLink, SrpRequest
 
 
-@login_required
-@permission_required("aasrp.basic_access")
-def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
+def _create_button(  # pylint: disable=too-many-arguments, too-many-positional-arguments
+    url: str,
+    btn_class: str,
+    icon_class: str,
+    title: str,
+    modal_id: str = None,
+    data_name: str = None,
+):
+    """
+    Create a button with the given parameters
+
+    :param url:
+    :type url:
+    :param btn_class:
+    :type btn_class:
+    :param icon_class:
+    :type icon_class:
+    :param title:
+    :type title:
+    :param modal_id:
+    :type modal_id:
+    :param data_name:
+    :type data_name:
+    :return:
+    :rtype:
+    """
+
+    href_or_modal_attrs = (
+        f'data-bs-toggle="modal" data-bs-target="#{modal_id}" data-name="{data_name}" data-url="{url}"'
+        if modal_id
+        else f'href="{url}"'
+    )
+
+    return (
+        f'<a class="btn {btn_class} btn-sm btn-icon-aasrp" '
+        f'title="{title}" data-bs-tooltip="aa-srp" {href_or_modal_attrs}>'
+        f'<i class="{icon_class}"></i></a>'
+    )
+
+
+def dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
     """
     Getting the action buttons for the dashboard view
 
@@ -31,57 +65,12 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
     :rtype:
     """
 
-    def create_button(
-        url: str,
-        btn_class: str,
-        icon_class: str,
-        title: str,
-        modal_id: str = None,
-        data_name: str = None,
-    ):  # pylint: disable=too-many-arguments, too-many-positional-arguments
-        """
-        Create a button with the given parameters
-
-        :param url:
-        :type url:
-        :param btn_class:
-        :type btn_class:
-        :param icon_class:
-        :type icon_class:
-        :param title:
-        :type title:
-        :param modal_id:
-        :type modal_id:
-        :param data_name:
-        :type data_name:
-        :return:
-        :rtype:
-        """
-
-        # modal_attrs = (
-        #     f'data-bs-toggle="modal" data-bs-target="#{modal_id}" data-name="{data_name}" data-url="{url}"'
-        #     if modal_id
-        #     else ""
-        # )
-
-        href_or_modal_attrs = (
-            f'data-bs-toggle="modal" data-bs-target="#{modal_id}" data-name="{data_name}" data-url="{url}"'
-            if modal_id
-            else f'href="{url}"'
-        )
-
-        return (
-            f'<a class="btn {btn_class} btn-sm btn-icon-aasrp" '
-            f'title="{title}" data-bs-tooltip="aa-srp" {href_or_modal_attrs}>'
-            f'<i class="{icon_class}"></i></a>'
-        )
-
     actions = ""
 
     # Active SRP link
     if srp_link.srp_status == SrpLink.Status.ACTIVE:
         # Add SRP request button
-        actions += create_button(
+        actions += _create_button(
             url=reverse(viewname="aasrp:request_srp", args=[srp_link.srp_code]),
             btn_class="btn btn-success",
             icon_class="fa-solid fa-hand-holding-dollar",
@@ -94,7 +83,7 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
     ):
         # Add view SRP requests button
         actions += (
-            create_button(
+            _create_button(
                 url=reverse(
                     viewname="aasrp:view_srp_requests", args=[srp_link.srp_code]
                 ),
@@ -106,63 +95,59 @@ def get_dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
         )
 
         # Whether the SRP link is active or closed, we can edit it
-        if srp_link.srp_status != SrpLink.Status.COMPLETED:
-            # Check if the user has permission to manage SRP links
-            if request.user.has_perm("aasrp.manage_srp"):
-                # Check if the SRP status is active
-                if srp_link.srp_status == SrpLink.Status.ACTIVE:
-                    # Add AAR link button
-                    actions += create_button(
-                        url=reverse(
-                            viewname="aasrp:edit_srp_link", args=[srp_link.srp_code]
-                        ),
-                        btn_class="btn btn-info",
-                        icon_class="fa-regular fa-newspaper",
-                        title=_("Add/Change AAR link"),
-                    )
-                    # Add disable SRP link button
-                    actions += create_button(
-                        url=reverse(
-                            viewname="aasrp:disable_srp_link", args=[srp_link.srp_code]
-                        ),
-                        btn_class="btn btn-warning",
-                        icon_class="fa-solid fa-ban",
-                        title=_("Disable SRP link"),
-                        modal_id="disable-srp-link",
-                        data_name=f"{srp_link.srp_name} ({srp_link.srp_code})",
-                    )
-
-                # Check if the SRP status is closed
-                if srp_link.srp_status == SrpLink.Status.CLOSED:
-                    # Add enable SRP link button
-                    actions += create_button(
-                        url=reverse(
-                            viewname="aasrp:enable_srp_link", args=[srp_link.srp_code]
-                        ),
-                        btn_class="btn btn-success",
-                        icon_class="fa-solid fa-check",
-                        title=_("Enable SRP link"),
-                        modal_id="enable-srp-link",
-                        data_name=f"{srp_link.srp_name} ({srp_link.srp_code})",
-                    )
-
-                # Add delete SRP link button
-                actions += create_button(
+        if srp_link.srp_status != SrpLink.Status.COMPLETED and request.user.has_perm(
+            "aasrp.manage_srp"
+        ):
+            # Check if the SRP status is active
+            if srp_link.srp_status == SrpLink.Status.ACTIVE:
+                # Add AAR link button
+                actions += _create_button(
                     url=reverse(
-                        viewname="aasrp:delete_srp_link", args=[srp_link.srp_code]
+                        viewname="aasrp:edit_srp_link", args=[srp_link.srp_code]
                     ),
-                    btn_class="btn btn-danger",
-                    icon_class="fa-regular fa-trash-can",
-                    title=_("Remove SRP link"),
-                    modal_id="delete-srp-link",
+                    btn_class="btn btn-info",
+                    icon_class="fa-regular fa-newspaper",
+                    title=_("Add/Change AAR link"),
+                )
+                # Add disable SRP link button
+                actions += _create_button(
+                    url=reverse(
+                        viewname="aasrp:disable_srp_link", args=[srp_link.srp_code]
+                    ),
+                    btn_class="btn btn-warning",
+                    icon_class="fa-solid fa-ban",
+                    title=_("Disable SRP link"),
+                    modal_id="disable-srp-link",
                     data_name=f"{srp_link.srp_name} ({srp_link.srp_code})",
                 )
+
+            # Check if the SRP status is closed
+            if srp_link.srp_status == SrpLink.Status.CLOSED:
+                # Add enable SRP link button
+                actions += _create_button(
+                    url=reverse(
+                        viewname="aasrp:enable_srp_link", args=[srp_link.srp_code]
+                    ),
+                    btn_class="btn btn-success",
+                    icon_class="fa-solid fa-check",
+                    title=_("Enable SRP link"),
+                    modal_id="enable-srp-link",
+                    data_name=f"{srp_link.srp_name} ({srp_link.srp_code})",
+                )
+
+            # Add delete SRP link button
+            actions += _create_button(
+                url=reverse(viewname="aasrp:delete_srp_link", args=[srp_link.srp_code]),
+                btn_class="btn btn-danger",
+                icon_class="fa-regular fa-trash-can",
+                title=_("Remove SRP link"),
+                modal_id="delete-srp-link",
+                data_name=f"{srp_link.srp_name} ({srp_link.srp_code})",
+            )
 
     return actions
 
 
-@login_required
-@permission_required("aasrp.basic_access")
 def get_srp_request_status_icon(
     request: WSGIRequest, srp_request: SrpRequest  # pylint: disable=unused-argument
 ) -> str:
@@ -205,8 +190,6 @@ def get_srp_request_status_icon(
     return srp_request_status_icon
 
 
-@login_required
-@permission_required("aasrp.basic_access")
 def get_srp_request_details_icon(
     request: WSGIRequest,  # pylint: disable=unused-argument
     srp_link: SrpLink,
@@ -244,8 +227,6 @@ def get_srp_request_details_icon(
     return srp_request_details_icon
 
 
-@login_required
-@permission_required("aasrp.basic_access")
 def get_srp_request_accept_icon(
     request: WSGIRequest,  # pylint: disable=unused-argument
     srp_link: SrpLink,
@@ -296,8 +277,6 @@ def get_srp_request_accept_icon(
     return srp_request_accept_icon
 
 
-@login_required
-@permission_required("aasrp.basic_access")
 def get_srp_request_reject_icon(
     request: WSGIRequest,  # pylint: disable=unused-argument
     srp_link: SrpLink,
@@ -342,8 +321,6 @@ def get_srp_request_reject_icon(
     return srp_request_reject_icon
 
 
-@login_required
-@permission_required("aasrp.basic_access")
 def get_srp_request_delete_icon(
     request: WSGIRequest,  # pylint: disable=unused-argument
     srp_link: SrpLink,
@@ -382,8 +359,6 @@ def get_srp_request_delete_icon(
     return srp_request_delete_icon
 
 
-@login_required
-@permissions_required(("aasrp.manage_srp_requests", "aasrp.manage_srp"))
 def get_srp_request_action_icons(
     request: WSGIRequest, srp_link: SrpLink, srp_request: SrpRequest
 ) -> str:

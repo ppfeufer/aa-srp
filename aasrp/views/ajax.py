@@ -3,7 +3,7 @@ Ajax views
 """
 
 # Django
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import permission_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
@@ -33,7 +33,7 @@ from aasrp.helper.character import get_formatted_character_name
 from aasrp.helper.eve_images import get_type_render_url_from_type_id
 from aasrp.helper.icons import (
     copy_to_clipboard_icon,
-    get_dashboard_action_icons,
+    dashboard_action_icons,
     get_srp_request_action_icons,
     get_srp_request_details_icon,
     get_srp_request_status_icon,
@@ -51,7 +51,6 @@ from aasrp.models import RequestComment, SrpLink, SrpRequest
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
-@login_required
 @permission_required("aasrp.basic_access")
 def dashboard_srp_links_data(
     request: WSGIRequest, show_all_links: bool = False
@@ -87,6 +86,7 @@ def dashboard_srp_links_data(
         )
 
         srp_code_html = srp_link.srp_code
+
         if srp_link.srp_status == SrpLink.Status.ACTIVE:
             srp_link_href = reverse_absolute(
                 viewname="aasrp:request_srp", args=[srp_link.srp_code]
@@ -113,16 +113,13 @@ def dashboard_srp_links_data(
                 },
                 "srp_status": srp_link.srp_status,
                 "pending_requests": srp_link.pending_requests,
-                "actions": get_dashboard_action_icons(
-                    request=request, srp_link=srp_link
-                ),
+                "actions": dashboard_action_icons(request=request, srp_link=srp_link),
             }
         )
 
     return JsonResponse(data=data, safe=False)
 
 
-@login_required
 @permission_required("aasrp.basic_access")
 def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
     """
@@ -236,7 +233,6 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
     return JsonResponse(data=data, safe=False)
 
 
-@login_required
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResponse:
     """
@@ -341,7 +337,6 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
     return JsonResponse(data=data, safe=False)
 
 
-@login_required
 @permission_required("aasrp.basic_access")
 def srp_request_additional_information(
     request: WSGIRequest, srp_code: str, srp_request_code: str
@@ -425,7 +420,6 @@ def srp_request_additional_information(
     )
 
 
-@login_required
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def srp_request_change_payout(
     request: WSGIRequest, srp_code: str, srp_request_code: str
@@ -449,9 +443,11 @@ def srp_request_change_payout(
                 request_code=srp_request_code, srp_link__srp_code=srp_code
             )
             form = SrpRequestPayoutForm(data=request.POST)
+
             if form.is_valid():
                 srp_request.payout_amount = form.cleaned_data["value"]
                 srp_request.save()
+
                 return JsonResponse(data=[{"success": True}], safe=False)
         except SrpRequest.DoesNotExist:
             pass
@@ -459,7 +455,6 @@ def srp_request_change_payout(
     return JsonResponse(data=[{"success": False}], safe=False)
 
 
-@login_required
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def srp_request_approve(  # pylint: disable=too-many-locals
     request: WSGIRequest, srp_code: str, srp_request_code: str
@@ -565,7 +560,6 @@ def srp_request_approve(  # pylint: disable=too-many-locals
     return JsonResponse(data=data, safe=False)
 
 
-@login_required
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def srp_request_deny(
     request: WSGIRequest, srp_code: str, srp_request_code: str
@@ -645,7 +639,6 @@ def srp_request_deny(
     return JsonResponse(data=data, safe=False)
 
 
-@login_required
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def srp_request_remove(
     request: WSGIRequest,  # pylint: disable=unused-argument

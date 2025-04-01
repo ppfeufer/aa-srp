@@ -4,7 +4,7 @@ General views
 
 # Django
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import permission_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -41,7 +41,6 @@ from aasrp.models import Insurance, RequestComment, SrpLink, SrpRequest
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
-@login_required
 @permission_required("aasrp.basic_access")
 def srp_links(request: WSGIRequest, show_all_links: bool = False) -> HttpResponse:
     """
@@ -74,7 +73,6 @@ def srp_links(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
     )
 
 
-@login_required
 @permission_required("aasrp.basic_access")
 def view_own_requests(request: WSGIRequest) -> HttpResponse:
     """
@@ -91,7 +89,6 @@ def view_own_requests(request: WSGIRequest) -> HttpResponse:
     return render(request=request, template_name="aasrp/view-own-requests.html")
 
 
-@login_required
 @permission_required("aasrp.basic_access")
 def user_settings(request: WSGIRequest) -> HttpResponse:
     """
@@ -109,6 +106,7 @@ def user_settings(request: WSGIRequest) -> HttpResponse:
         user_settings_form = UserSettingsForm(
             data=request.POST, instance=current_user_settings
         )
+
         # If the form is valid, save the data to the database.
         if user_settings_form.is_valid():
             user_settings_form.save()
@@ -126,7 +124,6 @@ def user_settings(request: WSGIRequest) -> HttpResponse:
     return render(request, "aasrp/user-settings.html", context)
 
 
-@login_required
 @permissions_required(("aasrp.manage_srp", "aasrp.create_srp"))
 def srp_link_add(request: WSGIRequest) -> HttpResponse:
     """
@@ -182,7 +179,6 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
     return render(request=request, template_name="aasrp/link-add.html", context=context)
 
 
-@login_required
 @permissions_required(("aasrp.manage_srp", "aasrp.create_srp"))
 def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
@@ -237,7 +233,7 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     return render(request, "aasrp/link-edit.html", context)
 
 
-def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-locals, too-many-positional-arguments
+def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positional-arguments
     request: WSGIRequest,
     srp_link: SrpLink,
     killmail_link: str,
@@ -338,11 +334,8 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-locals, t
     return srp_request
 
 
-@login_required
 @permission_required("aasrp.basic_access")
-def request_srp(  # pylint: disable=too-many-locals
-    request: WSGIRequest, srp_code: str
-) -> HttpResponse:
+def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
     SRP request
 
@@ -354,10 +347,8 @@ def request_srp(  # pylint: disable=too-many-locals
     :rtype:
     """
 
-    request_user = request.user
-
     logger.info(
-        msg=f"SRP request form for SRP code {srp_code} called by {request_user}"
+        msg=f"SRP request form for SRP code {srp_code} called by {request.user}"
     )
 
     # Check if the provided SRP code is valid
@@ -367,7 +358,7 @@ def request_srp(  # pylint: disable=too-many-locals
         logger.error(
             msg=(
                 f"Unable to locate SRP Fleet using SRP code {srp_code} for "
-                f"user {request_user}"
+                f"user {request.user}"
             )
         )
 
@@ -391,11 +382,10 @@ def request_srp(  # pylint: disable=too-many-locals
     if request.method == "POST":
         # Create a form instance and populate it with data from the request.
         form = SrpRequestForm(data=request.POST)
-        form_is_valid = form.is_valid()
 
-        logger.debug(msg=f"Request type POST contains valid form: {form_is_valid}")
+        logger.debug(msg=f"Request type POST contains valid form: {form.is_valid()}")
 
-        if form_is_valid:
+        if form.is_valid():
             submitted_killmail_link = form.cleaned_data["killboard_link"]
             srp_request_additional_info = form.cleaned_data["additional_info"]
 
@@ -465,12 +455,12 @@ def request_srp(  # pylint: disable=too-many-locals
         form = SrpRequestForm()
 
     context = {"srp_link": srp_link, "form": form}
+
     return render(
         request=request, template_name="aasrp/request-srp.html", context=context
     )
 
 
-@login_required
 @permission_required("aasrp.manage_srp")
 def complete_srp_link(request: WSGIRequest, srp_code: str):
     """
@@ -504,7 +494,6 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
     return redirect("aasrp:srp_links")
 
 
-@login_required
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
@@ -544,7 +533,6 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
     return render(request, "aasrp/view-requests.html", context)
 
 
-@login_required
 @permission_required("aasrp.manage_srp")
 def enable_srp_link(request: WSGIRequest, srp_code: str):
     """
@@ -580,7 +568,6 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
     return redirect(to="aasrp:srp_links")
 
 
-@login_required
 @permission_required("aasrp.manage_srp")
 def disable_srp_link(request: WSGIRequest, srp_code: str):
     """
@@ -614,7 +601,6 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
     return redirect(to="aasrp:srp_links")
 
 
-@login_required
 @permission_required("aasrp.manage_srp")
 def delete_srp_link(request: WSGIRequest, srp_code: str):
     """

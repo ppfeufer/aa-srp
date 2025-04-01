@@ -122,8 +122,7 @@ def main_character_id(user: User) -> int:
 @register.filter
 def main_character_corporation_name(user: User) -> str:
     """
-    Get the users main character corporation name,
-    or an empty string if no main character
+    Get the users main character corporation name, or an empty string if no main character
 
     :param user:
     :type user:

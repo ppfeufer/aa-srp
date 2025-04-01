@@ -2,6 +2,9 @@
 Testing access to AA-SRP
 """
 
+# Standard Library
+from http import HTTPStatus
+
 # Third Party
 from faker import Faker
 
@@ -94,7 +97,7 @@ class TestAccess(TestCase):
         res = self.client.get(path=reverse("aasrp:srp_links"))
 
         # then
-        self.assertEqual(first=res.status_code, second=200)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.OK)
 
     def test_should_not_show_dashboard(self):
         """
@@ -111,8 +114,8 @@ class TestAccess(TestCase):
         res = self.client.get(path=reverse("aasrp:srp_links"))
 
         # then
-        self.assertNotEqual(first=res.status_code, second=200)
-        self.assertEqual(first=res.status_code, second=302)
+        self.assertNotEqual(first=res.status_code, second=HTTPStatus.OK)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.FOUND)
 
     def test_should_show_dashboard_with_all_srp_links(self):
         """
@@ -129,7 +132,7 @@ class TestAccess(TestCase):
         res = self.client.get(path=reverse("aasrp:srp_links_all"))
 
         # then
-        self.assertEqual(first=res.status_code, second=200)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.OK)
 
     def test_should_not_show_dashboard_with_all_srp_links(self):
         """
@@ -146,8 +149,8 @@ class TestAccess(TestCase):
         res = self.client.get(path=reverse("aasrp:srp_links_all"))
 
         # then
-        self.assertNotEqual(first=res.status_code, second=200)
-        self.assertEqual(first=res.status_code, second=302)
+        self.assertNotEqual(first=res.status_code, second=HTTPStatus.OK)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.FOUND)
 
     def test_srp_link_add_with_create_srp_permission(self):
         """
@@ -164,7 +167,7 @@ class TestAccess(TestCase):
         res = self.client.get(path=reverse("aasrp:add_srp_link"))
 
         # then
-        self.assertEqual(first=res.status_code, second=200)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.OK)
 
     def test_srp_link_add_with_manage_srp_permission(self):
         """
@@ -181,7 +184,7 @@ class TestAccess(TestCase):
         res = self.client.get(path=reverse("aasrp:add_srp_link"))
 
         # then
-        self.assertEqual(first=res.status_code, second=200)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.OK)
 
     def test_srp_link_add_without_appropriate_permission(self):
         """
@@ -198,8 +201,8 @@ class TestAccess(TestCase):
         res = self.client.get(path=reverse("aasrp:add_srp_link"))
 
         # then
-        self.assertNotEqual(first=res.status_code, second=200)
-        self.assertEqual(first=res.status_code, second=302)
+        self.assertNotEqual(first=res.status_code, second=HTTPStatus.OK)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.FOUND)
 
     def test_srp_link_add_without_permission(self):
         """
@@ -216,8 +219,8 @@ class TestAccess(TestCase):
         res = self.client.get(path=reverse("aasrp:add_srp_link"))
 
         # then
-        self.assertNotEqual(first=res.status_code, second=200)
-        self.assertEqual(first=res.status_code, second=302)
+        self.assertNotEqual(first=res.status_code, second=HTTPStatus.OK)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.FOUND)
 
     def test_srp_link_edit_with_create_srp_permission(self):
         """
@@ -238,7 +241,7 @@ class TestAccess(TestCase):
         )
 
         # then
-        self.assertEqual(first=res.status_code, second=200)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.OK)
 
     def test_srp_link_edit_with_manage_srp_permission(self):
         """
@@ -259,7 +262,7 @@ class TestAccess(TestCase):
         )
 
         # then
-        self.assertEqual(first=res.status_code, second=200)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.OK)
 
     def test_request_srp_with_basic_access_permission(self):
         """
@@ -280,7 +283,7 @@ class TestAccess(TestCase):
         )
 
         # then
-        self.assertEqual(first=res.status_code, second=200)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.OK)
 
     def test_request_srp_without_permission(self):
         """
@@ -301,8 +304,8 @@ class TestAccess(TestCase):
         )
 
         # then
-        self.assertNotEqual(first=res.status_code, second=200)
-        self.assertEqual(first=res.status_code, second=302)
+        self.assertNotEqual(first=res.status_code, second=HTTPStatus.OK)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.FOUND)
 
     def test_srp_link_view_requests_with_manage_srp_permission(self):
         """
@@ -323,7 +326,7 @@ class TestAccess(TestCase):
         )
 
         # then
-        self.assertEqual(first=res.status_code, second=200)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.OK)
 
     def test_srp_link_view_requests_with_manage_srp_requests_permission(self):
         """
@@ -344,7 +347,7 @@ class TestAccess(TestCase):
         )
 
         # then
-        self.assertEqual(first=res.status_code, second=200)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.OK)
 
     def test_srp_link_view_requests_without_permission(self):
         """
@@ -365,5 +368,5 @@ class TestAccess(TestCase):
         )
 
         # then
-        self.assertNotEqual(first=res.status_code, second=200)
-        self.assertEqual(first=res.status_code, second=302)
+        self.assertNotEqual(first=res.status_code, second=HTTPStatus.OK)
+        self.assertEqual(first=res.status_code, second=HTTPStatus.FOUND)

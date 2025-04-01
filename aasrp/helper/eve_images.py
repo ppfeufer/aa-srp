@@ -1,5 +1,5 @@
 """
-Eve images
+Eve images helper
 """
 
 # Alliance Auth
@@ -62,6 +62,9 @@ def get_type_render_url_from_type_id(
     if as_html:
         alt_tag = f' alt="{evetype_name}"' if evetype_name else ""
 
-        return f'<img class="aasrp-evetype-icon rounded" src="{render_url}"{alt_tag} loading="lazy">'
+        return (
+            '<img class="aasrp-evetype-icon rounded" '
+            f'src="{render_url}"{alt_tag} loading="lazy">'
+        )
 
     return render_url
