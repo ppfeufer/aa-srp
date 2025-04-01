@@ -25,6 +25,7 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
             url_name="aasrp:srp_links",
             navactive=["aasrp:"],
         )
+        self.count = None
 
     def render(self, request):
         """

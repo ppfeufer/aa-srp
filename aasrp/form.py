@@ -161,30 +161,28 @@ class SrpRequestForm(ModelForm):
 
         killboard_link = self.cleaned_data["killboard_link"]
 
+        # Define regex patterns for accepted kill boards and killmails
+        killboard_patterns = [
+            zkillboard_base_url_regex,
+            evetools_base_url_regex,
+            eve_kill_base_url_regex,
+        ]
+        killmail_patterns = [
+            zkillboard_killmail_url_regex,
+            evetools_killmail_url_regex,
+            eve_kill_killmail_url_regex,
+        ]
+
         # Check if it's a link from one of the accepted kill boards
-        if not any(
-            re.match(pattern=regex, string=killboard_link)
-            for regex in [
-                zkillboard_base_url_regex,
-                evetools_base_url_regex,
-                eve_kill_base_url_regex,
-            ]
-        ):
+        if not any(re.match(pattern, killboard_link) for pattern in killboard_patterns):
             raise forms.ValidationError(
                 message=_(
-                    f"Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"  # pylint: disable=line-too-long
+                    f"Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
                 )
             )
 
         # Check if it's an actual killmail
-        if not any(
-            re.match(pattern=regex, string=killboard_link)
-            for regex in [
-                zkillboard_killmail_url_regex,
-                evetools_killmail_url_regex,
-                eve_kill_killmail_url_regex,
-            ]
-        ):
+        if not any(re.match(pattern, killboard_link) for pattern in killmail_patterns):
             raise forms.ValidationError(
                 message=_("Invalid link. Please post a link to a kill mail.")
             )
@@ -193,7 +191,7 @@ class SrpRequestForm(ModelForm):
         killmail_id = SrpManager.get_kill_id(killboard_link=killboard_link)
 
         if SrpRequest.objects.filter(
-            killboard_link__icontains="/kill/" + killmail_id
+            killboard_link__icontains=f"/kill/{killmail_id}"
         ).exists():
             raise forms.ValidationError(
                 message=_(

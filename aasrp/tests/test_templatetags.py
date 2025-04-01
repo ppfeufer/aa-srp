@@ -191,6 +191,7 @@ class TestMainCharacterCorporationName(TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         super().setUpClass()
+
         cls.template = Template(
             template_string="{% load aasrp %}{{ user|main_character_corporation_name }}"
         )
@@ -281,6 +282,7 @@ class TestMainCorporationId(TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         super().setUpClass()
+
         cls.template = Template(
             template_string="{% load aasrp %}{{ user|main_character_corporation_id }}"
         )
@@ -371,6 +373,7 @@ class TestMainCharacterAllianceName(TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         super().setUpClass()
+
         cls.template = Template(
             template_string="{% load aasrp %}{{ user|main_character_alliance_name }}"
         )
@@ -490,6 +493,7 @@ class TestMainAllianceId(TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         super().setUpClass()
+
         cls.template = Template(
             template_string="{% load aasrp %}{{ user|main_character_alliance_id }}"
         )

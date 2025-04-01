@@ -2,6 +2,9 @@
 Test the admin interface.
 """
 
+# Standard Library
+from http import HTTPStatus
+
 # Django
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
@@ -43,7 +46,8 @@ class TestFleetTypeAdmin(TestCase):
         url = reverse("admin:aasrp_fleettype_changelist")
         self.client.login(username="admin", password="password")
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_admin_form_saves_valid_data(self):
         """
@@ -61,7 +65,8 @@ class TestFleetTypeAdmin(TestCase):
             "_save": "Save",  # Include the save button name to simulate form submission
         }
         response = self.client.post(url, data)
-        self.assertEqual(response.status_code, 302)
+
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
         self.fleet_type.refresh_from_db()
         self.assertEqual(self.fleet_type.name, "Updated Fleet")
         self.assertFalse(self.fleet_type.is_enabled)
@@ -81,7 +86,7 @@ class TestFleetTypeAdmin(TestCase):
             "_selected_action": [self.fleet_type.pk],
         }
         response = self.client.post(url, data, follow=True)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.fleet_type.refresh_from_db()
         self.assertTrue(self.fleet_type.is_enabled)
 
@@ -100,6 +105,6 @@ class TestFleetTypeAdmin(TestCase):
             "_selected_action": [self.fleet_type.pk],
         }
         response = self.client.post(url, data, follow=True)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.fleet_type.refresh_from_db()
         self.assertFalse(self.fleet_type.is_enabled)

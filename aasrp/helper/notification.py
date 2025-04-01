@@ -17,7 +17,7 @@ from aasrp import __title__
 from aasrp.discord.channel_message import send_message_to_discord_channel
 from aasrp.models import Setting, SrpRequest
 
-logger = LoggerAddTag(get_extension_logger(__name__), __title__)
+logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
 def notify_srp_team(srp_request: SrpRequest, additional_info: str):
@@ -33,28 +33,22 @@ def notify_srp_team(srp_request: SrpRequest, additional_info: str):
     """
 
     srp_team_discord_channel = Setting.objects.get_setting(
-        Setting.Field.SRP_TEAM_DISCORD_CHANNEL_ID
+        setting_key=Setting.Field.SRP_TEAM_DISCORD_CHANNEL_ID
     )
 
-    if srp_team_discord_channel is not None:
+    if srp_team_discord_channel:
         site_base_url = settings.SITE_URL
-        request_code = srp_request.request_code
-        character_name = srp_request.character.character_name
-        ship_type = srp_request.ship.name
-        zkillboard_link = srp_request.killboard_link
-        additional_information = additional_info.replace("@", "{@}")
         srp_code = srp_request.srp_link.srp_code
         srp_link = site_base_url + reverse(
             viewname="aasrp:view_srp_requests", args=[srp_code]
         )
 
-        title = "New SRP Request"
         message = (
-            f"**Request Code:** {request_code}\n"
-            f"**Character:** {character_name}\n"
-            f"**Ship:** {ship_type}\n"
-            f"**zKillboard Link:** {zkillboard_link}\n"
-            f"**Additional Information:**\n{additional_information}\n\n"
+            f"**Request Code:** {srp_request.request_code}\n"
+            f"**Character:** {srp_request.character.character_name}\n"
+            f"**Ship:** {srp_request.ship.name}\n"
+            f"**zKillboard Link:** {srp_request.killboard_link}\n"
+            f"**Additional Information:**\n{additional_info.replace('@', '{@}')}\n\n"
             f"**SRP Code:** {srp_code}\n"
             f"**SRP Link:** {srp_link}\n"
         )
@@ -65,6 +59,6 @@ def notify_srp_team(srp_request: SrpRequest, additional_info: str):
 
         send_message_to_discord_channel(
             channel_id=srp_team_discord_channel,
-            title=title,
+            title="New SRP Request",
             message=message,
         )

@@ -47,12 +47,11 @@ class SrpLinkAdmin(admin.ModelAdmin):
         :rtype:
         """
 
-        creator_name = obj.creator
-
-        if obj.creator.profile.main_character:
-            creator_name = obj.creator.profile.main_character.character_name
-
-        return creator_name
+        return (
+            obj.creator.profile.main_character.character_name
+            if obj.creator.profile.main_character
+            else obj.creator
+        )
 
 
 @admin.register(SrpRequest)
@@ -96,12 +95,11 @@ class SrpRequestAdmin(admin.ModelAdmin):
         :rtype:
         """
 
-        creator_name = obj.creator
-
-        if obj.creator.profile.main_character:
-            creator_name = obj.creator.profile.main_character.character_name
-
-        return creator_name
+        return (
+            obj.creator.profile.main_character.character_name
+            if obj.creator.profile.main_character
+            else obj.creator
+        )
 
 
 @admin.register(RequestComment)
@@ -153,7 +151,7 @@ class FleetTypeAdmin(admin.ModelAdmin):
 
     actions = ("activate", "deactivate")
 
-    @admin.action(description=_("Activate selected fleet types"))
+    @admin.action(description=_("Activate selected %(verbose_name_plural)s"))
     def activate(self, request, queryset):
         """
         Mark fleet type as active
@@ -198,7 +196,7 @@ class FleetTypeAdmin(admin.ModelAdmin):
                 ).format(notifications_count=notifications_count),
             )
 
-    @admin.action(description=_("Deactivate selected fleet types"))
+    @admin.action(description=_("Deactivate selected %(verbose_name_plural)s"))
     def deactivate(self, request, queryset):
         """
         Mark fleet type as inactive
@@ -210,6 +208,9 @@ class FleetTypeAdmin(admin.ModelAdmin):
         :return:
         :rtype:
         """
+
+        # queryset.update(is_enabled=False)
+        # self.message_user(request, f"{queryset.count()} releases disabled.")
 
         notifications_count = 0
         failed = 0
