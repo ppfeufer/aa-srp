@@ -63,30 +63,25 @@ def get_formatted_character_name(
         f"<br>{character_name}"
     )
 
-    if with_copy_icon is True:
+    if with_copy_icon:
         title = _("Copy character name to clipboard")
         copy_icon = copy_to_clipboard_icon(data=character_name, title=title)
         character_name_formatted += f"<sup>{copy_icon}</sup>"
 
-    return_value = character_name_formatted
-
-    if with_portrait is True:
-        line_break = ""
-        if inline is False:
-            line_break = "<br>"
-
+    if with_portrait:
+        line_break = "<br>" if not inline else ""
         character_portrait_html = get_character_portrait_from_evecharacter(
             character=character, size=portrait_size, as_html=True
         )
 
-        return_value = (
+        return (
             f"{character_portrait_html}{line_break}"
             "<span class='aasrp-character-portrait-character-name d-inline-block'>"
             f"{character_name_formatted}"
             "</span>"
         )
 
-    return return_value
+    return character_name_formatted
 
 
 def get_main_for_character(character: EveCharacter) -> EveCharacter | None:
@@ -100,15 +95,13 @@ def get_main_for_character(character: EveCharacter) -> EveCharacter | None:
     """
 
     try:
-        userprofile = character.character_ownership.user.profile
+        return character.character_ownership.user.profile.main_character
     except (
         AttributeError,
         EveCharacter.character_ownership.RelatedObjectDoesNotExist,
         CharacterOwnership.user.RelatedObjectDoesNotExist,
     ):
         return None
-
-    return userprofile.main_character
 
 
 def get_user_for_character(character: EveCharacter) -> User:
@@ -122,12 +115,10 @@ def get_user_for_character(character: EveCharacter) -> User:
     """
 
     try:
-        userprofile = character.character_ownership.user.profile
+        return character.character_ownership.user.profile.user
     except (
         AttributeError,
         EveCharacter.character_ownership.RelatedObjectDoesNotExist,
         CharacterOwnership.user.RelatedObjectDoesNotExist,
     ):
         return get_sentinel_user()
-
-    return userprofile.user

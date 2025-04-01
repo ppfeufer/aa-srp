@@ -18,7 +18,6 @@ from allianceauth.services.hooks import get_extension_logger
 # Alliance Auth (External Libs)
 from app_utils.logging import LoggerAddTag
 from app_utils.urls import reverse_absolute
-from eveuniverse.models import EveType
 
 # AA SRP
 from aasrp import __title__
@@ -40,49 +39,16 @@ from aasrp.helper.icons import (
     get_srp_request_status_icon,
 )
 from aasrp.helper.srp_data import (
+    attempt_to_re_add_ship_information_to_request,
     localized_isk_value,
     payout_amount_html,
     request_code_html,
     request_fleet_details_html,
 )
 from aasrp.helper.user import get_user_settings
-from aasrp.managers import SrpManager
 from aasrp.models import RequestComment, SrpLink, SrpRequest
 
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
-
-
-def _attempt_to_re_add_ship_information_to_request(
-    srp_request: SrpRequest,
-) -> SrpRequest:
-    """
-    If for some reason the ship gets removed from EveType table,
-    srp_request.ship is None. In this case, we have to re-add the ship to prevent
-    errors in our DataTables ...
-
-    :param srp_request:
-    :type srp_request:
-    :return:
-    :rtype:
-    """
-
-    srp_kill_link_id = SrpManager.get_kill_id(killboard_link=srp_request.killboard_link)
-
-    (
-        ship_type_id,
-        ship_value,  # pylint: disable=unused-variable
-        victim_id,  # pylint: disable=unused-variable
-    ) = SrpManager.get_kill_data(kill_id=srp_kill_link_id)
-    (
-        srp_request__ship,
-        created_from_esi,  # pylint: disable=unused-variable
-    ) = EveType.objects.get_or_create_esi(id=ship_type_id)
-
-    srp_request.ship_name = srp_request__ship.name
-    srp_request.ship = srp_request__ship
-    srp_request.save()
-
-    return srp_request
 
 
 @login_required
@@ -114,11 +80,11 @@ def dashboard_srp_links_data(
         srp_links = srp_links.filter(srp_status=SrpLink.Status.ACTIVE)
 
     for srp_link in srp_links:
-        aar_link = ""
-        if srp_link.aar_link:
-            aar_href = srp_link.aar_link
-            link_text = _("Link")
-            aar_link = f'<a href="{aar_href}" target="_blank">{link_text}</a>'
+        aar_link = (
+            f'<a href="{srp_link.aar_link}" target="_blank">{_("Link")}</a>'
+            if srp_link.aar_link
+            else ""
+        )
 
         srp_code_html = srp_link.srp_code
         if srp_link.srp_status == SrpLink.Status.ACTIVE:
@@ -129,11 +95,7 @@ def dashboard_srp_links_data(
             copy_icon = copy_to_clipboard_icon(data=srp_link_href, title=title)
             srp_code_html += f"<sup>{copy_icon}</sup>"
 
-        actions = get_dashboard_action_icons(request=request, srp_link=srp_link)
-
-        fleet_type = ""
-        if srp_link.fleet_type:
-            fleet_type = srp_link.fleet_type.name
+        fleet_type = srp_link.fleet_type.name if srp_link.fleet_type else ""
 
         data.append(
             {
@@ -141,7 +103,6 @@ def dashboard_srp_links_data(
                 "creator": get_main_character_name_from_user(user=srp_link.creator),
                 "fleet_time": srp_link.fleet_time,
                 "fleet_type": fleet_type,
-                # "fleet_commander": srp_link.fleet_commander.character_name,
                 "fleet_doctrine": srp_link.fleet_doctrine,
                 "aar_link": aar_link,
                 "srp_code": {"display": srp_code_html, "sort": srp_link.srp_code},
@@ -152,7 +113,9 @@ def dashboard_srp_links_data(
                 },
                 "srp_status": srp_link.srp_status,
                 "pending_requests": srp_link.pending_requests,
-                "actions": actions,
+                "actions": get_dashboard_action_icons(
+                    request=request, srp_link=srp_link
+                ),
             }
         )
 
@@ -200,8 +163,8 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
                 )
             except AttributeError:
                 # For some reason, it seems the ship has been removed from EveType
-                # table, attempt to add it again ...
-                srp_request = _attempt_to_re_add_ship_information_to_request(
+                # table, attempt to add it again …
+                srp_request = attempt_to_re_add_ship_information_to_request(
                     srp_request=srp_request
                 )
 
@@ -301,6 +264,7 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
 
     for srp_request in srp_requests:
         killboard_link = ""
+
         if srp_request.killboard_link:
             try:
                 ship_render_icon_html = get_type_render_url_from_type_id(
@@ -311,10 +275,8 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
                 )
             except AttributeError:
                 # For some reason, it seems the ship has been removed from EveType
-                # table, attempt to add it again ...
-                srp_request = _attempt_to_re_add_ship_information_to_request(
-                    srp_request
-                )
+                # table, attempt to add it again …
+                srp_request = attempt_to_re_add_ship_information_to_request(srp_request)
 
                 ship_render_icon_html = get_type_render_url_from_type_id(
                     evetype_id=srp_request.ship_id,
@@ -328,13 +290,6 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
                 f"{ship_render_icon_html}"
                 f"<span>{srp_request.ship.name}</span></a>"
             )
-
-        srp_request_status_icon = get_srp_request_status_icon(
-            request=request, srp_request=srp_request
-        )
-        srp_request_action_icons = get_srp_request_action_icons(
-            request=request, srp_link=srp_request.srp_link, srp_request=srp_request
-        )
 
         data.append(
             {
@@ -370,8 +325,14 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
                     "sort": srp_request.payout_amount,
                 },
                 "payout_amount": srp_request.payout_amount,
-                "request_status_icon": srp_request_status_icon,
-                "actions": srp_request_action_icons,
+                "request_status_icon": get_srp_request_status_icon(
+                    request=request, srp_request=srp_request
+                ),
+                "actions": get_srp_request_action_icons(
+                    request=request,
+                    srp_link=srp_request.srp_link,
+                    srp_request=srp_request,
+                ),
                 "request_status_translated": srp_request.get_request_status_display(),
                 "request_status": srp_request.request_status,
             }
@@ -417,8 +378,8 @@ def srp_request_additional_information(
         )
     except AttributeError:
         # For some reason, it seems the ship has been removed from EveType
-        # table, attempt to add it again ...
-        srp_request = _attempt_to_re_add_ship_information_to_request(
+        # table, attempt to add it again …
+        srp_request = attempt_to_re_add_ship_information_to_request(
             srp_request=srp_request
         )
 
@@ -429,29 +390,20 @@ def srp_request_additional_information(
             as_html=True,
         )
 
-    request_status_banner_alert_level = "info"
-    if srp_request.request_status == SrpRequest.Status.APPROVED:
-        request_status_banner_alert_level = "success"
+    request_status_banner_alert_level = {
+        SrpRequest.Status.APPROVED: "success",
+        SrpRequest.Status.REJECTED: "danger",
+    }.get(srp_request.request_status, "info")
 
-    if srp_request.request_status == SrpRequest.Status.REJECTED:
-        request_status_banner_alert_level = "danger"
+    additional_info = RequestComment.objects.filter(
+        srp_request=srp_request, comment_type=RequestComment.Type.REQUEST_INFO
+    ).first()
+    additional_info = additional_info.comment if additional_info else ""
 
-    try:
-        additional_info_comment = RequestComment.objects.get(
-            srp_request=srp_request, comment_type=RequestComment.Type.REQUEST_INFO
-        )
-
-        additional_info = additional_info_comment.comment
-    except RequestComment.DoesNotExist:
-        additional_info = ""
-
-    try:
-        request_history = RequestComment.objects.filter(
-            ~Q(comment_type=RequestComment.Type.REQUEST_INFO),
-            srp_request=srp_request,
-        ).order_by("pk")
-    except RequestComment.DoesNotExist:
-        request_history = ""
+    request_history = RequestComment.objects.filter(
+        ~Q(comment_type=RequestComment.Type.REQUEST_INFO),
+        srp_request=srp_request,
+    ).order_by("pk")
 
     data = {
         "srp_request": srp_request,
@@ -491,29 +443,20 @@ def srp_request_change_payout(
     :rtype:
     """
 
-    data = []
-
     if request.method == "POST":
         try:
             srp_request = SrpRequest.objects.get(
                 request_code=srp_request_code, srp_link__srp_code=srp_code
             )
-        except SrpRequest.DoesNotExist:
-            data.append({"success": False})
-        else:
-            # check whether it's valid:
             form = SrpRequestPayoutForm(data=request.POST)
             if form.is_valid():
-                srp_payout = form.cleaned_data["value"]
-
-                srp_request.payout_amount = srp_payout
+                srp_request.payout_amount = form.cleaned_data["value"]
                 srp_request.save()
+                return JsonResponse(data=[{"success": True}], safe=False)
+        except SrpRequest.DoesNotExist:
+            pass
 
-                data.append({"success": True})
-            else:
-                data.append({"success": False})
-
-    return JsonResponse(data=data, safe=False)
+    return JsonResponse(data=[{"success": False}], safe=False)
 
 
 @login_required
@@ -647,68 +590,57 @@ def srp_request_deny(
             request_code=srp_request_code, srp_link__srp_code=srp_code
         )
     except SrpRequest.DoesNotExist:
-        data.append({"success": False})
-    else:
-        if request.method == "POST":
-            # Create a form instance and populate it with data from the request
-            form = SrpRequestRejectForm(data=request.POST)
+        return JsonResponse(data=[{"success": False}], safe=False)
 
-            # Check whether it's valid:
-            if form.is_valid():
-                reject_info = form.cleaned_data["comment"]
-                requester = srp_request.creator
+    if request.method == "POST":
+        form = SrpRequestRejectForm(data=request.POST)
+        if form.is_valid():
+            reject_info = form.cleaned_data["comment"]
+            requester = srp_request.creator
 
-                srp_request.payout_amount = 0
-                srp_request.request_status = SrpRequest.Status.REJECTED
-                srp_request.save()
+            srp_request.payout_amount = 0
+            srp_request.request_status = SrpRequest.Status.REJECTED
+            srp_request.save()
 
-                # Set new status in request history
-                RequestComment(
-                    srp_request=srp_request,
-                    comment_type=RequestComment.Type.STATUS_CHANGE,
-                    new_status=SrpRequest.Status.REJECTED,
-                    creator=request.user,
-                ).save()
+            RequestComment.objects.bulk_create(
+                [
+                    RequestComment(
+                        srp_request=srp_request,
+                        comment_type=RequestComment.Type.STATUS_CHANGE,
+                        new_status=SrpRequest.Status.REJECTED,
+                        creator=request.user,
+                    ),
+                    RequestComment(
+                        comment=reject_info,
+                        srp_request=srp_request,
+                        comment_type=RequestComment.Type.REJECT_REASON,
+                        creator=request.user,
+                    ),
+                ]
+            )
 
-                # Save reject reason as comment for this request
-                RequestComment(
-                    comment=reject_info,
-                    srp_request=srp_request,
-                    comment_type=RequestComment.Type.REJECT_REASON,
-                    creator=request.user,
-                ).save()
-
-                requester_user_settings = get_user_settings(user=requester)
-
-                # Check if the requester has notifications activated (it's by default)
-                if requester_user_settings.disable_notifications is False:
-                    ship_name = srp_request.ship.name
-                    fleet_name = srp_request.srp_link.srp_name
-                    srp_code = srp_request.srp_link.srp_code
-                    request_code = srp_request.request_code
-                    reviser = get_main_character_name_from_user(user=request.user)
-                    inquiry_note = SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
-                    notification_message = (
-                        f"Your SRP request regarding your {ship_name} lost during "
-                        f"{fleet_name} has been rejected.\n\n"
-                        f"Reason:\n{reject_info}\n\n"
-                        f"Request Details:\nSRP Code: {srp_code}\n"
-                        f"Request Code: {request_code}\n"
-                        f"Reviser: {reviser}\n\n{inquiry_note}"
-                    )
-
-                    logger.info(msg="Sending reject message to user")
-
-                    send_user_notification(
-                        user=requester,
-                        level="danger",
-                        title=_("SRP request rejected"),
-                        message=notification_message,
-                    )
-
-                data.append(
-                    {"success": True, "message": _("SRP request has been rejected")}
+            if not get_user_settings(user=requester).disable_notifications:
+                notification_message = (
+                    f"Your SRP request regarding your {srp_request.ship.name} lost during "
+                    f"{srp_request.srp_link.srp_name} has been rejected.\n\n"
+                    f"Reason:\n{reject_info}\n\n"
+                    f"Request Details:\nSRP Code: {srp_request.srp_link.srp_code}\n"
+                    f"Request Code: {srp_request.request_code}\n"
+                    f"Reviser: {get_main_character_name_from_user(user=request.user)}\n\n"
+                    f"{SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE}"
                 )
+
+                logger.info(msg="Sending reject message to user")
+                send_user_notification(
+                    user=requester,
+                    level="danger",
+                    title=_("SRP request rejected"),
+                    message=notification_message,
+                )
+
+            data.append(
+                {"success": True, "message": _("SRP request has been rejected")}
+            )
 
     return JsonResponse(data=data, safe=False)
 
@@ -733,17 +665,13 @@ def srp_request_remove(
     :rtype:
     """
 
-    data = []
-
     try:
         srp_request = SrpRequest.objects.get(
             request_code=srp_request_code, srp_link__srp_code=srp_code
         )
-    except SrpRequest.DoesNotExist:
-        data.append({"success": False})
-    else:
         srp_request.delete()
-
-        data.append({"success": True, "message": _("SRP request has been removed")})
+        data = {"success": True, "message": _("SRP request has been removed")}
+    except SrpRequest.DoesNotExist:
+        data = {"success": False}
 
     return JsonResponse(data=data, safe=False)
