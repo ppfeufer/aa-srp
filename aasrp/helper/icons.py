@@ -9,6 +9,9 @@ from django.urls import reverse
 from django.utils.safestring import SafeString
 from django.utils.translation import gettext_lazy as _
 
+# Alliance Auth
+from allianceauth.authentication.decorators import permissions_required
+
 # AA SRP
 from aasrp.models import SrpLink, SrpRequest
 
@@ -359,6 +362,7 @@ def get_srp_request_delete_icon(
     return srp_request_delete_icon
 
 
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def get_srp_request_action_icons(
     request: WSGIRequest, srp_link: SrpLink, srp_request: SrpRequest
 ) -> str:

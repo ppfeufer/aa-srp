@@ -10,6 +10,7 @@ from faker import Faker
 
 # Django
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 
 # Alliance Auth
 from allianceauth.tests.auth_utils import AuthUtils
@@ -139,3 +140,14 @@ def create_setting(**kwargs) -> Setting:
     """
 
     return Setting.objects.create(**kwargs)
+
+
+def get_permission_content_type():
+    """
+    Get the content type for the permission.
+
+    :return:
+    :rtype:
+    """
+
+    return ContentType.objects.filter(app_label="aasrp", model="aasrp").get()
