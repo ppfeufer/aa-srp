@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-03-31 01:41+0200\n"
+"POT-Creation-Date: 2025-04-07 09:33+0200\n"
 "PO-Revision-Date: 2025-03-23 11:24+0000\n"
 "Last-Translator: M <skrypets@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/uk/>\n"
@@ -35,29 +35,31 @@ msgstr "Компенсація корабля"
 msgid "Creator"
 msgstr "Автор"
 
-#: aasrp/admin.py:88
+#: aasrp/admin.py:87
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
-#: aasrp/templates/aasrp/view-own-requests.html:26
+#: aasrp/templates/aasrp/view-own-requests.html:24
 #: aasrp/templates/aasrp/view-requests.html:37
 msgid "Requestor"
 msgstr "Заявник"
 
-#: aasrp/admin.py:128 aasrp/form.py:88 aasrp/models.py:85 aasrp/models.py:142
+#: aasrp/admin.py:126 aasrp/form.py:88 aasrp/models.py:85 aasrp/models.py:142
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
 msgstr "Тип флоту"
 
-#: aasrp/admin.py:141 aasrp/models.py:76
+#: aasrp/admin.py:139 aasrp/models.py:76
 msgid "Is enabled"
 msgstr "Дозволено"
 
-#: aasrp/admin.py:156
-msgid "Activate selected fleet types"
+#: aasrp/admin.py:154
+#, fuzzy, python-format
+#| msgid "Activate selected fleet types"
+msgid "Activate selected %(verbose_name_plural)s"
 msgstr "Активувати обрані типи флотів"
 
-#: aasrp/admin.py:185
+#: aasrp/admin.py:183
 #, python-brace-format
 msgid "Failed to activate {failed} fleet type"
 msgid_plural "Failed to activate {failed} fleet types"
@@ -66,7 +68,7 @@ msgstr[1] "Не вдалось активувати: {failed} типи флот�
 msgstr[2] "Не вдалось активувати: {failed} типи флотів"
 msgstr[3] "Не вдалось активувати: {failed} тип флоту"
 
-#: aasrp/admin.py:195
+#: aasrp/admin.py:193
 #, python-brace-format
 msgid "Activated {notifications_count} fleet type"
 msgid_plural "Activated {notifications_count} fleet types"
@@ -75,11 +77,13 @@ msgstr[1] "Активовано {notifications_count} типи флоту"
 msgstr[2] "Активовано {notifications_count} типів флоту"
 msgstr[3] "Активовано {notifications_count} тип флоту"
 
-#: aasrp/admin.py:201
-msgid "Deactivate selected fleet types"
+#: aasrp/admin.py:199
+#, fuzzy, python-format
+#| msgid "Deactivate selected fleet types"
+msgid "Deactivate selected %(verbose_name_plural)s"
 msgstr "Деактивувати обрані типи флотів"
 
-#: aasrp/admin.py:230
+#: aasrp/admin.py:231
 #, python-brace-format
 msgid "Failed to deactivate {failed} fleet type"
 msgid_plural "Failed to deactivate {failed} fleet types"
@@ -88,7 +92,7 @@ msgstr[1] "Не вдалось деактивувати {failed} типи фло
 msgstr[2] "Не вдалось деактивувати {failed} типів флоту"
 msgstr[3] "Не вдалось деактивувати {failed} тип флоту"
 
-#: aasrp/admin.py:240
+#: aasrp/admin.py:241
 #, python-brace-format
 msgid "Deactivated {notifications_count} fleet type"
 msgid_plural "Deactivated {notifications_count} fleet types"
@@ -157,55 +161,55 @@ msgstr "посилання на Killboard"
 
 #: aasrp/form.py:138 aasrp/form.py:147 aasrp/models.py:307 aasrp/models.py:401
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:27
+#: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:39
 msgid "Additional information"
 msgstr "Додаткова інформація"
 
-#: aasrp/form.py:175
+#: aasrp/form.py:180
 #, python-brace-format
 msgid "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
 msgstr "Невірне посилання. Будь ласка, використовуйте {zkillboard_base_url}, {evetools_base_url} або {eve_kill_base_url}."
 
-#: aasrp/form.py:189
+#: aasrp/form.py:187
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr "Невірне посилання. Будь ласка, надайте посилання на kill mail."
 
-#: aasrp/form.py:200
+#: aasrp/form.py:198
 msgid "There is already an SRP request for this kill mail. Please check if you got the right one."
 msgstr "Для цього kill mail вже є запит на SRP. Будь ласка, перевірте, чи ви використовуєте правильне посилання"
 
-#: aasrp/form.py:213
+#: aasrp/form.py:211
 msgid "SRP payout value"
 msgstr "Значення виплати SRP"
 
-#: aasrp/form.py:230
+#: aasrp/form.py:228
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "Будь ласка, надайте причину, чому цей запит на SRP був відхилений."
 
-#: aasrp/form.py:233 aasrp/models.py:327 aasrp/models.py:402
+#: aasrp/form.py:231 aasrp/models.py:327 aasrp/models.py:402
 msgid "Reject reason"
 msgstr "Причина віддхилення"
 
-#: aasrp/form.py:261
+#: aasrp/form.py:259
 msgid "Leave a comment for the requestor"
 msgstr "Залиште коментар для запитувача."
 
-#: aasrp/form.py:264
+#: aasrp/form.py:262
 msgid "Comment (optional)"
 msgstr "Коментар (необов'язково)"
 
-#: aasrp/form.py:292
+#: aasrp/form.py:290
 msgid "Please provide the reason why this former rejected SRP request is now accepted."
 msgstr "Будь ласка, надайте причину, чому цей раніше відхилений запит на SRP тепер прийнятий."
 
-#: aasrp/form.py:297 aasrp/models.py:399 aasrp/models.py:406
+#: aasrp/form.py:295 aasrp/models.py:399 aasrp/models.py:406
 #: aasrp/models.py:458
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
 msgid "Comment"
 msgstr "Коментар"
 
-#: aasrp/form.py:326
+#: aasrp/form.py:324
 msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "Вимкнути сповіщення. (Auth та Discord, якщо відповідний модуль встановлений)"
 
@@ -217,53 +221,55 @@ msgstr "Невідомий персонаж"
 msgid "Copy character name to clipboard"
 msgstr "Скопіювати ім'я персонажа в буфер обміну"
 
-#: aasrp/helper/icons.py:39 aasrp/templates/aasrp/request-srp.html:6
+#: aasrp/helper/icons.py:80 aasrp/templates/aasrp/request-srp.html:6
 msgid "Request SRP"
 msgstr "Запит на SRP"
 
-#: aasrp/helper/icons.py:53
+#: aasrp/helper/icons.py:95
 msgid "View SRP requests"
 msgstr "Переглянути SRP запити"
 
-#: aasrp/helper/icons.py:67
+#: aasrp/helper/icons.py:113
 #: aasrp/templates/aasrp/partials/link-edit/form.html:19
 msgid "Add/Change AAR link"
 msgstr "Додати/змінити посилання на AAR"
 
-#: aasrp/helper/icons.py:78
+#: aasrp/helper/icons.py:122
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:9
 msgid "Disable SRP link"
 msgstr "Вимкнути SRP-посилання"
 
-#: aasrp/helper/icons.py:97
+#: aasrp/helper/icons.py:136
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:9
 msgid "Enable SRP link"
 msgstr "Увімкнути SRP-посилання"
 
-#: aasrp/helper/icons.py:115
-msgid "Remove SRP ink"
+#: aasrp/helper/icons.py:146
+#, fuzzy
+#| msgid "Remove SRP ink"
+msgid "Remove SRP link"
 msgstr "Видалити SRP-посилання"
 
-#: aasrp/helper/icons.py:148
+#: aasrp/helper/icons.py:169 aasrp/helper/icons.py:183
 msgid "SRP request pending"
 msgstr "Запит на SRP очікує розгляду"
 
-#: aasrp/helper/icons.py:160
+#: aasrp/helper/icons.py:173
 msgid "SRP request approved"
 msgstr "Запит на SRP затверджено"
 
-#: aasrp/helper/icons.py:172 aasrp/views/ajax.py:671
+#: aasrp/helper/icons.py:178 aasrp/views/ajax.py:631
 msgid "SRP request rejected"
 msgstr "Запит на SRP відхилено"
 
-#: aasrp/helper/icons.py:208
+#: aasrp/helper/icons.py:219
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr "Деталі запиту на SRP"
 
-#: aasrp/helper/icons.py:258
+#: aasrp/helper/icons.py:269
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
@@ -271,16 +277,36 @@ msgstr "Деталі запиту на SRP"
 msgid "Accept SRP request"
 msgstr "Прийняти запит на SRP"
 
-#: aasrp/helper/icons.py:302
+#: aasrp/helper/icons.py:313
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:40
 msgid "Reject SRP request"
 msgstr "Відхилити запит на SRP"
 
-#: aasrp/helper/icons.py:342
+#: aasrp/helper/icons.py:351
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr "Видалити запит на SRP"
+
+#: aasrp/helper/srp_data.py:46
+#, fuzzy
+#| msgid "Copy character name to clipboard"
+msgid "Copy payout amount to clipboard"
+msgstr "Скопіювати ім'я персонажа в буфер обміну"
+
+#: aasrp/helper/srp_data.py:80 aasrp/models.py:120
+#: aasrp/templates/aasrp/dashboard.html:25
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
+#: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:50
+msgid "SRP code"
+msgstr "Код SRP"
+
+#: aasrp/helper/srp_data.py:81 aasrp/models.py:271
+#: aasrp/templates/aasrp/dashboard.html:26
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:18
+msgid "Request code"
+msgstr "Код запиту"
 
 #: aasrp/models.py:68
 msgid "Descriptive name of your fleet type"
@@ -318,14 +344,6 @@ msgstr "Назва SRP"
 msgid "SRP status"
 msgstr "Статус SRP"
 
-#: aasrp/models.py:120 aasrp/templates/aasrp/dashboard.html:25
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
-#: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:50
-#: aasrp/templates/aasrp/view-own-requests.html:24
-msgid "SRP code"
-msgstr "Код SRP"
-
 #: aasrp/models.py:128
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:32
 msgid "Fleet commander"
@@ -348,7 +366,7 @@ msgid "SRP link"
 msgstr "SRP-посилання"
 
 #: aasrp/models.py:168
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:26
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:27
 msgid "SRP links"
 msgstr "SRP-посилання"
 
@@ -366,12 +384,6 @@ msgstr "Затверджено"
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:20
 msgid "Rejected"
 msgstr "Відхилено"
-
-#: aasrp/models.py:271 aasrp/templates/aasrp/dashboard.html:26
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:18
-#: aasrp/templates/aasrp/view-own-requests.html:25
-msgid "Request code"
-msgstr "Код запиту"
 
 #: aasrp/models.py:280
 msgid "Who created the SRP request?"
@@ -741,32 +753,32 @@ msgstr "Створити посилання"
 msgid "After action report"
 msgstr "Звіт після дії"
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:8
+#: aasrp/templates/aasrp/partials/navigation/actions.html:3
 msgid "View active"
 msgstr "Переглянути активні"
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:12
+#: aasrp/templates/aasrp/partials/navigation/actions.html:4
 msgid "View all"
 msgstr "Переклянути усі"
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:22
+#: aasrp/templates/aasrp/partials/navigation/actions.html:5
 msgid "Add SRP link"
 msgstr "Додати посилання на SRP"
 
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:21
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:22
 msgid "SRP links (all)"
 msgstr "Посилання на SRP (всі)"
 
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:23
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:24
 msgid "SRP links (active)"
 msgstr "Посилання на SRP (активні)"
 
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:36
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:38
 #: aasrp/templates/aasrp/view-own-requests.html:6
 msgid "My SRP requests"
 msgstr "Мої посилання на SRP"
 
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:45
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:48
 #: aasrp/templates/aasrp/user-settings.html:6
 msgid "My settings"
 msgstr "Мої налаштування"
@@ -842,7 +854,7 @@ msgstr "Запити на SRP"
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr "Натисніть на значення для редагування, натисніть Enter для збереження, ESC для скасування."
 
-#: aasrp/templates/aasrp/view-own-requests.html:28
+#: aasrp/templates/aasrp/view-own-requests.html:26
 #: aasrp/templates/aasrp/view-requests.html:40
 msgid "Reject information"
 msgstr "Інформація про відхилення"
@@ -863,105 +875,102 @@ msgstr "Порожні значення не валідні"
 msgid "This field is required."
 msgstr "Це поле обов’язкове."
 
-#: aasrp/templates/aasrp/view-requests.html:41
-#, fuzzy
-#| msgid "Copy character name to clipboard"
-msgid "Copy request code to clipboard"
-msgstr "Скопіювати ім'я персонажа в буфер обміну"
-
-#: aasrp/templates/aasrp/view-requests.html:42
-#, fuzzy
-#| msgid "Copy character name to clipboard"
-msgid "Copy payout amount to clipboard"
-msgstr "Скопіювати ім'я персонажа в буфер обміну"
-
-#: aasrp/views/ajax.py:114
-msgid "Link"
-msgstr "Посилання"
-
-#: aasrp/views/ajax.py:122
+#: aasrp/views/ajax.py:94
 msgid "Copy SRP link to clipboard"
 msgstr "Скопіювати SRP-посилання у буфер обміну"
 
-#: aasrp/views/ajax.py:585
+#: aasrp/views/ajax.py:557
 msgid "SRP request has been approved"
 msgstr "SRP запит одобрено"
 
-#: aasrp/views/ajax.py:676
+#: aasrp/views/ajax.py:636
 msgid "SRP request has been rejected"
 msgstr "Запит SRP відхилено"
 
-#: aasrp/views/ajax.py:713
+#: aasrp/views/ajax.py:666
 msgid "SRP request has been removed"
 msgstr "Запит SRP видалено"
 
-#: aasrp/views/general.py:65
+#: aasrp/views/general.py:62
 msgid "You do not have the needed permissions to view all SRP links"
 msgstr "У вас немає необхідних дозволів для перегляду всіх посилань SRP"
 
-#: aasrp/views/general.py:126
+#: aasrp/views/general.py:114
 msgid "Settings saved."
 msgstr "Налаштування збережено."
 
-#: aasrp/views/general.py:183
+#: aasrp/views/general.py:168
 #, python-brace-format
 msgid "SRP link \"{srp_link.srp_code}\" created"
 msgstr "Створено SRP-посилання \"{srp_link.srp_code}\""
 
-#: aasrp/views/general.py:222 aasrp/views/general.py:522
-#: aasrp/views/general.py:561 aasrp/views/general.py:608
-#: aasrp/views/general.py:645 aasrp/views/general.py:682
-#, python-brace-format
-msgid "Unable to locate SRP code with ID {srp_code}"
-msgstr "Не вдалося знайти SRP-код з ID {srp_code}"
+#: aasrp/views/general.py:212
+#, fuzzy, python-brace-format
+#| msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
+msgid "Unable to locate SRP link using SRP code {srp_code}"
+msgstr "Не вдалося знайти SRP-флот за SRP-кодом {srp_code}"
 
-#: aasrp/views/general.py:241
+#: aasrp/views/general.py:225
 msgid "AAR link changed"
 msgstr "Змінено ARR-посилання"
 
-#: aasrp/views/general.py:351
+#: aasrp/views/general.py:331
 #, python-brace-format
 msgid "Submitted SRP request for your {srp_request__ship.name}."
 msgstr "Відправлено SRP запит для вашого {srp_request__ship.name}."
 
-#: aasrp/views/general.py:392
+#: aasrp/views/general.py:367
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr "Не вдалося знайти SRP-флот за SRP-кодом {srp_code}"
 
-#: aasrp/views/general.py:401
+#: aasrp/views/general.py:376
 msgid "This SRP link is no longer available for SRP requests."
 msgstr "Це SRP-посилання більше не доступне для SRP-запитів."
 
-#: aasrp/views/general.py:440
-msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {str(err)}"
-msgstr "Виникла помилка, ваш kill mail ({submitted_killmail_link}) не вдалося розібрати: {str(err)}"
-
-#: aasrp/views/general.py:447
-#, python-brace-format
-msgid "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
-msgstr "Ваше kill mail посилання({submitted_killmail_link}) недійсне або API zKillboard наразі не відповідає. Переконайтеся, що ви використовуєте {zkillboard_base_url}, {evetools_base_url} або {eve_kill_base_url}"
-
-#: aasrp/views/general.py:478
+#: aasrp/views/general.py:446
 #, python-brace-format
 msgid "Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."
 msgstr "Персонаж {victim_id} не належить вашому обліковому запису Auth. Додайте цього персонажа як альта до вашого основного облікового запису та спробуйте ще раз."
 
-#: aasrp/views/general.py:531
+#: aasrp/views/general.py:486
 msgid "SRP link marked as completed"
 msgstr "Посилання SRP позначено як завершене"
 
-#: aasrp/views/general.py:617
+#: aasrp/views/general.py:492 aasrp/views/general.py:520
+#: aasrp/views/general.py:565 aasrp/views/general.py:598
+#: aasrp/views/general.py:630
+#, fuzzy, python-brace-format
+#| msgid "Unable to locate SRP code with ID {srp_code}"
+msgid "Unable to locate SRP link with ID {srp_code}"
+msgstr "Не вдалося знайти SRP-код з ID {srp_code}"
+
+#: aasrp/views/general.py:557
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr "Посилання SRP {srp_code} (знову) активоване."
 
-#: aasrp/views/general.py:654
+#: aasrp/views/general.py:591
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr "Посилання SRP {srp_code} вимкнено."
 
-#: aasrp/views/general.py:690
+#: aasrp/views/general.py:623
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "Посилання SRP {srp_code} видалено."
+
+#, fuzzy
+#~| msgid "Copy character name to clipboard"
+#~ msgid "Copy request code to clipboard"
+#~ msgstr "Скопіювати ім'я персонажа в буфер обміну"
+
+#~ msgid "Link"
+#~ msgstr "Посилання"
+
+#~ msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {str(err)}"
+#~ msgstr "Виникла помилка, ваш kill mail ({submitted_killmail_link}) не вдалося розібрати: {str(err)}"
+
+#, python-brace-format
+#~ msgid "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
+#~ msgstr "Ваше kill mail посилання({submitted_killmail_link}) недійсне або API zKillboard наразі не відповідає. Переконайтеся, що ви використовуєте {zkillboard_base_url}, {evetools_base_url} або {eve_kill_base_url}"
