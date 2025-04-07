@@ -505,7 +505,7 @@ $(document).ready(() => {
         $('#modal-button-confirm-remove-request').on('click', () => {
             $.get(url, (data) => {
                 // Reload datatable on success and update SRP status values
-                if (data['0'].success === true) {
+                if (data.success === true) {
                     srpRequestsTable.ajax.reload((tableData) => {
                         _reloadSrpCalculations(tableData);
                     });

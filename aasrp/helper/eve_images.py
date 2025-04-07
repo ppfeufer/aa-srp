@@ -1,5 +1,5 @@
 """
-Eve images
+Eve images helper
 """
 
 # Alliance Auth
@@ -29,17 +29,14 @@ def get_character_portrait_from_evecharacter(
     portrait_url = character_portrait_url(
         character_id=character.character_id, size=size
     )
-    character_name = character.character_name
 
-    return_value = portrait_url
-
-    if as_html is True:
-        return_value = (
+    if as_html:
+        return (
             '<img class="aasrp-character-portrait rounded" '
-            f'src="{portrait_url}" alt="{character_name}" loading="lazy">'
+            f'src="{portrait_url}" alt="{character.character_name}" loading="lazy">'
         )
 
-    return return_value
+    return portrait_url
 
 
 def get_type_render_url_from_type_id(
@@ -62,13 +59,12 @@ def get_type_render_url_from_type_id(
 
     render_url = type_render_url(type_id=evetype_id, size=size)
 
-    return_value = render_url
+    if as_html:
+        alt_tag = f' alt="{evetype_name}"' if evetype_name else ""
 
-    if as_html is True:
-        alt_tag = ""
-        if evetype_name is not None:
-            alt_tag = f' alt="{evetype_name}"'
+        return (
+            '<img class="aasrp-evetype-icon rounded" '
+            f'src="{render_url}"{alt_tag} loading="lazy">'
+        )
 
-        return_value = f'<img class="aasrp-evetype-icon rounded" src="{render_url}"{alt_tag} loading="lazy">'
-
-    return return_value
+    return render_url

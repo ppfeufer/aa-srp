@@ -113,22 +113,16 @@ def main_character_id(user: User) -> int:
     :rtype:
     """
 
-    if user is None:
-        return 1
+    if user and hasattr(user.profile.main_character, "character_id"):
+        return user.profile.main_character.character_id
 
-    try:
-        return_value = user.profile.main_character.character_id
-    except AttributeError:
-        return_value = 1
-
-    return return_value
+    return 1
 
 
 @register.filter
 def main_character_corporation_name(user: User) -> str:
     """
-    Get the users main character corporation name,
-    or an empty string if no main character
+    Get the users main character corporation name, or an empty string if no main character
 
     :param user:
     :type user:
@@ -136,15 +130,10 @@ def main_character_corporation_name(user: User) -> str:
     :rtype:
     """
 
-    if user is None:
-        return ""
+    if user and hasattr(user.profile.main_character, "corporation_name"):
+        return user.profile.main_character.corporation_name
 
-    try:
-        return_value = user.profile.main_character.corporation_name
-    except AttributeError:
-        return_value = ""
-
-    return return_value
+    return ""
 
 
 @register.filter
@@ -158,15 +147,10 @@ def main_character_corporation_id(user: User) -> int:
     :rtype:
     """
 
-    if user is None:
-        return 1
+    if user and hasattr(user.profile.main_character, "corporation_id"):
+        return user.profile.main_character.corporation_id
 
-    try:
-        return_value = user.profile.main_character.corporation_id
-    except AttributeError:
-        return_value = 1
-
-    return return_value
+    return 1
 
 
 @register.filter
@@ -180,15 +164,7 @@ def main_character_alliance_name(user: User) -> str:
     :rtype:
     """
 
-    if user is None:
-        return ""
-
-    try:
-        return_value = user.profile.main_character.alliance_name
-    except AttributeError:
-        return_value = ""
-
-    return return_value
+    return getattr(user.profile.main_character, "alliance_name", "") if user else ""
 
 
 @register.filter
@@ -206,14 +182,8 @@ def main_character_alliance_id(user: User) -> int:
         return 1
 
     try:
-        return_value = user.profile.main_character.alliance_id
-
-        # Check if the user is in an alliance
-        try:
-            return_value = int(return_value)
-        except Exception:  # pylint: disable=broad-exception-caught
-            return_value = 1
-    except AttributeError:
+        return_value = int(user.profile.main_character.alliance_id)
+    except (AttributeError, ValueError, TypeError):
         return_value = 1
 
     return return_value
