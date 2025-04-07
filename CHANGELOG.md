@@ -41,6 +41,8 @@ Section Order:
 ### Security
 -->
 
+## [2.7.1] - 2025-04-07
+
 ### Changed
 
 - General code improvements
