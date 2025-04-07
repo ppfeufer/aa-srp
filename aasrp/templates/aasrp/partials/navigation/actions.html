@@ -1,16 +1,18 @@
 {% load i18n %}
 
+{% translate "View active" as l10n_view_active %}
+{% translate "View all" as l10n_view_all %}
+{% translate "Add SRP link" as l10n_add_srp_link %}
+
 {% if perms.aasrp.manage_srp %}
     {% if request.resolver_match.url_name == "srp_links" or request.resolver_match.url_name == "srp_links_all" %}
         <li class="nav-item">
             {% if request.resolver_match.url_name == "srp_links_all" %}
-                <a href="{% url 'aasrp:srp_links' %}" class="nav-link py-0">
-                    <span class="btn btn-secondary">{% translate "View active" %}</span>
-                </a>
+                {% url 'aasrp:srp_links' as nav_link %}
+                {% include "aasrp/partials/navigation/action-nav-item.html" with url=nav_link btn_modifier="secondary" fa_icon="fa-solid fa-eye" title=l10n_view_active %}
             {% else %}
-                <a href="{% url 'aasrp:srp_links_all' %}" class="nav-link py-0">
-                    <span class="btn btn-secondary">{% translate "View all" %}</span>
-                </a>
+                {% url 'aasrp:srp_links_all' as nav_link %}
+                {% include "aasrp/partials/navigation/action-nav-item.html" with url=nav_link btn_modifier="secondary" fa_icon="fa-solid fa-eye" title=l10n_view_all %}
             {% endif %}
         </li>
     {% endif %}
@@ -18,8 +20,7 @@
 
 {% if perms.aasrp.create_srp or perms.aasrp.manage_srp %}
     <li class="nav-item">
-        <a href="{% url 'aasrp:add_srp_link' %}" class="nav-link py-0">
-            <span class="btn btn-success">{% translate "Add SRP link" %}</span>
-        </a>
+        {% url 'aasrp:add_srp_link' as nav_link %}
+        {% include "aasrp/partials/navigation/action-nav-item.html" with url=nav_link btn_modifier="success" fa_icon="fa-solid fa-plus" title=l10n_add_srp_link %}
     </li>
 {% endif %}

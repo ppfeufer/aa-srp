@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.7.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-01 02:41+0200\n"
+"POT-Creation-Date: 2025-04-07 09:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -365,7 +365,7 @@ msgid "SRP link"
 msgstr ""
 
 #: aasrp/models.py:168
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:26
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:27
 msgid "SRP links"
 msgstr ""
 
@@ -741,32 +741,32 @@ msgstr ""
 msgid "After action report"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:8
+#: aasrp/templates/aasrp/partials/navigation/actions.html:3
 msgid "View active"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:12
+#: aasrp/templates/aasrp/partials/navigation/actions.html:4
 msgid "View all"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/navigation/actions.html:22
+#: aasrp/templates/aasrp/partials/navigation/actions.html:5
 msgid "Add SRP link"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:21
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:22
 msgid "SRP links (all)"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:23
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:24
 msgid "SRP links (active)"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:36
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:38
 #: aasrp/templates/aasrp/view-own-requests.html:6
 msgid "My SRP requests"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:45
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:48
 #: aasrp/templates/aasrp/user-settings.html:6
 msgid "My settings"
 msgstr ""

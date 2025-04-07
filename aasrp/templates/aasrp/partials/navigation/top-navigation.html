@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load navactive %}
 
-<li class="nav-item" role="presentation">
+<li class="nav-item mx-lg-1" role="presentation">
     {% if perms.aasrp.manage_srp %}
         {% if request.resolver_match.url_name == "srp_links_all" %}
             {% url 'aasrp:srp_links_all' as url_srp_links %}
@@ -16,6 +16,7 @@
         class="nav-link {% navactive request 'aasrp:srp_links aasrp:srp_links_all' %}"
         href="{{ url_srp_links }}"
     >
+        <i class="fa-regular fa-money-bill-1 fa-fw me-2"></i>
         {% if perms.aasrp.manage_srp %}
             {% if request.resolver_match.url_name == "srp_links_all" %}
                 {% translate "SRP links (all)" %}
@@ -28,20 +29,22 @@
     </a>
 </li>
 
-<li class="nav-item" role="presentation">
+<li class="nav-item mx-lg-1" role="presentation">
     <a
         class="nav-link {% navactive request 'aasrp:own_srp_requests' %}"
         href="{% url 'aasrp:own_srp_requests' %}"
     >
+        <i class="fa-solid fa-hand-holding-dollar fa-fw me-2"></i>
         {% translate "My SRP requests" %}
     </a>
 </li>
 
-<li class="nav-item" role="presentation">
+<li class="nav-item mx-lg-1" role="presentation">
     <a
         class="nav-link {% navactive request 'aasrp:user_settings' %}"
         href="{% url 'aasrp:user_settings' %}"
     >
+        <i class="fa-solid fa-user-cog fa-fw me-2"></i>
         {% translate "My settings" %}
     </a>
 </li>
