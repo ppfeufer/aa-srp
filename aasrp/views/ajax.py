@@ -527,13 +527,25 @@ def srp_request_approve(  # pylint: disable=too-many-locals
 
         # Send notification if enabled
         if not get_user_settings(user=requester).disable_notifications:
+            reviser_comment_for_message = ""
+            if reviser_comment:
+                reviser_comment_for_message = (
+                    "\n" "Comment:" "\n" f"{reviser_comment}" "\n\n"
+                )
+
             notification_message = _(
                 f"Your SRP request regarding your {srp_request.ship.name} lost during "
-                f"{srp_request.srp_link.srp_name} has been approved.\n\n"
-                f"Request Details:\nSRP Code: {srp_request.srp_link.srp_code}\n"
-                f"Request Code: {srp_request.request_code}\n"
-                f"Reviser: {get_main_character_name_from_user(user=request.user)}\n"
-                f"{f'Comment:\n{reviser_comment}\n' if reviser_comment else ''}"
+                f"{srp_request.srp_link.srp_name} has been approved."
+                "\n\n"
+                "Request Details:"
+                "\n"
+                f"SRP Code: {srp_request.srp_link.srp_code}"
+                "\n"
+                f"Request Code: {srp_request.request_code}"
+                "\n"
+                f"Reviser: {get_main_character_name_from_user(user=request.user)}"
+                "\n"
+                f"{reviser_comment_for_message}"
                 f"{SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE}"
             )
 
@@ -619,11 +631,20 @@ def srp_request_deny(
         if not get_user_settings(user=requester).disable_notifications:
             notification_message = (
                 f"Your SRP request regarding your {srp_request.ship.name} lost during "
-                f"{srp_request.srp_link.srp_name} has been rejected.\n\n"
-                f"Reason:\n{reject_info}\n\n"
-                f"Request Details:\nSRP Code: {srp_request.srp_link.srp_code}\n"
-                f"Request Code: {srp_request.request_code}\n"
-                f"Reviser: {get_main_character_name_from_user(user=request.user)}\n\n"
+                f"{srp_request.srp_link.srp_name} has been rejected."
+                "\n\n"
+                "Reason:"
+                "\n"
+                f"{reject_info}"
+                "\n\n"
+                "Request Details:"
+                "\n"
+                f"SRP Code: {srp_request.srp_link.srp_code}"
+                "\n"
+                f"Request Code: {srp_request.request_code}"
+                "\n"
+                f"Reviser: {get_main_character_name_from_user(user=request.user)}"
+                "\n\n"
                 f"{SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE}"
             )
 
