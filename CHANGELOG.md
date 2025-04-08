@@ -49,6 +49,10 @@ Section Order:
 
 - Don't try to translate Discord messages, it's not working
 
+### Removed
+
+- Nav icons from desktop nav, as they should only be visible on mobile devices
+
 ## [2.7.1] - 2025-04-07
 
 ### Changed
