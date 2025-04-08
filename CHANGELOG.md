@@ -43,6 +43,7 @@ Section Order:
 
 ### Changed
 
+- Larger images in info modals
 - Top navigation templates modularized
 - Ajax calls logic refactored
 
