@@ -144,7 +144,7 @@ class TestGetFormattedCharacterName(TestCase):
 
         expected_html = (
             f"{character_portrait_html}<br>"
-            "<span class='aasrp-character-portrait-character-name d-inline-block'>"
+            "<span class='aasrp-character-portrait-character-name d-inline-block align-middle'>"
             f"{formatted_character_name}"
             "</span>"
         )
@@ -173,7 +173,7 @@ class TestGetFormattedCharacterName(TestCase):
 
         expected_html = (
             f"{character_portrait_html}"
-            "<span class='aasrp-character-portrait-character-name d-inline-block'>"
+            "<span class='aasrp-character-portrait-character-name d-inline-block align-middle'>"
             f"{formatted_character_name}"
             "</span>"
         )
@@ -192,7 +192,7 @@ class TestGetFormattedCharacterName(TestCase):
         html = get_formatted_character_name(character=None)
 
         expected_html = (
-            "<span class='aasrp-character-portrait-character-name d-inline-block'>"
+            "<span class='aasrp-character-portrait-character-name d-inline-block align-middle'>"
             "Unknown character"
             "</span>"
         )

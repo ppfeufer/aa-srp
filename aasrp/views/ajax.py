@@ -362,14 +362,14 @@ def srp_request_additional_information(
     insurance_information = srp_request.insurance.filter(srp_request=srp_request)
 
     character = get_formatted_character_name(
-        character=srp_request.character, with_portrait=True
+        character=srp_request.character, with_portrait=True, portrait_size=64
     )
 
     try:
         ship_render_icon_html = get_type_render_url_from_type_id(
             evetype_id=srp_request.ship_id,
             evetype_name=srp_request.ship.name,
-            size=32,
+            size=64,
             as_html=True,
         )
     except AttributeError:
@@ -382,7 +382,7 @@ def srp_request_additional_information(
         ship_render_icon_html = get_type_render_url_from_type_id(
             evetype_id=srp_request.ship_id,
             evetype_name=srp_request.ship.name,
-            size=32,
+            size=64,
             as_html=True,
         )
 
