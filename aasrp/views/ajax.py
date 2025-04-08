@@ -534,7 +534,7 @@ def srp_request_approve(  # pylint: disable=too-many-locals
                     "\n" "Comment:" "\n" f"{reviser_comment}" "\n\n"
                 )
 
-            notification_message = _(
+            notification_message = (
                 f"Your SRP request regarding your {srp_request.ship.name} lost during "
                 f"{srp_request.srp_link.srp_name} has been approved."
                 "\n\n"
