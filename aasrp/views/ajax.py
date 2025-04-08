@@ -79,8 +79,9 @@ def dashboard_srp_links_data(
         srp_links = srp_links.filter(srp_status=SrpLink.Status.ACTIVE)
 
     for srp_link in srp_links:
+        l10n_link = _("Link")
         aar_link = (
-            f'<a href="{srp_link.aar_link}" target="_blank">{_("Link")}</a>'
+            f'<a href="{srp_link.aar_link}" target="_blank">{l10n_link}</a>'
             if srp_link.aar_link
             else ""
         )
