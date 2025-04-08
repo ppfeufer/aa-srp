@@ -1,0 +1,21 @@
+{% load i18n %}
+
+{% if perms.aasrp.manage_srp %}
+    {% if request.resolver_match.url_name == "srp_links" or request.resolver_match.url_name == "srp_links_all" %}
+        {% if request.resolver_match.url_name == "srp_links_all" %}
+            {% translate "View active" as l10n_view_srp_links %}
+            {% url 'aasrp:srp_links' as url_view_srp_links %}
+        {% else %}
+            {% translate "View all" as l10n_view_srp_links %}
+            {% url 'aasrp:srp_links_all' as url_view_srp_links %}
+        {% endif %}
+
+        {% translate "Add SRP link" as l10n_add_srp_link %}
+        {% include "aasrp/partials/navigation/actions-navigation-item.html" with url=url_view_srp_links btn_modifier="secondary" fa_icon="fa-solid fa-eye" title=l10n_view_srp_links %}
+    {% endif %}
+{% endif %}
+
+{% if perms.aasrp.create_srp or perms.aasrp.manage_srp %}
+    {% url 'aasrp:add_srp_link' as url_add_srp_link %}
+    {% include "aasrp/partials/navigation/actions-navigation-item.html" with url=url_add_srp_link btn_modifier="success" fa_icon="fa-solid fa-plus" title=l10n_add_srp_link %}
+{% endif %}
