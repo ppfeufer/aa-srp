@@ -45,6 +45,10 @@ Section Order:
 
 - Ajax calls logic refactored
 
+### Fixed
+
+- Don't try to translate Discord messages, it's not working
+
 ## [2.7.1] - 2025-04-07
 
 ### Changed
