@@ -144,9 +144,7 @@ $(document).ready(() => {
     tableSrpLinks.on('draw', () => {
         // Show bootstrap tooltips
         [].slice.call(
-            document.querySelectorAll(
-                '[data-bs-tooltip="aa-srp"]'
-            )
+            document.querySelectorAll('[data-bs-tooltip="aa-srp"]')
         ).map((tooltipTriggerEl) => {
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });

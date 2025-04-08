@@ -41,6 +41,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Ajax calls logic refactored
+
 ## [2.7.1] - 2025-04-07
 
 ### Changed

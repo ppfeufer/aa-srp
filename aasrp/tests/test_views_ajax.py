@@ -133,7 +133,10 @@ class TestSrpRequestRemove(TestCase):
         response = srp_request_remove(request, "SRP123", "REQ123")
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertJSONEqual(response.content, {"success": False})
+        self.assertJSONEqual(
+            response.content,
+            {"success": False, "message": "No matching SRP request found"},
+        )
 
     @patch("aasrp.views.ajax.SrpRequest.objects.get")
     def test_srp_request_remove_not_found_for_user_with_perm_manage_srp_requests(
@@ -167,4 +170,7 @@ class TestSrpRequestRemove(TestCase):
         response = srp_request_remove(request, "SRP123", "REQ123")
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertJSONEqual(response.content, {"success": False})
+        self.assertJSONEqual(
+            response.content,
+            {"success": False, "message": "No matching SRP request found"},
+        )
