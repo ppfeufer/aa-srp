@@ -448,11 +448,11 @@ def srp_request_change_payout(
                 srp_request.payout_amount = form.cleaned_data["value"]
                 srp_request.save()
 
-                return JsonResponse(data=[{"success": True}], safe=False)
+                return JsonResponse(data={"success": True}, safe=False)
         except SrpRequest.DoesNotExist:
             pass
 
-    return JsonResponse(data=[{"success": False}], safe=False)
+    return JsonResponse(data={"success": False}, safe=False)
 
 
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
@@ -472,92 +472,101 @@ def srp_request_approve(  # pylint: disable=too-many-locals
     :rtype:
     """
 
-    data = []
-
     try:
         srp_request = SrpRequest.objects.get(
             request_code=srp_request_code, srp_link__srp_code=srp_code
         )
     except SrpRequest.DoesNotExist:
-        data.append({"success": False})
-    else:
-        if request.method == "POST":
-            # Create a form instance and populate it with data from the request
-            form = None
+        return JsonResponse(
+            data={"success": False, "message": _("No matching SRP request found")},
+            safe=False,
+        )
 
-            if srp_request.request_status == SrpRequest.Status.PENDING:
-                form = SrpRequestAcceptForm(data=request.POST)
-            elif srp_request.request_status == SrpRequest.Status.REJECTED:
-                form = SrpRequestAcceptRejectedForm(data=request.POST)
+    if request.method == "POST":
+        form = (
+            SrpRequestAcceptForm(data=request.POST)
+            if srp_request.request_status == SrpRequest.Status.PENDING
+            else (
+                SrpRequestAcceptRejectedForm(data=request.POST)
+                if srp_request.request_status == SrpRequest.Status.REJECTED
+                else None
+            )
+        )
 
-            if form and form.is_valid():
-                requester = srp_request.creator
-                srp_payout = srp_request.payout_amount
-                srp_isk_loss = srp_request.loss_amount
+        if not form.is_valid():
+            return JsonResponse(
+                data={"success": False, "message": _("Invalid form data")}, safe=False
+            )
 
-                # Reviser comment
-                reviser_comment = form.cleaned_data["comment"]
+        requester = srp_request.creator
+        srp_request.payout_amount = srp_request.payout_amount or srp_request.loss_amount
 
-                if srp_payout == 0:
-                    srp_request.payout_amount = srp_isk_loss
-
-                # Set new status in request history
+        # Create comments in bulk
+        comments = [
+            RequestComment(
+                srp_request=srp_request,
+                comment_type=RequestComment.Type.STATUS_CHANGE,
+                new_status=SrpRequest.Status.APPROVED,
+                creator=request.user,
+            )
+        ]
+        reviser_comment = form.cleaned_data["comment"]
+        if reviser_comment:
+            comments.append(
                 RequestComment(
                     srp_request=srp_request,
-                    comment_type=RequestComment.Type.STATUS_CHANGE,
-                    new_status=SrpRequest.Status.APPROVED,
+                    comment=reviser_comment,
+                    comment_type=RequestComment.Type.REVISER_COMMENT,
                     creator=request.user,
-                ).save()
+                )
+            )
+        RequestComment.objects.bulk_create(comments)
 
-                # Save reviser comment
-                if reviser_comment != "":
-                    RequestComment(
-                        srp_request=srp_request,
-                        comment=reviser_comment,
-                        comment_type=RequestComment.Type.REVISER_COMMENT,
-                        creator=request.user,
-                    ).save()
+        srp_request.request_status = SrpRequest.Status.APPROVED
+        srp_request.save()
 
-                srp_request.request_status = SrpRequest.Status.APPROVED
-                srp_request.save()
-
-                requester_user_settings = get_user_settings(user=requester)
-
-                # Check if the requester has notifications activated (it's by default)
-                if requester_user_settings.disable_notifications is False:
-                    ship_name = srp_request.ship.name
-                    fleet_name = srp_request.srp_link.srp_name
-                    srp_code = srp_request.srp_link.srp_code
-                    request_code = srp_request.request_code
-                    reviser = get_main_character_name_from_user(user=request.user)
-                    reviser_comment = (
-                        f"\nComment:\n{reviser_comment}\n"
-                        if reviser_comment != ""
-                        else ""
-                    )
-                    inquiry_note = SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
-                    notification_message = (
-                        f"Your SRP request regarding your {ship_name} lost during "
-                        f"{fleet_name} has been approved.\n\n"
-                        f"Request Details:\nSRP Code: {srp_code}\n"
-                        f"Request Code: {request_code}\n"
-                        f"Reviser: {reviser}\n{reviser_comment}\n{inquiry_note}"
-                    )
-
-                    logger.info(msg="Sending approval message to user")
-
-                    send_user_notification(
-                        user=requester,
-                        level="success",
-                        title="SRP Request Approved",
-                        message=notification_message,
-                    )
-
-                data.append(
-                    {"success": True, "message": _("SRP request has been approved")}
+        # Send notification if enabled
+        if not get_user_settings(user=requester).disable_notifications:
+            reviser_comment_for_message = ""
+            if reviser_comment:
+                reviser_comment_for_message = (
+                    "\n" "Comment:" "\n" f"{reviser_comment}" "\n\n"
                 )
 
-    return JsonResponse(data=data, safe=False)
+            notification_message = _(
+                f"Your SRP request regarding your {srp_request.ship.name} lost during "
+                f"{srp_request.srp_link.srp_name} has been approved."
+                "\n\n"
+                "Request Details:"
+                "\n"
+                f"SRP Code: {srp_request.srp_link.srp_code}"
+                "\n"
+                f"Request Code: {srp_request.request_code}"
+                "\n"
+                f"Reviser: {get_main_character_name_from_user(user=request.user)}"
+                "\n"
+                f"{reviser_comment_for_message}"
+                f"{SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE}"
+            )
+
+            logger.info(msg="Sending approval message to user")
+
+            send_user_notification(
+                user=requester,
+                level="success",
+                title="SRP Request Approved",
+                message=notification_message,
+            )
+
+        return JsonResponse(
+            data={"success": True, "message": _("SRP request has been approved")},
+            safe=False,
+        )
+
+    return JsonResponse(
+        data={"success": False, "message": _("Invalid request method")},
+        safe=False,
+    )
 
 
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
@@ -577,66 +586,86 @@ def srp_request_deny(
     :rtype:
     """
 
-    data = []
-
     try:
         srp_request = SrpRequest.objects.get(
             request_code=srp_request_code, srp_link__srp_code=srp_code
         )
     except SrpRequest.DoesNotExist:
-        return JsonResponse(data=[{"success": False}], safe=False)
+        return JsonResponse(
+            data={"success": False, "message": _("No matching SRP request found")},
+            safe=False,
+        )
 
     if request.method == "POST":
         form = SrpRequestRejectForm(data=request.POST)
-        if form.is_valid():
-            reject_info = form.cleaned_data["comment"]
-            requester = srp_request.creator
 
-            srp_request.payout_amount = 0
-            srp_request.request_status = SrpRequest.Status.REJECTED
-            srp_request.save()
-
-            RequestComment.objects.bulk_create(
-                [
-                    RequestComment(
-                        srp_request=srp_request,
-                        comment_type=RequestComment.Type.STATUS_CHANGE,
-                        new_status=SrpRequest.Status.REJECTED,
-                        creator=request.user,
-                    ),
-                    RequestComment(
-                        comment=reject_info,
-                        srp_request=srp_request,
-                        comment_type=RequestComment.Type.REJECT_REASON,
-                        creator=request.user,
-                    ),
-                ]
+        if not form.is_valid():
+            return JsonResponse(
+                data={"success": False, "message": _("Invalid form data")}, safe=False
             )
 
-            if not get_user_settings(user=requester).disable_notifications:
-                notification_message = (
-                    f"Your SRP request regarding your {srp_request.ship.name} lost during "
-                    f"{srp_request.srp_link.srp_name} has been rejected.\n\n"
-                    f"Reason:\n{reject_info}\n\n"
-                    f"Request Details:\nSRP Code: {srp_request.srp_link.srp_code}\n"
-                    f"Request Code: {srp_request.request_code}\n"
-                    f"Reviser: {get_main_character_name_from_user(user=request.user)}\n\n"
-                    f"{SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE}"
-                )
+        reject_info = form.cleaned_data["comment"]
+        requester = srp_request.creator
 
-                logger.info(msg="Sending reject message to user")
-                send_user_notification(
-                    user=requester,
-                    level="danger",
-                    title=_("SRP request rejected"),
-                    message=notification_message,
-                )
+        srp_request.payout_amount = 0
+        srp_request.request_status = SrpRequest.Status.REJECTED
+        srp_request.save()
 
-            data.append(
-                {"success": True, "message": _("SRP request has been rejected")}
+        RequestComment.objects.bulk_create(
+            [
+                RequestComment(
+                    srp_request=srp_request,
+                    comment_type=RequestComment.Type.STATUS_CHANGE,
+                    new_status=SrpRequest.Status.REJECTED,
+                    creator=request.user,
+                ),
+                RequestComment(
+                    comment=reject_info,
+                    srp_request=srp_request,
+                    comment_type=RequestComment.Type.REJECT_REASON,
+                    creator=request.user,
+                ),
+            ]
+        )
+
+        if not get_user_settings(user=requester).disable_notifications:
+            notification_message = (
+                f"Your SRP request regarding your {srp_request.ship.name} lost during "
+                f"{srp_request.srp_link.srp_name} has been rejected."
+                "\n\n"
+                "Reason:"
+                "\n"
+                f"{reject_info}"
+                "\n\n"
+                "Request Details:"
+                "\n"
+                f"SRP Code: {srp_request.srp_link.srp_code}"
+                "\n"
+                f"Request Code: {srp_request.request_code}"
+                "\n"
+                f"Reviser: {get_main_character_name_from_user(user=request.user)}"
+                "\n\n"
+                f"{SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE}"
             )
 
-    return JsonResponse(data=data, safe=False)
+            logger.info("Sending reject message to user")
+
+            send_user_notification(
+                user=requester,
+                level="danger",
+                title=_("SRP request rejected"),
+                message=notification_message,
+            )
+
+        return JsonResponse(
+            data={"success": True, "message": _("SRP request has been rejected")},
+            safe=False,
+        )
+
+    return JsonResponse(
+        data={"success": False, "message": _("Invalid request method")},
+        safe=False,
+    )
 
 
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
@@ -659,12 +688,12 @@ def srp_request_remove(
     """
 
     try:
-        srp_request = SrpRequest.objects.get(
+        SrpRequest.objects.get(
             request_code=srp_request_code, srp_link__srp_code=srp_code
-        )
-        srp_request.delete()
+        ).delete()
+
         data = {"success": True, "message": _("SRP request has been removed")}
     except SrpRequest.DoesNotExist:
-        data = {"success": False}
+        data = {"success": False, "message": _("No matching SRP request found")}
 
     return JsonResponse(data=data, safe=False)

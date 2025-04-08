@@ -300,18 +300,16 @@ $(document).ready(() => {
 
         // Show bootstrap tooltips
         [].slice.call(
-            document.querySelectorAll(
-                '[data-bs-tooltip="aa-srp"]'
-            )
+            document.querySelectorAll('[data-bs-tooltip="aa-srp"]')
         ).map((tooltipTriggerEl) => {
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
     });
 
     /**
-     * Reloading SRP calculation in our DataTable
+     * Helper function: Reloading SRP calculation in our DataTable
      *
-     * @param tableData
+     * @param {object} tableData The DataTable data
      * @private
      */
     const _reloadSrpCalculations = (tableData) => {
@@ -357,7 +355,24 @@ $(document).ready(() => {
     const modalSrpRequestReject = $('#srp-request-reject');
     const modalSrpRequestRemove = $('#srp-request-remove');
 
-    // SRP request details
+    /**
+     * Helper function: Modal confirm action
+     *
+     * @param {object} data The return data from the ajax call
+     * @private
+     */
+    const _modalConfirmAction = (data) => {
+        // Reload datatable on success and update SRP status values
+        if (data.success === true) {
+            srpRequestsTable.ajax.reload((tableData) => {
+                _reloadSrpCalculations(tableData);
+            });
+        }
+    };
+
+    /**
+     * Modal: SRP request details
+     */
     modalSrpRequestDetails.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const url = button.data('link');
@@ -372,7 +387,9 @@ $(document).ready(() => {
         modalSrpRequestDetails.find('.modal-body').text('');
     });
 
-    // Accept SRP request
+    /**
+     * Modal: Accept SRP request
+     */
     modalSrpRequestAccept.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const url = button.data('link');
@@ -392,11 +409,7 @@ $(document).ready(() => {
             );
 
             posting.done((data) => {
-                if (data['0'].success === true) {
-                    srpRequestsTable.ajax.reload((tableData) => {
-                        _reloadSrpCalculations(tableData);
-                    });
-                }
+                _modalConfirmAction(data);
             });
 
             modalSrpRequestAccept.modal('hide');
@@ -407,7 +420,9 @@ $(document).ready(() => {
         $('#modal-button-confirm-accept-request').unbind('click');
     });
 
-    // Accept former rejected SRP request
+    /**
+     * Modal: Accept former rejected SRP request
+     */
     modalSrpRequestAcceptRejected.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const url = button.data('link');
@@ -436,11 +451,7 @@ $(document).ready(() => {
                 );
 
                 posting.done((data) => {
-                    if (data['0'].success === true) {
-                        srpRequestsTable.ajax.reload((tableData) => {
-                            _reloadSrpCalculations(tableData);
-                        });
-                    }
+                    _modalConfirmAction(data);
                 });
 
                 modalSrpRequestAcceptRejected.modal('hide');
@@ -453,7 +464,9 @@ $(document).ready(() => {
         $('#modal-button-confirm-accept-rejected-request').unbind('click');
     });
 
-    // Reject SRP request
+    /**
+     * Modal: Reject SRP request
+     */
     modalSrpRequestReject.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const url = button.data('link');
@@ -480,11 +493,7 @@ $(document).ready(() => {
                 );
 
                 posting.done((data) => {
-                    if (data['0'].success === true) {
-                        srpRequestsTable.ajax.reload((tableData) => {
-                            _reloadSrpCalculations(tableData);
-                        });
-                    }
+                    _modalConfirmAction(data);
                 });
 
                 modalSrpRequestReject.modal('hide');
@@ -497,19 +506,16 @@ $(document).ready(() => {
         $('#modal-button-confirm-reject-request').unbind('click');
     });
 
-    // Remove SRP request
+    /**
+     * Modal: Remove SRP request
+     */
     modalSrpRequestRemove.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const url = button.data('link');
 
         $('#modal-button-confirm-remove-request').on('click', () => {
             $.get(url, (data) => {
-                // Reload datatable on success and update SRP status values
-                if (data.success === true) {
-                    srpRequestsTable.ajax.reload((tableData) => {
-                        _reloadSrpCalculations(tableData);
-                    });
-                }
+                _modalConfirmAction(data);
             });
 
             modalSrpRequestRemove.modal('hide');
