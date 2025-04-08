@@ -43,6 +43,7 @@ Section Order:
 
 ### Changed
 
+- Top navigation templates modularized
 - Ajax calls logic refactored
 
 ### Fixed

@@ -1,50 +1,31 @@
 {% load i18n %}
 {% load navactive %}
 
-<li class="nav-item" role="presentation">
-    {% if perms.aasrp.manage_srp %}
-        {% if request.resolver_match.url_name == "srp_links_all" %}
-            {% url 'aasrp:srp_links_all' as url_srp_links %}
-        {% else %}
-            {% url 'aasrp:srp_links' as url_srp_links %}
-        {% endif %}
+<!-- SRP links -->
+{% if perms.aasrp.manage_srp %}
+    {% if request.resolver_match.url_name == "srp_links_all" %}
+        {% url 'aasrp:srp_links_all' as url_srp_links %}
+        {% translate "SRP links (all)" as l10n_srp_links %}
     {% else %}
         {% url 'aasrp:srp_links' as url_srp_links %}
+        {% translate "SRP links (active)" as l10n_srp_links %}
     {% endif %}
+{% else %}
+    {% url 'aasrp:srp_links' as url_srp_links %}
+    {% translate "SRP links" as l10n_srp_links %}
+{% endif %}
 
-    <a
-        class="nav-link {% navactive request 'aasrp:srp_links aasrp:srp_links_all' %}"
-        href="{{ url_srp_links }}"
-    >
-        <i class="fa-regular fa-money-bill-1 fa-fw me-2 d-lg-none"></i>
-        {% if perms.aasrp.manage_srp %}
-            {% if request.resolver_match.url_name == "srp_links_all" %}
-                {% translate "SRP links (all)" %}
-            {% else %}
-                {% translate "SRP links (active)" %}
-            {% endif %}
-        {% else %}
-            {% translate "SRP links" %}
-        {% endif %}
-    </a>
-</li>
+{% navactive request 'aasrp:srp_links aasrp:srp_links_all' as navactive_srp_links %}
+{% include "aasrp/partials/navigation/top-navigation-item.html" with url=url_srp_links navactive=navactive_srp_links title=l10n_srp_links fa_icon="fa-regular fa-money-bill-1" %}
 
-<li class="nav-item" role="presentation">
-    <a
-        class="nav-link {% navactive request 'aasrp:own_srp_requests' %}"
-        href="{% url 'aasrp:own_srp_requests' %}"
-    >
-        <i class="fa-solid fa-hand-holding-dollar fa-fw me-2 d-lg-none"></i>
-        {% translate "My SRP requests" %}
-    </a>
-</li>
+<!-- My SRP requests -->
+{% url 'aasrp:own_srp_requests' as url_own_srp_requests %}
+{% navactive request 'aasrp:own_srp_requests' as navactive_own_srp_requests %}
+{% translate "My SRP requests" as l10n_own_srp_requests %}
+{% include "aasrp/partials/navigation/top-navigation-item.html" with url=url_own_srp_requests navactive=navactive_own_srp_requests title=l10n_own_srp_requests fa_icon="fa-solid fa-hand-holding-dollar" %}
 
-<li class="nav-item" role="presentation">
-    <a
-        class="nav-link {% navactive request 'aasrp:user_settings' %}"
-        href="{% url 'aasrp:user_settings' %}"
-    >
-        <i class="fa-solid fa-user-cog fa-fw me-2 d-lg-none"></i>
-        {% translate "My settings" %}
-    </a>
-</li>
+<!-- My settings -->
+{% url 'aasrp:user_settings' as url_user_settings %}
+{% navactive request 'aasrp:user_settings' as navactive_user_settings %}
+{% translate "My settings" as l10n_user_settings %}
+{% include "aasrp/partials/navigation/top-navigation-item.html" with url=url_user_settings navactive=navactive_user_settings title=l10n_user_settings fa_icon="fa-solid fa-user-cog" %}
