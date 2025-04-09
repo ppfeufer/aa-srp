@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-09 05:22+0200\n"
-"PO-Revision-Date: 2025-04-09 03:01+0000\n"
+"POT-Creation-Date: 2025-04-09 05:50+0200\n"
+"PO-Revision-Date: 2025-04-09 03:51+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/de/>\n"
 "Language: de\n"
@@ -266,11 +266,15 @@ msgstr "SRP Anfrage ablehnen"
 msgid "Delete SRP request"
 msgstr "SRP Anfrage löschen"
 
-#: aasrp/helper/srp_data.py:45
+#: aasrp/helper/srp_data.py:30
+msgid "Copy request code to clipboard"
+msgstr "Anfrage Code in die Zwischenablage kopieren"
+
+#: aasrp/helper/srp_data.py:49
 msgid "Copy payout amount to clipboard"
 msgstr "Auszahlungsbetrag in die Zwischenablage kopieren"
 
-#: aasrp/helper/srp_data.py:79 aasrp/models.py:123
+#: aasrp/helper/srp_data.py:83 aasrp/models.py:123
 #: aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
@@ -278,7 +282,7 @@ msgstr "Auszahlungsbetrag in die Zwischenablage kopieren"
 msgid "SRP code"
 msgstr "SRP Code"
 
-#: aasrp/helper/srp_data.py:80 aasrp/models.py:274
+#: aasrp/helper/srp_data.py:84 aasrp/models.py:274
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
 msgid "Request code"
@@ -950,9 +954,6 @@ msgstr "SRP Link {srp_code} gelöscht."
 #~| msgid "Submitted SRP request for your {srp_request__ship.name}."
 #~ msgid "Your SRP request regarding your {srp_request.ship.name} lost during "
 #~ msgstr "SRP Anfrage für Deine {srp_request__ship.name} eingereicht."
-
-#~ msgid "Copy request code to clipboard"
-#~ msgstr "Anfrage Code in die Zwischenablage kopieren"
 
 #~ msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {str(err)}"
 #~ msgstr "Etwas ist schief gegangen, Deine Killmail ({submitted_killmail_link}) konnte nicht analysiert werden: {str(err)}"

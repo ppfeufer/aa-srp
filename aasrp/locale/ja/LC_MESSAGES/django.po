@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-09 05:22+0200\n"
+"POT-Creation-Date: 2025-04-09 05:50+0200\n"
 "PO-Revision-Date: 2024-08-08 17:28+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ja/>\n"
@@ -268,13 +268,19 @@ msgstr "SRP依頼を却下する"
 msgid "Delete SRP request"
 msgstr "SRP依頼を削除する"
 
-#: aasrp/helper/srp_data.py:45
+#: aasrp/helper/srp_data.py:30
+#, fuzzy
+#| msgid "Copy character name to clipboard"
+msgid "Copy request code to clipboard"
+msgstr "キャラクター名をコピーする"
+
+#: aasrp/helper/srp_data.py:49
 #, fuzzy
 #| msgid "Copy character name to clipboard"
 msgid "Copy payout amount to clipboard"
 msgstr "キャラクター名をコピーする"
 
-#: aasrp/helper/srp_data.py:79 aasrp/models.py:123
+#: aasrp/helper/srp_data.py:83 aasrp/models.py:123
 #: aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
@@ -282,7 +288,7 @@ msgstr "キャラクター名をコピーする"
 msgid "SRP code"
 msgstr "SRPコード"
 
-#: aasrp/helper/srp_data.py:80 aasrp/models.py:274
+#: aasrp/helper/srp_data.py:84 aasrp/models.py:274
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
 msgid "Request code"

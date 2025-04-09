@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-09 05:22+0200\n"
+"POT-Creation-Date: 2025-04-09 05:50+0200\n"
 "PO-Revision-Date: 2025-02-18 09:17+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Chinese (Simplified Han script) <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/zh_Hans/>\n"
@@ -270,13 +270,19 @@ msgstr "拒绝舰船补损请求"
 msgid "Delete SRP request"
 msgstr "删除舰船补损请求"
 
-#: aasrp/helper/srp_data.py:45
+#: aasrp/helper/srp_data.py:30
+#, fuzzy
+#| msgid "Copy character name to clipboard"
+msgid "Copy request code to clipboard"
+msgstr "拷贝你的角色名字到粘贴板上"
+
+#: aasrp/helper/srp_data.py:49
 #, fuzzy
 #| msgid "Copy character name to clipboard"
 msgid "Copy payout amount to clipboard"
 msgstr "拷贝你的角色名字到粘贴板上"
 
-#: aasrp/helper/srp_data.py:79 aasrp/models.py:123
+#: aasrp/helper/srp_data.py:83 aasrp/models.py:123
 #: aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
@@ -284,7 +290,7 @@ msgstr "拷贝你的角色名字到粘贴板上"
 msgid "SRP code"
 msgstr "舰船补损代码"
 
-#: aasrp/helper/srp_data.py:80 aasrp/models.py:274
+#: aasrp/helper/srp_data.py:84 aasrp/models.py:274
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
 msgid "Request code"
@@ -958,11 +964,6 @@ msgstr "舰船补损链接 {srp_code} 被删除了。"
 #~| msgid "Submitted SRP request for your {srp_request__ship.name}."
 #~ msgid "Your SRP request regarding your {srp_request.ship.name} lost during "
 #~ msgstr "保存舰船补损请求 {srp_request__ship.name}。"
-
-#, fuzzy
-#~| msgid "Copy character name to clipboard"
-#~ msgid "Copy request code to clipboard"
-#~ msgstr "拷贝你的角色名字到粘贴板上"
 
 #~ msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {str(err)}"
 #~ msgstr "很抱歉，你的击杀报告链接 ({submitted_killmail_link}) 暂时无法被解析: {str(err)}"
