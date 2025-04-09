@@ -41,6 +41,10 @@ Section Order:
 ### Security
 -->
 
+### Added
+
+- Copy to clipboard icon for SRP code in the SRP requests overview
+
 ### Changed
 
 - Request accepted/denied notification format unified
