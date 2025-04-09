@@ -41,6 +41,8 @@ Section Order:
 ### Security
 -->
 
+## [2.7.3] - 2025-04-09
+
 ### Fixed
 
 - Ensure string is properly translated
