@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-09 05:22+0200\n"
+"POT-Creation-Date: 2025-04-09 05:50+0200\n"
 "PO-Revision-Date: 2025-03-23 11:24+0000\n"
 "Last-Translator: M <skrypets@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/uk/>\n"
@@ -280,13 +280,19 @@ msgstr "Відхилити запит на SRP"
 msgid "Delete SRP request"
 msgstr "Видалити запит на SRP"
 
-#: aasrp/helper/srp_data.py:45
+#: aasrp/helper/srp_data.py:30
+#, fuzzy
+#| msgid "Copy character name to clipboard"
+msgid "Copy request code to clipboard"
+msgstr "Скопіювати ім'я персонажа в буфер обміну"
+
+#: aasrp/helper/srp_data.py:49
 #, fuzzy
 #| msgid "Copy character name to clipboard"
 msgid "Copy payout amount to clipboard"
 msgstr "Скопіювати ім'я персонажа в буфер обміну"
 
-#: aasrp/helper/srp_data.py:79 aasrp/models.py:123
+#: aasrp/helper/srp_data.py:83 aasrp/models.py:123
 #: aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
@@ -294,7 +300,7 @@ msgstr "Скопіювати ім'я персонажа в буфер обмін
 msgid "SRP code"
 msgstr "Код SRP"
 
-#: aasrp/helper/srp_data.py:80 aasrp/models.py:274
+#: aasrp/helper/srp_data.py:84 aasrp/models.py:274
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
 msgid "Request code"
@@ -985,11 +991,6 @@ msgstr "Посилання SRP {srp_code} видалено."
 #~| msgid "Submitted SRP request for your {srp_request__ship.name}."
 #~ msgid "Your SRP request regarding your {srp_request.ship.name} lost during "
 #~ msgstr "Відправлено SRP запит для вашого {srp_request__ship.name}."
-
-#, fuzzy
-#~| msgid "Copy character name to clipboard"
-#~ msgid "Copy request code to clipboard"
-#~ msgstr "Скопіювати ім'я персонажа в буфер обміну"
 
 #~ msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {str(err)}"
 #~ msgstr "Виникла помилка, ваш kill mail ({submitted_killmail_link}) не вдалося розібрати: {str(err)}"
