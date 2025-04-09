@@ -48,7 +48,14 @@
 
                 <div class="card-srp-request-overview-cell">
                     <dt>{% translate "SRP code" %}:</dt>
-                    <dd>{{ srp_link.srp_code }}</dd>
+                    <dd>
+                        {% translate "Copy SRP code to clipboard" as ctc_title %}
+
+                        {{ srp_link.srp_code }}
+                        <sup>
+                            {% include "aasrp/partials/common/copy-to-clipboard-icon.html" with data=srp_link.srp_code title=ctc_title %}
+                        </sup>
+                    </dd>
                 </div>
             </div>
 
@@ -74,7 +81,7 @@
         {% endif %}
 
         <a class="btn btn-primary btn-sm" href="{% url 'aasrp:srp_links' %}">
-            <i class="fa-solid fa-circle-left"></i>
+            <i class="fa-solid fa-circle-left fa-fw"></i>
             {% translate "Back to SRP overview" %}
         </a>
     </div>

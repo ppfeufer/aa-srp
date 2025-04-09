@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.7.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-09 04:10+0200\n"
+"POT-Creation-Date: 2025-04-09 04:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -635,7 +635,7 @@ msgstr ""
 
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:9
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:48
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:72
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:79
 msgid "Mark completed"
 msgstr ""
 
@@ -690,7 +690,7 @@ msgid "AAR"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:24
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:58
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:65
 msgid "SRP cost"
 msgstr ""
 
@@ -819,7 +819,11 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:78
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:52
+msgid "Copy SRP code to clipboard"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:85
 msgid "Back to SRP overview"
 msgstr ""
 
