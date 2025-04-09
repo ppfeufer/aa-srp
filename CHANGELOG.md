@@ -41,6 +41,8 @@ Section Order:
 ### Security
 -->
 
+## [2.7.2] - 2025-04-09
+
 ### Added
 
 - Copy to clipboard icon for SRP code in the SRP requests overview
