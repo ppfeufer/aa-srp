@@ -9,9 +9,6 @@ from enum import Enum
 # Third Party
 from requests.__version__ import __version__ as requests_version
 
-# Django
-from django.utils.translation import gettext_lazy as _
-
 # Alliance Auth
 from esi import __version__ as esi_version
 
@@ -40,9 +37,9 @@ APP_BASE_DIR = os.path.join(os.path.dirname(__file__))
 APP_STATIC_DIR = os.path.join(APP_BASE_DIR, "static", "aasrp")
 
 
-SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = _(
+SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = (
     "If you have any questions regarding your SRP request, feel free to contact your "
-    "request reviser.\nPlease make sure to always add the SRP code and the "
+    "request reviser. Please make sure to always add the SRP code and the "
     "request code with your inquiry."
 )
 
