@@ -11,7 +11,6 @@ from eveuniverse.models import EveType
 # AA SRP
 from aasrp.helper.icons import copy_to_clipboard_icon
 from aasrp.helper.numbers import l10n_number_format
-from aasrp.managers import SrpManager
 from aasrp.models import SrpRequest
 
 
@@ -96,7 +95,7 @@ def attempt_to_re_add_ship_information_to_request(
     """
     If for some reason the ship gets removed from EveType table,
     srp_request.ship is None. In this case, we have to re-add the ship to prevent
-    errors in our DataTables ...
+    errors in our DataTables …
 
     :param srp_request:
     :type srp_request:
@@ -104,13 +103,15 @@ def attempt_to_re_add_ship_information_to_request(
     :rtype:
     """
 
-    srp_kill_link_id = SrpManager.get_kill_id(killboard_link=srp_request.killboard_link)
+    srp_kill_link_id = SrpRequest.objects.get_kill_id(
+        killboard_link=srp_request.killboard_link
+    )
 
     (
         ship_type_id,
         ship_value,  # pylint: disable=unused-variable
         victim_id,  # pylint: disable=unused-variable
-    ) = SrpManager.get_kill_data(kill_id=srp_kill_link_id)
+    ) = SrpRequest.objects.get_kill_data(kill_id=srp_kill_link_id)
     (
         srp_request__ship,
         created_from_esi,  # pylint: disable=unused-variable

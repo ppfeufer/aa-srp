@@ -8,7 +8,7 @@ from allianceauth.services.hooks import MenuItemHook, UrlHook
 
 # AA SRP
 from aasrp import __title__, urls
-from aasrp.managers import SrpManager
+from aasrp.models import SrpRequest
 
 
 class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
@@ -38,7 +38,7 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
         """
 
         if request.user.has_perm("aasrp.basic_access"):
-            app_count = SrpManager.pending_requests_count_for_user(request.user)
+            app_count = SrpRequest.objects.pending_requests_count_for_user(request.user)
             self.count = app_count if app_count and app_count > 0 else None
 
             return MenuItemHook.render(self, request=request)

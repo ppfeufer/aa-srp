@@ -46,6 +46,7 @@ Section Order:
 - Larger images in info modals
 - Top navigation templates modularized
 - Ajax calls logic refactored
+- Managers refactored
 
 ### Fixed
 
