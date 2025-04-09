@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-09 05:22+0200\n"
+"POT-Creation-Date: 2025-04-09 05:50+0200\n"
 "PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ko/>\n"
@@ -269,13 +269,19 @@ msgstr "SRP 요청 거부"
 msgid "Delete SRP request"
 msgstr "SRP 요청 삭제"
 
-#: aasrp/helper/srp_data.py:45
+#: aasrp/helper/srp_data.py:30
+#, fuzzy
+#| msgid "Copy character name to clipboard"
+msgid "Copy request code to clipboard"
+msgstr "캐릭터 이름 복사"
+
+#: aasrp/helper/srp_data.py:49
 #, fuzzy
 #| msgid "Copy character name to clipboard"
 msgid "Copy payout amount to clipboard"
 msgstr "캐릭터 이름 복사"
 
-#: aasrp/helper/srp_data.py:79 aasrp/models.py:123
+#: aasrp/helper/srp_data.py:83 aasrp/models.py:123
 #: aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
@@ -283,7 +289,7 @@ msgstr "캐릭터 이름 복사"
 msgid "SRP code"
 msgstr "SRP 코드"
 
-#: aasrp/helper/srp_data.py:80 aasrp/models.py:274
+#: aasrp/helper/srp_data.py:84 aasrp/models.py:274
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
 msgid "Request code"
@@ -975,11 +981,6 @@ msgstr "SRP 세션 {srp_code} 이 삭제 되었습니다."
 #~| msgid "Submitted SRP request for your {srp_request__ship.name}."
 #~ msgid "Your SRP request regarding your {srp_request.ship.name} lost during "
 #~ msgstr "다음 링크에 대한 SRP 요청이 제출되었습니다. ({srp_request__ship.name})."
-
-#, fuzzy
-#~| msgid "Copy character name to clipboard"
-#~ msgid "Copy request code to clipboard"
-#~ msgstr "캐릭터 이름 복사"
 
 #, fuzzy, python-brace-format
 #~| msgid "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
