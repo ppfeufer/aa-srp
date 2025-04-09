@@ -45,6 +45,10 @@ Section Order:
 
 - Copy to clipboard icon for SRP code in the SRP requests overview
 
+### Fixed
+
+- Don't try to translate Discord messages, it's not working
+
 ### Changed
 
 - Request accepted/denied notification format unified
@@ -52,10 +56,6 @@ Section Order:
 - Top navigation templates modularized
 - Ajax calls logic refactored
 - Managers refactored
-
-### Fixed
-
-- Don't try to translate Discord messages, it's not working
 
 ### Removed
 
