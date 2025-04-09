@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-09 05:22+0200\n"
+"POT-Creation-Date: 2025-04-09 05:50+0200\n"
 "PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ru/>\n"
@@ -282,13 +282,19 @@ msgstr "Отклонить SRP запрос"
 msgid "Delete SRP request"
 msgstr "Удалить SRP запрос"
 
-#: aasrp/helper/srp_data.py:45
+#: aasrp/helper/srp_data.py:30
+#, fuzzy
+#| msgid "Copy character name to clipboard"
+msgid "Copy request code to clipboard"
+msgstr "Скопировать имя пилота в буфер обмена"
+
+#: aasrp/helper/srp_data.py:49
 #, fuzzy
 #| msgid "Copy character name to clipboard"
 msgid "Copy payout amount to clipboard"
 msgstr "Скопировать имя пилота в буфер обмена"
 
-#: aasrp/helper/srp_data.py:79 aasrp/models.py:123
+#: aasrp/helper/srp_data.py:83 aasrp/models.py:123
 #: aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
@@ -296,7 +302,7 @@ msgstr "Скопировать имя пилота в буфер обмена"
 msgid "SRP code"
 msgstr "Код SRP"
 
-#: aasrp/helper/srp_data.py:80 aasrp/models.py:274
+#: aasrp/helper/srp_data.py:84 aasrp/models.py:274
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
 msgid "Request code"
@@ -1005,11 +1011,6 @@ msgstr "SRP ссылка {srp_code} удалена."
 #~| msgid "Submitted SRP request for your {srp_request__ship.name}."
 #~ msgid "Your SRP request regarding your {srp_request.ship.name} lost during "
 #~ msgstr "Отправлен SRP запрос для вашего {srp_request__ship.name}."
-
-#, fuzzy
-#~| msgid "Copy character name to clipboard"
-#~ msgid "Copy request code to clipboard"
-#~ msgstr "Скопировать имя пилота в буфер обмена"
 
 #, fuzzy, python-brace-format
 #~| msgid "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {ZKILLBOARD_BASE_URL} or {EVETOOLS_KILLBOARD_BASE_URL}"
