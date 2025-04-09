@@ -13,7 +13,6 @@ from django.utils.translation import gettext_lazy as _
 
 # AA SRP
 from aasrp.constants import KILLBOARD_DATA
-from aasrp.managers import SrpManager
 from aasrp.models import (
     FleetType,
     RequestComment,
@@ -188,7 +187,7 @@ class SrpRequestForm(ModelForm):
             )
 
         # Check if there is already an SRP request for this kill mail
-        killmail_id = SrpManager.get_kill_id(killboard_link=killboard_link)
+        killmail_id = SrpRequest.objects.get_kill_id(killboard_link=killboard_link)
 
         if SrpRequest.objects.filter(
             killboard_link__icontains=f"/kill/{killmail_id}"

@@ -35,7 +35,6 @@ from aasrp.form import (
 )
 from aasrp.helper.notification import notify_srp_team
 from aasrp.helper.user import get_user_settings
-from aasrp.managers import SrpManager
 from aasrp.models import Insurance, RequestComment, SrpLink, SrpRequest
 
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
@@ -303,7 +302,7 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         ]
     )
 
-    insurance_information = SrpManager.get_insurance_for_ship_type(
+    insurance_information = SrpRequest.objects.get_insurance_for_ship_type(
         ship_type_id=ship_type_id
     )
     Insurance.objects.bulk_create(
@@ -391,10 +390,10 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
             # Parse killmail
             try:
-                srp_kill_link_id = SrpManager.get_kill_id(
+                srp_kill_link_id = SrpRequest.objects.get_kill_id(
                     killboard_link=submitted_killmail_link
                 )
-                ship_type_id, ship_value, victim_id = SrpManager.get_kill_data(
+                ship_type_id, ship_value, victim_id = SrpRequest.objects.get_kill_data(
                     kill_id=srp_kill_link_id
                 )
             except ValueError as err:

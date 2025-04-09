@@ -2,6 +2,9 @@
 Our Models
 """
 
+# Standard Library
+from typing import ClassVar
+
 # Third Party
 from solo.models import SingletonModel
 
@@ -19,7 +22,7 @@ from allianceauth.framework.api.user import get_main_character_name_from_user
 from eveuniverse.models import EveType
 
 # AA SRP
-from aasrp.managers import SettingManager
+from aasrp.managers import SettingManager, SrpRequestManager
 
 
 def get_sentinel_user():
@@ -327,6 +330,8 @@ class SrpRequest(models.Model):
         blank=True, default="", verbose_name=_("Reject reason")
     )
 
+    objects: ClassVar[SrpRequestManager] = SrpRequestManager()
+
     class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta definitions
@@ -532,7 +537,7 @@ class Setting(SingletonModel):
         verbose_name=Field.LOSS_VALUE_SOURCE.label,  # pylint: disable=no-member
     )
 
-    objects = SettingManager()
+    objects: ClassVar[SettingManager] = SettingManager()
 
     class Meta:  # pylint: disable=too-few-public-methods
         """

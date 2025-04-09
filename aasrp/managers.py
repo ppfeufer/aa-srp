@@ -25,9 +25,9 @@ from aasrp.providers import esi
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
-class SrpManager:
+class SrpRequestManager(models.Manager):
     """
-    AaSrpManager
+    SrpRequestManager
     """
 
     @staticmethod
@@ -47,7 +47,7 @@ class SrpManager:
         return kill_id
 
     @staticmethod
-    def get_kill_data(kill_id: str):  # pylint: disable=too-many-locals
+    def get_kill_data(kill_id: str):
         """
         Get kill data from zKillboard
 
@@ -58,40 +58,43 @@ class SrpManager:
         """
 
         zkillboard_api_url = KILLBOARD_DATA["zKillboard"]["api_url"]
-        url = f"{zkillboard_api_url}killID/{kill_id}/"
-        headers = {
-            "User-Agent": UserAgent.REQUESTS.value,
-            "Content-Type": "application/json",
-        }
+        killmail_api_url = f"{zkillboard_api_url}killID/{kill_id}/"
+
         try:
-            request_result = requests.get(url=url, headers=headers, timeout=5)
-            request_result.raise_for_status()
-            result_killmails = request_result.json()
+            response = requests.get(
+                url=killmail_api_url,
+                headers={
+                    "User-Agent": UserAgent.REQUESTS.value,
+                    "Content-Type": "application/json",
+                },
+                timeout=5,
+            )
+            response.raise_for_status()
+            result_killmails = response.json()
+
             result = next(
                 (
                     killmail
                     for killmail in result_killmails
-                    if killmail["killmail_id"] == int(kill_id)
+                    if killmail.get("killmail_id") == int(kill_id)
                 ),
                 None,
             )
+
             if not result:
                 raise ValueError(
-                    "Couldn't find any kill mail information in zKillboard's API response. This is likely an issue with zKillboard."
+                    "No kill mail information found in zKillboard's API response."
                 )
-            killmail_id = result["killmail_id"]
-            killmail_hash = result["zkb"]["hash"]
+
+            killmail_id = result.get("killmail_id")
+            killmail_hash = result.get("zkb", {}).get("hash")
             esi_killmail = esi.client.Killmails.get_killmails_killmail_id_killmail_hash(
                 killmail_id=killmail_id, killmail_hash=killmail_hash
             ).result()
-        except requests.HTTPError as exc:
-            logger.warning(
-                f"Unable to get kill mail details from zKillboard. Error: {exc}",
-                exc_info=True,
-            )
-            raise ValueError(str(exc)) from exc
-        except requests.Timeout as exc:
-            logger.warning("Connection to zKillboard timed out", exc_info=True)
+
+        except (requests.HTTPError, requests.Timeout) as exc:
+            logger.warning(f"Error fetching kill mail details: {exc}", exc_info=True)
+
             raise ValueError(str(exc)) from exc
         except Exception as exc:
             raise ValueError("Invalid Kill ID or Hash.") from exc
@@ -101,19 +104,18 @@ class SrpManager:
 
         loss_value_field = Setting.objects.get_setting(Setting.Field.LOSS_VALUE_SOURCE)
         ship_type = esi_killmail["victim"]["ship_type_id"]
-        ship_value = result["zkb"][loss_value_field]
+        ship_value = result.get("zkb", {}).get(loss_value_field, 0)
         victim_id = esi_killmail["victim"]["character_id"]
 
-        logger.debug(f"Ship type for kill ID {kill_id} is {ship_type}")
-        logger.debug(f"Total loss value for kill id {kill_id} is {ship_value}")
+        logger.debug(
+            f"Kill ID {kill_id}: Ship type = {ship_type}, Loss value = {ship_value}"
+        )
 
         return ship_type, ship_value, victim_id
 
-    @staticmethod
-    def pending_requests_count_for_user(user: User):
+    def pending_requests_count_for_user(self, user: User):
         """
-        Returns the number of open SRP requests for given user
-        or None if user has no permission
+        Returns the number of open SRP requests for given user or None if user has no permission
 
         :param user:
         :type user:
@@ -147,7 +149,7 @@ class SrpManager:
         insurance = next(
             (
                 i
-                for i in esi.client.Insurance.get_insurance_prices().result()
+                for i in list(esi.client.Insurance.get_insurance_prices().result())
                 if i["type_id"] == ship_type_id
             ),
             None,
