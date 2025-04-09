@@ -531,7 +531,7 @@ def srp_request_approve(  # pylint: disable=too-many-locals
             reviser_comment_for_message = ""
             if reviser_comment:
                 reviser_comment_for_message = (
-                    "\n" "Comment:" "\n" f"{reviser_comment}" "\n\n"
+                    "\n" "Comment:" "\n" f"{reviser_comment}" "\n"
                 )
 
             notification_message = (
@@ -547,6 +547,7 @@ def srp_request_approve(  # pylint: disable=too-many-locals
                 f"Reviser: {get_main_character_name_from_user(user=request.user)}"
                 "\n"
                 f"{reviser_comment_for_message}"
+                "\n"
                 f"{SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE}"
             )
 
@@ -634,10 +635,6 @@ def srp_request_deny(
                 f"Your SRP request regarding your {srp_request.ship.name} lost during "
                 f"{srp_request.srp_link.srp_name} has been rejected."
                 "\n\n"
-                "Reason:"
-                "\n"
-                f"{reject_info}"
-                "\n\n"
                 "Request Details:"
                 "\n"
                 f"SRP Code: {srp_request.srp_link.srp_code}"
@@ -645,6 +642,10 @@ def srp_request_deny(
                 f"Request Code: {srp_request.request_code}"
                 "\n"
                 f"Reviser: {get_main_character_name_from_user(user=request.user)}"
+                "\n\n"
+                "Comment:"
+                "\n"
+                f"{reject_info}"
                 "\n\n"
                 f"{SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE}"
             )

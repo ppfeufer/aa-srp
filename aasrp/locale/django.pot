@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.7.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-09 03:57+0200\n"
+"POT-Creation-Date: 2025-04-09 04:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,14 +94,6 @@ msgstr[1] ""
 #: aasrp/apps.py:21
 #, python-brace-format
 msgid "AA Ship Replacement v{__version__}"
-msgstr ""
-
-#: aasrp/constants.py:44
-msgid ""
-"If you have any questions regarding your SRP request, feel free to contact "
-"your request reviser.\n"
-"Please make sure to always add the SRP code and the request code with your "
-"inquiry."
 msgstr ""
 
 #: aasrp/form.py:49
@@ -259,7 +251,7 @@ msgstr ""
 msgid "SRP request approved"
 msgstr ""
 
-#: aasrp/helper/icons.py:178 aasrp/views/ajax.py:657
+#: aasrp/helper/icons.py:178 aasrp/views/ajax.py:658
 msgid "SRP request rejected"
 msgstr ""
 
@@ -869,27 +861,27 @@ msgstr ""
 msgid "Copy SRP link to clipboard"
 msgstr ""
 
-#: aasrp/views/ajax.py:482 aasrp/views/ajax.py:596 aasrp/views/ajax.py:698
+#: aasrp/views/ajax.py:482 aasrp/views/ajax.py:597 aasrp/views/ajax.py:699
 msgid "No matching SRP request found"
 msgstr ""
 
-#: aasrp/views/ajax.py:499 aasrp/views/ajax.py:605
+#: aasrp/views/ajax.py:499 aasrp/views/ajax.py:606
 msgid "Invalid form data"
 msgstr ""
 
-#: aasrp/views/ajax.py:563
+#: aasrp/views/ajax.py:564
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:568 aasrp/views/ajax.py:667
+#: aasrp/views/ajax.py:569 aasrp/views/ajax.py:668
 msgid "Invalid request method"
 msgstr ""
 
-#: aasrp/views/ajax.py:662
+#: aasrp/views/ajax.py:663
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:696
+#: aasrp/views/ajax.py:697
 msgid "SRP request has been removed"
 msgstr ""
 
