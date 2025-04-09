@@ -26,7 +26,11 @@ def request_code_html(request_code: str) -> str:
     :rtype:
     """
 
-    return f'{request_code}<sup>{copy_to_clipboard_icon(data=request_code, title=_("Copy request code to clipboard"))}</sup>'
+    ctc_icon = copy_to_clipboard_icon(
+        data=request_code, title=_("Copy request code to clipboard")
+    )
+
+    return f"{request_code}<sup>{ctc_icon}</sup>"
 
 
 def payout_amount_html(payout_amount: int) -> str:

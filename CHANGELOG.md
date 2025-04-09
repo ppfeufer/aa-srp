@@ -41,6 +41,10 @@ Section Order:
 ### Security
 -->
 
+### Fixed
+
+- Ensure string is properly translated
+
 ## [2.7.2] - 2025-04-09
 
 ### Added
