@@ -163,7 +163,7 @@ def _discordproxy_send_private_message(
 def send_user_notification(
     user: User,
     title: str,
-    message: str,
+    message: dict[str, str],
     embed_message: bool = True,
     level: str = "info",
 ) -> None:
@@ -186,7 +186,8 @@ def send_user_notification(
     :rtype:
     """
 
-    getattr(notify, level)(user=user, title=title, message=message)
+    if message["allianceauth"]:
+        getattr(notify, level)(user=user, title=title, message=message["allianceauth"])
 
     # Handle Discord PMs when aa_discordnotify is not active
     # Check if either allianceauth_discordbot or discordproxy are available
@@ -203,7 +204,7 @@ def send_user_notification(
                     user_id=int(user.discord.uid),
                     level=level,
                     title=title,
-                    message=message,
+                    message=message["discord"],
                     embed_message=embed_message,
                 )
             else:
@@ -220,7 +221,7 @@ def send_user_notification(
                     user_id=int(user.discord.uid),
                     level=level,
                     title=title,
-                    message=message,
+                    message=message["discord"],
                     embed_message=embed_message,
                 )
         else:

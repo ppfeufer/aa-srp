@@ -18,4 +18,4 @@ class AaSrpConfig(AppConfig):
     name = "aasrp"
     label = "aasrp"
     # Translators: This is the app name and version, which will appear in the Django Backend
-    verbose_name = _(f"AA Ship Replacement v{__version__}")
+    verbose_name = _(f"Ship Replacement v{__version__}")

@@ -21,8 +21,6 @@ from app_utils.urls import reverse_absolute
 
 # AA SRP
 from aasrp import __title__
-from aasrp.constants import SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE
-from aasrp.discord.direct_message import send_user_notification
 from aasrp.form import (
     SrpRequestAcceptForm,
     SrpRequestAcceptRejectedForm,
@@ -38,6 +36,7 @@ from aasrp.helper.icons import (
     get_srp_request_details_icon,
     get_srp_request_status_icon,
 )
+from aasrp.helper.notification import notify_requester
 from aasrp.helper.srp_data import (
     attempt_to_re_add_ship_information_to_request,
     localized_isk_value,
@@ -511,7 +510,9 @@ def srp_request_approve(  # pylint: disable=too-many-locals
                 creator=request.user,
             )
         ]
+
         reviser_comment = form.cleaned_data["comment"]
+
         if reviser_comment:
             comments.append(
                 RequestComment(
@@ -528,36 +529,13 @@ def srp_request_approve(  # pylint: disable=too-many-locals
 
         # Send notification if enabled
         if not get_user_settings(user=requester).disable_notifications:
-            reviser_comment_for_message = ""
-            if reviser_comment:
-                reviser_comment_for_message = (
-                    "\n" "Comment:" "\n" f"{reviser_comment}" "\n"
-                )
-
-            notification_message = (
-                f"Your SRP request regarding your {srp_request.ship.name} lost during "
-                f"{srp_request.srp_link.srp_name} has been approved."
-                "\n\n"
-                "Request Details:"
-                "\n"
-                f"SRP Code: {srp_request.srp_link.srp_code}"
-                "\n"
-                f"Request Code: {srp_request.request_code}"
-                "\n"
-                f"Reviser: {get_main_character_name_from_user(user=request.user)}"
-                "\n"
-                f"{reviser_comment_for_message}"
-                "\n"
-                f"{SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE}"
-            )
-
             logger.info(msg="Sending approval message to user")
 
-            send_user_notification(
-                user=requester,
-                level="success",
-                title="SRP Request Approved",
-                message=notification_message,
+            notify_requester(
+                requester=requester,
+                reviser=get_main_character_name_from_user(user=request.user),
+                srp_request=srp_request,
+                comment=reviser_comment,
             )
 
         return JsonResponse(
@@ -631,32 +609,14 @@ def srp_request_deny(
         )
 
         if not get_user_settings(user=requester).disable_notifications:
-            notification_message = (
-                f"Your SRP request regarding your {srp_request.ship.name} lost during "
-                f"{srp_request.srp_link.srp_name} has been rejected."
-                "\n\n"
-                "Request Details:"
-                "\n"
-                f"SRP Code: {srp_request.srp_link.srp_code}"
-                "\n"
-                f"Request Code: {srp_request.request_code}"
-                "\n"
-                f"Reviser: {get_main_character_name_from_user(user=request.user)}"
-                "\n\n"
-                "Comment:"
-                "\n"
-                f"{reject_info}"
-                "\n\n"
-                f"{SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE}"
-            )
-
             logger.info("Sending reject message to user")
 
-            send_user_notification(
-                user=requester,
-                level="danger",
-                title=_("SRP request rejected"),
-                message=notification_message,
+            notify_requester(
+                requester=requester,
+                reviser=get_main_character_name_from_user(user=request.user),
+                srp_request=srp_request,
+                comment=reject_info,
+                message_level="danger",
             )
 
         return JsonResponse(
