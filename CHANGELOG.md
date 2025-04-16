@@ -41,6 +41,14 @@ Section Order:
 ### Security
 -->
 
+### Added
+
+- Templates for notifications
+
+### Changed
+
+- Refactored notifications
+
 ## [2.7.3] - 2025-04-09
 
 ### Fixed
