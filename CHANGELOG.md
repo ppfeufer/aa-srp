@@ -41,6 +41,8 @@ Section Order:
 ### Security
 -->
 
+## [2.8.0] - 2025-04-23
+
 ### Added
 
 - Templates for notifications

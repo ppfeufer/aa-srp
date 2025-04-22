@@ -30,6 +30,7 @@ ______________________________________________________________________
     - [SRP Requests Overview](#srp-requests-overview)
     - [SRP Request Details](#srp-request-details)
 - [Installation](#installation)
+  - [Prerequisites](#prerequisites)
   - [Step 1: Install the Package](#step-1-install-the-package)
   - [Step 2: Configure Alliance Auth](#step-2-configure-alliance-auth)
   - [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
@@ -87,21 +88,16 @@ ______________________________________________________________________
 
 ## Installation<a name="installation"></a>
 
-> [!NOTE]
->
-> **AA SRP >= 2.0.0 needs at least Alliance Auth v4.0.0!**
->
-> Please make sure to update your Alliance Auth instance _before_ you install this
-> module or update to the latest version, otherwise an update to Alliance Auth will
-> be pulled in unsupervised.
->
-> The last version of AA SRP that supports Alliance Auth v3 is `1.21.0`.
+### Prerequisites<a name="prerequisites"></a>
 
-**Important**: Please make sure you meet all preconditions before you proceed:
+> [!IMPORTANT]
+>
+> Please make sure you meet all prerequisites before you proceed!
 
 - AA SRP is a plugin for Alliance Auth. If you don't have Alliance Auth running
   already, please install it first before proceeding. (see the official
   [Alliance Auth installation guide] for details)
+- AA SRP needs at least Alliance Auth v4.6.0
 - AA SRP needs [Eve Universe] to function. Please make sure it is installed, before
   continuing.
 
