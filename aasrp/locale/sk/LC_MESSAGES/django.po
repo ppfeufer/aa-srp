@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-09 05:50+0200\n"
+"POT-Creation-Date: 2025-04-23 00:16+0200\n"
 "PO-Revision-Date: 2024-05-10 14:11+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Slovak <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/sk/>\n"
@@ -101,7 +101,7 @@ msgstr[3] ""
 #. Translators: This is the app name and version, which will appear in the Django Backend
 #: aasrp/apps.py:21
 #, python-brace-format
-msgid "AA Ship Replacement v{__version__}"
+msgid "Ship Replacement v{__version__}"
 msgstr ""
 
 #: aasrp/form.py:49
@@ -247,7 +247,7 @@ msgstr ""
 msgid "SRP request approved"
 msgstr ""
 
-#: aasrp/helper/icons.py:178 aasrp/views/ajax.py:658
+#: aasrp/helper/icons.py:178
 msgid "SRP request rejected"
 msgstr ""
 
@@ -846,35 +846,35 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: aasrp/views/ajax.py:82
+#: aasrp/views/ajax.py:81
 msgid "Link"
 msgstr ""
 
-#: aasrp/views/ajax.py:95
+#: aasrp/views/ajax.py:94
 msgid "Copy SRP link to clipboard"
 msgstr ""
 
-#: aasrp/views/ajax.py:482 aasrp/views/ajax.py:597 aasrp/views/ajax.py:699
+#: aasrp/views/ajax.py:481 aasrp/views/ajax.py:575 aasrp/views/ajax.py:659
 msgid "No matching SRP request found"
 msgstr ""
 
-#: aasrp/views/ajax.py:499 aasrp/views/ajax.py:606
+#: aasrp/views/ajax.py:498 aasrp/views/ajax.py:584
 msgid "Invalid form data"
 msgstr ""
 
-#: aasrp/views/ajax.py:564
+#: aasrp/views/ajax.py:542
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:569 aasrp/views/ajax.py:668
+#: aasrp/views/ajax.py:547 aasrp/views/ajax.py:628
 msgid "Invalid request method"
 msgstr ""
 
-#: aasrp/views/ajax.py:663
+#: aasrp/views/ajax.py:623
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:697
+#: aasrp/views/ajax.py:657
 msgid "SRP request has been removed"
 msgstr ""
 
