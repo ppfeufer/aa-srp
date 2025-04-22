@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-09 05:50+0200\n"
+"POT-Creation-Date: 2025-04-23 00:16+0200\n"
 "PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ko/>\n"
@@ -92,8 +92,9 @@ msgstr[0] "{notifications_count} 개의 함대 종류 비활성화됨"
 
 #. Translators: This is the app name and version, which will appear in the Django Backend
 #: aasrp/apps.py:21
-#, python-brace-format
-msgid "AA Ship Replacement v{__version__}"
+#, fuzzy, python-brace-format
+#| msgid "AA Ship Replacement v{__version__}"
+msgid "Ship Replacement v{__version__}"
 msgstr "AA Ship Replacement v{__version__}"
 
 #: aasrp/form.py:49
@@ -241,7 +242,7 @@ msgstr "SRP 요청 게시됨"
 msgid "SRP request approved"
 msgstr "SRP 요청 승인됨"
 
-#: aasrp/helper/icons.py:178 aasrp/views/ajax.py:658
+#: aasrp/helper/icons.py:178
 msgid "SRP request rejected"
 msgstr "SRP 요청 거부됨"
 
@@ -869,35 +870,35 @@ msgstr "값을 입력하여 주십시오"
 msgid "This field is required."
 msgstr "필수 항목입니다."
 
-#: aasrp/views/ajax.py:82
+#: aasrp/views/ajax.py:81
 msgid "Link"
 msgstr "링크"
 
-#: aasrp/views/ajax.py:95
+#: aasrp/views/ajax.py:94
 msgid "Copy SRP link to clipboard"
 msgstr "복사"
 
-#: aasrp/views/ajax.py:482 aasrp/views/ajax.py:597 aasrp/views/ajax.py:699
+#: aasrp/views/ajax.py:481 aasrp/views/ajax.py:575 aasrp/views/ajax.py:659
 msgid "No matching SRP request found"
 msgstr ""
 
-#: aasrp/views/ajax.py:499 aasrp/views/ajax.py:606
+#: aasrp/views/ajax.py:498 aasrp/views/ajax.py:584
 msgid "Invalid form data"
 msgstr ""
 
-#: aasrp/views/ajax.py:564
+#: aasrp/views/ajax.py:542
 msgid "SRP request has been approved"
 msgstr "SRP 요청이 수락되었습니다"
 
-#: aasrp/views/ajax.py:569 aasrp/views/ajax.py:668
+#: aasrp/views/ajax.py:547 aasrp/views/ajax.py:628
 msgid "Invalid request method"
 msgstr ""
 
-#: aasrp/views/ajax.py:663
+#: aasrp/views/ajax.py:623
 msgid "SRP request has been rejected"
 msgstr "SRP 요청이 거부되었습니다"
 
-#: aasrp/views/ajax.py:697
+#: aasrp/views/ajax.py:657
 msgid "SRP request has been removed"
 msgstr "SRP 요청이 삭제되었습니다"
 

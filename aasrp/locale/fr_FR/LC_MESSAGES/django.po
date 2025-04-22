@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-09 05:50+0200\n"
+"POT-Creation-Date: 2025-04-23 00:16+0200\n"
 "PO-Revision-Date: 2025-01-10 18:15+0000\n"
 "Last-Translator: Onyx <The_Onyx_best@hotmail.com>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/fr/>\n"
@@ -96,8 +96,9 @@ msgstr[1] "{notifications_count} types de flotte désactivés"
 
 #. Translators: This is the app name and version, which will appear in the Django Backend
 #: aasrp/apps.py:21
-#, python-brace-format
-msgid "AA Ship Replacement v{__version__}"
+#, fuzzy, python-brace-format
+#| msgid "AA Ship Replacement v{__version__}"
+msgid "Ship Replacement v{__version__}"
 msgstr "AA Remplacement des Vaisseaux v{__version__}"
 
 #: aasrp/form.py:49
@@ -245,7 +246,7 @@ msgstr "Demande de SRP en attente"
 msgid "SRP request approved"
 msgstr "Demande de SRP acceptée"
 
-#: aasrp/helper/icons.py:178 aasrp/views/ajax.py:658
+#: aasrp/helper/icons.py:178
 msgid "SRP request rejected"
 msgstr "Demande de SRP rejetée"
 
@@ -848,35 +849,35 @@ msgstr "Les valeurs vides ne sont pas autorisées"
 msgid "This field is required."
 msgstr "Ce champ est obligatoire."
 
-#: aasrp/views/ajax.py:82
+#: aasrp/views/ajax.py:81
 msgid "Link"
 msgstr "Lien"
 
-#: aasrp/views/ajax.py:95
+#: aasrp/views/ajax.py:94
 msgid "Copy SRP link to clipboard"
 msgstr "Copier le lien de SRP dans le presse-papiers"
 
-#: aasrp/views/ajax.py:482 aasrp/views/ajax.py:597 aasrp/views/ajax.py:699
+#: aasrp/views/ajax.py:481 aasrp/views/ajax.py:575 aasrp/views/ajax.py:659
 msgid "No matching SRP request found"
 msgstr ""
 
-#: aasrp/views/ajax.py:499 aasrp/views/ajax.py:606
+#: aasrp/views/ajax.py:498 aasrp/views/ajax.py:584
 msgid "Invalid form data"
 msgstr ""
 
-#: aasrp/views/ajax.py:564
+#: aasrp/views/ajax.py:542
 msgid "SRP request has been approved"
 msgstr "La demande de SRP a été approuvée"
 
-#: aasrp/views/ajax.py:569 aasrp/views/ajax.py:668
+#: aasrp/views/ajax.py:547 aasrp/views/ajax.py:628
 msgid "Invalid request method"
 msgstr ""
 
-#: aasrp/views/ajax.py:663
+#: aasrp/views/ajax.py:623
 msgid "SRP request has been rejected"
 msgstr "La demande de SRP a été rejetée"
 
-#: aasrp/views/ajax.py:697
+#: aasrp/views/ajax.py:657
 msgid "SRP request has been removed"
 msgstr "La demande de SRP a été supprimée"
 

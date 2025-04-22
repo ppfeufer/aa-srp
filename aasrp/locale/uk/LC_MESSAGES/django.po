@@ -4,20 +4,21 @@
 # "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024, 2025.
 # "Andrii M." <elfleg0las88@gmail.com>, 2023, 2024.
 # M <skrypets@gmail.com>, 2025.
+# s0k0l -_- <salarysalo@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-04-09 05:50+0200\n"
-"PO-Revision-Date: 2025-03-23 11:24+0000\n"
-"Last-Translator: M <skrypets@gmail.com>\n"
+"POT-Creation-Date: 2025-04-23 00:16+0200\n"
+"PO-Revision-Date: 2025-04-22 22:26+0000\n"
+"Last-Translator: s0k0l -_- <salarysalo@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.11\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -51,13 +52,12 @@ msgstr "Тип флоту"
 
 #: aasrp/admin.py:139 aasrp/models.py:79
 msgid "Is enabled"
-msgstr "Дозволено"
+msgstr "Активно"
 
 #: aasrp/admin.py:154
-#, fuzzy, python-format
-#| msgid "Activate selected fleet types"
+#, python-format
 msgid "Activate selected %(verbose_name_plural)s"
-msgstr "Активувати обрані типи флотів"
+msgstr "Активувати обране %(verbose_name_plural)s"
 
 #: aasrp/admin.py:183
 #, python-brace-format
@@ -78,10 +78,9 @@ msgstr[2] "Активовано {notifications_count} типів флоту"
 msgstr[3] "Активовано {notifications_count} тип флоту"
 
 #: aasrp/admin.py:199
-#, fuzzy, python-format
-#| msgid "Deactivate selected fleet types"
+#, python-format
 msgid "Deactivate selected %(verbose_name_plural)s"
-msgstr "Деактивувати обрані типи флотів"
+msgstr "Деактивувати обране %(verbose_name_plural)s"
 
 #: aasrp/admin.py:231
 #, python-brace-format
@@ -103,8 +102,9 @@ msgstr[3] "Деактивовано {notifications_count} тип флоту"
 
 #. Translators: This is the app name and version, which will appear in the Django Backend
 #: aasrp/apps.py:21
-#, python-brace-format
-msgid "AA Ship Replacement v{__version__}"
+#, fuzzy, python-brace-format
+#| msgid "AA Ship Replacement v{__version__}"
+msgid "Ship Replacement v{__version__}"
 msgstr "SRP v{__version__}"
 
 #: aasrp/form.py:49
@@ -125,7 +125,7 @@ msgstr "Час флоту"
 
 #: aasrp/form.py:75
 msgid "Fleet type (optional)"
-msgstr "Тип флоту (необов'язково)"
+msgstr "Тип флоту (не обов'язково)"
 
 #: aasrp/form.py:76 aasrp/form.py:88 aasrp/models.py:134
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
@@ -136,7 +136,7 @@ msgstr "Доктрина"
 
 #: aasrp/form.py:77 aasrp/form.py:90 aasrp/form.py:108
 msgid "After action report link"
-msgstr "Посилання на звіт після дії"
+msgstr "Посилання на звіт події"
 
 #: aasrp/form.py:126
 #, python-brace-format
@@ -149,7 +149,7 @@ msgstr "Будь ласка, розкажіть про обставини ваш
 
 #: aasrp/form.py:135 aasrp/form.py:142 aasrp/models.py:307
 msgid "Killboard link"
-msgstr "посилання на Killboard"
+msgstr "Посилання на Killboard"
 
 #: aasrp/form.py:137 aasrp/form.py:146 aasrp/models.py:310 aasrp/models.py:406
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
@@ -161,7 +161,7 @@ msgstr "Додаткова інформація"
 #: aasrp/form.py:179
 #, python-brace-format
 msgid "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
-msgstr "Невірне посилання. Будь ласка, використовуйте {zkillboard_base_url}, {evetools_base_url} або {eve_kill_base_url}."
+msgstr "Не коректне посилання. Будь ласка, використовуйте {zkillboard_base_url}, {evetools_base_url} або {eve_kill_base_url}"
 
 #: aasrp/form.py:186
 msgid "Invalid link. Please post a link to a kill mail."
@@ -169,7 +169,7 @@ msgstr "Невірне посилання. Будь ласка, надайте �
 
 #: aasrp/form.py:197
 msgid "There is already an SRP request for this kill mail. Please check if you got the right one."
-msgstr "Для цього kill mail вже є запит на SRP. Будь ласка, перевірте, чи ви використовуєте правильне посилання"
+msgstr "Для цього kill mail вже є запит на SRP. Будь ласка, перевірте, чи ви використовуєте правильне посилання."
 
 #: aasrp/form.py:210
 msgid "SRP payout value"
@@ -181,15 +181,15 @@ msgstr "Будь ласка, надайте причину, чому цей за
 
 #: aasrp/form.py:230 aasrp/models.py:330 aasrp/models.py:407
 msgid "Reject reason"
-msgstr "Причина віддхилення"
+msgstr "Причина відхилення"
 
 #: aasrp/form.py:258
 msgid "Leave a comment for the requestor"
-msgstr "Залиште коментар для запитувача."
+msgstr "Залиште коментар для запитувача"
 
 #: aasrp/form.py:261
 msgid "Comment (optional)"
-msgstr "Коментар (необов'язково)"
+msgstr "Коментар (не обов'язково)"
 
 #: aasrp/form.py:289
 msgid "Please provide the reason why this former rejected SRP request is now accepted."
@@ -239,10 +239,8 @@ msgid "Enable SRP link"
 msgstr "Увімкнути SRP-посилання"
 
 #: aasrp/helper/icons.py:146
-#, fuzzy
-#| msgid "Remove SRP ink"
 msgid "Remove SRP link"
-msgstr "Видалити SRP-посилання"
+msgstr "Видалити посилання SRP"
 
 #: aasrp/helper/icons.py:169 aasrp/helper/icons.py:183
 msgid "SRP request pending"
@@ -252,7 +250,7 @@ msgstr "Запит на SRP очікує розгляду"
 msgid "SRP request approved"
 msgstr "Запит на SRP затверджено"
 
-#: aasrp/helper/icons.py:178 aasrp/views/ajax.py:658
+#: aasrp/helper/icons.py:178
 msgid "SRP request rejected"
 msgstr "Запит на SRP відхилено"
 
@@ -281,16 +279,12 @@ msgid "Delete SRP request"
 msgstr "Видалити запит на SRP"
 
 #: aasrp/helper/srp_data.py:30
-#, fuzzy
-#| msgid "Copy character name to clipboard"
 msgid "Copy request code to clipboard"
-msgstr "Скопіювати ім'я персонажа в буфер обміну"
+msgstr "Скопіювати код запиту в буфер обміну"
 
 #: aasrp/helper/srp_data.py:49
-#, fuzzy
-#| msgid "Copy character name to clipboard"
 msgid "Copy payout amount to clipboard"
-msgstr "Скопіювати ім'я персонажа в буфер обміну"
+msgstr "Скопіювати суму виплати в буфер обміну"
 
 #: aasrp/helper/srp_data.py:83 aasrp/models.py:123
 #: aasrp/templates/aasrp/dashboard.html:25
@@ -560,7 +554,7 @@ msgstr "Дія"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:126
 msgid "SRP request has been added."
-msgstr "Запит на SRP був доданий"
+msgstr "Запит на SRP був доданий."
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:128
 msgid "SRP request status has changed to"
@@ -675,22 +669,22 @@ msgid_plural ""
 "                        "
 msgstr[0] ""
 "\n"
-"                            Це посилання на SRP все ще має %(number_pending_requests)s запит на SRP, в статусі очігування.\n"
-"                            Ви абсолютно впевнені, що хочете позначити це посилання на SRP як завершене?\n"
+"                            Це посилання на SRP все ще має %(number_pending_requests)s запит на SRP, в статусі очікування.\n"
+"                            Ви абсолютно впевнені, що хочете позначити це посилання на SRP, як завершене?\n"
 "                        "
 msgstr[1] ""
 "\n"
-"                            Це посилання на SRP все ще має %(number_pending_requests)s запити на SRP, в статусі очігування.\n"
-"                            Ви абсолютно впевнені, що хочете позначити це посилання на SRP як завершене?\n"
+"                            Це посилання на SRP все ще має %(number_pending_requests)s запити на SRP, в статусі очікування.\n"
+"                            Ви абсолютно впевнені, що хочете позначити це посилання на SRP, як завершене?\n"
 "                        "
 msgstr[2] ""
 "\n"
-"                            Це посилання на SRP все ще має %(number_pending_requests)s запитів на SRP, в статусі очігування.\n"
-"                            Ви абсолютно впевнені, що хочете позначити це посилання на SRP як завершене?\n"
+"                            Це посилання на SRP все ще має %(number_pending_requests)s запитів на SRP, в статусі очікування.\n"
+"                            Ви абсолютно впевнені, що хочете позначити це посилання на SRP, як завершене?\n"
 "                        "
 msgstr[3] ""
 "\n"
-"                            Це посилання на SRP все ще має %(number_pending_requests)s запит на SRP, в статусі очігування.\n"
+"                            Це посилання на SRP все ще має %(number_pending_requests)s запитів на SRP, в статусі очікування.\n"
 "                            Ви абсолютно впевнені, що хочете позначити це посилання на SRP як завершене?\n"
 "                        "
 
@@ -840,10 +834,8 @@ msgid "Total"
 msgstr "Сума"
 
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:52
-#, fuzzy
-#| msgid "Copy SRP link to clipboard"
 msgid "Copy SRP code to clipboard"
-msgstr "Скопіювати SRP-посилання у буфер обміну"
+msgstr "Скопіювати код SRP в буфер обміну"
 
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:85
 msgid "Back to SRP overview"
@@ -879,35 +871,35 @@ msgstr "Порожні значення не валідні"
 msgid "This field is required."
 msgstr "Це поле обов’язкове."
 
-#: aasrp/views/ajax.py:82
+#: aasrp/views/ajax.py:81
 msgid "Link"
 msgstr "Посилання"
 
-#: aasrp/views/ajax.py:95
+#: aasrp/views/ajax.py:94
 msgid "Copy SRP link to clipboard"
 msgstr "Скопіювати SRP-посилання у буфер обміну"
 
-#: aasrp/views/ajax.py:482 aasrp/views/ajax.py:597 aasrp/views/ajax.py:699
+#: aasrp/views/ajax.py:481 aasrp/views/ajax.py:575 aasrp/views/ajax.py:659
 msgid "No matching SRP request found"
-msgstr ""
+msgstr "Нема підходящого запиту на відшкодування втрат"
 
-#: aasrp/views/ajax.py:499 aasrp/views/ajax.py:606
+#: aasrp/views/ajax.py:498 aasrp/views/ajax.py:584
 msgid "Invalid form data"
-msgstr ""
+msgstr "Не коректний формат даних"
 
-#: aasrp/views/ajax.py:564
+#: aasrp/views/ajax.py:542
 msgid "SRP request has been approved"
 msgstr "SRP запит одобрено"
 
-#: aasrp/views/ajax.py:569 aasrp/views/ajax.py:668
+#: aasrp/views/ajax.py:547 aasrp/views/ajax.py:628
 msgid "Invalid request method"
-msgstr ""
+msgstr "Не коректний виклик методу"
 
-#: aasrp/views/ajax.py:663
+#: aasrp/views/ajax.py:623
 msgid "SRP request has been rejected"
 msgstr "Запит SRP відхилено"
 
-#: aasrp/views/ajax.py:697
+#: aasrp/views/ajax.py:657
 msgid "SRP request has been removed"
 msgstr "Запит SRP видалено"
 
@@ -925,10 +917,9 @@ msgid "SRP link \"{srp_link.srp_code}\" created"
 msgstr "Створено SRP-посилання \"{srp_link.srp_code}\""
 
 #: aasrp/views/general.py:211
-#, fuzzy, python-brace-format
-#| msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
+#, python-brace-format
 msgid "Unable to locate SRP link using SRP code {srp_code}"
-msgstr "Не вдалося знайти SRP-флот за SRP-кодом {srp_code}"
+msgstr "Не вдалося знайти посилання SRP за кодом SRP {srp_code}"
 
 #: aasrp/views/general.py:224
 msgid "AAR link changed"
@@ -960,10 +951,9 @@ msgstr "Посилання SRP позначено як завершене"
 #: aasrp/views/general.py:491 aasrp/views/general.py:519
 #: aasrp/views/general.py:564 aasrp/views/general.py:597
 #: aasrp/views/general.py:629
-#, fuzzy, python-brace-format
-#| msgid "Unable to locate SRP code with ID {srp_code}"
+#, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
-msgstr "Не вдалося знайти SRP-код з ID {srp_code}"
+msgstr "Не вдалося знайти код SRP з ID {srp_code}"
 
 #: aasrp/views/general.py:556
 #, python-brace-format
