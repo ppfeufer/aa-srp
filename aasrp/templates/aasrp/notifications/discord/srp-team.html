@@ -1,12 +1,12 @@
-### {{ character }} / {{ ship }}
+### {{ character|safe }} / {{ ship }}
 
 __**Request Details:**__
-**Character:** {{ character }}
-**Ship:** {{ ship }}
+**Character:** {{ character|safe }}
+**Ship:** {{ ship|safe }}
 **SRP Code:** {{ srp_code }}
 **SRP Link:** {{ srp_link }}
 **Request Code:** {{ request_code }}
 **zKillboard Link:** {{ killboard_link }}
 
 __**Additional Information:**__
-{{ additional_info }}
+{{ additional_info|safe }}
