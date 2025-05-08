@@ -41,6 +41,10 @@ Section Order:
 ### Security
 -->
 
+### Fixed
+
+- Accidentally escaping apostrophes in character names in the SRP request notification
+
 ## [2.8.1] - 2025-05-05
 
 ### Changed
