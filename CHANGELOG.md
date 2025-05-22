@@ -45,6 +45,10 @@ Section Order:
 
 - Accidentally escaping apostrophes in character names in the SRP request notification
 
+### Removed
+
+- Cache breaker for static files. Doesn't work as expected with `django-sri`.
+
 ## [2.8.1] - 2025-05-05
 
 ### Changed
