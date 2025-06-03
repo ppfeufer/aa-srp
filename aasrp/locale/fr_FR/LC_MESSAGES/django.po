@@ -3,22 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024.
 # Houbi_Houba <paul.lacape@live.fr>, 2024.
-# balbozorre <loic.petiot2002@gmail.com>, 2024.
+# balbozorre <loic.petiot2002@gmail.com>, 2024, 2025.
 # Onyx <The_Onyx_best@hotmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-05-06 00:31+0200\n"
-"PO-Revision-Date: 2025-01-10 18:15+0000\n"
-"Last-Translator: Onyx <The_Onyx_best@hotmail.com>\n"
+"POT-Creation-Date: 2025-06-03 13:55+0200\n"
+"PO-Revision-Date: 2025-05-20 16:24+0000\n"
+"Last-Translator: balbozorre <loic.petiot2002@gmail.com>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/fr/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -64,8 +64,8 @@ msgstr "Activer les types de flotte sélectionnés"
 #, python-brace-format
 msgid "Failed to activate {failed} fleet type"
 msgid_plural "Failed to activate {failed} fleet types"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Échec de l'activation du type de flotte {failed}"
+msgstr[1] "Échec de l'activation des type de flotte {failed}"
 
 #: aasrp/admin.py:193
 #, python-brace-format
@@ -96,10 +96,9 @@ msgstr[1] "{notifications_count} types de flotte désactivés"
 
 #. Translators: This is the app name and version, which will appear in the Django Backend
 #: aasrp/apps.py:21
-#, fuzzy, python-brace-format
-#| msgid "AA Ship Replacement v{__version__}"
+#, python-brace-format
 msgid "Ship Replacement v{__version__}"
-msgstr "AA Remplacement des Vaisseaux v{__version__}"
+msgstr "Remplacement des Vaisseaux v{__version__}"
 
 #: aasrp/form.py:49
 msgid "This field is mandatory"
