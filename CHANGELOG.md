@@ -41,6 +41,8 @@ Section Order:
 ### Security
 -->
 
+## [2.9.1] - 2025-06-19
+
 ### Fixed
 
 - SRP fleet name in notifications ([#311](https://github.com/ppfeufer/aa-srp/issues/311))
