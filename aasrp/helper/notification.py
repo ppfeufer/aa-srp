@@ -49,28 +49,24 @@ def notify_requester(
 
     request_status = srp_request.get_request_status_display()
 
+    context = {
+        "ship": srp_request.ship.name,
+        "srp_name": srp_request.srp_link.srp_name,
+        "status": request_status.lower(),
+        "srp_code": srp_request.srp_link.srp_code,
+        "request_code": srp_request.request_code,
+        "reviser": reviser,
+        "comment": comment,
+    }
+
     allianceauth_notification = render_to_string(
         template_name="aasrp/notifications/allianceauth/request-status-change.html",
-        context={
-            "ship": srp_request.ship.name,
-            "status": request_status.lower(),
-            "srp_code": srp_request.srp_link.srp_code,
-            "request_code": srp_request.request_code,
-            "reviser": reviser,
-            "comment": comment,
-        },
+        context=context,
     )
 
     discord_notification = render_to_string(
         template_name="aasrp/notifications/discord/request-status-change.html",
-        context={
-            "ship": srp_request.ship.name,
-            "status": request_status.lower(),
-            "srp_code": srp_request.srp_link.srp_code,
-            "request_code": srp_request.request_code,
-            "reviser": reviser,
-            "comment": comment,
-        },
+        context=context,
     )
 
     send_user_notification(
