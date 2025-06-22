@@ -34,7 +34,7 @@ class SrpRequestManager(models.Manager):
     """
 
     @staticmethod
-    def get_kill_id(killboard_link: str):
+    def get_kill_id(killboard_link: str) -> str:
         """
         Get killmail ID from zKillboard link
 
@@ -50,7 +50,7 @@ class SrpRequestManager(models.Manager):
         return kill_id
 
     @staticmethod
-    def get_kill_data(kill_id: str):
+    def get_kill_data(kill_id: str) -> tuple[int, int, int]:
         """
         Get kill data from zKillboard
 
@@ -116,7 +116,8 @@ class SrpRequestManager(models.Manager):
 
         return ship_type, ship_value, victim_id
 
-    def pending_requests_count_for_user(self, user: User):
+    @staticmethod
+    def pending_requests_count_for_user(user: User) -> int | None:
         """
         Returns the number of open SRP requests for given user or None if user has no permission
 
@@ -139,7 +140,7 @@ class SrpRequestManager(models.Manager):
         return None
 
     @staticmethod
-    def get_insurance_for_ship_type(ship_type_id: int):
+    def get_insurance_for_ship_type(ship_type_id: int) -> dict | None:
         """
         Getting insurance for a given ship type ID from ESI
 
@@ -198,7 +199,7 @@ class SettingManager(models.Manager):
 
         return getattr(self.first(), setting_key)
 
-    def get_queryset(self):
+    def get_queryset(self) -> SettingQuerySet:
         """
         Get a Setting queryset
 
