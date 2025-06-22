@@ -4,6 +4,9 @@ SRP Manager
 
 # pylint: disable=cyclic-import
 
+# Standard Library
+from typing import Any
+
 # Third Party
 import requests
 
@@ -183,7 +186,7 @@ class SettingManager(models.Manager):
     SettingManager
     """
 
-    def get_setting(self, setting_key: str) -> str:
+    def get_setting(self, setting_key: str) -> Any:
         """
         Return the value for given setting key
 
