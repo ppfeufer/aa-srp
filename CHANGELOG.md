@@ -41,6 +41,8 @@ Section Order:
 ### Security
 -->
 
+## [2.9.2] - 2025-06-22
+
 ### Fixed
 
 - Exception when SRP Team Channel is unconfigured ([#314](https://github.com/ppfeufer/aa-srp/issues/314))
