@@ -92,10 +92,8 @@ def notify_srp_team(srp_request: SrpRequest, additional_info: str) -> None:
     :rtype: None
     """
 
-    srp_team_discord_channel = int(
-        Setting.objects.get_setting(
-            setting_key=Setting.Field.SRP_TEAM_DISCORD_CHANNEL_ID
-        )
+    srp_team_discord_channel = Setting.objects.get_setting(
+        setting_key=Setting.Field.SRP_TEAM_DISCORD_CHANNEL_ID
     )
 
     if srp_team_discord_channel:
