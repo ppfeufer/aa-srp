@@ -3,23 +3,14 @@ Constants
 """
 
 # Standard Library
-import os
 from enum import Enum
 
 # Third Party
 from requests.__version__ import __version__ as requests_version
 
-# Alliance Auth
-from esi import __version__ as esi_version
-
 # AA SRP
+from aasrp import __app_name_useragent__, __github_url__
 from aasrp import __version__ as app_version
-
-APP_NAME = "aa-srp"
-APP_NAME_VERBOSE = "AA SRP"
-APP_NAME_VERBOSE_USERAGENT = "AA-SRP"
-PACKAGE_NAME = "aasrp"
-GITHUB_URL = f"https://github.com/ppfeufer/{APP_NAME}"
 
 
 class UserAgent(Enum):
@@ -27,14 +18,7 @@ class UserAgent(Enum):
     UserAgent
     """
 
-    ESI = f"{APP_NAME_VERBOSE_USERAGENT}/{app_version} (+{GITHUB_URL}) Django-ESI/{esi_version}"
-    REQUESTS = f"{APP_NAME_VERBOSE_USERAGENT}/{app_version} (+{GITHUB_URL}) requests/{requests_version}"
-
-
-# aa-srp/aasrp
-APP_BASE_DIR = os.path.join(os.path.dirname(__file__))
-# aa-srp/aasrp/static/aasrp
-APP_STATIC_DIR = os.path.join(APP_BASE_DIR, "static", "aasrp")
+    REQUESTS = f"{__app_name_useragent__}/{app_version} (+{__github_url__}) requests/{requests_version}"
 
 
 SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = (
