@@ -41,6 +41,8 @@ Section Order:
 ### Security
 -->
 
+## [2.10.0] - 2025-07-08
+
 ### Added
 
 - New dependency
