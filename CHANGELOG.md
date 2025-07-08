@@ -41,6 +41,15 @@ Section Order:
 ### Security
 -->
 
+### Added
+
+- New dependency
+  - `django-esi>=7.0.1`
+
+### Changed
+
+- User Agent generation updated to match latest `django-esi` guidelines
+
 ## [2.9.2] - 2025-06-22
 
 ### Fixed
