@@ -100,7 +100,7 @@ class Command(BaseCommand):
                     srp_link.creator = srp_fleet_creator
                     srp_link.save()
 
-                    # Mark migrated the SRP link as COMPLETED and save the object
+                    # Mark the migrated SRP link as COMPLETED and save the object
                     srp_fleet.fleet_srp_status = "Completed"
                     srp_fleet.save()
 
