@@ -70,23 +70,17 @@
     }
 
     .srp-request-bulk-actions-checkbox .checkbox {
-        padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
-
-        --bs-btn-padding-y: 0.25rem;
-        --bs-btn-padding-x: 0.5rem;
-        --bs-btn-border-radius: var(--bs-border-radius-sm);
+        padding: 0.25rem 0.5rem;
     }
 
     .srp-request-bulk-actions-checkbox .checkbox label {
-        font-size: var(--bs-btn-font-size);
-
-        --bs-btn-font-size: 1.25rem;
+        font-size: 1.25rem;
     }
 
     .card-srp-request-bulk-actions {
-        top: 5.5rem;
-        z-index: 99;
         right: 1.7rem;
+        top: 5.5rem;
+        z-index: 1;
     }
 
     .card-srp-request-bulk-actions .card-header .fa-solid {
