@@ -317,11 +317,31 @@ $(document).ready(() => {
             }
         });
 
-        // Show bootstrap tooltips
+        /**
+         * Bootstrap tooltips for SRP requests
+         */
         [].slice.call(
             document.querySelectorAll('[data-bs-tooltip="aa-srp"]')
         ).map((tooltipTriggerEl) => {
             return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        /**
+         * Bulk actions window
+         */
+        const elementBulkActions = $('div.card-srp-request-bulk-actions');
+        const elementBulkActionsCheckboxes = $('td.srp-request-bulk-actions-checkbox input.srp-requests-bulk-action');
+
+        elementBulkActionsCheckboxes.each((i, checkbox) => {
+            $(checkbox).change(() => {
+                const checkedCheckboxes = $(elementBulkActionsCheckboxes).filter(':checked');
+
+                if (checkedCheckboxes.length > 0) {
+                    elementBulkActions.removeClass('d-none');
+                } else {
+                    elementBulkActions.addClass('d-none');
+                }
+            });
         });
     });
 
@@ -366,20 +386,6 @@ $(document).ready(() => {
     };
 
     /**
-     * Bulk actions window
-     */
-    const elementBulkActions = $('div.card-srp-request-bulk-actions');
-
-    $(document).on('click', 'input.srp-requests-bulk-action', () => {
-        // Show bulk actions if at least one checkbox is checked
-        if ($('input.srp-requests-bulk-action:checked').length > 0) {
-            elementBulkActions.removeClass('d-none');
-        } else {
-            elementBulkActions.addClass('d-none');
-        }
-    });
-
-    /**
      * Modals
      */
     const modalSrpRequestDetails = $('#srp-request-details');
@@ -387,6 +393,7 @@ $(document).ready(() => {
     const modalSrpRequestAcceptRejected = $('#srp-request-accept-rejected');
     const modalSrpRequestReject = $('#srp-request-reject');
     const modalSrpRequestRemove = $('#srp-request-remove');
+    const modalFormfieldErrorClasses = 'aa-callout aa-callout-danger aasrp-form-field-errors clearfix';
 
     /**
      * Helper function: Modal confirm action
@@ -467,7 +474,7 @@ $(document).ready(() => {
                 .val();
 
             if (reviserComment === '') {
-                const errorMessage = `<div class="aa-callout aa-callout-danger aasrp-form-field-errors clearfix"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
+                const errorMessage = `<div class="${modalFormfieldErrorClasses}"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
 
                 form.find('.aasrp-form-field-errors').remove();
 
@@ -511,7 +518,7 @@ $(document).ready(() => {
                 .val();
 
             if (rejectInfo === '') {
-                const errorMessage = `<div class="aa-callout aa-callout-danger aasrp-form-field-errors clearfix"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
+                const errorMessage = `<div class="${modalFormfieldErrorClasses}"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
 
                 form.find('.aasrp-form-field-errors').remove();
 
