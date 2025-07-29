@@ -390,10 +390,23 @@ $(document).ready(() => {
      */
     const modalSrpRequestDetails = $('#srp-request-details');
     const modalSrpRequestAccept = $('#srp-request-accept');
+    const modalSrpRequestBulkAccept = $('#srp-request-bulk-accept');
     const modalSrpRequestAcceptRejected = $('#srp-request-accept-rejected');
     const modalSrpRequestReject = $('#srp-request-reject');
     const modalSrpRequestRemove = $('#srp-request-remove');
+    const modalSrpRequestBulkRemove = $('#srp-request-bulk-remove');
     const modalFormfieldErrorClasses = 'aa-callout aa-callout-danger aasrp-form-field-errors clearfix';
+
+    /**
+     * Helper function: Unbind click event for modal confirm buttons
+     *
+     * @param element
+     * @private
+     */
+    const _unbindClickEvent = (element) => {
+        // Unbind click events for the modal confirm buttons
+        element.unbind('click');
+    };
 
     /**
      * Helper function: Modal confirm action
@@ -408,6 +421,19 @@ $(document).ready(() => {
                 _reloadSrpCalculations(tableData);
             });
         }
+    };
+
+    /**
+     * Helper function: Get selected SRP request codes
+     *
+     * @returns {array} An array of selected SRP request codes
+     * @private
+     */
+    const _getSelectedSrpRequestCodes = () => {
+        const elementBulkActionsCheckboxes = $('td.srp-request-bulk-actions-checkbox input.srp-requests-bulk-action');
+        const checkedCheckboxes = $(elementBulkActionsCheckboxes).filter(':checked');
+
+        return checkedCheckboxes.map((index, checkbox) => $(checkbox).attr('name')).get();
     };
 
     /**
@@ -457,7 +483,7 @@ $(document).ready(() => {
     }).on('hide.bs.modal', () => {
         modalSrpRequestAccept.find('textarea[name="comment"]').val('');
 
-        $('#modal-button-confirm-accept-request').unbind('click');
+        _unbindClickEvent($('#modal-button-confirm-accept-request'));
     });
 
     /**
@@ -501,7 +527,7 @@ $(document).ready(() => {
         modalSrpRequestAcceptRejected.find('textarea[name="comment"]').val('');
 
         $('.aasrp-form-field-errors').remove();
-        $('#modal-button-confirm-accept-rejected-request').unbind('click');
+        _unbindClickEvent($('#modal-button-confirm-accept-rejected-request'));
     });
 
     /**
@@ -543,7 +569,7 @@ $(document).ready(() => {
         modalSrpRequestReject.find('textarea[name="comment"]').val('');
 
         $('.aasrp-form-field-errors').remove();
-        $('#modal-button-confirm-reject-request').unbind('click');
+        _unbindClickEvent($('#modal-button-confirm-reject-request'));
     });
 
     /**
@@ -563,6 +589,38 @@ $(document).ready(() => {
     }).on('hide.bs.modal', () => {
         modalSrpRequestRemove.find('textarea[name="comment"]').val('');
 
-        $('#modal-button-confirm-remove-request').unbind('click');
+        _unbindClickEvent($('#modal-button-confirm-remove-request'));
+    });
+
+    /**
+     * Bulk actions: Accept selected SRP requests
+     */
+    modalSrpRequestBulkAccept.on('show.bs.modal', (event) => {  // eslint-disable-line no-unused-vars
+        // const button = $(event.relatedTarget);
+        // const url = button.data('link');
+
+        $('#modal-button-confirm-bulk-accept-requests').on('click', () => {
+            const checkedValues = _getSelectedSrpRequestCodes();
+
+            console.log('Checked checkbox values:', checkedValues);
+        });
+    }).on('hide.bs.modal', () => {
+        _unbindClickEvent($('#modal-button-confirm-bulk-accept-requests'));
+    });
+
+    /**
+     * Bulk actions: Delete selected SRP requests
+     */
+    modalSrpRequestBulkRemove.on('show.bs.modal', (event) => {  // eslint-disable-line no-unused-vars
+        // const button = $(event.relatedTarget);
+        // const url = button.data('link');
+
+        $('#modal-button-confirm-bulk-remove-requests').on('click', () => {
+            const checkedValues = _getSelectedSrpRequestCodes();
+
+            console.log('Checked checkbox values:', checkedValues);
+        });
+    }).on('hide.bs.modal', () => {
+        _unbindClickEvent($('#modal-button-confirm-bulk-remove-requests'));
     });
 });
