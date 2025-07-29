@@ -18,6 +18,7 @@ $(document).ready(() => {
             cache: false
         },
         columns: [
+            // Column 0: Request Time
             {
                 data: 'request_time',
                 /**
@@ -48,10 +49,12 @@ $(document).ready(() => {
                 },
                 className: 'srp-request-time'
             },
+            // Column 1: Requester
             {
                 data: 'requester',
                 className: 'srp-request-requester'
             },
+            // Column 2: Character
             {
                 data: 'character_html',
                 render: {
@@ -61,6 +64,7 @@ $(document).ready(() => {
                 },
                 className: 'srp-request-character'
             },
+            // Column 3: Request Code
             {
                 data: 'request_code_html',
                 /**
@@ -73,6 +77,7 @@ $(document).ready(() => {
                 },
                 className: 'srp-request-code'
             },
+            // Column 4: Ship
             {
                 data: 'ship_html',
                 render: {
@@ -83,6 +88,7 @@ $(document).ready(() => {
                 className: 'srp-request-ship'
             },
             // {data: 'zkb_link'},
+            // Column 5: Killboard Link
             {
                 data: 'zkb_loss_amount_html',
                 /**
@@ -95,6 +101,7 @@ $(document).ready(() => {
                 },
                 className: 'srp-request-zbk-loss-amount text-end'
             },
+            // Column 6: Payout Amount
             {
                 data: 'payout_amount_html',
                 /**
@@ -107,13 +114,25 @@ $(document).ready(() => {
                 },
                 className: 'srp-request-payout text-end'
             },
+            // Column 7: Request Status Icon
             {
                 data: 'request_status_icon',
                 className: 'srp-request-status text-center'
             },
+            // Column 8: Actions
             {
                 data: 'actions',
                 className: 'srp-request-actions text-end'
+            },
+            // Column 9: Bulk Actions Checkbox
+            {
+                data: 'request_code',
+                className: 'srp-request-bulk-actions-checkbox text-right',
+                render: {
+                    display: (data) => {
+                        return `<div class="checkbox"><label><input class="srp-requests-bulk-action" type="checkbox" name="${data}"><span class="cr"><i class="cr-icon fas fa-check"></i></span></label></div>`;
+                    }
+                }
             },
 
             /**
@@ -126,11 +145,11 @@ $(document).ready(() => {
         columnDefs: [
             {
                 orderable: false,
-                targets: [7, 8]
+                targets: [7, 8, 9]
             },
             {
                 visible: false,
-                targets: [9, 10, 11]
+                targets: [10, 11, 12]
             },
             {
                 width: 115,
@@ -146,15 +165,15 @@ $(document).ready(() => {
                     idx: 1
                 },
                 {
-                    idx: 11,
+                    idx: 12,
                     title: aaSrpSettings.translation.filter.character
                 },
                 {
-                    idx: 9,
+                    idx: 10,
                     title: aaSrpSettings.translation.filter.ship
                 },
                 {
-                    idx: 10,
+                    idx: 11,
                     title: aaSrpSettings.translation.filter.requestStatus
                 }
             ],
@@ -345,6 +364,20 @@ $(document).ready(() => {
         $('.srp-requests-approved-count').html(requestsApproved);
         $('.srp-requests-rejected-count').html(requestsRejected);
     };
+
+    /**
+     * Bulk actions window
+     */
+    const elementBulkActions = $('div.card-srp-request-bulk-actions');
+
+    $(document).on('click', 'input.srp-requests-bulk-action', () => {
+        // Show bulk actions if at least one checkbox is checked
+        if ($('input.srp-requests-bulk-action:checked').length > 0) {
+            elementBulkActions.removeClass('d-none');
+        } else {
+            elementBulkActions.addClass('d-none');
+        }
+    });
 
     /**
      * Modals

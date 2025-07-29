@@ -8,6 +8,7 @@
 
 {% block aasrp_body %}
     {% include "aasrp/partials/view-requests/overview.html" %}
+    {% include "aasrp/partials/view-requests/bulk-actions.html" %}
     {% include "aasrp/partials/view-requests/requests.html" %}
 
     {% include "aasrp/modals/view-requests/request-details.html" %}
@@ -20,6 +21,7 @@
 
 {% block extra_css %}
     {% include "bundles/datatables-css-bs5.html" %}
+    {% include "bundles/checkbox-css.html" %}
     {% include "aasrp/bundles/x-editable-css.html" %}
 
     {% include "aasrp/bundles/aa-srp-css.html" %}

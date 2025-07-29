@@ -69,6 +69,33 @@
         padding-bottom: initial;
     }
 
+    .srp-request-bulk-actions-checkbox .checkbox {
+        padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+
+        --bs-btn-padding-y: 0.25rem;
+        --bs-btn-padding-x: 0.5rem;
+        --bs-btn-border-radius: var(--bs-border-radius-sm);
+    }
+
+    .srp-request-bulk-actions-checkbox .checkbox label {
+        font-size: var(--bs-btn-font-size);
+
+        --bs-btn-font-size: 1.25rem;
+    }
+
+    .card-srp-request-bulk-actions {
+        top: 5.5rem;
+        z-index: 99;
+        right: 1.7rem;
+    }
+
+    .card-srp-request-bulk-actions .card-header .fa-solid {
+        transition: 0.25s transform ease-in-out;
+    }
+
+    .card-srp-request-bulk-actions .card-header.collapsed .fa-solid {
+        transform: rotate(-90deg);
+    }
 }
 
 /* Editable Popup
