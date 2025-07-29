@@ -20,19 +20,13 @@
             {% translate 'Please note that the "Delete" action is irreversible.' %}
         </p>
 
-        <form id="aasrp-bulk-actions-form" method="post">
-            {% csrf_token %}
-
-            <input type="hidden" name="action" value="">
-
-            <button type="submit" class="btn btn-success btn-sm me-2 mb-2" id="aasrp-bulk-action-approve">
-                <i class="fa-solid fa-check fa-fw"></i>
-                {% translate "Approve" %}
-            </button>
-            <button type="submit" class="btn btn-danger btn-sm me-2 mb-2" id="aasrp-bulk-action-delete">
-                <i class="fa-solid fa-trash-can fa-fw"></i>
-                {% translate "Delete" %}
-            </button>
-        </form>
+        <button type="submit" class="btn btn-success btn-sm me-2 mb-2" id="aasrp-bulk-action-approve">
+            <i class="fa-solid fa-check fa-fw"></i>
+            {% translate "Approve" %}
+        </button>
+        <button type="submit" class="btn btn-danger btn-sm me-2 mb-2" id="aasrp-bulk-action-delete">
+            <i class="fa-solid fa-trash-can fa-fw"></i>
+            {% translate "Delete" %}
+        </button>
     </div>
 </div>
