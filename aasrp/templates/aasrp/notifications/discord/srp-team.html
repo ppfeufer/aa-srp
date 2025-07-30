@@ -1,4 +1,4 @@
-### {{ character|safe }} / {{ ship }}
+### {{ character|safe }} / {{ ship|safe }}
 
 __**Request Details:**__
 **Character:** {{ character|safe }}
@@ -7,6 +7,7 @@ __**Request Details:**__
 **SRP Link:** {{ srp_link }}
 **Request Code:** {{ request_code }}
 **zKillboard Link:** {{ killboard_link }}
-
+{% if additional_info %}
 __**Additional Information:**__
 {{ additional_info|safe }}
+{% endif %}
