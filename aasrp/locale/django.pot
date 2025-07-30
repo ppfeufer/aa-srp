@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.10.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-07-30 12:53+0200\n"
+"POT-Creation-Date: 2025-07-30 13:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -650,9 +650,9 @@ msgstr ""
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:22
 msgid ""
-"<b>Note:</b><br>Only pending SRP requests will be bulk accepted.<br>Denied "
-"requests will not be bulk accepted, as they need a reason for now being "
-"accepted again. Please review them manually."
+"<b>Note:</b><br>Only pending SRP requests will be bulk approved.<br>Denied "
+"requests will not be bulk approved, as they need a reason for being approved "
+"again. Please review them manually."
 msgstr ""
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:10
@@ -862,8 +862,8 @@ msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:21
 msgid ""
-"Only pending SRP requests will be bulk approved. Denied request will not be "
-"bulk approved, as they need a reason for now being approved."
+"Only pending SRP requests will be approved. Denied requests will not be bulk "
+"approved, as they need a reason for being approved again."
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:32
@@ -945,12 +945,12 @@ msgstr ""
 msgid "Copy SRP link to clipboard"
 msgstr ""
 
-#: aasrp/views/ajax.py:481 aasrp/views/ajax.py:657 aasrp/views/ajax.py:741
+#: aasrp/views/ajax.py:481 aasrp/views/ajax.py:669 aasrp/views/ajax.py:753
 msgid "No matching SRP request found"
 msgstr ""
 
-#: aasrp/views/ajax.py:498 aasrp/views/ajax.py:576 aasrp/views/ajax.py:666
-#: aasrp/views/ajax.py:770
+#: aasrp/views/ajax.py:498 aasrp/views/ajax.py:576 aasrp/views/ajax.py:678
+#: aasrp/views/ajax.py:782
 msgid "Invalid form data"
 msgstr ""
 
@@ -958,28 +958,28 @@ msgstr ""
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:547 aasrp/views/ajax.py:629 aasrp/views/ajax.py:710
-#: aasrp/views/ajax.py:797
+#: aasrp/views/ajax.py:547 aasrp/views/ajax.py:641 aasrp/views/ajax.py:722
+#: aasrp/views/ajax.py:809
 msgid "Invalid request method"
 msgstr ""
 
-#: aasrp/views/ajax.py:593 aasrp/views/ajax.py:785
+#: aasrp/views/ajax.py:593 aasrp/views/ajax.py:797
 msgid "No matching SRP requests found"
 msgstr ""
 
-#: aasrp/views/ajax.py:624
+#: aasrp/views/ajax.py:636
 msgid "SRP requests have been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:705
+#: aasrp/views/ajax.py:717
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:739
+#: aasrp/views/ajax.py:751
 msgid "SRP request has been removed"
 msgstr ""
 
-#: aasrp/views/ajax.py:792
+#: aasrp/views/ajax.py:804
 msgid "SRP requests have been removed"
 msgstr ""
 
