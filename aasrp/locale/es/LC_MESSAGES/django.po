@@ -1,15 +1,15 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024.
+# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024, 2025.
 # Zigor Fernandez Moreno <sietehierros@gmail.com>, 2023, 2024.
 # Mak3rco <depormanuf1@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-06-03 13:55+0200\n"
-"PO-Revision-Date: 2024-12-02 17:40+0000\n"
+"POT-Creation-Date: 2025-07-30 13:26+0200\n"
+"PO-Revision-Date: 2025-07-29 20:18+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Spanish <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/es/>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.4\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -39,7 +39,7 @@ msgstr "Creador"
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
 #: aasrp/templates/aasrp/view-own-requests.html:24
-#: aasrp/templates/aasrp/view-requests.html:37
+#: aasrp/templates/aasrp/view-requests.html:41
 msgid "Requestor"
 msgstr "Solicitante"
 
@@ -54,10 +54,9 @@ msgid "Is enabled"
 msgstr "Está habilitado"
 
 #: aasrp/admin.py:154
-#, fuzzy, python-format
-#| msgid "Activate selected fleet types"
+#, python-format
 msgid "Activate selected %(verbose_name_plural)s"
-msgstr "Activar tipos de flota seleccionados"
+msgstr "Activar %(verbose_name_plural)s seleccionados"
 
 #: aasrp/admin.py:183
 #, python-brace-format
@@ -74,10 +73,9 @@ msgstr[0] "Tipo de flota activa {notifications_count}"
 msgstr[1] "Tipo de flotas activas {notifications_count}"
 
 #: aasrp/admin.py:199
-#, fuzzy, python-format
-#| msgid "Deactivate selected fleet types"
+#, python-format
 msgid "Deactivate selected %(verbose_name_plural)s"
-msgstr "Desactivar tipos de flota seleccionados"
+msgstr "Desactivar %(verbose_name_plural)s seleccionados"
 
 #: aasrp/admin.py:231
 #, python-brace-format
@@ -95,10 +93,9 @@ msgstr[1] "Tipos de flota {notifications_count} desactivados"
 
 #. Translators: This is the app name and version, which will appear in the Django Backend
 #: aasrp/apps.py:21
-#, fuzzy, python-brace-format
-#| msgid "Ship Replacement"
+#, python-brace-format
 msgid "Ship Replacement v{__version__}"
-msgstr "Reemplazo de Naves"
+msgstr "Reemplazo de Naves v{__version__}"
 
 #: aasrp/form.py:49
 msgid "This field is mandatory"
@@ -107,22 +104,16 @@ msgstr "Este campo es obligatorio"
 #: aasrp/form.py:73 aasrp/form.py:83
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:13
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:27
-#, fuzzy
-#| msgid "Fleet Name"
 msgid "Fleet name"
-msgstr "Nombre de la Flota"
+msgstr "Nombre de la flota"
 
 #: aasrp/form.py:74 aasrp/form.py:85 aasrp/models.py:148
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:37
-#, fuzzy
-#| msgid "Fleet Time"
 msgid "Fleet time"
 msgstr "Tiempo de Flota"
 
 #: aasrp/form.py:75
-#, fuzzy
-#| msgid "Fleet Type (optional)"
 msgid "Fleet type (optional)"
 msgstr "Tipo de flota (opcional)"
 
@@ -134,8 +125,6 @@ msgid "Doctrine"
 msgstr "Doctrina"
 
 #: aasrp/form.py:77 aasrp/form.py:90 aasrp/form.py:108
-#, fuzzy
-#| msgid "After Action Report Link"
 msgid "After action report link"
 msgstr "Enlace de Informe posterior a la Acción"
 
@@ -149,17 +138,13 @@ msgid "Please tell us about the circumstances of your untimely demise. Who was t
 msgstr "Cuéntenos sobre las circunstancias de su prematuro fallecimiento. Quién era el FC, cómo se llamaba la doctrina, se solicitaron cambios en el ajuste, etc. Sé tan detallista como puedas."
 
 #: aasrp/form.py:135 aasrp/form.py:142 aasrp/models.py:307
-#, fuzzy
-#| msgid "Killboard Link"
 msgid "Killboard link"
 msgstr "Enlace de Killboard"
 
 #: aasrp/form.py:137 aasrp/form.py:146 aasrp/models.py:310 aasrp/models.py:406
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:25
-#: aasrp/templates/aasrp/view-requests.html:39
-#, fuzzy
-#| msgid "Additional Information"
+#: aasrp/templates/aasrp/view-requests.html:43
 msgid "Additional information"
 msgstr "Información Adicional"
 
@@ -277,6 +262,7 @@ msgstr ""
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:38
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:38
 msgid "Accept SRP request"
 msgstr ""
 
@@ -287,6 +273,7 @@ msgid "Reject SRP request"
 msgstr ""
 
 #: aasrp/helper/icons.py:351
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:38
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr ""
@@ -328,8 +315,6 @@ msgid "Whether this fleet type is active or not"
 msgstr ""
 
 #: aasrp/models.py:89
-#, fuzzy
-#| msgid "Fleet Types"
 msgid "Fleet types"
 msgstr "Tipos de Flota"
 
@@ -355,8 +340,6 @@ msgstr ""
 
 #: aasrp/models.py:131
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:32
-#, fuzzy
-#| msgid "Fleet Commander"
 msgid "Fleet commander"
 msgstr "Comandante de Flota"
 
@@ -408,7 +391,7 @@ msgstr ""
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:18
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:17
 #: aasrp/templates/aasrp/view-own-requests.html:23
-#: aasrp/templates/aasrp/view-requests.html:32
+#: aasrp/templates/aasrp/view-requests.html:36
 msgid "Character"
 msgstr ""
 
@@ -418,7 +401,7 @@ msgstr "Tipo de Nave"
 
 #: aasrp/models.py:316 aasrp/templates/aasrp/dashboard.html:23
 #: aasrp/templates/aasrp/view-own-requests.html:22
-#: aasrp/templates/aasrp/view-requests.html:30
+#: aasrp/templates/aasrp/view-requests.html:34
 #, fuzzy
 #| msgid "Requestor"
 msgid "Request status"
@@ -471,7 +454,7 @@ msgstr ""
 
 #: aasrp/models.py:382
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
-#: aasrp/templates/aasrp/view-requests.html:38
+#: aasrp/templates/aasrp/view-requests.html:42
 msgid "Insurance payout"
 msgstr ""
 
@@ -549,8 +532,6 @@ msgid "The source for the loss value of a killmail. Fitted value is the value of
 msgstr ""
 
 #: aasrp/models.py:548
-#, fuzzy
-#| msgid "setting"
 msgid "Setting"
 msgstr "ajuste"
 
@@ -575,7 +556,7 @@ msgstr "Solicitante"
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:19
 #: aasrp/templates/aasrp/view-own-requests.html:21
-#: aasrp/templates/aasrp/view-requests.html:31
+#: aasrp/templates/aasrp/view-requests.html:35
 msgid "Ship"
 msgstr ""
 
@@ -612,8 +593,6 @@ msgid "Are you sure you want to delete the following SRP link and all SRP reques
 msgstr ""
 
 #: aasrp/templates/aasrp/link-add.html:6
-#, fuzzy
-#| msgid "Create SRP Link"
 msgid "Create SRP link"
 msgstr "Crear el Enlace de SRP"
 
@@ -633,6 +612,8 @@ msgstr "Crear el Enlace de SRP"
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:12
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:13
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:13
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:13
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:13
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:12
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:12
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:13
@@ -646,6 +627,8 @@ msgstr ""
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:35
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:33
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:33
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:33
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:24
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:43
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:35
@@ -654,6 +637,7 @@ msgstr ""
 
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:25
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:29
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:62
 msgid "Delete"
 msgstr "Borrar"
 
@@ -668,6 +652,34 @@ msgstr ""
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:18
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:18
 msgid "Are you sure you want to accept this SRP request?"
+msgstr ""
+
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:10
+#, fuzzy
+#| msgid "Requestor"
+msgid "Accept SRP requests"
+msgstr "Solicitante"
+
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:18
+msgid "Are you sure you want to accept these SRP requests?"
+msgstr ""
+
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:22
+msgid "<b>Note:</b><br>Only pending SRP requests will be bulk approved.<br>Denied requests will not be bulk approved, as they need a reason for being approved again. Please review them manually."
+msgstr ""
+
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:10
+#, fuzzy
+#| msgid "Requestor"
+msgid "Delete SRP requests"
+msgstr "Solicitante"
+
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:18
+msgid "Are you sure you want to delete these SRP requests?"
+msgstr ""
+
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:22
+msgid "<b>Note:</b><br>This action is irreversible.<br>All selected SRP requests will be deleted."
 msgstr ""
 
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:17
@@ -731,12 +743,12 @@ msgstr ""
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:25
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:23
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:25
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:29
 msgid "Status"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:27
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:26
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:30
 msgid "Actions"
 msgstr ""
 
@@ -763,10 +775,8 @@ msgid "Create link"
 msgstr "Crear el Enlace de SRP"
 
 #: aasrp/templates/aasrp/partials/link-edit/form.html:7
-#, fuzzy
-#| msgid "After Action Report Link"
 msgid "After action report"
-msgstr "Enlace de Informe posterior a la Acción"
+msgstr "Informe posterior a la Acción"
 
 #: aasrp/templates/aasrp/partials/navigation/actions-navigation.html:6
 msgid "View active"
@@ -860,6 +870,46 @@ msgstr ""
 msgid "SRP payout"
 msgstr ""
 
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:8
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:31
+msgid "Bulk actions"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:16
+msgid "Bulk approve"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:21
+msgid "Only pending SRP requests will be approved. Denied requests will not be bulk approved, as they need a reason for being approved again."
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:32
+msgid "Approve selected SRP requests"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:35
+msgid "Approve"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:43
+msgid "Bulk delete"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:48
+msgid "Please note that the \"Delete\" action is irreversible."
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:59
+#, fuzzy
+#| msgid "Requestor"
+msgid "Delete selected SRP requests"
+msgstr "Solicitante"
+
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:74
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:77
+msgid "Clear selection"
+msgstr ""
+
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:7
 msgid "Overview"
 msgstr ""
@@ -883,30 +933,30 @@ msgstr ""
 msgid "SRP requests"
 msgstr "Solicitante"
 
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:23
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:26
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr ""
 
 #: aasrp/templates/aasrp/view-own-requests.html:26
-#: aasrp/templates/aasrp/view-requests.html:40
+#: aasrp/templates/aasrp/view-requests.html:44
 #, fuzzy
 #| msgid "Additional Information"
 msgid "Reject information"
 msgstr "Información Adicional"
 
-#: aasrp/templates/aasrp/view-requests.html:33
+#: aasrp/templates/aasrp/view-requests.html:37
 msgid "Click here to change the payout amount for this SRP request."
 msgstr ""
 
-#: aasrp/templates/aasrp/view-requests.html:34
+#: aasrp/templates/aasrp/view-requests.html:38
 msgid "Enter SRP payout value"
 msgstr ""
 
-#: aasrp/templates/aasrp/view-requests.html:35
+#: aasrp/templates/aasrp/view-requests.html:39
 msgid "Empty values are not allowed"
 msgstr ""
 
-#: aasrp/templates/aasrp/view-requests.html:36
+#: aasrp/templates/aasrp/view-requests.html:40
 msgid "This field is required."
 msgstr ""
 
@@ -918,11 +968,12 @@ msgstr ""
 msgid "Copy SRP link to clipboard"
 msgstr ""
 
-#: aasrp/views/ajax.py:481 aasrp/views/ajax.py:575 aasrp/views/ajax.py:659
+#: aasrp/views/ajax.py:481 aasrp/views/ajax.py:669 aasrp/views/ajax.py:753
 msgid "No matching SRP request found"
 msgstr ""
 
-#: aasrp/views/ajax.py:498 aasrp/views/ajax.py:584
+#: aasrp/views/ajax.py:498 aasrp/views/ajax.py:576 aasrp/views/ajax.py:678
+#: aasrp/views/ajax.py:782
 msgid "Invalid form data"
 msgstr ""
 
@@ -930,17 +981,34 @@ msgstr ""
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:547 aasrp/views/ajax.py:628
+#: aasrp/views/ajax.py:547 aasrp/views/ajax.py:641 aasrp/views/ajax.py:722
+#: aasrp/views/ajax.py:809
 msgid "Invalid request method"
 msgstr ""
 
-#: aasrp/views/ajax.py:623
+#: aasrp/views/ajax.py:593 aasrp/views/ajax.py:797
+msgid "No matching SRP requests found"
+msgstr ""
+
+#: aasrp/views/ajax.py:636
+#, fuzzy
+#| msgid "Requestor"
+msgid "SRP requests have been approved"
+msgstr "Solicitante"
+
+#: aasrp/views/ajax.py:717
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:657
+#: aasrp/views/ajax.py:751
 msgid "SRP request has been removed"
 msgstr ""
+
+#: aasrp/views/ajax.py:804
+#, fuzzy
+#| msgid "Requestor"
+msgid "SRP requests have been removed"
+msgstr "Solicitante"
 
 #: aasrp/views/general.py:61
 msgid "You do not have the needed permissions to view all SRP links"
