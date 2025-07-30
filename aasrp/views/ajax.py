@@ -594,28 +594,40 @@ def srp_requests_bulk_approve(request: WSGIRequest, srp_code: str) -> JsonRespon
                 safe=False,
             )
 
-        for srp_request in srp_requests:
+        # Prepare bulk updates
+        srp_request_list = list(srp_requests)
+        for srp_request in srp_request_list:
             srp_request.payout_amount = (
                 srp_request.payout_amount or srp_request.loss_amount
             )
             srp_request.request_status = SrpRequest.Status.APPROVED
-            srp_request.save()
 
-            RequestComment.objects.create(
+        # Bulk update all requests
+        SrpRequest.objects.bulk_update(
+            srp_request_list, ["payout_amount", "request_status"]
+        )
+
+        # Bulk create comments
+        comments = [
+            RequestComment(
                 srp_request=srp_request,
                 comment_type=RequestComment.Type.STATUS_CHANGE,
                 new_status=SrpRequest.Status.APPROVED,
                 creator=request.user,
             )
+            for srp_request in srp_request_list
+        ]
+        RequestComment.objects.bulk_create(comments)
 
-            # Send notification if enabled
+        # Send notifications
+        reviser_name = get_main_character_name_from_user(user=request.user)
+        for srp_request in srp_request_list:
             requester = srp_request.creator
             if not get_user_settings(user=requester).disable_notifications:
                 logger.info(msg="Sending approval message to user")
-
                 notify_requester(
                     requester=requester,
-                    reviser=get_main_character_name_from_user(user=request.user),
+                    reviser=reviser_name,
                     srp_request=srp_request,
                     comment="",
                 )
