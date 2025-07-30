@@ -17,6 +17,10 @@
                 <p>
                     {% translate "Are you sure you want to delete these SRP requests?" %}
                 </p>
+
+                <form autocomplete="off" method="post">
+                    {% csrf_token %}
+                </form>
             </div>
 
             <div class="modal-footer">

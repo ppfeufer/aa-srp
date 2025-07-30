@@ -4,6 +4,7 @@ $(document).ready(() => {
     'use strict';
 
     const elementSrpRequestsTable = $('#tab_aasrp_srp_requests');
+    const elementBulkActions = $('div.card-srp-request-bulk-actions');
 
     /**
      * Table :: SRP Requests
@@ -329,9 +330,7 @@ $(document).ready(() => {
         /**
          * Bulk actions window
          */
-        const elementBulkActions = $('div.card-srp-request-bulk-actions');
         const elementBulkActionsCheckboxes = $('td.srp-request-bulk-actions-checkbox input.srp-requests-bulk-action');
-
         elementBulkActionsCheckboxes.each((i, checkbox) => {
             $(checkbox).change(() => {
                 const checkedCheckboxes = $(elementBulkActionsCheckboxes).filter(':checked');
@@ -434,6 +433,19 @@ $(document).ready(() => {
         const checkedCheckboxes = $(elementBulkActionsCheckboxes).filter(':checked');
 
         return checkedCheckboxes.map((index, checkbox) => $(checkbox).attr('name')).get();
+    };
+
+    /**
+     * Helper function: Get selected SRP requests
+     *
+     * @returns {array} An array of jQuery objects representing the selected SRP requests
+     * @private
+     */
+    const _getSelectedSrpRequests = () => {
+        const elementBulkActionsCheckboxes = $('td.srp-request-bulk-actions-checkbox input.srp-requests-bulk-action');
+        const checkedCheckboxes = $(elementBulkActionsCheckboxes).filter(':checked');
+
+        return checkedCheckboxes.map((index, checkbox) => $(checkbox)).get();
     };
 
     /**
@@ -595,14 +607,37 @@ $(document).ready(() => {
     /**
      * Bulk actions: Accept selected SRP requests
      */
-    modalSrpRequestBulkAccept.on('show.bs.modal', (event) => {  // eslint-disable-line no-unused-vars
-        // const button = $(event.relatedTarget);
-        // const url = button.data('link');
+    modalSrpRequestBulkAccept.on('show.bs.modal', (event) => {
+        const button = $(event.relatedTarget);
+        const url = button.data('link');
+        const form = modalSrpRequestBulkAccept.find('form');
+        const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
 
         $('#modal-button-confirm-bulk-accept-requests').on('click', () => {
             const checkedValues = _getSelectedSrpRequestCodes();
 
-            console.log('Checked checkbox values:', checkedValues);
+            const posting = $.post(
+                url,
+                {
+                    srp_request_codes: checkedValues,
+                    csrfmiddlewaretoken: csrfMiddlewareToken
+                }
+            );
+
+            posting.done((data) => {
+                _modalConfirmAction(data);
+
+                // Uncheck all checkboxes
+                const checkboxes = _getSelectedSrpRequests();
+
+                checkboxes.forEach((checkbox) => {
+                    $(checkbox).prop('checked', false);
+                });
+
+                elementBulkActions.addClass('d-none');
+            });
+
+            modalSrpRequestBulkAccept.modal('hide');
         });
     }).on('hide.bs.modal', () => {
         _unbindClickEvent($('#modal-button-confirm-bulk-accept-requests'));

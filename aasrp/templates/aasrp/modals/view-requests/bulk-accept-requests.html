@@ -17,6 +17,14 @@
                 <p>
                     {% translate "Are you sure you want to accept these SRP requests?" %}
                 </p>
+
+                <p class="aa-callout aa-callout-info">
+                    {% translate "<b>Note:</b><br>Only pending SRP requests will be bulk accepted.<br>Denied requests will not be bulk accepted, as they need a reason for now being accepted again. Please review them manually." %}
+                </p>
+
+                <form autocomplete="off" method="post">
+                    {% csrf_token %}
+                </form>
             </div>
 
             <div class="modal-footer">

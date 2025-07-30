@@ -550,6 +550,88 @@ def srp_request_approve(  # pylint: disable=too-many-locals
 
 
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
+def srp_requests_bulk_approve(request: WSGIRequest, srp_code: str) -> JsonResponse:
+    """
+    Ajax call :: Approve multiple SRP requests
+
+    :param request:
+    :type request:
+    :param srp_code:
+    :type srp_code:
+    :return:
+    :rtype:
+    """
+
+    if request.method == "POST":
+        srp_request_codes = request.POST.getlist("srp_request_codes[]")
+
+        logger.debug(
+            "Bulk approving SRP requests for code: %s, with request codes: %s",
+            srp_code,
+            srp_request_codes,
+        )
+
+        if not srp_request_codes or not srp_code:
+            return JsonResponse(
+                data={"success": False, "message": _("Invalid form data")}, safe=False
+            )
+
+        srp_requests = SrpRequest.objects.filter(
+            Q(request_code__in=srp_request_codes)
+            & Q(srp_link__srp_code=srp_code)
+            & Q(request_status=SrpRequest.Status.PENDING)
+        )
+
+        logger.debug(
+            "Found %d SRP requests to approve for code: %s",
+            srp_requests.count(),
+            srp_code,
+        )
+
+        if not srp_requests.exists():
+            return JsonResponse(
+                data={"success": False, "message": _("No matching SRP requests found")},
+                safe=False,
+            )
+
+        for srp_request in srp_requests:
+            srp_request.payout_amount = (
+                srp_request.payout_amount or srp_request.loss_amount
+            )
+            srp_request.request_status = SrpRequest.Status.APPROVED
+            srp_request.save()
+
+            RequestComment.objects.create(
+                srp_request=srp_request,
+                comment_type=RequestComment.Type.STATUS_CHANGE,
+                new_status=SrpRequest.Status.APPROVED,
+                creator=request.user,
+            )
+
+            # Send notification if enabled
+            requester = srp_request.creator
+            if not get_user_settings(user=requester).disable_notifications:
+                logger.info(msg="Sending approval message to user")
+
+                notify_requester(
+                    requester=requester,
+                    reviser=get_main_character_name_from_user(user=request.user),
+                    srp_request=srp_request,
+                    comment="",
+                )
+
+        return JsonResponse(
+            data={"success": True, "message": _("SRP requests have been approved")},
+            safe=False,
+        )
+
+    return JsonResponse(
+        data={"success": False, "message": _("Invalid request method")},
+        safe=False,
+    )
+
+
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def srp_request_deny(
     request: WSGIRequest, srp_code: str, srp_request_code: str
 ) -> JsonResponse:

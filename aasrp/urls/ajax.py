@@ -57,7 +57,7 @@ urls = [
                     name="ajax_srp_request_change_payout",
                 ),
                 path(
-                    # Change the SRP payout amount
+                    # Approve the SRP request
                     route=(
                         "srp-link/<str:srp_code>/srp-request/"
                         "<str:srp_request_code>/approve/"
@@ -66,7 +66,13 @@ urls = [
                     name="ajax_srp_request_approve",
                 ),
                 path(
-                    # Change the SRP payout amount
+                    # Approve the SRP request
+                    route=("srp-link/<str:srp_code>/srp-request/approve/bulk/"),
+                    view=ajax.srp_requests_bulk_approve,
+                    name="ajax_srp_requests_bulk_approve",
+                ),
+                path(
+                    # Deny the SRP request
                     route=(
                         "srp-link/<str:srp_code>/srp-request/"
                         "<str:srp_request_code>/deny/"
@@ -75,7 +81,7 @@ urls = [
                     name="ajax_srp_request_deny",
                 ),
                 path(
-                    # Change the SRP payout amount
+                    # Remove the SRP request
                     route=(
                         "srp-link/<str:srp_code>/srp-request/"
                         "<str:srp_request_code>/remove/"

@@ -28,6 +28,7 @@
                     id="aasrp-bulk-action-approve"
                     data-bs-toggle="modal"
                     data-bs-target="#srp-request-bulk-accept"
+                    data-link="{% url 'aasrp:ajax_srp_requests_bulk_approve' srp_link.srp_code %}"
                 >
                     <i class="fa-solid fa-check fa-fw"></i>
                     {% translate "Approve" %}
