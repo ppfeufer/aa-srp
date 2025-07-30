@@ -66,7 +66,7 @@ urls = [
                     name="ajax_srp_request_approve",
                 ),
                 path(
-                    # Approve the SRP request
+                    # Bulk approve SRP requests
                     route=("srp-link/<str:srp_code>/srp-request/approve/bulk/"),
                     view=ajax.srp_requests_bulk_approve,
                     name="ajax_srp_requests_bulk_approve",
@@ -88,6 +88,12 @@ urls = [
                     ),
                     view=ajax.srp_request_remove,
                     name="ajax_srp_request_remove",
+                ),
+                path(
+                    # Bulk remove SRP requests
+                    route=("srp-link/<str:srp_code>/srp-request/remove/bulk/"),
+                    view=ajax.srp_requests_bulk_remove,
+                    name="ajax_srp_requests_bulk_remove",
                 ),
             ]
         ),

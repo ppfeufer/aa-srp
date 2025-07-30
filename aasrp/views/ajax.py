@@ -741,3 +741,59 @@ def srp_request_remove(
         data = {"success": False, "message": _("No matching SRP request found")}
 
     return JsonResponse(data=data, safe=False)
+
+
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
+def srp_requests_bulk_remove(request: WSGIRequest, srp_code: str) -> JsonResponse:
+    """
+    Ajax call :: Remove multiple SRP requests
+
+    :param request:
+    :type request:
+    :param srp_code:
+    :type srp_code:
+    :return:
+    :rtype:
+    """
+
+    if request.method == "POST":
+        srp_request_codes = request.POST.getlist("srp_request_codes[]")
+
+        logger.debug(
+            "Bulk removing SRP requests for code: %s, with request codes: %s",
+            srp_code,
+            srp_request_codes,
+        )
+
+        if not srp_request_codes or not srp_code:
+            return JsonResponse(
+                data={"success": False, "message": _("Invalid form data")}, safe=False
+            )
+
+        srp_requests = SrpRequest.objects.filter(
+            Q(request_code__in=srp_request_codes) & Q(srp_link__srp_code=srp_code)
+        )
+
+        logger.debug(
+            "Found %d SRP requests to remove for code: %s",
+            srp_requests.count(),
+            srp_code,
+        )
+
+        if not srp_requests.exists():
+            return JsonResponse(
+                data={"success": False, "message": _("No matching SRP requests found")},
+                safe=False,
+            )
+
+        srp_requests.delete()
+
+        return JsonResponse(
+            data={"success": True, "message": _("SRP requests have been removed")},
+            safe=False,
+        )
+
+    return JsonResponse(
+        data={"success": False, "message": _("Invalid request method")},
+        safe=False,
+    )

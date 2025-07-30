@@ -18,6 +18,10 @@
                     {% translate "Are you sure you want to delete these SRP requests?" %}
                 </p>
 
+                <p class="aa-callout aa-callout-danger">
+                    {% translate "<b>Note:</b><br>This action is irreversible.<br>All selected SRP requests will be deleted." %}
+                </p>
+
                 <form autocomplete="off" method="post">
                     {% csrf_token %}
                 </form>

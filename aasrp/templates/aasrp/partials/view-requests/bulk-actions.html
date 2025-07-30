@@ -54,6 +54,7 @@
                     id="aasrp-bulk-action-delete"
                     data-bs-toggle="modal"
                     data-bs-target="#srp-request-bulk-remove"
+                    data-link="{% url 'aasrp:ajax_srp_requests_bulk_remove' srp_link.srp_code %}"
                 >
                     <i class="fa-solid fa-trash-can fa-fw"></i>
                     {% translate "Delete" %}

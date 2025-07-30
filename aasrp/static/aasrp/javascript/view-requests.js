@@ -646,14 +646,37 @@ $(document).ready(() => {
     /**
      * Bulk actions: Delete selected SRP requests
      */
-    modalSrpRequestBulkRemove.on('show.bs.modal', (event) => {  // eslint-disable-line no-unused-vars
-        // const button = $(event.relatedTarget);
-        // const url = button.data('link');
+    modalSrpRequestBulkRemove.on('show.bs.modal', (event) => {
+        const button = $(event.relatedTarget);
+        const url = button.data('link');
+        const form = modalSrpRequestBulkAccept.find('form');
+        const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
 
         $('#modal-button-confirm-bulk-remove-requests').on('click', () => {
             const checkedValues = _getSelectedSrpRequestCodes();
 
-            console.log('Checked checkbox values:', checkedValues);
+            const posting = $.post(
+                url,
+                {
+                    srp_request_codes: checkedValues,
+                    csrfmiddlewaretoken: csrfMiddlewareToken
+                }
+            );
+
+            posting.done((data) => {
+                _modalConfirmAction(data);
+
+                // Uncheck all checkboxes
+                const checkboxes = _getSelectedSrpRequests();
+
+                checkboxes.forEach((checkbox) => {
+                    $(checkbox).prop('checked', false);
+                });
+
+                elementBulkActions.addClass('d-none');
+            });
+
+            modalSrpRequestBulkRemove.modal('hide');
         });
     }).on('hide.bs.modal', () => {
         _unbindClickEvent($('#modal-button-confirm-bulk-remove-requests'));
