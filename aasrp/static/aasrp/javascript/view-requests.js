@@ -128,7 +128,7 @@ $(document).ready(() => {
             // Column 9: Bulk Actions Checkbox
             {
                 data: 'request_code',
-                className: 'srp-request-bulk-actions-checkbox text-right',
+                className: 'srp-request-bulk-actions-checkbox text-end',
                 render: {
                     display: (data) => {
                         return `<div class="checkbox"><label><input class="srp-requests-bulk-action" type="checkbox" name="${data}"><span class="cr"><i class="cr-icon fas fa-check"></i></span></label></div>`;
@@ -651,7 +651,7 @@ $(document).ready(() => {
     modalSrpRequestBulkRemove.on('show.bs.modal', (event) => {
         const button = $(event.relatedTarget);
         const url = button.data('link');
-        const form = modalSrpRequestBulkAccept.find('form');
+        const form = modalSrpRequestBulkRemove.find('form');
         const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
 
         $('#modal-button-confirm-bulk-remove-requests').on('click', () => {
