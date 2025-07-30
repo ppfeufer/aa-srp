@@ -12,6 +12,9 @@ from requests.__version__ import __version__ as requests_version
 from aasrp import __app_name_useragent__, __github_url__
 from aasrp import __version__ as app_version
 
+# All internal URLs need to start with this prefix
+INTERNAL_URL_PREFIX = "-"
+
 
 class UserAgent(Enum):
     """
