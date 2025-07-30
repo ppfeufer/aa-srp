@@ -1,4 +1,5 @@
 # Standard Library
+import json
 from datetime import datetime
 from http import HTTPStatus
 from unittest.mock import MagicMock, patch
@@ -11,7 +12,7 @@ from django.urls import reverse
 # AA SRP
 from aasrp.models import SrpLink, SrpRequest
 from aasrp.tests.utils import get_permission_content_type
-from aasrp.views.ajax import srp_request_remove
+from aasrp.views.ajax import srp_request_remove, srp_requests_bulk_approve
 
 
 class TestSrpRequestRemove(TestCase):
@@ -174,3 +175,48 @@ class TestSrpRequestRemove(TestCase):
             response.content,
             {"success": False, "message": "No matching SRP request found"},
         )
+
+
+class MockSrpRequest:
+    def __init__(self, request_code, payout_amount, loss_amount):
+        self.request_code = request_code
+        self.payout_amount = payout_amount
+        self.loss_amount = loss_amount
+
+    def save(self):
+        pass
+
+
+class TestSrpRequestsBulkApprove(TestCase):
+    """
+    Test the bulk approval of SRP requests.
+    """
+
+    def test_approves_multiple_requests_successfully(self):
+        """
+        Test the bulk approval of multiple SRP requests.
+
+        :return:
+        :rtype:
+        """
+
+        # Mock the request object
+        request = MagicMock()
+        request.method = "POST"
+        request.POST.getlist.return_value = ["REQUEST_CODE_1", "REQUEST_CODE_2"]
+
+        # Mock the srp_requests QuerySet
+        srp_requests = MagicMock()
+        srp_requests.count.return_value = 2
+        srp_requests.exists.return_value = True
+
+        # Patch the filter method to return the mocked srp_requests
+        with patch("aasrp.models.SrpRequest.objects.filter", return_value=srp_requests):
+            response = srp_requests_bulk_approve(request, "SRP_CODE")
+
+            # Parse the response content
+            response_data = json.loads(response.content)
+
+            # Assert the response
+            self.assertEqual(response.status_code, 200)
+            self.assertTrue(response_data["success"])
