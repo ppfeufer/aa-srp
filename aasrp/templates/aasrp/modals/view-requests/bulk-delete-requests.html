@@ -1,0 +1,43 @@
+{% load bootstrap %}
+{% load i18n %}
+
+<!-- bulk delete requests modal -->
+<div class="modal fade" id="srp-request-bulk-remove" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title fs-5">
+                    {% translate "Delete SRP requests" %}
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    {% translate "Are you sure you want to delete these SRP requests?" %}
+                </p>
+
+                <p class="aa-callout aa-callout-danger">
+                    {% translate "<b>Note:</b><br>This action is irreversible.<br>All selected SRP requests will be deleted." %}
+                </p>
+
+                <form autocomplete="off" method="post">
+                    {% csrf_token %}
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button id="modal-button-cancel-bulk-remove-requests" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                    <i class="fa-regular fa-hand"></i>
+                    {% translate "Cancel" %}
+                </button>
+
+                <button id="modal-button-confirm-bulk-remove-requests" type="button" class="btn btn-danger btn-sm">
+                    <i class="fa-solid fa-trash-can fa-fw"></i>
+                    {% translate "Delete SRP request" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

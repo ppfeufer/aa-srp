@@ -69,6 +69,27 @@
         padding-bottom: initial;
     }
 
+    .srp-request-bulk-actions-checkbox .checkbox {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .srp-request-bulk-actions-checkbox .checkbox label {
+        font-size: 1.25rem;
+    }
+
+    .card-srp-request-bulk-actions {
+        right: 1.7rem;
+        top: 5.5rem;
+        z-index: 1;
+    }
+
+    .card-srp-request-bulk-actions .card-header .fa-solid {
+        transition: 0.25s transform ease-in-out;
+    }
+
+    .card-srp-request-bulk-actions .card-header.collapsed .fa-solid {
+        transform: rotate(-90deg);
+    }
 }
 
 /* Editable Popup

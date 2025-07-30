@@ -1,0 +1,81 @@
+{% load theme_tags %}
+{% load i18n %}
+
+<div class="card border-info text-bg-primary card-srp-request-bulk-actions col-sm-6 col-lg-4 mb-3 d-none position-fixed" style="top: calc({% header_padding_size %} + 1rem);">
+    <div class="card-header text-bg-info" data-bs-toggle="collapse" href="#collapse-bulk-actions" aria-expanded="true" aria-controls="collapse-bulk-actions">
+        <div class="card-title mb-0">
+            <i class="fa-solid fa-chevron-down float-end mt-1 cursor-pointer"></i>
+            {% translate "Bulk actions" %}
+        </div>
+    </div>
+
+    <div id="collapse-bulk-actions" class="card-body collapse show">
+        <div class="mb-3">
+            <header class="aa-srp-modal-header">
+                <h5>
+                    {% translate "Bulk approve" %}
+                </h5>
+            </header>
+
+            <p>
+                {% translate "Only pending SRP requests will be approved. Denied requests will not be bulk approved, as they need a reason for being approved again." %}
+            </p>
+
+            <p class="text-end">
+                <button
+                    type="button"
+                    id="aasrp-bulk-action-approve"
+                    class="btn btn-success btn-sm me-2 mb-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#srp-request-bulk-accept"
+                    data-link="{% url 'aasrp:ajax_srp_requests_bulk_approve' srp_link.srp_code %}"
+                    aria-label="{% translate 'Approve selected SRP requests' %}"
+                >
+                    <i class="fa-solid fa-check fa-fw"></i>
+                    {% translate "Approve" %}
+                </button>
+            </p>
+        </div>
+
+        <div class="mb-3">
+            <header class="aa-srp-modal-header">
+                <h5>
+                    {% translate "Bulk delete" %}
+                </h5>
+            </header>
+
+            <p>
+                {% translate 'Please note that the "Delete" action is irreversible.' %}
+            </p>
+
+            <p class="text-end">
+                <button
+                    type="button"
+                    id="aasrp-bulk-action-delete"
+                    class="btn btn-danger btn-sm me-2 mb-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#srp-request-bulk-remove"
+                    data-link="{% url 'aasrp:ajax_srp_requests_bulk_remove' srp_link.srp_code %}"
+                    aria-label="{% translate 'Delete selected SRP requests' %}"
+                >
+                    <i class="fa-solid fa-trash-can fa-fw"></i>
+                    {% translate "Delete" %}
+                </button>
+            </p>
+        </div>
+    </div>
+
+    <div class="card-footer text-bg-info">
+        <p class="text-end mb-0">
+            <button
+                type="button"
+                id="aasrp-bulk-action-clear-selection"
+                class="btn btn-secondary btn-sm"
+                aria-label="{% translate 'Clear selection' %}"
+            >
+                <i class="fa-regular fa-hand"></i>
+                {% translate "Clear selection" %}
+            </button>
+        </p>
+    </div>
+</div>

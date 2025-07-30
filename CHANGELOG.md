@@ -41,6 +41,10 @@ Section Order:
 ### Security
 -->
 
+### Added
+
+- Bulk actions for approval and removal of SRP requests
+
 ## [2.10.0] - 2025-07-08
 
 ### Added

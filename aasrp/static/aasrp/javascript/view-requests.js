@@ -4,6 +4,7 @@ $(document).ready(() => {
     'use strict';
 
     const elementSrpRequestsTable = $('#tab_aasrp_srp_requests');
+    const elementBulkActions = $('div.card-srp-request-bulk-actions');
 
     /**
      * Table :: SRP Requests
@@ -18,6 +19,7 @@ $(document).ready(() => {
             cache: false
         },
         columns: [
+            // Column 0: Request Time
             {
                 data: 'request_time',
                 /**
@@ -48,10 +50,12 @@ $(document).ready(() => {
                 },
                 className: 'srp-request-time'
             },
+            // Column 1: Requester
             {
                 data: 'requester',
                 className: 'srp-request-requester'
             },
+            // Column 2: Character
             {
                 data: 'character_html',
                 render: {
@@ -61,6 +65,7 @@ $(document).ready(() => {
                 },
                 className: 'srp-request-character'
             },
+            // Column 3: Request Code
             {
                 data: 'request_code_html',
                 /**
@@ -73,6 +78,7 @@ $(document).ready(() => {
                 },
                 className: 'srp-request-code'
             },
+            // Column 4: Ship
             {
                 data: 'ship_html',
                 render: {
@@ -83,6 +89,7 @@ $(document).ready(() => {
                 className: 'srp-request-ship'
             },
             // {data: 'zkb_link'},
+            // Column 5: Killboard Link
             {
                 data: 'zkb_loss_amount_html',
                 /**
@@ -95,6 +102,7 @@ $(document).ready(() => {
                 },
                 className: 'srp-request-zbk-loss-amount text-end'
             },
+            // Column 6: Payout Amount
             {
                 data: 'payout_amount_html',
                 /**
@@ -107,13 +115,25 @@ $(document).ready(() => {
                 },
                 className: 'srp-request-payout text-end'
             },
+            // Column 7: Request Status Icon
             {
                 data: 'request_status_icon',
                 className: 'srp-request-status text-center'
             },
+            // Column 8: Actions
             {
                 data: 'actions',
                 className: 'srp-request-actions text-end'
+            },
+            // Column 9: Bulk Actions Checkbox
+            {
+                data: 'request_code',
+                className: 'srp-request-bulk-actions-checkbox text-end',
+                render: {
+                    display: (data) => {
+                        return `<div class="checkbox"><label><input class="srp-requests-bulk-action" type="checkbox" name="${data}"><span class="cr"><i class="cr-icon fas fa-check"></i></span></label></div>`;
+                    }
+                }
             },
 
             /**
@@ -126,11 +146,11 @@ $(document).ready(() => {
         columnDefs: [
             {
                 orderable: false,
-                targets: [7, 8]
+                targets: [7, 8, 9]
             },
             {
                 visible: false,
-                targets: [9, 10, 11]
+                targets: [10, 11, 12]
             },
             {
                 width: 115,
@@ -146,15 +166,15 @@ $(document).ready(() => {
                     idx: 1
                 },
                 {
-                    idx: 11,
+                    idx: 12,
                     title: aaSrpSettings.translation.filter.character
                 },
                 {
-                    idx: 9,
+                    idx: 10,
                     title: aaSrpSettings.translation.filter.ship
                 },
                 {
-                    idx: 10,
+                    idx: 11,
                     title: aaSrpSettings.translation.filter.requestStatus
                 }
             ],
@@ -221,6 +241,9 @@ $(document).ready(() => {
         }
     });
 
+    /* Helper Functions
+    --------------------------------------------------------------------------------- */
+
     /**
      * Helper function: Refresh the Payout Amount field
      *
@@ -255,6 +278,98 @@ $(document).ready(() => {
         // Update copy to clipboard icon value
         const copyToClipboard = element.parent().parent().find('.copy-to-clipboard-icon i');
         copyToClipboard.attr('data-clipboard-text', newValue);
+    };
+
+    /**
+     * Helper function: Reloading SRP calculation in our DataTable
+     *
+     * @param {object} tableData The DataTable data
+     * @private
+     */
+    const _reloadSrpCalculations = (tableData) => {
+        let totalSrpAmount = 0;
+        let requestsTotal = 0;
+        let requestsPending = 0;
+        let requestsApproved = 0;
+        let requestsRejected = 0;
+
+        $.each(tableData, (i, item) => {
+            requestsTotal += 1;
+
+            if (item.request_status === 'Pending') {
+                requestsPending += 1;
+            }
+
+            if (item.request_status === 'Approved') {
+                totalSrpAmount += parseInt(item.payout_amount);
+                requestsApproved += 1;
+            }
+
+            if (item.request_status === 'Rejected') {
+                requestsRejected += 1;
+            }
+        });
+
+        // Update fleet total SRP amount
+        $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
+
+        // Update requests counts
+        $('.srp-requests-total-count').html(requestsTotal);
+        $('.srp-requests-pending-count').html(requestsPending);
+        $('.srp-requests-approved-count').html(requestsApproved);
+        $('.srp-requests-rejected-count').html(requestsRejected);
+    };
+
+    /**
+     * Helper function: Unbind click event for modal confirm buttons
+     *
+     * @param element
+     * @private
+     */
+    const _unbindClickEvent = (element) => {
+        // Unbind click events for the modal confirm buttons
+        element.unbind('click');
+    };
+
+    /**
+     * Helper function: Modal confirm action
+     *
+     * @param {object} data The return data from the ajax call
+     * @private
+     */
+    const _modalConfirmAction = (data) => {
+        // Reload datatable on success and update SRP status values
+        if (data.success === true) {
+            srpRequestsTable.ajax.reload((tableData) => {
+                _reloadSrpCalculations(tableData);
+            });
+        }
+    };
+
+    /**
+     * Helper function: Get selected SRP request codes
+     *
+     * @returns {array} An array of selected SRP request codes
+     * @private
+     */
+    const _getSelectedSrpRequestCodes = () => {
+        const elementBulkActionsCheckboxes = $('td.srp-request-bulk-actions-checkbox input.srp-requests-bulk-action');
+        const checkedCheckboxes = $(elementBulkActionsCheckboxes).filter(':checked');
+
+        return checkedCheckboxes.map((index, checkbox) => $(checkbox).attr('name')).get();
+    };
+
+    /**
+     * Helper function: Get selected SRP requests
+     *
+     * @returns {array} An array of jQuery objects representing the selected SRP requests
+     * @private
+     */
+    const _getSelectedSrpRequests = () => {
+        const elementBulkActionsCheckboxes = $('td.srp-request-bulk-actions-checkbox input.srp-requests-bulk-action');
+        const checkedCheckboxes = $(elementBulkActionsCheckboxes).filter(':checked');
+
+        return checkedCheckboxes.map((index, checkbox) => $(checkbox)).get();
     };
 
     /**
@@ -298,77 +413,42 @@ $(document).ready(() => {
             }
         });
 
-        // Show bootstrap tooltips
+        /**
+         * Bootstrap tooltips for SRP requests
+         */
         [].slice.call(
             document.querySelectorAll('[data-bs-tooltip="aa-srp"]')
         ).map((tooltipTriggerEl) => {
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
+
+        /**
+         * Bulk actions window
+         */
+        const elementBulkActionsCheckboxes = $('td.srp-request-bulk-actions-checkbox input.srp-requests-bulk-action');
+        elementBulkActionsCheckboxes.each((i, checkbox) => {
+            $(checkbox).change(() => {
+                const checkedCheckboxes = $(elementBulkActionsCheckboxes).filter(':checked');
+
+                if (checkedCheckboxes.length > 0) {
+                    elementBulkActions.removeClass('d-none');
+                } else {
+                    elementBulkActions.addClass('d-none');
+                }
+            });
+        });
     });
 
-    /**
-     * Helper function: Reloading SRP calculation in our DataTable
-     *
-     * @param {object} tableData The DataTable data
-     * @private
-     */
-    const _reloadSrpCalculations = (tableData) => {
-        let totalSrpAmount = 0;
-        let requestsTotal = 0;
-        let requestsPending = 0;
-        let requestsApproved = 0;
-        let requestsRejected = 0;
-
-        $.each(tableData, (i, item) => {
-            requestsTotal += 1;
-
-            if (item.request_status === 'Pending') {
-                requestsPending += 1;
-            }
-
-            if (item.request_status === 'Approved') {
-                totalSrpAmount += parseInt(item.payout_amount);
-                requestsApproved += 1;
-            }
-
-            if (item.request_status === 'Rejected') {
-                requestsRejected += 1;
-            }
-        });
-
-        // Update fleet total SRP amount
-        $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
-
-        // Update requests counts
-        $('.srp-requests-total-count').html(requestsTotal);
-        $('.srp-requests-pending-count').html(requestsPending);
-        $('.srp-requests-approved-count').html(requestsApproved);
-        $('.srp-requests-rejected-count').html(requestsRejected);
-    };
-
-    /**
-     * Modals
-     */
+    /*  Modals
+    --------------------------------------------------------------------------------- */
     const modalSrpRequestDetails = $('#srp-request-details');
     const modalSrpRequestAccept = $('#srp-request-accept');
+    const modalSrpRequestBulkAccept = $('#srp-request-bulk-accept');
     const modalSrpRequestAcceptRejected = $('#srp-request-accept-rejected');
     const modalSrpRequestReject = $('#srp-request-reject');
     const modalSrpRequestRemove = $('#srp-request-remove');
-
-    /**
-     * Helper function: Modal confirm action
-     *
-     * @param {object} data The return data from the ajax call
-     * @private
-     */
-    const _modalConfirmAction = (data) => {
-        // Reload datatable on success and update SRP status values
-        if (data.success === true) {
-            srpRequestsTable.ajax.reload((tableData) => {
-                _reloadSrpCalculations(tableData);
-            });
-        }
-    };
+    const modalSrpRequestBulkRemove = $('#srp-request-bulk-remove');
+    const modalFormfieldErrorClasses = 'aa-callout aa-callout-danger aasrp-form-field-errors clearfix';
 
     /**
      * Modal: SRP request details
@@ -417,7 +497,7 @@ $(document).ready(() => {
     }).on('hide.bs.modal', () => {
         modalSrpRequestAccept.find('textarea[name="comment"]').val('');
 
-        $('#modal-button-confirm-accept-request').unbind('click');
+        _unbindClickEvent($('#modal-button-confirm-accept-request'));
     });
 
     /**
@@ -434,7 +514,7 @@ $(document).ready(() => {
                 .val();
 
             if (reviserComment === '') {
-                const errorMessage = `<div class="aa-callout aa-callout-danger aasrp-form-field-errors clearfix"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
+                const errorMessage = `<div class="${modalFormfieldErrorClasses}"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
 
                 form.find('.aasrp-form-field-errors').remove();
 
@@ -461,7 +541,7 @@ $(document).ready(() => {
         modalSrpRequestAcceptRejected.find('textarea[name="comment"]').val('');
 
         $('.aasrp-form-field-errors').remove();
-        $('#modal-button-confirm-accept-rejected-request').unbind('click');
+        _unbindClickEvent($('#modal-button-confirm-accept-rejected-request'));
     });
 
     /**
@@ -478,7 +558,7 @@ $(document).ready(() => {
                 .val();
 
             if (rejectInfo === '') {
-                const errorMessage = `<div class="aa-callout aa-callout-danger aasrp-form-field-errors clearfix"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
+                const errorMessage = `<div class="${modalFormfieldErrorClasses}"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
 
                 form.find('.aasrp-form-field-errors').remove();
 
@@ -503,7 +583,7 @@ $(document).ready(() => {
         modalSrpRequestReject.find('textarea[name="comment"]').val('');
 
         $('.aasrp-form-field-errors').remove();
-        $('#modal-button-confirm-reject-request').unbind('click');
+        _unbindClickEvent($('#modal-button-confirm-reject-request'));
     });
 
     /**
@@ -523,6 +603,99 @@ $(document).ready(() => {
     }).on('hide.bs.modal', () => {
         modalSrpRequestRemove.find('textarea[name="comment"]').val('');
 
-        $('#modal-button-confirm-remove-request').unbind('click');
+        _unbindClickEvent($('#modal-button-confirm-remove-request'));
+    });
+
+    /**
+     * Bulk actions: Accept selected SRP requests
+     */
+    modalSrpRequestBulkAccept.on('show.bs.modal', (event) => {
+        const button = $(event.relatedTarget);
+        const url = button.data('link');
+        const form = modalSrpRequestBulkAccept.find('form');
+        const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+
+        $('#modal-button-confirm-bulk-accept-requests').on('click', () => {
+            const checkedValues = _getSelectedSrpRequestCodes();
+
+            const posting = $.post(
+                url,
+                {
+                    srp_request_codes: checkedValues,
+                    csrfmiddlewaretoken: csrfMiddlewareToken
+                }
+            );
+
+            posting.done((data) => {
+                _modalConfirmAction(data);
+
+                // Uncheck all checkboxes
+                const checkboxes = _getSelectedSrpRequests();
+
+                checkboxes.forEach((checkbox) => {
+                    $(checkbox).prop('checked', false);
+                });
+
+                elementBulkActions.addClass('d-none');
+            });
+
+            modalSrpRequestBulkAccept.modal('hide');
+        });
+    }).on('hide.bs.modal', () => {
+        _unbindClickEvent($('#modal-button-confirm-bulk-accept-requests'));
+    });
+
+    /**
+     * Bulk actions: Delete selected SRP requests
+     */
+    modalSrpRequestBulkRemove.on('show.bs.modal', (event) => {
+        const button = $(event.relatedTarget);
+        const url = button.data('link');
+        const form = modalSrpRequestBulkRemove.find('form');
+        const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+
+        $('#modal-button-confirm-bulk-remove-requests').on('click', () => {
+            const checkedValues = _getSelectedSrpRequestCodes();
+
+            const posting = $.post(
+                url,
+                {
+                    srp_request_codes: checkedValues,
+                    csrfmiddlewaretoken: csrfMiddlewareToken
+                }
+            );
+
+            posting.done((data) => {
+                _modalConfirmAction(data);
+
+                // Uncheck all checkboxes
+                const checkboxes = _getSelectedSrpRequests();
+
+                checkboxes.forEach((checkbox) => {
+                    $(checkbox).prop('checked', false);
+                });
+
+                elementBulkActions.addClass('d-none');
+            });
+
+            modalSrpRequestBulkRemove.modal('hide');
+        });
+    }).on('hide.bs.modal', () => {
+        _unbindClickEvent($('#modal-button-confirm-bulk-remove-requests'));
+    });
+
+    /* Events
+    --------------------------------------------------------------------------------- */
+    /**
+     * Bulk actions: Clear selection
+     */
+    $('#aasrp-bulk-action-clear-selection').on('click', () => {
+        // Uncheck all checkboxes
+        const checkboxes = _getSelectedSrpRequests();
+        checkboxes.forEach((checkbox) => {
+            $(checkbox).prop('checked', false);
+        });
+        // Hide bulk actions
+        elementBulkActions.addClass('d-none');
     });
 });

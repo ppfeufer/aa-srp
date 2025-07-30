@@ -1,0 +1,43 @@
+{% load bootstrap %}
+{% load i18n %}
+
+<!-- bulk accept requests modal -->
+<div class="modal fade" id="srp-request-bulk-accept" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title fs-5">
+                    {% translate "Accept SRP requests" %}
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    {% translate "Are you sure you want to accept these SRP requests?" %}
+                </p>
+
+                <p class="aa-callout aa-callout-info">
+                    {% translate "<b>Note:</b><br>Only pending SRP requests will be bulk approved.<br>Denied requests will not be bulk approved, as they need a reason for being approved again. Please review them manually." %}
+                </p>
+
+                <form autocomplete="off" method="post">
+                    {% csrf_token %}
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button id="modal-button-cancel-bulk-accept-requests" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                    <i class="fa-regular fa-hand"></i>
+                    {% translate "Cancel" %}
+                </button>
+
+                <button id="modal-button-confirm-bulk-accept-requests" type="button" class="btn btn-success btn-sm">
+                    <i class="fa-solid fa-check"></i>
+                    {% translate "Accept SRP request" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
