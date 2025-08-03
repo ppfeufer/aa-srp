@@ -7,8 +7,13 @@ from solo.admin import SingletonModelAdmin
 
 # Django
 from django.contrib import admin, messages
+from django.db.models import QuerySet
+from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
+
+# Alliance Auth
+from allianceauth.framework.api.user import get_main_character_name_from_user
 
 # AA SRP
 from aasrp.form import SettingAdminForm
@@ -23,35 +28,29 @@ class SrpLinkAdmin(admin.ModelAdmin):
 
     list_display = (
         "srp_code",
+        "srp_name",
         "fleet_time",
         "_creator",
-        "srp_name",
         "srp_status",
         "fleet_doctrine",
     )
     ordering = ("fleet_time",)
-
     list_filter = ("creator", "srp_status", "fleet_doctrine")
-
     search_fields = ("srp_code", "fleet_doctrine", "srp_name")
 
     @classmethod
     @admin.display(description=_("Creator"), ordering="creator")
-    def _creator(cls, obj):
+    def _creator(cls, obj: SrpLink) -> str:
         """
         Display the creator name
 
-        :param obj:
-        :type obj:
-        :return:
-        :rtype:
+        :param obj: The SrpLink object
+        :type obj: SrpLink
+        :return: The name of the creator
+        :rtype: str
         """
 
-        return (
-            obj.creator.profile.main_character.character_name
-            if obj.creator.profile.main_character
-            else obj.creator
-        )
+        return get_main_character_name_from_user(obj.creator)
 
 
 @admin.register(SrpRequest)
@@ -62,9 +61,10 @@ class SrpRequestAdmin(admin.ModelAdmin):
 
     list_display = (
         "request_code",
-        "_creator",
+        "_requestor",
         "character",
         "srp_link",
+        "_srp_code",
         "post_time",
         "ship",
         "loss_amount",
@@ -73,33 +73,41 @@ class SrpRequestAdmin(admin.ModelAdmin):
         "request_status",
     )
     ordering = ("post_time",)
-
     list_filter = ("creator", "character", "request_status")
-
     search_fields = (
         "request_code",
         "character__character_name",
         "ship__name",
+        "srp_link__srp_name",
         "srp_link__srp_code",
     )
 
     @classmethod
     @admin.display(description=_("Requestor"), ordering="creator")
-    def _creator(cls, obj):
+    def _requestor(cls, obj: SrpRequest) -> str:
         """
-        Display the creator name
+        Display the requestor name
 
-        :param obj:
-        :type obj:
-        :return:
-        :rtype:
+        :param obj: The SrpRequest object
+        :type obj: SrpRequest
+        :return: The name of the requestor
+        :rtype: str
         """
 
-        return (
-            obj.creator.profile.main_character.character_name
-            if obj.creator.profile.main_character
-            else obj.creator
-        )
+        return get_main_character_name_from_user(obj.creator)
+
+    @admin.display(description=_("SRP code"), ordering="srp_link__srp_code")
+    def _srp_code(self, obj: SrpRequest) -> str:
+        """
+        Display the SRP code
+
+        :param obj: The SrpRequest object
+        :type obj: SrpRequest
+        :return: The SRP code associated with the request
+        :rtype: str
+        """
+
+        return obj.srp_link.srp_code
 
 
 @admin.register(RequestComment)
@@ -108,9 +116,73 @@ class RequestCommentAdmin(admin.ModelAdmin):
     RequestCommentAdmin
     """
 
-    list_display = ("srp_request", "comment_type", "creator")
+    list_display = (
+        "_request_code",
+        "_srp_code",
+        "_requestor",
+        "_character",
+        "comment_type",
+    )
     ordering = ("srp_request",)
     list_filter = ("comment_type",)
+    search_fields = (
+        "srp_request__request_code",
+        "srp_request__character__character_name",
+        "srp_request__ship__name",
+        "srp_request__srp_link__srp_code",
+    )
+
+    @admin.display(description=_("SRP code"), ordering="srp_request__srp_code")
+    def _srp_code(self, obj: RequestComment) -> str:
+        """
+        Display the SRP code
+
+        :param obj: The RequestComment object
+        :type obj: RequestComment
+        :return: The SRP code associated with the request
+        :rtype: str
+        """
+
+        return obj.srp_request.srp_link.srp_code
+
+    @admin.display(description=_("Request code"), ordering="srp_request__request_code")
+    def _request_code(self, obj: RequestComment) -> str:
+        """
+        Display the request code
+
+        :param obj: The RequestComment object
+        :type obj: RequestComment
+        :return: The request code associated with the comment
+        :rtype: str
+        """
+
+        return obj.srp_request.request_code
+
+    @admin.display(description=_("Requestor"), ordering="srp_request__creator")
+    def _requestor(self, obj: RequestComment) -> str:
+        """
+        Display the requestor name
+
+        :param obj: The RequestComment object
+        :type obj: RequestComment
+        :return: The name of the requestor
+        :rtype: str
+        """
+
+        return get_main_character_name_from_user(obj.srp_request.creator)
+
+    @admin.display(description=_("Character"), ordering="srp_request__character")
+    def _character(self, obj: RequestComment) -> str:
+        """
+        Display the character name the request is for
+
+        :param obj: The RequestComment object
+        :type obj: RequestComment
+        :return: The name of the character the request is for
+        :rtype: str
+        """
+
+        return obj.srp_request.character.character_name
 
 
 @admin.register(FleetType)
@@ -119,49 +191,23 @@ class FleetTypeAdmin(admin.ModelAdmin):
     FleetTypeAdmin
     """
 
-    list_display = ("id", "_name", "_is_enabled")
+    list_display = ("name", "is_enabled")
     list_filter = ("is_enabled",)
     ordering = ("name",)
-
-    @admin.display(description=_("Fleet type"), ordering="name")
-    def _name(self, obj):
-        """
-        Rewrite name
-
-        :param obj:
-        :type obj:
-        :return:
-        :rtype:
-        """
-
-        return obj.name
-
-    @admin.display(description=_("Is enabled"), boolean=True, ordering="is_enabled")
-    def _is_enabled(self, obj):
-        """
-        Rewrite is_enabled
-
-        :param obj:
-        :type obj:
-        :return:
-        :rtype:
-        """
-
-        return obj.is_enabled
-
+    search_fields = ("name",)
     actions = ("activate", "deactivate")
 
     @admin.action(description=_("Activate selected %(verbose_name_plural)s"))
-    def activate(self, request, queryset):
+    def activate(self, request: HttpRequest, queryset: QuerySet[FleetType]) -> None:
         """
         Mark fleet type as active
 
-        :param request:
-        :type request:
-        :param queryset:
-        :type queryset:
-        :return:
-        :rtype:
+        :param request: The request object
+        :type request: HttpRequest
+        :param queryset: The queryset of FleetType objects to activate
+        :type queryset: QuerySet[FleetType]
+        :return: None
+        :rtype: NoneType
         """
 
         notifications_count = 0
@@ -197,20 +243,17 @@ class FleetTypeAdmin(admin.ModelAdmin):
             )
 
     @admin.action(description=_("Deactivate selected %(verbose_name_plural)s"))
-    def deactivate(self, request, queryset):
+    def deactivate(self, request: HttpRequest, queryset: QuerySet[FleetType]) -> None:
         """
         Mark fleet type as inactive
 
-        :param request:
-        :type request:
-        :param queryset:
-        :type queryset:
-        :return:
-        :rtype:
+        :param request: The request object
+        :type request: HttpRequest
+        :param queryset: The queryset of FleetType objects to deactivate
+        :type queryset: QuerySet[FleetType]
+        :return: None
+        :rtype: NoneType
         """
-
-        # queryset.update(is_enabled=False)
-        # self.message_user(request, f"{queryset.count()} releases disabled.")
 
         notifications_count = 0
         failed = 0
