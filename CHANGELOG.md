@@ -45,6 +45,10 @@ Section Order:
 
 - Bulk actions for approval and removal of SRP requests
 
+### Changed
+
+- Admin pages improved
+
 ### Fixed
 
 - SRP team Discord notification template to show additional information only when available
