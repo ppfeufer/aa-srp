@@ -1,4 +1,4 @@
-/* global aaSrpSettings, bootstrap, fetchGet, moment */
+/* global aaSrpSettings, bootstrap, fetchGet, fetchPost, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -480,16 +480,17 @@ $(document).ready(() => {
             const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
                 .val();
 
-            const posting = $.post(
-                url,
-                {
-                    comment: reviserComment,
-                    csrfmiddlewaretoken: csrfMiddlewareToken
-                }
-            );
-
-            posting.done((data) => {
+            fetchPost({
+                url: url,
+                csrfToken: csrfMiddlewareToken,
+                payload: {
+                    comment: reviserComment
+                },
+                responseIsJson: true
+            }).then((data) => {
                 _modalConfirmAction(data);
+            }).catch((error) => {
+                console.log(`Error: ${error.message}`);
             });
 
             modalSrpRequestAccept.modal('hide');
@@ -522,16 +523,17 @@ $(document).ready(() => {
                     $('textarea[name="comment"]')
                 );
             } else {
-                const posting = $.post(
-                    url,
-                    {
-                        comment: reviserComment,
-                        csrfmiddlewaretoken: csrfMiddlewareToken
-                    }
-                );
-
-                posting.done((data) => {
+                fetchPost({
+                    url: url,
+                    csrfToken: csrfMiddlewareToken,
+                    payload: {
+                        comment: reviserComment
+                    },
+                    responseIsJson: true
+                }).then((data) => {
                     _modalConfirmAction(data);
+                }).catch((error) => {
+                    console.log(`Error: ${error.message}`);
                 });
 
                 modalSrpRequestAcceptRejected.modal('hide');
@@ -564,31 +566,18 @@ $(document).ready(() => {
 
                 $(errorMessage).insertAfter($('textarea[name="comment"]'));
             } else {
-                const posting = $.post(
-                    url,
-                    {
-                        comment: rejectInfo,
-                        csrfmiddlewaretoken: csrfMiddlewareToken
-                    }
-                );
-
-                posting.done((data) => {
+                fetchPost({
+                    url: url,
+                    csrfToken: csrfMiddlewareToken,
+                    payload: {
+                        comment: rejectInfo
+                    },
+                    responseIsJson: true
+                }).then((data) => {
                     _modalConfirmAction(data);
+                }).catch((error) => {
+                    console.log(`Error: ${error.message}`);
                 });
-
-                // fetchAjaxData({
-                //     url: url,
-                //     method: 'post',
-                //     csrfToken: csrfMiddlewareToken,
-                //     payload: {
-                //         comment: rejectInfo
-                //     },
-                //     responseIsJson: true
-                // }).then((data) => {
-                //     _modalConfirmAction(data);
-                // }).catch((error) => {
-                //     console.log(`Error: ${error.message}`);
-                // });
 
                 modalSrpRequestReject.modal('hide');
             }
@@ -635,15 +624,14 @@ $(document).ready(() => {
         $('#modal-button-confirm-bulk-accept-requests').on('click', () => {
             const checkedValues = _getSelectedSrpRequestCodes();
 
-            const posting = $.post(
-                url,
-                {
+            fetchPost({
+                url: url,
+                csrfToken: csrfMiddlewareToken,
+                payload: {
                     srp_request_codes: checkedValues,
-                    csrfmiddlewaretoken: csrfMiddlewareToken
-                }
-            );
-
-            posting.done((data) => {
+                },
+                responseIsJson: true
+            }).then((data) => {
                 _modalConfirmAction(data);
 
                 // Uncheck all checkboxes
@@ -654,6 +642,8 @@ $(document).ready(() => {
                 });
 
                 elementBulkActions.addClass('d-none');
+            }).catch((error) => {
+                console.log(`Error: ${error.message}`);
             });
 
             modalSrpRequestBulkAccept.modal('hide');
@@ -674,15 +664,14 @@ $(document).ready(() => {
         $('#modal-button-confirm-bulk-remove-requests').on('click', () => {
             const checkedValues = _getSelectedSrpRequestCodes();
 
-            const posting = $.post(
-                url,
-                {
+            fetchPost({
+                url: url,
+                csrfToken: csrfMiddlewareToken,
+                payload: {
                     srp_request_codes: checkedValues,
-                    csrfmiddlewaretoken: csrfMiddlewareToken
-                }
-            );
-
-            posting.done((data) => {
+                },
+                responseIsJson: true
+            }).then((data) => {
                 _modalConfirmAction(data);
 
                 // Uncheck all checkboxes
@@ -693,6 +682,8 @@ $(document).ready(() => {
                 });
 
                 elementBulkActions.addClass('d-none');
+            }).catch((error) => {
+                console.log(`Error: ${error.message}`);
             });
 
             modalSrpRequestBulkRemove.modal('hide');

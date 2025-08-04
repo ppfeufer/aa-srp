@@ -2,6 +2,9 @@
 Ajax views
 """
 
+# Standard Library
+import json
+
 # Django
 from django.contrib.auth.decorators import permission_required
 from django.core.handlers.wsgi import WSGIRequest
@@ -484,10 +487,10 @@ def srp_request_approve(  # pylint: disable=too-many-locals
 
     if request.method == "POST":
         form = (
-            SrpRequestAcceptForm(data=request.POST)
+            SrpRequestAcceptForm(data=json.loads(request.body))
             if srp_request.request_status == SrpRequest.Status.PENDING
             else (
-                SrpRequestAcceptRejectedForm(data=request.POST)
+                SrpRequestAcceptRejectedForm(data=json.loads(request.body))
                 if srp_request.request_status == SrpRequest.Status.REJECTED
                 else None
             )
@@ -563,7 +566,8 @@ def srp_requests_bulk_approve(request: WSGIRequest, srp_code: str) -> JsonRespon
     """
 
     if request.method == "POST":
-        srp_request_codes = request.POST.getlist("srp_request_codes[]")
+        request_body = json.loads(request.body)
+        srp_request_codes = request_body.get("srp_request_codes")
 
         logger.debug(
             "Bulk approving SRP requests for code: %s, with request codes: %s",
@@ -671,7 +675,7 @@ def srp_request_deny(
         )
 
     if request.method == "POST":
-        form = SrpRequestRejectForm(data=request.POST)
+        form = SrpRequestRejectForm(data=json.loads(request.body))
 
         if not form.is_valid():
             return JsonResponse(
@@ -769,7 +773,8 @@ def srp_requests_bulk_remove(request: WSGIRequest, srp_code: str) -> JsonRespons
     """
 
     if request.method == "POST":
-        srp_request_codes = request.POST.getlist("srp_request_codes[]")
+        request_body = json.loads(request.body)
+        srp_request_codes = request_body.get("srp_request_codes")
 
         logger.debug(
             "Bulk removing SRP requests for code: %s, with request codes: %s",

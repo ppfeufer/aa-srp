@@ -172,7 +172,7 @@ const fetchPost = ({ // eslint-disable-line no-unused-vars
     payload = null,
     responseIsJson = true
 }) => {
-    _fetchAjaxData({
+    return _fetchAjaxData({
         url: url,
         method: 'post',
         csrfToken: csrfToken,
