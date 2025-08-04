@@ -1,4 +1,4 @@
-/* global aaSrpSettings, bootstrap, moment */
+/* global aaSrpSettings, bootstrap, fetchGet, fetchPost, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -457,12 +457,12 @@ $(document).ready(() => {
         const button = $(event.relatedTarget);
         const url = button.data('link');
 
-        $.get({
-            url: url,
-            success: (data) => {
+        fetchGet({url: url, responseIsJson: false})
+            .then((data) => {
                 modalSrpRequestDetails.find('.modal-body').html(data);
-            }
-        });
+            }).catch((error) => {
+                console.log(`Error: ${error.message}`);
+            });
     }).on('hide.bs.modal', () => {
         modalSrpRequestDetails.find('.modal-body').text('');
     });
@@ -480,16 +480,17 @@ $(document).ready(() => {
             const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
                 .val();
 
-            const posting = $.post(
-                url,
-                {
-                    comment: reviserComment,
-                    csrfmiddlewaretoken: csrfMiddlewareToken
-                }
-            );
-
-            posting.done((data) => {
+            fetchPost({
+                url: url,
+                csrfToken: csrfMiddlewareToken,
+                payload: {
+                    comment: reviserComment
+                },
+                responseIsJson: true
+            }).then((data) => {
                 _modalConfirmAction(data);
+            }).catch((error) => {
+                console.log(`Error: ${error.message}`);
             });
 
             modalSrpRequestAccept.modal('hide');
@@ -522,16 +523,17 @@ $(document).ready(() => {
                     $('textarea[name="comment"]')
                 );
             } else {
-                const posting = $.post(
-                    url,
-                    {
-                        comment: reviserComment,
-                        csrfmiddlewaretoken: csrfMiddlewareToken
-                    }
-                );
-
-                posting.done((data) => {
+                fetchPost({
+                    url: url,
+                    csrfToken: csrfMiddlewareToken,
+                    payload: {
+                        comment: reviserComment
+                    },
+                    responseIsJson: true
+                }).then((data) => {
                     _modalConfirmAction(data);
+                }).catch((error) => {
+                    console.log(`Error: ${error.message}`);
                 });
 
                 modalSrpRequestAcceptRejected.modal('hide');
@@ -564,16 +566,17 @@ $(document).ready(() => {
 
                 $(errorMessage).insertAfter($('textarea[name="comment"]'));
             } else {
-                const posting = $.post(
-                    url,
-                    {
-                        comment: rejectInfo,
-                        csrfmiddlewaretoken: csrfMiddlewareToken
-                    }
-                );
-
-                posting.done((data) => {
+                fetchPost({
+                    url: url,
+                    csrfToken: csrfMiddlewareToken,
+                    payload: {
+                        comment: rejectInfo
+                    },
+                    responseIsJson: true
+                }).then((data) => {
                     _modalConfirmAction(data);
+                }).catch((error) => {
+                    console.log(`Error: ${error.message}`);
                 });
 
                 modalSrpRequestReject.modal('hide');
@@ -594,9 +597,12 @@ $(document).ready(() => {
         const url = button.data('link');
 
         $('#modal-button-confirm-remove-request').on('click', () => {
-            $.get(url, (data) => {
-                _modalConfirmAction(data);
-            });
+            fetchGet({url: url})
+                .then((data) => {
+                    _modalConfirmAction(data);
+                }).catch((error) => {
+                    console.log(`Error: ${error.message}`);
+                });
 
             modalSrpRequestRemove.modal('hide');
         });
@@ -618,15 +624,14 @@ $(document).ready(() => {
         $('#modal-button-confirm-bulk-accept-requests').on('click', () => {
             const checkedValues = _getSelectedSrpRequestCodes();
 
-            const posting = $.post(
-                url,
-                {
+            fetchPost({
+                url: url,
+                csrfToken: csrfMiddlewareToken,
+                payload: {
                     srp_request_codes: checkedValues,
-                    csrfmiddlewaretoken: csrfMiddlewareToken
-                }
-            );
-
-            posting.done((data) => {
+                },
+                responseIsJson: true
+            }).then((data) => {
                 _modalConfirmAction(data);
 
                 // Uncheck all checkboxes
@@ -637,6 +642,8 @@ $(document).ready(() => {
                 });
 
                 elementBulkActions.addClass('d-none');
+            }).catch((error) => {
+                console.log(`Error: ${error.message}`);
             });
 
             modalSrpRequestBulkAccept.modal('hide');
@@ -657,15 +664,14 @@ $(document).ready(() => {
         $('#modal-button-confirm-bulk-remove-requests').on('click', () => {
             const checkedValues = _getSelectedSrpRequestCodes();
 
-            const posting = $.post(
-                url,
-                {
+            fetchPost({
+                url: url,
+                csrfToken: csrfMiddlewareToken,
+                payload: {
                     srp_request_codes: checkedValues,
-                    csrfmiddlewaretoken: csrfMiddlewareToken
-                }
-            );
-
-            posting.done((data) => {
+                },
+                responseIsJson: true
+            }).then((data) => {
                 _modalConfirmAction(data);
 
                 // Uncheck all checkboxes
@@ -676,6 +682,8 @@ $(document).ready(() => {
                 });
 
                 elementBulkActions.addClass('d-none');
+            }).catch((error) => {
+                console.log(`Error: ${error.message}`);
             });
 
             modalSrpRequestBulkRemove.modal('hide');
@@ -692,6 +700,7 @@ $(document).ready(() => {
     $('#aasrp-bulk-action-clear-selection').on('click', () => {
         // Uncheck all checkboxes
         const checkboxes = _getSelectedSrpRequests();
+
         checkboxes.forEach((checkbox) => {
             $(checkbox).prop('checked', false);
         });
