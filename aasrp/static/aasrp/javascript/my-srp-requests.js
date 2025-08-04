@@ -1,4 +1,4 @@
-/* global aaSrpSettings, bootstrap, moment */
+/* global aaSrpSettings, bootstrap, fetchGet, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -186,12 +186,12 @@ $(document).ready(() => {
         const button = $(event.relatedTarget);
         const url = button.data('link');
 
-        $.get({
-            url: url,
-            success: (data) => {
+        fetchGet({url: url, responseIsJson: false})
+            .then((data) => {
                 modalSrpRequestDetails.find('.modal-body').html(data);
-            }
-        });
+            }).catch((error) => {
+                console.log(`Error: ${error.message}`);
+            });
     }).on('hide.bs.modal', () => {
         modalSrpRequestDetails.find('.modal-body').text('');
     });

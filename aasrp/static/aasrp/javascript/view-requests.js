@@ -1,4 +1,4 @@
-/* global aaSrpSettings, bootstrap, moment */
+/* global aaSrpSettings, bootstrap, fetchGet, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -457,12 +457,12 @@ $(document).ready(() => {
         const button = $(event.relatedTarget);
         const url = button.data('link');
 
-        $.get({
-            url: url,
-            success: (data) => {
+        fetchGet({url: url, responseIsJson: false})
+            .then((data) => {
                 modalSrpRequestDetails.find('.modal-body').html(data);
-            }
-        });
+            }).catch((error) => {
+                console.log(`Error: ${error.message}`);
+            });
     }).on('hide.bs.modal', () => {
         modalSrpRequestDetails.find('.modal-body').text('');
     });
@@ -576,6 +576,20 @@ $(document).ready(() => {
                     _modalConfirmAction(data);
                 });
 
+                // fetchAjaxData({
+                //     url: url,
+                //     method: 'post',
+                //     csrfToken: csrfMiddlewareToken,
+                //     payload: {
+                //         comment: rejectInfo
+                //     },
+                //     responseIsJson: true
+                // }).then((data) => {
+                //     _modalConfirmAction(data);
+                // }).catch((error) => {
+                //     console.log(`Error: ${error.message}`);
+                // });
+
                 modalSrpRequestReject.modal('hide');
             }
         });
@@ -594,9 +608,12 @@ $(document).ready(() => {
         const url = button.data('link');
 
         $('#modal-button-confirm-remove-request').on('click', () => {
-            $.get(url, (data) => {
-                _modalConfirmAction(data);
-            });
+            fetchGet({url: url})
+                .then((data) => {
+                    _modalConfirmAction(data);
+                }).catch((error) => {
+                    console.log(`Error: ${error.message}`);
+                });
 
             modalSrpRequestRemove.modal('hide');
         });
@@ -692,6 +709,7 @@ $(document).ready(() => {
     $('#aasrp-bulk-action-clear-selection').on('click', () => {
         // Uncheck all checkboxes
         const checkboxes = _getSelectedSrpRequests();
+
         checkboxes.forEach((checkbox) => {
             $(checkbox).prop('checked', false);
         });
