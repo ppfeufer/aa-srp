@@ -47,6 +47,7 @@ Section Order:
 
 ### Changed
 
+- Switch from XHR requests to Fetch API for own ajax calls
 - Admin pages improved
 
 ### Fixed
