@@ -41,6 +41,8 @@ Section Order:
 ### Security
 -->
 
+## [2.11.0] - 2025-08-05
+
 ### Added
 
 - Bulk actions for approval and removal of SRP requests
@@ -49,6 +51,7 @@ Section Order:
 
 - Switch from XHR requests to Fetch API for own ajax calls
 - Admin pages improved
+- Translations updated
 
 ### Fixed
 
