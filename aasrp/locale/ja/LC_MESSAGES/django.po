@@ -4,13 +4,14 @@
 # Xrandier <xrandier@gmail.com>, 2024.
 # Peter Pfeufer <info@ppfeufer.de>, 2024, 2025.
 # Deleted User <noreply+44@weblate.org>, 2024.
+# hin0 <gabrieldaichi1201@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
 "POT-Creation-Date: 2025-08-05 11:23+0200\n"
-"PO-Revision-Date: 2025-07-29 20:18+0000\n"
-"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"PO-Revision-Date: 2025-08-14 08:15+0000\n"
+"Last-Translator: hin0 <gabrieldaichi1201@gmail.com>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -55,7 +56,7 @@ msgstr "SRPコード"
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
 msgid "Request code"
-msgstr ""
+msgstr "リクエストコード"
 
 #: aasrp/admin.py:174 aasrp/models.py:292
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:27
@@ -65,7 +66,7 @@ msgstr ""
 #: aasrp/templates/aasrp/view-own-requests.html:23
 #: aasrp/templates/aasrp/view-requests.html:36
 msgid "Character"
-msgstr ""
+msgstr "キャラクター"
 
 #: aasrp/admin.py:200
 #, fuzzy, python-format
