@@ -41,6 +41,10 @@ Section Order:
 ### Security
 -->
 
+### Fixed
+
+- Form buttons not working
+
 ## [2.12.0] - 2025-08-14
 
 ### Changed
