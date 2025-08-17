@@ -41,6 +41,8 @@ Section Order:
 ### Security
 -->
 
+## [2.12.1] - 2025-08-17
+
 ### Fixed
 
 - Form buttons not working
