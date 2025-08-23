@@ -238,72 +238,70 @@ $(document).ready(() => {
                                     )
                                 );
                         }
+                    },
+                    initComplete: () => {
+                        // Show bootstrap tooltips
+                        [].slice.call(
+                            document.querySelectorAll('[data-bs-tooltip="aa-srp"]')
+                        ).map((tooltipTriggerEl) => {
+                            return new bootstrap.Tooltip(tooltipTriggerEl);
+                        });
+
+                        // Make the SRP payout field editable for pending and rejected requests.
+                        elementSrpRequestsTable.editable({
+                            container: 'body',
+                            selector: '.srp-request-payout-amount-editable .srp-payout-amount',
+                            title: aaSrpSettings.translation.changeSrpPayoutHeader,
+                            type: 'number',
+                            placement: 'top',
+                            /**
+                             * @returns {boolean}
+                             */
+                            display: () => {
+                                return false;
+                            },
+                            /**
+                             * On success …
+                             *
+                             * Arrow functions don't work here since we need `$(this)`.
+                             *
+                             * @param response
+                             * @param newValue
+                             */
+                            success: function (response, newValue) {
+                                _refreshSrpAmountField($(this), newValue);
+                            },
+                            /**
+                             * Check if input is not empty
+                             *
+                             * @param {string} value
+                             * @returns {string}
+                             */
+                            validate: (value) => {
+                                if (value === '') {
+                                    return aaSrpSettings.translation.editableValidate;
+                                }
+                            }
+                        });
+
+                        /**
+                         * Bulk actions window
+                         */
+                        const elementBulkActionsCheckboxes = $('td.srp-request-bulk-actions-checkbox input.srp-requests-bulk-action');
+                        elementBulkActionsCheckboxes.each((i, checkbox) => {
+                            $(checkbox).change(() => {
+                                const checkedCheckboxes = $(elementBulkActionsCheckboxes).filter(':checked');
+
+                                if (checkedCheckboxes.length > 0) {
+                                    elementBulkActions.removeClass('d-none');
+                                } else {
+                                    elementBulkActions.addClass('d-none');
+                                }
+                            });
+                        });
                     }
                 });
             }
-        })
-        .then(() => { // When the DataTable has finished rendering and is fully initialized
-            // Make the SRP payout field editable for pending and rejected requests.
-            elementSrpRequestsTable.editable({
-                container: 'body',
-                selector: '.srp-request-payout-amount-editable .srp-payout-amount',
-                title: aaSrpSettings.translation.changeSrpPayoutHeader,
-                type: 'number',
-                placement: 'top',
-                /**
-                 * @returns {boolean}
-                 */
-                display: () => {
-                    return false;
-                },
-                /**
-                 * On success …
-                 *
-                 * Arrow functions don't work here since we need `$(this)`.
-                 *
-                 * @param response
-                 * @param newValue
-                 */
-                success: function (response, newValue) {
-                    _refreshSrpAmountField($(this), newValue);
-                },
-                /**
-                 * Check if input is not empty
-                 *
-                 * @param {string} value
-                 * @returns {string}
-                 */
-                validate: (value) => {
-                    if (value === '') {
-                        return aaSrpSettings.translation.editableValidate;
-                    }
-                }
-            });
-
-            /**
-             * Bootstrap tooltips for SRP requests
-             */
-            [].slice.call(
-                document.querySelectorAll('[data-bs-tooltip="aa-srp"]')
-            ).map((tooltipTriggerEl) => {
-                return new bootstrap.Tooltip(tooltipTriggerEl);
-            });
-
-            /**
-             * Bulk actions window
-             */
-            const elementBulkActionsCheckboxes = $('td.srp-request-bulk-actions-checkbox input.srp-requests-bulk-action');
-            elementBulkActionsCheckboxes.each((i, checkbox) => {
-                $(checkbox).change(() => {
-                    const checkedCheckboxes = $(elementBulkActionsCheckboxes).filter(':checked');
-
-                    if (checkedCheckboxes.length > 0) {
-                        elementBulkActions.removeClass('d-none');
-                    } else {
-                        elementBulkActions.addClass('d-none');
-                    }
-                });
-            });
         })
         .catch((error) => {
             console.error('Error fetching SRP requests:', error);
