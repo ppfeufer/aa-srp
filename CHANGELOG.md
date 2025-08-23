@@ -41,6 +41,10 @@ Section Order:
 ### Security
 -->
 
+### Fixed
+
+- Button types in forms
+
 ## [2.12.1] - 2025-08-17
 
 ### Fixed
