@@ -1,4 +1,4 @@
-/* global aaSrpSettings, bootstrap, fetchGet, fetchPost, moment */
+/* global aaSrpSettings, aasrpBootstrapTooltip, fetchGet, fetchPost, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -241,11 +241,7 @@ $(document).ready(() => {
                     },
                     initComplete: () => {
                         // Show bootstrap tooltips
-                        [].slice.call(
-                            document.querySelectorAll('[data-bs-tooltip="aa-srp"]')
-                        ).map((tooltipTriggerEl) => {
-                            return new bootstrap.Tooltip(tooltipTriggerEl);
-                        });
+                        aasrpBootstrapTooltip({selector: '#tab_aasrp_srp_requests'});
 
                         // Make the SRP payout field editable for pending and rejected requests.
                         elementSrpRequestsTable.editable({

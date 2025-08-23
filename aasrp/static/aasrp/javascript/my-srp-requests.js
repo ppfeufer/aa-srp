@@ -1,4 +1,4 @@
-/* global aaSrpSettings, bootstrap, fetchGet, moment */
+/* global aasrpBootstrapTooltip, aaSrpSettings, fetchGet, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -161,13 +161,7 @@ $(document).ready(() => {
                     },
                     initComplete: () => {
                         // Show bootstrap tooltips
-                        [].slice.call(
-                            document.querySelectorAll(
-                                '[data-bs-tooltip="aa-srp"]'
-                            )
-                        ).map((tooltipTriggerEl) => {
-                            return new bootstrap.Tooltip(tooltipTriggerEl);
-                        });
+                        aasrpBootstrapTooltip({selector: '#table_tab-user-srp-requests'});
                     }
                 });
             }
