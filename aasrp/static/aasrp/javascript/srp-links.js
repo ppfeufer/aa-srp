@@ -134,17 +134,17 @@ $(document).ready(() => {
                         $('.srp-dashboard-total-isk-cost-amount').html(
                             `${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`
                         );
+                    },
+                    initComplete: () => {
+                        // Show bootstrap tooltips
+                        [].slice.call(
+                            document.querySelectorAll('[data-bs-tooltip="aa-srp"]')
+                        ).map((tooltipTriggerEl) => {
+                            return new bootstrap.Tooltip(tooltipTriggerEl);
+                        });
                     }
                 });
             }
-        })
-        .then(() => { // When the DataTable has finished rendering and is fully initialized
-            // Show bootstrap tooltips
-            [].slice.call(
-                document.querySelectorAll('[data-bs-tooltip="aa-srp"]')
-            ).map((tooltipTriggerEl) => {
-                return new bootstrap.Tooltip(tooltipTriggerEl);
-            });
         })
         .catch((error) => {
             console.error('Error fetching SRP links:', error);

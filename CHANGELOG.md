@@ -43,6 +43,7 @@ Section Order:
 
 ### Fixed
 
+- DataTables `initComplete` actions
 - Button types in forms
 
 ### Changed
