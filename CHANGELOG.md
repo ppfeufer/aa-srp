@@ -45,6 +45,10 @@ Section Order:
 
 - Button types in forms
 
+### Changed
+
+- Switch to Terser for JavaScript compression
+
 ## [2.12.1] - 2025-08-17
 
 ### Fixed
