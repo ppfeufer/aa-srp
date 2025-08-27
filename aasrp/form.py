@@ -8,6 +8,7 @@ import re
 # Django
 from django import forms
 from django.forms import ModelForm
+from django.utils.functional import Promise
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
@@ -36,20 +37,18 @@ eve_kill_base_url_regex: str = KILLBOARD_DATA["EVE-KILL"]["base_url_regex"]
 eve_kill_killmail_url_regex: str = KILLBOARD_DATA["EVE-KILL"]["killmail_url_regex"]
 
 
-def get_mandatory_form_label_text(text: str) -> str:
+def get_mandatory_form_label_text(text: str | Promise) -> str:
     """
     Label text for mandatory form fields
 
-    :param text:
-    :type text:
-    :return:
-    :rtype:
+    :param text: The label text
+    :type text: str | Promise
+    :return: The label text with asterisk
+    :rtype: str
     """
 
-    required_text = _("This field is mandatory")
-    required_marker = (
-        f'<span aria-label="{required_text}" class="form-required-marker">*</span>'
-    )
+    required_marker_label = _("This field is mandatory")
+    required_marker = f'<span aria-label="{required_marker_label}" class="form-required-marker">*</span>'
 
     return mark_safe(
         f'<span class="form-field-required">{text} {required_marker}</span>'
@@ -58,7 +57,7 @@ def get_mandatory_form_label_text(text: str) -> str:
 
 class SrpLinkForm(ModelForm):
     """
-    New SRP lnk form
+    New SRP link form
     """
 
     class Meta:  # pylint: disable=too-few-public-methods
@@ -339,4 +338,3 @@ class SettingAdminForm(forms.ModelForm):
         model = Setting
 
         fields = "__all__"
-        widgets = {"default_embed_color": forms.TextInput(attrs={"type": "color"})}
