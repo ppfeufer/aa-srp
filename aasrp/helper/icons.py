@@ -6,6 +6,7 @@ Some helper functions, so we don't mess up other files too much
 from django.core.handlers.wsgi import WSGIRequest
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.functional import Promise
 from django.utils.safestring import SafeString
 from django.utils.translation import gettext_lazy as _
 
@@ -399,7 +400,7 @@ def get_srp_request_action_icons(
     return srp_request_action_icons
 
 
-def copy_to_clipboard_icon(data: str, title: str) -> SafeString:
+def copy_to_clipboard_icon(data: str, title: str | Promise) -> SafeString:
     """
     Get copy to clipboard icon
 
