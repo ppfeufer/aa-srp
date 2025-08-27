@@ -8,12 +8,20 @@ from unittest.mock import MagicMock, patch
 
 # Django
 from django.contrib import admin
+from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import User
+from django.http import HttpRequest
 from django.test import Client, TestCase
 from django.urls import reverse
+from django.utils.translation import ngettext
 
 # AA SRP
-from aasrp.admin import RequestCommentAdmin, SrpLinkAdmin, SrpRequestAdmin
+from aasrp.admin import (
+    FleetTypeAdmin,
+    RequestCommentAdmin,
+    SrpLinkAdmin,
+    SrpRequestAdmin,
+)
 from aasrp.models import FleetType, RequestComment
 
 
@@ -37,6 +45,7 @@ class TestFleetTypeAdmin(TestCase):
         cls.client = Client()
         cls.client.login(username="admin", password="password")
         cls.fleet_type = FleetType.objects.create(name="Test Fleet", is_enabled=True)
+        cls.admin_site = AdminSite()
 
     def test_admin_page_loads(self):
         """
@@ -100,6 +109,35 @@ class TestFleetTypeAdmin(TestCase):
         self.fleet_type.refresh_from_db()
         self.assertTrue(self.fleet_type.is_enabled)
 
+    @patch("django.contrib.messages.error")
+    def test_displays_error_message_when_activation_fails(self, mock_error):
+        """
+        Test that an error message is displayed when activation fails.
+
+        :param mock_error:
+        :type mock_error:
+        :return:
+        :rtype:
+        """
+
+        fleet_type = FleetType.objects.create(name="Fleet A", is_enabled=False)
+        queryset = FleetType.objects.filter(pk=fleet_type.pk)
+        admin = FleetTypeAdmin(FleetType, self.admin_site)
+        request = HttpRequest()
+        request.user = self.admin_user
+
+        with patch.object(FleetType, "save", side_effect=Exception):
+            admin.activate(request, queryset)
+
+        mock_error.assert_called_once_with(
+            request=request,
+            message=ngettext(
+                singular="Failed to activate {failed} fleet type",
+                plural="Failed to activate {failed} fleet types",
+                number=1,
+            ).format(failed=1),
+        )
+
     def test_deactivate_action_deactivates_selected_fleet_types(self):
         """
         Test that the deactivate action deactivates selected fleet types.
@@ -121,6 +159,35 @@ class TestFleetTypeAdmin(TestCase):
         self.assertEqual(first=response.status_code, second=HTTPStatus.OK)
         self.fleet_type.refresh_from_db()
         self.assertFalse(self.fleet_type.is_enabled)
+
+    @patch("django.contrib.messages.error")
+    def test_displays_error_message_when_deactivation_fails(self, mock_error):
+        """
+        Test that an error message is displayed when deactivation fails.
+
+        :param mock_error:
+        :type mock_error:
+        :return:
+        :rtype:
+        """
+
+        fleet_type = FleetType.objects.create(name="Fleet A", is_enabled=True)
+        queryset = FleetType.objects.filter(pk=fleet_type.pk)
+        admin = FleetTypeAdmin(FleetType, self.admin_site)
+        request = HttpRequest()
+        request.user = self.admin_user
+
+        with patch.object(FleetType, "save", side_effect=Exception):
+            admin.deactivate(request, queryset)
+
+        mock_error.assert_called_once_with(
+            request=request,
+            message=ngettext(
+                singular="Failed to deactivate {failed} fleet type",
+                plural="Failed to deactivate {failed} fleet types",
+                number=1,
+            ).format(failed=1),
+        )
 
 
 class TestRequestCommentAdmin(TestCase):
