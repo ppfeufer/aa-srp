@@ -91,7 +91,7 @@ class SrpRequestManager(models.Manager):
 
             killmail_id = result.get("killmail_id")
             killmail_hash = result.get("zkb", {}).get("hash")
-            esi_killmail = esi.client.Killmails.get_killmails_killmail_id_killmail_hash(
+            esi_killmail = esi.client.Killmails.GetKillmailsKillmailIdKillmailHash(
                 killmail_id=killmail_id, killmail_hash=killmail_hash
             ).result()
 
@@ -153,7 +153,7 @@ class SrpRequestManager(models.Manager):
         insurance = next(
             (
                 i
-                for i in list(esi.client.Insurance.get_insurance_prices().result())
+                for i in list(esi.client.Insurance.GetInsurancePrices().result())
                 if i["type_id"] == ship_type_id
             ),
             None,
