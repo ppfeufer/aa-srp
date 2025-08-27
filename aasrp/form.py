@@ -45,21 +45,18 @@ eve_kill_killmail_url_regex: str = KILLBOARD_DATA["EVE-KILL"]["killmail_url_rege
 
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
-
 def get_mandatory_form_label_text(text: str | Promise) -> str:
     """
     Label text for mandatory form fields
 
-    :param text:
-    :type text:
-    :return:
-    :rtype:
+    :param text: The label text
+    :type text: str | Promise
+    :return: The label text with asterisk
+    :rtype: str
     """
 
-    required_text = _("This field is mandatory")
-    required_marker = (
-        f'<span aria-label="{required_text}" class="form-required-marker">*</span>'
-    )
+    required_marker_label = _("This field is mandatory")
+    required_marker = f'<span aria-label="{required_marker_label}" class="form-required-marker">*</span>'
 
     return mark_safe(
         f'<span class="form-field-required">{text} {required_marker}</span>'
@@ -68,7 +65,7 @@ def get_mandatory_form_label_text(text: str | Promise) -> str:
 
 class SrpLinkForm(ModelForm):
     """
-    New SRP lnk form
+    New SRP link form
     """
 
     class Meta:  # pylint: disable=too-few-public-methods
@@ -377,4 +374,3 @@ class SettingAdminForm(forms.ModelForm):
         model = Setting
 
         fields = "__all__"
-        widgets = {"default_embed_color": forms.TextInput(attrs={"type": "color"})}
