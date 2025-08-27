@@ -50,6 +50,7 @@ optional-dependencies.tests-allianceauth-latest = [
     "coverage",
     "django-webtest",
     "faker",
+    "requests-mock",
 ]
 urls.Changelog = "https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md"
 urls.Documentation = "https://github.com/ppfeufer/aa-srp/blob/master/README.md"
