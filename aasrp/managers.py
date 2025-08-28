@@ -95,6 +95,10 @@ class SrpRequestManager(models.Manager):
                 killmail_id=killmail_id, killmail_hash=killmail_hash
             ).result()
 
+            logger.info(
+                f"Fetched kill mail details for Kill ID {kill_id} from ESI: {esi_killmail}"
+            )
+
         except (requests.HTTPError, requests.Timeout) as exc:
             logger.warning(f"Error fetching kill mail details: {exc}", exc_info=True)
 
@@ -106,9 +110,9 @@ class SrpRequestManager(models.Manager):
         from aasrp.models import Setting  # pylint: disable=import-outside-toplevel
 
         loss_value_field = Setting.objects.get_setting(Setting.Field.LOSS_VALUE_SOURCE)
-        ship_type = esi_killmail["victim"]["ship_type_id"]
+        ship_type = esi_killmail.victim.ship_type_id
         ship_value = result.get("zkb", {}).get(loss_value_field, 0)
-        victim_id = esi_killmail["victim"]["character_id"]
+        victim_id = esi_killmail.victim.character_id
 
         logger.debug(
             f"Kill ID {kill_id}: Ship type = {ship_type}, Loss value = {ship_value}"
@@ -154,7 +158,7 @@ class SrpRequestManager(models.Manager):
             (
                 i
                 for i in list(esi.client.Insurance.GetInsurancePrices().result())
-                if i["type_id"] == ship_type_id
+                if i.type_id == ship_type_id
             ),
             None,
         )
