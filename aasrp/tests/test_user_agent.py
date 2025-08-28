@@ -2,6 +2,9 @@
 Test user agent header for ESI requests
 """
 
+# Third Party
+import requests_mock
+
 # Django
 from django.conf import settings
 from django.test import TestCase
@@ -14,24 +17,34 @@ from esi import __version__ as esi_version
 from aasrp import __app_name_useragent__, __github_url__, __version__
 from aasrp.providers import esi
 
+MODULE_PATH = "esi.clients"
 
+
+@requests_mock.Mocker()
 class TestUserAgent(TestCase):
     """
     Test the user agent header for ESI requests
     """
 
-    def test_user_agent_header(self):
-        """
-        Test that the user agent header is set correctly for ESI requests.
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
 
-        :return:
-        :rtype:
-        """
+        cls.status_response = {
+            "players": 12345,
+            "server_version": "1132976",
+            "start_time": "2017-01-02T12:34:56Z",
+        }
 
-        operation = esi.client.Universe.get_universe_factions()
+    # @patch(MODULE_PATH + ".app_settings.ESI_USER_CONTACT_EMAIL", "email@example.com")
+    def test_user_agent_header(self, requests_mocker):
+        requests_mocker.register_uri(
+            "GET", url="https://foo.bar", json=self.status_response
+        )
+        _, response = esi.client.Status.GetStatus().result(return_response=True)
 
         self.assertEqual(
-            first=operation.future.request.headers["User-Agent"],
+            first=response.request.headers["User-Agent"],
             second=(
                 f"{__app_name_useragent__}/{__version__} "
                 f"({settings.ESI_USER_CONTACT_EMAIL}; +{__github_url__}) "

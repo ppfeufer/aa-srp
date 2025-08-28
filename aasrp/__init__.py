@@ -6,7 +6,11 @@ App init
 from django.utils.translation import gettext_lazy as _
 
 __version__ = "2.12.1"
-__title__ = _("Ship Replacement")
+__title__ = "Ship Replacement"
+__title_translated__ = _("Ship Replacement")
+__verbose_name__ = "Ship Replacement (SRP) for Alliance Auth"
+
+__esi_compatibility_date__ = "2025-08-26"
 
 __package_name__ = "aa-srp"
 __app_name__ = "aasrp"
