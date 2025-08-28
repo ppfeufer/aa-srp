@@ -10,7 +10,6 @@ from eveuniverse.models import EveType
 
 # AA SRP
 from aasrp.helper.icons import copy_to_clipboard_icon
-from aasrp.helper.numbers import l10n_number_format
 from aasrp.models import SrpRequest
 
 
@@ -48,26 +47,12 @@ def payout_amount_html(payout_amount: int) -> str:
     payout_amount_ctc_icon = copy_to_clipboard_icon(
         data=str(payout_amount), title=_("Copy payout amount to clipboard")
     )
-    payout_amount_localized = l10n_number_format(payout_amount)
 
     return (
         '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
         '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">'
-        f"{payout_amount_localized} ISK</span></span><sup>{payout_amount_ctc_icon}</sup></span>"
+        f"#payout_amount_localized#</span></span><sup>{payout_amount_ctc_icon}</sup></span>"
     )
-
-
-def localized_isk_value(loss_amount: int) -> str:
-    """
-    Get localized ISK value with currency symbol
-
-    :param loss_amount:
-    :type loss_amount:
-    :return:
-    :rtype:
-    """
-
-    return f"{l10n_number_format(loss_amount)} ISK"
 
 
 def request_fleet_details_html(srp_request: SrpRequest) -> str:

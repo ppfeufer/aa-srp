@@ -2,13 +2,15 @@
 Test cases for the helper functions in the aasrp.helper.srp_data module.
 """
 
+# Standard Library
+from unittest.mock import patch
+
 # Django
-from django.test import TestCase, override_settings
+from django.test import TestCase
 
 # AA SRP
 from aasrp.helper.icons import copy_to_clipboard_icon
 from aasrp.helper.srp_data import (
-    localized_isk_value,
     payout_amount_html,
     request_code_html,
     request_fleet_details_html,
@@ -21,141 +23,89 @@ class TestPayoutAmountHtml(TestCase):
     Test cases for the payout_amount_html function.
     """
 
-    @override_settings(LANGUAGE_CODE="en")
-    def test_payout_amount_html_returns_correct_html_locale_en(self):
+    @patch("aasrp.helper.srp_data._")
+    def test_payout_amount_html_returns_expected_html(self, mock_translate):
         """
-        Test localization of payout amount HTML in English locale.
+        Test returning expected HTML for payout amount.
 
+        :param mock_translate:
+        :type mock_translate:
         :return:
         :rtype:
         """
 
-        result = payout_amount_html(1000)
+        mock_translate.return_value = "Copy payout amount to clipboard"
 
-        self.assertIn(
-            '<span class="srp-payout-amount d-block cursor-pointer">1,000 ISK</span>',
-            result,
+        payout_amount = 1000000
+        expected_html = (
+            '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
+            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">'
+            "#payout_amount_localized#</span></span><sup>"
+            '<span class="copy-to-clipboard-icon">'
+            '<i class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" '
+            'data-clipboard-text="1000000" data-bs-tooltip="aa-srp" aria-label="Copy payout amount to clipboard" '
+            'title="Copy payout amount to clipboard"></i></span></sup></span>'
         )
-        self.assertIn('data-clipboard-text="1000"', result)
 
-    @override_settings(LANGUAGE_CODE="de")
-    def test_payout_amount_html_returns_correct_html_locale_de(self):
+        result = payout_amount_html(payout_amount)
+
+        self.assertHTMLEqual(result, expected_html)
+
+    @patch("aasrp.helper.srp_data._")
+    def test_payout_amount_html_handles_negative_payout(self, mock_translate):
         """
-        Test localization of payout amount HTML in German locale.
+        Test returning expected HTML for negative payout amount.
 
+        :param mock_translate:
+        :type mock_translate:
         :return:
         :rtype:
         """
 
-        result = payout_amount_html(1000)
+        mock_translate.return_value = "Copy payout amount to clipboard"
 
-        self.assertIn(
-            '<span class="srp-payout-amount d-block cursor-pointer">1.000 ISK</span>',
-            result,
+        payout_amount = -500
+        expected_html = (
+            '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
+            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">'
+            "#payout_amount_localized#</span></span><sup>"
+            '<span class="copy-to-clipboard-icon">'
+            '<i class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" '
+            'data-clipboard-text="-500" data-bs-tooltip="aa-srp" aria-label="Copy payout amount to clipboard" '
+            'title="Copy payout amount to clipboard"></i></span></sup></span>'
         )
-        self.assertIn('data-clipboard-text="1000"', result)
 
-    @override_settings(LANGUAGE_CODE="en")
-    def test_payout_amount_html_handles_zero_locale_en(self):
+        result = payout_amount_html(payout_amount)
+
+        self.assertHTMLEqual(result, expected_html)
+
+    @patch("aasrp.helper.srp_data._")
+    def test_payout_amount_html_handles_zero_payout(self, mock_translate):
         """
-        Test localization of payout amount HTML with zero in English locale.
+        Test returning expected HTML for zero payout amount.
 
+        :param mock_translate:
+        :type mock_translate:
         :return:
         :rtype:
         """
 
-        result = payout_amount_html(0)
+        mock_translate.return_value = "Copy payout amount to clipboard"
 
-        self.assertIn(
-            '<span class="srp-payout-amount d-block cursor-pointer">0 ISK</span>',
-            result,
+        payout_amount = 0
+        expected_html = (
+            '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
+            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">'
+            "#payout_amount_localized#</span></span><sup>"
+            '<span class="copy-to-clipboard-icon">'
+            '<i class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" '
+            'data-clipboard-text="0" data-bs-tooltip="aa-srp" aria-label="Copy payout amount to clipboard" '
+            'title="Copy payout amount to clipboard"></i></span></sup></span>'
         )
-        self.assertIn('data-clipboard-text="0"', result)
 
-    @override_settings(LANGUAGE_CODE="de")
-    def test_payout_amount_html_handles_zero_locale_de(self):
-        """
-        Test localization of payout amount HTML with zero in German locale.
+        result = payout_amount_html(payout_amount)
 
-        :return:
-        :rtype:
-        """
-
-        result = payout_amount_html(0)
-
-        self.assertIn(
-            '<span class="srp-payout-amount d-block cursor-pointer">0 ISK</span>',
-            result,
-        )
-        self.assertIn('data-clipboard-text="0"', result)
-
-    @override_settings(LANGUAGE_CODE="en")
-    def test_payout_amount_html_handles_negative_amount_locale_en(self):
-        """
-        Test localization of payout amount HTML with negative amount in English locale.
-
-        :return:
-        :rtype:
-        """
-
-        result = payout_amount_html(-1000)
-
-        self.assertIn(
-            '<span class="srp-payout-amount d-block cursor-pointer">-1,000 ISK</span>',
-            result,
-        )
-        self.assertIn('data-clipboard-text="-1000"', result)
-
-    @override_settings(LANGUAGE_CODE="de")
-    def test_payout_amount_html_handles_negative_amount_locale_de(self):
-        """
-        Test localization of payout amount HTML with negative amount in German locale.
-
-        :return:
-        :rtype:
-        """
-
-        result = payout_amount_html(-1000)
-
-        self.assertIn(
-            '<span class="srp-payout-amount d-block cursor-pointer">-1.000 ISK</span>',
-            result,
-        )
-        self.assertIn('data-clipboard-text="-1000"', result)
-
-    @override_settings(LANGUAGE_CODE="en")
-    def test_payout_amount_html_handles_large_amount_locale_en(self):
-        """
-        Test localization of payout amount HTML with a large amount in English locale.
-
-        :return:
-        :rtype:
-        """
-
-        result = payout_amount_html(1000000000)
-
-        self.assertIn(
-            '<span class="srp-payout-amount d-block cursor-pointer">1,000,000,000 ISK</span>',
-            result,
-        )
-        self.assertIn('data-clipboard-text="1000000000"', result)
-
-    @override_settings(LANGUAGE_CODE="de")
-    def test_payout_amount_html_handles_large_amount_locale_de(self):
-        """
-        Test localization of payout amount HTML with a large amount in German locale.
-
-        :return:
-        :rtype:
-        """
-
-        result = payout_amount_html(1000000000)
-
-        self.assertIn(
-            '<span class="srp-payout-amount d-block cursor-pointer">1.000.000.000 ISK</span>',
-            result,
-        )
-        self.assertIn('data-clipboard-text="1000000000"', result)
+        self.assertHTMLEqual(result, expected_html)
 
 
 class TestRequestCodeHtml(TestCase):
@@ -178,100 +128,6 @@ class TestRequestCodeHtml(TestCase):
         )
 
         self.assertEqual(result, f"ABC123<sup>{icon}</sup>")
-
-
-class TestLocalizedIskValue(TestCase):
-    """
-    Test cases for the localized_isk_value function.
-    """
-
-    @override_settings(LANGUAGE_CODE="en")
-    def test_localized_isk_value_returns_correct_html_locale_en(self):
-        """
-        Test localization of ISK value in English locale.
-
-        :return:
-        :rtype:
-        """
-
-        self.assertEqual(localized_isk_value(1000), "1,000 ISK")
-
-    @override_settings(LANGUAGE_CODE="de")
-    def test_localized_isk_value_returns_correct_html_locale_de(self):
-        """
-        Test localization of ISK value in German locale.
-
-        :return:
-        :rtype:
-        """
-
-        self.assertEqual(localized_isk_value(1000), "1.000 ISK")
-
-    @override_settings(LANGUAGE_CODE="en")
-    def test_localized_isk_value_handles_zero_locale_en(self):
-        """
-        Test localization of ISK value with zero in English locale.
-
-        :return:
-        :rtype:
-        """
-
-        self.assertEqual(localized_isk_value(0), "0 ISK")
-
-    @override_settings(LANGUAGE_CODE="de")
-    def test_localized_isk_value_handles_zero_locale_de(self):
-        """
-        Test localization of ISK value with zero in German locale.
-
-        :return:
-        :rtype:
-        """
-
-        self.assertEqual(localized_isk_value(0), "0 ISK")
-
-    @override_settings(LANGUAGE_CODE="en")
-    def test_localized_isk_value_handles_negative_amount_locale_en(self):
-        """
-        Test localization of ISK value with negative amount in English locale.
-
-        :return:
-        :rtype:
-        """
-
-        self.assertEqual(localized_isk_value(-1000), "-1,000 ISK")
-
-    @override_settings(LANGUAGE_CODE="de")
-    def test_localized_isk_value_handles_negative_amount_locale_de(self):
-        """
-        Test localization of ISK value with negative amount in German locale.
-
-        :return:
-        :rtype:
-        """
-
-        self.assertEqual(localized_isk_value(-1000), "-1.000 ISK")
-
-    @override_settings(LANGUAGE_CODE="en")
-    def test_localized_isk_value_handles_large_amount_locale_en(self):
-        """
-        Test localization of ISK value with a large amount in English locale.
-
-        :return:
-        :rtype:
-        """
-
-        self.assertEqual(localized_isk_value(1000000000), "1,000,000,000 ISK")
-
-    @override_settings(LANGUAGE_CODE="de")
-    def test_localized_isk_value_handles_large_amount_locale_de(self):
-        """
-        Test localization of ISK value with a large amount in German locale.
-
-        :return:
-        :rtype:
-        """
-
-        self.assertEqual(localized_isk_value(1000000000), "1.000.000.000 ISK")
 
 
 class TestRequestFleetDetailsHtml(TestCase):
