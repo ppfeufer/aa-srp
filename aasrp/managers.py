@@ -2,8 +2,6 @@
 SRP Manager
 """
 
-# pylint: disable=cyclic-import
-
 # Standard Library
 from typing import Any
 
@@ -11,7 +9,6 @@ from typing import Any
 import requests
 
 # Django
-from django.contrib.auth.models import User
 from django.db import models
 
 # Alliance Auth
@@ -50,9 +47,9 @@ class SrpRequestManager(models.Manager):
         return kill_id
 
     @staticmethod
-    def get_kill_data(kill_id: str) -> tuple[int, int, int]:
+    def get_zkillboard_data(kill_id: str) -> dict:
         """
-        Get kill data from zKillboard
+        Get killmail hash from zKillboard
 
         :param kill_id:
         :type kill_id:
@@ -89,59 +86,55 @@ class SrpRequestManager(models.Manager):
                     "No kill mail information found in zKillboard's API response."
                 )
 
-            killmail_id = result.get("killmail_id")
             killmail_hash = result.get("zkb", {}).get("hash")
-            esi_killmail = esi.client.Killmails.GetKillmailsKillmailIdKillmailHash(
-                killmail_id=killmail_id, killmail_hash=killmail_hash
-            ).result()
 
-            logger.info(
-                f"Fetched kill mail details for Kill ID {kill_id} from ESI: {esi_killmail}"
-            )
+            if not killmail_hash:
+                raise ValueError(
+                    "No kill mail hash found in zKillboard's API response."
+                )
+
+            return result
 
         except (requests.HTTPError, requests.Timeout) as exc:
-            logger.warning(f"Error fetching kill mail details: {exc}", exc_info=True)
+            logger.warning(f"Error fetching kill mail hash: {exc}", exc_info=True)
 
             raise ValueError(str(exc)) from exc
         except Exception as exc:
             raise ValueError("Invalid Kill ID or Hash.") from exc
 
-        # AA SRP
-        from aasrp.models import Setting  # pylint: disable=import-outside-toplevel
-
-        loss_value_field = Setting.objects.get_setting(Setting.Field.LOSS_VALUE_SOURCE)
-        ship_type = esi_killmail.victim.ship_type_id
-        ship_value = result.get("zkb", {}).get(loss_value_field, 0)
-        victim_id = esi_killmail.victim.character_id
-
-        logger.debug(
-            f"Kill ID {kill_id}: Ship type = {ship_type}, Loss value = {ship_value}"
-        )
-
-        return ship_type, ship_value, victim_id
-
     @staticmethod
-    def pending_requests_count_for_user(user: User) -> int | None:
+    def get_kill_data(killmail_id: str, loss_value_field: str) -> tuple[int, int, int]:
         """
-        Returns the number of open SRP requests for given user or None if user has no permission
+        Get kill data from zKillboard
 
-        :param user:
-        :type user:
+        :param killmail_id:
+        :type killmail_id:
+        :param loss_value_field:
+        :type loss_value_field:
         :return:
         :rtype:
         """
 
-        # AA SRP
-        from aasrp.models import SrpRequest  # pylint: disable=import-outside-toplevel
+        zkillboard_data = SrpRequestManager.get_zkillboard_data(kill_id=killmail_id)
 
-        if user.has_perm(perm="aasrp.manage_srp") or user.has_perm(
-            perm="aasrp.manage_srp_requests"
-        ):
-            return SrpRequest.objects.filter(
-                request_status=SrpRequest.Status.PENDING
-            ).count()
+        esi_killmail = esi.client.Killmails.GetKillmailsKillmailIdKillmailHash(
+            killmail_id=killmail_id,
+            killmail_hash=zkillboard_data.get("zkb", {}).get("hash"),
+        ).result()
 
-        return None
+        logger.info(
+            f"Fetched kill mail details for Kill ID {killmail_id} from ESI: {esi_killmail}"
+        )
+
+        ship_type = esi_killmail.victim.ship_type_id
+        ship_value = zkillboard_data.get("zkb", {}).get(loss_value_field, 0)
+        victim_id = esi_killmail.victim.character_id
+
+        logger.debug(
+            f"Kill ID {killmail_id}: Ship type = {ship_type}, Loss value = {ship_value}"
+        )
+
+        return ship_type, ship_value, victim_id
 
     @staticmethod
     def get_insurance_for_ship_type(ship_type_id: int) -> dict | None:
