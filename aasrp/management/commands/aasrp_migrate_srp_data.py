@@ -14,7 +14,7 @@ from eveuniverse.models import EveType
 
 # AA SRP
 from aasrp.helper.character import get_user_for_character
-from aasrp.models import RequestComment, SrpLink, SrpRequest
+from aasrp.models import RequestComment, Setting, SrpLink, SrpRequest
 
 
 def get_input(text):
@@ -49,6 +49,8 @@ class Command(BaseCommand):
 
         self.stdout.write("Migrating SRP fleets ...")
         srp_fleets = SrpFleetMain.objects.all()
+
+        loss_value_field = Setting.objects.get_setting(Setting.Field.LOSS_VALUE_SOURCE)
 
         for srp_fleet in srp_fleets:
             # Let's see if the creator is still valid
@@ -155,7 +157,9 @@ class Command(BaseCommand):
                                     ship_type_id,
                                     ship_value,  # pylint: disable=unused-variable
                                     victim_id,  # pylint: disable=unused-variable
-                                ) = SrpRequest.objects.get_kill_data(srp_kill_link)
+                                ) = SrpRequest.objects.get_kill_data(
+                                    srp_kill_link, loss_value_field
+                                )
 
                                 (
                                     srp_userrequest_ship,

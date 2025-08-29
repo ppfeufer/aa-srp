@@ -35,7 +35,7 @@ from aasrp.form import (
 )
 from aasrp.helper.notification import notify_srp_team
 from aasrp.helper.user import get_user_settings
-from aasrp.models import Insurance, RequestComment, SrpLink, SrpRequest
+from aasrp.models import Insurance, RequestComment, Setting, SrpLink, SrpRequest
 
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
@@ -392,6 +392,9 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
         if form.is_valid():
             submitted_killmail_link = form.cleaned_data["killboard_link"]
             srp_request_additional_info = form.cleaned_data["additional_info"]
+            loss_value_field = Setting.objects.get_setting(
+                Setting.Field.LOSS_VALUE_SOURCE
+            )
 
             # Parse killmail
             try:
@@ -399,7 +402,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     killboard_link=submitted_killmail_link
                 )
                 ship_type_id, ship_value, victim_id = SrpRequest.objects.get_kill_data(
-                    kill_id=srp_kill_link_id
+                    killmail_id=srp_kill_link_id, loss_value_field=loss_value_field
                 )
             except ValueError as err:
                 # Invalid killmail
