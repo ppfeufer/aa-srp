@@ -39,7 +39,7 @@ class TestUserAgent(TestCase):
     # @patch(MODULE_PATH + ".app_settings.ESI_USER_CONTACT_EMAIL", "email@example.com")
     def test_user_agent_header(self, requests_mocker):
         requests_mocker.register_uri(
-            "GET", url="https://foo.bar", json=self.status_response
+            "GET", url="http://localhost", json=self.status_response
         )
         _, response = esi.client.Status.GetStatus().result(return_response=True)
 
