@@ -41,6 +41,8 @@ Section Order:
 ### Security
 -->
 
+## [2.12.2] - 2025-09-02
+
 ### Fixed
 
 - DataTables `initComplete` actions
