@@ -63,8 +63,5 @@ class DiscordEmbedColor(Enum):
 
 
 DISCORD_EMBED_COLOR_MAP = {
-    "info": DiscordEmbedColor.INFO.value,
-    "success": DiscordEmbedColor.SUCCESS.value,
-    "warning": DiscordEmbedColor.WARNING.value,
-    "danger": DiscordEmbedColor.DANGER.value,
+    color.name.lower(): color.value for color in DiscordEmbedColor
 }
