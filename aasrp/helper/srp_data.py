@@ -48,12 +48,17 @@ def payout_amount_html(payout_amount: int) -> str:
     payout_amount_ctc_icon = copy_to_clipboard_icon(
         data=str(payout_amount), title=_("Copy payout amount to clipboard")
     )
-    payout_amount_localized = l10n_number_format(payout_amount)
+    # payout_amount_localized = l10n_number_format(payout_amount)
 
+    # return (
+    #     '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
+    #     '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">'
+    #     f"{payout_amount_localized} ISK</span></span><sup>{payout_amount_ctc_icon}</sup></span>"
+    # )
     return (
         '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
         '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">'
-        f"{payout_amount_localized} ISK</span></span><sup>{payout_amount_ctc_icon}</sup></span>"
+        f"#payout_amount_localized#</span></span><sup>{payout_amount_ctc_icon}</sup></span>"
     )
 
 

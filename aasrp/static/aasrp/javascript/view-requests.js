@@ -1,4 +1,4 @@
-/* global aaSrpSettings, aasrpBootstrapTooltip, fetchGet, fetchPost, moment */
+/* global aaSrpSettings, aasrpBootstrapTooltip, fetchGet, fetchPost, moment, numberFormatter */
 
 $(document).ready(() => {
     'use strict';
@@ -109,7 +109,19 @@ $(document).ready(() => {
                              * Render callback
                              */
                             render: {
-                                display: 'display',
+                                display: (data) => {
+                                    return data.display.replace(
+                                        '#payout_amount_localized#',
+                                        numberFormatter({
+                                            value: data.sort,
+                                            locales: aaSrpSettings.locale,
+                                            options: {
+                                                style: 'currency',
+                                                currency: 'ISK'
+                                            }
+                                        })
+                                    );
+                                },
                                 filter: 'sort',
                                 sort: 'sort'
                             },
@@ -240,6 +252,7 @@ $(document).ready(() => {
                         }
                     },
                     initComplete: () => {
+                        console.log('DataTable initialized');
                         // Show bootstrap tooltips
                         aasrpBootstrapTooltip({selector: '#tab_aasrp_srp_requests'});
 
@@ -317,7 +330,16 @@ $(document).ready(() => {
         newValue = parseInt(newValue);
 
         // Update payout value formatted
-        const newValueFormatted = `${new Intl.NumberFormat(aaSrpSettings.locale).format(newValue)} ISK`;
+        // const newValueFormatted = `${new Intl.NumberFormat(aaSrpSettings.locale).format(newValue)} ISK`;
+        const newValueFormatted = numberFormatter({
+            value: newValue,
+            locales: aaSrpSettings.locale,
+            options: {
+                style: 'currency',
+                currency: 'ISK'
+            }
+        });
+        console.log(newValueFormatted);
 
         // Update the element
         element
@@ -335,7 +357,16 @@ $(document).ready(() => {
             totalSrpAmount += parseInt(payoutElement.getAttribute('data-value'));
         });
 
-        $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
+        // $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
+        console.log(totalSrpAmount);
+        $('.srp-fleet-total-amount').html(numberFormatter({
+            value: totalSrpAmount,
+            locales: aaSrpSettings.locale,
+            options: {
+                style: 'currency',
+                currency: 'ISK'
+            }
+        }));
 
         // Update copy to clipboard icon value
         const copyToClipboard = element.parent().parent().find('.copy-to-clipboard-icon i');
@@ -373,7 +404,16 @@ $(document).ready(() => {
         });
 
         // Update fleet total SRP amount
-        $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
+        // $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
+        console.log(totalSrpAmount);
+        $('.srp-fleet-total-amount').html(numberFormatter({
+            value: totalSrpAmount,
+            locales: aaSrpSettings.locale,
+            options: {
+                style: 'currency',
+                currency: 'ISK'
+            }
+        }));
 
         // Update requests counts
         $('.srp-requests-total-count').html(requestsTotal);
