@@ -8,10 +8,18 @@ import re
 # Django
 from django import forms
 from django.forms import ModelForm
+from django.utils.functional import Promise
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
+# Alliance Auth
+from allianceauth.services.hooks import get_extension_logger
+
+# Alliance Auth (External Libs)
+from app_utils.logging import LoggerAddTag
+
 # AA SRP
+from aasrp import __title__
 from aasrp.constants import KILLBOARD_DATA
 from aasrp.models import (
     FleetType,
@@ -35,8 +43,10 @@ evetools_killmail_url_regex: str = KILLBOARD_DATA["EveTools"]["killmail_url_rege
 eve_kill_base_url_regex: str = KILLBOARD_DATA["EVE-KILL"]["base_url_regex"]
 eve_kill_killmail_url_regex: str = KILLBOARD_DATA["EVE-KILL"]["killmail_url_regex"]
 
+logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
-def get_mandatory_form_label_text(text: str) -> str:
+
+def get_mandatory_form_label_text(text: str | Promise) -> str:
     """
     Label text for mandatory form fields
 
@@ -160,6 +170,21 @@ class SrpRequestForm(ModelForm):
 
         killboard_link = self.cleaned_data["killboard_link"]
 
+        # Ensure the link ends with a trailing slash if required by the kill board
+        for board, data in KILLBOARD_DATA.items():
+            if (
+                data["requires_trailing_slash"]
+                and re.match(data["base_url_regex"], killboard_link)
+                and not killboard_link.endswith("/")
+            ):
+                logger.debug(
+                    f"Adding trailing slash to killboard link for {board}: {killboard_link}"
+                )
+                killboard_link += "/"
+                self.cleaned_data["killboard_link"] = killboard_link
+
+        logger.debug(f"Validating killboard link: {killboard_link}")
+
         # Define regex patterns for accepted kill boards and killmails
         killboard_patterns = [
             zkillboard_base_url_regex,
@@ -174,6 +199,9 @@ class SrpRequestForm(ModelForm):
 
         # Check if it's a link from one of the accepted kill boards
         if not any(re.match(pattern, killboard_link) for pattern in killboard_patterns):
+            logger.debug(
+                f"Killboard link does not match any accepted kill board patterns: {killboard_link}"
+            )
             raise forms.ValidationError(
                 message=_(
                     f"Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
@@ -182,6 +210,9 @@ class SrpRequestForm(ModelForm):
 
         # Check if it's an actual killmail
         if not any(re.match(pattern, killboard_link) for pattern in killmail_patterns):
+            logger.debug(
+                f"Killboard link does not match any accepted killmail patterns: {killboard_link}"
+            )
             raise forms.ValidationError(
                 message=_("Invalid link. Please post a link to a kill mail.")
             )
@@ -189,15 +220,22 @@ class SrpRequestForm(ModelForm):
         # Check if there is already an SRP request for this kill mail
         killmail_id = SrpRequest.objects.get_kill_id(killboard_link=killboard_link)
 
+        logger.debug(f"Extracted killmail ID: {killmail_id}")
+
         if SrpRequest.objects.filter(
             killboard_link__icontains=f"/kill/{killmail_id}"
         ).exists():
+            logger.debug(
+                f"SRP request already exists for killmail ID {killmail_id} and link {killboard_link}"
+            )
             raise forms.ValidationError(
                 message=_(
                     "There is already an SRP request for this kill mail. "
                     "Please check if you got the right one."
                 )
             )
+
+        logger.debug(f"Killboard link validated: {killboard_link}")
 
         return killboard_link
 

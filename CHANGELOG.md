@@ -41,6 +41,10 @@ Section Order:
 ### Security
 -->
 
+### Added
+
+- Check for missing trailing slashes in killmail URLs and add them if necessary (#348)
+
 ### Changed
 
 - Simplify Discord embed color mapping
