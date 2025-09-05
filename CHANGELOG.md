@@ -41,6 +41,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Simplify Discord embed color mapping
+
 ## [2.12.2] - 2025-09-02
 
 ### Fixed
