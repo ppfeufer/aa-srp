@@ -107,6 +107,9 @@ def attempt_to_re_add_ship_information_to_request(
     :rtype:
     """
 
+    if srp_request.ship is not None:
+        return srp_request
+
     srp_kill_link_id = SrpRequest.objects.get_kill_id(
         killboard_link=srp_request.killboard_link
     )
