@@ -3,7 +3,7 @@ Test cases for the helper functions in the aasrp.helper.srp_data module.
 """
 
 # Standard Library
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 # Django
 from django.test import TestCase
@@ -11,6 +11,7 @@ from django.test import TestCase
 # AA SRP
 from aasrp.helper.icons import copy_to_clipboard_icon
 from aasrp.helper.srp_data import (
+    attempt_to_re_add_ship_information_to_request,
     payout_amount_html,
     request_code_html,
     request_fleet_details_html,
@@ -198,3 +199,71 @@ class TestRequestFleetDetailsHtml(TestCase):
         self.assertIn("<p>Fleet @lpha</p>", result)
         self.assertIn("SRP code: FA!23", result)
         self.assertIn("Request code: REQ!23", result)
+
+
+class TestAttemptToReAddShipInformation(TestCase):
+    """
+    Test cases for the attempt_to_re_add_ship_information_to_request function.
+    """
+
+    def test_re_adds_ship_information_when_missing(self):
+        """
+        Test re-adding ship information when missing.
+
+        :return:
+        :rtype:
+        """
+
+        srp_request = MagicMock()
+        srp_request.killboard_link = "https://zkillboard.com/kill/123456/"
+        srp_request.ship = None
+
+        mock_ship = MagicMock(id=123)
+        mock_ship.name = "Mock Ship"
+
+        with (
+            patch("aasrp.models.SrpRequest.objects.get_kill_id", return_value="123456"),
+            patch(
+                "aasrp.models.SrpRequest.objects.get_kill_data",
+                return_value=(123, 1000000, 456),
+            ),
+            patch(
+                "eveuniverse.models.EveType.objects.get_or_create_esi",
+                return_value=(mock_ship, True),
+            ),
+        ):
+            updated_request = attempt_to_re_add_ship_information_to_request(srp_request)
+
+        self.assertEqual(updated_request.ship_name, "Mock Ship")
+
+    def test_does_not_modify_ship_information_if_already_present(self):
+        """
+        Test that ship information is not modified if already present.
+
+        :return:
+        :rtype:
+        """
+
+        srp_request = MagicMock()
+        srp_request.killboard_link = "https://zkillboard.com/kill/123456/"
+        mock_ship = MagicMock(id=123)
+        mock_ship.name = "Existing Ship"
+        srp_request.ship = mock_ship
+        srp_request.ship_name = "Existing Ship"  # <-- Set this explicitly
+
+        with (
+            patch("aasrp.models.SrpRequest.objects.get_kill_id") as mock_get_kill_id,
+            patch(
+                "aasrp.models.SrpRequest.objects.get_kill_data"
+            ) as mock_get_kill_data,
+            patch(
+                "eveuniverse.models.EveType.objects.get_or_create_esi"
+            ) as mock_get_or_create_esi,
+        ):
+            updated_request = attempt_to_re_add_ship_information_to_request(srp_request)
+
+        mock_get_kill_id.assert_not_called()
+        mock_get_kill_data.assert_not_called()
+        mock_get_or_create_esi.assert_not_called()
+        self.assertEqual(updated_request.ship_name, "Existing Ship")
+        self.assertIsNotNone(updated_request.ship)
