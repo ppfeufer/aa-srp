@@ -2,13 +2,18 @@
 Tests for the forms in the aasrp app.
 """
 
+# Standard Library
+from unittest.mock import patch
+
 # Django
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.utils import timezone
 from django.utils.safestring import SafeString
 from django.utils.translation import gettext_lazy as _
 
 # AA SRP
+from aasrp.constants import KILLBOARD_DATA
 from aasrp.form import (
     SrpLinkForm,
     SrpLinkUpdateForm,
@@ -20,7 +25,7 @@ from aasrp.form import (
     UserSettingsForm,
     get_mandatory_form_label_text,
 )
-from aasrp.models import FleetType, SrpLink, SrpRequest
+from aasrp.models import FleetType, SrpLink
 from aasrp.tests.utils import create_fake_user
 
 
@@ -204,13 +209,45 @@ class TestSrpRequestForm(BaseFormTestCase):
         :rtype:
         """
 
-        form_data = {
-            "killboard_link": "https://zkillboard.com/kill/12345678/",
-            "additional_info": "Details about the fleet and loss.",
-        }
-        form = SrpRequestForm(data=form_data)
+        form = SrpRequestForm(
+            data={
+                "killboard_link": "https://zkillboard.com/kill/123456/",
+                "additional_info": "Details",
+            }
+        )
+        form.cleaned_data = {"killboard_link": "https://zkillboard.com/kill/123456/"}
 
-        self.assertTrue(form.is_valid())
+        with patch(
+            "aasrp.form.KILLBOARD_DATA",
+            {"zKillboard": KILLBOARD_DATA.get("zKillboard")},
+        ):
+            self.assertEqual(
+                form.clean_killboard_link(), "https://zkillboard.com/kill/123456/"
+            )
+
+    def test_validates_killboard_link_without_trailing_slash(self):
+        """
+        Test validates killboard link without trailing slash and adds it if required
+
+        :return:
+        :rtype:
+        """
+
+        form = SrpRequestForm(
+            data={
+                "killboard_link": "https://zkillboard.com/kill/123456",
+                "additional_info": "Details",
+            }
+        )
+        form.cleaned_data = {"killboard_link": "https://zkillboard.com/kill/123456"}
+
+        with patch(
+            "aasrp.form.KILLBOARD_DATA",
+            {"zKillboard": KILLBOARD_DATA.get("zKillboard")},
+        ):
+            self.assertEqual(
+                form.clean_killboard_link(), "https://zkillboard.com/kill/123456/"
+            )
 
     def test_rejects_invalid_killboard_link(self):
         """
@@ -220,14 +257,22 @@ class TestSrpRequestForm(BaseFormTestCase):
         :rtype:
         """
 
-        form_data = {
-            "killboard_link": "https://invalidkillboard.com/kill/12345678/",
-            "additional_info": "Details about the fleet and loss.",
-        }
-        form = SrpRequestForm(data=form_data)
+        form = SrpRequestForm(
+            data={
+                "killboard_link": "https://invalid.com/kill/123456/",
+                "additional_info": "Details",
+            }
+        )
+        form.cleaned_data = {"killboard_link": "https://invalid.com/kill/123456/"}
 
-        self.assertFalse(form.is_valid())
-        self.assertIn("killboard_link", form.errors)
+        with patch(
+            "aasrp.form.KILLBOARD_DATA",
+            {"zKillboard": KILLBOARD_DATA.get("zKillboard")},
+        ):
+            with self.assertRaises(ValidationError) as cm:
+                form.clean_killboard_link()
+
+            self.assertIn("Invalid link", str(cm.exception))
 
     def test_rejects_non_killmail_link(self):
         """
@@ -237,14 +282,24 @@ class TestSrpRequestForm(BaseFormTestCase):
         :rtype:
         """
 
-        form_data = {
-            "killboard_link": "https://zkillboard.com/",
-            "additional_info": "Details about the fleet and loss.",
-        }
-        form = SrpRequestForm(data=form_data)
+        form = SrpRequestForm(
+            data={
+                "killboard_link": "https://zkillboard.com/ship/123456/",
+                "additional_info": "Details",
+            }
+        )
+        form.cleaned_data = {"killboard_link": "https://zkillboard.com/ship/123456/"}
 
-        self.assertFalse(form.is_valid())
-        self.assertIn("killboard_link", form.errors)
+        with patch(
+            "aasrp.form.KILLBOARD_DATA",
+            {"zKillboard": KILLBOARD_DATA.get("zKillboard")},
+        ):
+            with self.assertRaises(ValidationError) as cm:
+                form.clean_killboard_link()
+
+            self.assertIn(
+                "Invalid link. Please post a link to a kill mail.", str(cm.exception)
+            )
 
     def test_rejects_duplicate_killmail_link(self):
         """
@@ -254,20 +309,23 @@ class TestSrpRequestForm(BaseFormTestCase):
         :rtype:
         """
 
-        SrpRequest.objects.create(
-            killboard_link="https://zkillboard.com/kill/12345678/",
-            additional_info="Existing request.",
-            srp_link=self.srp_link,
-            character=self.user_jean_luc_picard.profile.main_character,
-            creator=self.user_jean_luc_picard,
+        form = SrpRequestForm(
+            data={
+                "killboard_link": "https://zkillboard.com/kill/123456/",
+                "additional_info": "Details",
+            }
         )
-        form_data = {
-            "killboard_link": "https://zkillboard.com/kill/12345678/",
-            "additional_info": "Details about the fleet and loss.",
-        }
-        form = SrpRequestForm(data=form_data)
-        self.assertFalse(form.is_valid())
-        self.assertIn("killboard_link", form.errors)
+        form.cleaned_data = {"killboard_link": "https://zkillboard.com/kill/123456/"}
+
+        with patch("aasrp.form.SrpRequest.objects.filter") as mock_filter:
+            mock_filter.return_value.exists.return_value = True
+
+            with self.assertRaises(ValidationError) as cm:
+                form.clean_killboard_link()
+
+            self.assertIn(
+                "There is already an SRP request for this kill mail.", str(cm.exception)
+            )
 
 
 class TestSrpRequestPayoutForm(TestCase):
