@@ -45,6 +45,7 @@ eve_kill_killmail_url_regex: str = KILLBOARD_DATA["EVE-KILL"]["killmail_url_rege
 
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
+
 def get_mandatory_form_label_text(text: str | Promise) -> str:
     """
     Label text for mandatory form fields
