@@ -363,6 +363,27 @@ class SrpRequest(models.Model):
             request_code=request_code,
         )
 
+    @staticmethod
+    def pending_requests_count_for_user(user: User) -> int | None:
+        """
+        Returns the number of open SRP requests for given user or None if user has no permission
+
+        :param user:
+        :type user:
+        :return:
+        :rtype:
+        """
+
+        # AA SRP
+        if user.has_perm(perm="aasrp.manage_srp") or user.has_perm(
+            perm="aasrp.manage_srp_requests"
+        ):
+            return SrpRequest.objects.filter(
+                request_status=SrpRequest.Status.PENDING
+            ).count()
+
+        return None
+
 
 class Insurance(models.Model):
     """

@@ -2,6 +2,9 @@
 Test checks for installed modules we might use
 """
 
+# Standard Library
+from unittest.mock import MagicMock, patch
+
 # Django
 from django.test import TestCase, modify_settings, override_settings
 
@@ -10,6 +13,7 @@ from aasrp.app_settings import (
     aa_discordnotify_installed,
     allianceauth_discordbot_installed,
     debug_enabled,
+    discordproxy_installed,
 )
 
 
@@ -89,3 +93,37 @@ class TestDebugCheck(TestCase):
         """
 
         self.assertFalse(debug_enabled())
+
+
+class TestDiscordProxyInstalled(TestCase):
+    """
+    Test if discordproxy is installed
+    """
+
+    @patch("discordproxy.client.DiscordClient", new_callable=MagicMock)
+    def test_returns_true_when_discordproxy_is_installed(self, mock_discord_client):
+        """
+        Test that discordproxy_installed returns True when discordproxy is installed.
+
+        :param mock_discord_client:
+        :type mock_discord_client:
+        :return:
+        :rtype:
+        """
+
+        result = discordproxy_installed()
+
+        self.assertTrue(result)
+
+    def test_returns_false_when_discordproxy_is_not_installed(self):
+        """
+        Test that discordproxy_installed returns False when discordproxy is not installed.
+
+        :return:
+        :rtype:
+        """
+
+        with patch("builtins.__import__", side_effect=ModuleNotFoundError):
+            result = discordproxy_installed()
+
+            self.assertFalse(result)

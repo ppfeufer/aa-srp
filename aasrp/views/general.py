@@ -35,7 +35,7 @@ from aasrp.form import (
 )
 from aasrp.helper.notification import notify_srp_team
 from aasrp.helper.user import get_user_settings
-from aasrp.models import Insurance, RequestComment, SrpLink, SrpRequest
+from aasrp.models import Insurance, RequestComment, Setting, SrpLink, SrpRequest
 
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
@@ -237,7 +237,7 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
     srp_link: SrpLink,
     killmail_link: str,
     ship_type_id: int,
-    ship_value: str,
+    ship_value: int,
     victim_id: int,
     additional_info: str,
 ) -> SrpRequest:
@@ -305,15 +305,18 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
     insurance_information = SrpRequest.objects.get_insurance_for_ship_type(
         ship_type_id=ship_type_id
     )
+
+    logger.debug(msg=f"Insurance information from ESI: {insurance_information}")
+
     Insurance.objects.bulk_create(
         [
             Insurance(
                 srp_request=srp_request,
-                insurance_level=level["name"],
-                insurance_cost=level["cost"],
-                insurance_payout=level["payout"],
+                insurance_level=level.name,
+                insurance_cost=level.cost,
+                insurance_payout=level.payout,
             )
-            for level in insurance_information["levels"]
+            for level in insurance_information.levels
         ]
     )
 
@@ -382,11 +385,16 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
         # Create a form instance and populate it with data from the request.
         form = SrpRequestForm(data=request.POST)
 
+        logger.debug(msg=f"Request type POST contains form data: {request.POST}")
+
         logger.debug(msg=f"Request type POST contains valid form: {form.is_valid()}")
 
         if form.is_valid():
             submitted_killmail_link = form.cleaned_data["killboard_link"]
             srp_request_additional_info = form.cleaned_data["additional_info"]
+            loss_value_field = Setting.objects.get_setting(
+                Setting.Field.LOSS_VALUE_SOURCE
+            )
 
             # Parse killmail
             try:
@@ -394,7 +402,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     killboard_link=submitted_killmail_link
                 )
                 ship_type_id, ship_value, victim_id = SrpRequest.objects.get_kill_data(
-                    kill_id=srp_kill_link_id
+                    killmail_id=srp_kill_link_id, loss_value_field=loss_value_field
                 )
             except ValueError as err:
                 # Invalid killmail
