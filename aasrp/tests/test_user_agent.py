@@ -38,6 +38,15 @@ class TestUserAgent(TestCase):
 
     # @patch(MODULE_PATH + ".app_settings.ESI_USER_CONTACT_EMAIL", "email@example.com")
     def test_user_agent_header(self, requests_mocker):
+        """
+        Test the user agent header for ESI requests
+
+        :param requests_mocker:
+        :type requests_mocker:
+        :return:
+        :rtype:
+        """
+
         requests_mocker.register_uri(
             "GET", url="http://localhost", json=self.status_response
         )
