@@ -7,7 +7,7 @@ from allianceauth import hooks
 from allianceauth.services.hooks import MenuItemHook, UrlHook
 
 # AA SRP
-from aasrp import __title__, urls
+from aasrp import __title_translated__, urls
 from aasrp.models import SrpRequest
 
 
@@ -20,7 +20,7 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
         # Setup menu entry for sidebar
         MenuItemHook.__init__(
             self,
-            text=__title__,
+            text=__title_translated__,
             classes="fa-regular fa-money-bill-1",
             url_name="aasrp:srp_links",
             navactive=["aasrp:"],
@@ -37,13 +37,13 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
         :rtype:
         """
 
-        if request.user.has_perm("aasrp.basic_access"):
-            app_count = SrpRequest.objects.pending_requests_count_for_user(request.user)
-            self.count = app_count if app_count and app_count > 0 else None
+        if not request.user.has_perm("aasrp.basic_access"):
+            return ""
 
-            return MenuItemHook.render(self, request=request)
+        app_count = SrpRequest.pending_requests_count_for_user(request.user)
+        self.count = app_count if app_count and app_count > 0 else None
 
-        return ""
+        return MenuItemHook.render(self, request=request)
 
 
 @hooks.register("menu_item_hook")
