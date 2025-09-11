@@ -41,9 +41,11 @@ Section Order:
 ### Security
 -->
 
+<!-- Your changes go here -->
+
 ### Added
 
-- Check for missing trailing slashes in killmail URLs and add them if necessary (#348)
+- Check for missing trailing slashes in killmail URLs and add them if necessary ([#348](https://github.com/ppfeufer/aa-srp/issues/348))
 
 ### Changed
 
@@ -1114,7 +1116,7 @@ mySQL8**
 
 - Option for users to disable notifications for this module. When enabled, no
   notifications will be sent at all. Neither in AA itself nor on Discord (if any of
-  the Discord apps is active)
+  the Discord apps are active)
 - Check if [AA Discord Notify] is installed, which picks up on notifications in Auth
   and relays them to the respective user as Discord PM. This way, we don't send
   double notifications to the user if [AA-Discordbot] is installed as well.
@@ -1141,11 +1143,11 @@ mySQL8**
 This has now been tested long enough by my corp, and it's time to fully release the
 module now, so here we go ...
 
-### Important
-
-**If you are updating from an earlier beta-version, please make sure to read through
-this changelog, beginning from the beta-version you were using. You might have to do
-some manual work, so please update step by step.**
+> [!IMPORTANT]
+>
+> If you are updating from an earlier beta-version, please make sure to read through
+> this changelog, beginning from the beta-version you were using. You might have to do
+> some manual work, so please update step by step.
 
 ### Fixed
 
@@ -1164,20 +1166,19 @@ some manual work, so please update step by step.**
 - Migrated SRP request comments (Additional request information and reject information)
   into their own model
 
-## Important Update Instructions
+### Update Instructions
 
-**IMPORTANT**
+> [!IMPORTANT]
+>
+> If you update from v0.1.0-beta.15 or earlier, make sure to read carefully.
+>
+> In this version, the way the SRP request comments are handled has been changed. It
+> is no longer just a simple string in the database table, it is now a proper model.
+> So you have to an extra steps to migrate your data.
+>
+> **This needs to be done right after you have updated AA SRP from a version prior v0.1.0-beta.16.**
 
-If you update from v0.1.0-beta.15 or earlier, make sure to read carefully.
-
-In this version, the way the SRP request comments are handled has been changed. It
-is no longer just a simple string in the database table, it is now a proper model. So
-you have to an extra steps to migrate your data.
-
-**This needs to be done right after you have updated AA SRP from a version prior
-v0.1.0-beta.16.**
-
-### Migrate SRP request comments
+#### Migrate SRP request comments
 
 To migrate the comments from SRP requests to their own model, run:
 (Make sure you ran migrations before running this command.)
@@ -1271,20 +1272,19 @@ python manage.py aasrp_migrate_to_comments
 
 - Ship is now a proper EveType model instead of just a string
 
-## Important Update Instructions
+### Update Instructions
 
-**IMPORTANT**
+> [!IMPORTANT]
+>
+> If you update from v0.1.0-beta.4 or earlier, make sure to read carefully.
+>
+> In this version, the way the SRP ship is handled has changed. It is no longer just a
+> simple string in the database, it is now a proper EveType model. So you have to do
+> some extra steps to migrate your data.
+>
+> **This needs to be done right after you have updated AA SRP from a version prior v0.1.0-beta.5.**
 
-If you update from v0.1.0-beta.4 or earlier, make sure to read carefully.
-
-In this version, the way the SRP ship is handled has changed. It is no longer just a
-simple string in the database, it is now a proper EveType model. So you have to do
-some extra steps to migrate your data.
-
-**This needs to be done right after you have updated AA SRP from a version prior
-v0.1.0-beta.5.**
-
-### Step 1: Install EveUniverse
+#### Step 1: Install EveUniverse
 
 This should be done automatically with the update, but there is still a bit of
 manual work to it. First you need to add the EveUniverse module to your
@@ -1292,7 +1292,7 @@ manual work to it. First you need to add the EveUniverse module to your
 
 - Add `"eveuniverse",` to `INSTALLED_APPS`
 
-### Step 2: Static Collection and Migration
+#### Step 2: Static Collection and Migration
 
 Now that EveUniverse is installed, you need to run the static collection and
 migration. Remember to restart your supervisor afterward.
@@ -1307,7 +1307,7 @@ python manage.py migrate
 
 Restart your supervisor services for Auth
 
-### Step 3: Import Ship Information From ESI
+#### Step 3: Import Ship Information From ESI
 
 This is where the magic happens. You're now ready to import the ship information
 from ESI.
@@ -1316,7 +1316,7 @@ from ESI.
 python manage.py aasrp_load_eve
 ```
 
-### Step 4: Migrate Your SRP Data
+#### Step 4: Migrate Your SRP Data
 
 Now that we have all the needed information, your SRP data needs to be updated. This
 is just another simple command.
@@ -1335,7 +1335,17 @@ python manage.py aasrp_update_db_relations
 
 - First public beta release
 
+## [0.1.0-beta.2] - 2020-12-28
+
+- Second Beta Test Release
+
+## [0.1.0-beta.1] - 2020-12-28
+
+- First Beta Test Release
+
 <!-- Links -->
+
+<!-- Changelog Links -->
 
 [#100]: https://github.com/ppfeufer/aa-srp/pull/100 "Text labels consistency"
 [#72]: https://github.com/ppfeufer/aa-srp/issues/72 "[Feature Request] Specify Payout Percentage on approving SRP"
@@ -1343,9 +1353,119 @@ python manage.py aasrp_update_db_relations
 [#83]: https://github.com/ppfeufer/aa-srp/issues/83 "[Feature Request] Add Fleet Types to SRP Links"
 [#84]: https://github.com/ppfeufer/aa-srp/issues/84 "[Feature Request] Add ARP Link Details to Request Form"
 [#94]: https://github.com/ppfeufer/aa-srp/issues/94 "Duplicate i18n lines"
+[0.1.0-beta.1]: https://github.com/ppfeufer/aa-srp/commits/v0.1.0-beta.1 "v0.1.0-beta.1"
+[0.1.0-beta.10]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.9...v0.1.0-beta.10 "v0.1.0-beta.10"
+[0.1.0-beta.11]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.10...v0.1.0-beta.11 "v0.1.0-beta.11"
+[0.1.0-beta.12]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.11...v0.1.0-beta.12 "v0.1.0-beta.12"
+[0.1.0-beta.13]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.12...v0.1.0-beta.13 "v0.1.0-beta.13"
+[0.1.0-beta.14]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.13...v0.1.0-beta.14 "v0.1.0-beta.14"
+[0.1.0-beta.15]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.14...v0.1.0-beta.15 "v0.1.0-beta.15"
+[0.1.0-beta.16]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.15...v0.1.0-beta.16 "v0.1.0-beta.16"
+[0.1.0-beta.2]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.1...v0.1.0-beta.2 "v0.1.0-beta.2"
+[0.1.0-beta.3]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.2...v0.1.0-beta.3 "v0.1.0-beta.3"
+[0.1.0-beta.4]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.3...v0.1.0-beta.4 "v0.1.0-beta.4"
+[0.1.0-beta.5]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.2...v0.1.0-beta.5 "v0.1.0-beta.5"
+[0.1.0-beta.6]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.5...v0.1.0-beta.6 "v0.1.0-beta.6"
+[0.1.0-beta.7]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.6...v0.1.0-beta.7 "v0.1.0-beta.7"
+[0.1.0-beta.8]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.7...v0.1.0-beta.8 "v0.1.0-beta.8"
+[0.1.0-beta.9]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.8...v0.1.0-beta.9 "v0.1.0-beta.9"
+[1.0.0]: https://github.com/ppfeufer/aa-srp/compare/v0.1.0-beta.4...v1.0.0 "v1.0.0"
+[1.0.1]: https://github.com/ppfeufer/aa-srp/compare/v1.0.0...v1.0.1 "v1.0.1"
+[1.1.0]: https://github.com/ppfeufer/aa-srp/compare/v1.0.1...v1.1.0 "v1.1.0"
+[1.10.0]: https://github.com/ppfeufer/aa-srp/compare/v1.9.0...v1.10.0 "v1.10.0"
+[1.10.1]: https://github.com/ppfeufer/aa-srp/compare/v1.10.0...v1.10.1 "v1.10.1"
+[1.10.2]: https://github.com/ppfeufer/aa-srp/compare/v1.10.1...v1.10.2 "v1.10.2"
+[1.10.3]: https://github.com/ppfeufer/aa-srp/compare/v1.10.2...v1.10.3 "v1.10.3"
+[1.11.0]: https://github.com/ppfeufer/aa-srp/compare/v1.10.3...v1.11.0 "v1.11.0"
+[1.11.1]: https://github.com/ppfeufer/aa-srp/compare/v1.11.0...v1.11.1 "v1.11.1"
+[1.11.2]: https://github.com/ppfeufer/aa-srp/compare/v1.11.1...v1.11.2 "v1.11.2"
+[1.12.0]: https://github.com/ppfeufer/aa-srp/compare/v1.11.2...v1.12.0 "v1.12.0"
+[1.13.0]: https://github.com/ppfeufer/aa-srp/compare/v1.12.0...v1.13.0 "v1.13.0"
+[1.13.1]: https://github.com/ppfeufer/aa-srp/compare/v1.13.0...v1.13.1 "v1.13.1"
+[1.13.2]: https://github.com/ppfeufer/aa-srp/compare/v1.13.1...v1.13.2 "v1.13.2"
+[1.13.3]: https://github.com/ppfeufer/aa-srp/compare/v1.13.2...v1.13.3 "v1.13.3"
+[1.13.4]: https://github.com/ppfeufer/aa-srp/compare/v1.13.3...v1.13.4 "v1.13.4"
+[1.14.0]: https://github.com/ppfeufer/aa-srp/compare/v1.13.4...v1.14.0 "v1.14.0"
+[1.15.0]: https://github.com/ppfeufer/aa-srp/compare/v1.14.0...v1.15.0 "v1.15.0"
+[1.15.1]: https://github.com/ppfeufer/aa-srp/compare/v1.15.0...v1.15.1 "v1.15.1"
+[1.15.2]: https://github.com/ppfeufer/aa-srp/compare/v1.15.1...v1.15.2 "v1.15.2"
+[1.16.0]: https://github.com/ppfeufer/aa-srp/compare/v1.15.2...v1.16.0 "v1.16.0"
+[1.16.1]: https://github.com/ppfeufer/aa-srp/compare/v1.16.0...v1.16.1 "v1.16.1"
+[1.16.2]: https://github.com/ppfeufer/aa-srp/compare/v1.16.1...v1.16.2 "v1.16.2"
+[1.16.3]: https://github.com/ppfeufer/aa-srp/compare/v1.16.2...v1.16.3 "v1.16.3"
+[1.16.4]: https://github.com/ppfeufer/aa-srp/compare/v1.16.3...v1.16.4 "v1.16.4"
+[1.17.0]: https://github.com/ppfeufer/aa-srp/compare/v1.16.4...v1.17.0 "v1.17.0"
+[1.17.1]: https://github.com/ppfeufer/aa-srp/compare/v1.17.0...v1.17.1 "v1.17.1"
+[1.18.0]: https://github.com/ppfeufer/aa-srp/compare/v1.17.1...v1.18.0 "v1.18.0"
+[1.19.0]: https://github.com/ppfeufer/aa-srp/compare/v1.18.0...v1.19.0 "v1.19.0"
+[1.2.0]: https://github.com/ppfeufer/aa-srp/compare/v1.1.0...v1.2.0 "v1.2.0"
+[1.2.1]: https://github.com/ppfeufer/aa-srp/compare/v1.2.0...v1.2.1 "v1.2.1"
+[1.2.2]: https://github.com/ppfeufer/aa-srp/compare/v1.2.1...v1.2.2 "v1.2.2"
+[1.20.0]: https://github.com/ppfeufer/aa-srp/compare/v1.19.0...v1.20.0 "v1.20.0"
+[1.20.0-alpha.1]: https://github.com/ppfeufer/aa-srp/compare/v1.19.0...v1.20.0-alpha.1 "v1.20.0-alpha.1"
+[1.20.1]: https://github.com/ppfeufer/aa-srp/compare/v1.20.0...v1.20.1 "v1.20.1"
+[1.20.2]: https://github.com/ppfeufer/aa-srp/compare/v1.20.1...v1.20.2 "v1.20.2"
+[1.20.3]: https://github.com/ppfeufer/aa-srp/compare/v1.20.2...v1.20.3 "v1.20.3"
+[1.20.4]: https://github.com/ppfeufer/aa-srp/compare/v1.20.3...v1.20.4 "v1.20.4"
+[1.20.5]: https://github.com/ppfeufer/aa-srp/compare/v1.20.4...v1.20.5 "v1.20.5"
+[1.20.6]: https://github.com/ppfeufer/aa-srp/compare/v1.20.5...v1.20.6 "v1.20.6"
+[1.20.7]: https://github.com/ppfeufer/aa-srp/compare/v1.20.6...v1.20.7 "v1.20.7"
+[1.20.8]: https://github.com/ppfeufer/aa-srp/compare/v1.20.7...v1.20.8 "v1.20.8"
+[1.21.0]: https://github.com/ppfeufer/aa-srp/compare/v1.20.8...v1.21.0 "v1.21.0"
+[1.3.0]: https://github.com/ppfeufer/aa-srp/compare/v1.2.2...v1.3.0 "v1.3.0"
+[1.3.1]: https://github.com/ppfeufer/aa-srp/compare/v1.3.0...v1.3.1 "v1.3.1"
+[1.3.2]: https://github.com/ppfeufer/aa-srp/compare/v1.3.1...v1.3.2 "v1.3.2"
+[1.3.3]: https://github.com/ppfeufer/aa-srp/compare/v1.3.2...v1.3.3 "v1.3.3"
+[1.4.0]: https://github.com/ppfeufer/aa-srp/compare/v1.3.3...v1.4.0 "v1.4.0"
+[1.4.1]: https://github.com/ppfeufer/aa-srp/compare/v1.4.0...v1.4.1 "v1.4.1"
+[1.4.2]: https://github.com/ppfeufer/aa-srp/compare/v1.4.1...v1.4.2 "v1.4.2"
+[1.5.0]: https://github.com/ppfeufer/aa-srp/compare/v1.4.2...v1.5.0 "v1.5.0"
+[1.6.0]: https://github.com/ppfeufer/aa-srp/compare/v1.5.0...v1.6.0 "v1.6.0"
+[1.6.1]: https://github.com/ppfeufer/aa-srp/compare/v1.6.0...v1.6.1 "v1.6.1"
+[1.7.0]: https://github.com/ppfeufer/aa-srp/compare/v1.6.1...v1.7.0 "v1.7.0"
+[1.7.1]: https://github.com/ppfeufer/aa-srp/compare/v1.7.0...v1.7.1 "v1.7.1"
+[1.7.2]: https://github.com/ppfeufer/aa-srp/compare/v1.7.1...v1.7.2 "v1.7.2"
+[1.7.3]: https://github.com/ppfeufer/aa-srp/compare/v1.7.2...v1.7.3 "v1.7.3"
+[1.7.4]: https://github.com/ppfeufer/aa-srp/compare/v1.7.3...v1.7.4 "v1.7.4"
+[1.8.0]: https://github.com/ppfeufer/aa-srp/compare/v1.7.4...v1.8.0 "v1.8.0"
+[1.9.0]: https://github.com/ppfeufer/aa-srp/compare/v1.8.0...v1.9.0 "v1.9.0"
+[2.0.0]: https://github.com/ppfeufer/aa-srp/compare/v1.21.0...v2.0.0 "v2.0.0"
+[2.0.0-beta.1]: https://github.com/ppfeufer/aa-srp/compare/v1.21.0...v2.0.0-beta.1 "v2.0.0-beta.1"
+[2.0.0-beta.2]: https://github.com/ppfeufer/aa-srp/compare/v2.0.0-beta.1...v2.0.0-beta.2 "v2.0.0-beta.2"
+[2.0.1]: https://github.com/ppfeufer/aa-srp/compare/v2.0.0...v2.0.1 "v2.0.1"
+[2.0.2]: https://github.com/ppfeufer/aa-srp/compare/v2.0.1...v2.0.2 "v2.0.2"
+[2.1.0]: https://github.com/ppfeufer/aa-srp/compare/v2.0.2...v2.1.0 "v2.1.0"
+[2.1.1]: https://github.com/ppfeufer/aa-srp/compare/v2.1.0...v2.1.1 "v2.1.1"
+[2.10.0]: https://github.com/ppfeufer/aa-srp/compare/v2.9.2...v2.10.0 "v2.10.0"
+[2.11.0]: https://github.com/ppfeufer/aa-srp/compare/v2.10.0...v2.11.0 "v2.11.0"
+[2.12.0]: https://github.com/ppfeufer/aa-srp/compare/v2.11.0...v2.12.0 "v2.12.0"
+[2.12.1]: https://github.com/ppfeufer/aa-srp/compare/v2.12.0...v2.12.1 "v2.12.1"
+[2.12.2]: https://github.com/ppfeufer/aa-srp/compare/v2.12.1...v2.12.2 "v2.12.2"
+[2.2.0]: https://github.com/ppfeufer/aa-srp/compare/v2.1.1...v2.2.0 "v2.2.0"
+[2.3.0]: https://github.com/ppfeufer/aa-srp/compare/v2.2.0...v2.3.0 "v2.3.0"
+[2.3.1]: https://github.com/ppfeufer/aa-srp/compare/v2.3.0...v2.3.1 "v2.3.1"
+[2.4.0]: https://github.com/ppfeufer/aa-srp/compare/v2.3.1...v2.4.0 "v2.4.0"
+[2.5.0]: https://github.com/ppfeufer/aa-srp/compare/v2.4.0...v2.5.0 "v2.5.0"
+[2.5.1]: https://github.com/ppfeufer/aa-srp/compare/v2.5.0...v2.5.1 "v2.5.1"
+[2.5.2]: https://github.com/ppfeufer/aa-srp/compare/v2.5.1...v2.5.2 "v2.5.2"
+[2.5.3]: https://github.com/ppfeufer/aa-srp/compare/v2.5.2...v2.5.3 "v2.5.3"
+[2.5.4]: https://github.com/ppfeufer/aa-srp/compare/v2.5.3...v2.5.4 "v2.5.4"
+[2.5.5]: https://github.com/ppfeufer/aa-srp/compare/v2.5.4...v2.5.5 "v2.5.5"
+[2.6.0]: https://github.com/ppfeufer/aa-srp/compare/v2.5.5...v2.6.0 "v2.6.0"
+[2.6.1]: https://github.com/ppfeufer/aa-srp/compare/v2.6.0...v2.6.1 "v2.6.1"
+[2.7.0]: https://github.com/ppfeufer/aa-srp/compare/v2.6.1...v2.7.0 "v2.7.0"
+[2.7.1]: https://github.com/ppfeufer/aa-srp/compare/v2.7.0...v2.7.1 "v2.7.1"
+[2.7.2]: https://github.com/ppfeufer/aa-srp/compare/v2.7.1...v2.7.2 "v2.7.2"
+[2.7.3]: https://github.com/ppfeufer/aa-srp/compare/v2.7.2...v2.7.3 "v2.7.3"
+[2.8.0]: https://github.com/ppfeufer/aa-srp/compare/v2.7.3...v2.8.0 "v2.8.0"
+[2.8.1]: https://github.com/ppfeufer/aa-srp/compare/v2.8.0...v2.8.1 "v2.8.1"
+[2.9.0]: https://github.com/ppfeufer/aa-srp/compare/v2.8.1...v2.9.0 "v2.9.0"
+[2.9.1]: https://github.com/ppfeufer/aa-srp/compare/v2.9.0...v2.9.1 "v2.9.1"
+[2.9.2]: https://github.com/ppfeufer/aa-srp/compare/v2.9.1...v2.9.2 "v2.9.2"
 [aa discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "AA Discord Notify"
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
+[in development]: https://github.com/ppfeufer/aa-srp/compare/v2.12.2...HEAD "In Development"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
 [v1.16.0 (yanked)]: https://github.com/ppfeufer/aa-srp/releases/tag/v1.16.0 "1.16.0 (YANKED)"
