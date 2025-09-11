@@ -47,6 +47,10 @@ Section Order:
 
 - Check for missing trailing slashes in killmail URLs and add them if necessary ([#348](https://github.com/ppfeufer/aa-srp/issues/348))
 
+### Fixed
+
+- Only render icon markup for top navigation buttons when there is an icon
+
 ### Changed
 
 - Simplify Discord embed color mapping

@@ -5,7 +5,7 @@
         </span>
 
         <span class="d-inline-block d-lg-none">
-            <i class="{{ fa_icon }} me-2"></i>
+            {% if fa_icon %}<i class="{{ fa_icon }} me-2"></i>{% endif %}
             {{ title }}
         </span>
     </a>
