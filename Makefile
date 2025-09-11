@@ -54,17 +54,31 @@ graph_models:
 # Prepare a new release
 # Update the graph of the models, translation files and the version in the package
 .PHONY: prepare-release
-prepare-release: pot
+prepare-release: pot graph_models
 	@echo ""
 	@echo "Preparing a release …"
 	@read -p "New Version Number: " new_version; \
-	sed -i "/__version__ = /c\__version__ = \"$$new_version\"" $(package)/__init__.py; \
-	echo "Updated version in $(TEXT_BOLD)$(package)/__init__.py$(TEXT_BOLD_END)"; \
-	if [[ $$new_version =~ (alpha|beta) ]] \
+	if ! grep -qE "^## \[$$new_version\]" CHANGELOG.md; \
 		then \
+			previos_version=$(shell grep -E '^## \[[0-9]+\.[0-9]+\.[0-9]+\] - ' CHANGELOG.md | head -n 1 | sed -E 's/^## \[([0-9]+\.[0-9]+\.[0-9]+)\].*$$/\1/'); \
+			echo "Previous version detected: $$previos_version"; \
+			echo ""; \
+			echo "$(TEXT_COLOR_RED)$(TEXT_BOLD)Version $$new_version not found in CHANGELOG.md!$(TEXT_RESET)"; \
+			echo "Adding a new section for version $$new_version."; \
+			echo "Please check and update the $(TEXT_BOLD)CHANGELOG.md$(TEXT_RESET) file accordingly."; \
+			sed -i "/<!-- Your changes go here -->/a\\\n## [$$new_version] - $$(date '+%Y-%m-%d')" CHANGELOG.md; \
+			echo "[$$new_version]: $(git_repository)/compare/v$$previos_version...v$$new_version \"v$$new_version\"" >> CHANGELOG.md; \
+	fi; \
+	sed -i "/__version__ = /c\__version__ = \"$$new_version\"" $(package)/__init__.py; \
+	echo ""; \
+	echo "Updated version in $(TEXT_BOLD)$(package)/__init__.py$(TEXT_BOLD_END)"; \
+	if [[ $$new_version =~ (alpha|beta) ]]; \
+		then \
+			echo ""; \
 			echo "$(TEXT_COLOR_RED)$(TEXT_BOLD)Pre-release$(TEXT_RESET) version detected!"; \
 			git restore $(translation_directory)/django.pot; \
 	else \
+		echo ""; \
 		echo "$(TEXT_BOLD)Release$(TEXT_BOLD_END) version detected."; \
 		sed -i -E "/$(appname)==/s/==.*/==$$new_version/" README.md; \
 		echo "Updated version in $(TEXT_BOLD)README.md$(TEXT_BOLD_END)"; \
