@@ -1,5 +1,6 @@
 """
-App init
+App initialization module for the AA-SRP application.
+This module defines metadata and constants for the Ship Replacement Program (SRP) app.
 """
 
 # Django
@@ -15,6 +16,6 @@ __esi_compatibility_date__ = "2025-08-26"
 __package_name__ = "aa-srp"
 __app_name__ = "aasrp"
 __app_name_verbose__ = "AA SRP"
-__app_name_useragent__ = "AA-SRP"
+__app_name_useragent__ = "AaSrp"
 
 __github_url__ = f"https://github.com/ppfeufer/{__package_name__}"
