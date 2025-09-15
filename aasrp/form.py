@@ -1,5 +1,5 @@
 """
-Form definitions
+Form definitions for the AA-SRP application.
 """
 
 # Standard Library
@@ -43,16 +43,17 @@ evetools_killmail_url_regex: str = KILLBOARD_DATA["EveTools"]["killmail_url_rege
 eve_kill_base_url_regex: str = KILLBOARD_DATA["EVE-KILL"]["base_url_regex"]
 eve_kill_killmail_url_regex: str = KILLBOARD_DATA["EVE-KILL"]["killmail_url_regex"]
 
+# Initialize a logger with a custom tag for the AA-SRP module
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
 def get_mandatory_form_label_text(text: str | Promise) -> str:
     """
-    Label text for mandatory form fields
+    Generate label text for mandatory form fields by appending an asterisk.
 
-    :param text: The label text
+    :param text: The label text to modify.
     :type text: str | Promise
-    :return: The label text with asterisk
+    :return: The modified label text with an asterisk.
     :rtype: str
     """
 
@@ -66,16 +67,15 @@ def get_mandatory_form_label_text(text: str | Promise) -> str:
 
 class SrpLinkForm(ModelForm):
     """
-    New SRP link form
+    Form for creating a new SRP link.
     """
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        Meta definitions
+        Meta options for the SrpLinkForm.
         """
 
         model = SrpLink
-
         fields = ["srp_name", "fleet_time", "fleet_type", "fleet_doctrine", "aar_link"]
         labels = {
             "srp_name": get_mandatory_form_label_text(text=_("Fleet name")),
@@ -102,36 +102,34 @@ class SrpLinkForm(ModelForm):
 
 class SrpLinkUpdateForm(ModelForm):
     """
-    Edit SRP link update form
+    Form for updating an existing SRP link.
     """
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        Meta definitions
+        Meta options for the SrpLinkUpdateForm.
         """
 
         model = SrpLink
-
         fields = ["aar_link"]
         labels = {"aar_link": _("After action report link")}
 
 
 class SrpRequestForm(ModelForm):
     """
-    SRP request form
+    Form for submitting a new SRP request.
     """
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        Meta definitions
+        Meta options for the SrpRequestForm.
         """
 
         model = SrpRequest
-
         fields = ["killboard_link", "additional_info"]
         help_texts = {
             "killboard_link": _(
-                f"Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."  # pylint: disable=line-too-long
+                f"Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
             ),
             "additional_info": _(
                 "Please tell us about the circumstances of your untimely demise. "
@@ -158,12 +156,13 @@ class SrpRequestForm(ModelForm):
             ),
         }
 
-    def clean_killboard_link(self):
+    def clean_killboard_link(self) -> str:
         """
-        Check if it's a link from one of the accepted kill boards and clean it
+        Validate and clean the killboard link provided by the user.
 
-        :return:
-        :rtype:
+        :return: The cleaned killboard link.
+        :rtype: str
+        :raises forms.ValidationError: If the link is invalid or already exists.
         """
 
         killboard_link = self.cleaned_data["killboard_link"]
@@ -178,6 +177,7 @@ class SrpRequestForm(ModelForm):
                 logger.debug(
                     f"Adding trailing slash to killboard link for {board}: {killboard_link}"
                 )
+
                 killboard_link += "/"
                 self.cleaned_data["killboard_link"] = killboard_link
 
@@ -200,6 +200,7 @@ class SrpRequestForm(ModelForm):
             logger.debug(
                 f"Killboard link does not match any accepted kill board patterns: {killboard_link}"
             )
+
             raise forms.ValidationError(
                 message=_(
                     f"Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
@@ -211,6 +212,7 @@ class SrpRequestForm(ModelForm):
             logger.debug(
                 f"Killboard link does not match any accepted killmail patterns: {killboard_link}"
             )
+
             raise forms.ValidationError(
                 message=_("Invalid link. Please post a link to a kill mail.")
             )
@@ -226,6 +228,7 @@ class SrpRequestForm(ModelForm):
             logger.debug(
                 f"SRP request already exists for killmail ID {killmail_id} and link {killboard_link}"
             )
+
             raise forms.ValidationError(
                 message=_(
                     "There is already an SRP request for this kill mail. "
@@ -240,7 +243,7 @@ class SrpRequestForm(ModelForm):
 
 class SrpRequestPayoutForm(forms.Form):
     """
-    Change payout value
+    Form for changing the payout value of an SRP request.
     """
 
     value = forms.CharField(label=_("SRP payout value"), max_length=254, required=True)
@@ -248,16 +251,15 @@ class SrpRequestPayoutForm(forms.Form):
 
 class SrpRequestRejectForm(ModelForm):
     """
-    SRP request reject form
+    Form for rejecting an SRP request with a comment.
     """
 
     class Meta:
         """
-        Meta definitions
+        Meta options for the SrpRequestRejectForm.
         """
 
         model = RequestComment
-
         fields = ["comment"]
         help_texts = {
             "comment": _("Please provide the reason this SRP request is rejected."),
@@ -270,7 +272,6 @@ class SrpRequestRejectForm(ModelForm):
                 attrs={
                     "rows": 10,
                     "cols": 20,
-                    # "placeholder": _("Reject reason"),
                     "required": "required",
                 }
             ),
@@ -279,16 +280,15 @@ class SrpRequestRejectForm(ModelForm):
 
 class SrpRequestAcceptForm(ModelForm):
     """
-    SRP request accept form
+    Form for accepting an SRP request with an optional comment.
     """
 
     class Meta:
         """
-        Meta definitions
+        Meta options for the SrpRequestAcceptForm.
         """
 
         model = RequestComment
-
         fields = ["comment"]
         help_texts = {
             "comment": _("Leave a comment for the requestor"),
@@ -301,7 +301,6 @@ class SrpRequestAcceptForm(ModelForm):
                 attrs={
                     "rows": 10,
                     "cols": 20,
-                    # "placeholder": _("Reject reason"),
                 }
             ),
         }
@@ -309,16 +308,15 @@ class SrpRequestAcceptForm(ModelForm):
 
 class SrpRequestAcceptRejectedForm(ModelForm):
     """
-    SRP request accept rejected form
+    Form for accepting a previously rejected SRP request with a comment.
     """
 
     class Meta:
         """
-        Meta definitions
+        Meta options for the SrpRequestAcceptRejectedForm.
         """
 
         model = RequestComment
-
         fields = ["comment"]
         help_texts = {
             "comment": _(
@@ -334,7 +332,6 @@ class SrpRequestAcceptRejectedForm(ModelForm):
                 attrs={
                     "rows": 10,
                     "cols": 20,
-                    # "placeholder": _("Reject reason"),
                     "required": "required",
                 }
             ),
@@ -343,16 +340,15 @@ class SrpRequestAcceptRejectedForm(ModelForm):
 
 class UserSettingsForm(ModelForm):
     """
-    User settings form
+    Form for managing user-specific settings.
     """
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        Meta definitions
+        Meta options for the UserSettingsForm.
         """
 
         model = UserSetting
-
         fields = ["disable_notifications"]
         labels = {
             "disable_notifications": _(
@@ -364,14 +360,13 @@ class UserSettingsForm(ModelForm):
 
 class SettingAdminForm(forms.ModelForm):
     """
-    Form definitions for the FleetType form in admin
+    Form for managing settings in the admin interface.
     """
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        Meta
+        Meta options for the SettingAdminForm.
         """
 
         model = Setting
-
         fields = "__all__"
