@@ -1,5 +1,6 @@
 """
-Django admin declarations
+Django admin declarations for the AA-SRP application.
+This module defines the admin interface for managing SRP-related models.
 """
 
 # Third Party
@@ -23,7 +24,8 @@ from aasrp.models import FleetType, RequestComment, Setting, SrpLink, SrpRequest
 @admin.register(SrpLink)
 class SrpLinkAdmin(admin.ModelAdmin):
     """
-    SrpLinkAdmin
+    Admin interface for managing SRP links.
+    Provides options to view, filter, and search SRP links.
     """
 
     list_display = (
@@ -42,11 +44,11 @@ class SrpLinkAdmin(admin.ModelAdmin):
     @admin.display(description=_("Creator"), ordering="creator")
     def _creator(cls, obj: SrpLink) -> str:
         """
-        Display the creator name
+        Display the name of the creator of the SRP link.
 
-        :param obj: The SrpLink object
+        :param obj: The SrpLink object.
         :type obj: SrpLink
-        :return: The name of the creator
+        :return: The name of the creator.
         :rtype: str
         """
 
@@ -56,7 +58,8 @@ class SrpLinkAdmin(admin.ModelAdmin):
 @admin.register(SrpRequest)
 class SrpRequestAdmin(admin.ModelAdmin):
     """
-    SrpRequestAdmin
+    Admin interface for managing SRP requests.
+    Provides options to view, filter, and search SRP requests.
     """
 
     list_display = (
@@ -86,11 +89,11 @@ class SrpRequestAdmin(admin.ModelAdmin):
     @admin.display(description=_("Requestor"), ordering="creator")
     def _requestor(cls, obj: SrpRequest) -> str:
         """
-        Display the requestor name
+        Display the name of the requestor.
 
-        :param obj: The SrpRequest object
+        :param obj: The SrpRequest object.
         :type obj: SrpRequest
-        :return: The name of the requestor
+        :return: The name of the requestor.
         :rtype: str
         """
 
@@ -99,11 +102,11 @@ class SrpRequestAdmin(admin.ModelAdmin):
     @admin.display(description=_("SRP code"), ordering="srp_link__srp_code")
     def _srp_code(self, obj: SrpRequest) -> str:
         """
-        Display the SRP code
+        Display the SRP code associated with the request.
 
-        :param obj: The SrpRequest object
+        :param obj: The SrpRequest object.
         :type obj: SrpRequest
-        :return: The SRP code associated with the request
+        :return: The SRP code.
         :rtype: str
         """
 
@@ -113,7 +116,8 @@ class SrpRequestAdmin(admin.ModelAdmin):
 @admin.register(RequestComment)
 class RequestCommentAdmin(admin.ModelAdmin):
     """
-    RequestCommentAdmin
+    Admin interface for managing comments on SRP requests.
+    Provides options to view, filter, and search comments.
     """
 
     list_display = (
@@ -135,11 +139,11 @@ class RequestCommentAdmin(admin.ModelAdmin):
     @admin.display(description=_("SRP code"), ordering="srp_request__srp_code")
     def _srp_code(self, obj: RequestComment) -> str:
         """
-        Display the SRP code
+        Display the SRP code associated with the comment.
 
-        :param obj: The RequestComment object
+        :param obj: The RequestComment object.
         :type obj: RequestComment
-        :return: The SRP code associated with the request
+        :return: The SRP code.
         :rtype: str
         """
 
@@ -148,11 +152,11 @@ class RequestCommentAdmin(admin.ModelAdmin):
     @admin.display(description=_("Request code"), ordering="srp_request__request_code")
     def _request_code(self, obj: RequestComment) -> str:
         """
-        Display the request code
+        Display the request code associated with the comment.
 
-        :param obj: The RequestComment object
+        :param obj: The RequestComment object.
         :type obj: RequestComment
-        :return: The request code associated with the comment
+        :return: The request code.
         :rtype: str
         """
 
@@ -161,11 +165,11 @@ class RequestCommentAdmin(admin.ModelAdmin):
     @admin.display(description=_("Requestor"), ordering="srp_request__creator")
     def _requestor(self, obj: RequestComment) -> str:
         """
-        Display the requestor name
+        Display the name of the requestor associated with the comment.
 
-        :param obj: The RequestComment object
+        :param obj: The RequestComment object.
         :type obj: RequestComment
-        :return: The name of the requestor
+        :return: The name of the requestor.
         :rtype: str
         """
 
@@ -174,11 +178,11 @@ class RequestCommentAdmin(admin.ModelAdmin):
     @admin.display(description=_("Character"), ordering="srp_request__character")
     def _character(self, obj: RequestComment) -> str:
         """
-        Display the character name the request is for
+        Display the name of the character associated with the request.
 
-        :param obj: The RequestComment object
+        :param obj: The RequestComment object.
         :type obj: RequestComment
-        :return: The name of the character the request is for
+        :return: The character name.
         :rtype: str
         """
 
@@ -188,7 +192,8 @@ class RequestCommentAdmin(admin.ModelAdmin):
 @admin.register(FleetType)
 class FleetTypeAdmin(admin.ModelAdmin):
     """
-    FleetTypeAdmin
+    Admin interface for managing fleet types.
+    Provides options to activate or deactivate fleet types.
     """
 
     list_display = ("name", "is_enabled")
@@ -200,14 +205,12 @@ class FleetTypeAdmin(admin.ModelAdmin):
     @admin.action(description=_("Activate selected %(verbose_name_plural)s"))
     def activate(self, request: HttpRequest, queryset: QuerySet[FleetType]) -> None:
         """
-        Mark fleet type as active
+        Activate the selected fleet types.
 
-        :param request: The request object
+        :param request: The HTTP request object.
         :type request: HttpRequest
-        :param queryset: The queryset of FleetType objects to activate
+        :param queryset: The queryset of FleetType objects to activate.
         :type queryset: QuerySet[FleetType]
-        :return: None
-        :rtype: NoneType
         """
 
         notifications_count = 0
@@ -217,7 +220,6 @@ class FleetTypeAdmin(admin.ModelAdmin):
             try:
                 obj.is_enabled = True
                 obj.save()
-
                 notifications_count += 1
             except Exception:  # pylint: disable=broad-exception-caught
                 failed += 1
@@ -245,14 +247,12 @@ class FleetTypeAdmin(admin.ModelAdmin):
     @admin.action(description=_("Deactivate selected %(verbose_name_plural)s"))
     def deactivate(self, request: HttpRequest, queryset: QuerySet[FleetType]) -> None:
         """
-        Mark fleet type as inactive
+        Deactivate the selected fleet types.
 
-        :param request: The request object
+        :param request: The HTTP request object.
         :type request: HttpRequest
-        :param queryset: The queryset of FleetType objects to deactivate
+        :param queryset: The queryset of FleetType objects to deactivate.
         :type queryset: QuerySet[FleetType]
-        :return: None
-        :rtype: NoneType
         """
 
         notifications_count = 0
@@ -262,7 +262,6 @@ class FleetTypeAdmin(admin.ModelAdmin):
             try:
                 obj.is_enabled = False
                 obj.save()
-
                 notifications_count += 1
             except Exception:  # pylint: disable=broad-exception-caught
                 failed += 1
@@ -291,7 +290,8 @@ class FleetTypeAdmin(admin.ModelAdmin):
 @admin.register(Setting)
 class SettingAdmin(SingletonModelAdmin):
     """
-    Setting Admin
+    Admin interface for managing application settings.
+    Uses a singleton model to ensure only one instance of settings exists.
     """
 
     form = SettingAdminForm
