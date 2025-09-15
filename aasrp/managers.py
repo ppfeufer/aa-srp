@@ -96,7 +96,7 @@ class SrpRequestManager(models.Manager):
             return result
 
         except (requests.HTTPError, requests.Timeout) as exc:
-            logger.warning(f"Error fetching kill mail hash: {exc}", exc_info=True)
+            logger.warning(f"Error fetching kill mail details: {exc}", exc_info=True)
 
             raise ValueError(str(exc)) from exc
         except Exception as exc:
