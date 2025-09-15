@@ -56,6 +56,10 @@ Section Order:
 
 - Simplify Discord embed color mapping
 
+### Removed
+
+- Obsolete setting
+
 ## [2.12.2] - 2025-09-02
 
 ### Fixed
