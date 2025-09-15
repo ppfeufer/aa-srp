@@ -166,7 +166,7 @@ def _discordproxy_send_channel_message(
     except DiscordProxyException as ex:
         # Log the exception and fall back to allianceauth-discordbot
         logger.debug(
-            f"Something went wrong with discordproxy, cannot send a channel message. "
+            "Something went wrong with discordproxy, cannot send a channel message. "
             f"Trying allianceauth-discordbot. Error: {ex}"
         )
         # Use the allianceauth-discordbot method as a fallback
