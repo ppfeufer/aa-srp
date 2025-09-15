@@ -6,7 +6,7 @@ App init
 from django.utils.translation import gettext_lazy as _
 
 __version__ = "2.12.3"
-__title__ = _("Ship Replacement")
+__title__ = "Ship Replacement"
 __title_translated__ = _("Ship Replacement")
 __verbose_name__ = "Ship Replacement (SRP) for Alliance Auth"
 
