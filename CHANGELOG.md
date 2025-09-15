@@ -43,6 +43,8 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [2.12.3] - 2025-09-15
+
 ### Added
 
 - Docker install and update instructions
@@ -1354,8 +1356,6 @@ python manage.py aasrp_update_db_relations
 
 <!-- Links -->
 
-<!-- Changelog Links -->
-
 [#100]: https://github.com/ppfeufer/aa-srp/pull/100 "Text labels consistency"
 [#72]: https://github.com/ppfeufer/aa-srp/issues/72 "[Feature Request] Specify Payout Percentage on approving SRP"
 [#81]: https://github.com/ppfeufer/aa-srp/issues/81 "Alliance Character view their SRP request detail error"
@@ -1450,6 +1450,7 @@ python manage.py aasrp_update_db_relations
 [2.12.0]: https://github.com/ppfeufer/aa-srp/compare/v2.11.0...v2.12.0 "v2.12.0"
 [2.12.1]: https://github.com/ppfeufer/aa-srp/compare/v2.12.0...v2.12.1 "v2.12.1"
 [2.12.2]: https://github.com/ppfeufer/aa-srp/compare/v2.12.1...v2.12.2 "v2.12.2"
+[2.12.3]: https://github.com/ppfeufer/aa-srp/compare/v2.12.2...v2.12.3 "v2.12.3"
 [2.2.0]: https://github.com/ppfeufer/aa-srp/compare/v2.1.1...v2.2.0 "v2.2.0"
 [2.3.0]: https://github.com/ppfeufer/aa-srp/compare/v2.2.0...v2.3.0 "v2.3.0"
 [2.3.1]: https://github.com/ppfeufer/aa-srp/compare/v2.3.0...v2.3.1 "v2.3.1"
@@ -1475,6 +1476,6 @@ python manage.py aasrp_update_db_relations
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[in development]: https://github.com/ppfeufer/aa-srp/compare/v2.12.2...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-srp/compare/v2.12.3...HEAD "In Development"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
 [v1.16.0 (yanked)]: https://github.com/ppfeufer/aa-srp/releases/tag/v1.16.0 "1.16.0 (YANKED)"
