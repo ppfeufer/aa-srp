@@ -31,13 +31,26 @@ ______________________________________________________________________
     - [SRP Request Details](#srp-request-details)
 - [Installation](#installation)
   - [Prerequisites](#prerequisites)
-  - [Step 1: Install the Package](#step-1-install-the-package)
-  - [Step 2: Configure Alliance Auth](#step-2-configure-alliance-auth)
-  - [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
-  - [Step 4: Preload Eve Universe Data](#step-4-preload-eve-universe-data)
-  - [Step 5: Setting up Permissions](#step-5-setting-up-permissions)
-  - [Step 6: (Optional) Import From Built-in SRP Module](#step-6-optional-import-from-built-in-srp-module)
-  - [Step 7: (Optional) Settings for Discord Proxy (If Used)](#step-7-optional-settings-for-discord-proxy-if-used)
+  - [Bare Metal Installation](#bare-metal-installation)
+    - [Step 1: Install the Package](#step-1-install-the-package)
+    - [Step 2: Configure Alliance Auth](#step-2-configure-alliance-auth)
+    - [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
+    - [Step 4: Preload Eve Universe Data](#step-4-preload-eve-universe-data)
+  - [Docker Installation](#docker-installation)
+    - [Step 1: Add the App](#step-1-add-the-app)
+    - [Step 2: Update Your AA Settings](#step-2-update-your-aa-settings)
+    - [Step 3: Build Auth and Restart Your Containers](#step-3-build-auth-and-restart-your-containers)
+    - [Step 4: Finalizing the Installation](#step-4-finalizing-the-installation)
+  - [Common Installation Steps](#common-installation-steps)
+    - [Setting up Permissions](#setting-up-permissions)
+    - [(Optional) Import From Built-in SRP Module](#optional-import-from-built-in-srp-module)
+      - [Bare Metal Installation](#bare-metal-installation-1)
+      - [Docker Installation](#docker-installation-1)
+    - [(Optional) Settings for Discord Proxy (If Used)](#optional-settings-for-discord-proxy-if-used)
+      - [Docker Installation](#docker-installation-2)
+- [Updating](#updating)
+  - [Bare Metal Installation](#bare-metal-installation-2)
+  - [Docker Installation](#docker-installation-3)
 - [Permissions](#permissions)
 - [Changelog](#changelog)
 - [Translation Status](#translation-status)
@@ -101,16 +114,18 @@ ______________________________________________________________________
 - AA SRP needs [Eve Universe] to function. Please make sure it is installed, before
   continuing.
 
-### Step 1: Install the Package<a name="step-1-install-the-package"></a>
+### Bare Metal Installation<a name="bare-metal-installation"></a>
+
+#### Step 1: Install the Package<a name="step-1-install-the-package"></a>
 
 Make sure you're in the virtual environment (venv) of your Alliance Auth
 installation Then install the latest release directly from PyPi.
 
 ```shell
-pip install aa-srp
+pip install aa-srp==2.12.2
 ```
 
-### Step 2: Configure Alliance Auth<a name="step-2-configure-alliance-auth"></a>
+#### Step 2: Configure Alliance Auth<a name="step-2-configure-alliance-auth"></a>
 
 This is fairly simple, just add the following to the `INSTALLED_APPS` of your `local.py`
 
@@ -119,7 +134,7 @@ Configure your AA settings (`local.py`) as follows:
 - Add `"eveuniverse",` to `INSTALLED_APPS`
 - Add `"aasrp",` to `INSTALLED_APPS`
 
-### Step 3: Finalizing the Installation<a name="step-3-finalizing-the-installation"></a>
+#### Step 3: Finalizing the Installation<a name="step-3-finalizing-the-installation"></a>
 
 Run static files collection and migrations
 
@@ -130,7 +145,7 @@ python manage.py migrate
 
 Restart your supervisor services for Auth
 
-### Step 4: Preload Eve Universe Data<a name="step-4-preload-eve-universe-data"></a>
+#### Step 4: Preload Eve Universe Data<a name="step-4-preload-eve-universe-data"></a>
 
 AA SRP utilizes the EveUniverse module, so it doesn't need to ask ESI for ship
 information. To set this up, you now need to run the following command.
@@ -139,30 +154,86 @@ information. To set this up, you now need to run the following command.
 python manage.py aasrp_load_eve
 ```
 
-### Step 5: Setting up Permissions<a name="step-5-setting-up-permissions"></a>
+### Docker Installation<a name="docker-installation"></a>
+
+#### Step 1: Add the App<a name="step-1-add-the-app"></a>
+
+Add the app to your `conf/requirements.txt`
+
+```requirements
+aa-srp==2.12.2
+```
+
+#### Step 2: Update Your AA Settings<a name="step-2-update-your-aa-settings"></a>
+
+Configure your AA settings as (`conf/local.py`) follows:
+
+- Add `"eveuniverse",` to `INSTALLED_APPS` if not already done
+- Add `"aasrp",` to `INSTALLED_APPS`
+
+#### Step 3: Build Auth and Restart Your Containers<a name="step-3-build-auth-and-restart-your-containers"></a>
+
+```shell
+docker compose build --no-cache
+docker compose --env-file=.env up -d
+```
+
+#### Step 4: Finalizing the Installation<a name="step-4-finalizing-the-installation"></a>
+
+Run migrations, copy static files and load EVE universe data:
+
+```shell
+docker compose exec allianceauth_gunicorn bash
+
+auth collectstatic
+auth migrate
+auth aasrp_load_eve
+```
+
+### Common Installation Steps<a name="common-installation-steps"></a>
+
+#### Setting up Permissions<a name="setting-up-permissions"></a>
 
 Now it's time to set up access permissions for your new SRP module. You can do so in
 your admin backend in the AA SRP section. Read the [Permissions](#permissions)
 section for more information about the available permissions.
 
-### Step 6: (Optional) Import From Built-in SRP Module<a name="step-6-optional-import-from-built-in-srp-module"></a>
+#### (Optional) Import From Built-in SRP Module<a name="optional-import-from-built-in-srp-module"></a>
 
-**This step is only needed when you have been using the built-in SRP module until now.**
+> [!NOTE]
+>
+> This step is only needed when you have been using the built-in SRP module until now.
+>
+> The import process can be done at any given time and doesn't necessarily have to be during the installation.
 
-Make sure you don't have any open SRP requests before. All SRP links in the built-in
-module will be closed during the import process, to make sure to not import any
-duplicates.
+> [!IMPORTANT]
+>
+> Make sure you don't have any open SRP requests before. All SRP links in the built-in
+> module will be closed during the import process, to make sure to not import any
+> duplicates.
 
-The import process can be done at any given time and doesn't necessarily have to be
-during the installation.
+To import your SRP information from the built-in SRP module, run the following:
 
-To import your SRP information from the built-in SRP module, run the following command.
+##### Bare Metal Installation<a name="bare-metal-installation-1"></a>
 
 ```shell
 python manage.py aasrp_migrate_srp_data
 ```
 
-### Step 7: (Optional) Settings for Discord Proxy (If Used)<a name="step-7-optional-settings-for-discord-proxy-if-used"></a>
+##### Docker Installation<a name="docker-installation-1"></a>
+
+```shell
+docker compose exec allianceauth_gunicorn bash
+
+auth aasrp_migrate_srp_data
+```
+
+#### (Optional) Settings for Discord Proxy (If Used)<a name="optional-settings-for-discord-proxy-if-used"></a>
+
+> [!NOTE]
+>
+> This step is only needed if you want to use Discord notifications and have
+> [Discord Proxy] installed.
 
 If you are using [Discord Proxy] to send Discord messages, you can configure the host and port in your `local.py` settings.
 
@@ -170,6 +241,60 @@ If you are using [Discord Proxy] to send Discord messages, you can configure the
 | ------------------- | ------------------------------------------------ | ----------- |
 | `DISCORDPROXY_HOST` | Hostname used to communicate with Discord Proxy. | `localhost` |
 | `DISCORDPROXY_PORT` | Port used to communicate with Discord Proxy.     | `50051`     |
+
+##### Docker Installation<a name="docker-installation-2"></a>
+
+If you have [Discord Proxy] installed via Docker ([see here](https://discordproxy.readthedocs.io/en/latest/operations.html#docker-aa4)), you should set the
+following:
+
+```python
+DISCORDPROXY_HOST = "allianceauth_discordproxy"
+```
+
+## Updating<a name="updating"></a>
+
+### Bare Metal Installation<a name="bare-metal-installation-2"></a>
+
+To update your existing installation of AA SRP, first enable your virtual environment
+(venv) of your Alliance Auth installation.
+
+Then run the following command to update AA SRP to the latest version.
+
+```shell
+pip install aa-srp==2.12.2
+
+python manage.py collectstatic
+python manage.py migrate
+
+redis-cli flushall
+```
+
+Restart your supervisor services for Auth.
+
+### Docker Installation<a name="docker-installation-3"></a>
+
+To update your existing installation of AA SRP, first update the version in your
+`conf/requirements.txt` to the latest version.
+
+```requirements
+aa-srp==2.12.2
+```
+
+Then build your Auth container and restart your containers.
+
+```shell
+docker compose build
+docker compose --env-file=.env up -d
+```
+
+After that, run the following commands to update your database and static files:
+
+```shell
+docker compose exec allianceauth_gunicorn bash
+
+auth collectstatic
+auth migrate
+```
 
 ## Permissions<a name="permissions"></a>
 

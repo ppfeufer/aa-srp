@@ -45,6 +45,7 @@ Section Order:
 
 ### Added
 
+- Docker install and update instructions
 - Check for missing trailing slashes in killmail URLs and add them if necessary ([#348](https://github.com/ppfeufer/aa-srp/issues/348))
 
 ### Fixed
