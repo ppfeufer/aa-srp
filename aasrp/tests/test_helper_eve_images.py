@@ -52,7 +52,7 @@ class TestGetTypeRenderUrlFromTypeId(TestCase):
 
         self.assertIn('<img class="aasrp-evetype-icon rounded"', result)
         self.assertIn(f'src="{type_render_url(type_id=evetype_id, size=size)}"', result)
-        self.assertNotIn('alt="', result)
+        self.assertIn('alt=""', result)
         self.assertIn('loading="lazy"', result)
 
     def test_type_render_url_as_plain_url(self):

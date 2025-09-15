@@ -1,5 +1,6 @@
 """
 SRP Manager
+This module contains custom managers for handling SRP (Ship Replacement Program) requests and settings.
 """
 
 # Standard Library
@@ -22,23 +23,25 @@ from aasrp import __title__
 from aasrp.constants import KILLBOARD_DATA, UserAgent
 from aasrp.providers import esi
 
+# Initialize a logger with a custom tag for the AA-SRP module
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
 class SrpRequestManager(models.Manager):
     """
-    SrpRequestManager
+    Custom manager for handling SRP requests.
+    Provides methods to interact with zKillboard and ESI for retrieving killmail data.
     """
 
     @staticmethod
     def get_kill_id(killboard_link: str) -> str:
         """
-        Get killmail ID from zKillboard link
+        Extract the killmail ID from a killboard link.
 
-        :param killboard_link:
-        :type killboard_link:
-        :return:
-        :rtype:
+        :param killboard_link: The killboard link containing the killmail ID.
+        :type killboard_link: str
+        :return: The extracted killmail ID.
+        :rtype: str
         """
 
         num_set = "0123456789"
@@ -49,12 +52,13 @@ class SrpRequestManager(models.Manager):
     @staticmethod
     def get_zkillboard_data(kill_id: str) -> dict:
         """
-        Get killmail hash from zKillboard
+        Retrieve killmail data from the zKillboard API.
 
-        :param kill_id:
-        :type kill_id:
-        :return:
-        :rtype:
+        :param kill_id: The ID of the killmail to fetch.
+        :type kill_id: str
+        :return: The killmail data retrieved from zKillboard.
+        :rtype: dict
+        :raises ValueError: If no data or hash is found in the API response.
         """
 
         zkillboard_api_url = KILLBOARD_DATA["zKillboard"]["api_url"]
@@ -105,14 +109,14 @@ class SrpRequestManager(models.Manager):
     @staticmethod
     def get_kill_data(killmail_id: str, loss_value_field: str) -> tuple[int, int, int]:
         """
-        Get kill data from zKillboard
+        Retrieve detailed killmail data, including ship type, loss value, and victim ID.
 
-        :param killmail_id:
-        :type killmail_id:
-        :param loss_value_field:
-        :type loss_value_field:
-        :return:
-        :rtype:
+        :param killmail_id: The ID of the killmail to fetch.
+        :type killmail_id: str
+        :param loss_value_field: The field name for the loss value in the zKillboard data.
+        :type loss_value_field: str
+        :return: A tuple containing the ship type ID, loss value, and victim character ID.
+        :rtype: tuple[int, int, int]
         """
 
         zkillboard_data = SrpRequestManager.get_zkillboard_data(kill_id=killmail_id)
@@ -139,12 +143,12 @@ class SrpRequestManager(models.Manager):
     @staticmethod
     def get_insurance_for_ship_type(ship_type_id: int) -> dict | None:
         """
-        Getting insurance for a given ship type ID from ESI
+        Retrieve insurance details for a given ship type ID from the ESI.
 
-        :param ship_type_id:
-        :type ship_type_id:
-        :return:
-        :rtype:
+        :param ship_type_id: The ID of the ship type to fetch insurance for.
+        :type ship_type_id: int
+        :return: The insurance details for the ship type, or None if not found.
+        :rtype: dict | None
         """
 
         insurance = next(
@@ -161,19 +165,17 @@ class SrpRequestManager(models.Manager):
 
 class SettingQuerySet(models.QuerySet):
     """
-    SettingQuerySet
+    Custom queryset for managing settings.
+    Overrides the delete method to prevent deletion of settings.
     """
 
     def delete(self):
         """
-        Delete action
+        Override the delete method to prevent deletion of settings.
+        Instead, the object is updated and not deleted.
 
-        Override:
-            We don't allow deletion here, so we make sure the object
-            is saved again and not deleted
-
-        :return:
-        :rtype:
+        :return: The result of the update operation.
+        :rtype: int
         """
 
         return super().update()
@@ -181,27 +183,28 @@ class SettingQuerySet(models.QuerySet):
 
 class SettingManager(models.Manager):
     """
-    SettingManager
+    Custom manager for handling application settings.
+    Provides methods to retrieve and manage settings.
     """
 
     def get_setting(self, setting_key: str) -> Any:
         """
-        Return the value for given setting key
+        Retrieve the value of a specific setting by its key.
 
-        :param setting_key:
-        :type setting_key:
-        :return:
-        :rtype:
+        :param setting_key: The key of the setting to retrieve.
+        :type setting_key: str
+        :return: The value of the setting.
+        :rtype: Any
         """
 
         return getattr(self.first(), setting_key)
 
     def get_queryset(self) -> SettingQuerySet:
         """
-        Get a Setting queryset
+        Retrieve the custom queryset for managing settings.
 
-        :return:
-        :rtype:
+        :return: A SettingQuerySet instance.
+        :rtype: SettingQuerySet
         """
 
         return SettingQuerySet(self.model)

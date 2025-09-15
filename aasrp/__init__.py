@@ -1,5 +1,6 @@
 """
-App init
+App initialization module for the AA-SRP application.
+This module defines metadata and constants for the Ship Replacement Program (SRP) app.
 """
 
 # Django
