@@ -1,5 +1,5 @@
 """
-Some helper functions, so we don't mess up other files too much
+This module provides helper functions for working with Eve characters.
 """
 
 # Django
@@ -24,74 +24,80 @@ def get_formatted_character_name(
     inline: bool = True,
 ) -> str:
     """
-    Get character name with alliance and corp ticker
+    Generate a formatted string for an Eve character's name, including optional alliance and corporation tickers,
+    and optionally include a portrait image and/or a copy-to-clipboard icon.
 
-    :param character:
-    :type character:
-    :param with_portrait:
-    :type with_portrait:
-    :param with_copy_icon:
-    :type with_copy_icon:
-    :param portrait_size:
-    :type portrait_size:
-    :param inline:
-    :type inline:
-    :return:
-    :rtype:
+    :param character: The Eve character object containing character details.
+    :type character: EveCharacter
+    :param with_portrait: Whether to include the character's portrait in the output.
+    :type with_portrait: bool, optional
+    :param with_copy_icon: Whether to include a copy-to-clipboard icon for the character's name.
+    :type with_copy_icon: bool, optional
+    :param portrait_size: The size of the portrait image, if included.
+    :type portrait_size: int, optional
+    :param inline: Whether the portrait and name should be displayed inline.
+    :type inline: bool, optional
+    :return: A formatted HTML string representing the character's name and optional elements.
+    :rtype: str
     """
 
-    try:
-        character_name = character.character_name
-    except AttributeError:
-        character_name = _("Unknown character")
+    # Get the character's name, defaulting to "Unknown character" if not available
+    character_name = getattr(character, "character_name", _("Unknown character"))
 
+    # If the character name is unknown, return a simple HTML span with the name
+    if character_name == _("Unknown character"):
         return (
             "<span class='aasrp-character-portrait-character-name d-inline-block align-middle'>"
             f"{character_name}"
             "</span>"
         )
 
-    character__corporation_ticker = (
+    # Format the corporation and alliance tickers, if available
+    corporation_ticker = (
         f"[{character.corporation_ticker}] " if character.corporation_ticker else ""
     )
-    character__alliance_ticker = (
+    alliance_ticker = (
         f"{character.alliance_ticker} " if character.alliance_ticker else ""
     )
+
+    # Combine the tickers and character name into a formatted string
     character_name_formatted = (
-        "<small class='text-muted'>"
-        f"{character__alliance_ticker}{character__corporation_ticker}</small>"
+        f"<small class='text-muted'>{alliance_ticker}{corporation_ticker}</small>"
         f"<br>{character_name}"
     )
 
+    # Add a copy-to-clipboard icon if requested
     if with_copy_icon:
-        title = _("Copy character name to clipboard")
-        copy_icon = copy_to_clipboard_icon(data=character_name, title=title)
+        copy_icon = copy_to_clipboard_icon(
+            data=character_name, title=_("Copy character name to clipboard")
+        )
         character_name_formatted += f"<sup>{copy_icon}</sup>"
 
+    # Add the character's portrait if requested
     if with_portrait:
         line_break = "<br>" if not inline else ""
-        character_portrait_html = get_character_portrait_from_evecharacter(
-            character=character, size=portrait_size, as_html=True
+        portrait_html = get_character_portrait_from_evecharacter(
+            character, size=portrait_size, as_html=True
         )
 
-        return (
-            f"{character_portrait_html}{line_break}"
-            "<span class='aasrp-character-portrait-character-name d-inline-block align-middle'>"
-            f"{character_name_formatted}"
-            "</span>"
-        )
+        return f"{portrait_html}{line_break}<span class='aasrp-character-portrait-character-name d-inline-block align-middle'>{character_name_formatted}</span>"
 
+    # Return the formatted character name
     return character_name_formatted
 
 
 def get_main_for_character(character: EveCharacter) -> EveCharacter | None:
     """
-    Get the main character for a given eve character
+    Retrieve the main character associated with a given Eve character.
 
-    :param character:
-    :type character:
-    :return:
-    :rtype:
+    This function attempts to access the main character linked to the provided Eve character
+    through the character's ownership and user profile. If any of the required relationships
+    or attributes are missing, it returns `None`.
+
+    :param character: The Eve character object for which to find the main character.
+    :type character: EveCharacter
+    :return: The main character associated with the given Eve character, or `None` if not found.
+    :rtype: EveCharacter | None
     """
 
     try:
@@ -106,12 +112,16 @@ def get_main_for_character(character: EveCharacter) -> EveCharacter | None:
 
 def get_user_for_character(character: EveCharacter) -> User:
     """
-    Get the user for a character
+    Retrieve the user associated with a given Eve character.
 
-    :param character:
-    :type character:
-    :return:
-    :rtype:
+    This function attempts to access the user linked to the provided Eve character
+    through the character's ownership and user profile. If any of the required relationships
+    or attributes are missing, it returns a sentinel user.
+
+    :param character: The Eve character object for which to find the associated user.
+    :type character: EveCharacter
+    :return: The user associated with the given Eve character, or a sentinel user if not found.
+    :rtype: User
     """
 
     try:

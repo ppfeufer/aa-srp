@@ -1,5 +1,9 @@
 """
-Migrate srp data from the built-in SRP module
+Migrate srp data from the built-in SRP module.
+
+This script defines a Django management command to migrate SRP (Ship Replacement Program) data
+from the built-in SRP module to the AA SRP module. It handles the migration of SRP fleets and
+their associated requests, ensuring data integrity and avoiding duplication.
 """
 
 # Django
@@ -19,7 +23,12 @@ from aasrp.models import RequestComment, Setting, SrpLink, SrpRequest
 
 def get_input(text):
     """
-    Wrapped input to migrate srp data
+    Wrapped input function to prompt the user during the migration process.
+
+    :param text: The text to display as the input prompt.
+    :type text: str
+    :return: The user's input.
+    :rtype: str
     """
 
     return input(text)
@@ -27,19 +36,25 @@ def get_input(text):
 
 class Command(BaseCommand):
     """
-    Migrate SRP data from the built-in SRP module
+    Django management command to migrate SRP data from the built-in SRP module.
+
+    This command migrates SRP fleets and their associated requests, ensuring that
+    all data is properly transferred to the AA SRP module. It also marks migrated
+    SRP links as completed to prevent duplication.
     """
 
     help = "Migrate SRP data from the built-in SRP module"
 
-    def _migrate_srp_data(  # pylint: disable=too-many-locals, too-many-statements
-        self,
-    ) -> None:
+    def _migrate_srp_data(self):  # pylint: disable=too-many-locals, too-many-statements
         """
-        Migrate srp data from the built-in SRP module
+        Perform the migration of SRP data.
 
-        :return:
-        :rtype:
+        This method migrates SRP fleets and their associated requests from the built-in
+        SRP module to the AA SRP module. It ensures that all necessary fields are properly
+        mapped and handles cases where data might be missing or invalid.
+
+        :return: None
+        :rtype: None
         """
 
         srp_links_migrated = 0
@@ -50,48 +65,44 @@ class Command(BaseCommand):
         self.stdout.write("Migrating SRP fleets ...")
         srp_fleets = SrpFleetMain.objects.all()
 
+        # Retrieve the loss value field setting
         loss_value_field = Setting.objects.get_setting(Setting.Field.LOSS_VALUE_SOURCE)
 
         for srp_fleet in srp_fleets:
-            # Let's see if the creator is still valid
-            # Returns None when the creators account has been deleted
-            # and no sentinel user can be created or obtained
-            # in this case, we cannot create the fleet again
+            # Check if the fleet creator is valid
             srp_fleet_creator = get_user_for_character(
                 character=srp_fleet.fleet_commander
             )
 
             if srp_fleet_creator is not None:
+                # Extract fleet details
                 srp_fleet_commander = srp_fleet.fleet_commander
                 srp_fleet_name = srp_fleet.fleet_name
                 srp_fleet_doctrine = srp_fleet.fleet_doctrine
                 srp_fleet_time = srp_fleet.fleet_time
                 srp_fleet_aar_link = srp_fleet.fleet_srp_aar_link
 
-                # Fix srp status
+                # Determine the SRP fleet status
                 srp_fleet_status = SrpLink.Status.ACTIVE
                 if srp_fleet.fleet_srp_status == "Completed":
                     srp_fleet_status = SrpLink.Status.COMPLETED
 
                 if srp_fleet.fleet_srp_code == "":
                     srp_fleet_status = SrpLink.Status.CLOSED
-
-                    # Also fix the missing SRP code, we need it!
-                    srp_fleet.fleet_srp_code = get_random_string(
-                        length=8  # 8 chars only because it's an old SRP link
-                    )
+                    srp_fleet.fleet_srp_code = get_random_string(length=8)
 
                 srp_fleet_srp_code = srp_fleet.fleet_srp_code
 
                 self.stdout.write(f"Migrating SRP fleet {srp_fleet_srp_code} …")
 
                 try:
+                    # Check if the SRP link already exists
                     srp_link = SrpLink.objects.get(srp_code=srp_fleet_srp_code)
 
                     srp_links_skipped += 1
                 except SrpLink.DoesNotExist:
+                    # Create a new SRP link
                     srp_link = SrpLink()
-
                     srp_link.srp_name = srp_fleet_name
                     srp_link.srp_status = srp_fleet_status
                     srp_link.srp_code = srp_fleet_srp_code
@@ -102,25 +113,19 @@ class Command(BaseCommand):
                     srp_link.creator = srp_fleet_creator
                     srp_link.save()
 
-                    # Mark the migrated SRP link as COMPLETED and save the object
                     srp_fleet.fleet_srp_status = "Completed"
                     srp_fleet.save()
 
                     srp_links_migrated += 1
 
-                    # get the new srp link object
-                    srp_link = SrpLink.objects.get(srp_code=srp_fleet_srp_code)
-
                 self.stdout.write(
                     f"Migrating SRP requests for SRP fleet {srp_fleet_srp_code} ..."
                 )
+
                 srp_userrequests = srp_fleet.srpuserrequest_set.all()
 
                 for srp_userrequest in srp_userrequests:
-                    # Let's see if the creator is still valid
-                    # Returns None when the creators' account has been deleted
-                    # and no sentinel user can be created or obtained
-                    # in this case, we cannot create the request again
+                    # Check if the request creator is valid
                     srp_userrequest_creator = get_user_for_character(
                         character=srp_userrequest.character
                     )
@@ -132,12 +137,14 @@ class Command(BaseCommand):
                         srp_userrequest_killboard_link = srp_userrequest.killboard_link
 
                         try:
+                            # Check if the SRP request already exists
                             SrpRequest.objects.get(
                                 killboard_link=srp_userrequest_killboard_link
                             )
 
                             srp_requests_skipped += 1
                         except SrpRequest.DoesNotExist:
+                            # Create a new SRP request
                             srp_userrequest_additional_info = (
                                 srp_userrequest.additional_info
                             )
@@ -191,7 +198,7 @@ class Command(BaseCommand):
                             srp_request.srp_link = srp_userrequest_srp_link
                             srp_request.save()
 
-                            # add request info to comments
+                            # Add request info as a comment
                             srp_request_comment = RequestComment()
                             srp_request_comment.comment = (
                                 srp_userrequest_additional_info
@@ -213,14 +220,17 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):  # pylint: disable=unused-argument
         """
-        Ask before running ...
+        Prompt the user and execute the migration process.
 
-        :param args:
-        :type args:
-        :param options:
-        :type options:
-        :return:
-        :rtype:
+        This method asks the user for confirmation before starting the migration process.
+        If the user confirms, it calls the `_migrate_srp_data` method to perform the migration.
+
+        :param args: Positional arguments passed to the command.
+        :type args: tuple
+        :param options: Keyword arguments passed to the command.
+        :type options: dict
+        :return: None
+        :rtype: None
         """
 
         self.stdout.write(
