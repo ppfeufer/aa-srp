@@ -306,8 +306,6 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         ship_type_id=ship_type_id
     )
 
-    logger.debug(msg=f"Insurance information from ESI: {insurance_information}")
-
     Insurance.objects.bulk_create(
         [
             Insurance(
@@ -384,8 +382,6 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
     if request.method == "POST":
         # Create a form instance and populate it with data from the request.
         form = SrpRequestForm(data=request.POST)
-
-        logger.debug(msg=f"Request type POST contains form data: {request.POST}")
 
         logger.debug(msg=f"Request type POST contains valid form: {form.is_valid()}")
 
