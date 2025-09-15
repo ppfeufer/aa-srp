@@ -1,5 +1,9 @@
 """
 AA-SRP Ajax URLs
+
+This module defines the URL patterns for the AJAX endpoints in the AA-SRP application. These endpoints
+are used to handle asynchronous requests for managing SRP (Ship Replacement Program) links and requests.
+Each URL pattern is associated with a specific view function that processes the corresponding AJAX request.
 """
 
 # Django
@@ -27,7 +31,7 @@ urls = [
                     name="ajax_dashboard_srp_links_all_data",
                 ),
                 path(
-                    # Get all SRP request for the current user
+                    # Get all SRP requests for the current user
                     route="user-srp-requests-data/",
                     view=ajax.dashboard_user_srp_requests_data,
                     name="ajax_dashboard_user_srp_requests_data",
@@ -39,7 +43,7 @@ urls = [
                     name="ajax_srp_link_view_requests_data",
                 ),
                 path(
-                    # Get addition information for the current SRP request
+                    # Get additional information for the current SRP request
                     route=(
                         "srp-link/<str:srp_code>/srp-request/"
                         "<str:srp_request_code>/view-additional-information-data/"

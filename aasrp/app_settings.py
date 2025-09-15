@@ -1,5 +1,7 @@
 """
-App settings
+App settings for the AA-SRP application.
+This module defines configuration settings and utility functions for interacting with
+Discord Proxy and checking the installation status of related Alliance Auth apps.
 """
 
 # Django
@@ -18,10 +20,10 @@ DISCORDPROXY_TIMEOUT = getattr(settings, "DISCORDPROXY_TIMEOUT", 300)
 
 def allianceauth_discordbot_installed() -> bool:
     """
-    Check if allianceauth-discordbot is installed and active
+    Check if the 'allianceauth-discordbot' app is installed and active.
 
-    :return:
-    :rtype:
+    :return: True if the app is installed, False otherwise.
+    :rtype: bool
     """
 
     return apps.is_installed(app_name="aadiscordbot")
@@ -29,10 +31,10 @@ def allianceauth_discordbot_installed() -> bool:
 
 def aa_discordnotify_installed() -> bool:
     """
-    Check if allianceauth-discordbot is installed and active
+    Check if the 'discordnotify' app is installed and active.
 
-    :return:
-    :rtype:
+    :return: True if the app is installed, False otherwise.
+    :rtype: bool
     """
 
     return apps.is_installed(app_name="discordnotify")
@@ -40,10 +42,10 @@ def aa_discordnotify_installed() -> bool:
 
 def discordproxy_installed() -> bool:
     """
-    Check if discordproxy is installed by trying to import the DiscordClient
+    Check if the 'discordproxy' service is installed by attempting to import the DiscordClient.
 
-    :return:
-    :rtype:
+    :return: True if the DiscordClient can be imported, False otherwise.
+    :rtype: bool
     """
 
     try:

@@ -1,5 +1,12 @@
 """
 Handling Discord direct messages to a user
+
+This module provides functionality to send direct messages to users on Discord.
+It supports multiple methods for sending messages, including `discordproxy` and
+`allianceauth-discordbot`, and falls back to available options if one method fails.
+
+The module also integrates with Alliance Auth notifications to ensure users are
+notified both within the application and on Discord, if applicable.
 """
 
 # pylint: disable=import-outside-toplevel, duplicate-code
@@ -41,25 +48,30 @@ def _aadiscordbot_send_private_message(
     level: str = "info",
 ) -> None:
     """
-    Try to send a PM to a user on Discord via allianceauth-discordbot
+    Send a private message to a user on Discord using allianceauth-discordbot.
 
-    :param user_id:
-    :type user_id:
-    :param title:
-    :type title:
-    :param message:
-    :type message:
-    :param embed_message:
-    :type embed_message:
-    :param level:
-    :type level:
-    :return:
-    :rtype:
+    This function attempts to send a private message to a Discord user via the
+    allianceauth-discordbot integration. It supports both embedded and plain text
+    messages. If the integration is not available, the function logs the unavailability
+    and does not send the message.
+
+    :param user_id: The Discord user ID of the recipient.
+    :type user_id: int
+    :param title: The title of the message.
+    :type title: str
+    :param message: The content of the message.
+    :type message: str
+    :param embed_message: Whether to send the message as an embed (default: True).
+    :type embed_message: bool
+    :param level: The severity level of the message (e.g., "info", "warning").
+    :type level: str
+    :return: None
+    :rtype: None
     """
 
     if allianceauth_discordbot_installed():
         logger.debug(
-            msg="allianceauth-discordbot is active, trying to send private message"
+            "allianceauth-discordbot is active, trying to send private message"
         )
 
         # Third Party
@@ -67,22 +79,19 @@ def _aadiscordbot_send_private_message(
         from discord import Embed
 
         embed = Embed(
-            title=str(title),
+            title=title,
             description=message,
             color=DISCORD_EMBED_COLOR_MAP.get(level),
             timestamp=datetime.now(),
         )
 
-        if embed_message is True:
-            send_message(user_id=user_id, embed=embed)
-        else:
-            send_message(user_id=user_id, message=f"**{title}**\n\n{message}")
+        send_message(
+            user_id=user_id,
+            embed=embed if embed_message else f"**{title}**\n\n{message}",
+        )
     else:
         logger.debug(
-            msg=(
-                "allianceauth-discordbot is not available on this "
-                "system to send the private message"
-            )
+            "allianceauth-discordbot is not available to send the private message"
         )
 
 
@@ -94,63 +103,63 @@ def _discordproxy_send_private_message(
     level: str = "info",
 ):
     """
-    Try to send a PM to a user on Discord via discordproxy
-    (fall back to allianceauth-discordbot if needed)
+    Try to send a private message (PM) to a user on Discord via discordproxy.
+    If discordproxy fails, it falls back to allianceauth-discordbot.
 
-    :param user_id:
-    :type user_id:
-    :param title:
-    :type title:
-    :param message:
-    :type message:
-    :param embed_message:
-    :type embed_message:
-    :param level:
-    :type level:
-    :return:
-    :rtype:
+    :param user_id: The Discord user ID of the recipient.
+    :type user_id: int
+    :param title: The title of the message.
+    :type title: str
+    :param message: The content of the message.
+    :type message: str
+    :param embed_message: Whether to send the message as an embed (default: True).
+    :type embed_message: bool
+    :param level: The severity level of the message (e.g., "info", "warning").
+    :type level: str
+    :return: None
+    :rtype: None
     """
 
+    # Import the Discord client and exception classes from discordproxy
     # Third Party
     from discordproxy.client import DiscordClient
     from discordproxy.exceptions import DiscordProxyException
 
+    # Define the target address for the discordproxy client
     target = f"{DISCORDPROXY_HOST}:{DISCORDPROXY_PORT}"
     client = DiscordClient(target=target, timeout=DISCORDPROXY_TIMEOUT)
 
     try:
-        logger.debug(msg="Trying to send a direct message via discordproxy")
+        # Log the attempt to send a direct message via discordproxy
+        logger.debug("Trying to send a direct message via discordproxy")
 
-        if embed_message is True:
+        if embed_message:
+            # Import the Embed class for creating embedded messages
             # Third Party
             from discordproxy.discord_api_pb2 import Embed
 
-            footer = Embed.Footer(text=str(__title__))
+            # Create an embedded message with the provided details
             embed = Embed(
-                title=str(title),
+                title=title,
                 description=message,
                 color=DISCORD_EMBED_COLOR_MAP.get(level),
                 timestamp=timezone.now().isoformat(),
-                footer=footer,
+                footer=Embed.Footer(text=__title__),
             )
-
+            # Send the embedded message to the user
             client.create_direct_message(user_id=user_id, embed=embed)
         else:
+            # Send a plain text message to the user
             client.create_direct_message(
                 user_id=user_id, content=f"**{title}**\n\n{message}"
             )
     except DiscordProxyException as ex:
-        # Something went wrong with discordproxy
-        # Fail silently and try if allianceauth-discordbot is available
-        # as a last ditch effort to get the message out to Discord
+        # Log the error and attempt to send the message using allianceauth-discordbot
         logger.debug(
-            msg=(
-                "Something went wrong with discordproxy, "
-                "cannot send a direct message, trying allianceauth-discordbot "
-                f"to send the message if available. Error: {ex}"
-            )
+            "Something went wrong with discordproxy, cannot send a direct message. "
+            "Trying allianceauth-discordbot if available. Error: %s",
+            ex,
         )
-
         _aadiscordbot_send_private_message(
             user_id=user_id,
             level=level,
@@ -168,38 +177,45 @@ def send_user_notification(
     level: str = "info",
 ) -> None:
     """
-    Send notification to user
-    This creates a notification in Auth and a PM in Discord when either
-    Discordproxy, AA-Discordbot or AA Discord Notifications is installed
+    Send a notification to a user.
 
-    :param user:
-    :type user:
-    :param title:
-    :type title:
-    :param message:
-    :type message:
-    :param embed_message:
-    :type embed_message:
-    :param level:
-    :type level:
-    :return:
-    :rtype:
+    This function creates a notification in Alliance Auth and sends a private message
+    (PM) on Discord if the user has a Discord account. It uses one of the following
+    methods for sending Discord messages:
+    - `discordproxy`
+    - `allianceauth-discordbot`
+    - `AA Discord Notifications`
+
+    If `discordproxy` and `allianceauth-discordbot` are unavailable, the function logs
+    the failure and does not send the message.
+
+    :param user: The user to whom the notification will be sent.
+    :type user: User
+    :param title: The title of the notification/message.
+    :type title: str
+    :param message: A dictionary containing the message content for Alliance Auth and Discord. Keys: "allianceauth", "discord".
+    :type message: dict[str, str]
+    :param embed_message: Whether to send the Discord message as an embed (default: True).
+    :type embed_message: bool
+    :param level: The severity level of the notification (e.g., "info", "warning"). Default is "info".
+    :type level: str
+    :return: None
+    :rtype: None
     """
 
+    # Send a notification within Alliance Auth if the "allianceauth" message is provided
     if message["allianceauth"]:
         getattr(notify, level)(user=user, title=title, message=message["allianceauth"])
 
-    # Handle Discord PMs when aa_discordnotify is not active
-    # Check if either allianceauth_discordbot or discordproxy are available
-    # to send the PM
-    if hasattr(user, "discord"):  # Check if the user has a Discord account
-        logger.debug(msg="User has a Discord account")
+    # Check if the user has a Discord account
+    if hasattr(user, "discord"):
+        logger.debug("User has a Discord account")
 
-        # Check if discordnotify is active
+        # Check if AA Discord Notifications is not installed
         if not aa_discordnotify_installed():
+            # Use discordproxy if available
             if discordproxy_installed():
-                logger.debug(msg="discordproxy seems to be available ...")
-
+                logger.debug("discordproxy seems to be available ...")
                 _discordproxy_send_private_message(
                     user_id=int(user.discord.uid),
                     level=level,
@@ -208,15 +224,10 @@ def send_user_notification(
                     embed_message=embed_message,
                 )
             else:
-                # discordproxy not available, try if allianceauth-discordbot is
-                # available
+                # Fall back to allianceauth-discordbot if discordproxy is unavailable
                 logger.debug(
-                    msg=(
-                        "discordproxy not available to send a direct message, "
-                        "let's see if we can use allianceauth-discordbot if available"
-                    )
+                    "discordproxy not available, trying allianceauth-discordbot if available"
                 )
-
                 _aadiscordbot_send_private_message(
                     user_id=int(user.discord.uid),
                     level=level,
@@ -225,10 +236,8 @@ def send_user_notification(
                     embed_message=embed_message,
                 )
         else:
-            logger.debug(
-                msg="discordnotify is active, we don't have to send the PM ourself."
-            )
+            # Log that AA Discord Notifications is active
+            logger.debug("discordnotify is active, no need to send the PM ourselves.")
     else:
-        logger.debug(
-            msg="User doesn't have a Discord account, can't send any messages ..."
-        )
+        # Log that the user does not have a Discord account
+        logger.debug("User doesn't have a Discord account, can't send any messages ...")

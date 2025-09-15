@@ -1,5 +1,7 @@
 """
-User helper
+User helper module.
+
+This module provides utility functions for working with user-related data in the AA SRP application.
 """
 
 # Django
@@ -11,12 +13,15 @@ from aasrp.models import UserSetting
 
 def get_user_settings(user: User) -> UserSetting:
     """
-    Get a user's settings or create them
+    Retrieve or create a user's settings.
 
-    :param user:
-    :type user:
-    :return:
-    :rtype:
+    This function fetches the settings associated with a given user. If the settings do not exist,
+    they are created automatically.
+
+    :param user: The user object for which settings are to be retrieved or created.
+    :type user: User
+    :return: The user's settings object.
+    :rtype: UserSetting
     """
 
     return UserSetting.objects.get_or_create(user=user)[0]
