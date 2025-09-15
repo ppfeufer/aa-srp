@@ -1,5 +1,6 @@
 """
-Hook into AA
+Hook into Alliance Auth to register menu items and URLs for the AA-SRP application.
+This module defines hooks for integrating the AA-SRP module with the Alliance Auth framework.
 """
 
 # Alliance Auth
@@ -13,11 +14,15 @@ from aasrp.models import SrpRequest
 
 class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
     """
-    This class ensures only authorized users will see the menu entry
+    Custom menu item hook for the AA-SRP module.
+    Ensures that only authorized users can see the menu entry in the sidebar.
     """
 
-    def __init__(self):
-        # Setup menu entry for sidebar
+    def __init__(self) -> None:
+        """
+        Initialize the menu item with its text, icon, URL, and active navigation classes.
+        """
+
         MenuItemHook.__init__(
             self,
             text=__title_translated__,
@@ -27,19 +32,20 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
         )
         self.count = None
 
-    def render(self, request):
+    def render(self, request) -> str:
         """
-        Check if the user has the permission to view this app
+        Render the menu item if the user has the required permission.
 
-        :param request:
-        :type request:
-        :return:
-        :rtype:
+        :param request: The HTTP request object.
+        :type request: HttpRequest
+        :return: The rendered menu item HTML or an empty string if the user lacks permission.
+        :rtype: str
         """
 
         if not request.user.has_perm("aasrp.basic_access"):
             return ""
 
+        # Get the count of pending SRP requests for the user
         app_count = SrpRequest.pending_requests_count_for_user(request.user)
         self.count = app_count if app_count and app_count > 0 else None
 
@@ -47,24 +53,24 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
 
 
 @hooks.register("menu_item_hook")
-def register_menu():
+def register_menu() -> AaSrpMenuItem:
     """
-    Register our menu item
+    Register the AA-SRP menu item with Alliance Auth.
 
-    :return:
-    :rtype:
+    :return: The menu item hook instance.
+    :rtype: AaSrpMenuItem
     """
 
     return AaSrpMenuItem()
 
 
 @hooks.register("url_hook")
-def register_urls():
+def register_urls() -> UrlHook:
     """
-    Register our base url
+    Register the base URL for the AA-SRP module with Alliance Auth.
 
-    :return:
-    :rtype:
+    :return: The URL hook instance.
+    :rtype: UrlHook
     """
 
     return UrlHook(urls=urls, namespace="aasrp", base_url=r"^ship-replacement/")

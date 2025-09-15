@@ -1,5 +1,9 @@
 """
 General views
+
+This module contains general views for the AA SRP application. These views handle
+various functionalities such as rendering dashboards, managing SRP links, and
+processing user requests.
 """
 
 # Django
@@ -37,24 +41,30 @@ from aasrp.helper.notification import notify_srp_team
 from aasrp.helper.user import get_user_settings
 from aasrp.models import Insurance, RequestComment, Setting, SrpLink, SrpRequest
 
+# Initialize a logger with a custom tag for the AA SRP application
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
 @permission_required("aasrp.basic_access")
 def srp_links(request: WSGIRequest, show_all_links: bool = False) -> HttpResponse:
     """
-    SRP dashboard
+    Render the SRP dashboard view.
 
-    :param request:
-    :type request:
-    :param show_all_links:
-    :type show_all_links:
-    :return:
-    :rtype:
+    This view displays the dashboard for Ship Replacement Program (SRP) links.
+    It can show either all SRP links or only the available ones, depending on the
+    `show_all_links` parameter and the user's permissions.
+
+    :param request: The HTTP request object.
+    :type request: WSGIRequest
+    :param show_all_links: Flag to indicate whether to show all SRP links or only available ones. Defaults to False.
+    :type show_all_links: bool
+    :return: The rendered SRP dashboard view.
+    :rtype: HttpResponse
     """
 
     logger_message = f"Dashboard with {'all' if show_all_links else 'available'} SRP links called by {request.user}"
 
+    # Check if the user has the required permissions to view all SRP links
     if show_all_links and not request.user.has_perm("aasrp.manage_srp"):
         messages.error(
             request=request,
@@ -65,6 +75,7 @@ def srp_links(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
 
     logger.info(msg=logger_message)
 
+    # Prepare the context for rendering the dashboard
     context = {"show_all_links": show_all_links}
 
     return render(
@@ -75,12 +86,14 @@ def srp_links(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
 @permission_required("aasrp.basic_access")
 def view_own_requests(request: WSGIRequest) -> HttpResponse:
     """
-    View own SRP requests
+    Render the view for a user's own SRP requests.
 
-    :param request:
-    :type request:
-    :return:
-    :rtype:
+    This view displays a page where the user can see their own Ship Replacement Program (SRP) requests.
+
+    :param request: The HTTP request object containing metadata about the request.
+    :type request: WSGIRequest
+    :return: The rendered HTML page displaying the user's SRP requests.
+    :rtype: HttpResponse
     """
 
     logger.info(msg=f"Own SRP requests view called by {request.user}")
@@ -91,59 +104,75 @@ def view_own_requests(request: WSGIRequest) -> HttpResponse:
 @permission_required("aasrp.basic_access")
 def user_settings(request: WSGIRequest) -> HttpResponse:
     """
-    User settings
+    Render and handle the user settings form.
 
-    :param request:
-    :type request:
-    :return:
-    :rtype:
+    This view allows users to view and update their settings. If the request method
+    is POST, it processes the submitted form data and saves the changes. Otherwise,
+    it displays the form with the current user settings.
+
+    :param request: The HTTP request object containing metadata about the request.
+    :type request: WSGIRequest
+    :return: The rendered user settings page or a redirect after saving settings.
+    :rtype: HttpResponse
     """
 
+    # Retrieve the current settings for the logged-in user
     current_user_settings = get_user_settings(user=request.user)
 
     if request.method == "POST":
+        # Populate the form with the submitted data and the current settings instance
         user_settings_form = UserSettingsForm(
             data=request.POST, instance=current_user_settings
         )
 
-        # If the form is valid, save the data to the database.
+        # If the form is valid, save the data to the database
         if user_settings_form.is_valid():
             user_settings_form.save()
 
+            # Display a success message to the user
             messages.success(request, _("Settings saved."))
 
+            # Redirect the user back to the settings page
             return redirect("aasrp:user_settings")
     else:
+        # Create a form instance pre-filled with the current user settings
         user_settings_form = UserSettingsForm(instance=current_user_settings)
 
+    # Log the access to the user settings view
     logger.info(f"User settings view called by {request.user}")
 
+    # Prepare the context for rendering the template
     context = {"user_settings_form": user_settings_form}
 
+    # Render the user settings template with the provided context
     return render(request, "aasrp/user-settings.html", context)
 
 
 @permissions_required(("aasrp.manage_srp", "aasrp.create_srp"))
 def srp_link_add(request: WSGIRequest) -> HttpResponse:
     """
-    Add a SRP link
+    Render and handle the form for adding a new SRP link.
 
-    :param request:
-    :type request:
-    :return:
-    :rtype:
+    This view allows users to create a new Ship Replacement Program (SRP) link.
+    If the request method is POST, it processes the submitted form data and saves
+    the new SRP link. Otherwise, it displays a blank form for the user to fill out.
+
+    :param request: The HTTP request object containing metadata about the request.
+    :type request: WSGIRequest
+    :return: The rendered form view or a redirect after creating the SRP link.
+    :rtype: HttpResponse
     """
 
     request_user = request.user
 
     logger.info(msg=f"Add SRP link form called by {request_user}")
 
-    # If this is a POST request, we need to process the form data.
+    # If this is a POST request, process the form data.
     if request.method == "POST":
         # Create a form instance and populate it with data from the request.
         form = SrpLinkForm(data=request.POST)
 
-        # Check whether it's valid:
+        # Check whether the form is valid.
         if form.is_valid():
             srp_name = form.cleaned_data["srp_name"]
             fleet_time = form.cleaned_data["fleet_time"]
@@ -151,6 +180,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
             fleet_doctrine = form.cleaned_data["fleet_doctrine"]
             aar_link = form.cleaned_data["aar_link"]
 
+            # Create and save the new SRP link.
             srp_link = SrpLink(
                 srp_name=srp_name,
                 fleet_time=fleet_time,
@@ -163,16 +193,18 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
             )
             srp_link.save()
 
+            # Display a success message and redirect to the SRP links page.
             messages.success(
                 request=request, message=_(f'SRP link "{srp_link.srp_code}" created')
             )
 
             return redirect(to="aasrp:srp_links")
 
-    # If a GET (or any other method) we'll create a blank form.
+    # If a GET (or any other method), create a blank form.
     else:
         form = SrpLinkForm()
 
+    # Render the form template with the provided context.
     context = {"form": form}
 
     return render(request=request, template_name="aasrp/link-add.html", context=context)
@@ -181,14 +213,19 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 @permissions_required(("aasrp.manage_srp", "aasrp.create_srp"))
 def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
-    Add or edit AAR link
+    Render and handle the form for editing an SRP link.
 
-    :param request:
-    :type request:
-    :param srp_code:
-    :type srp_code:
-    :return:
-    :rtype:
+    This view allows users to edit the After Action Report (AAR) link for a specific
+    Ship Replacement Program (SRP) link identified by its `srp_code`. If the request
+    method is POST, it processes the submitted form data and updates the SRP link.
+    Otherwise, it displays the form pre-filled with the current SRP link data.
+
+    :param request: The HTTP request object containing metadata about the request.
+    :type request: WSGIRequest
+    :param srp_code: The unique code identifying the SRP link to be edited.
+    :type srp_code: str
+    :return: The rendered form view or a redirect after updating the SRP link.
+    :rtype: HttpResponse
     """
 
     request_user = request.user
@@ -242,37 +279,45 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
     additional_info: str,
 ) -> SrpRequest:
     """
-    Saving the SRP request
+    Save a Ship Replacement Program (SRP) request.
 
-    :param request:
-    :type request:
-    :param srp_link:
-    :type srp_link:
-    :param killmail_link:
-    :type killmail_link:
-    :param ship_type_id:
-    :type ship_type_id:
-    :param ship_value:
-    :type ship_value:
-    :param victim_id:
-    :type victim_id:
-    :param additional_info:
-    :type additional_info:
-    :return:
-    :rtype:
+    This function creates and saves an SRP request based on the provided parameters.
+    It also creates associated comments and insurance entries for the request.
+
+    :param request: The HTTP request object containing metadata about the request.
+    :type request: WSGIRequest
+    :param srp_link: The SRP link associated with the request.
+    :type srp_link: SrpLink
+    :param killmail_link: The link to the killmail for the ship loss.
+    :type killmail_link: str
+    :param ship_type_id: The ID of the ship type involved in the loss.
+    :type ship_type_id: int
+    :param ship_value: The value of the lost ship.
+    :type ship_value: int
+    :param victim_id: The ID of the character who lost the ship.
+    :type victim_id: int
+    :param additional_info: Additional information provided for the SRP request.
+    :type additional_info: str
+    :return: The created SRP request object.
+    :rtype: SrpRequest
     """
 
+    # Retrieve the creator of the request and the current time
     creator = request.user
     post_time = timezone.now()
+
+    # Get the character associated with the victim ID
     srp_request__character = EveCharacter.objects.get_character_by_id(
         character_id=victim_id
     )
 
+    # Retrieve or create the ship type from ESI
     (
         srp_request__ship,
         created_from_esi,  # pylint: disable=unused-variable
     ) = EveType.objects.get_or_create_esi(id=ship_type_id)
 
+    # Create the SRP request object
     srp_request = SrpRequest.objects.create(
         killboard_link=killmail_link,
         creator=creator,
@@ -285,6 +330,7 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         request_code=get_random_string(length=16),
     )
 
+    # Create comments for the SRP request
     RequestComment.objects.bulk_create(
         [
             RequestComment(
@@ -302,10 +348,12 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         ]
     )
 
+    # Retrieve insurance information for the ship type
     insurance_information = SrpRequest.objects.get_insurance_for_ship_type(
         ship_type_id=ship_type_id
     )
 
+    # Create insurance entries for the SRP request
     Insurance.objects.bulk_create(
         [
             Insurance(
@@ -318,6 +366,7 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         ]
     )
 
+    # Log the creation of the SRP request
     logger.info(
         msg=(
             f"Created SRP request on behalf of user {creator} "
@@ -326,6 +375,7 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         )
     )
 
+    # Display a success message to the user
     messages.success(
         request=request,
         message=_(f"Submitted SRP request for your {srp_request__ship.name}."),
@@ -337,14 +387,19 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
 @permission_required("aasrp.basic_access")
 def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
-    SRP request
+    Handle the SRP request form.
 
-    :param request:
-    :type request:
-    :param srp_code:
-    :type srp_code:
-    :return:
-    :rtype:
+    This view allows users to submit a Ship Replacement Program (SRP) request for a specific SRP link
+    identified by its `srp_code`. It validates the SRP code, checks the SRP link status, processes the
+    submitted form data, and saves the SRP request if valid. If the request method is GET, it displays
+    a blank form.
+
+    :param request: The HTTP request object containing metadata about the request.
+    :type request: WSGIRequest
+    :param srp_code: The unique code identifying the SRP link for which the request is being made.
+    :type srp_code: str
+    :return: The rendered SRP request form or a redirect after processing the request.
+    :rtype: HttpResponse
     """
 
     logger.info(
@@ -467,14 +522,18 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 @permission_required("aasrp.manage_srp")
 def complete_srp_link(request: WSGIRequest, srp_code: str):
     """
-    Mark an SRP link as completed
+    Mark an SRP link as completed.
 
-    :param request:
-    :type request:
-    :param srp_code:
-    :type srp_code:
-    :return:
-    :rtype:
+    This view updates the status of a specific Ship Replacement Program (SRP) link
+    identified by its `srp_code` to "COMPLETED". If the SRP link does not exist,
+    an error message is displayed.
+
+    :param request: The HTTP request object containing metadata about the request.
+    :type request: WSGIRequest
+    :param srp_code: The unique code identifying the SRP link to be marked as completed.
+    :type srp_code: str
+    :return: A redirect to the SRP links page.
+    :rtype: HttpResponse
     """
 
     logger.info(
@@ -482,32 +541,41 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
     )
 
     try:
+        # Retrieve the SRP link using the provided code
         srp_link = SrpLink.objects.get(srp_code=srp_code)
+        # Update the status of the SRP link to "COMPLETED"
         srp_link.srp_status = SrpLink.Status.COMPLETED
         srp_link.save()
 
+        # Display a success message to the user
         messages.success(request, _("SRP link marked as completed"))
     except SrpLink.DoesNotExist:
+        # Log an error and display an error message if the SRP link is not found
         logger.error(
             f"Unable to locate SRP link using code {srp_code} for user {request.user}"
         )
 
         messages.error(request, _(f"Unable to locate SRP link with ID {srp_code}"))
 
+    # Redirect the user to the SRP links page
     return redirect("aasrp:srp_links")
 
 
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
     """
-    View SRP requests for a specific SRP code
+    Render the view for SRP requests associated with a specific SRP link.
 
-    :param request:
-    :type request:
-    :param srp_code:
-    :type srp_code:
-    :return:
-    :rtype:
+    This view retrieves and displays all Ship Replacement Program (SRP) requests
+    for a given SRP link identified by its `srp_code`. If the SRP link does not exist,
+    an error message is displayed, and the user is redirected to the SRP links page.
+
+    :param request: The HTTP request object containing metadata about the request.
+    :type request: WSGIRequest
+    :param srp_code: The unique code identifying the SRP link for which requests are being viewed.
+    :type srp_code: str
+    :return: The rendered HTML page displaying the SRP requests or a redirect if the SRP link is not found.
+    :rtype: HttpResponse
     """
 
     logger.info(f"View SRP requests for SRP link {srp_code} called by {request.user}")
@@ -524,6 +592,7 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         return redirect("aasrp:srp_links")
 
+    # Prepare the context for rendering the view
     context = {
         "srp_link": srp_link,
         "forms": {
@@ -533,33 +602,42 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
         },
     }
 
+    # Render the view with the provided context
     return render(request, "aasrp/view-requests.html", context)
 
 
 @permission_required("aasrp.manage_srp")
 def enable_srp_link(request: WSGIRequest, srp_code: str):
     """
-    Enable SRP link
+    Enable an SRP link.
 
-    :param request:
-    :type request:
-    :param srp_code:
-    :type srp_code:
-    :return:
-    :rtype:
+    This view sets the status of a specific Ship Replacement Program (SRP) link,
+    identified by its `srp_code`, to "ACTIVE". If the SRP link does not exist,
+    an error message is displayed.
+
+    :param request: The HTTP request object containing metadata about the request.
+    :type request: WSGIRequest
+    :param srp_code: The unique code identifying the SRP link to be enabled.
+    :type srp_code: str
+    :return: A redirect to the SRP links page.
+    :rtype: HttpResponse
     """
 
     logger.info(msg=f"Enable SRP link {srp_code} called by {request.user}")
 
     try:
+        # Retrieve the SRP link using the provided code
         srp_link = SrpLink.objects.get(srp_code=srp_code)
+        # Update the status of the SRP link to "ACTIVE"
         srp_link.srp_status = SrpLink.Status.ACTIVE
         srp_link.save()
 
+        # Display a success message to the user
         messages.success(
             request=request, message=_(f"SRP link {srp_code} (re-)activated.")
         )
     except SrpLink.DoesNotExist:
+        # Log an error and display an error message if the SRP link is not found
         logger.error(
             msg=f"Unable to locate SRP link using code {srp_code} for user {request.user}"
         )
@@ -568,31 +646,40 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
             request=request, message=_(f"Unable to locate SRP link with ID {srp_code}")
         )
 
+    # Redirect the user to the SRP links page
     return redirect(to="aasrp:srp_links")
 
 
 @permission_required("aasrp.manage_srp")
 def disable_srp_link(request: WSGIRequest, srp_code: str):
     """
-    Disable SRP link
+    Disable an SRP link.
 
-    :param request:
-    :type request:
-    :param srp_code:
-    :type srp_code:
-    :return:
-    :rtype:
+    This view sets the status of a specific Ship Replacement Program (SRP) link,
+    identified by its `srp_code`, to "CLOSED". If the SRP link does not exist,
+    an error message is displayed.
+
+    :param request: The HTTP request object containing metadata about the request.
+    :type request: WSGIRequest
+    :param srp_code: The unique code identifying the SRP link to be disabled.
+    :type srp_code: str
+    :return: A redirect to the SRP links page.
+    :rtype: HttpResponse
     """
 
     logger.info(msg=f"Disable SRP link {srp_code} called by {request.user}")
 
     try:
+        # Retrieve the SRP link using the provided code
         srp_link = SrpLink.objects.get(srp_code=srp_code)
+        # Update the status of the SRP link to "CLOSED"
         srp_link.srp_status = SrpLink.Status.CLOSED
         srp_link.save()
 
+        # Display a success message to the user
         messages.success(request=request, message=_(f"SRP link {srp_code} disabled."))
     except SrpLink.DoesNotExist:
+        # Log an error and display an error message if the SRP link is not found
         logger.error(
             msg=f"Unable to locate SRP link using code {srp_code} for user {request.user}"
         )
@@ -601,30 +688,39 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
             request=request, message=_(f"Unable to locate SRP link with ID {srp_code}")
         )
 
+    # Redirect the user to the SRP links page
     return redirect(to="aasrp:srp_links")
 
 
 @permission_required("aasrp.manage_srp")
 def delete_srp_link(request: WSGIRequest, srp_code: str):
     """
-    Delete SRP link
+    Delete an SRP link.
 
-    :param request:
-    :type request:
-    :param srp_code:
-    :type srp_code:
-    :return:
-    :rtype:
+    This view handles the deletion of a specific Ship Replacement Program (SRP) link
+    identified by its `srp_code`. If the SRP link does not exist, an error message is
+    displayed. Upon successful deletion, a success message is shown.
+
+    :param request: The HTTP request object containing metadata about the request.
+    :type request: WSGIRequest
+    :param srp_code: The unique code identifying the SRP link to be deleted.
+    :type srp_code: str
+    :return: A redirect to the SRP links page.
+    :rtype: HttpResponse
     """
 
     logger.info(msg=f"Delete SRP link {srp_code} called by {request.user}")
 
     try:
+        # Retrieve the SRP link using the provided code
         srp_link = SrpLink.objects.get(srp_code=srp_code)
+        # Delete the SRP link
         srp_link.delete()
 
+        # Display a success message to the user
         messages.success(request=request, message=_(f"SRP link {srp_code} deleted."))
     except SrpLink.DoesNotExist:
+        # Log an error and display an error message if the SRP link is not found
         logger.error(
             msg=f"Unable to locate SRP link using code {srp_code} for user {request.user}"
         )
@@ -633,4 +729,5 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
             request=request, message=_(f"Unable to locate SRP link with ID {srp_code}")
         )
 
+    # Redirect the user to the SRP links page
     return redirect(to="aasrp:srp_links")
