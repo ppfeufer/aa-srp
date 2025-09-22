@@ -14,7 +14,6 @@ from eveuniverse.models import EveType
 
 # AA SRP
 from aasrp.helper.icons import copy_to_clipboard_icon
-from aasrp.helper.numbers import l10n_number_format
 from aasrp.models import Setting, SrpRequest
 
 
