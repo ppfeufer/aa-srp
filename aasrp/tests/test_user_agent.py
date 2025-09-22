@@ -3,82 +3,88 @@ Test user agent header for ESI requests
 """
 
 # Standard Library
-from unittest.mock import MagicMock, PropertyMock, patch
+from unittest.mock import MagicMock, patch
 
 # Third Party
-import requests_mock
+import httpx
 
 # Django
 from django.conf import settings
-from django.test import TestCase
 
 # Alliance Auth
 from esi import __url__ as esi_url
 from esi import __version__ as esi_version
+from esi.openapi_clients import ESIClientProvider
+from esi.tests.test_openapi import SPEC_PATH
 
 # AA SRP
-from aasrp import __app_name_useragent__, __github_url__, __version__
-from aasrp.providers import esi
+from aasrp import (
+    __app_name_useragent__,
+    __esi_compatibility_date__,
+    __github_url__,
+    __version__,
+)
+from aasrp.tests import BaseTestCase
 
 MODULE_PATH = "esi.clients"
 
 
-class TestUserAgent(TestCase):
+class TestUserAgent(BaseTestCase):
     """
     Test suite for verifying the `User-Agent` header in ESI requests.
     """
 
-    @requests_mock.Mocker()
-    def test_user_agent_header(self, requests_mocker):
+    @patch.object(httpx.Client, "send")
+    def test_user_agent_header(self, send: MagicMock):
         """
-        Test the `User-Agent` header for ESI requests.
+        Test that the `User-Agent` header is correctly set in ESI requests.
 
-        This test ensures that the `User-Agent` header in the request matches
-        the expected format. It uses mocking to avoid making live API calls
-        and verifies the header construction.
+        This test verifies that the `User-Agent` header in HTTP requests made by the ESI client
+        is constructed correctly based on the provided application name, version, and other metadata.
 
-        :param requests_mocker: A mocker object provided by the `requests_mock` library
-                                to intercept HTTP requests.
-        :type requests_mocker: requests_mock.mocker.Mocker
-        :return: None
+        Args:
+            send (MagicMock): A mocked `httpx.Client.send` method to intercept HTTP requests and provide a controlled response.
+
+        Assertions:
+            - The `User-Agent` header in the HTTP request matches the expected format.
+            - The `players` field in the response JSON is correctly parsed and matches the expected value.
         """
 
-        # Create a mock response object with the expected `User-Agent` header
-        mock_response = MagicMock()
-        mock_response.request.headers = {
-            "User-Agent": (
-                f"{__app_name_useragent__}/{__version__} "
+        # Initialize the ESI client provider with test-specific metadata
+        esi = ESIClientProvider(
+            ua_appname=__app_name_useragent__,  # Application name for the User-Agent header
+            ua_url=__github_url__,  # Application URL for the User-Agent header
+            ua_version=__version__,  # Application version for the User-Agent header
+            compatibility_date=__esi_compatibility_date__,  # Compatibility date for the ESI spec
+            spec_file=SPEC_PATH,  # Path to the OpenAPI specification file
+        )
+
+        # Mock the HTTP response returned by the `send` method
+        send.return_value = httpx.Response(
+            status_code=200,  # HTTP status code for the response
+            json={  # Mocked JSON response body
+                "players": 1234,
+                "server_version": "1234",
+                "start_time": "2029-09-19T11:02:08Z",
+            },
+            request=httpx.Request(method="GET", url="test"),  # Mocked HTTP request
+        )
+
+        # Perform the ESI client request and retrieve the status
+        status = esi.client.Status.GetStatus().result()
+
+        # Retrieve the arguments passed to the mocked `send` method
+        call_args, call_kwargs = send.call_args
+
+        # Assert that the `User-Agent` header matches the expected format
+        self.assertEqual(
+            first=call_args[0].headers["user-agent"],
+            second=(
+                f"AaSrp/{__version__} "
                 f"({settings.ESI_USER_CONTACT_EMAIL}; +{__github_url__}) "
-                f"Django-ESI/{esi_version} (+{esi_url})"
-            )
-        }
-        # Mock the result of the API call
-        mock_result = (None, mock_response)
+                f"DjangoEsi/{esi_version} (+{esi_url})"
+            ),
+        )
 
-        # Create a mock `Status` object and configure its `GetStatus` method
-        mock_status = MagicMock()
-        mock_status.GetStatus.return_value.result.return_value = mock_result
-
-        # Create a mock `client` object and assign the mock `Status` object to it
-        mock_client = MagicMock()
-        mock_client.Status = mock_status
-
-        # Patch the `client` property of the `ESIClientProvider` class to use the mock client
-        with patch(
-            target="esi.openapi_clients.ESIClientProvider.client",
-            new_callable=PropertyMock,
-        ) as mock_client_prop:
-            mock_client_prop.return_value = mock_client
-
-            # Call the mocked `GetStatus` method and retrieve the response
-            _, response = esi.client.Status.GetStatus().result(return_response=True)
-
-            # Assert that the `User-Agent` header in the response matches the expected value
-            self.assertEqual(
-                first=response.request.headers["User-Agent"],
-                second=(
-                    f"{__app_name_useragent__}/{__version__} "
-                    f"({settings.ESI_USER_CONTACT_EMAIL}; +{__github_url__}) "
-                    f"Django-ESI/{esi_version} (+{esi_url})"
-                ),
-            )
+        # Assert that the `players` field in the response matches the expected value
+        self.assertEqual(first=status.players, second=1234)
