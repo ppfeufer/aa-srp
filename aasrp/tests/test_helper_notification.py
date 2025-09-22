@@ -1,16 +1,17 @@
 # Standard Library
-from unittest.mock import MagicMock, patch
+from unittest.mock import ANY, MagicMock, patch
 
 # Django
 from django.conf import settings
-from django.test import TestCase
 from django.urls import reverse
 
 # AA SRP
-from aasrp.helper.notification import notify_srp_team
+from aasrp.helper.notification import notify_requester, notify_srp_team
+from aasrp.models import SrpRequest
+from aasrp.tests import BaseTestCase
 
 
-class TestNotifySrpTeam(TestCase):
+class TestNotifySrpTeam(BaseTestCase):
     """
     Test the notify_srp_team function
     """
@@ -104,3 +105,119 @@ class TestNotifySrpTeam(TestCase):
                     "srp_link": settings.SITE_URL + view_requests_url,
                 },
             )
+
+
+class TestNotifyRequester(BaseTestCase):
+    """
+    Test the notify_requester function
+    """
+
+    def setUp(self):
+        self.mock_requester = MagicMock()
+        self.mock_reviser = MagicMock()
+        self.mock_srp_request = MagicMock()
+
+    @patch("aasrp.helper.notification.render_to_string")
+    @patch("aasrp.helper.notification.send_user_notification")
+    @patch("aasrp.helper.notification.get_main_character_name_from_user")
+    def test_sends_notification_with_success_level(
+        self,
+        mock_get_main_character_name,
+        mock_send_user_notification,
+        mock_render_to_string,
+    ):
+        """
+        Test that a notification is sent with success level
+
+        :param mock_get_main_character_name:
+        :type mock_get_main_character_name:
+        :param mock_send_user_notification:
+        :type mock_send_user_notification:
+        :param mock_render_to_string:
+        :type mock_render_to_string:
+        :return:
+        :rtype:
+        """
+
+        self.mock_srp_request.get_request_status_display.return_value = (
+            SrpRequest.Status.APPROVED
+        )
+
+        mock_get_main_character_name.return_value = "Reviser Character"
+        mock_render_to_string.side_effect = [
+            "allianceauth_notification",
+            "discord_notification",
+        ]
+
+        notify_requester(
+            requester=self.mock_requester,
+            reviser=self.mock_reviser,
+            srp_request=self.mock_srp_request,
+            comment="Test comment",
+            message_level="success",
+        )
+
+        mock_get_main_character_name.assert_called_once_with(self.mock_reviser)
+        mock_render_to_string.assert_any_call(
+            template_name="aasrp/notifications/allianceauth/request-status-change.html",
+            context=ANY,
+        )
+        mock_render_to_string.assert_any_call(
+            template_name="aasrp/notifications/discord/request-status-change.html",
+            context=ANY,
+        )
+        mock_send_user_notification.assert_called_once_with(
+            user=self.mock_requester,
+            level="success",
+            title="SRP Request Approved",
+            message={
+                "allianceauth": "allianceauth_notification",
+                "discord": "discord_notification",
+            },
+        )
+
+    @patch("aasrp.helper.notification.render_to_string")
+    @patch("aasrp.helper.notification.send_user_notification")
+    @patch("aasrp.helper.notification.get_main_character_name_from_user")
+    def test_sends_notification_with_error_level(
+        self,
+        mock_get_main_character_name,
+        mock_send_user_notification,
+        mock_render_to_string,
+    ):
+        self.mock_srp_request.get_request_status_display.return_value = (
+            SrpRequest.Status.REJECTED
+        )
+
+        mock_get_main_character_name.return_value = "Reviser Character"
+        mock_render_to_string.side_effect = [
+            "allianceauth_notification",
+            "discord_notification",
+        ]
+
+        notify_requester(
+            requester=self.mock_requester,
+            reviser=self.mock_reviser,
+            srp_request=self.mock_srp_request,
+            comment="Error occurred",
+            message_level="error",
+        )
+
+        mock_get_main_character_name.assert_called_once_with(self.mock_reviser)
+        mock_render_to_string.assert_any_call(
+            template_name="aasrp/notifications/allianceauth/request-status-change.html",
+            context=ANY,
+        )
+        mock_render_to_string.assert_any_call(
+            template_name="aasrp/notifications/discord/request-status-change.html",
+            context=ANY,
+        )
+        mock_send_user_notification.assert_called_once_with(
+            user=self.mock_requester,
+            level="error",
+            title="SRP Request Rejected",
+            message={
+                "allianceauth": "allianceauth_notification",
+                "discord": "discord_notification",
+            },
+        )
