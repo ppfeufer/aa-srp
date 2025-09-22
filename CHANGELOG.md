@@ -2,8 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/).
+The format is based on [Keep a Changelog] and this project adheres to [Semantic Versioning].
 
 <!--
 GitHub MD Syntax:
@@ -28,7 +27,7 @@ https://docs.github.com/assets/cb-41128/mw-1440/images/help/writing/alerts-rende
 > Advised about risks or negative outcomes of certain actions.
 -->
 
-## [In Development] – Unreleased
+## [In Development] - Unreleased
 
 <!--
 Section Order:
@@ -42,6 +41,8 @@ Section Order:
 -->
 
 <!-- Your changes go here -->
+
+## [2.13.0] - 2025-09-22
 
 ### Changed
 
@@ -1457,6 +1458,7 @@ python manage.py aasrp_update_db_relations
 [2.12.1]: https://github.com/ppfeufer/aa-srp/compare/v2.12.0...v2.12.1 "v2.12.1"
 [2.12.2]: https://github.com/ppfeufer/aa-srp/compare/v2.12.1...v2.12.2 "v2.12.2"
 [2.12.3]: https://github.com/ppfeufer/aa-srp/compare/v2.12.2...v2.12.3 "v2.12.3"
+[2.13.0]: https://github.com/ppfeufer/aa-srp/compare/v2.12.3...v2.13.0 "v2.13.0"
 [2.2.0]: https://github.com/ppfeufer/aa-srp/compare/v2.1.1...v2.2.0 "v2.2.0"
 [2.3.0]: https://github.com/ppfeufer/aa-srp/compare/v2.2.0...v2.3.0 "v2.3.0"
 [2.3.1]: https://github.com/ppfeufer/aa-srp/compare/v2.3.0...v2.3.1 "v2.3.1"
@@ -1482,6 +1484,8 @@ python manage.py aasrp_update_db_relations
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[in development]: https://github.com/ppfeufer/aa-srp/compare/v2.12.3...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-srp/compare/v2.13.0...HEAD "In Development"
+[keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
+[semantic versioning]: http://semver.org/ "Semantic Versioning"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
 [v1.16.0 (yanked)]: https://github.com/ppfeufer/aa-srp/releases/tag/v1.16.0 "1.16.0 (YANKED)"
