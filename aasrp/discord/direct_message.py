@@ -237,7 +237,7 @@ def send_user_notification(
                 )
         else:
             # Log that AA Discord Notifications is active
-            logger.debug("discordnotify is active, no need to send the PM ourselves.")
+            logger.debug("discordnotify is active, no need to send the DM ourselves.")
     else:
         # Log that the user does not have a Discord account
         logger.debug("User doesn't have a Discord account, can't send any messages ...")

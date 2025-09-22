@@ -3,7 +3,6 @@ Tests for AJAX views in the aasrp app.
 """
 
 # Django
-from django.test import TestCase
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.datetime_safe import datetime
@@ -13,9 +12,10 @@ from app_utils.testing import create_fake_user
 
 # AA SRP
 from aasrp.models import SrpLink
+from aasrp.tests import BaseTestCase
 
 
-class BaseViewsTestCase(TestCase):
+class BaseViewsTestCase(BaseTestCase):
     """
     Base test case for views tests.
     """
