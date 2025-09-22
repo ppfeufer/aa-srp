@@ -5,14 +5,12 @@ Unit tests for the SrpRequestManager class.
 # Standard Library
 from unittest.mock import MagicMock, patch
 
-# Django
-from django.test import TestCase
-
 # AA SRP
 from aasrp.managers import SrpRequestManager
+from aasrp.tests import BaseTestCase
 
 
-class TestSrpRequestManagerGetZkillboardData(TestCase):
+class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
     """
     Test cases for SrpRequestManager.get_zkillboard_data method.
     """
