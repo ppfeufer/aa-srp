@@ -1,4 +1,4 @@
-/* global aaSrpSettings, aasrpBootstrapTooltip, fetchGet, fetchPost, moment */
+/* global aaSrpSettings, aasrpBootstrapTooltip, fetchGet, fetchPost, moment, numberFormatter */
 
 $(document).ready(() => {
     'use strict';
@@ -91,14 +91,27 @@ $(document).ready(() => {
                         // {data: 'zkb_link'},
                         // Column 5: Killboard Link
                         {
-                            data: 'zkb_loss_amount_html',
+                            data: 'zbk_loss_amount',
                             /**
                              * Render callback
                              */
                             render: {
-                                display: 'display',
-                                filter: 'sort',
-                                sort: 'sort'
+                                display: (data) => {
+                                    return numberFormatter({
+                                        value: data,
+                                        locales: aaSrpSettings.locale,
+                                        options: {
+                                            style: 'currency',
+                                            currency: 'ISK'
+                                        }
+                                    });
+                                },
+                                filter: (data) => {
+                                    return data;
+                                },
+                                sort: (data) => {
+                                    return data;
+                                }
                             },
                             className: 'srp-request-zbk-loss-amount text-end'
                         },
@@ -109,7 +122,19 @@ $(document).ready(() => {
                              * Render callback
                              */
                             render: {
-                                display: 'display',
+                                display: (data) => {
+                                    return data.display.replace(
+                                        '#payout_amount_localized#',
+                                        numberFormatter({
+                                            value: data.sort,
+                                            locales: aaSrpSettings.locale,
+                                            options: {
+                                                style: 'currency',
+                                                currency: 'ISK'
+                                            }
+                                        })
+                                    );
+                                },
                                 filter: 'sort',
                                 sort: 'sort'
                             },
@@ -317,7 +342,15 @@ $(document).ready(() => {
         newValue = parseInt(newValue);
 
         // Update payout value formatted
-        const newValueFormatted = `${new Intl.NumberFormat(aaSrpSettings.locale).format(newValue)} ISK`;
+        // const newValueFormatted = `${new Intl.NumberFormat(aaSrpSettings.locale).format(newValue)} ISK`;
+        const newValueFormatted = numberFormatter({
+            value: newValue,
+            locales: aaSrpSettings.locale,
+            options: {
+                style: 'currency',
+                currency: 'ISK'
+            }
+        });
 
         // Update the element
         element
@@ -335,7 +368,15 @@ $(document).ready(() => {
             totalSrpAmount += parseInt(payoutElement.getAttribute('data-value'));
         });
 
-        $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
+        // $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
+        $('.srp-fleet-total-amount').html(numberFormatter({
+            value: totalSrpAmount,
+            locales: aaSrpSettings.locale,
+            options: {
+                style: 'currency',
+                currency: 'ISK'
+            }
+        }));
 
         // Update copy to clipboard icon value
         const copyToClipboard = element.parent().parent().find('.copy-to-clipboard-icon i');
@@ -373,7 +414,16 @@ $(document).ready(() => {
         });
 
         // Update fleet total SRP amount
-        $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
+        // $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
+        $('.srp-fleet-total-amount')
+            .html(numberFormatter({
+                value: totalSrpAmount,
+                locales: aaSrpSettings.locale,
+                options: {
+                    style: 'currency',
+                    currency: 'ISK'
+                }
+            }));
 
         // Update requests counts
         $('.srp-requests-total-count').html(requestsTotal);
@@ -453,270 +503,291 @@ $(document).ready(() => {
     /**
      * Modal: SRP request details
      */
-    modalSrpRequestDetails.on('show.bs.modal', (event) => {
-        const button = $(event.relatedTarget);
-        const url = button.data('link');
+    modalSrpRequestDetails
+        .on('show.bs.modal', (event) => {
+            const button = $(event.relatedTarget);
+            const url = button.data('link');
 
-        fetchGet({url: url, responseIsJson: false})
-            .then((data) => {
-                modalSrpRequestDetails.find('.modal-body').html(data);
-            })
-            .catch((error) => {
-                console.log(`Error: ${error.message}`);
-            });
-    }).on('hide.bs.modal', () => {
-        modalSrpRequestDetails.find('.modal-body').text('');
-    });
+            fetchGet({url: url, responseIsJson: false})
+                .then((data) => {
+                    modalSrpRequestDetails.find('.modal-body').html(data);
+                })
+                .catch((error) => {
+                    console.error(`Error: ${error.message}`);
+                });
+        })
+        .on('hide.bs.modal', () => {
+            modalSrpRequestDetails.find('.modal-body').text('');
+        });
 
     /**
      * Modal: Accept SRP request
      */
-    modalSrpRequestAccept.on('show.bs.modal', (event) => {
-        const button = $(event.relatedTarget);
-        const url = button.data('link');
+    modalSrpRequestAccept
+        .on('show.bs.modal', (event) => {
+            const button = $(event.relatedTarget);
+            const url = button.data('link');
 
-        $('#modal-button-confirm-accept-request').on('click', () => {
-            const form = modalSrpRequestAccept.find('form');
-            const reviserComment = form.find('textarea[name="comment"]').val();
-            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
-                .val();
+            $('#modal-button-confirm-accept-request')
+                .on('click', () => {
+                    const form = modalSrpRequestAccept.find('form');
+                    const reviserComment = form.find('textarea[name="comment"]').val();
+                    const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
+                        .val();
 
-            fetchPost({
-                url: url,
-                csrfToken: csrfMiddlewareToken,
-                payload: {
-                    comment: reviserComment
-                },
-                responseIsJson: true
-            })
-                .then((data) => {
-                    _modalConfirmAction(data);
-                })
-                .catch((error) => {
-                    console.log(`Error: ${error.message}`);
+                    fetchPost({
+                        url: url,
+                        csrfToken: csrfMiddlewareToken,
+                        payload: {
+                            comment: reviserComment
+                        },
+                        responseIsJson: true
+                    })
+                        .then((data) => {
+                            _modalConfirmAction(data);
+                        })
+                        .catch((error) => {
+                            console.error(`Error: ${error.message}`);
+                        });
+
+                    modalSrpRequestAccept.modal('hide');
                 });
+        })
+        .on('hide.bs.modal', () => {
+            modalSrpRequestAccept.find('textarea[name="comment"]').val('');
 
-            modalSrpRequestAccept.modal('hide');
+            _unbindClickEvent($('#modal-button-confirm-accept-request'));
         });
-    }).on('hide.bs.modal', () => {
-        modalSrpRequestAccept.find('textarea[name="comment"]').val('');
-
-        _unbindClickEvent($('#modal-button-confirm-accept-request'));
-    });
 
     /**
      * Modal: Accept former rejected SRP request
      */
-    modalSrpRequestAcceptRejected.on('show.bs.modal', (event) => {
-        const button = $(event.relatedTarget);
-        const url = button.data('link');
+    modalSrpRequestAcceptRejected
+        .on('show.bs.modal', (event) => {
+            const button = $(event.relatedTarget);
+            const url = button.data('link');
 
-        $('#modal-button-confirm-accept-rejected-request').on('click', () => {
-            const form = modalSrpRequestAcceptRejected.find('form');
-            const reviserComment = form.find('textarea[name="comment"]').val();
-            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
-                .val();
+            $('#modal-button-confirm-accept-rejected-request')
+                .on('click', () => {
+                    const form = modalSrpRequestAcceptRejected.find('form');
+                    const reviserComment = form.find('textarea[name="comment"]').val();
+                    const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
+                        .val();
 
-            if (reviserComment === '') {
-                const errorMessage = `<div class="${modalFormfieldErrorClasses}"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
+                    if (reviserComment === '') {
+                        const errorMessage = `<div class="${modalFormfieldErrorClasses}"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
 
-                form.find('.aasrp-form-field-errors').remove();
+                        form.find('.aasrp-form-field-errors').remove();
 
-                $(errorMessage).insertAfter(
-                    $('textarea[name="comment"]')
-                );
-            } else {
-                fetchPost({
-                    url: url,
-                    csrfToken: csrfMiddlewareToken,
-                    payload: {
-                        comment: reviserComment
-                    },
-                    responseIsJson: true
-                })
-                    .then((data) => {
-                        _modalConfirmAction(data);
-                    })
-                    .catch((error) => {
-                        console.log(`Error: ${error.message}`);
-                    });
+                        $(errorMessage).insertAfter(
+                            $('textarea[name="comment"]')
+                        );
+                    } else {
+                        fetchPost({
+                            url: url,
+                            csrfToken: csrfMiddlewareToken,
+                            payload: {
+                                comment: reviserComment
+                            },
+                            responseIsJson: true
+                        })
+                            .then((data) => {
+                                _modalConfirmAction(data);
+                            })
+                            .catch((error) => {
+                                console.error(`Error: ${error.message}`);
+                            });
 
-                modalSrpRequestAcceptRejected.modal('hide');
-            }
+                        modalSrpRequestAcceptRejected.modal('hide');
+                    }
+                });
+        })
+        .on('hide.bs.modal', () => {
+            modalSrpRequestAcceptRejected.find('textarea[name="comment"]').val('');
+
+            $('.aasrp-form-field-errors').remove();
+            _unbindClickEvent($('#modal-button-confirm-accept-rejected-request'));
         });
-    }).on('hide.bs.modal', () => {
-        modalSrpRequestAcceptRejected.find('textarea[name="comment"]').val('');
-
-        $('.aasrp-form-field-errors').remove();
-        _unbindClickEvent($('#modal-button-confirm-accept-rejected-request'));
-    });
 
     /**
      * Modal: Reject SRP request
      */
-    modalSrpRequestReject.on('show.bs.modal', (event) => {
-        const button = $(event.relatedTarget);
-        const url = button.data('link');
+    modalSrpRequestReject
+        .on('show.bs.modal', (event) => {
+            const button = $(event.relatedTarget);
+            const url = button.data('link');
 
-        $('#modal-button-confirm-reject-request').on('click', () => {
-            const form = modalSrpRequestReject.find('form');
-            const rejectInfo = form.find('textarea[name="comment"]').val();
-            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
-                .val();
+            $('#modal-button-confirm-reject-request')
+                .on('click', () => {
+                    const form = modalSrpRequestReject.find('form');
+                    const rejectInfo = form.find('textarea[name="comment"]').val();
+                    const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
+                        .val();
 
-            if (rejectInfo === '') {
-                const errorMessage = `<div class="${modalFormfieldErrorClasses}"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
+                    if (rejectInfo === '') {
+                        const errorMessage = `<div class="${modalFormfieldErrorClasses}"><p>${aaSrpSettings.translation.modal.form.error.fieldRequired}</p></div>`;
 
-                form.find('.aasrp-form-field-errors').remove();
+                        form.find('.aasrp-form-field-errors').remove();
 
-                $(errorMessage).insertAfter($('textarea[name="comment"]'));
-            } else {
-                fetchPost({
-                    url: url,
-                    csrfToken: csrfMiddlewareToken,
-                    payload: {
-                        comment: rejectInfo
-                    },
-                    responseIsJson: true
-                })
-                    .then((data) => {
-                        _modalConfirmAction(data);
-                    })
-                    .catch((error) => {
-                        console.log(`Error: ${error.message}`);
-                    });
+                        $(errorMessage).insertAfter($('textarea[name="comment"]'));
+                    } else {
+                        fetchPost({
+                            url: url,
+                            csrfToken: csrfMiddlewareToken,
+                            payload: {
+                                comment: rejectInfo
+                            },
+                            responseIsJson: true
+                        })
+                            .then((data) => {
+                                _modalConfirmAction(data);
+                            })
+                            .catch((error) => {
+                                console.error(`Error: ${error.message}`);
+                            });
 
-                modalSrpRequestReject.modal('hide');
-            }
+                        modalSrpRequestReject.modal('hide');
+                    }
+                });
+        })
+        .on('hide.bs.modal', () => {
+            modalSrpRequestReject.find('textarea[name="comment"]').val('');
+
+            $('.aasrp-form-field-errors').remove();
+            _unbindClickEvent($('#modal-button-confirm-reject-request'));
         });
-    }).on('hide.bs.modal', () => {
-        modalSrpRequestReject.find('textarea[name="comment"]').val('');
-
-        $('.aasrp-form-field-errors').remove();
-        _unbindClickEvent($('#modal-button-confirm-reject-request'));
-    });
 
     /**
      * Modal: Remove SRP request
      */
-    modalSrpRequestRemove.on('show.bs.modal', (event) => {
-        const button = $(event.relatedTarget);
-        const url = button.data('link');
+    modalSrpRequestRemove
+        .on('show.bs.modal', (event) => {
+            const button = $(event.relatedTarget);
+            const url = button.data('link');
 
-        $('#modal-button-confirm-remove-request').on('click', () => {
-            fetchGet({url: url})
-                .then((data) => {
-                    _modalConfirmAction(data);
-                })
-                .catch((error) => {
-                    console.log(`Error: ${error.message}`);
+            $('#modal-button-confirm-remove-request')
+                .on('click', () => {
+                    fetchGet({url: url})
+                        .then((data) => {
+                            _modalConfirmAction(data);
+                        })
+                        .catch((error) => {
+                            console.error(`Error: ${error.message}`);
+                        });
+
+                    modalSrpRequestRemove.modal('hide');
                 });
+        })
+        .on('hide.bs.modal', () => {
+            modalSrpRequestRemove.find('textarea[name="comment"]').val('');
 
-            modalSrpRequestRemove.modal('hide');
+            _unbindClickEvent($('#modal-button-confirm-remove-request'));
         });
-    }).on('hide.bs.modal', () => {
-        modalSrpRequestRemove.find('textarea[name="comment"]').val('');
-
-        _unbindClickEvent($('#modal-button-confirm-remove-request'));
-    });
 
     /**
      * Bulk actions: Accept selected SRP requests
      */
-    modalSrpRequestBulkAccept.on('show.bs.modal', (event) => {
-        const button = $(event.relatedTarget);
-        const url = button.data('link');
-        const form = modalSrpRequestBulkAccept.find('form');
-        const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+    modalSrpRequestBulkAccept
+        .on('show.bs.modal', (event) => {
+            const button = $(event.relatedTarget);
+            const url = button.data('link');
+            const form = modalSrpRequestBulkAccept.find('form');
+            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
 
-        $('#modal-button-confirm-bulk-accept-requests').on('click', () => {
-            const checkedValues = _getSelectedSrpRequestCodes();
+            $('#modal-button-confirm-bulk-accept-requests')
+                .on('click', () => {
+                    const checkedValues = _getSelectedSrpRequestCodes();
 
-            fetchPost({
-                url: url,
-                csrfToken: csrfMiddlewareToken,
-                payload: {
-                    srp_request_codes: checkedValues,
-                },
-                responseIsJson: true
-            })
-                .then((data) => {
-                    _modalConfirmAction(data);
+                    fetchPost({
+                        url: url,
+                        csrfToken: csrfMiddlewareToken,
+                        payload: {
+                            srp_request_codes: checkedValues,
+                        },
+                        responseIsJson: true
+                    })
+                        .then((data) => {
+                            _modalConfirmAction(data);
 
-                    // Uncheck all checkboxes
-                    const checkboxes = _getSelectedSrpRequests();
+                            // Uncheck all checkboxes
+                            const checkboxes = _getSelectedSrpRequests();
 
-                    checkboxes.forEach((checkbox) => {
-                        $(checkbox).prop('checked', false);
-                    });
+                            checkboxes.forEach((checkbox) => {
+                                $(checkbox).prop('checked', false);
+                            });
 
-                    elementBulkActions.addClass('d-none');
-                })
-                .catch((error) => {
-                    console.log(`Error: ${error.message}`);
+                            elementBulkActions.addClass('d-none');
+                        })
+                        .catch((error) => {
+                            console.error(`Error: ${error.message}`);
+                        });
+
+                    modalSrpRequestBulkAccept.modal('hide');
                 });
-
-            modalSrpRequestBulkAccept.modal('hide');
+        })
+        .on('hide.bs.modal', () => {
+            _unbindClickEvent($('#modal-button-confirm-bulk-accept-requests'));
         });
-    }).on('hide.bs.modal', () => {
-        _unbindClickEvent($('#modal-button-confirm-bulk-accept-requests'));
-    });
 
     /**
      * Bulk actions: Delete selected SRP requests
      */
-    modalSrpRequestBulkRemove.on('show.bs.modal', (event) => {
-        const button = $(event.relatedTarget);
-        const url = button.data('link');
-        const form = modalSrpRequestBulkRemove.find('form');
-        const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
+    modalSrpRequestBulkRemove
+        .on('show.bs.modal', (event) => {
+            const button = $(event.relatedTarget);
+            const url = button.data('link');
+            const form = modalSrpRequestBulkRemove.find('form');
+            const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]').val();
 
-        $('#modal-button-confirm-bulk-remove-requests').on('click', () => {
-            const checkedValues = _getSelectedSrpRequestCodes();
+            $('#modal-button-confirm-bulk-remove-requests')
+                .on('click', () => {
+                    const checkedValues = _getSelectedSrpRequestCodes();
 
-            fetchPost({
-                url: url,
-                csrfToken: csrfMiddlewareToken,
-                payload: {
-                    srp_request_codes: checkedValues,
-                },
-                responseIsJson: true
-            })
-                .then((data) => {
-                    _modalConfirmAction(data);
+                    fetchPost({
+                        url: url,
+                        csrfToken: csrfMiddlewareToken,
+                        payload: {
+                            srp_request_codes: checkedValues,
+                        },
+                        responseIsJson: true
+                    })
+                        .then((data) => {
+                            _modalConfirmAction(data);
 
-                    // Uncheck all checkboxes
-                    const checkboxes = _getSelectedSrpRequests();
+                            // Uncheck all checkboxes
+                            const checkboxes = _getSelectedSrpRequests();
 
-                    checkboxes.forEach((checkbox) => {
-                        $(checkbox).prop('checked', false);
-                    });
+                            checkboxes.forEach((checkbox) => {
+                                $(checkbox).prop('checked', false);
+                            });
 
-                    elementBulkActions.addClass('d-none');
-                })
-                .catch((error) => {
-                    console.log(`Error: ${error.message}`);
+                            elementBulkActions.addClass('d-none');
+                        })
+                        .catch((error) => {
+                            console.error(`Error: ${error.message}`);
+                        });
+
+                    modalSrpRequestBulkRemove.modal('hide');
                 });
-
-            modalSrpRequestBulkRemove.modal('hide');
+        })
+        .on('hide.bs.modal', () => {
+            _unbindClickEvent($('#modal-button-confirm-bulk-remove-requests'));
         });
-    }).on('hide.bs.modal', () => {
-        _unbindClickEvent($('#modal-button-confirm-bulk-remove-requests'));
-    });
 
     /* Events
     --------------------------------------------------------------------------------- */
     /**
      * Bulk actions: Clear selection
      */
-    $('#aasrp-bulk-action-clear-selection').on('click', () => {
-        // Uncheck all checkboxes
-        const checkboxes = _getSelectedSrpRequests();
+    $('#aasrp-bulk-action-clear-selection')
+        .on('click', () => {
+            // Uncheck all checkboxes
+            const checkboxes = _getSelectedSrpRequests();
 
-        checkboxes.forEach((checkbox) => {
-            $(checkbox).prop('checked', false);
+            checkboxes.forEach((checkbox) => {
+                $(checkbox).prop('checked', false);
+            });
+            // Hide bulk actions
+            elementBulkActions.addClass('d-none');
         });
-        // Hide bulk actions
-        elementBulkActions.addClass('d-none');
-    });
 });

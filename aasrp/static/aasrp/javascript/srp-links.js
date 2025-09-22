@@ -1,4 +1,4 @@
-/* global aasrpBootstrapTooltip, moment, aaSrpSettings, fetchGet */
+/* global aasrpBootstrapTooltip, moment, aaSrpSettings, fetchGet, numberFormatter */
 
 $(document).ready(() => {
     'use strict';
@@ -80,14 +80,27 @@ $(document).ready(() => {
                             className: 'srp-link-code'
                         },
                         {
-                            data: 'srp_costs_html',
+                            data: 'srp_costs',
                             /**
                              * Render callback
                              */
                             render: {
-                                display: 'display',
-                                filter: 'sort',
-                                sort: 'sort'
+                                display: (data) => {
+                                    return numberFormatter({
+                                        value: data,
+                                        locales: aaSrpSettings.locale,
+                                        options: {
+                                            style: 'currency',
+                                            currency: 'ISK'
+                                        }
+                                    });
+                                },
+                                filter: (data) => {
+                                    return data;
+                                },
+                                sort: (data) => {
+                                    return data;
+                                }
                             },
                             className: 'srp-link-total-cost text-end'
                         },
@@ -132,7 +145,14 @@ $(document).ready(() => {
                         totalSrpAmount += parseInt(data.srp_costs);
 
                         $('.srp-dashboard-total-isk-cost-amount').html(
-                            `${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`
+                            numberFormatter({
+                                value: totalSrpAmount,
+                                locales: aaSrpSettings.locale,
+                                options: {
+                                    style: 'currency',
+                                    currency: 'ISK'
+                                }
+                            })
                         );
                     },
                     initComplete: () => {

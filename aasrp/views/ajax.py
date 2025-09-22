@@ -42,7 +42,6 @@ from aasrp.helper.icons import (
 from aasrp.helper.notification import notify_requester
 from aasrp.helper.srp_data import (
     attempt_to_re_add_ship_information_to_request,
-    localized_isk_value,
     payout_amount_html,
     request_code_html,
     request_fleet_details_html,
@@ -110,10 +109,6 @@ def dashboard_srp_links_data(
                 "aar_link": aar_link,
                 "srp_code": {"display": srp_code_html, "sort": srp_link.srp_code},
                 "srp_costs": srp_link.total_cost,
-                "srp_costs_html": {
-                    "display": localized_isk_value(srp_link.total_cost),
-                    "sort": srp_link.total_cost,
-                },
                 "srp_status": srp_link.srp_status,
                 "pending_requests": srp_link.pending_requests,
                 "actions": dashboard_action_icons(request=request, srp_link=srp_link),
@@ -217,15 +212,12 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
                     "sort": srp_request.ship.name,
                 },
                 "zkb_link": killboard_link,
-                "zkb_loss_amount_html": {
-                    "display": localized_isk_value(srp_request.loss_amount),
-                    "sort": srp_request.loss_amount,
-                },
+                "zkb_loss_amount": srp_request.loss_amount,
                 "payout_amount": srp_request.payout_amount,
-                "payout_amount_html": {
-                    "display": localized_isk_value(srp_request.payout_amount),
-                    "sort": srp_request.loss_amount,
-                },
+                # "payout_amount_html": {
+                #     "display": localized_isk_value(srp_request.payout_amount),
+                #     "sort": srp_request.loss_amount,
+                # },
                 "request_status_icon": (
                     srp_request_details_icon + srp_request_status_icon
                 ),
@@ -312,10 +304,6 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
                 "ship_html": {"display": killboard_link, "sort": srp_request.ship.name},
                 "ship": srp_request.ship.name,
                 "zkb_link": killboard_link,
-                "zkb_loss_amount_html": {
-                    "display": localized_isk_value(srp_request.loss_amount),
-                    "sort": srp_request.loss_amount,
-                },
                 "zbk_loss_amount": srp_request.loss_amount,
                 "payout_amount_html": {
                     "display": payout_amount_html(

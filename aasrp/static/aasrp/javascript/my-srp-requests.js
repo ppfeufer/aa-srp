@@ -1,4 +1,4 @@
-/* global aasrpBootstrapTooltip, aaSrpSettings, fetchGet, moment */
+/* global aasrpBootstrapTooltip, aaSrpSettings, fetchGet, moment, numberFormatter */
 
 $(document).ready(() => {
     'use strict';
@@ -77,26 +77,52 @@ $(document).ready(() => {
                         },
                         // {data: 'zkb_link'},
                         {
-                            data: 'zkb_loss_amount_html',
+                            data: 'zkb_loss_amount',
                             /**
                              * Render callback
                              */
                             render: {
-                                display: 'display',
-                                filter: 'sort',
-                                sort: 'sort'
+                                display: (data) => {
+                                    return numberFormatter({
+                                        value: data,
+                                        locales: aaSrpSettings.locale,
+                                        options: {
+                                            style: 'currency',
+                                            currency: 'ISK'
+                                        }
+                                    });
+                                },
+                                filter: (data) => {
+                                    return data;
+                                },
+                                sort: (data) => {
+                                    return data;
+                                }
                             },
                             className: 'srp-request-zkb-loss-amount text-end'
                         },
                         {
-                            data: 'zkb_loss_amount_html',
+                            data: 'payout_amount',
                             /**
                              * Render callback
                              */
                             render: {
-                                display: 'display',
-                                filter: 'sort',
-                                sort: 'sort'
+                                display: (data) => {
+                                    return numberFormatter({
+                                        value: data,
+                                        locales: aaSrpSettings.locale,
+                                        options: {
+                                            style: 'currency',
+                                            currency: 'ISK'
+                                        }
+                                    });
+                                },
+                                filter: (data) => {
+                                    return data;
+                                },
+                                sort: (data) => {
+                                    return data;
+                                }
                             },
                             className: 'srp-request-payout text-end'
                         },
@@ -156,7 +182,14 @@ $(document).ready(() => {
                         userSrpAmount += parseInt(data.payout_amount);
 
                         $('.srp-dashboard-user-isk-cost-amount').html(
-                            `${new Intl.NumberFormat(aaSrpSettings.locale).format(userSrpAmount)} ISK`
+                            numberFormatter({
+                                value: userSrpAmount,
+                                locales: aaSrpSettings.locale,
+                                options: {
+                                    style: 'currency',
+                                    currency: 'ISK'
+                                }
+                            })
                         );
                     },
                     initComplete: () => {
