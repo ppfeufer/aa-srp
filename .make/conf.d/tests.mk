@@ -5,7 +5,7 @@
 coverage: check-python-venv
 	@echo "Running tests and creating a coverage report …"
 #	@rm -rf htmlcov
-	@coverage run ../myauth/manage.py \
+	@coverage run $(myauth_path)/manage.py \
 		test \
 		$(package) \
 		--keepdb \
