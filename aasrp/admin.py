@@ -18,6 +18,7 @@ from allianceauth.framework.api.user import get_main_character_name_from_user
 
 # AA SRP
 from aasrp.form import SettingAdminForm
+from aasrp.helper.numbers import l10n_number_format
 from aasrp.models import FleetType, RequestComment, Setting, SrpLink, SrpRequest
 
 
@@ -69,9 +70,9 @@ class SrpRequestAdmin(admin.ModelAdmin):
         "srp_link",
         "_srp_code",
         "post_time",
-        "ship",
-        "loss_amount",
-        "payout_amount",
+        "ship_name",
+        "_loss_amount",
+        "_payout_amount",
         "killboard_link",
         "request_status",
     )
@@ -80,7 +81,7 @@ class SrpRequestAdmin(admin.ModelAdmin):
     search_fields = (
         "request_code",
         "character__character_name",
-        "ship__name",
+        "ship_name",
         "srp_link__srp_name",
         "srp_link__srp_code",
     )
@@ -111,6 +112,36 @@ class SrpRequestAdmin(admin.ModelAdmin):
         """
 
         return obj.srp_link.srp_code
+
+    @admin.display(description=_("Loss amount"), ordering="loss_amount")
+    def _loss_amount(self, obj: SrpRequest) -> str:
+        """
+        Display the loss amount for the SRP request.
+
+        :param obj: The SrpRequest object.
+        :type obj: SrpRequest
+        :return: The loss amount formatted as a string.
+        :rtype: str
+        """
+
+        localized_amount = l10n_number_format(obj.loss_amount, 2)
+
+        return f"{localized_amount} ISK"
+
+    @admin.display(description=_("Payout amount"), ordering="payout_amount")
+    def _payout_amount(self, obj: SrpRequest) -> str:
+        """
+        Display the payout amount for the SRP request.
+
+        :param obj: The SrpRequest object.
+        :type obj: SrpRequest
+        :return: The payout amount formatted as a string.
+        :rtype: str
+        """
+
+        localized_amount = l10n_number_format(obj.payout_amount, 2)
+
+        return f"{localized_amount} ISK"
 
 
 @admin.register(RequestComment)

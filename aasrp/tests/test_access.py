@@ -10,7 +10,6 @@ from faker import Faker
 
 # Django
 from django.contrib.auth.models import Group
-from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.crypto import get_random_string
@@ -20,11 +19,12 @@ from app_utils.testing import create_fake_user
 
 # AA SRP
 from aasrp.models import SrpLink
+from aasrp.tests import BaseTestCase
 
 fake = Faker()
 
 
-class TestAccess(TestCase):
+class TestAccess(BaseTestCase):
     """
     Testing access to various views
     """

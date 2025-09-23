@@ -78,7 +78,8 @@ class TestNotifySrpTeam(BaseTestCase):
         srp_request = MagicMock()
         srp_request.request_code = "REQ123"
         srp_request.character.character_name = "Test Character"
-        srp_request.ship.name = "Test Ship"
+        srp_request.ship_name = "Test Ship"
+        srp_request.ship_id = 12345
         srp_request.killboard_link = "https://zkillboard.com/kill/123456/"
         srp_request.srp_link.srp_code = "SRP123"
 
