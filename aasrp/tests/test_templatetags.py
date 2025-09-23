@@ -4,17 +4,17 @@ Tests for the template tags
 
 # Django
 from django.template import Context, Template
-from django.test import TestCase
 
 # Alliance Auth
 from allianceauth.tests.auth_utils import AuthUtils
 
 # AA SRP
 from aasrp.models import get_sentinel_user
+from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import create_fake_user
 
 
-class TestMainCharacterName(TestCase):
+class TestMainCharacterName(BaseTestCase):
     """
     Tests for main_character_name template tag
     """
@@ -96,7 +96,7 @@ class TestMainCharacterName(TestCase):
         self.assertEqual(first=result, second="deleted")
 
 
-class TestMainCharacterId(TestCase):
+class TestMainCharacterId(BaseTestCase):
     """
     Tests for main_character_id template tag
     """
@@ -180,7 +180,7 @@ class TestMainCharacterId(TestCase):
         self.assertEqual(first=result, second="1")
 
 
-class TestMainCharacterCorporationName(TestCase):
+class TestMainCharacterCorporationName(BaseTestCase):
     """
     Tests for main_character_corporation_name template tag
     """
@@ -271,7 +271,7 @@ class TestMainCharacterCorporationName(TestCase):
         self.assertEqual(first=result, second="")
 
 
-class TestMainCorporationId(TestCase):
+class TestMainCorporationId(BaseTestCase):
     """
     Tests for main_character_corporation_id template tag
     """
@@ -362,7 +362,7 @@ class TestMainCorporationId(TestCase):
         self.assertEqual(first=result, second="1")
 
 
-class TestMainCharacterAllianceName(TestCase):
+class TestMainCharacterAllianceName(BaseTestCase):
     """
     Tests for main_character_alliance_name template tag
     """
@@ -482,7 +482,7 @@ class TestMainCharacterAllianceName(TestCase):
         self.assertEqual(first=result, second="")
 
 
-class TestMainAllianceId(TestCase):
+class TestMainAllianceId(BaseTestCase):
     """
     Tests for main_character_alliance_id template tag
     """

@@ -7,7 +7,6 @@ from unittest.mock import patch
 
 # Django
 from django.core.exceptions import ValidationError
-from django.test import TestCase
 from django.utils import timezone
 from django.utils.safestring import SafeString
 from django.utils.translation import gettext_lazy as _
@@ -26,10 +25,11 @@ from aasrp.form import (
     get_mandatory_form_label_text,
 )
 from aasrp.models import FleetType, SrpLink
+from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import create_fake_user
 
 
-class BaseFormTestCase(TestCase):
+class BaseFormTestCase(BaseTestCase):
     """
     Base test case for forms
     """
@@ -60,7 +60,7 @@ class BaseFormTestCase(TestCase):
         )
 
 
-class TestGetMandatoryFormLabelText(TestCase):
+class TestGetMandatoryFormLabelText(BaseTestCase):
     """
     Test get_mandatory_form_label_text function
     """
@@ -102,7 +102,7 @@ class TestGetMandatoryFormLabelText(TestCase):
         )
 
 
-class TestSrpLinkForm(TestCase):
+class TestSrpLinkForm(BaseTestCase):
     """
     Test SrpLinkForm
     """
@@ -328,7 +328,7 @@ class TestSrpRequestForm(BaseFormTestCase):
             )
 
 
-class TestSrpRequestPayoutForm(TestCase):
+class TestSrpRequestPayoutForm(BaseTestCase):
     """
     Test SrpRequestPayoutForm
     """
@@ -375,7 +375,7 @@ class TestSrpRequestPayoutForm(TestCase):
         self.assertIn("value", form.errors)
 
 
-class TestSrpRequestRejectForm(TestCase):
+class TestSrpRequestRejectForm(BaseTestCase):
     """
     Test SrpRequestRejectForm
     """
@@ -394,7 +394,7 @@ class TestSrpRequestRejectForm(TestCase):
         self.assertTrue(form.is_valid())
 
 
-class TestSrpRequestAcceptForm(TestCase):
+class TestSrpRequestAcceptForm(BaseTestCase):
     """
     Test SrpRequestAcceptForm
     """
@@ -426,7 +426,7 @@ class TestSrpRequestAcceptForm(TestCase):
         self.assertTrue(form.is_valid())
 
 
-class TestSrpRequestAcceptRejectedForm(TestCase):
+class TestSrpRequestAcceptRejectedForm(BaseTestCase):
     """
     Test SrpRequestAcceptRejectedForm
     """
@@ -445,7 +445,7 @@ class TestSrpRequestAcceptRejectedForm(TestCase):
         self.assertTrue(form.is_valid())
 
 
-class TestUserSettingsForm(TestCase):
+class TestUserSettingsForm(BaseTestCase):
     """
     Test UserSettingsForm
     """

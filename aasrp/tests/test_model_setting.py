@@ -4,14 +4,14 @@ Tests for model Setting
 
 # Django
 from django.db.utils import IntegrityError
-from django.test import TestCase
 
 # AA SRP
 from aasrp.models import Setting
+from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import create_setting
 
 
-class TestSetting(TestCase):
+class TestSetting(BaseTestCase):
     """
     Testing the Setting model
     """

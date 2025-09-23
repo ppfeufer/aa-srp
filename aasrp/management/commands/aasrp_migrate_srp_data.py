@@ -13,12 +13,10 @@ from django.utils.crypto import get_random_string
 # Alliance Auth
 from allianceauth.srp.models import SrpFleetMain
 
-# Alliance Auth (External Libs)
-from eveuniverse.models import EveType
-
 # AA SRP
 from aasrp.helper.character import get_user_for_character
 from aasrp.models import RequestComment, Setting, SrpLink, SrpRequest
+from aasrp.providers import esi
 
 
 def get_input(text):
@@ -44,6 +42,30 @@ class Command(BaseCommand):
     """
 
     help = "Migrate SRP data from the built-in SRP module"
+
+    # Cache for ship info to minimize ESI calls
+    ship_info_cache = {}
+
+    def _get_ship_info_from_esi_by_id(self, ship_type_id):
+        """
+        Retrieve ship information from ESI by ship type ID, with caching to avoid redundant API calls.
+
+        :param ship_type_id:
+        :type ship_type_id:
+        :return:
+        :rtype:
+        """
+
+        if ship_type_id not in self.ship_info_cache:
+            self.stdout.write(f"Adding ship info for type ID {ship_type_id} to cache")
+
+            self.ship_info_cache[ship_type_id] = (
+                esi.client.Universe.GetUniverseTypesTypeId(
+                    type_id=ship_type_id
+                ).result()
+            )
+
+        return self.ship_info_cache[ship_type_id]
 
     def _migrate_srp_data(self):  # pylint: disable=too-many-locals, too-many-statements
         """
@@ -151,27 +173,22 @@ class Command(BaseCommand):
                             srp_userrequest_payout = srp_userrequest.srp_total_amount
                             srp_userrequest_loss_amount = srp_userrequest.kb_total_loss
 
-                            try:
-                                srp_userrequest_ship = EveType.objects.get(
-                                    name=srp_userrequest.srp_ship_name
-                                )
-                            except EveType.DoesNotExist:
-                                srp_kill_link = SrpRequest.objects.get_kill_id(
-                                    srp_userrequest_killboard_link
-                                )
+                            srp_kill_link = SrpRequest.objects.get_kill_id(
+                                srp_userrequest_killboard_link
+                            )
 
-                                (
-                                    ship_type_id,
-                                    ship_value,  # pylint: disable=unused-variable
-                                    victim_id,  # pylint: disable=unused-variable
-                                ) = SrpRequest.objects.get_kill_data(
-                                    srp_kill_link, loss_value_field
-                                )
+                            (
+                                ship_type_id,
+                                ship_value,  # pylint: disable=unused-variable
+                                victim_id,  # pylint: disable=unused-variable
+                            ) = SrpRequest.objects.get_kill_data(
+                                killmail_id=srp_kill_link,
+                                loss_value_field=loss_value_field,
+                            )
 
-                                (
-                                    srp_userrequest_ship,
-                                    created_from_esi,  # pylint: disable=unused-variable
-                                ) = EveType.objects.get_or_create_esi(id=ship_type_id)
+                            srp_userrequest_ship = self._get_ship_info_from_esi_by_id(
+                                ship_type_id
+                            )
 
                             srp_userrequest_post_time = srp_userrequest.post_time
                             srp_userrequest_request_code = get_random_string(length=16)
@@ -190,7 +207,8 @@ class Command(BaseCommand):
                             srp_request.request_status = srp_userrequest_status
                             srp_request.payout_amount = srp_userrequest_payout
                             srp_request.loss_amount = srp_userrequest_loss_amount
-                            srp_request.ship = srp_userrequest_ship
+                            srp_request.ship_name = srp_userrequest_ship.name
+                            srp_request.ship_id = ship_type_id
                             srp_request.post_time = srp_userrequest_post_time
                             srp_request.request_code = srp_userrequest_request_code
                             srp_request.character = srp_userrequest_character

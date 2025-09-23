@@ -23,7 +23,6 @@ from allianceauth.services.hooks import get_extension_logger
 
 # Alliance Auth (External Libs)
 from app_utils.logging import LoggerAddTag
-from eveuniverse.models import EveType
 
 # AA SRP
 from aasrp import __title__
@@ -40,6 +39,7 @@ from aasrp.form import (
 from aasrp.helper.notification import notify_srp_team
 from aasrp.helper.user import get_user_settings
 from aasrp.models import Insurance, RequestComment, Setting, SrpLink, SrpRequest
+from aasrp.providers import esi
 
 # Initialize a logger with a custom tag for the AA SRP application
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
@@ -311,11 +311,12 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         character_id=victim_id
     )
 
-    # Retrieve or create the ship type from ESI
-    (
-        srp_request__ship,
-        created_from_esi,  # pylint: disable=unused-variable
-    ) = EveType.objects.get_or_create_esi(id=ship_type_id)
+    # Get ship information from ESI
+    srp_request__ship = esi.client.Universe.GetUniverseTypesTypeId(
+        type_id=ship_type_id
+    ).result()
+
+    logger.debug(msg=f"Ship type {srp_request__ship.name}")
 
     # Create the SRP request object
     srp_request = SrpRequest.objects.create(
@@ -324,7 +325,7 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         srp_link=srp_link,
         character=srp_request__character,
         ship_name=srp_request__ship.name,
-        ship=srp_request__ship,
+        ship_id=ship_type_id,
         loss_amount=ship_value,
         post_time=post_time,
         request_code=get_random_string(length=16),

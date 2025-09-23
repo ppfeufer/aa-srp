@@ -126,10 +126,6 @@ class SrpRequestManager(models.Manager):
             killmail_hash=zkillboard_data.get("zkb", {}).get("hash"),
         ).result()
 
-        logger.info(
-            f"Fetched kill mail details for Kill ID {killmail_id} from ESI: {esi_killmail}"
-        )
-
         ship_type = esi_killmail.victim.ship_type_id
         ship_value = zkillboard_data.get("zkb", {}).get(loss_value_field, 0)
         victim_id = esi_killmail.victim.character_id

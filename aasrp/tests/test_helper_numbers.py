@@ -3,13 +3,14 @@ Test cases for the helper.numbers module in the aasrp package.
 """
 
 # Django
-from django.test import TestCase, override_settings
+from django.test import override_settings
 
 # AA SRP
 from aasrp.helper.numbers import l10n_number_format
+from aasrp.tests import BaseTestCase
 
 
-class TestL10nNumberFormat(TestCase):
+class TestL10nNumberFormat(BaseTestCase):
     """
     Test cases for the l10n_number_format function.
     """
