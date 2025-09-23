@@ -9,12 +9,9 @@ to re-add missing ship information to SRP requests.
 # Django
 from django.utils.translation import gettext_lazy as _
 
-# Alliance Auth (External Libs)
-from eveuniverse.models import EveType
-
 # AA SRP
 from aasrp.helper.icons import copy_to_clipboard_icon
-from aasrp.models import Setting, SrpRequest
+from aasrp.models import SrpRequest
 
 
 def request_code_html(request_code: str) -> str:
@@ -76,46 +73,3 @@ def request_fleet_details_html(srp_request: SrpRequest) -> str:
     )
 
     return f"{fleet_name}{fleet_details}"
-
-
-def attempt_to_re_add_ship_information_to_request(
-    srp_request: SrpRequest,
-) -> SrpRequest:
-    """
-    Re-add missing ship information to an SRP request if it was removed from the EveType table.
-
-    This function ensures that the `ship` field of an SRP request is populated to prevent
-    errors in DataTables. If the ship information is missing, it retrieves the data from
-    the ESI (EVE Swagger Interface) and updates the SRP request.
-
-    :param srp_request: The SRP request object to update.
-    :type srp_request: SrpRequest
-    :return: The updated SRP request object.
-    :rtype: SrpRequest
-    """
-
-    if srp_request.ship is not None:
-        return srp_request
-
-    srp_kill_link_id = SrpRequest.objects.get_kill_id(
-        killboard_link=srp_request.killboard_link
-    )
-
-    (ship_type_id, ship_value, victim_id) = (  # pylint: disable=unused-variable
-        SrpRequest.objects.get_kill_data(
-            killmail_id=srp_kill_link_id,
-            loss_value_field=Setting.objects.get_setting(
-                Setting.Field.LOSS_VALUE_SOURCE
-            ),
-        )
-    )
-
-    (srp_request__ship, created_from_esi) = (  # pylint: disable=unused-variable
-        EveType.objects.get_or_create_esi(id=ship_type_id)
-    )
-
-    srp_request.ship_name = srp_request__ship.name
-    srp_request.ship = srp_request__ship
-    srp_request.save()
-
-    return srp_request

@@ -52,7 +52,7 @@ def notify_requester(
     reviser_name = get_main_character_name_from_user(reviser)
 
     context = {
-        "ship": srp_request.ship.name,
+        "ship": srp_request.ship_name,
         "srp_name": srp_request.srp_link.srp_name,
         "status": request_status.lower(),
         "srp_code": srp_request.srp_link.srp_code,
@@ -110,7 +110,7 @@ def notify_srp_team(srp_request: SrpRequest, additional_info: str) -> None:
             context={
                 "request_code": srp_request.request_code,
                 "character": srp_request.character.character_name,
-                "ship": srp_request.ship.name,
+                "ship": srp_request.ship_name,
                 "killboard_link": srp_request.killboard_link,
                 "additional_info": additional_info.replace("@", "{@}"),
                 "srp_code": srp_code,

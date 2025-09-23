@@ -1,11 +1,9 @@
-# Django
-from django.test import TestCase
-
 # AA SRP
 from aasrp.models import FleetType
+from aasrp.tests import BaseTestCase
 
 
-class TestFleetType(TestCase):
+class TestFleetType(BaseTestCase):
     """
     Tests for FleetType model
     """

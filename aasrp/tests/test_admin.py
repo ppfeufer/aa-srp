@@ -11,7 +11,7 @@ from django.contrib import admin
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import User
 from django.http import HttpRequest
-from django.test import Client, TestCase
+from django.test import Client
 from django.urls import reverse
 from django.utils.translation import ngettext
 
@@ -22,10 +22,11 @@ from aasrp.admin import (
     SrpLinkAdmin,
     SrpRequestAdmin,
 )
-from aasrp.models import FleetType, RequestComment
+from aasrp.models import FleetType, RequestComment, SrpRequest
+from aasrp.tests import BaseTestCase
 
 
-class TestFleetTypeAdmin(TestCase):
+class TestFleetTypeAdmin(BaseTestCase):
     """
     Test the FleetType admin interface.
     """
@@ -190,7 +191,7 @@ class TestFleetTypeAdmin(TestCase):
         )
 
 
-class TestRequestCommentAdmin(TestCase):
+class TestRequestCommentAdmin(BaseTestCase):
     """
     Test the RequestComment admin interface.
     """
@@ -265,10 +266,14 @@ class TestRequestCommentAdmin(TestCase):
         self.assertEqual(first=result, second="Jane Doe")
 
 
-class TestSrpRequestAdmin(TestCase):
+class TestSrpRequestAdmin(BaseTestCase):
     """
     Test the SrpRequest admin interface.
     """
+
+    def setUp(self):
+        self.srp_request = MagicMock()
+        self.admin = SrpRequestAdmin(SrpRequest, None)
 
     def test_displays_correct_requestor_name_for_valid_creator(self):
         """
@@ -323,8 +328,116 @@ class TestSrpRequestAdmin(TestCase):
 
         self.assertEqual(first=result, second="SRP123")
 
+    @patch("aasrp.admin.l10n_number_format")
+    def test_displays_positive_loss_amount(self, mock_format):
+        """
+        Test that a positive loss amount is displayed correctly.
 
-class TestSrpLinkAdmin(TestCase):
+        :param mock_format:
+        :type mock_format:
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.loss_amount = 123456.789
+
+        mock_format.return_value = "123,456.79"
+        result = self.admin._loss_amount(self.srp_request)
+
+        self.assertEqual(result, "123,456.79 ISK")
+
+    @patch("aasrp.admin.l10n_number_format")
+    def test_displays_zero_loss_amount(self, mock_format):
+        """
+        Test that a zero loss amount is displayed correctly.
+
+        :param mock_format:
+        :type mock_format:
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.loss_amount = 0
+
+        mock_format.return_value = "0.00"
+        result = self.admin._loss_amount(self.srp_request)
+
+        self.assertEqual(result, "0.00 ISK")
+
+    @patch("aasrp.admin.l10n_number_format")
+    def test_displays_large_loss_amount(self, mock_format):
+        """
+        Test that a large loss amount is displayed correctly.
+
+        :param mock_format:
+        :type mock_format:
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.loss_amount = 1_000_000_000.99
+
+        mock_format.return_value = "1,000,000,000.99"
+        result = self.admin._loss_amount(self.srp_request)
+
+        self.assertEqual(result, "1,000,000,000.99 ISK")
+
+    @patch("aasrp.admin.l10n_number_format")
+    def test_displays_positive_payout_amount(self, mock_format):
+        """
+        Test that a positive payout amount is displayed correctly.
+
+        :param mock_format:
+        :type mock_format:
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.payout_amount = 987654.321
+
+        mock_format.return_value = "987,654.32"
+        result = self.admin._payout_amount(self.srp_request)
+
+        self.assertEqual(result, "987,654.32 ISK")
+
+    @patch("aasrp.admin.l10n_number_format")
+    def test_displays_zero_payout_amount(self, mock_format):
+        """
+        Test that a zero payout amount is displayed correctly.
+
+        :param mock_format:
+        :type mock_format:
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.payout_amount = 0
+
+        mock_format.return_value = "0.00"
+        result = self.admin._payout_amount(self.srp_request)
+
+        self.assertEqual(result, "0.00 ISK")
+
+    @patch("aasrp.admin.l10n_number_format")
+    def test_displays_large_payout_amount(self, mock_format):
+        """
+        Test that a large payout amount is displayed correctly.
+
+        :param mock_format:
+        :type mock_format:
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.payout_amount = 1_000_000_000.99
+
+        mock_format.return_value = "1,000,000,000.99"
+        result = self.admin._payout_amount(self.srp_request)
+
+        self.assertEqual(result, "1,000,000,000.99 ISK")
+
+
+class TestSrpLinkAdmin(BaseTestCase):
     """
     Test the SrpLink admin interface.
     """

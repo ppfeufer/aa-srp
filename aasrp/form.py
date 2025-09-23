@@ -218,7 +218,10 @@ class SrpRequestForm(ModelForm):
             )
 
         # Check if there is already an SRP request for this kill mail
-        killmail_id = SrpRequest.objects.get_kill_id(killboard_link=killboard_link)
+        try:
+            killmail_id = SrpRequest.objects.get_kill_id(killboard_link=killboard_link)
+        except ValueError as e:
+            raise forms.ValidationError(str(e))
 
         logger.debug(f"Extracted killmail ID: {killmail_id}")
 

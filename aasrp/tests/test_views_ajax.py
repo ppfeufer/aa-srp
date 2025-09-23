@@ -16,7 +16,7 @@ from django.utils.datetime_safe import datetime
 from app_utils.testing import create_fake_user
 
 # AA SRP
-from aasrp.models import SrpLink, SrpRequest
+from aasrp.models import RequestComment, SrpLink, SrpRequest
 from aasrp.tests import BaseTestCase
 from aasrp.views.ajax import (
     srp_request_approve,
@@ -83,7 +83,7 @@ class BaseViewsTestCase(BaseTestCase):
         cls.srp_request_pending.save()
 
 
-class DashboardSrpLinksDataTests(BaseViewsTestCase):
+class TestDashboardSrpLinksData(BaseViewsTestCase):
     """
     Tests for the dashboard_srp_links_data view.
     """
@@ -709,3 +709,69 @@ class TestSrpRequestChangePayout(BaseViewsTestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(response.json(), {"success": False})
+
+
+class TestSrpRequestAdditionalInformation(BaseViewsTestCase):
+    @patch("aasrp.views.ajax.get_formatted_character_name")
+    @patch("aasrp.views.ajax.get_type_render_url_from_type_id")
+    def test_retrieves_additional_information_for_valid_request(
+        self, mock_get_type_render_url, mock_get_formatted_character_name
+    ):
+        """
+        Test that the view retrieves additional information for a valid SRP request.
+
+        :param mock_get_type_render_url:
+        :type mock_get_type_render_url:
+        :param mock_get_formatted_character_name:
+        :type mock_get_formatted_character_name:
+        :return:
+        :rtype:
+        """
+
+        srp_request = SrpRequest.objects.create(
+            srp_link=self.srp_link_active,
+            request_code="valid_code",
+            ship_name="Test Ship",
+            ship_id=123,
+            request_status=SrpRequest.Status.PENDING,
+        )
+        RequestComment.objects.create(
+            srp_request=srp_request,
+            comment="Additional info",
+            comment_type=RequestComment.Type.REQUEST_INFO,
+        )
+        mock_get_formatted_character_name.return_value = "Formatted Character"
+        mock_get_type_render_url.return_value = "<img src='ship.png'>"
+
+        self.client.force_login(self.user_jean_luc_picard)
+
+        response = self.client.get(
+            reverse(
+                "aasrp:ajax_srp_request_additional_information",
+                args=[self.srp_link_active.srp_code, "valid_code"],
+            )
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, "Test Ship")
+        self.assertContains(response, "Formatted Character")
+        self.assertContains(response, "Additional info")
+
+    def test_returns_404_for_nonexistent_request(self):
+        """
+        Test that the view returns a 404 status code for a nonexistent SRP request.
+
+        :return:
+        :rtype:
+        """
+
+        self.client.force_login(self.user_jean_luc_picard)
+
+        response = self.client.get(
+            reverse(
+                "aasrp:ajax_srp_request_additional_information",
+                args=["invalid_code", "invalid_code"],
+            )
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
