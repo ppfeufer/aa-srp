@@ -18,9 +18,6 @@ from django.utils.translation import gettext_lazy as _
 from allianceauth.eveonline.models import EveCharacter
 from allianceauth.framework.api.user import get_main_character_name_from_user
 
-# Alliance Auth (External Libs)
-from eveuniverse.models import EveType
-
 # AA SRP
 from aasrp.managers import SettingManager, SrpRequestManager
 
@@ -303,14 +300,8 @@ class SrpRequest(models.Model):
     ship_name = models.CharField(
         max_length=254, default="", verbose_name=_("Ship type")
     )
-    ship = models.ForeignKey(
-        to=EveType,
-        related_name="srp_requests",
-        null=True,
-        blank=True,
-        default=None,
-        on_delete=models.SET_NULL,
-        verbose_name=_("Ship type"),
+    ship_id = models.PositiveBigIntegerField(
+        null=True, blank=True, default=None, verbose_name=_("Ship type ID")
     )
     killboard_link = models.CharField(
         max_length=254, default="", verbose_name=_("Killboard link")
@@ -360,7 +351,7 @@ class SrpRequest(models.Model):
 
         character_name = self.character.character_name
         user_name = get_main_character_name_from_user(self.creator)
-        ship = self.ship.name
+        ship = self.ship_name
         request_code = self.request_code
 
         return str(

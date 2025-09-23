@@ -5,13 +5,13 @@ Tests for the views in aasrp/views/general.py
 # Standard Library
 from datetime import datetime
 from http import HTTPStatus
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 # Django
 from django.contrib import messages
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
-from django.test import RequestFactory, TestCase
+from django.test import RequestFactory
 from django.urls import reverse
 from django.utils import timezone
 
@@ -19,8 +19,10 @@ from django.utils import timezone
 from app_utils.testing import create_fake_user
 
 # AA SRP
-from aasrp.models import SrpLink, UserSetting
+from aasrp.models import SrpLink, SrpRequest, UserSetting
+from aasrp.tests import BaseTestCase
 from aasrp.views.general import (
+    _save_srp_request,
     complete_srp_link,
     delete_srp_link,
     disable_srp_link,
@@ -30,7 +32,7 @@ from aasrp.views.general import (
 )
 
 
-class BaseViewsTestCase(TestCase):
+class BaseViewsTestCase(BaseTestCase):
     """
     Base test case for views tests.
     """
@@ -413,6 +415,28 @@ class TestRequestSrp(BaseViewsTestCase):
     Test the request_srp view.
     """
 
+    def setUp(self):
+        """
+        Set up a SrpLink instance for testing.
+
+        :return:
+        :rtype:
+        """
+
+        self.user = self.user_wesley_crusher
+        self.client.force_login(self.user)
+        self.srp_link = SrpLink.objects.create(
+            srp_name="Test SRP",
+            fleet_time=timezone.now(),
+            fleet_doctrine="Doctrine A",
+            aar_link="http://example.com/aar",
+            srp_code="SRP123",
+            fleet_commander=self.user.profile.main_character,
+            creator=self.user,
+            srp_status=SrpLink.Status.ACTIVE,
+        )
+        self.url = reverse("aasrp:request_srp", args=[self.srp_link.srp_code])
+
     @patch("aasrp.views.general.SrpLink.objects.get")
     def test_request_srp_link_not_found(self, mock_get_srp_link):
         """
@@ -503,6 +527,107 @@ class TestRequestSrp(BaseViewsTestCase):
             str(list(messages.get_messages(request))[0]),
             "This SRP link is no longer available for SRP requests.",
         )
+
+    def test_renders_form_on_get_request(self):
+        """
+        Test that a GET request to the view shows the form.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "form")
+
+    @patch("aasrp.models.SrpRequest.objects.get_kill_id")
+    @patch("aasrp.models.SrpRequest.objects.get_kill_data")
+    @patch("aasrp.views.general._save_srp_request")
+    def test_creates_srp_request_on_valid_post(
+        self, mock_save_request, mock_get_kill_data, mock_get_kill_id
+    ):
+        """
+        Test that a valid form submission creates a new SrpRequest instance.
+
+        :param mock_save_request:
+        :type mock_save_request:
+        :param mock_get_kill_data:
+        :type mock_get_kill_data:
+        :param mock_get_kill_id:
+        :type mock_get_kill_id:
+        :return:
+        :rtype:
+        """
+
+        mock_get_kill_id.return_value = "kill_id_123"
+        mock_get_kill_data.return_value = (
+            1,
+            "1000000",
+            self.user.profile.main_character.character_id,
+        )
+        mock_save_request.return_value = SrpRequest(
+            killboard_link="https://zkillboard.com/kill/123456789/",
+            srp_link=self.srp_link,
+            creator=self.user,
+        )
+        form_data = {
+            "killboard_link": "https://zkillboard.com/kill/123456789/",
+            "additional_info": "Test info",
+        }
+        response = self.client.post(self.url, data=form_data)
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+
+    @patch("aasrp.models.SrpRequest.objects.get_kill_id")
+    @patch("aasrp.models.SrpRequest.objects.get_kill_data")
+    def test_shows_error_for_invalid_killmail(
+        self, mock_get_kill_data, mock_get_kill_id
+    ):
+        """
+        Test that an invalid killmail shows an error message.
+
+        :param mock_get_kill_data:
+        :type mock_get_kill_data:
+        :param mock_get_kill_id:
+        :type mock_get_kill_id:
+        :return:
+        :rtype:
+        """
+
+        mock_get_kill_id.side_effect = ValueError("Invalid killmail")
+        form_data = {
+            "killboard_link": "https://zkillboard.com/kill/128743453/",
+            "additional_info": "Test info",
+        }
+        response = self.client.post(self.url, data=form_data)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, "Invalid killmail")
+
+    @patch("aasrp.models.SrpRequest.objects.get_kill_id")
+    @patch("aasrp.models.SrpRequest.objects.get_kill_data")
+    def test_shows_error_when_character_not_owned(
+        self, mock_get_kill_data, mock_get_kill_id
+    ):
+        """
+        Test that a killmail not involving the user's character shows an error message.
+
+        :param mock_get_kill_data:
+        :type mock_get_kill_data:
+        :param mock_get_kill_id:
+        :type mock_get_kill_id:
+        :return:
+        :rtype:
+        """
+
+        mock_get_kill_id.return_value = "kill_id_123"
+        mock_get_kill_data.return_value = (1, "1000000", 99999)
+        form_data = {
+            "killboard_link": "https://zkillboard.com/kill/128743453/",
+            "additional_info": "Test info",
+        }
+        response = self.client.post(self.url, data=form_data)
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
 
 
 class TestViewOwnRequests(BaseViewsTestCase):
@@ -743,119 +868,178 @@ class TestSrpLinkEditView(BaseViewsTestCase):
         self.assertContains(response, self.srp_link.aar_link)
 
 
-class RequestSrpViewTests(BaseViewsTestCase):
+class TestSaveSrpRequest(BaseTestCase):
     """
-    Test the request_srp view.
+    Test the _save_srp_request function.
     """
 
     def setUp(self):
         """
-        Set up a SrpLink instance for testing.
+        Set up common test data.
 
         :return:
         :rtype:
         """
 
-        self.user = self.user_wesley_crusher
-        self.client.force_login(self.user)
+        self.request = MagicMock()
+        self.request.user = create_fake_user(
+            character_id=1002,
+            character_name="Test User",
+            permissions=["aasrp.basic_access"],
+        )
+        # Use a real SrpLink instance
         self.srp_link = SrpLink.objects.create(
+            srp_code="SRP123",
+            fleet_time=datetime.now(),
             srp_name="Test SRP",
-            fleet_time=timezone.now(),
             fleet_doctrine="Doctrine A",
             aar_link="http://example.com/aar",
-            srp_code="SRP123",
-            fleet_commander=self.user.profile.main_character,
-            creator=self.user,
-            srp_status=SrpLink.Status.ACTIVE,
         )
-        self.url = reverse("aasrp:request_srp", args=[self.srp_link.srp_code])
+        self.killmail_link = "https://zkillboard.com/kill/12345678/"
+        self.ship_type_id = 123
+        self.ship_value = 1000000
+        self.victim_id = 456
+        self.additional_info = "Additional information"
 
-    def test_redirects_when_srp_code_is_invalid(self):
+    @patch("aasrp.views.general.EveCharacter.objects.get_character_by_id")
+    @patch("aasrp.views.general.esi")
+    @patch("aasrp.views.general.SrpRequest.objects.create")
+    @patch("aasrp.views.general.RequestComment.objects.bulk_create")
+    @patch("aasrp.views.general.SrpRequest.objects.get_insurance_for_ship_type")
+    @patch("aasrp.views.general.Insurance.objects.bulk_create")
+    def test_creates_srp_request_successfully(
+        self,
+        mock_insurance_bulk_create,
+        mock_get_insurance,
+        mock_comment_bulk_create,
+        mock_srp_request_create,
+        mock_esi,
+        mock_get_character_by_id,
+    ):
         """
-        Test that accessing the view with an invalid srp_code redirects to the srp_links page.
+        Test that _save_srp_request creates an SrpRequest successfully.
 
+        :param mock_insurance_bulk_create:
+        :type mock_insurance_bulk_create:
+        :param mock_get_insurance:
+        :type mock_get_insurance:
+        :param mock_comment_bulk_create:
+        :type mock_comment_bulk_create:
+        :param mock_srp_request_create:
+        :type mock_srp_request_create:
+        :param mock_esi:
+        :type mock_esi:
+        :param mock_get_character_by_id:
+        :type mock_get_character_by_id:
         :return:
         :rtype:
         """
 
-        invalid_url = reverse("aasrp:request_srp", args=["INVALID_CODE"])
-        response = self.client.get(invalid_url)
+        mock_character = MagicMock()
+        mock_get_character_by_id.return_value = mock_character
 
-        self.assertRedirects(response, reverse("aasrp:srp_links"))
+        mock_ship = MagicMock()
+        mock_ship.name = "Test Ship"
+        mock_esi.client.Universe.GetUniverseTypesTypeId.return_value.result.return_value = (
+            mock_ship
+        )
 
-    def test_redirects_when_srp_link_is_not_active(self):
+        # Use a real SrpRequest instance for the mock
+        real_srp_request = SrpRequest()
+        mock_srp_request_create.return_value = real_srp_request
+
+        mock_insurance = MagicMock()
+        mock_get_insurance.return_value.levels = [mock_insurance]
+
+        result = _save_srp_request(
+            request=self.request,
+            srp_link=self.srp_link,
+            killmail_link=self.killmail_link,
+            ship_type_id=self.ship_type_id,
+            ship_value=self.ship_value,
+            victim_id=self.victim_id,
+            additional_info=self.additional_info,
+        )
+
+        self.assertEqual(result, real_srp_request)
+        mock_get_character_by_id.assert_called_once_with(character_id=self.victim_id)
+        mock_esi.client.Universe.GetUniverseTypesTypeId.assert_called_once_with(
+            type_id=self.ship_type_id
+        )
+        mock_srp_request_create.assert_called_once()
+        mock_comment_bulk_create.assert_called_once()
+        mock_get_insurance.assert_called_once_with(ship_type_id=self.ship_type_id)
+        mock_insurance_bulk_create.assert_called_once()
+
+    @patch("aasrp.views.general.EveCharacter.objects.get_character_by_id")
+    def test_handles_invalid_character_id(self, mock_get_character_by_id):
         """
-        Test that accessing the view when the SrpLink is not active redirects to the srp_links page.
+        Test that _save_srp_request handles an invalid character ID.
 
+        :param mock_get_character_by_id:
+        :type mock_get_character_by_id:
         :return:
         :rtype:
         """
 
-        self.srp_link.srp_status = SrpLink.Status.CLOSED
-        self.srp_link.save()
+        mock_get_character_by_id.side_effect = ValueError("Invalid character ID")
 
-        response = self.client.get(self.url)
+        with self.assertRaises(ValueError):
+            _save_srp_request(
+                request=self.request,
+                srp_link=self.srp_link,
+                killmail_link=self.killmail_link,
+                ship_type_id=self.ship_type_id,
+                ship_value=self.ship_value,
+                victim_id=self.victim_id,
+                additional_info=self.additional_info,
+            )
 
-        self.assertRedirects(response, reverse("aasrp:srp_links"))
-
-    def test_renders_form_on_get_request(self):
+    @patch("aasrp.views.general.esi")
+    def test_handles_invalid_ship_type_id(self, mock_esi):
         """
-        Test that a GET request to the view shows the form.
+        Test that _save_srp_request handles an invalid ship type ID.
 
+        :param mock_esi:
+        :type mock_esi:
         :return:
         :rtype:
         """
 
-        response = self.client.get(self.url)
+        mock_esi.client.Universe.GetUniverseTypesTypeId.side_effect = ValueError(
+            "Invalid ship type ID"
+        )
 
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "form")
+        with self.assertRaises(ValueError):
+            _save_srp_request(
+                request=self.request,
+                srp_link=self.srp_link,
+                killmail_link=self.killmail_link,
+                ship_type_id=self.ship_type_id,
+                ship_value=self.ship_value,
+                victim_id=self.victim_id,
+                additional_info=self.additional_info,
+            )
 
-    # @patch("aasrp.models.SrpRequest.objects.get_kill_id")
-    # @patch("aasrp.models.SrpRequest.objects.get_kill_data")
-    # @patch("aasrp.views.general._save_srp_request")
-    # def test_creates_srp_request_on_valid_post(
-    #     self, mock_save_request, mock_get_kill_data, mock_get_kill_id
-    # ):
-    #     mock_get_kill_id.return_value = "kill_id_123"
-    #     mock_get_kill_data.return_value = (
-    #         1,
-    #         "1000000",
-    #         self.user.profile.main_character.character_id,
-    #     )
-    #     mock_save_request.return_value = SrpRequest(
-    #         killboard_link="https://zkillboard.com/kill/123456789/",
-    #         srp_link=self.srp_link,
-    #         creator=self.user,
-    #     )
-    #     form_data = {
-    #         "killboard_link": "https://zkillboard.com/kill/123456789/",
-    #         "additional_info": "Test info",
-    #     }
-    #     response = self.client.post(self.url, data=form_data)
-    #     self.assertRedirects(response, reverse("aasrp:srp_links"))
-    #
-    # @patch("aasrp.models.SrpRequest.objects.get_kill_id")
-    # @patch("aasrp.models.SrpRequest.objects.get_kill_data")
-    # def shows_error_for_invalid_killmail(self, mock_get_kill_data, mock_get_kill_id):
-    #     mock_get_kill_id.side_effect = ValueError("Invalid killmail")
-    #     form_data = {
-    #         "killboard_link": "http://example.com/invalid-killmail",
-    #         "additional_info": "Test info",
-    #     }
-    #     response = self.client.post(self.url, data=form_data)
-    #     self.assertRedirects(response, reverse("aasrp:srp_links"))
-    #
-    # @patch("aasrp.models.SrpRequest.objects.get_kill_id")
-    # @patch("aasrp.models.SrpRequest.objects.get_kill_data")
-    # def shows_error_when_character_not_owned(
-    #     self, mock_get_kill_data, mock_get_kill_id
-    # ):
-    #     mock_get_kill_id.return_value = "kill_id_123"
-    #     mock_get_kill_data.return_value = (1, "1000000", 99999)
-    #     form_data = {
-    #         "killboard_link": "http://example.com/killmail",
-    #         "additional_info": "Test info",
-    #     }
-    #     response = self.client.post(self.url, data=form_data)
-    #     self.assertRedirects(response, reverse("aasrp:srp_links"))
+    @patch("aasrp.views.general.esi")
+    @patch("aasrp.views.general.SrpRequest.objects.get_insurance_for_ship_type")
+    def test_handles_missing_insurance_information(self, mock_get_insurance, mock_esi):
+        mock_ship = MagicMock()
+        mock_ship.name = "Test Ship"  # Ensure this is a string
+        mock_esi.client.Universe.GetUniverseTypesTypeId.return_value.result.return_value = (
+            mock_ship
+        )
+        mock_get_insurance.return_value.levels = []
+
+        result = _save_srp_request(
+            request=self.request,
+            srp_link=self.srp_link,
+            killmail_link=self.killmail_link,
+            ship_type_id=self.ship_type_id,
+            ship_value=self.ship_value,
+            victim_id=self.victim_id,
+            additional_info=self.additional_info,
+        )
+
+        self.assertIsNotNone(result)
+        mock_get_insurance.assert_called_once_with(ship_type_id=self.ship_type_id)

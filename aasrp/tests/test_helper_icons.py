@@ -1,7 +1,6 @@
 # Django
 from django.contrib.auth.models import Permission, User
 from django.template.loader import render_to_string
-from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import SafeString
@@ -14,10 +13,11 @@ from aasrp.helper.icons import (
     get_srp_request_status_icon,
 )
 from aasrp.models import SrpLink, SrpRequest
+from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import get_permission_content_type
 
 
-class CopyToClipboardIconTests(TestCase):
+class CopyToClipboardIconTests(BaseTestCase):
     """
     Test cases for the copy_to_clipboard_icon function.
     """
@@ -103,7 +103,7 @@ class CopyToClipboardIconTests(TestCase):
         self.assertEqual(result, expected_html)
 
 
-class TestGetSrpRequestActionIcons(TestCase):
+class TestGetSrpRequestActionIcons(BaseTestCase):
     """
     Test cases for the get_srp_request_action_icons function.
     """
@@ -491,7 +491,7 @@ class TestGetSrpRequestActionIcons(TestCase):
         self.assertNotIn("fa-trash-can", result)
 
 
-class TestGetSrpRequestStatusIcon(TestCase):
+class TestGetSrpRequestStatusIcon(BaseTestCase):
     """
     Test cases for the get_srp_request_status_icon function.
     """
@@ -596,7 +596,7 @@ class TestGetSrpRequestStatusIcon(TestCase):
         self.assertIn("SRP request rejected", result)
 
 
-class TestDashboardActionIcons(TestCase):
+class TestDashboardActionIcons(BaseTestCase):
     """
     Test cases for the dashboard action icons.
     """
