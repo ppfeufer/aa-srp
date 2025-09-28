@@ -1,5 +1,6 @@
 # Makefile fragment for django-esi related tasks
 
+# Get compatibility dates from ESI API and allow user to select one
 .PHONY: get-compatibility-dates
 get-compatibility-dates:
 	@if ! command -v jq >/dev/null 2>&1; \
@@ -56,6 +57,7 @@ get-compatibility-dates:
 		echo ""; \
 	fi
 
+# Generate ESI stubs using the selected compatibility date
 .PHONY: generate-esi-stubs
 generate-esi-stubs: check-python-venv get-compatibility-dates
 	@echo "Generating ESI stubs …"
@@ -64,6 +66,7 @@ generate-esi-stubs: check-python-venv get-compatibility-dates
 	python $(myauth_path)/manage.py generate_esi_stubs --compatibility_date="$$esi_date"
 	@echo "ESI stubs generated."
 
+# Update the compatibility date in the package's __init__.py
 .PHONY: update-compatibility-date
 update-compatibility-date: check-python-venv generate-esi-stubs
 	@echo "Updating ESI compatibility date..."
