@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- JS settings merge simplified
+
 ## [2.13.0] - 2025-09-22
 
 ### Changed
