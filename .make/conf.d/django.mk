@@ -1,4 +1,4 @@
-# Make targets for Django projects
+# Makefile fragment for Django-related tasks
 
 # List of languages to create translation files for
 django_locales = \
@@ -32,8 +32,8 @@ pot: check-python-venv
 	sed -i "/\"Report-Msgid-Bugs-To: /c\\\"Report-Msgid-Bugs-To: $(git_repository_issues)\\\n\"" $(translation_template);
 
 # Add a new translation
-.PHONY: add_translation
-add_translation: check-python-venv
+.PHONY: add-translation
+add-translation: check-python-venv
 	@echo "Adding a new translation"
 	@read -p "Enter the language code (e.g. 'en_GB'): " language_code; \
 	django-admin makemessages \
@@ -51,7 +51,7 @@ add_translation: check-python-venv
 	echo "New translation added for $$language_code"; \
 	echo "Please remember to add '--locale $$language_code \' to the 'translations' target in the Makefile";
 
-# Translation files
+# Greate or update translation files
 .PHONY: translations
 translations: check-python-venv
 	@echo "Creating or updating translation files"
@@ -77,8 +77,8 @@ translations: check-python-venv
 	fi;
 
 # Compile translation files
-.PHONY: compile_translations
-compile_translations: check-python-venv
+.PHONY: compile-translations
+compile-translations: check-python-venv
 	@echo "Compiling translation files"
 	@django-admin compilemessages $(django_locales)
 
@@ -98,13 +98,13 @@ migrations: check-python-venv
 .PHONY: help
 help::
 	@echo "  $(TEXT_UNDERLINE)Django:$(TEXT_UNDERLINE_END)"
-	@echo "    Migration handling:"
+	@echo "    Migration Handling:"
 	@echo "      migrate                   Migrate all database changes"
 	@echo "      migrations                Create or update migrations"
 	@echo ""
-	@echo "    Translation handling:"
-	@echo "      add_translation           Add a new translation"
-	@echo "      compile_translations      Compile translation files"
+	@echo "    Translation Handling:"
+	@echo "      add-translation           Add a new translation"
+	@echo "      compile-translations      Compile translation files"
 	@echo "      pot                       Create or update translation template (.pot file)"
 	@echo "      translations              Create or update translation files"
 	@echo ""
