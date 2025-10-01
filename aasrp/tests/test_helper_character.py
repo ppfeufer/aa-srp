@@ -4,7 +4,6 @@ Tests for aasrp.helper.character
 
 # Django
 from django.contrib.auth.models import Group
-from django.test import TestCase
 
 # Alliance Auth
 from allianceauth.authentication.models import CharacterOwnership
@@ -26,9 +25,10 @@ from aasrp.helper.character import (
 from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
 from aasrp.helper.icons import copy_to_clipboard_icon
 from aasrp.models import get_sentinel_user
+from aasrp.tests import BaseTestCase
 
 
-class TestSentinelUser(TestCase):
+class TestSentinelUser(BaseTestCase):
     """
     Test the sentinel user
     """
@@ -46,7 +46,7 @@ class TestSentinelUser(TestCase):
         self.assertEqual(first=sentinel_user.username, second="deleted")
 
 
-class TestGetFormattedCharacterName(TestCase):
+class TestGetFormattedCharacterName(BaseTestCase):
     """
     Tests for get_formatted_character_name
     """
@@ -200,7 +200,7 @@ class TestGetFormattedCharacterName(TestCase):
         self.assertEqual(first=html, second=expected_html)
 
 
-class TestGetMainForCharacter(TestCase):
+class TestGetMainForCharacter(BaseTestCase):
     """
     Testing for get_main_for_character
     """
@@ -299,7 +299,7 @@ class TestGetMainForCharacter(TestCase):
         )
 
 
-class TestGetUserForCharacter(TestCase):
+class TestGetUserForCharacter(BaseTestCase):
     """
     Tests for get_user_for_character
     """

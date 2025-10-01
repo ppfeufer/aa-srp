@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 
 # Alliance Auth
+from allianceauth.framework.api.user import get_main_character_name_from_user
 from allianceauth.services.hooks import get_extension_logger
 
 # Alliance Auth (External Libs)
@@ -48,14 +49,15 @@ def notify_requester(
     """
 
     request_status = srp_request.get_request_status_display()
+    reviser_name = get_main_character_name_from_user(reviser)
 
     context = {
-        "ship": srp_request.ship.name,
+        "ship": srp_request.ship_name,
         "srp_name": srp_request.srp_link.srp_name,
         "status": request_status.lower(),
         "srp_code": srp_request.srp_link.srp_code,
         "request_code": srp_request.request_code,
-        "reviser": reviser,
+        "reviser": reviser_name,
         "comment": comment,
     }
 
@@ -108,7 +110,7 @@ def notify_srp_team(srp_request: SrpRequest, additional_info: str) -> None:
             context={
                 "request_code": srp_request.request_code,
                 "character": srp_request.character.character_name,
-                "ship": srp_request.ship.name,
+                "ship": srp_request.ship_name,
                 "killboard_link": srp_request.killboard_link,
                 "additional_info": additional_info.replace("@", "{@}"),
                 "srp_code": srp_code,
