@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024.
+# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024, 2025.
 # Houbi_Houba <paul.lacape@live.fr>, 2024.
 # balbozorre <loic.petiot2002@gmail.com>, 2024, 2025.
 # Onyx <The_Onyx_best@hotmail.com>, 2025.
@@ -10,16 +10,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-09-15 12:33+0200\n"
-"PO-Revision-Date: 2025-08-03 04:24+0000\n"
-"Last-Translator: The “Devcutter” Guy <mick162534@gmail.com>\n"
+"POT-Creation-Date: 2025-10-07 12:21+0200\n"
+"PO-Revision-Date: 2025-09-16 16:43+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/fr/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: aasrp/__init__.py:9 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -45,7 +45,7 @@ msgstr "Créateur"
 msgid "Requestor"
 msgstr "Solliciteur"
 
-#: aasrp/admin.py:99 aasrp/admin.py:135 aasrp/helper/srp_data.py:83
+#: aasrp/admin.py:99 aasrp/admin.py:135 aasrp/helper/srp_data.py:68
 #: aasrp/models.py:123 aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
@@ -53,7 +53,7 @@ msgstr "Solliciteur"
 msgid "SRP code"
 msgstr "Code de SRP"
 
-#: aasrp/admin.py:148 aasrp/helper/srp_data.py:84 aasrp/models.py:274
+#: aasrp/admin.py:148 aasrp/helper/srp_data.py:69 aasrp/models.py:274
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
 msgid "Request code"
@@ -226,55 +226,55 @@ msgstr "Personnage inconnu"
 msgid "Copy character name to clipboard"
 msgstr "Copier le nom du personnage dans le presse-papiers"
 
-#: aasrp/helper/icons.py:80 aasrp/templates/aasrp/request-srp.html:6
+#: aasrp/helper/icons.py:81 aasrp/templates/aasrp/request-srp.html:6
 msgid "Request SRP"
 msgstr "Requête de SRP"
 
-#: aasrp/helper/icons.py:95
+#: aasrp/helper/icons.py:96
 msgid "View SRP requests"
 msgstr "Voir les demandes de SRP"
 
-#: aasrp/helper/icons.py:113
+#: aasrp/helper/icons.py:114
 #: aasrp/templates/aasrp/partials/link-edit/form.html:19
 msgid "Add/Change AAR link"
 msgstr "Ajouter/Modif. rapport"
 
-#: aasrp/helper/icons.py:122
+#: aasrp/helper/icons.py:123
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:9
 msgid "Disable SRP link"
 msgstr "Désactiver le lien du SRP"
 
-#: aasrp/helper/icons.py:136
+#: aasrp/helper/icons.py:137
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:9
 msgid "Enable SRP link"
 msgstr "Activer le lien du SRP"
 
-#: aasrp/helper/icons.py:146
+#: aasrp/helper/icons.py:147
 #, fuzzy
 #| msgid "Remove SRP ink"
 msgid "Remove SRP link"
 msgstr "Retirer le lien du SRP"
 
-#: aasrp/helper/icons.py:169 aasrp/helper/icons.py:183
+#: aasrp/helper/icons.py:170 aasrp/helper/icons.py:184
 msgid "SRP request pending"
 msgstr "Demande de SRP en attente"
 
-#: aasrp/helper/icons.py:173
+#: aasrp/helper/icons.py:174
 msgid "SRP request approved"
 msgstr "Demande de SRP acceptée"
 
-#: aasrp/helper/icons.py:178
+#: aasrp/helper/icons.py:179
 msgid "SRP request rejected"
 msgstr "Demande de SRP rejetée"
 
-#: aasrp/helper/icons.py:219
+#: aasrp/helper/icons.py:220
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr "Détails de la demande de SRP"
 
-#: aasrp/helper/icons.py:269
+#: aasrp/helper/icons.py:270
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
@@ -283,25 +283,25 @@ msgstr "Détails de la demande de SRP"
 msgid "Accept SRP request"
 msgstr "Accepter la demande de SRP"
 
-#: aasrp/helper/icons.py:313
+#: aasrp/helper/icons.py:314
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:40
 msgid "Reject SRP request"
 msgstr "Refuser la demande de SRP"
 
-#: aasrp/helper/icons.py:351
+#: aasrp/helper/icons.py:352
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:38
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr "Supprimer la demande de SRP"
 
-#: aasrp/helper/srp_data.py:30
+#: aasrp/helper/srp_data.py:29
 #, fuzzy
 #| msgid "Copy character name to clipboard"
 msgid "Copy request code to clipboard"
 msgstr "Copier le nom du personnage dans le presse-papiers"
 
-#: aasrp/helper/srp_data.py:49
+#: aasrp/helper/srp_data.py:48
 #, fuzzy
 #| msgid "Copy character name to clipboard"
 msgid "Copy payout amount to clipboard"
@@ -612,7 +612,7 @@ msgstr "Clôturé"
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:43
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:35
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:25
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:29
@@ -935,51 +935,51 @@ msgstr "Les valeurs vides ne sont pas autorisées"
 msgid "This field is required."
 msgstr "Ce champ est obligatoire."
 
-#: aasrp/views/ajax.py:84
+#: aasrp/views/ajax.py:83
 msgid "Link"
 msgstr "Lien"
 
-#: aasrp/views/ajax.py:97
+#: aasrp/views/ajax.py:96
 msgid "Copy SRP link to clipboard"
 msgstr "Copier le lien de SRP dans le presse-papiers"
 
-#: aasrp/views/ajax.py:484 aasrp/views/ajax.py:673 aasrp/views/ajax.py:757
+#: aasrp/views/ajax.py:472 aasrp/views/ajax.py:661 aasrp/views/ajax.py:745
 msgid "No matching SRP request found"
 msgstr ""
 
-#: aasrp/views/ajax.py:501 aasrp/views/ajax.py:580 aasrp/views/ajax.py:682
-#: aasrp/views/ajax.py:787
+#: aasrp/views/ajax.py:489 aasrp/views/ajax.py:568 aasrp/views/ajax.py:670
+#: aasrp/views/ajax.py:775
 msgid "Invalid form data"
 msgstr ""
 
-#: aasrp/views/ajax.py:545
+#: aasrp/views/ajax.py:533
 msgid "SRP request has been approved"
 msgstr "La demande de SRP a été approuvée"
 
-#: aasrp/views/ajax.py:550 aasrp/views/ajax.py:645 aasrp/views/ajax.py:726
-#: aasrp/views/ajax.py:814
+#: aasrp/views/ajax.py:538 aasrp/views/ajax.py:633 aasrp/views/ajax.py:714
+#: aasrp/views/ajax.py:802
 msgid "Invalid request method"
 msgstr ""
 
-#: aasrp/views/ajax.py:597 aasrp/views/ajax.py:802
+#: aasrp/views/ajax.py:585 aasrp/views/ajax.py:790
 msgid "No matching SRP requests found"
 msgstr ""
 
-#: aasrp/views/ajax.py:640
+#: aasrp/views/ajax.py:628
 #, fuzzy
 #| msgid "SRP request has been approved"
 msgid "SRP requests have been approved"
 msgstr "La demande de SRP a été approuvée"
 
-#: aasrp/views/ajax.py:721
+#: aasrp/views/ajax.py:709
 msgid "SRP request has been rejected"
 msgstr "La demande de SRP a été rejetée"
 
-#: aasrp/views/ajax.py:755
+#: aasrp/views/ajax.py:743
 msgid "SRP request has been removed"
 msgstr "La demande de SRP a été supprimée"
 
-#: aasrp/views/ajax.py:809
+#: aasrp/views/ajax.py:797
 #, fuzzy
 #| msgid "SRP request has been removed"
 msgid "SRP requests have been removed"

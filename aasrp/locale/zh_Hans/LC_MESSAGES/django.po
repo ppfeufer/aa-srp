@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-09-15 12:33+0200\n"
+"POT-Creation-Date: 2025-10-07 12:21+0200\n"
 "PO-Revision-Date: 2025-02-18 09:17+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Chinese (Simplified Han script) <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/zh_Hans/>\n"
@@ -45,7 +45,7 @@ msgstr "创建者"
 msgid "Requestor"
 msgstr "请求者"
 
-#: aasrp/admin.py:99 aasrp/admin.py:135 aasrp/helper/srp_data.py:83
+#: aasrp/admin.py:99 aasrp/admin.py:135 aasrp/helper/srp_data.py:68
 #: aasrp/models.py:123 aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
@@ -53,7 +53,7 @@ msgstr "请求者"
 msgid "SRP code"
 msgstr "舰船补损代码"
 
-#: aasrp/admin.py:148 aasrp/helper/srp_data.py:84 aasrp/models.py:274
+#: aasrp/admin.py:148 aasrp/helper/srp_data.py:69 aasrp/models.py:274
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:18
 msgid "Request code"
@@ -224,55 +224,55 @@ msgstr "未知角色"
 msgid "Copy character name to clipboard"
 msgstr "拷贝你的角色名字到粘贴板上"
 
-#: aasrp/helper/icons.py:80 aasrp/templates/aasrp/request-srp.html:6
+#: aasrp/helper/icons.py:81 aasrp/templates/aasrp/request-srp.html:6
 msgid "Request SRP"
 msgstr "请求舰船补损"
 
-#: aasrp/helper/icons.py:95
+#: aasrp/helper/icons.py:96
 msgid "View SRP requests"
 msgstr "查看舰船补损情况"
 
-#: aasrp/helper/icons.py:113
+#: aasrp/helper/icons.py:114
 #: aasrp/templates/aasrp/partials/link-edit/form.html:19
 msgid "Add/Change AAR link"
 msgstr "增加或修改舰船补损链接"
 
-#: aasrp/helper/icons.py:122
+#: aasrp/helper/icons.py:123
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:9
 msgid "Disable SRP link"
 msgstr "取消舰船补损链接"
 
-#: aasrp/helper/icons.py:136
+#: aasrp/helper/icons.py:137
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:9
 msgid "Enable SRP link"
 msgstr "可用的舰船补损链接"
 
-#: aasrp/helper/icons.py:146
+#: aasrp/helper/icons.py:147
 #, fuzzy
 #| msgid "Remove SRP ink"
 msgid "Remove SRP link"
 msgstr "撤销舰船补损链接"
 
-#: aasrp/helper/icons.py:169 aasrp/helper/icons.py:183
+#: aasrp/helper/icons.py:170 aasrp/helper/icons.py:184
 msgid "SRP request pending"
 msgstr "舰船补损请求已发送"
 
-#: aasrp/helper/icons.py:173
+#: aasrp/helper/icons.py:174
 msgid "SRP request approved"
 msgstr "舰船补损请求已被接受"
 
-#: aasrp/helper/icons.py:178
+#: aasrp/helper/icons.py:179
 msgid "SRP request rejected"
 msgstr "舰船补损请求已被拒绝"
 
-#: aasrp/helper/icons.py:219
+#: aasrp/helper/icons.py:220
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr "舰船补损请求具体详情"
 
-#: aasrp/helper/icons.py:269
+#: aasrp/helper/icons.py:270
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
@@ -281,25 +281,25 @@ msgstr "舰船补损请求具体详情"
 msgid "Accept SRP request"
 msgstr "接受舰船补损请求"
 
-#: aasrp/helper/icons.py:313
+#: aasrp/helper/icons.py:314
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:40
 msgid "Reject SRP request"
 msgstr "拒绝舰船补损请求"
 
-#: aasrp/helper/icons.py:351
+#: aasrp/helper/icons.py:352
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:38
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr "删除舰船补损请求"
 
-#: aasrp/helper/srp_data.py:30
+#: aasrp/helper/srp_data.py:29
 #, fuzzy
 #| msgid "Copy character name to clipboard"
 msgid "Copy request code to clipboard"
 msgstr "拷贝你的角色名字到粘贴板上"
 
-#: aasrp/helper/srp_data.py:49
+#: aasrp/helper/srp_data.py:48
 #, fuzzy
 #| msgid "Copy character name to clipboard"
 msgid "Copy payout amount to clipboard"
@@ -940,51 +940,51 @@ msgstr "空白字符是不被接受的"
 msgid "This field is required."
 msgstr "该字段为必填项。"
 
-#: aasrp/views/ajax.py:84
+#: aasrp/views/ajax.py:83
 msgid "Link"
 msgstr "链接"
 
-#: aasrp/views/ajax.py:97
+#: aasrp/views/ajax.py:96
 msgid "Copy SRP link to clipboard"
 msgstr "复制这个舰船补损链接到粘贴板"
 
-#: aasrp/views/ajax.py:484 aasrp/views/ajax.py:673 aasrp/views/ajax.py:757
+#: aasrp/views/ajax.py:472 aasrp/views/ajax.py:661 aasrp/views/ajax.py:745
 msgid "No matching SRP request found"
 msgstr ""
 
-#: aasrp/views/ajax.py:501 aasrp/views/ajax.py:580 aasrp/views/ajax.py:682
-#: aasrp/views/ajax.py:787
+#: aasrp/views/ajax.py:489 aasrp/views/ajax.py:568 aasrp/views/ajax.py:670
+#: aasrp/views/ajax.py:775
 msgid "Invalid form data"
 msgstr ""
 
-#: aasrp/views/ajax.py:545
+#: aasrp/views/ajax.py:533
 msgid "SRP request has been approved"
 msgstr "舰船补损请求已被接受"
 
-#: aasrp/views/ajax.py:550 aasrp/views/ajax.py:645 aasrp/views/ajax.py:726
-#: aasrp/views/ajax.py:814
+#: aasrp/views/ajax.py:538 aasrp/views/ajax.py:633 aasrp/views/ajax.py:714
+#: aasrp/views/ajax.py:802
 msgid "Invalid request method"
 msgstr ""
 
-#: aasrp/views/ajax.py:597 aasrp/views/ajax.py:802
+#: aasrp/views/ajax.py:585 aasrp/views/ajax.py:790
 msgid "No matching SRP requests found"
 msgstr ""
 
-#: aasrp/views/ajax.py:640
+#: aasrp/views/ajax.py:628
 #, fuzzy
 #| msgid "SRP request has been approved"
 msgid "SRP requests have been approved"
 msgstr "舰船补损请求已被接受"
 
-#: aasrp/views/ajax.py:721
+#: aasrp/views/ajax.py:709
 msgid "SRP request has been rejected"
 msgstr "舰船补损请求已被拒绝"
 
-#: aasrp/views/ajax.py:755
+#: aasrp/views/ajax.py:743
 msgid "SRP request has been removed"
 msgstr "舰船补损请求已被移除"
 
-#: aasrp/views/ajax.py:809
+#: aasrp/views/ajax.py:797
 #, fuzzy
 #| msgid "SRP request has been removed"
 msgid "SRP requests have been removed"
