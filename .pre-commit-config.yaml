@@ -266,7 +266,7 @@ repos:
         description: Format the tox.ini file.
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: 8a22e281b3f6d1bb298aaabfc165a943a943882c  # frozen: v2.7.0
+    rev: 68b1ed526e7533ac54a2e42874b99ae6c26807a2  # frozen: v2.11.0
     hooks:
       - id: pyproject-fmt
         name: pyproject.toml formatter
@@ -274,7 +274,7 @@ repos:
         args:
           - --indent=4
         additional_dependencies:
-          - tox==4.30.3  # https://github.com/tox-dev/tox/releases/latest
+          - tox==4.31.0  # https://github.com/tox-dev/tox/releases/latest
 
   - repo: https://github.com/abravalheri/validate-pyproject
     rev: 78f5e0f104cfa803d0597eaa924b4de3becd3e3e  # frozen: v0.24.1
