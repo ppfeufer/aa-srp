@@ -4,14 +4,14 @@ Test the helper functions in aasrp/helper/user.py
 
 # Django
 from django.contrib.auth.models import User
-from django.test import TestCase
 
 # AA SRP
 from aasrp.helper.user import get_user_settings
 from aasrp.models import UserSetting
+from aasrp.tests import BaseTestCase
 
 
-class TestGetUserSettings(TestCase):
+class TestGetUserSettings(BaseTestCase):
     """
     Test the get_user_settings function
     """

@@ -1,12 +1,14 @@
 """
-Constants
+Constants for the AA-SRP application.
+This module defines various constants used throughout the application, including
+user agent strings, notification messages, killboard URLs, and Discord embed colors.
 """
 
 # Standard Library
 from enum import Enum
 
 # Third Party
-from requests.__version__ import __version__ as requests_version
+from requests import __version__ as requests_version
 
 # AA SRP
 from aasrp import __app_name_useragent__, __github_url__
@@ -18,7 +20,8 @@ INTERNAL_URL_PREFIX = "-"
 
 class UserAgent(Enum):
     """
-    UserAgent
+    Enumeration for UserAgent strings.
+    Defines the user agent string for HTTP requests made by the application.
     """
 
     REQUESTS = f"{__app_name_useragent__}/{app_version} (+{__github_url__}) requests/{requests_version}"
@@ -56,7 +59,8 @@ KILLBOARD_DATA = {
 
 class DiscordEmbedColor(Enum):
     """
-    Discord embed colors
+    Enumeration for Discord embed colors.
+    Defines color codes for different types of messages in Discord embeds.
     """
 
     INFO = 0x5BC0DE

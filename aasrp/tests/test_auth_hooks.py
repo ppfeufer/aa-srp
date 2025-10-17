@@ -7,16 +7,16 @@ from http import HTTPStatus
 from unittest.mock import Mock, patch
 
 # Django
-from django.test import TestCase
 from django.urls import reverse
 
 # AA SRP
 from aasrp import __title__
 from aasrp.auth_hooks import AaSrpMenuItem, register_menu
+from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import create_fake_user
 
 
-class TestMenuItemHtml(TestCase):
+class TestMenuItemHtml(BaseTestCase):
     """
     Test the HTML of the menu item
     """
@@ -82,7 +82,7 @@ class TestMenuItemHtml(TestCase):
         self.assertNotContains(response=response, text=self.html_menu, html=True)
 
 
-class TestAaSrpMenuItem(TestCase):
+class TestAaSrpMenuItem(BaseTestCase):
     """
     Test the menu item
     """
@@ -112,7 +112,7 @@ class TestAaSrpMenuItem(TestCase):
 
         self.assertEqual(result, "")
 
-    @patch("aasrp.auth_hooks.SrpRequest.objects.pending_requests_count_for_user")
+    @patch("aasrp.auth_hooks.SrpRequest.pending_requests_count_for_user")
     def test_render_with_permission(self, mock_pending_requests):
         """
         Test should return html if a user has permission
@@ -130,7 +130,7 @@ class TestAaSrpMenuItem(TestCase):
         self.assertIsInstance(result, str)
 
 
-class TestRegisterMenu(TestCase):
+class TestRegisterMenu(BaseTestCase):
     """
     Test register menu
     """

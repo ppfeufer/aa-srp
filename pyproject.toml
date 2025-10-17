@@ -41,6 +41,7 @@ dynamic = [
 dependencies = [
     "allianceauth>=4.10,<5",
     "allianceauth-app-utils>=1.25",
+    "django-esi>=8.0.0b1",
     "django-eveuniverse>=1.5.4",
 ]
 optional-dependencies.tests-allianceauth-latest = [
@@ -50,6 +51,8 @@ optional-dependencies.tests-allianceauth-latest = [
     "coverage",
     "django-webtest",
     "faker",
+    "py-cord>=2.7.0rc1",
+    "requests-mock",
 ]
 urls.Changelog = "https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md"
 urls.Documentation = "https://github.com/ppfeufer/aa-srp/blob/master/README.md"
