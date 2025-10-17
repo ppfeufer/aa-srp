@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Only kill mails from zKillboard need a trailing slash
+
 ## [2.13.1] - 2025-10-07
 
 ### Changed

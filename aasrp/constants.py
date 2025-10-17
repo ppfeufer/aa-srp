@@ -40,16 +40,16 @@ KILLBOARD_DATA = {
         "requires_trailing_slash": True,
     },
     "EveTools": {
-        "base_url": "https://kb.evetools.org/",
+        "base_url": "https://kb.evetools.org",
         "base_url_regex": r"^http[s]?:\/\/kb\.evetools\.org\/",
         "killmail_url_regex": r"^http[s]?:\/\/kb\.evetools\.org\/kill\/\d+",
-        "requires_trailing_slash": True,
+        "requires_trailing_slash": False,
     },
     "EVE-KILL": {
-        "base_url": "https://eve-kill.com/",
+        "base_url": "https://eve-kill.com",
         "base_url_regex": r"^http[s]?:\/\/eve-kill\.com\/",
         "killmail_url_regex": r"^http[s]?:\/\/eve-kill\.com\/kill\/\d+",
-        "requires_trailing_slash": True,
+        "requires_trailing_slash": False,
     },
 }
 
