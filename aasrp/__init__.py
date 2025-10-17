@@ -11,7 +11,7 @@ __title__ = _("Ship Replacement")
 __title_translated__ = _("Ship Replacement")
 __verbose_name__ = "Ship Replacement (SRP) for Alliance Auth"
 
-__esi_compatibility_date__ = "2025-08-26"
+__esi_compatibility_date__ = "2025-09-30"
 
 __package_name__ = "aa-srp"
 __app_name__ = "aasrp"
