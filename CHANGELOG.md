@@ -42,6 +42,8 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [2.13.2] - 2025-10-18
+
 ### Fixed
 
 - Only kill mails from zKillboard need a trailing slash
@@ -1471,6 +1473,7 @@ python manage.py aasrp_update_db_relations
 [2.12.3]: https://github.com/ppfeufer/aa-srp/compare/v2.12.2...v2.12.3 "v2.12.3"
 [2.13.0]: https://github.com/ppfeufer/aa-srp/compare/v2.12.3...v2.13.0 "v2.13.0"
 [2.13.1]: https://github.com/ppfeufer/aa-srp/compare/v2.13.0...v2.13.1 "v2.13.1"
+[2.13.2]: https://github.com/ppfeufer/aa-srp/compare/v2.13.1...v2.13.2 "v2.13.2"
 [2.2.0]: https://github.com/ppfeufer/aa-srp/compare/v2.1.1...v2.2.0 "v2.2.0"
 [2.3.0]: https://github.com/ppfeufer/aa-srp/compare/v2.2.0...v2.3.0 "v2.3.0"
 [2.3.1]: https://github.com/ppfeufer/aa-srp/compare/v2.3.0...v2.3.1 "v2.3.1"
@@ -1496,7 +1499,7 @@ python manage.py aasrp_update_db_relations
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[in development]: https://github.com/ppfeufer/aa-srp/compare/v2.13.1...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-srp/compare/v2.13.2...HEAD "In Development"
 [keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
 [semantic versioning]: http://semver.org/ "Semantic Versioning"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
