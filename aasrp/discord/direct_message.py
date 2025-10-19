@@ -144,8 +144,9 @@ def _discordproxy_send_private_message(
                 description=message,
                 color=DISCORD_EMBED_COLOR_MAP.get(level),
                 timestamp=timezone.now().isoformat(),
-                footer=Embed.Footer(text=__title__),
+                footer=Embed.Footer(text=str(__title__)),
             )
+
             # Send the embedded message to the user
             client.create_direct_message(user_id=user_id, embed=embed)
         else:
