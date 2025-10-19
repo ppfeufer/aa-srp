@@ -195,7 +195,10 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 
             # Display a success message and redirect to the SRP links page.
             messages.success(
-                request=request, message=_(f'SRP link "{srp_link.srp_code}" created')
+                request=request,
+                message=_('SRP link "{srp_code}" created').format(
+                    srp_code=srp_link.srp_code
+                ),
             )
 
             return redirect(to="aasrp:srp_links")
@@ -245,7 +248,9 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         messages.error(
             request=request,
-            message=_(f"Unable to locate SRP link using SRP code {srp_code}"),
+            message=_("Unable to locate SRP link using SRP code {srp_code}").format(
+                srp_code=srp_code
+            ),
         )
 
         return redirect("aasrp:srp_links")
@@ -379,7 +384,9 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
     # Display a success message to the user
     messages.success(
         request=request,
-        message=_(f"Submitted SRP request for your {srp_request__ship.name}."),
+        message=_("Submitted SRP request for your {ship_name}.").format(
+            ship_name=srp_request__ship.name
+        ),
     )
 
     return srp_request
@@ -420,7 +427,11 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         messages.error(
             request=request,
-            message=_(f"Unable to locate SRP Fleet using SRP code {srp_code}"),
+            message=_(
+                "Unable to locate SRP Fleet using SRP code {srp_code}"
+            ).format(  # pylint: disable=consider-using-f-string
+                srp_code=srp_code
+            ),
         )
 
         return redirect("aasrp:srp_links")
@@ -459,18 +470,22 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
             except ValueError as err:
                 # Invalid killmail
                 error_message_text = (
-                    (
-                        "Something went wrong, your kill mail "
-                        f"({submitted_killmail_link}) could not be parsed: {str(err)}"
+                    _(
+                        "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {error}"
+                    ).format(  # pylint: disable=consider-using-f-string
+                        submitted_killmail_link=submitted_killmail_link, error=str(err)
                     )
                     if str(err)
                     else (
-                        f"Your kill mail link ({submitted_killmail_link}) is invalid "
-                        "or the zKillboard API is not answering at the moment. "
-                        "Please make sure you are using either "
-                        f"{KILLBOARD_DATA['zKillboard']['base_url']}, "
-                        f"{KILLBOARD_DATA['EveTools']['base_url']} "
-                        f"or {KILLBOARD_DATA['EVE-KILL']['base_url']}"
+                        "Your kill mail link ({submitted_killmail_link}) is invalid or "
+                        "the zKillboard API is not answering at the moment. "
+                        "Please make sure you are using either {zkillboard_base_url}, "
+                        "{evekb_base_url} or {evekill_base_url}"
+                    ).format(  # pylint: disable=consider-using-f-string
+                        submitted_killmail_link=submitted_killmail_link,
+                        zkillboard_base_url=KILLBOARD_DATA["zKillboard"]["base_url"],
+                        evekb_base_url=KILLBOARD_DATA["EveTools"]["base_url"],
+                        evekill_base_url=KILLBOARD_DATA["EVE-KILL"]["base_url"],
                     )
                 )
 
@@ -502,8 +517,9 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
             messages.error(
                 request=request,
                 message=_(
-                    f"Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."  # pylint: disable=line-too-long
-                ),
+                    "Character {victim_id} does not belong to your Auth account. "
+                    "Please add this character as an alt to your main and try again."
+                ).format(victim_id=victim_id),
             )
 
             return redirect(to="aasrp:srp_links")
@@ -511,6 +527,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
     # If a GET (or any other method) we'll create a blank form.
     else:
         logger.debug(msg=f"Returning blank SRP request form for {request.user}")
+
         form = SrpRequestForm()
 
     context = {"srp_link": srp_link, "form": form}
@@ -556,7 +573,12 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
             f"Unable to locate SRP link using code {srp_code} for user {request.user}"
         )
 
-        messages.error(request, _(f"Unable to locate SRP link with ID {srp_code}"))
+        messages.error(
+            request=request,
+            message=_("Unable to locate SRP link with ID {srp_code}").format(
+                srp_code=srp_code
+            ),
+        )
 
     # Redirect the user to the SRP links page
     return redirect("aasrp:srp_links")
@@ -589,7 +611,12 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
             f"Unable to locate SRP link using code {srp_code} for user {request.user}"
         )
 
-        messages.error(request, _(f"Unable to locate SRP link with ID {srp_code}"))
+        messages.error(
+            request=request,
+            message=_("Unable to locate SRP link with ID {srp_code}").format(
+                srp_code=srp_code
+            ),
+        )
 
         return redirect("aasrp:srp_links")
 
@@ -635,7 +662,8 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
 
         # Display a success message to the user
         messages.success(
-            request=request, message=_(f"SRP link {srp_code} (re-)activated.")
+            request=request,
+            message=_("SRP link {srp_code} (re-)activated.").format(srp_code=srp_code),
         )
     except SrpLink.DoesNotExist:
         # Log an error and display an error message if the SRP link is not found
@@ -644,7 +672,10 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
         )
 
         messages.error(
-            request=request, message=_(f"Unable to locate SRP link with ID {srp_code}")
+            request=request,
+            message=_("Unable to locate SRP link with ID {srp_code}").format(
+                srp_code=srp_code
+            ),
         )
 
     # Redirect the user to the SRP links page
@@ -678,7 +709,10 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
         srp_link.save()
 
         # Display a success message to the user
-        messages.success(request=request, message=_(f"SRP link {srp_code} disabled."))
+        messages.success(
+            request=request,
+            message=_("SRP link {srp_code} disabled.").format(srp_code=srp_code),
+        )
     except SrpLink.DoesNotExist:
         # Log an error and display an error message if the SRP link is not found
         logger.error(
@@ -686,7 +720,10 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
         )
 
         messages.error(
-            request=request, message=_(f"Unable to locate SRP link with ID {srp_code}")
+            request=request,
+            message=_("Unable to locate SRP link with ID {srp_code}").format(
+                srp_code=srp_code
+            ),
         )
 
     # Redirect the user to the SRP links page
@@ -719,7 +756,10 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
         srp_link.delete()
 
         # Display a success message to the user
-        messages.success(request=request, message=_(f"SRP link {srp_code} deleted."))
+        messages.success(
+            request=request,
+            message=_("SRP link {srp_code} deleted.").format(srp_code=srp_code),
+        )
     except SrpLink.DoesNotExist:
         # Log an error and display an error message if the SRP link is not found
         logger.error(
@@ -727,7 +767,10 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
         )
 
         messages.error(
-            request=request, message=_(f"Unable to locate SRP link with ID {srp_code}")
+            request=request,
+            message=_("Unable to locate SRP link with ID {srp_code}").format(
+                srp_code=srp_code
+            ),
         )
 
     # Redirect the user to the SRP links page

@@ -356,7 +356,12 @@ class SrpRequest(models.Model):
 
         return str(
             _(
-                f"{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
+                "{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
+            ).format(
+                character_name=character_name,
+                user_name=user_name,
+                ship=ship,
+                request_code=request_code,
             )
         )
 

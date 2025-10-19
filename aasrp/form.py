@@ -129,7 +129,11 @@ class SrpRequestForm(ModelForm):
         fields = ["killboard_link", "additional_info"]
         help_texts = {
             "killboard_link": _(
-                f"Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
+                "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
+            ).format(
+                zkillboard_base_url=zkillboard_base_url,
+                evetools_base_url=evetools_base_url,
+                eve_kill_base_url=eve_kill_base_url,
             ),
             "additional_info": _(
                 "Please tell us about the circumstances of your untimely demise. "
@@ -203,7 +207,11 @@ class SrpRequestForm(ModelForm):
 
             raise forms.ValidationError(
                 message=_(
-                    f"Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
+                    "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
+                ).format(
+                    zkillboard_base_url=zkillboard_base_url,
+                    evetools_base_url=evetools_base_url,
+                    eve_kill_base_url=eve_kill_base_url,
                 )
             )
 
