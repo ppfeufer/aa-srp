@@ -44,6 +44,14 @@ Section Order:
 
 ## [3.0.0-beta.1] - 2025-10-19
 
+> [!CAUTION]
+>
+> This is a BETA version, not intended for production use!
+> Please test it in a safe environment first and [report any issues you find](https://github.com/ppfeufer/aa-srp/issues).
+>
+> This version is pulling in an BETA version of `django-esi` as well,
+> so please be aware that this might break at any time.
+
 ### Changed
 
 - Switch to OpenAPI3-based ESI client
