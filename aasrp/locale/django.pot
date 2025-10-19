@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.13.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-10-19 13:23+0200\n"
+"POT-Creation-Date: 2025-10-19 14:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1012,51 +1012,51 @@ msgstr ""
 msgid "Submitted SRP request for your {ship_name}."
 msgstr ""
 
-#: aasrp/views/general.py:430
+#: aasrp/views/general.py:431
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:441
+#: aasrp/views/general.py:443
 msgid "This SRP link is no longer available for SRP requests."
 msgstr ""
 
-#: aasrp/views/general.py:472
+#: aasrp/views/general.py:474
 #, python-brace-format
 msgid ""
 "Something went wrong, your kill mail ({submitted_killmail_link}) could not "
 "be parsed: {error}"
 msgstr ""
 
-#: aasrp/views/general.py:518
+#: aasrp/views/general.py:520
 #, python-brace-format
 msgid ""
 "Character {victim_id} does not belong to your Auth account. Please add this "
 "character as an alt to your main and try again."
 msgstr ""
 
-#: aasrp/views/general.py:567
+#: aasrp/views/general.py:569
 msgid "SRP link marked as completed"
 msgstr ""
 
-#: aasrp/views/general.py:576 aasrp/views/general.py:614
-#: aasrp/views/general.py:674 aasrp/views/general.py:722
-#: aasrp/views/general.py:769
+#: aasrp/views/general.py:578 aasrp/views/general.py:616
+#: aasrp/views/general.py:676 aasrp/views/general.py:724
+#: aasrp/views/general.py:771
 #, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:664
+#: aasrp/views/general.py:666
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr ""
 
-#: aasrp/views/general.py:712
+#: aasrp/views/general.py:714
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr ""
 
-#: aasrp/views/general.py:759
+#: aasrp/views/general.py:761
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""

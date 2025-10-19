@@ -42,10 +42,13 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.0.0-beta.1] - 2025-10-19
+
 ### Changed
 
-- Switch to OpenAPI3 based ESI client
+- Switch to OpenAPI3-based ESI client
   - Set ESI compatibility date to 2025-09-30 (September 30, 2025)
+- Preparation to lose dependency on `django-eveuniverse` in future versions
 
 ## [2.13.2] - 2025-10-18
 
@@ -1500,6 +1503,7 @@ python manage.py aasrp_update_db_relations
 [2.9.0]: https://github.com/ppfeufer/aa-srp/compare/v2.8.1...v2.9.0 "v2.9.0"
 [2.9.1]: https://github.com/ppfeufer/aa-srp/compare/v2.9.0...v2.9.1 "v2.9.1"
 [2.9.2]: https://github.com/ppfeufer/aa-srp/compare/v2.9.1...v2.9.2 "v2.9.2"
+[3.0.0-beta.1]: https://github.com/ppfeufer/aa-srp/compare/v2.13.2...v3.0.0-beta.1 "v3.0.0-beta.1"
 [aa discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "AA Discord Notify"
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
