@@ -37,7 +37,7 @@ class TestPayoutAmountHtml(BaseTestCase):
         payout_amount = 1000000
         expected_html = (
             '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
-            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">'
+            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block">'
             "#payout_amount_localized#</span></span><sup>"
             '<span class="copy-to-clipboard-icon">'
             '<i class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" '
@@ -65,7 +65,7 @@ class TestPayoutAmountHtml(BaseTestCase):
         payout_amount = -500
         expected_html = (
             '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
-            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">'
+            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block">'
             "#payout_amount_localized#</span></span><sup>"
             '<span class="copy-to-clipboard-icon">'
             '<i class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" '
@@ -93,7 +93,7 @@ class TestPayoutAmountHtml(BaseTestCase):
         payout_amount = 0
         expected_html = (
             '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
-            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">'
+            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block">'
             "#payout_amount_localized#</span></span><sup>"
             '<span class="copy-to-clipboard-icon">'
             '<i class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" '

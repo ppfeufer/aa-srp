@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Cursor CSS class in SRP tables
+
 ## [3.0.0-beta.1] - 2025-10-19
 
 > [!CAUTION]
