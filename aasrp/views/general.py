@@ -319,7 +319,7 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
     # Get ship information from ESI
     srp_request__ship = esi.client.Universe.GetUniverseTypesTypeId(
         type_id=ship_type_id
-    ).result()
+    ).result(force_refresh=True)
 
     logger.debug(msg=f"Ship type {srp_request__ship.name}")
 
