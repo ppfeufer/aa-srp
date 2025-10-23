@@ -8,16 +8,25 @@ from unittest.mock import MagicMock, patch
 
 # Django
 from django.contrib import admin
+from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import User
-from django.test import Client, TestCase
+from django.http import HttpRequest
+from django.test import Client
 from django.urls import reverse
+from django.utils.translation import ngettext
 
 # AA SRP
-from aasrp.admin import RequestCommentAdmin, SrpLinkAdmin, SrpRequestAdmin
-from aasrp.models import FleetType, RequestComment
+from aasrp.admin import (
+    FleetTypeAdmin,
+    RequestCommentAdmin,
+    SrpLinkAdmin,
+    SrpRequestAdmin,
+)
+from aasrp.models import FleetType, RequestComment, SrpRequest
+from aasrp.tests import BaseTestCase
 
 
-class TestFleetTypeAdmin(TestCase):
+class TestFleetTypeAdmin(BaseTestCase):
     """
     Test the FleetType admin interface.
     """
@@ -37,6 +46,7 @@ class TestFleetTypeAdmin(TestCase):
         cls.client = Client()
         cls.client.login(username="admin", password="password")
         cls.fleet_type = FleetType.objects.create(name="Test Fleet", is_enabled=True)
+        cls.admin_site = AdminSite()
 
     def test_admin_page_loads(self):
         """
@@ -100,6 +110,35 @@ class TestFleetTypeAdmin(TestCase):
         self.fleet_type.refresh_from_db()
         self.assertTrue(self.fleet_type.is_enabled)
 
+    @patch("django.contrib.messages.error")
+    def test_displays_error_message_when_activation_fails(self, mock_error):
+        """
+        Test that an error message is displayed when activation fails.
+
+        :param mock_error:
+        :type mock_error:
+        :return:
+        :rtype:
+        """
+
+        fleet_type = FleetType.objects.create(name="Fleet A", is_enabled=False)
+        queryset = FleetType.objects.filter(pk=fleet_type.pk)
+        admin = FleetTypeAdmin(FleetType, self.admin_site)
+        request = HttpRequest()
+        request.user = self.admin_user
+
+        with patch.object(FleetType, "save", side_effect=Exception):
+            admin.activate(request, queryset)
+
+        mock_error.assert_called_once_with(
+            request=request,
+            message=ngettext(
+                singular="Failed to activate {failed} fleet type",
+                plural="Failed to activate {failed} fleet types",
+                number=1,
+            ).format(failed=1),
+        )
+
     def test_deactivate_action_deactivates_selected_fleet_types(self):
         """
         Test that the deactivate action deactivates selected fleet types.
@@ -122,8 +161,37 @@ class TestFleetTypeAdmin(TestCase):
         self.fleet_type.refresh_from_db()
         self.assertFalse(self.fleet_type.is_enabled)
 
+    @patch("django.contrib.messages.error")
+    def test_displays_error_message_when_deactivation_fails(self, mock_error):
+        """
+        Test that an error message is displayed when deactivation fails.
 
-class TestRequestCommentAdmin(TestCase):
+        :param mock_error:
+        :type mock_error:
+        :return:
+        :rtype:
+        """
+
+        fleet_type = FleetType.objects.create(name="Fleet A", is_enabled=True)
+        queryset = FleetType.objects.filter(pk=fleet_type.pk)
+        admin = FleetTypeAdmin(FleetType, self.admin_site)
+        request = HttpRequest()
+        request.user = self.admin_user
+
+        with patch.object(FleetType, "save", side_effect=Exception):
+            admin.deactivate(request, queryset)
+
+        mock_error.assert_called_once_with(
+            request=request,
+            message=ngettext(
+                singular="Failed to deactivate {failed} fleet type",
+                plural="Failed to deactivate {failed} fleet types",
+                number=1,
+            ).format(failed=1),
+        )
+
+
+class TestRequestCommentAdmin(BaseTestCase):
     """
     Test the RequestComment admin interface.
     """
@@ -198,10 +266,14 @@ class TestRequestCommentAdmin(TestCase):
         self.assertEqual(first=result, second="Jane Doe")
 
 
-class TestSrpRequestAdmin(TestCase):
+class TestSrpRequestAdmin(BaseTestCase):
     """
     Test the SrpRequest admin interface.
     """
+
+    def setUp(self):
+        self.srp_request = MagicMock()
+        self.admin = SrpRequestAdmin(SrpRequest, None)
 
     def test_displays_correct_requestor_name_for_valid_creator(self):
         """
@@ -256,8 +328,116 @@ class TestSrpRequestAdmin(TestCase):
 
         self.assertEqual(first=result, second="SRP123")
 
+    @patch("aasrp.admin.l10n_number_format")
+    def test_displays_positive_loss_amount(self, mock_format):
+        """
+        Test that a positive loss amount is displayed correctly.
 
-class TestSrpLinkAdmin(TestCase):
+        :param mock_format:
+        :type mock_format:
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.loss_amount = 123456.789
+
+        mock_format.return_value = "123,456.79"
+        result = self.admin._loss_amount(self.srp_request)
+
+        self.assertEqual(result, "123,456.79 ISK")
+
+    @patch("aasrp.admin.l10n_number_format")
+    def test_displays_zero_loss_amount(self, mock_format):
+        """
+        Test that a zero loss amount is displayed correctly.
+
+        :param mock_format:
+        :type mock_format:
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.loss_amount = 0
+
+        mock_format.return_value = "0.00"
+        result = self.admin._loss_amount(self.srp_request)
+
+        self.assertEqual(result, "0.00 ISK")
+
+    @patch("aasrp.admin.l10n_number_format")
+    def test_displays_large_loss_amount(self, mock_format):
+        """
+        Test that a large loss amount is displayed correctly.
+
+        :param mock_format:
+        :type mock_format:
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.loss_amount = 1_000_000_000.99
+
+        mock_format.return_value = "1,000,000,000.99"
+        result = self.admin._loss_amount(self.srp_request)
+
+        self.assertEqual(result, "1,000,000,000.99 ISK")
+
+    @patch("aasrp.admin.l10n_number_format")
+    def test_displays_positive_payout_amount(self, mock_format):
+        """
+        Test that a positive payout amount is displayed correctly.
+
+        :param mock_format:
+        :type mock_format:
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.payout_amount = 987654.321
+
+        mock_format.return_value = "987,654.32"
+        result = self.admin._payout_amount(self.srp_request)
+
+        self.assertEqual(result, "987,654.32 ISK")
+
+    @patch("aasrp.admin.l10n_number_format")
+    def test_displays_zero_payout_amount(self, mock_format):
+        """
+        Test that a zero payout amount is displayed correctly.
+
+        :param mock_format:
+        :type mock_format:
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.payout_amount = 0
+
+        mock_format.return_value = "0.00"
+        result = self.admin._payout_amount(self.srp_request)
+
+        self.assertEqual(result, "0.00 ISK")
+
+    @patch("aasrp.admin.l10n_number_format")
+    def test_displays_large_payout_amount(self, mock_format):
+        """
+        Test that a large payout amount is displayed correctly.
+
+        :param mock_format:
+        :type mock_format:
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.payout_amount = 1_000_000_000.99
+
+        mock_format.return_value = "1,000,000,000.99"
+        result = self.admin._payout_amount(self.srp_request)
+
+        self.assertEqual(result, "1,000,000,000.99 ISK")
+
+
+class TestSrpLinkAdmin(BaseTestCase):
     """
     Test the SrpLink admin interface.
     """

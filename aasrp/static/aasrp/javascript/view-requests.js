@@ -249,7 +249,7 @@ $(document).ready(() => {
 
                             $(row)
                                 .find('span.srp-payout-amount')
-                                .addClass('srp-request-' + srpRequestCode)
+                                .addClass(`cursor-pointer srp-request-${srpRequestCode}`)
                                 .attr('data-pk', srpRequestCode)
                                 .attr(
                                     'data-params',

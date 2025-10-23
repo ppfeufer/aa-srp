@@ -1,8 +1,7 @@
 """
 SRP Manager
+This module contains custom managers for handling SRP (Ship Replacement Program) requests and settings.
 """
-
-# pylint: disable=cyclic-import
 
 # Standard Library
 from typing import Any
@@ -11,7 +10,6 @@ from typing import Any
 import requests
 
 # Django
-from django.contrib.auth.models import User
 from django.db import models
 
 # Alliance Auth
@@ -25,23 +23,25 @@ from aasrp import __title__
 from aasrp.constants import KILLBOARD_DATA, UserAgent
 from aasrp.providers import esi
 
+# Initialize a logger with a custom tag for the AA-SRP module
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
 class SrpRequestManager(models.Manager):
     """
-    SrpRequestManager
+    Custom manager for handling SRP requests.
+    Provides methods to interact with zKillboard and ESI for retrieving killmail data.
     """
 
     @staticmethod
     def get_kill_id(killboard_link: str) -> str:
         """
-        Get killmail ID from zKillboard link
+        Extract the killmail ID from a killboard link.
 
-        :param killboard_link:
-        :type killboard_link:
-        :return:
-        :rtype:
+        :param killboard_link: The killboard link containing the killmail ID.
+        :type killboard_link: str
+        :return: The extracted killmail ID.
+        :rtype: str
         """
 
         num_set = "0123456789"
@@ -50,14 +50,15 @@ class SrpRequestManager(models.Manager):
         return kill_id
 
     @staticmethod
-    def get_kill_data(kill_id: str) -> tuple[int, int, int]:
+    def get_zkillboard_data(kill_id: str) -> dict:
         """
-        Get kill data from zKillboard
+        Retrieve killmail data from the zKillboard API.
 
-        :param kill_id:
-        :type kill_id:
-        :return:
-        :rtype:
+        :param kill_id: The ID of the killmail to fetch.
+        :type kill_id: str
+        :return: The killmail data retrieved from zKillboard.
+        :rtype: dict
+        :raises ValueError: If no data or hash is found in the API response.
         """
 
         zkillboard_api_url = KILLBOARD_DATA["zKillboard"]["api_url"]
@@ -89,11 +90,14 @@ class SrpRequestManager(models.Manager):
                     "No kill mail information found in zKillboard's API response."
                 )
 
-            killmail_id = result.get("killmail_id")
             killmail_hash = result.get("zkb", {}).get("hash")
-            esi_killmail = esi.client.Killmails.get_killmails_killmail_id_killmail_hash(
-                killmail_id=killmail_id, killmail_hash=killmail_hash
-            ).result()
+
+            if not killmail_hash:
+                raise ValueError(
+                    "No kill mail hash found in zKillboard's API response."
+                )
+
+            return result
 
         except (requests.HTTPError, requests.Timeout) as exc:
             logger.warning(f"Error fetching kill mail details: {exc}", exc_info=True)
@@ -102,60 +106,53 @@ class SrpRequestManager(models.Manager):
         except Exception as exc:
             raise ValueError("Invalid Kill ID or Hash.") from exc
 
-        # AA SRP
-        from aasrp.models import Setting  # pylint: disable=import-outside-toplevel
+    @staticmethod
+    def get_kill_data(killmail_id: str, loss_value_field: str) -> tuple[int, int, int]:
+        """
+        Retrieve detailed killmail data, including ship type, loss value, and victim ID.
 
-        loss_value_field = Setting.objects.get_setting(Setting.Field.LOSS_VALUE_SOURCE)
-        ship_type = esi_killmail["victim"]["ship_type_id"]
-        ship_value = result.get("zkb", {}).get(loss_value_field, 0)
-        victim_id = esi_killmail["victim"]["character_id"]
+        :param killmail_id: The ID of the killmail to fetch.
+        :type killmail_id: str
+        :param loss_value_field: The field name for the loss value in the zKillboard data.
+        :type loss_value_field: str
+        :return: A tuple containing the ship type ID, loss value, and victim character ID.
+        :rtype: tuple[int, int, int]
+        """
+
+        zkillboard_data = SrpRequestManager.get_zkillboard_data(kill_id=killmail_id)
+
+        esi_killmail = esi.client.Killmails.GetKillmailsKillmailIdKillmailHash(
+            killmail_id=killmail_id,
+            killmail_hash=zkillboard_data.get("zkb", {}).get("hash"),
+        ).result(force_refresh=True)
+
+        ship_type = esi_killmail.victim.ship_type_id
+        ship_value = zkillboard_data.get("zkb", {}).get(loss_value_field, 0)
+        victim_id = esi_killmail.victim.character_id
 
         logger.debug(
-            f"Kill ID {kill_id}: Ship type = {ship_type}, Loss value = {ship_value}"
+            f"Kill ID {killmail_id}: Ship type = {ship_type}, Loss value = {ship_value}"
         )
 
         return ship_type, ship_value, victim_id
 
     @staticmethod
-    def pending_requests_count_for_user(user: User) -> int | None:
-        """
-        Returns the number of open SRP requests for given user or None if user has no permission
-
-        :param user:
-        :type user:
-        :return:
-        :rtype:
-        """
-
-        # AA SRP
-        from aasrp.models import SrpRequest  # pylint: disable=import-outside-toplevel
-
-        if user.has_perm(perm="aasrp.manage_srp") or user.has_perm(
-            perm="aasrp.manage_srp_requests"
-        ):
-            return SrpRequest.objects.filter(
-                request_status=SrpRequest.Status.PENDING
-            ).count()
-
-        return None
-
-    @staticmethod
     def get_insurance_for_ship_type(ship_type_id: int) -> dict | None:
         """
-        Getting insurance for a given ship type ID from ESI
+        Retrieve insurance details for a given ship type ID from the ESI.
 
-        :param ship_type_id:
-        :type ship_type_id:
-        :return:
-        :rtype:
+        :param ship_type_id: The ID of the ship type to fetch insurance for.
+        :type ship_type_id: int
+        :return: The insurance details for the ship type, or None if not found.
+        :rtype: dict | None
         """
 
+        insurance_from_esi = esi.client.Insurance.GetInsurancePrices().result(
+            force_refresh=True
+        )
+
         insurance = next(
-            (
-                i
-                for i in list(esi.client.Insurance.get_insurance_prices().result())
-                if i["type_id"] == ship_type_id
-            ),
+            (i for i in insurance_from_esi if i.type_id == ship_type_id),
             None,
         )
 
@@ -164,19 +161,17 @@ class SrpRequestManager(models.Manager):
 
 class SettingQuerySet(models.QuerySet):
     """
-    SettingQuerySet
+    Custom queryset for managing settings.
+    Overrides the delete method to prevent deletion of settings.
     """
 
     def delete(self):
         """
-        Delete action
+        Override the delete method to prevent deletion of settings.
+        Instead, the object is updated and not deleted.
 
-        Override:
-            We don't allow deletion here, so we make sure the object
-            is saved again and not deleted
-
-        :return:
-        :rtype:
+        :return: The result of the update operation.
+        :rtype: int
         """
 
         return super().update()
@@ -184,27 +179,28 @@ class SettingQuerySet(models.QuerySet):
 
 class SettingManager(models.Manager):
     """
-    SettingManager
+    Custom manager for handling application settings.
+    Provides methods to retrieve and manage settings.
     """
 
     def get_setting(self, setting_key: str) -> Any:
         """
-        Return the value for given setting key
+        Retrieve the value of a specific setting by its key.
 
-        :param setting_key:
-        :type setting_key:
-        :return:
-        :rtype:
+        :param setting_key: The key of the setting to retrieve.
+        :type setting_key: str
+        :return: The value of the setting.
+        :rtype: Any
         """
 
         return getattr(self.first(), setting_key)
 
     def get_queryset(self) -> SettingQuerySet:
         """
-        Get a Setting queryset
+        Retrieve the custom queryset for managing settings.
 
-        :return:
-        :rtype:
+        :return: A SettingQuerySet instance.
+        :rtype: SettingQuerySet
         """
 
         return SettingQuerySet(self.model)

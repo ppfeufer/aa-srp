@@ -42,6 +42,27 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Cursor CSS class in SRP tables
+
+## [3.0.0-beta.1] - 2025-10-19
+
+> [!CAUTION]
+>
+> This is a BETA version, not intended for production use!
+> Please test it in a safe environment first and [report any issues you find](https://github.com/ppfeufer/aa-srp/issues).
+>
+> This version is pulling in an BETA version of `django-esi` as well,
+> so please be aware that this might break at any time.
+
+### Changed
+
+- Switch to OpenAPI3-based ESI client
+  - Set ESI compatibility date to 2025-09-30 (September 30, 2025)
+- Preparation to remove the dependency on `django-eveuniverse` in future versions
+- A bit of refactoring
+
 ## [2.13.2] - 2025-10-18
 
 ### Fixed
@@ -1495,6 +1516,7 @@ python manage.py aasrp_update_db_relations
 [2.9.0]: https://github.com/ppfeufer/aa-srp/compare/v2.8.1...v2.9.0 "v2.9.0"
 [2.9.1]: https://github.com/ppfeufer/aa-srp/compare/v2.9.0...v2.9.1 "v2.9.1"
 [2.9.2]: https://github.com/ppfeufer/aa-srp/compare/v2.9.1...v2.9.2 "v2.9.2"
+[3.0.0-beta.1]: https://github.com/ppfeufer/aa-srp/compare/v2.13.2...v3.0.0-beta.1 "v3.0.0-beta.1"
 [aa discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "AA Discord Notify"
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"

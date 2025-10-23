@@ -1,12 +1,13 @@
 """
-Helper functions for SRP data
+Helper functions for SRP data.
+
+This module provides utility functions for generating HTML representations of SRP data,
+localizing ISK values, and handling SRP request details. It also includes functionality
+to re-add missing ship information to SRP requests.
 """
 
 # Django
 from django.utils.translation import gettext_lazy as _
-
-# Alliance Auth (External Libs)
-from eveuniverse.models import EveType
 
 # AA SRP
 from aasrp.helper.icons import copy_to_clipboard_icon
@@ -15,14 +16,12 @@ from aasrp.models import SrpRequest
 
 def request_code_html(request_code: str) -> str:
     """
-    Get HTML for request code with copy to clipboard icon
+    Generate HTML for displaying a request code with a copy-to-clipboard icon.
 
-    :param request:
-    :type request:
-    :param request_code:
-    :type request_code:
-    :return:
-    :rtype:
+    :param request_code: The SRP request code to display.
+    :type request_code: str
+    :return: HTML string for the request code with a copy-to-clipboard icon.
+    :rtype: str
     """
 
     ctc_icon = copy_to_clipboard_icon(
@@ -34,14 +33,12 @@ def request_code_html(request_code: str) -> str:
 
 def payout_amount_html(payout_amount: int) -> str:
     """
-    Get HTML for payout amount with copy to clipboard icon
+    Generate HTML for displaying a payout amount with a copy-to-clipboard icon.
 
-    :param request:
-    :type request:
-    :param payout_amount:
-    :type payout_amount:
-    :return:
-    :rtype:
+    :param payout_amount: The payout amount to display.
+    :type payout_amount: int
+    :return: HTML string for the payout amount with a copy-to-clipboard icon.
+    :rtype: str
     """
 
     payout_amount_ctc_icon = copy_to_clipboard_icon(
@@ -50,19 +47,19 @@ def payout_amount_html(payout_amount: int) -> str:
 
     return (
         '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
-        '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">'
+        '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block">'
         f"#payout_amount_localized#</span></span><sup>{payout_amount_ctc_icon}</sup></span>"
     )
 
 
 def request_fleet_details_html(srp_request: SrpRequest) -> str:
     """
-    Get HTML for fleet details
+    Generate HTML for displaying fleet details of an SRP request.
 
-    :param srp_request:
-    :type srp_request:
-    :return:
-    :rtype:
+    :param srp_request: The SRP request object containing fleet details.
+    :type srp_request: SrpRequest
+    :return: HTML string for the fleet details.
+    :rtype: str
     """
 
     l10n_srp_code = _("SRP code")
@@ -76,38 +73,3 @@ def request_fleet_details_html(srp_request: SrpRequest) -> str:
     )
 
     return f"{fleet_name}{fleet_details}"
-
-
-def attempt_to_re_add_ship_information_to_request(
-    srp_request: SrpRequest,
-) -> SrpRequest:
-    """
-    If for some reason the ship gets removed from EveType table,
-    srp_request.ship is None. In this case, we have to re-add the ship to prevent
-    errors in our DataTables …
-
-    :param srp_request:
-    :type srp_request:
-    :return:
-    :rtype:
-    """
-
-    srp_kill_link_id = SrpRequest.objects.get_kill_id(
-        killboard_link=srp_request.killboard_link
-    )
-
-    (
-        ship_type_id,
-        ship_value,  # pylint: disable=unused-variable
-        victim_id,  # pylint: disable=unused-variable
-    ) = SrpRequest.objects.get_kill_data(kill_id=srp_kill_link_id)
-    (
-        srp_request__ship,
-        created_from_esi,  # pylint: disable=unused-variable
-    ) = EveType.objects.get_or_create_esi(id=ship_type_id)
-
-    srp_request.ship_name = srp_request__ship.name
-    srp_request.ship = srp_request__ship
-    srp_request.save()
-
-    return srp_request

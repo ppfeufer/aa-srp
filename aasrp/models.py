@@ -1,5 +1,5 @@
 """
-Our Models
+Models for AA-SRP
 """
 
 # Standard Library
@@ -18,17 +18,17 @@ from django.utils.translation import gettext_lazy as _
 from allianceauth.eveonline.models import EveCharacter
 from allianceauth.framework.api.user import get_main_character_name_from_user
 
-# Alliance Auth (External Libs)
-from eveuniverse.models import EveType
-
 # AA SRP
 from aasrp.managers import SettingManager, SrpRequestManager
 
 
 def get_sentinel_user():
     """
-    Get or create sentinel user
-    :return:
+    Retrieve or create a sentinel user with the username "deleted".
+    This user is used as a fallback for ForeignKey fields when the original user is deleted.
+
+    :return: The sentinel user instance.
+    :rtype: User
     """
 
     return User.objects.get_or_create(username="deleted")[0]
@@ -36,12 +36,12 @@ def get_sentinel_user():
 
 class AaSrp(models.Model):
     """
-    Meta model for app permissions
+    Meta model for defining application-level permissions for the AA-SRP module.
     """
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        General definitions
+        Meta options for the AaSrp model.
         """
 
         verbose_name = "AA-SRP"
@@ -81,7 +81,7 @@ class FleetType(models.Model):
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        AFatLinkType :: Meta
+        Meta options for the FleetType model.
         """
 
         default_permissions = ()
@@ -90,10 +90,10 @@ class FleetType(models.Model):
 
     def __str__(self) -> str:
         """
-        Return the objects string name
+        Return the string representation of the FleetType instance.
 
-        :return:
-        :rtype:
+        :return: The name of the fleet type.
+        :rtype: str
         """
 
         return str(self.name)
@@ -122,7 +122,7 @@ class SrpLink(models.Model):
     )
     srp_code = models.CharField(max_length=16, default="", verbose_name=_("SRP code"))
     fleet_commander = models.ForeignKey(
-        EveCharacter,
+        to=EveCharacter,
         related_name="+",
         null=True,
         blank=True,
@@ -135,7 +135,7 @@ class SrpLink(models.Model):
     )
 
     fleet_type = models.ForeignKey(
-        FleetType,
+        to=FleetType,
         related_name="+",
         on_delete=models.SET_NULL,
         null=True,
@@ -151,7 +151,7 @@ class SrpLink(models.Model):
     )
 
     creator = models.ForeignKey(
-        User,
+        to=User,
         related_name="+",
         null=True,
         blank=True,
@@ -163,7 +163,7 @@ class SrpLink(models.Model):
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        Meta definitions
+        Meta options for the SrpLink model.
         """
 
         default_permissions = ()
@@ -172,21 +172,21 @@ class SrpLink(models.Model):
 
     def __str__(self) -> str:
         """
-        Return the objects string name
+        Return the string representation of the SRP link.
 
-        :return:
-        :rtype:
+        :return: The name of the SRP link.
+        :rtype: str
         """
 
         return str(self.srp_name)
 
     @property
-    def total_cost(self):
+    def total_cost(self) -> int:
         """
-        Total cost for this SRP link
+        Calculate the total payout amount for approved SRP requests linked to this SRP link.
 
-        :return:
-        :rtype:
+        :return: The total payout amount.
+        :rtype: int
         """
 
         return sum(
@@ -194,63 +194,69 @@ class SrpLink(models.Model):
             for r in self.srp_requests.filter(request_status=SrpRequest.Status.APPROVED)
         )
 
-    @property
-    def total_requests(self):
+    def _count_requests_by_status(self, status: str) -> int:
         """
-        Number of total SRP requests
+        Count SRP requests by their status.
 
-        :return:
-        :rtype:
+        :param status: The status to filter requests by.
+        :type status: str
+        :return: The count of requests with the specified status.
+        :rtype: int
+        """
+
+        return self.srp_requests.filter(request_status=status).count()
+
+    @property
+    def total_requests(self) -> int:
+        """
+        Get the total number of SRP requests linked to this SRP link.
+
+        :return: The total number of SRP requests.
+        :rtype: int
         """
 
         return self.srp_requests.count()
 
     @property
-    def pending_requests(self):
+    def pending_requests(self) -> int:
         """
-        Number of pending SRP requests
+        Get the number of pending SRP requests linked to this SRP link.
 
-        :return:
-        :rtype:
+        :return: The number of pending SRP requests.
+        :rtype: int
         """
 
-        return self.srp_requests.filter(
-            request_status=SrpRequest.Status.PENDING
-        ).count()
+        return self._count_requests_by_status(SrpRequest.Status.PENDING)
 
     @property
-    def approved_requests(self):
+    def approved_requests(self) -> int:
         """
-        Number of approved SRP requests
+        Get the number of approved SRP requests linked to this SRP link.
 
-        :return:
-        :rtype:
+        :return: The number of approved SRP requests.
+        :rtype: int
         """
 
-        return self.srp_requests.filter(
-            request_status=SrpRequest.Status.APPROVED
-        ).count()
+        return self._count_requests_by_status(SrpRequest.Status.APPROVED)
 
     @property
-    def rejected_requests(self):
+    def rejected_requests(self) -> int:
         """
-        Number of rejected SRP requests
+        Get the number of rejected SRP requests linked to this SRP link.
 
-        :return:
-        :rtype:
+        :return: The number of rejected SRP requests.
+        :rtype: int
         """
 
-        return self.srp_requests.filter(
-            request_status=SrpRequest.Status.REJECTED
-        ).count()
+        return self._count_requests_by_status(SrpRequest.Status.REJECTED)
 
     @property
-    def requests(self):
+    def requests(self) -> models.QuerySet:
         """
-        All SRP requests
+        Get all SRP requests linked to this SRP link.
 
-        :return:
-        :rtype:
+        :return: A queryset of all SRP requests.
+        :rtype: models.QuerySet
         """
 
         return self.srp_requests.all()
@@ -274,7 +280,7 @@ class SrpRequest(models.Model):
         max_length=254, default="", verbose_name=_("Request code")
     )
     creator = models.ForeignKey(
-        User,
+        to=User,
         related_name="+",
         null=True,
         blank=True,
@@ -284,7 +290,7 @@ class SrpRequest(models.Model):
         verbose_name=_("Creator"),
     )
     character = models.ForeignKey(
-        EveCharacter,
+        to=EveCharacter,
         related_name="+",
         null=True,
         blank=True,
@@ -294,14 +300,8 @@ class SrpRequest(models.Model):
     ship_name = models.CharField(
         max_length=254, default="", verbose_name=_("Ship type")
     )
-    ship = models.ForeignKey(
-        EveType,
-        related_name="srp_requests",
-        null=True,
-        blank=True,
-        default=None,
-        on_delete=models.SET_NULL,
-        verbose_name=_("Ship type"),
+    ship_id = models.PositiveBigIntegerField(
+        null=True, blank=True, default=None, verbose_name=_("Ship type ID")
     )
     killboard_link = models.CharField(
         max_length=254, default="", verbose_name=_("Killboard link")
@@ -317,7 +317,7 @@ class SrpRequest(models.Model):
     )
     payout_amount = models.BigIntegerField(default=0, verbose_name=_("Payout amount"))
     srp_link = models.ForeignKey(
-        SrpLink,
+        to=SrpLink,
         related_name="srp_requests",
         on_delete=models.CASCADE,
         verbose_name=_("SRP link"),
@@ -334,34 +334,57 @@ class SrpRequest(models.Model):
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        Meta definitions
+        Meta options for the SrpRequest model.
         """
 
         default_permissions = ()
         verbose_name = _("Request")
         verbose_name_plural = _("Requests")
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Return the objects string name
 
-        :return:
-        :rtype:
+        :return: The string representation of the SRP request.
+        :rtype: str
         """
 
         character_name = self.character.character_name
         user_name = get_main_character_name_from_user(self.creator)
-        ship = self.ship.name
+        ship = self.ship_name
         request_code = self.request_code
 
-        return _(
-            "{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
-        ).format(
-            character_name=character_name,
-            user_name=user_name,
-            ship=ship,
-            request_code=request_code,
+        return str(
+            _(
+                "{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
+            ).format(
+                character_name=character_name,
+                user_name=user_name,
+                ship=ship,
+                request_code=request_code,
+            )
         )
+
+    @staticmethod
+    def pending_requests_count_for_user(user: User) -> int | None:
+        """
+        Returns the number of open SRP requests for given user or None if user has no permission
+
+        :param user:
+        :type user:
+        :return:
+        :rtype:
+        """
+
+        # AA SRP
+        if user.has_perm(perm="aasrp.manage_srp") or user.has_perm(
+            perm="aasrp.manage_srp_requests"
+        ):
+            return SrpRequest.objects.filter(
+                request_status=SrpRequest.Status.PENDING
+            ).count()
+
+        return None
 
 
 class Insurance(models.Model):
@@ -370,7 +393,7 @@ class Insurance(models.Model):
     """
 
     srp_request = models.ForeignKey(
-        SrpRequest,
+        to=SrpRequest,
         on_delete=models.CASCADE,
         related_name="insurance",
         verbose_name=_("SRP request"),
@@ -383,7 +406,7 @@ class Insurance(models.Model):
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        Meta definitions
+        Meta options for the Insurance model.
         """
 
         default_permissions = ()
@@ -418,7 +441,7 @@ class RequestComment(models.Model):
     )
 
     creator = models.ForeignKey(
-        User,
+        to=User,
         related_name="+",
         null=True,
         blank=True,
@@ -428,7 +451,7 @@ class RequestComment(models.Model):
     )
 
     srp_request = models.ForeignKey(
-        SrpRequest,
+        to=SrpRequest,
         related_name="srp_request_comments",
         null=True,
         blank=True,
@@ -456,7 +479,7 @@ class RequestComment(models.Model):
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        Meta definitions
+        Meta options for the RequestComment model.
         """
 
         default_permissions = ()
@@ -470,7 +493,7 @@ class UserSetting(models.Model):
     """
 
     user = models.ForeignKey(
-        User,
+        to=User,
         related_name="+",
         null=True,
         blank=True,
@@ -485,7 +508,7 @@ class UserSetting(models.Model):
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        Meta definitions
+        Meta options for the UserSetting model.
         """
 
         default_permissions = ()
@@ -541,7 +564,7 @@ class Setting(SingletonModel):
 
     class Meta:  # pylint: disable=too-few-public-methods
         """
-        Meta definitions
+        Meta options for the Setting model.
         """
 
         default_permissions = ()

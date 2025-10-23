@@ -94,6 +94,11 @@ migrations: check-python-venv check-myauth-path
 	@echo "Creating or updating migrations"
 	@python $(myauth_path)/manage.py makemigrations $(package)
 
+.PHONY: squashmigrations
+squashmigrations: check-python-venv
+	@echo "Squashing migrations"
+	@python $(myauth_path)/manage.py squashmigrations $(package) --squashed-name=squashed_$(shell date +%Y%m%d_%H%M%S)
+
 # Help message
 .PHONY: help
 help::

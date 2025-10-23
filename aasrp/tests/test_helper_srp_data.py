@@ -5,9 +5,6 @@ Test cases for the helper functions in the aasrp.helper.srp_data module.
 # Standard Library
 from unittest.mock import patch
 
-# Django
-from django.test import TestCase
-
 # AA SRP
 from aasrp.helper.icons import copy_to_clipboard_icon
 from aasrp.helper.srp_data import (
@@ -16,9 +13,10 @@ from aasrp.helper.srp_data import (
     request_fleet_details_html,
 )
 from aasrp.models import SrpLink, SrpRequest
+from aasrp.tests import BaseTestCase
 
 
-class TestPayoutAmountHtml(TestCase):
+class TestPayoutAmountHtml(BaseTestCase):
     """
     Test cases for the payout_amount_html function.
     """
@@ -39,7 +37,7 @@ class TestPayoutAmountHtml(TestCase):
         payout_amount = 1000000
         expected_html = (
             '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
-            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">'
+            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block">'
             "#payout_amount_localized#</span></span><sup>"
             '<span class="copy-to-clipboard-icon">'
             '<i class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" '
@@ -67,7 +65,7 @@ class TestPayoutAmountHtml(TestCase):
         payout_amount = -500
         expected_html = (
             '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
-            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">'
+            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block">'
             "#payout_amount_localized#</span></span><sup>"
             '<span class="copy-to-clipboard-icon">'
             '<i class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" '
@@ -95,7 +93,7 @@ class TestPayoutAmountHtml(TestCase):
         payout_amount = 0
         expected_html = (
             '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
-            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block cursor-pointer">'
+            '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block">'
             "#payout_amount_localized#</span></span><sup>"
             '<span class="copy-to-clipboard-icon">'
             '<i class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" '
@@ -108,7 +106,7 @@ class TestPayoutAmountHtml(TestCase):
         self.assertHTMLEqual(result, expected_html)
 
 
-class TestRequestCodeHtml(TestCase):
+class TestRequestCodeHtml(BaseTestCase):
     """
     Test cases for the request_code_html function.
     """
@@ -130,7 +128,7 @@ class TestRequestCodeHtml(TestCase):
         self.assertEqual(result, f"ABC123<sup>{icon}</sup>")
 
 
-class TestRequestFleetDetailsHtml(TestCase):
+class TestRequestFleetDetailsHtml(BaseTestCase):
     """
     Test cases for the request_fleet_details_html function.
     """
