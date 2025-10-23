@@ -13,7 +13,6 @@ from django.contrib.auth.models import User
 from django.http import HttpRequest
 from django.test import Client
 from django.urls import reverse
-from django.utils.translation import ngettext
 
 # AA SRP
 from aasrp.admin import (
@@ -132,11 +131,7 @@ class TestFleetTypeAdmin(BaseTestCase):
 
         mock_error.assert_called_once_with(
             request=request,
-            message=ngettext(
-                singular="Failed to activate {failed} fleet type",
-                plural="Failed to activate {failed} fleet types",
-                number=1,
-            ).format(failed=1),
+            message="Failed to activate 1 fleet type",
         )
 
     def test_deactivate_action_deactivates_selected_fleet_types(self):
@@ -183,11 +178,7 @@ class TestFleetTypeAdmin(BaseTestCase):
 
         mock_error.assert_called_once_with(
             request=request,
-            message=ngettext(
-                singular="Failed to deactivate {failed} fleet type",
-                plural="Failed to deactivate {failed} fleet types",
-                number=1,
-            ).format(failed=1),
+            message="Failed to deactivate 1 fleet type",
         )
 
 
