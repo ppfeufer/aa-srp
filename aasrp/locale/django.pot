@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.13.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-10-19 14:06+0200\n"
+"POT-Creation-Date: 2025-10-23 16:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Activate selected %(verbose_name_plural)s"
 msgstr ""
 
-#: aasrp/admin.py:262 aasrp/tests/test_admin.py:136
+#: aasrp/admin.py:262
 #, python-brace-format
 msgid "Failed to activate {failed} fleet type"
 msgid_plural "Failed to activate {failed} fleet types"
@@ -98,7 +98,7 @@ msgstr[1] ""
 msgid "Deactivate selected %(verbose_name_plural)s"
 msgstr ""
 
-#: aasrp/admin.py:304 aasrp/tests/test_admin.py:187
+#: aasrp/admin.py:304
 #, python-brace-format
 msgid "Failed to deactivate {failed} fleet type"
 msgid_plural "Failed to deactivate {failed} fleet types"
@@ -933,10 +933,6 @@ msgstr ""
 
 #: aasrp/templates/aasrp/view-requests.html:40
 msgid "This field is required."
-msgstr ""
-
-#: aasrp/tests/test_forms.py:94
-msgid "Translated Label"
 msgstr ""
 
 #: aasrp/views/ajax.py:96

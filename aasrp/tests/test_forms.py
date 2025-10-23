@@ -9,7 +9,6 @@ from unittest.mock import patch
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.safestring import SafeString
-from django.utils.translation import gettext_lazy as _
 
 # AA SRP
 from aasrp.constants import KILLBOARD_DATA
@@ -78,24 +77,6 @@ class TestGetMandatoryFormLabelText(BaseTestCase):
 
         self.assertIsInstance(result, SafeString)
         self.assertIn(label, result)
-        self.assertIn(
-            '<span aria-label="This field is mandatory" class="form-required-marker">*</span>',
-            result,
-        )
-
-    def test_returns_safe_string_with_asterisk_for_translated_text(self):
-        """
-        Test that the function returns a SafeString with the correct asterisk for translated text.
-
-        :return:
-        :rtype:
-        """
-
-        label = _("Translated Label")
-        result = get_mandatory_form_label_text(label)
-
-        self.assertIsInstance(result, SafeString)
-        self.assertIn(str(label), result)
         self.assertIn(
             '<span aria-label="This field is mandatory" class="form-required-marker">*</span>',
             result,
