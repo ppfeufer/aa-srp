@@ -60,7 +60,8 @@ Section Order:
 
 - Switch to OpenAPI3-based ESI client
   - Set ESI compatibility date to 2025-09-30 (September 30, 2025)
-- Preparation to lose dependency on `django-eveuniverse` in future versions
+- Preparation to remove the dependency on `django-eveuniverse` in future versions
+- A bit of refactoring
 
 ## [2.13.2] - 2025-10-18
 
