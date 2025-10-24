@@ -40,6 +40,14 @@
             </script>
 
             {% block aasrp_body %}{% endblock %}
+
+            <script>
+                $(document).ready(() => {
+                    'use strict';
+
+                    aasrpBootstrapTooltip({selector: '.aa-srp'});
+                });
+            </script>
         </div>
 
         <div class="aa-srp-footer mt-3 pt-3 border-top border-light">
