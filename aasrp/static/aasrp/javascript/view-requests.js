@@ -435,7 +435,7 @@ $(document).ready(() => {
     /**
      * Helper function: Unbind click event for modal confirm buttons
      *
-     * @param element
+     * @param {jQuery | HTMLElement} element
      * @private
      */
     const _unbindClickEvent = (element) => {
@@ -454,7 +454,30 @@ $(document).ready(() => {
         if (data.success === true) {
             fetchGet({url: aaSrpSettings.url.requestsForSrpLink})
                 .then((newData) => {
-                    elementSrpRequestsTable.DataTable().clear().rows.add(newData).draw();
+                    const dt = elementSrpRequestsTable.DataTable();
+
+                    dt.clear().rows.add(newData).draw();
+
+                    // Attempt to call the original initComplete handler (if present)
+                    try {
+                        const settings = dt.settings()[0];
+                        const initComplete = settings && settings.oInit && settings.oInit.initComplete;
+
+                        if (initComplete) {
+                            if (Array.isArray(initComplete)) {
+                                initComplete.forEach((fn) => {
+                                    if (typeof fn === 'function') {
+                                        fn.call(dt, settings);
+                                    }
+                                });
+                            } else if (typeof initComplete === 'function') {
+                                initComplete.call(dt, settings);
+                            }
+                        }
+                    } catch (err) {
+                        console.error('Error calling initComplete:', err);
+                    }
+
                     _reloadSrpCalculations(newData);
                 })
                 .catch((error) => {

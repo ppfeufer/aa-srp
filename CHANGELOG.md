@@ -45,6 +45,7 @@ Section Order:
 ### Fixed
 
 - Cursor CSS class in SRP tables
+- Call original `initComplete` handler when reloading DataTables via Ajax
 
 ## [3.0.0-beta.1] - 2025-10-19
 
