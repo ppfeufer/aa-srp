@@ -54,11 +54,13 @@ optional-dependencies.tests-allianceauth-latest = [
     "requests-mock",
 ]
 urls.Changelog = "https://github.com/ppfeufer/aa-srp/blob/master/CHANGELOG.md"
+urls.Codecov = "https://codecov.io/gh/ppfeufer/aa-srp"
+urls.Discord = "https://discord.gg/fjnHAmk"
 urls.Documentation = "https://github.com/ppfeufer/aa-srp/blob/master/README.md"
-urls.Donations = "https://ko-fi.com/ppfeufer"
-urls.Homepage = "https://github.com/ppfeufer/aa-srp"
-urls.Source = "https://github.com/ppfeufer/aa-srp.git"
+urls.Donation = "https://ko-fi.com/ppfeufer"
+urls.GitHub = "https://github.com/ppfeufer/aa-srp"
 urls.Tracker = "https://github.com/ppfeufer/aa-srp/issues"
+urls.Translation = "https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/"
 
 [tool.hatch.build]
 include = [

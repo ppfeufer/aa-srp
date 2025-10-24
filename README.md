@@ -340,7 +340,7 @@ Please make sure to read the [Contribution Guidelines].\
 [badge: license]: https://img.shields.io/github/license/ppfeufer/aa-srp "License"
 [badge: pre-commit]: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white "pre-commit"
 [badge: pre-commit.ci status]: https://results.pre-commit.ci/badge/github/ppfeufer/aa-srp/master.svg "pre-commit.ci status"
-[badge: support discord]: https://img.shields.io/discord/790364535294132234?label=discord "Support Discord"
+[badge: support discord]: https://img.shields.io/discord/399006117012832262?label=discord "Support Discord"
 [badge: supported django versions]: https://img.shields.io/pypi/djversions/aa-srp?label=django "Supported Django Versions"
 [badge: supported python versions]: https://img.shields.io/pypi/pyversions/aa-srp "Supported Python Versions"
 [badge: translation status]: https://weblate.ppfeufer.de/widget/alliance-auth-apps/aa-srp/svg-badge.svg "Translation Status"
@@ -361,6 +361,6 @@ Please make sure to read the [Contribution Guidelines].\
 [image: your srp requests view]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/aa-srp-your-requests.jpg "Your SRP Requests View"
 [ppfeufer on ko-fi]: https://ko-fi.com/N4N8CL1BY
 [pre-commit.ci status]: https://results.pre-commit.ci/latest/github/ppfeufer/aa-srp/master "pre-commit.ci"
-[support discord]: https://discord.gg/zmh52wnfvM
+[support discord]: https://discord.gg/fjnHAmk "Alliance Auth Support Discord"
 [weblate engage]: https://weblate.ppfeufer.de/engage/alliance-auth-apps/
 [zkillboard]: https://zkillboard.com/ "zKillboard"
