@@ -42,6 +42,16 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.0.0-beta.2] - 2025-11-04
+
+> [!CAUTION]
+>
+> This is a BETA version, not intended for production use!
+> Please test it in a safe environment first and [report any issues you find](https://github.com/ppfeufer/aa-srp/issues).
+>
+> This version is pulling in an BETA version of `django-esi` as well,
+> so please be aware that this might break at any time.
+
 ### Fixed
 
 - Cursor CSS class in SRP tables
@@ -1522,6 +1532,7 @@ python manage.py aasrp_update_db_relations
 [2.9.1]: https://github.com/ppfeufer/aa-srp/compare/v2.9.0...v2.9.1 "v2.9.1"
 [2.9.2]: https://github.com/ppfeufer/aa-srp/compare/v2.9.1...v2.9.2 "v2.9.2"
 [3.0.0-beta.1]: https://github.com/ppfeufer/aa-srp/compare/v2.13.2...v3.0.0-beta.1 "v3.0.0-beta.1"
+[3.0.0-beta.2]: https://github.com/ppfeufer/aa-srp/compare/v2.13.2...v3.0.0-beta.2 "v3.0.0-beta.2"
 [aa discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "AA Discord Notify"
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
