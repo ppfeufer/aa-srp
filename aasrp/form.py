@@ -31,17 +31,35 @@ from aasrp.models import (
 )
 
 # Killboard URLs
-zkillboard_base_url: str = KILLBOARD_DATA["zKillboard"]["base_url"]
-evetools_base_url: str = KILLBOARD_DATA["EveTools"]["base_url"]
-eve_kill_base_url: str = KILLBOARD_DATA["EVE-KILL"]["base_url"]
+zkillboard_base_url: str = KILLBOARD_DATA["zKillboard"][  # pylint: disable=invalid-name
+    "base_url"
+]
+evetools_base_url: str = KILLBOARD_DATA["EveTools"][  # pylint: disable=invalid-name
+    "base_url"
+]
+eve_kill_base_url: str = KILLBOARD_DATA["EVE-KILL"][  # pylint: disable=invalid-name
+    "base_url"
+]
 
 # Killboard regex
-zkillboard_base_url_regex: str = KILLBOARD_DATA["zKillboard"]["base_url_regex"]
-zkillboard_killmail_url_regex: str = KILLBOARD_DATA["zKillboard"]["killmail_url_regex"]
-evetools_base_url_regex: str = KILLBOARD_DATA["EveTools"]["base_url_regex"]
-evetools_killmail_url_regex: str = KILLBOARD_DATA["EveTools"]["killmail_url_regex"]
-eve_kill_base_url_regex: str = KILLBOARD_DATA["EVE-KILL"]["base_url_regex"]
-eve_kill_killmail_url_regex: str = KILLBOARD_DATA["EVE-KILL"]["killmail_url_regex"]
+zkillboard_base_url_regex: str = KILLBOARD_DATA[  # pylint: disable=invalid-name
+    "zKillboard"
+]["base_url_regex"]
+zkillboard_killmail_url_regex: str = KILLBOARD_DATA[  # pylint: disable=invalid-name
+    "zKillboard"
+]["killmail_url_regex"]
+evetools_base_url_regex: str = KILLBOARD_DATA[  # pylint: disable=invalid-name
+    "EveTools"
+]["base_url_regex"]
+evetools_killmail_url_regex: str = KILLBOARD_DATA[  # pylint: disable=invalid-name
+    "EveTools"
+]["killmail_url_regex"]
+eve_kill_base_url_regex: str = KILLBOARD_DATA[  # pylint: disable=invalid-name
+    "EVE-KILL"
+]["base_url_regex"]
+eve_kill_killmail_url_regex: str = KILLBOARD_DATA[  # pylint: disable=invalid-name
+    "EVE-KILL"
+]["killmail_url_regex"]
 
 # Initialize a logger with a custom tag for the AA-SRP module
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)

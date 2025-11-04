@@ -18,7 +18,7 @@ from aasrp import __app_name__
 from aasrp.constants import INTERNAL_URL_PREFIX
 from aasrp.urls import ajax, views
 
-app_name: str = __app_name__
+app_name: str = __app_name__  # pylint: disable=invalid-name
 
 urlpatterns = [
     # Include the URL patterns for the views
