@@ -6,7 +6,7 @@ This module defines metadata and constants for the Ship Replacement Program (SRP
 # Django
 from django.utils.translation import gettext_lazy as _
 
-__version__ = "3.0.0-beta.1"
+__version__ = "3.0.0-beta.2"
 __title__ = "Ship Replacement"
 __title_translated__ = _("Ship Replacement")
 __verbose_name__ = "Ship Replacement (SRP) for Alliance Auth"
