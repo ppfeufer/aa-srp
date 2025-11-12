@@ -42,6 +42,23 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.0.0] - 2025-11-12
+
+### Fixed
+
+- Cursor CSS class in SRP tables
+- Call original `initComplete` handler when reloading DataTables via Ajax
+
+### Changed
+
+- Switched to OpenAPI3 specification for ESI endpoints
+  - Dependency to `django-esi` set to `>=8,<9`
+  - Set compatibility date to 2025-11-06 (November 6th, 2025)
+- Preparation to remove the dependency on `django-eveuniverse` in future versions
+- A bit of refactoring
+- Globally load Bootstrap tooltips in AA-SRP views
+- Translations updated
+
 ## [3.0.0-beta.2] - 2025-11-04
 
 > [!CAUTION]
@@ -1531,13 +1548,14 @@ python manage.py aasrp_update_db_relations
 [2.9.0]: https://github.com/ppfeufer/aa-srp/compare/v2.8.1...v2.9.0 "v2.9.0"
 [2.9.1]: https://github.com/ppfeufer/aa-srp/compare/v2.9.0...v2.9.1 "v2.9.1"
 [2.9.2]: https://github.com/ppfeufer/aa-srp/compare/v2.9.1...v2.9.2 "v2.9.2"
+[3.0.0]: https://github.com/ppfeufer/aa-srp/compare/v2.13.2...v3.0.0 "v3.0.0"
 [3.0.0-beta.1]: https://github.com/ppfeufer/aa-srp/compare/v2.13.2...v3.0.0-beta.1 "v3.0.0-beta.1"
 [3.0.0-beta.2]: https://github.com/ppfeufer/aa-srp/compare/v2.13.2...v3.0.0-beta.2 "v3.0.0-beta.2"
 [aa discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "AA Discord Notify"
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[in development]: https://github.com/ppfeufer/aa-srp/compare/v2.13.2...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-srp/compare/v3.0.0...HEAD "In Development"
 [keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
 [semantic versioning]: http://semver.org/ "Semantic Versioning"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
