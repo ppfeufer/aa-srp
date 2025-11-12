@@ -5,20 +5,21 @@
 # Peter Pfeufer <info@ppfeufer.de>, 2024, 2025.
 # Deleted User <noreply+44@weblate.org>, 2024.
 # hin0 <gabrieldaichi1201@gmail.com>, 2025.
+# Dexsar <dexsar.paf@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-11-04 14:55+0100\n"
-"PO-Revision-Date: 2025-08-14 08:15+0000\n"
-"Last-Translator: hin0 <gabrieldaichi1201@gmail.com>\n"
+"POT-Creation-Date: 2025-11-12 03:34+0100\n"
+"PO-Revision-Date: 2025-11-08 09:17+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.14\n"
 
 #: aasrp/__init__.py:11 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -54,11 +55,11 @@ msgstr "SRPコード"
 
 #: aasrp/admin.py:116 aasrp/models.py:325
 msgid "Loss amount"
-msgstr ""
+msgstr "損失額"
 
 #: aasrp/admin.py:131 aasrp/models.py:318
 msgid "Payout amount"
-msgstr ""
+msgstr "支払額"
 
 #: aasrp/admin.py:183 aasrp/helper/srp_data.py:66 aasrp/models.py:280
 #: aasrp/templates/aasrp/dashboard.html:26
@@ -77,10 +78,9 @@ msgid "Character"
 msgstr "キャラクター"
 
 #: aasrp/admin.py:236
-#, fuzzy, python-format
-#| msgid "Activate selected fleet types"
+#, python-format
 msgid "Activate selected %(verbose_name_plural)s"
-msgstr "選択したフリートの種類をアクティブにする"
+msgstr "選択した %(verbose_name_plural)s を有効化"
 
 #: aasrp/admin.py:262
 #, python-brace-format
@@ -95,10 +95,9 @@ msgid_plural "Activated {notifications_count} fleet types"
 msgstr[0] "有効化された {notifications_count}フリートの種類"
 
 #: aasrp/admin.py:278
-#, fuzzy, python-format
-#| msgid "Deactivate selected fleet types"
+#, python-format
 msgid "Deactivate selected %(verbose_name_plural)s"
-msgstr "選択したフリートの種類を無効化する"
+msgstr "%(verbose_name_plural)を無効化する"
 
 #: aasrp/admin.py:304
 #, python-brace-format
@@ -137,11 +136,11 @@ msgstr "艦隊種類（可選）"
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:45
 msgid "Doctrine"
-msgstr "装着機器（モジュール）"
+msgstr "ドクトリン"
 
 #: aasrp/form.py:103 aasrp/form.py:116 aasrp/form.py:133
 msgid "After action report link"
-msgstr "事後報告書リンク"
+msgstr "事後報告書(AAR)リンク"
 
 #: aasrp/form.py:113 aasrp/models.py:88 aasrp/models.py:145
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
@@ -152,7 +151,7 @@ msgstr "艦隊種類"
 #: aasrp/form.py:150
 #, python-brace-format
 msgid "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
-msgstr ""
+msgstr "{zkillboard_base_url}、{evetools_base_url}、または{eve_kill_base_url}でキルメールを検索し、リンクをここに貼り付けてください。"
 
 #: aasrp/form.py:157
 msgid "Please tell us about the circumstances of your untimely demise. Who was the FC, what doctrine was called, have changes to the fit been requested and so on. Be as detailed as you can."
@@ -250,8 +249,6 @@ msgid "Enable SRP link"
 msgstr "SRPリンクを有効にする"
 
 #: aasrp/helper/icons.py:158
-#, fuzzy
-#| msgid "Remove SRP ink"
 msgid "Remove SRP link"
 msgstr "SRPリンクを削除"
 
@@ -323,7 +320,7 @@ msgstr "有効になっています"
 
 #: aasrp/models.py:89
 msgid "Fleet types"
-msgstr ""
+msgstr "フリートの種類"
 
 #: aasrp/models.py:112
 msgid "Active"
@@ -374,7 +371,7 @@ msgstr "SRPリンク"
 #: aasrp/models.py:275
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:18
 msgid "Pending"
-msgstr ""
+msgstr "保留中"
 
 #: aasrp/models.py:276
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:19
@@ -392,7 +389,7 @@ msgstr ""
 
 #: aasrp/models.py:301
 msgid "Ship type"
-msgstr ""
+msgstr "シップタイプ"
 
 #: aasrp/models.py:304
 msgid "Ship type ID"
@@ -516,11 +513,11 @@ msgstr ""
 
 #: aasrp/models.py:571
 msgid "Setting"
-msgstr ""
+msgstr "設定"
 
 #: aasrp/models.py:572
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 #: aasrp/models.py:582
 msgid "AA-SRP settings"
@@ -569,7 +566,7 @@ msgstr ""
 
 #: aasrp/templates/aasrp/link-add.html:6
 msgid "Create SRP link"
-msgstr ""
+msgstr "SRPリンクの作成"
 
 #: aasrp/templates/aasrp/link-edit.html:6
 msgid "Add/Edit After Action Report Link"
@@ -612,7 +609,7 @@ msgstr ""
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:29
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:62
 msgid "Delete"
-msgstr ""
+msgstr "削除"
 
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:25
 msgid "Disable"
@@ -726,11 +723,11 @@ msgstr ""
 
 #: aasrp/templates/aasrp/partials/footer/app-translation-footer.html:5
 msgid "Do you want to help translate this app into your language or improve the existing translation?"
-msgstr ""
+msgstr "このアプリをあなたの言語に翻訳するお手伝いをしたり、既存の翻訳を改善したりしませんか？"
 
 #: aasrp/templates/aasrp/partials/footer/app-translation-footer.html:8
 msgid "Join our team of translators!"
-msgstr ""
+msgstr "翻訳者チームに参加しましょう！"
 
 #: aasrp/templates/aasrp/partials/form/required-field-hint.html:5
 msgid "Fields marked with an asterisk (*) are mandatory"
