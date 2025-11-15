@@ -55,6 +55,7 @@ class TestUserAgent(BaseTestCase):
             ua_version=__version__,  # Application version for the User-Agent header
             compatibility_date=__esi_compatibility_date__,  # Compatibility date for the ESI spec
             spec_file=SPEC_PATH,  # Path to the OpenAPI specification file
+            operations=["GetStatus"],
         )
 
         # Mock the HTTP response returned by the `send` method
