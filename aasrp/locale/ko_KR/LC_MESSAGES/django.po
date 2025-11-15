@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-11-12 03:34+0100\n"
+"POT-Creation-Date: 2025-11-15 15:34+0100\n"
 "PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ko/>\n"
@@ -40,7 +40,7 @@ msgstr "생성자"
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
 #: aasrp/templates/aasrp/view-own-requests.html:24
-#: aasrp/templates/aasrp/view-requests.html:41
+#: aasrp/templates/aasrp/view-requests.html:40
 msgid "Requestor"
 msgstr "요청자"
 
@@ -72,7 +72,7 @@ msgstr "SRP 코드"
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:18
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:17
 #: aasrp/templates/aasrp/view-own-requests.html:23
-#: aasrp/templates/aasrp/view-requests.html:36
+#: aasrp/templates/aasrp/view-requests.html:35
 msgid "Character"
 msgstr "캐릭터"
 
@@ -165,7 +165,7 @@ msgstr "킬보드 링크"
 #: aasrp/form.py:165 aasrp/form.py:174 aasrp/models.py:310 aasrp/models.py:429
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:25
-#: aasrp/templates/aasrp/view-requests.html:43
+#: aasrp/templates/aasrp/view-requests.html:42
 msgid "Additional information"
 msgstr "추가 정보"
 
@@ -402,7 +402,7 @@ msgstr "함선 종류"
 
 #: aasrp/models.py:316 aasrp/templates/aasrp/dashboard.html:23
 #: aasrp/templates/aasrp/view-own-requests.html:22
-#: aasrp/templates/aasrp/view-requests.html:34
+#: aasrp/templates/aasrp/view-requests.html:33
 msgid "Request status"
 msgstr "요청 상태"
 
@@ -441,7 +441,7 @@ msgstr "보험 가입금"
 
 #: aasrp/models.py:405
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
-#: aasrp/templates/aasrp/view-requests.html:42
+#: aasrp/templates/aasrp/view-requests.html:41
 msgid "Insurance payout"
 msgstr "보험금"
 
@@ -541,7 +541,7 @@ msgstr "SRP 요청 상태"
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:19
 #: aasrp/templates/aasrp/view-own-requests.html:21
-#: aasrp/templates/aasrp/view-requests.html:35
+#: aasrp/templates/aasrp/view-requests.html:34
 msgid "Ship"
 msgstr "함선"
 
@@ -932,25 +932,25 @@ msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr "클릭하여 값을 수정할 수 있으며, Enter 로 저장, ESC로 취소할 수 있습니다."
 
 #: aasrp/templates/aasrp/view-own-requests.html:26
-#: aasrp/templates/aasrp/view-requests.html:44
+#: aasrp/templates/aasrp/view-requests.html:43
 #, fuzzy
 #| msgid "Additional Information"
 msgid "Reject information"
 msgstr "추가 정보"
 
-#: aasrp/templates/aasrp/view-requests.html:37
+#: aasrp/templates/aasrp/view-requests.html:36
 msgid "Click here to change the payout amount for this SRP request."
 msgstr "이곳을 클릭하여 SRP 지급금 변경가능."
 
-#: aasrp/templates/aasrp/view-requests.html:38
+#: aasrp/templates/aasrp/view-requests.html:37
 msgid "Enter SRP payout value"
 msgstr "SRP 금액 입력"
 
-#: aasrp/templates/aasrp/view-requests.html:39
+#: aasrp/templates/aasrp/view-requests.html:38
 msgid "Empty values are not allowed"
 msgstr "값을 입력하여 주십시오"
 
-#: aasrp/templates/aasrp/view-requests.html:40
+#: aasrp/templates/aasrp/view-requests.html:39
 msgid "This field is required."
 msgstr "필수 항목입니다."
 
@@ -1004,78 +1004,78 @@ msgstr "SRP 요청이 삭제되었습니다"
 msgid "SRP requests have been removed"
 msgstr "SRP 요청이 삭제되었습니다"
 
-#: aasrp/views/general.py:71
+#: aasrp/views/general.py:72
 msgid "You do not have the needed permissions to view all SRP links"
 msgstr "SRP 링크들을 조회하기 위한 권한이 없습니다"
 
-#: aasrp/views/general.py:133
+#: aasrp/views/general.py:134
 msgid "Settings saved."
 msgstr "설정 저장됨."
 
-#: aasrp/views/general.py:199
+#: aasrp/views/general.py:200
 #, fuzzy, python-brace-format
 #| msgid "SRP link \"{srp_link.srp_code}\" created"
 msgid "SRP link \"{srp_code}\" created"
 msgstr "SRP 세션{srp_link.srp_code} 이 생성됨"
 
-#: aasrp/views/general.py:251
+#: aasrp/views/general.py:252
 #, fuzzy, python-brace-format
 #| msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgid "Unable to locate SRP link using SRP code {srp_code}"
 msgstr "다음 SRP 코드에 의한 세션 생성이 실패하였습니다. ({srp_code})"
 
-#: aasrp/views/general.py:266
+#: aasrp/views/general.py:267
 msgid "AAR link changed"
 msgstr "AAR 링크 변경됨"
 
-#: aasrp/views/general.py:387
+#: aasrp/views/general.py:389
 #, fuzzy, python-brace-format
 #| msgid "Submitted SRP request for your {srp_request__ship.name}."
 msgid "Submitted SRP request for your {ship_name}."
 msgstr "다음 링크에 대한 SRP 요청이 제출되었습니다. ({srp_request__ship.name})."
 
-#: aasrp/views/general.py:431
+#: aasrp/views/general.py:433
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr "다음 SRP 코드에 의한 세션 생성이 실패하였습니다. ({srp_code})"
 
-#: aasrp/views/general.py:443
+#: aasrp/views/general.py:445
 msgid "This SRP link is no longer available for SRP requests."
 msgstr "해당 SRP 세션은 더이상 이용할 수 없습니다."
 
-#: aasrp/views/general.py:474
+#: aasrp/views/general.py:476
 #, python-brace-format
 msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {error}"
 msgstr ""
 
-#: aasrp/views/general.py:520
+#: aasrp/views/general.py:522
 #, python-brace-format
 msgid "Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."
 msgstr "{victim_id} 는 사용자의 계정에 속해있지 않습니다. 캐릭터를 추가하거나 오탈자를 확인한 후 다시 시도해 주십시오."
 
-#: aasrp/views/general.py:569
+#: aasrp/views/general.py:571
 msgid "SRP link marked as completed"
 msgstr "종료된 SRP 세션"
 
-#: aasrp/views/general.py:578 aasrp/views/general.py:616
-#: aasrp/views/general.py:676 aasrp/views/general.py:724
-#: aasrp/views/general.py:771
+#: aasrp/views/general.py:580 aasrp/views/general.py:618
+#: aasrp/views/general.py:678 aasrp/views/general.py:726
+#: aasrp/views/general.py:773
 #, fuzzy, python-brace-format
 #| msgid "Unable to locate SRP code with ID {srp_code}"
 msgid "Unable to locate SRP link with ID {srp_code}"
 msgstr "다음 링크의 SRP 세션을 생성할 수 없습니다 ({srp_code})"
 
-#: aasrp/views/general.py:666
+#: aasrp/views/general.py:668
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr "SRP 세션 {srp_code} 이 활성화 되었습니다."
 
-#: aasrp/views/general.py:714
+#: aasrp/views/general.py:716
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr "SRP 세션 {srp_code} 이 비활성화 되었습니다."
 
-#: aasrp/views/general.py:761
+#: aasrp/views/general.py:763
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "SRP 세션 {srp_code} 이 삭제 되었습니다."
