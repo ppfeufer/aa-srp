@@ -1,10 +1,12 @@
-/* global aaSrpSettings, aasrpBootstrapTooltip, fetchGet, fetchPost, moment, numberFormatter */
+/* global aaSrpSettings, _bootstrapTooltip, fetchGet, fetchPost, moment, numberFormatter, _removeSearchFromColumnControl, DataTable */
 
 $(document).ready(() => {
     'use strict';
 
     const elementSrpRequestsTable = $('#tab_aasrp_srp_requests');
     const elementBulkActions = $('div.card-srp-request-bulk-actions');
+
+    console.log('aaSrpSettings:', aaSrpSettings);
 
     /**
      * Table :: SRP Requests
@@ -15,38 +17,20 @@ $(document).ready(() => {
     fetchGet({url: aaSrpSettings.url.requestsForSrpLink})
         .then((data) => {
             if (data) {
-                elementSrpRequestsTable.DataTable({
-                    language: aaSrpSettings.dataTable.language,
+                const dt = new DataTable(elementSrpRequestsTable, { // eslint-disable-line no-unused-vars
+                    language: aaSrpSettings.dataTables.language,
                     data: data,
+                    layout: aaSrpSettings.dataTables.layout,
+                    ordering: aaSrpSettings.dataTables.ordering,
+                    columnControl: aaSrpSettings.dataTables.columnControl,
+                    paging: false,
                     columns: [
                         // Column 0: Request Time
                         {
-                            data: 'request_time',
-                            /**
-                             * Render callback
-                             */
-                            render: {
-                                /**
-                                 * Display callback
-                                 *
-                                 * @param {int|string} data
-                                 * @returns {string|*}
-                                 * @private
-                                 */
-                                display: (data) => {
-                                    return data === null ? '' : moment(data).utc().format(
-                                        aaSrpSettings.datetimeFormat
-                                    );
-                                },
-                                /**
-                                 * Sort callback
-                                 *
-                                 * @param {int|string} data
-                                 * @returns {string|*}
-                                 */
-                                sort: (data) => {
-                                    return data === null ? '' : data;
-                                }
+                            data: {
+                                display: (data) => data.request_time === null ? '' : moment(data.request_time).utc().format(aaSrpSettings.datetimeFormat),
+                                sort: (data) => data.request_time === null ? '' : data.request_time
+
                             },
                             className: 'srp-request-time'
                         },
@@ -57,86 +41,64 @@ $(document).ready(() => {
                         },
                         // Column 2: Character
                         {
-                            data: 'character_html',
-                            render: {
-                                display: 'display',
-                                filter: 'sort',
-                                sort: 'sort'
+                            data: {
+                                display: (data) => data.character_html.display,
+                                filter: (data) => data.character_html.sort,
+                                sort: (data) => data.character_html.sort
                             },
                             className: 'srp-request-character'
                         },
                         // Column 3: Request Code
                         {
-                            data: 'request_code_html',
-                            /**
-                             * Render callback
-                             */
-                            render:  {
-                                display: 'display',
-                                filter: 'sort',
-                                sort: 'sort'
+                            data: {
+                                display: (data) => data.request_code_html.display,
+                                filter: (data) => data.request_code_html.sort,
+                                sort: (data) => data.request_code_html.sort
                             },
                             className: 'srp-request-code'
                         },
                         // Column 4: Ship
                         {
-                            data: 'ship_html',
-                            render: {
-                                display: 'display',
-                                filter: 'sort',
-                                sort: 'sort'
+                            data: {
+                                display: (data) => data.ship_html.display,
+                                filter: (data) => data.ship_html.sort,
+                                sort: (data) => data.ship_html.sort
                             },
                             className: 'srp-request-ship'
                         },
                         // {data: 'zkb_link'},
                         // Column 5: Killboard Link
                         {
-                            data: 'zbk_loss_amount',
-                            /**
-                             * Render callback
-                             */
-                            render: {
-                                display: (data) => {
-                                    return numberFormatter({
-                                        value: data,
-                                        locales: aaSrpSettings.locale,
-                                        options: {
-                                            style: 'currency',
-                                            currency: 'ISK'
-                                        }
-                                    });
-                                },
-                                filter: (data) => {
-                                    return data;
-                                },
-                                sort: (data) => {
-                                    return data;
-                                }
+                            data: {
+                                display: (data) => numberFormatter({
+                                    value: data.zbk_loss_amount,
+                                    locales: aaSrpSettings.locale,
+                                    options: {
+                                        style: 'currency',
+                                        currency: 'ISK'
+                                    }
+                                }),
+                                filter: (data) => data.zbk_loss_amount,
+                                sort: (data) => data.zbk_loss_amount
                             },
                             className: 'srp-request-zbk-loss-amount text-end'
                         },
                         // Column 6: Payout Amount
                         {
-                            data: 'payout_amount_html',
-                            /**
-                             * Render callback
-                             */
-                            render: {
-                                display: (data) => {
-                                    return data.display.replace(
-                                        '#payout_amount_localized#',
-                                        numberFormatter({
-                                            value: data.sort,
-                                            locales: aaSrpSettings.locale,
-                                            options: {
-                                                style: 'currency',
-                                                currency: 'ISK'
-                                            }
-                                        })
-                                    );
-                                },
-                                filter: 'sort',
-                                sort: 'sort'
+                            data: {
+                                display: (data) => data.payout_amount_html.display.replace(
+                                    '#payout_amount_localized#',
+                                    numberFormatter({
+                                        value: data.payout_amount_html.sort,
+                                        locales: aaSrpSettings.locale,
+                                        options: {
+                                            style: 'currency',
+                                            currency: 'ISK'
+                                        }
+                                    })
+                                ),
+                                filter: (data) => data.payout_amount_html.sort,
+                                sort: (data) => data.payout_amount_html.sort
                             },
                             className: 'srp-request-payout text-end'
                         },
@@ -152,62 +114,36 @@ $(document).ready(() => {
                         },
                         // Column 9: Bulk Actions Checkbox
                         {
-                            data: 'request_code',
-                            className: 'srp-request-bulk-actions-checkbox text-end',
-                            render: {
+                            // data: 'request_code',
+                            data: {
                                 display: (data) => {
-                                    return `<div class="checkbox"><label><input class="srp-requests-bulk-action" type="checkbox" name="${data}"><span class="cr"><i class="cr-icon fas fa-check"></i></span></label></div>`;
+                                    return `<div class="checkbox"><label><input class="srp-requests-bulk-action" type="checkbox" name="${data.request_code}"><span class="cr"><i class="cr-icon fas fa-check"></i></span></label></div>`;
                                 }
-                            }
+                            },
+                            className: 'srp-request-bulk-actions-checkbox text-end',
                         },
-
-                        /**
-                         * Hidden columns
-                         */
-                        {data: 'ship'},
-                        {data: 'request_status_translated'},
-                        {data: 'character'}
                     ],
                     columnDefs: [
                         {
+                            targets: [0, 5, 6],
+                            columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
+                        },
+                        {
+                            targets: [7, 8, 9],
                             orderable: false,
-                            targets: [7, 8, 9]
+                            columnControl: [
+                                {target: 0, content: []},
+                                {target: 1, content: []}
+                            ]
                         },
                         {
-                            visible: false,
-                            targets: [10, 11, 12]
-                        },
-                        {
-                            width: 115,
-                            targets: [8]
+                            targets: [8],
+                            width: 115
                         }
                     ],
                     order: [
                         [0, 'asc']
                     ],
-                    filterDropDown: {
-                        columns: [
-                            {
-                                idx: 1
-                            },
-                            {
-                                idx: 12,
-                                title: aaSrpSettings.translation.filter.character
-                            },
-                            {
-                                idx: 10,
-                                title: aaSrpSettings.translation.filter.ship
-                            },
-                            {
-                                idx: 11,
-                                title: aaSrpSettings.translation.filter.requestStatus
-                            }
-                        ],
-                        autoSize: false,
-                        bootstrap: true,
-                        bootstrap_version: 5,
-                    },
-                    paging: false,
                     /**
                      * When ever a row is created …
                      *
@@ -265,8 +201,14 @@ $(document).ready(() => {
                         }
                     },
                     initComplete: () => {
+                        const dt = elementSrpRequestsTable.DataTable();
+
                         // Show bootstrap tooltips
-                        aasrpBootstrapTooltip({selector: '#tab_aasrp_srp_requests'});
+                        _bootstrapTooltip({selector: '#tab_aasrp_srp_requests'});
+
+                        dt.on('draw', () => {
+                            _bootstrapTooltip({selector: '#tab_aasrp_srp_requests'});
+                        });
 
                         // Make the SRP payout field editable for pending and rejected requests.
                         elementSrpRequestsTable.editable({

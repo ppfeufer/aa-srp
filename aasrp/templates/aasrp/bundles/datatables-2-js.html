@@ -1,0 +1,14 @@
+{% load sri %}
+
+{% sri_static 'aasrp/libs/DataTables/2.3.5/dataTables.min.js' %}
+{% sri_static 'aasrp/libs/DataTables/2.3.5/dataTables.bootstrap5.min.js' %}
+
+{% if extColumnControl == True %}
+    {% sri_static "aasrp/libs/DataTables/Extensions/ColumnControl/1.1.1/js/dataTables.columnControl.min.js" %}
+    {% sri_static "aasrp/libs/DataTables/Extensions/ColumnControl/1.1.1/js/columnControl.bootstrap5.min.js" %}
+{% endif %}
+
+{% if extFixedHeader == True %}
+    {% sri_static "aasrp/libs/DataTables/Extensions/FixedHeader/4.0.4/js/dataTables.fixedHeader.min.js" %}
+    {% sri_static "aasrp/libs/DataTables/Extensions/FixedHeader/4.0.4/js/fixedHeader.bootstrap5.min.js" %}
+{% endif %}

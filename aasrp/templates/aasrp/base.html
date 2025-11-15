@@ -32,9 +32,42 @@
                 const aaSrpJsSettingsDefaults = {
                     datetimeFormat: 'LL<br>LT',
                     locale: '{{ LANGUAGE_CODE }}',
-                    dataTable: {
+                    dataTables: {
                         paging: true,
                         language: {url: '{{ DT_LANG_PATH }}'},
+                        layout: {
+                            topStart: 'pageLength',
+                            topEnd: null, // Removing the default search bar (Default is 'search', see https://datatables.net/reference/option/layout#Default)
+                            bottomStart: 'info',
+                            bottomEnd: 'paging'
+                        },
+                        ordering: {
+                            indicators: false,
+                            handler: false
+                        },
+                        columnControl: [
+                            {
+                                target: 0,
+                                content: [
+                                    'order',
+                                    // [
+                                    //     'orderAsc',
+                                    //     'orderDesc',
+                                    //     'spacer',
+                                    //     'orderAddAsc',
+                                    //     'orderAddDesc',
+                                    //     'spacer',
+                                    //     'orderRemove'
+                                    // ]
+                                ]
+                            },
+                            {
+                                target: 1,
+                                content: [
+                                    'search'
+                                ]
+                            }
+                        ]
                     }
                 };
             </script>
@@ -45,7 +78,7 @@
                 $(document).ready(() => {
                     'use strict';
 
-                    aasrpBootstrapTooltip({selector: '.aa-srp'});
+                    _bootstrapTooltip({selector: '.aa-srp'});
                 });
             </script>
         </div>

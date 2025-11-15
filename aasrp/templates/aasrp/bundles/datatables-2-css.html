@@ -1,0 +1,11 @@
+{% load sri %}
+
+{% sri_static "aasrp/libs/DataTables/2.3.5/dataTables.bootstrap5.min.css" %}
+
+{% if extColumnControl == True %}
+    {% sri_static "aasrp/libs/DataTables/Extensions/ColumnControl/1.1.1/css/columnControl.bootstrap5.min.css" %}
+{% endif %}
+
+{% if extFixedHeader == True %}
+    {% sri_static "aasrp/libs/DataTables/Extensions/FixedHeader/4.0.4/css/fixedHeader.bootstrap5.min.css" %}
+{% endif %}
