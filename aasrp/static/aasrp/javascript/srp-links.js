@@ -1,9 +1,11 @@
-/* global aasrpBootstrapTooltip, moment, aaSrpSettings, fetchGet, numberFormatter */
+/* global _bootstrapTooltip, moment, aaSrpSettings, fetchGet, numberFormatter, _removeSearchFromColumnControl, DataTable */
 
 $(document).ready(() => {
     'use strict';
 
     const elementTableSrpLinks = $('#table_tab-srp-links');
+
+    console.log('aaSrpSettings:', aaSrpSettings);
 
     /**
      * Table: SRP Links
@@ -13,9 +15,13 @@ $(document).ready(() => {
     fetchGet({url: aaSrpSettings.url.availableSrpLinks})
         .then((data) => {
             if (data) {
-                elementTableSrpLinks.DataTable({
-                    language: aaSrpSettings.dataTable.language,
+                const dt = new DataTable(elementTableSrpLinks, { // eslint-disable-line no-unused-vars
+                    language: aaSrpSettings.dataTables.language,
                     data: data,
+                    layout: aaSrpSettings.dataTables.layout,
+                    ordering: aaSrpSettings.dataTables.ordering,
+                    columnControl: aaSrpSettings.dataTables.columnControl,
+                    paging: aaSrpSettings.dataTables.paging,
                     columns: [
                         {
                             data: 'srp_name',
@@ -26,31 +32,10 @@ $(document).ready(() => {
                             className: 'srp-link-creator'
                         },
                         {
-                            data: 'fleet_time',
-                            /**
-                             * Render callback
-                             */
-                            render: {
-                                /**
-                                 * Display callback
-                                 *
-                                 * @param {string} data
-                                 * @returns {string|*}
-                                 */
-                                display: (data) => {
-                                    return data === null ? '' : moment(data).utc().format(
-                                        aaSrpSettings.datetimeFormat
-                                    );
-                                },
-                                /**
-                                 * Sort callback
-                                 *
-                                 * @param {string} data
-                                 * @returns {string|*}
-                                 */
-                                sort: (data) => {
-                                    return data === null ? '' : data;
-                                }
+                            data: {
+                                display: (data) => data.fleet_time === null ? '' : moment(data.fleet_time).utc().format(aaSrpSettings.datetimeFormat),
+                                sort: (data) => data.fleet_time === null ? '' : data.fleet_time
+
                             },
                             className: 'srp-link-fleet-time'
                         },
@@ -80,27 +65,17 @@ $(document).ready(() => {
                             className: 'srp-link-code'
                         },
                         {
-                            data: 'srp_costs',
-                            /**
-                             * Render callback
-                             */
-                            render: {
-                                display: (data) => {
-                                    return numberFormatter({
-                                        value: data,
-                                        locales: aaSrpSettings.locale,
-                                        options: {
-                                            style: 'currency',
-                                            currency: 'ISK'
-                                        }
-                                    });
-                                },
-                                filter: (data) => {
-                                    return data;
-                                },
-                                sort: (data) => {
-                                    return data;
-                                }
+                            data: {
+                                display: (data) => numberFormatter({
+                                    value: data.srp_costs,
+                                    locales: aaSrpSettings.locale,
+                                    options: {
+                                        style: 'currency',
+                                        currency: 'ISK'
+                                    }
+                                }),
+                                filter: (data) => data.srp_costs,
+                                sort: (data) => data.srp_costs
                             },
                             className: 'srp-link-total-cost text-end'
                         },
@@ -119,16 +94,20 @@ $(document).ready(() => {
                     ],
                     columnDefs: [
                         {
-                            orderable: false,
-                            targets: [10]
+                            targets: [2, 5, 7, 9],
+                            columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
                         },
                         {
+                            target: 10,
+                            orderable: false,
                             width: 115,
-                            targets: [10]
+                            columnControl: [
+                                {target: 0, content: []},
+                                {target: 1, content: []}
+                            ]
                         }
                     ],
                     order: [[2, 'asc']],
-                    paging: aaSrpSettings.dataTable.paging,
                     /**
                      * When ever a row is created …
                      *
@@ -156,8 +135,15 @@ $(document).ready(() => {
                         );
                     },
                     initComplete: () => {
-                        // Show bootstrap tooltips
-                        aasrpBootstrapTooltip({selector: '#table_tab-srp-links'});
+                        const dt = elementTableSrpLinks.DataTable();
+
+                        // Initialize Bootstrap tooltips
+                        _bootstrapTooltip({selector: '#table_tab-srp-links'});
+
+                        // Re-initialize tooltips on each draw
+                        dt.on('draw', () => {
+                            _bootstrapTooltip({selector: '#table_tab-srp-links'});
+                        });
                     }
                 });
             }

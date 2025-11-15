@@ -44,6 +44,7 @@ Section Order:
 
 ### Changed
 
+- Switched to DataTables 2
 - ESI handling improved
 
 ## [3.0.0] - 2025-11-12

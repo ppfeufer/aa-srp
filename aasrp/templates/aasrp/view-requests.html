@@ -22,10 +22,9 @@
 {% endblock %}
 
 {% block extra_css %}
-    {% include "bundles/datatables-css-bs5.html" %}
+    {% include "aasrp/bundles/datatables-2-css.html" with extColumnControl=True %}
     {% include "bundles/checkbox-css.html" %}
     {% include "aasrp/bundles/x-editable-css.html" %}
-
     {% include "aasrp/bundles/aa-srp-css.html" %}
     {% include "aasrp/bundles/aa-srp-form-css.html" %}
 {% endblock %}
@@ -100,7 +99,7 @@
 
     {% include "aasrp/bundles/x-editable-js.html" %}
     {% include "bundles/moment-js.html" with locale=True %}
-    {% include "bundles/datatables-js-bs5.html" %}
+    {% include "aasrp/bundles/datatables-2-js.html" with extColumnControl=True %}
     {% include "bundles/filterdropdown-js.html" %}
     {% include "aasrp/bundles/view-requests-js.html" %}
 {% endblock %}

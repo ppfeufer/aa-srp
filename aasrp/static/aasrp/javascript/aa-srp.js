@@ -20,9 +20,37 @@ const aaSrpSettings = (typeof aaSrpJsSettingsOverride !== 'undefined') // eslint
  * @param {string} [namespace=aa-srp] Namespace for the tooltip
  * @returns {void}
  */
-const aasrpBootstrapTooltip = ({selector = 'body', namespace = 'aa-srp'}) => { // eslint-disable-line no-unused-vars
+const _bootstrapTooltip = ({selector = 'body', namespace = 'aa-srp'}) => { // eslint-disable-line no-unused-vars
     document.querySelectorAll(`${selector} [data-bs-tooltip="${namespace}"]`)
         .forEach((tooltipTriggerEl) => {
+            // Dispose existing tooltip instance if it exists
+            const existing = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+            if (existing) {
+                existing.dispose();
+            }
+
+            // Remove any leftover tooltip elements
+            $('.bs-tooltip-auto').remove();
+
+            // Create new tooltip instance
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
+};
+
+/**
+ * Remove search from column control.
+ *
+ * @param {Array} columnControl Column control.
+ * @param {int} index Index of the column to remove search from.
+ * @return {Array} Modified column control.
+ * @private
+ */
+const _removeSearchFromColumnControl = (columnControl, index = 1) => { // eslint-disable-line no-unused-vars
+    const cc = JSON.parse(JSON.stringify(columnControl));
+
+    if (cc[index]) {
+        cc[index].content = [];
+    }
+
+    return cc;
 };
