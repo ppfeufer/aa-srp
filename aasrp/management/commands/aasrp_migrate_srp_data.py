@@ -14,6 +14,7 @@ from django.utils.crypto import get_random_string
 from allianceauth.srp.models import SrpFleetMain
 
 # AA SRP
+from aasrp.handler import esi_handler
 from aasrp.helper.character import get_user_for_character
 from aasrp.models import RequestComment, Setting, SrpLink, SrpRequest
 from aasrp.providers import esi
@@ -59,10 +60,9 @@ class Command(BaseCommand):
         if ship_type_id not in self.ship_info_cache:
             self.stdout.write(f"Adding ship info for type ID {ship_type_id} to cache")
 
-            self.ship_info_cache[ship_type_id] = (
-                esi.client.Universe.GetUniverseTypesTypeId(
-                    type_id=ship_type_id
-                ).result()
+            operation = esi.client.Universe.GetUniverseTypesTypeId(type_id=ship_type_id)
+            self.ship_info_cache[ship_type_id] = esi_handler.result(
+                operation, return_cached_for_304=True
             )
 
         return self.ship_info_cache[ship_type_id]

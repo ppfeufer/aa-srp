@@ -21,6 +21,7 @@ from app_utils.logging import LoggerAddTag
 # AA SRP
 from aasrp import __title__
 from aasrp.constants import KILLBOARD_DATA, UserAgent
+from aasrp.handler import esi_handler
 from aasrp.providers import esi
 
 # Initialize a logger with a custom tag for the AA-SRP module
@@ -121,10 +122,13 @@ class SrpRequestManager(models.Manager):
 
         zkillboard_data = SrpRequestManager.get_zkillboard_data(kill_id=killmail_id)
 
-        esi_killmail = esi.client.Killmails.GetKillmailsKillmailIdKillmailHash(
+        operation = esi.client.Killmails.GetKillmailsKillmailIdKillmailHash(
             killmail_id=killmail_id,
             killmail_hash=zkillboard_data.get("zkb", {}).get("hash"),
-        ).result(force_refresh=True)
+        )
+        esi_killmail = esi_handler.result(
+            operation=operation, return_cached_for_304=True
+        )
 
         ship_type = esi_killmail.victim.ship_type_id
         ship_value = zkillboard_data.get("zkb", {}).get(loss_value_field, 0)
@@ -147,8 +151,9 @@ class SrpRequestManager(models.Manager):
         :rtype: dict | None
         """
 
-        insurance_from_esi = esi.client.Insurance.GetInsurancePrices().result(
-            force_refresh=True
+        operation = esi.client.Insurance.GetInsurancePrices()
+        insurance_from_esi = esi_handler.result(
+            operation=operation, return_cached_for_304=True
         )
 
         insurance = next(

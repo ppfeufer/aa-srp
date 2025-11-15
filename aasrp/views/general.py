@@ -36,6 +36,7 @@ from aasrp.form import (
     SrpRequestRejectForm,
     UserSettingsForm,
 )
+from aasrp.handler import esi_handler
 from aasrp.helper.notification import notify_srp_team
 from aasrp.helper.user import get_user_settings
 from aasrp.models import Insurance, RequestComment, Setting, SrpLink, SrpRequest
@@ -317,9 +318,10 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
     )
 
     # Get ship information from ESI
-    srp_request__ship = esi.client.Universe.GetUniverseTypesTypeId(
-        type_id=ship_type_id
-    ).result(force_refresh=True)
+    operation = esi.client.Universe.GetUniverseTypesTypeId(type_id=ship_type_id)
+    srp_request__ship = esi_handler.result(
+        operation=operation, return_cached_for_304=True
+    )
 
     logger.debug(msg=f"Ship type {srp_request__ship.name}")
 

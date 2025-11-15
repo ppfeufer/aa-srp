@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- ESI handling improved
+
 ## [3.0.0] - 2025-11-12
 
 ### Fixed
