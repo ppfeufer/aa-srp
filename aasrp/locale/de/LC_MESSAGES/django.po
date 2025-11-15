@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-11-12 03:34+0100\n"
+"POT-Creation-Date: 2025-11-15 15:34+0100\n"
 "PO-Revision-Date: 2025-10-25 13:38+0000\n"
 "Last-Translator: Mike Grap <mike.grap@gmx.net>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/de/>\n"
@@ -38,7 +38,7 @@ msgstr "Ersteller"
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:16
 #: aasrp/templates/aasrp/view-own-requests.html:24
-#: aasrp/templates/aasrp/view-requests.html:41
+#: aasrp/templates/aasrp/view-requests.html:40
 msgid "Requestor"
 msgstr "Anforderer"
 
@@ -70,7 +70,7 @@ msgstr "Anfrage Code"
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:18
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:17
 #: aasrp/templates/aasrp/view-own-requests.html:23
-#: aasrp/templates/aasrp/view-requests.html:36
+#: aasrp/templates/aasrp/view-requests.html:35
 msgid "Character"
 msgstr "Charakter"
 
@@ -165,7 +165,7 @@ msgstr "Killboard Link"
 #: aasrp/form.py:165 aasrp/form.py:174 aasrp/models.py:310 aasrp/models.py:429
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:25
-#: aasrp/templates/aasrp/view-requests.html:43
+#: aasrp/templates/aasrp/view-requests.html:42
 msgid "Additional information"
 msgstr "Zusätzliche Informationen"
 
@@ -394,7 +394,7 @@ msgstr "Schiffstyp ID"
 
 #: aasrp/models.py:316 aasrp/templates/aasrp/dashboard.html:23
 #: aasrp/templates/aasrp/view-own-requests.html:22
-#: aasrp/templates/aasrp/view-requests.html:34
+#: aasrp/templates/aasrp/view-requests.html:33
 msgid "Request status"
 msgstr "Anfragestatus"
 
@@ -433,7 +433,7 @@ msgstr "Versicherungskosten"
 
 #: aasrp/models.py:405
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
-#: aasrp/templates/aasrp/view-requests.html:42
+#: aasrp/templates/aasrp/view-requests.html:41
 msgid "Insurance payout"
 msgstr "Versicherungsauszahlung"
 
@@ -529,7 +529,7 @@ msgstr "SRP Anfragestatus"
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:19
 #: aasrp/templates/aasrp/view-own-requests.html:21
-#: aasrp/templates/aasrp/view-requests.html:35
+#: aasrp/templates/aasrp/view-requests.html:34
 msgid "Ship"
 msgstr "Schiff"
 
@@ -892,23 +892,23 @@ msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr "Klicke auf den Wert zum Bearbeiten, Enter zum Speichern, ESC zum Abbrechen."
 
 #: aasrp/templates/aasrp/view-own-requests.html:26
-#: aasrp/templates/aasrp/view-requests.html:44
+#: aasrp/templates/aasrp/view-requests.html:43
 msgid "Reject information"
 msgstr "Ablehnungsinformation"
 
-#: aasrp/templates/aasrp/view-requests.html:37
+#: aasrp/templates/aasrp/view-requests.html:36
 msgid "Click here to change the payout amount for this SRP request."
 msgstr "Klicke hier, um den Auszahlungsbetrag für diese SRP Anfrage zu ändern."
 
-#: aasrp/templates/aasrp/view-requests.html:38
+#: aasrp/templates/aasrp/view-requests.html:37
 msgid "Enter SRP payout value"
 msgstr "SRP Auszahlungsbetrag eingeben"
 
-#: aasrp/templates/aasrp/view-requests.html:39
+#: aasrp/templates/aasrp/view-requests.html:38
 msgid "Empty values are not allowed"
 msgstr "Leere Eingaben sind nicht erlaubt"
 
-#: aasrp/templates/aasrp/view-requests.html:40
+#: aasrp/templates/aasrp/view-requests.html:39
 msgid "This field is required."
 msgstr "Dies ist ein Pflichtfeld."
 
@@ -958,74 +958,74 @@ msgstr "SRP Anfrage wurde entfernt"
 msgid "SRP requests have been removed"
 msgstr "SRP Anfragen wurden entfernt"
 
-#: aasrp/views/general.py:71
+#: aasrp/views/general.py:72
 msgid "You do not have the needed permissions to view all SRP links"
 msgstr "Du hast nicht die erforderlichen Berechtigungen, um alle SRP Links anzuzeigen"
 
-#: aasrp/views/general.py:133
+#: aasrp/views/general.py:134
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
-#: aasrp/views/general.py:199
+#: aasrp/views/general.py:200
 #, python-brace-format
 msgid "SRP link \"{srp_code}\" created"
 msgstr "SRP Link „{srp_code}“ erstellt"
 
-#: aasrp/views/general.py:251
+#: aasrp/views/general.py:252
 #, python-brace-format
 msgid "Unable to locate SRP link using SRP code {srp_code}"
 msgstr "SRP Link zu SRP ID {srp_code} konnte nicht gefunden werden"
 
-#: aasrp/views/general.py:266
+#: aasrp/views/general.py:267
 msgid "AAR link changed"
 msgstr "AAR Link geändert"
 
-#: aasrp/views/general.py:387
+#: aasrp/views/general.py:389
 #, python-brace-format
 msgid "Submitted SRP request for your {ship_name}."
 msgstr "SRP Anfrage für Deine {ship_name} eingereicht."
 
-#: aasrp/views/general.py:431
+#: aasrp/views/general.py:433
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr "SRP Flotte zur SRP ID {srp_code} konnte nicht gefunden werden"
 
-#: aasrp/views/general.py:443
+#: aasrp/views/general.py:445
 msgid "This SRP link is no longer available for SRP requests."
 msgstr "Dieser Link ist nicht länger verfügbar für SRP Anfragen."
 
-#: aasrp/views/general.py:474
+#: aasrp/views/general.py:476
 #, python-brace-format
 msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {error}"
 msgstr "Etwas ist schief gegangen, Deine Killmail ({submitted_killmail_link}) konnte nicht analysiert werden: {error}"
 
-#: aasrp/views/general.py:520
+#: aasrp/views/general.py:522
 #, python-brace-format
 msgid "Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."
 msgstr "Der Charakter {victim_id} gehört nicht zu Deinem Auth Konto. Bitte füge diesen als Zweitcharakter hinzu und versuche es noch einmal."
 
-#: aasrp/views/general.py:569
+#: aasrp/views/general.py:571
 msgid "SRP link marked as completed"
 msgstr "SRP Link als beendet markiert"
 
-#: aasrp/views/general.py:578 aasrp/views/general.py:616
-#: aasrp/views/general.py:676 aasrp/views/general.py:724
-#: aasrp/views/general.py:771
+#: aasrp/views/general.py:580 aasrp/views/general.py:618
+#: aasrp/views/general.py:678 aasrp/views/general.py:726
+#: aasrp/views/general.py:773
 #, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
 msgstr "SRP Link mit ID {srp_code} konnte nicht gefunden werden"
 
-#: aasrp/views/general.py:666
+#: aasrp/views/general.py:668
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr "SRP Link {srp_code} (re-)aktiviert."
 
-#: aasrp/views/general.py:714
+#: aasrp/views/general.py:716
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr "SRP Link {srp_code} deaktiviert."
 
-#: aasrp/views/general.py:761
+#: aasrp/views/general.py:763
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "SRP Link {srp_code} gelöscht."
