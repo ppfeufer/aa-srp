@@ -44,6 +44,7 @@ Section Order:
 
 ### Fixed
 
+- SRP requests no longer able to be filtered by Status ([#392](https://github.com/ppfeufer/aa-srp/issues/392))
 - Column width in "My SRP requests" view
 
 ## [3.1.0] - 2025-11-15
