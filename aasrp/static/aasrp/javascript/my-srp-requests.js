@@ -101,6 +101,10 @@ $(document).ready(() => {
                                 {target: 0, content: []},
                                 {target: 1, content: []}
                             ]
+                        },
+                        {
+                            target: 6,
+                            width: 90
                         }
                     ],
                     order: [
