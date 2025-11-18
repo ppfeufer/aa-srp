@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Notification title should not be translated, as we don't know the language of the user
+
 ## [3.1.1] - 2025-11-18
 
 ### Fixed

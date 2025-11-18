@@ -140,9 +140,7 @@ class TestNotifyRequester(BaseTestCase):
         :rtype:
         """
 
-        self.mock_srp_request.get_request_status_display.return_value = (
-            SrpRequest.Status.APPROVED
-        )
+        self.mock_srp_request.request_status = SrpRequest.Status.APPROVED
 
         mock_get_main_character_name.return_value = "Reviser Character"
         mock_render_to_string.side_effect = [
@@ -186,10 +184,20 @@ class TestNotifyRequester(BaseTestCase):
         mock_send_user_notification,
         mock_render_to_string,
     ):
-        self.mock_srp_request.get_request_status_display.return_value = (
-            SrpRequest.Status.REJECTED
-        )
+        """
+        Test that a notification is sent with error level
 
+        :param mock_get_main_character_name:
+        :type mock_get_main_character_name:
+        :param mock_send_user_notification:
+        :type mock_send_user_notification:
+        :param mock_render_to_string:
+        :type mock_render_to_string:
+        :return:
+        :rtype:
+        """
+
+        self.mock_srp_request.request_status = SrpRequest.Status.REJECTED
         mock_get_main_character_name.return_value = "Reviser Character"
         mock_render_to_string.side_effect = [
             "allianceauth_notification",

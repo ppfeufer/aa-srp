@@ -48,7 +48,7 @@ def notify_requester(
     :rtype: None
     """
 
-    request_status = srp_request.get_request_status_display()
+    request_status = srp_request.request_status
     reviser_name = get_main_character_name_from_user(reviser)
 
     context = {
