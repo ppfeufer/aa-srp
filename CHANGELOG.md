@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Column width in "My SRP requests" view
+
 ## [3.1.0] - 2025-11-15
 
 ### Changed
