@@ -42,6 +42,8 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.1.1] - 2025-11-18
+
 ### Fixed
 
 - SRP requests no longer able to be filtered by Status ([#392](https://github.com/ppfeufer/aa-srp/issues/392))
@@ -1564,11 +1566,12 @@ python manage.py aasrp_update_db_relations
 [3.0.0-beta.1]: https://github.com/ppfeufer/aa-srp/compare/v2.13.2...v3.0.0-beta.1 "v3.0.0-beta.1"
 [3.0.0-beta.2]: https://github.com/ppfeufer/aa-srp/compare/v2.13.2...v3.0.0-beta.2 "v3.0.0-beta.2"
 [3.1.0]: https://github.com/ppfeufer/aa-srp/compare/v3.0.0...v3.1.0 "v3.1.0"
+[3.1.1]: https://github.com/ppfeufer/aa-srp/compare/v3.1.0...v3.1.1 "v3.1.1"
 [aa discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "AA Discord Notify"
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[in development]: https://github.com/ppfeufer/aa-srp/compare/v3.1.0...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-srp/compare/v3.1.1...HEAD "In Development"
 [keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
 [semantic versioning]: http://semver.org/ "Semantic Versioning"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
