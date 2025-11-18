@@ -4,6 +4,69 @@
     <div class="card-header">
         <div class="card-title mb-0">
             {% translate "SRP requests" %}
+
+            <div class="float-end">
+                {% translate "Filter by request status:" %}
+
+                <div class="btn-group btn-group-sm ms-2" role="group" aria-label="{% translate 'Filter by request status' %}">
+                    <input
+                        type="radio"
+                        class="btn-check"
+                        id="aasrp-srp-request-filter-all"
+                        name="btn-srp-status-filter"
+                        autocomplete="off"
+                        checked
+                    >
+                    <label
+                        for="aasrp-srp-request-filter-all"
+                        class="btn btn-outline-primary"
+                    >
+                        {% translate "All" %}
+                    </label>
+
+                    <input
+                        type="radio"
+                        class="btn-check"
+                        id="aasrp-srp-request-filter-pending"
+                        name="btn-srp-status-filter"
+                        autocomplete="off"
+                    >
+                    <label
+                        for="aasrp-srp-request-filter-pending"
+                        class="btn btn-outline-primary"
+                    >
+                        {% translate "Pending" %}
+                    </label>
+
+                    <input
+                        type="radio"
+                        class="btn-check"
+                        id="aasrp-srp-request-filter-approved"
+                        name="btn-srp-status-filter"
+                        autocomplete="off"
+                    >
+                    <label
+                        for="aasrp-srp-request-filter-approved"
+                        class="btn btn-outline-primary"
+                    >
+                        {% translate "Approved" %}
+                    </label>
+
+                    <input
+                        type="radio"
+                        class="btn-check"
+                        id="aasrp-srp-request-filter-rejected"
+                        name="btn-srp-status-filter"
+                        autocomplete="off"
+                    >
+                    <label
+                        for="aasrp-srp-request-filter-rejected"
+                        class="btn btn-outline-primary"
+                    >
+                        {% translate "Rejected" %}
+                    </label>
+                </div>
+            </div>
         </div>
     </div>
 

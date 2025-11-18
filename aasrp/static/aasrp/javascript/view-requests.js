@@ -104,7 +104,11 @@ $(document).ready(() => {
                         },
                         // Column 7: Request Status Icon
                         {
-                            data: 'request_status_icon',
+                            // data: 'request_status_icon',
+                            data: {
+                                display: (data) => data.request_status_icon,
+                                sort: (data) => data.request_status
+                            },
                             className: 'srp-request-status text-center'
                         },
                         // Column 8: Actions
@@ -202,6 +206,52 @@ $(document).ready(() => {
                     },
                     initComplete: () => {
                         const dt = elementSrpRequestsTable.DataTable();
+
+                        /**
+                         * Helper function: Filter DataTable
+                         *
+                         * @param {string} selector The selector for the filter button.
+                         * @param {callback} predicate The predicate function to filter rows.
+                         * @private
+                         */
+                        const _filterDataTable = (selector, predicate) => {
+                            console.log('Setting up filter for selector:', selector);
+                            console.log('Predicate function:', predicate);
+                            $(selector).click(() => {
+                                // Clear any existing custom filters before applying a new one
+                                $.fn.dataTable.ext.search = [];
+
+                                /**
+                                 * Custom filter function.
+                                 *
+                                 * @param {Object} settings DataTable settings object.
+                                 * @param {Array} searchData Search data for the row.
+                                 * @param {int} index Row index.
+                                 * @param {Object} rowData Row data object.
+                                 * @return {boolean} True if the row matches the filter, false otherwise.
+                                 */
+                                const filter = (settings, searchData, index, rowData) => {
+                                    if (!rowData) {
+                                        return true;
+                                    }
+
+                                    return predicate(rowData);
+                                };
+
+                                $.fn.dataTable.ext.search.push(filter);
+
+                                dt.draw();
+                            });
+                        };
+
+                        const _filters = [
+                            ['#aasrp-srp-request-filter-all', () => true],
+                            ['#aasrp-srp-request-filter-pending', rowData => rowData.request_status === 'Pending'],
+                            ['#aasrp-srp-request-filter-approved', rowData => rowData.request_status === 'Approved'],
+                            ['#aasrp-srp-request-filter-rejected', rowData => rowData.request_status === 'Rejected']
+                        ];
+
+                        _filters.forEach(([selector, predicate]) => _filterDataTable(selector, predicate));
 
                         // Show bootstrap tooltips
                         _bootstrapTooltip({selector: '#tab_aasrp_srp_requests'});
