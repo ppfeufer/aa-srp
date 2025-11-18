@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 3.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-11-18 20:00+0100\n"
+"POT-Creation-Date: 2025-11-18 20:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -914,9 +914,6 @@ msgid "SRP requests"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:9
-msgid "Filter by request status:"
-msgstr ""
-
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:11
 msgid "Filter by request status"
 msgstr ""
