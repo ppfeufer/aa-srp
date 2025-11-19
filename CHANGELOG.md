@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- `z-index` for the "Bulk Actions" overlay in the "SRP Requests" view
+
 ## [3.1.2] - 2025-11-18
 
 ### Fixed
