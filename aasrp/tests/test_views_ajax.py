@@ -12,12 +12,10 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.utils.datetime_safe import datetime
 
-# Alliance Auth (External Libs)
-from app_utils.testing import create_fake_user
-
 # AA SRP
 from aasrp.models import RequestComment, SrpLink, SrpRequest
 from aasrp.tests import BaseTestCase
+from aasrp.tests.utils import create_fake_user
 from aasrp.views.ajax import (
     srp_request_approve,
     srp_request_deny,

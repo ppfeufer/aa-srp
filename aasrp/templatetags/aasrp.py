@@ -12,14 +12,12 @@ from django.template.defaulttags import register
 from allianceauth.framework.api.user import get_main_character_name_from_user
 from allianceauth.services.hooks import get_extension_logger
 
-# Alliance Auth (External Libs)
-from app_utils.logging import LoggerAddTag
-
 # AA SRP
 from aasrp import __title__
+from aasrp.providers import AppLogger
 
 # Initialize a logger with a custom tag for the AA SRP module
-logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
+logger = AppLogger(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
 @register.filter

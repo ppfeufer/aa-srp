@@ -14,12 +14,10 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 
-# Alliance Auth (External Libs)
-from app_utils.testing import create_fake_user
-
 # AA SRP
 from aasrp.models import SrpLink
 from aasrp.tests import BaseTestCase
+from aasrp.tests.utils import create_fake_user
 
 fake = Faker()
 

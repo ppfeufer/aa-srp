@@ -14,14 +14,12 @@ from allianceauth.services.hooks import get_extension_logger
 from esi.exceptions import HTTPClientError, HTTPNotModified
 from esi.openapi_clients import EsiOperation
 
-# Alliance Auth (External Libs)
-from app_utils.logging import LoggerAddTag
-
 # AA SRP
 from aasrp import __title__
+from aasrp.providers import AppLogger
 
 # Initialize a logger with a custom tag for the AA SRP application
-logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
+logger = AppLogger(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
 def result(  # pylint: disable=too-many-arguments too-many-positional-arguments

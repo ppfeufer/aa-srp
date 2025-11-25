@@ -21,9 +21,6 @@ from allianceauth.authentication.decorators import permissions_required
 from allianceauth.eveonline.models import EveCharacter
 from allianceauth.services.hooks import get_extension_logger
 
-# Alliance Auth (External Libs)
-from app_utils.logging import LoggerAddTag
-
 # AA SRP
 from aasrp import __title__
 from aasrp.constants import KILLBOARD_DATA
@@ -40,10 +37,10 @@ from aasrp.handler import esi_handler
 from aasrp.helper.notification import notify_srp_team
 from aasrp.helper.user import get_user_settings
 from aasrp.models import Insurance, RequestComment, Setting, SrpLink, SrpRequest
-from aasrp.providers import esi
+from aasrp.providers import AppLogger, esi
 
 # Initialize a logger with a custom tag for the AA SRP application
-logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
+logger = AppLogger(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
 @permission_required("aasrp.basic_access")

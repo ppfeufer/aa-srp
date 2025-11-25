@@ -46,6 +46,10 @@ Section Order:
 
 - `z-index` for the "Bulk Actions" overlay in the "SRP Requests" view
 
+### Removed
+
+- `allianceauth-app-utils` as dependency
+
 ## [3.1.2] - 2025-11-18
 
 ### Fixed
