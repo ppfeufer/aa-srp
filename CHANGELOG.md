@@ -46,6 +46,10 @@ Section Order:
 
 - `z-index` for the "Bulk Actions" overlay in the "SRP Requests" view
 
+### Changed
+
+- Internal ESI handling improved to save a couple of calls to Django-ESI
+
 ### Removed
 
 - `allianceauth-app-utils` as dependency

@@ -123,9 +123,7 @@ class SrpRequestManager(models.Manager):
             killmail_id=killmail_id,
             killmail_hash=zkillboard_data.get("zkb", {}).get("hash"),
         )
-        esi_killmail = esi_handler.result(
-            operation=operation, return_cached_for_304=True
-        )
+        esi_killmail = esi_handler.result(operation=operation, use_etag=False)
 
         ship_type = esi_killmail.victim.ship_type_id
         ship_value = zkillboard_data.get("zkb", {}).get(loss_value_field, 0)
@@ -149,9 +147,7 @@ class SrpRequestManager(models.Manager):
         """
 
         operation = esi.client.Insurance.GetInsurancePrices()
-        insurance_from_esi = esi_handler.result(
-            operation=operation, return_cached_for_304=True
-        )
+        insurance_from_esi = esi_handler.result(operation=operation, use_etag=False)
 
         insurance = next(
             (i for i in insurance_from_esi if i.type_id == ship_type_id),

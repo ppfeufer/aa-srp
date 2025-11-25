@@ -62,7 +62,7 @@ class Command(BaseCommand):
 
             operation = esi.client.Universe.GetUniverseTypesTypeId(type_id=ship_type_id)
             self.ship_info_cache[ship_type_id] = esi_handler.result(
-                operation, return_cached_for_304=True
+                operation, use_etag=False
             )
 
         return self.ship_info_cache[ship_type_id]
