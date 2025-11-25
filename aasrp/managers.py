@@ -15,17 +15,14 @@ from django.db import models
 # Alliance Auth
 from allianceauth.services.hooks import get_extension_logger
 
-# Alliance Auth (External Libs)
-from app_utils.logging import LoggerAddTag
-
 # AA SRP
 from aasrp import __title__
 from aasrp.constants import KILLBOARD_DATA, UserAgent
 from aasrp.handler import esi_handler
-from aasrp.providers import esi
+from aasrp.providers import AppLogger, esi
 
 # Initialize a logger with a custom tag for the AA-SRP module
-logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
+logger = AppLogger(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
 class SrpRequestManager(models.Manager):

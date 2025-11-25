@@ -9,13 +9,6 @@ from django.contrib.auth.models import Group
 from allianceauth.authentication.models import CharacterOwnership
 from allianceauth.eveonline.models import EveCharacter
 
-# Alliance Auth (External Libs)
-from app_utils.testing import (
-    add_character_to_user,
-    create_eve_character,
-    create_fake_user,
-)
-
 # AA SRP
 from aasrp.helper.character import (
     get_formatted_character_name,
@@ -26,6 +19,11 @@ from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
 from aasrp.helper.icons import copy_to_clipboard_icon
 from aasrp.models import get_sentinel_user
 from aasrp.tests import BaseTestCase
+from aasrp.tests.utils import (
+    add_character_to_user,
+    create_eve_character,
+    create_fake_user,
+)
 
 
 class TestSentinelUser(BaseTestCase):

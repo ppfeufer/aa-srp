@@ -12,16 +12,14 @@ from django.urls import reverse
 from allianceauth.framework.api.user import get_main_character_name_from_user
 from allianceauth.services.hooks import get_extension_logger
 
-# Alliance Auth (External Libs)
-from app_utils.logging import LoggerAddTag
-
 # AA SRP
 from aasrp import __title__
 from aasrp.discord.channel_message import send_message_to_discord_channel
 from aasrp.discord.direct_message import send_user_notification
 from aasrp.models import Setting, SrpRequest
+from aasrp.providers import AppLogger
 
-logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
+logger = AppLogger(my_logger=get_extension_logger(__name__), prefix=__title__)
 
 
 def notify_requester(
