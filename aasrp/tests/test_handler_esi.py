@@ -22,89 +22,98 @@ class TestHandlerEsi(BaseTestCase):
     Test ESI handler functions
     """
 
-    def test_returns_result_when_operation_succeeds(self):
+    def test_handles_successful_operation(self):
         """
-        Test that the result function returns the expected data when the operation succeeds.
+        Test that a successful ESI operation returns the expected result.
 
         :return:
         :rtype:
         """
 
-        op = MagicMock()
-        op.operation.operationId = "test_operation"
-        op.result.return_value = {"data": "success"}
+        mock_operation = MagicMock()
+        mock_operation.result.return_value = "success"
 
-        res = result(op)
+        response = result(mock_operation)
 
-        self.assertEqual(res, {"data": "success"})
+        self.assertEqual(response, "success")
+        mock_operation.result.assert_called_once()
 
-    def test_returns_cached_data_when_http_not_modified_and_cached_enabled(self):
+    def test_handles_http_not_modified_exception(self):
         """
-        Test that the result function returns cached data when an HTTPNotModified exception is raised and caching is enabled.
+        Test that an HTTPNotModified exception is handled correctly.
 
         :return:
         :rtype:
         """
 
-        op = MagicMock()
-        op.operation.operationId = "test_operation"
-        op.result.side_effect = [
-            HTTPNotModified(HTTPStatus.NOT_MODIFIED, {}),
-            {"data": "cached"},
-        ]
-
-        res = result(op, return_cached_for_304=True)
-
-        self.assertEqual(res, {"data": "cached"})
-
-    def test_returns_none_when_http_not_modified_and_cached_disabled(self):
-        """
-        Test that the result function returns None when an HTTPNotModified exception is raised and caching is disabled.
-
-        :return:
-        :rtype:
-        """
-
-        op = MagicMock()
-        op.operation.operationId = "test_operation"
-        op.result.side_effect = HTTPNotModified(HTTPStatus.NOT_MODIFIED, {})
-
-        res = result(op, return_cached_for_304=False)
-
-        self.assertIsNone(res)
-
-    def test_returns_none_when_content_type_error_occurs(self):
-        """
-        Test that the result function returns None when a ContentTypeError exception is raised.
-
-        :return:
-        :rtype:
-        """
-
-        op = MagicMock()
-        op.operation.operationId = "test_operation"
-        op.result.side_effect = ContentTypeError(
-            op.operation, "text/plain", "Invalid content type", MagicMock()
+        mock_operation = MagicMock()
+        mock_operation.result.side_effect = HTTPNotModified(
+            status_code=HTTPStatus.NOT_MODIFIED, headers={}
         )
 
-        res = result(op)
+        response = result(mock_operation)
 
-        self.assertIsNone(res)
+        self.assertIsNone(response)
+        mock_operation.result.assert_called_once()
+
+    def test_handles_content_type_error(self):
+        """
+        Test that a ContentTypeError exception is handled correctly.
+
+        :return:
+        :rtype:
+        """
+
+        mock_operation = MagicMock()
+        mock_response = MagicMock()
+        mock_operation.result.side_effect = ContentTypeError(
+            operation=mock_operation,
+            content_type="application/json",
+            message="Invalid content type",
+            response=mock_response,
+        )
+
+        response = result(mock_operation)
+
+        self.assertIsNone(response)
+        mock_operation.result.assert_called_once()
 
     def test_returns_none_when_http_client_error_occurs(self):
         """
-        Test that the result function returns None when an HTTPClientError exception is raised.
+        Test that an HTTPClientError exception is raised correctly.
 
         :return:
         :rtype:
         """
 
-        op = MagicMock()
-        op.operation.operationId = "test_operation"
-        op.result.side_effect = HTTPClientError(
-            HTTPStatus.BAD_REQUEST, {}, b"Client error"
+        mock_operation = MagicMock()
+        mock_operation.result.side_effect = HTTPClientError(
+            HTTPStatus.BAD_REQUEST, headers={}, data={}
         )
 
-        res = result(op)
+        response = result(mock_operation)
 
-        self.assertIsNone(res)
+        self.assertIsNone(response)
+        mock_operation.result.assert_called_once()
+
+    def test_passes_extra_parameters_to_operation(self):
+        """
+        Test that extra parameters are passed correctly to the ESI operation.
+
+        :return:
+        :rtype:
+        """
+
+        mock_operation = MagicMock()
+        mock_operation.result.return_value = "success"
+
+        response = result(mock_operation, use_etag=False, extra_param="value")
+
+        self.assertEqual(response, "success")
+        mock_operation.result.assert_called_once_with(
+            use_etag=False,
+            return_response=False,
+            force_refresh=False,
+            use_cache=True,
+            extra_param="value",
+        )

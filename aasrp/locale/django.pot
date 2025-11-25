@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 3.1.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-11-25 09:46+0100\n"
+"POT-Creation-Date: 2025-11-25 10:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1015,56 +1015,56 @@ msgstr ""
 msgid "AAR link changed"
 msgstr ""
 
-#: aasrp/views/general.py:386
+#: aasrp/views/general.py:384
 #, python-brace-format
 msgid "Submitted SRP request for your {ship_name}."
 msgstr ""
 
-#: aasrp/views/general.py:430
+#: aasrp/views/general.py:428
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:442
+#: aasrp/views/general.py:440
 msgid "This SRP link is no longer available for SRP requests."
 msgstr ""
 
-#: aasrp/views/general.py:473
+#: aasrp/views/general.py:471
 #, python-brace-format
 msgid ""
 "Something went wrong, your kill mail ({submitted_killmail_link}) could not "
 "be parsed: {error}"
 msgstr ""
 
-#: aasrp/views/general.py:519
+#: aasrp/views/general.py:517
 #, python-brace-format
 msgid ""
 "Character {victim_id} does not belong to your Auth account. Please add this "
 "character as an alt to your main and try again."
 msgstr ""
 
-#: aasrp/views/general.py:568
+#: aasrp/views/general.py:566
 msgid "SRP link marked as completed"
 msgstr ""
 
-#: aasrp/views/general.py:577 aasrp/views/general.py:615
-#: aasrp/views/general.py:675 aasrp/views/general.py:723
-#: aasrp/views/general.py:770
+#: aasrp/views/general.py:575 aasrp/views/general.py:613
+#: aasrp/views/general.py:673 aasrp/views/general.py:721
+#: aasrp/views/general.py:768
 #, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:665
+#: aasrp/views/general.py:663
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr ""
 
-#: aasrp/views/general.py:713
+#: aasrp/views/general.py:711
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr ""
 
-#: aasrp/views/general.py:760
+#: aasrp/views/general.py:758
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""
