@@ -6,20 +6,21 @@
 # Isaac Yin <isaacyin42@gmail.com>, 2024.
 # luffe <luffe8864@foxmail.com>, 2024.
 # Kelly Hsueh <kelly_hsueh@users.noreply.weblate.ppfeufer.de>, 2025.
+# Karl Yin <yinxiangbo@me.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-11-18 21:02+0100\n"
-"PO-Revision-Date: 2025-02-18 09:17+0000\n"
-"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"POT-Creation-Date: 2025-12-02 08:54+0100\n"
+"PO-Revision-Date: 2025-11-27 04:17+0000\n"
+"Last-Translator: Karl Yin <yinxiangbo@me.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/zh_Hans/>\n"
 "Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: aasrp/__init__.py:11 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -113,107 +114,107 @@ msgid "Deactivated {notifications_count} fleet type"
 msgid_plural "Deactivated {notifications_count} fleet types"
 msgstr[0] "未激活 {notifications_count} 舰队类型"
 
-#: aasrp/form.py:78
+#: aasrp/form.py:76
 msgid "This field is mandatory"
 msgstr "这个字段是必填的"
 
-#: aasrp/form.py:99 aasrp/form.py:109
+#: aasrp/form.py:97 aasrp/form.py:107
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:13
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:27
 msgid "Fleet name"
 msgstr "舰队名字"
 
-#: aasrp/form.py:100 aasrp/form.py:111 aasrp/models.py:148
+#: aasrp/form.py:98 aasrp/form.py:109 aasrp/models.py:148
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:37
 msgid "Fleet time"
 msgstr "舰队时间"
 
-#: aasrp/form.py:101
+#: aasrp/form.py:99
 msgid "Fleet type (optional)"
 msgstr "舰队类型（可选）"
 
-#: aasrp/form.py:102 aasrp/form.py:114 aasrp/models.py:134
+#: aasrp/form.py:100 aasrp/form.py:112 aasrp/models.py:134
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:45
 msgid "Doctrine"
 msgstr "舰船要求"
 
-#: aasrp/form.py:103 aasrp/form.py:116 aasrp/form.py:133
+#: aasrp/form.py:101 aasrp/form.py:114 aasrp/form.py:131
 msgid "After action report link"
 msgstr "在行动后报告链接"
 
-#: aasrp/form.py:113 aasrp/models.py:88 aasrp/models.py:145
+#: aasrp/form.py:111 aasrp/models.py:88 aasrp/models.py:145
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
 msgstr "舰队类型"
 
-#: aasrp/form.py:150
+#: aasrp/form.py:148
 #, python-brace-format
 msgid "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
 msgstr "在{zkillboard_base_url}、{evetools_base_url}或{eve_kill_base_url}找到您的击杀报告，并将链接粘贴在这里。"
 
-#: aasrp/form.py:157
+#: aasrp/form.py:155
 msgid "Please tell us about the circumstances of your untimely demise. Who was the FC, what doctrine was called, have changes to the fit been requested and so on. Be as detailed as you can."
 msgstr "请告诉我们与你损失有关的具体情况。 FC 名称、建制名称、是否有要求更改的配置等等…… 尽可能详细。"
 
-#: aasrp/form.py:163 aasrp/form.py:170 aasrp/models.py:307
+#: aasrp/form.py:161 aasrp/form.py:168 aasrp/models.py:307
 msgid "Killboard link"
 msgstr "KB网链接"
 
-#: aasrp/form.py:165 aasrp/form.py:174 aasrp/models.py:310 aasrp/models.py:429
+#: aasrp/form.py:163 aasrp/form.py:172 aasrp/models.py:310 aasrp/models.py:429
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:42
 msgid "Additional information"
 msgstr "附加说明"
 
-#: aasrp/form.py:228
+#: aasrp/form.py:226
 #, python-brace-format
 msgid "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
 msgstr "无效链接。请使用{zkillboard_base_url}、{evetools_base_url}或{eve_kill_base_url}"
 
-#: aasrp/form.py:243
+#: aasrp/form.py:241
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr "无效链接。请发送你的击杀报告在此。"
 
-#: aasrp/form.py:263
+#: aasrp/form.py:261
 msgid "There is already an SRP request for this kill mail. Please check if you got the right one."
 msgstr "该击毁报告已被补损。请检查你是否发送了正确的击毁报告。"
 
-#: aasrp/form.py:278
+#: aasrp/form.py:276
 msgid "SRP payout value"
 msgstr "舰船补损价格"
 
-#: aasrp/form.py:294
+#: aasrp/form.py:292
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "请提供拒绝该舰船补损的理由。"
 
-#: aasrp/form.py:297 aasrp/models.py:330 aasrp/models.py:430
+#: aasrp/form.py:295 aasrp/models.py:330 aasrp/models.py:430
 msgid "Reject reason"
 msgstr "拒绝原因"
 
-#: aasrp/form.py:323
+#: aasrp/form.py:321
 msgid "Leave a comment for the requestor"
 msgstr "请写一段评论"
 
-#: aasrp/form.py:326
+#: aasrp/form.py:324
 msgid "Comment (optional)"
 msgstr "备注（可选）"
 
-#: aasrp/form.py:352
+#: aasrp/form.py:350
 msgid "Please provide the reason why this former rejected SRP request is now accepted."
 msgstr "请说明原因为什么先前拒绝该舰船补损但现在又发放了该舰船补损。"
 
-#: aasrp/form.py:357 aasrp/models.py:427 aasrp/models.py:434
+#: aasrp/form.py:355 aasrp/models.py:427 aasrp/models.py:434
 #: aasrp/models.py:486
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
 msgid "Comment"
 msgstr "评论"
 
-#: aasrp/form.py:384
+#: aasrp/form.py:382
 msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "禁用通知。(Auth和Discord，如果安装了相应模块)"
 
@@ -301,10 +302,8 @@ msgid "Copy request code to clipboard"
 msgstr "拷贝你的角色名字到粘贴板上"
 
 #: aasrp/helper/srp_data.py:45
-#, fuzzy
-#| msgid "Copy character name to clipboard"
 msgid "Copy payout amount to clipboard"
-msgstr "拷贝你的角色名字到粘贴板上"
+msgstr "拷贝总支出到粘贴板上"
 
 #: aasrp/models.py:71
 msgid "Descriptive name of your fleet type"
@@ -399,10 +398,8 @@ msgid "Ship type"
 msgstr "舰船类型"
 
 #: aasrp/models.py:304
-#, fuzzy
-#| msgid "Ship type"
 msgid "Ship type ID"
-msgstr "舰船类型"
+msgstr "舰船类型ID"
 
 #: aasrp/models.py:316 aasrp/templates/aasrp/dashboard.html:23
 #: aasrp/templates/aasrp/view-own-requests.html:22
@@ -640,10 +637,8 @@ msgid "Accept SRP requests"
 msgstr "接受舰船补损请求"
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:18
-#, fuzzy
-#| msgid "Are you sure you want to accept this SRP request?"
 msgid "Are you sure you want to accept these SRP requests?"
-msgstr "你确定你要接受这个舰船补损请求吗？"
+msgstr "你确定你要接受这些舰船补损请求吗？"
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:22
 msgid "<b>Note:</b><br>Only pending SRP requests will be bulk approved.<br>Denied requests will not be bulk approved, as they need a reason for being approved again. Please review them manually."
@@ -656,10 +651,8 @@ msgid "Delete SRP requests"
 msgstr "删除舰船补损请求"
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:18
-#, fuzzy
-#| msgid "Are you sure you want to delete this SRP request?"
 msgid "Are you sure you want to delete these SRP requests?"
-msgstr "你确定你要删除这个舰船补损请求吗？"
+msgstr "你确定你要删除这些舰船补损请求吗？"
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:22
 msgid "<b>Note:</b><br>This action is irreversible.<br>All selected SRP requests will be deleted."
@@ -848,32 +841,24 @@ msgstr "舰船补损支出"
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:8
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:94
-#, fuzzy
-#| msgid "Actions"
 msgid "Bulk actions"
-msgstr "行动"
+msgstr "批量操作"
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:16
-#, fuzzy
-#| msgid "Approved"
 msgid "Bulk approve"
-msgstr "已接受"
+msgstr "批量接受"
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:21
 msgid "Only pending SRP requests will be approved. Denied requests will not be bulk approved, as they need a reason for being approved again."
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:32
-#, fuzzy
-#| msgid "Delete SRP request"
 msgid "Approve selected SRP requests"
-msgstr "删除舰船补损请求"
+msgstr "接受选中的补损申请"
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:35
-#, fuzzy
-#| msgid "Approved"
 msgid "Approve"
-msgstr "已接受"
+msgstr "接受"
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:43
 msgid "Bulk delete"
@@ -884,10 +869,8 @@ msgid "Please note that the \"Delete\" action is irreversible."
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:59
-#, fuzzy
-#| msgid "Delete SRP request"
 msgid "Delete selected SRP requests"
-msgstr "删除舰船补损请求"
+msgstr "删除选中的舰船补损请求"
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:74
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:77
@@ -903,10 +886,8 @@ msgid "Total"
 msgstr "总共"
 
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:52
-#, fuzzy
-#| msgid "Copy SRP link to clipboard"
 msgid "Copy SRP code to clipboard"
-msgstr "复制这个舰船补损链接到粘贴板"
+msgstr "复制舰船补损代码到粘贴板"
 
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:85
 msgid "Back to SRP overview"
@@ -919,10 +900,8 @@ msgstr "舰船补损请求"
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:9
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:11
-#, fuzzy
-#| msgid "New SRP request status"
 msgid "Filter by request status"
-msgstr "新的舰船补损请求状态"
+msgstr "根据舰船补损请求状态筛选"
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:24
 msgid "All"
@@ -953,129 +932,124 @@ msgstr "空白字符是不被接受的"
 msgid "This field is required."
 msgstr "该字段为必填项。"
 
-#: aasrp/views/ajax.py:96
+#: aasrp/views/ajax.py:94
 msgid "Link"
 msgstr "链接"
 
-#: aasrp/views/ajax.py:109
+#: aasrp/views/ajax.py:107
 msgid "Copy SRP link to clipboard"
 msgstr "复制这个舰船补损链接到粘贴板"
 
-#: aasrp/views/ajax.py:499 aasrp/views/ajax.py:711 aasrp/views/ajax.py:810
+#: aasrp/views/ajax.py:497 aasrp/views/ajax.py:709 aasrp/views/ajax.py:808
 msgid "No matching SRP request found"
 msgstr ""
 
-#: aasrp/views/ajax.py:518 aasrp/views/ajax.py:609 aasrp/views/ajax.py:722
-#: aasrp/views/ajax.py:847
+#: aasrp/views/ajax.py:516 aasrp/views/ajax.py:607 aasrp/views/ajax.py:720
+#: aasrp/views/ajax.py:845
 msgid "Invalid form data"
 msgstr ""
 
-#: aasrp/views/ajax.py:567
+#: aasrp/views/ajax.py:565
 msgid "SRP request has been approved"
 msgstr "舰船补损请求已被接受"
 
-#: aasrp/views/ajax.py:573 aasrp/views/ajax.py:677 aasrp/views/ajax.py:772
-#: aasrp/views/ajax.py:879
+#: aasrp/views/ajax.py:571 aasrp/views/ajax.py:675 aasrp/views/ajax.py:770
+#: aasrp/views/ajax.py:877
 msgid "Invalid request method"
 msgstr ""
 
-#: aasrp/views/ajax.py:628 aasrp/views/ajax.py:864
+#: aasrp/views/ajax.py:626 aasrp/views/ajax.py:862
 msgid "No matching SRP requests found"
 msgstr ""
 
-#: aasrp/views/ajax.py:671
+#: aasrp/views/ajax.py:669
 #, fuzzy
 #| msgid "SRP request has been approved"
 msgid "SRP requests have been approved"
 msgstr "舰船补损请求已被接受"
 
-#: aasrp/views/ajax.py:766
+#: aasrp/views/ajax.py:764
 msgid "SRP request has been rejected"
 msgstr "舰船补损请求已被拒绝"
 
-#: aasrp/views/ajax.py:807
+#: aasrp/views/ajax.py:805
 msgid "SRP request has been removed"
 msgstr "舰船补损请求已被移除"
 
-#: aasrp/views/ajax.py:873
+#: aasrp/views/ajax.py:871
 #, fuzzy
 #| msgid "SRP request has been removed"
 msgid "SRP requests have been removed"
 msgstr "舰船补损请求已被移除"
 
-#: aasrp/views/general.py:72
+#: aasrp/views/general.py:69
 msgid "You do not have the needed permissions to view all SRP links"
 msgstr "您没有查看所有舰船补损链接所需的权限"
 
-#: aasrp/views/general.py:134
+#: aasrp/views/general.py:131
 msgid "Settings saved."
 msgstr "设置已保存。"
 
-#: aasrp/views/general.py:200
-#, fuzzy, python-brace-format
-#| msgid "SRP link \"{srp_link.srp_code}\" created"
+#: aasrp/views/general.py:197
+#, python-brace-format
 msgid "SRP link \"{srp_code}\" created"
-msgstr "舰船补损链接 {srp_link.srp_code} 已被创建"
+msgstr "舰船补损代码 {srp_code} 已被创建"
 
-#: aasrp/views/general.py:252
-#, fuzzy, python-brace-format
-#| msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
+#: aasrp/views/general.py:249
+#, python-brace-format
 msgid "Unable to locate SRP link using SRP code {srp_code}"
-msgstr "无法使用这个代码 {srp_code} 去定位到对应可补损舰队"
+msgstr "无法使用这个代码定位到对应的补损链接 {srp_code}"
 
-#: aasrp/views/general.py:267
+#: aasrp/views/general.py:264
 msgid "AAR link changed"
 msgstr "AAR 链接已更改"
 
-#: aasrp/views/general.py:389
-#, fuzzy, python-brace-format
-#| msgid "Submitted SRP request for your {srp_request__ship.name}."
+#: aasrp/views/general.py:384
+#, python-brace-format
 msgid "Submitted SRP request for your {ship_name}."
-msgstr "保存舰船补损请求 {srp_request__ship.name}。"
+msgstr "为你的{ship_name}提交舰船补损请求 。"
 
-#: aasrp/views/general.py:433
+#: aasrp/views/general.py:428
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr "无法使用这个代码 {srp_code} 去定位到对应可补损舰队"
 
-#: aasrp/views/general.py:445
+#: aasrp/views/general.py:440
 msgid "This SRP link is no longer available for SRP requests."
 msgstr "此舰船补损链接不再适用于舰船补损请求。"
 
-#: aasrp/views/general.py:476
-#, fuzzy, python-brace-format
-#| msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {str(err)}"
+#: aasrp/views/general.py:471
+#, python-brace-format
 msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {error}"
-msgstr "很抱歉，你的击杀报告链接 ({submitted_killmail_link}) 暂时无法被解析: {str(err)}"
+msgstr "很抱歉，你的击杀报告链接 ({submitted_killmail_link}) 暂时无法被解析: {error}"
 
-#: aasrp/views/general.py:522
+#: aasrp/views/general.py:517
 #, python-brace-format
 msgid "Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."
 msgstr "角色 {victim_id} 不属于你的Auth账户。请将此角色添加到主角色中，然后再试一次。"
 
-#: aasrp/views/general.py:571
+#: aasrp/views/general.py:566
 msgid "SRP link marked as completed"
 msgstr "舰船补损链接已被标记成完成状态"
 
-#: aasrp/views/general.py:580 aasrp/views/general.py:618
-#: aasrp/views/general.py:678 aasrp/views/general.py:726
-#: aasrp/views/general.py:773
-#, fuzzy, python-brace-format
-#| msgid "Unable to locate SRP code with ID {srp_code}"
+#: aasrp/views/general.py:575 aasrp/views/general.py:613
+#: aasrp/views/general.py:673 aasrp/views/general.py:721
+#: aasrp/views/general.py:768
+#, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
-msgstr "无法使用此ID {srp_code} 找到对应的舰船补损代码"
+msgstr "无法使用此ID {srp_code} 找到对应的舰船补损链接"
 
-#: aasrp/views/general.py:668
+#: aasrp/views/general.py:663
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr "舰船补损链接 {srp_code} 被重新激活了。"
 
-#: aasrp/views/general.py:716
+#: aasrp/views/general.py:711
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr "舰船补损链接 {srp_code} 被关闭了。"
 
-#: aasrp/views/general.py:763
+#: aasrp/views/general.py:758
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "舰船补损链接 {srp_code} 被删除了。"
