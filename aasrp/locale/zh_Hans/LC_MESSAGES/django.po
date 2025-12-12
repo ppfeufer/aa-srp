@@ -7,13 +7,14 @@
 # luffe <luffe8864@foxmail.com>, 2024.
 # Kelly Hsueh <kelly_hsueh@users.noreply.weblate.ppfeufer.de>, 2025.
 # Karl Yin <yinxiangbo@me.com>, 2025.
+# AKA Patrick <hsc844766246@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
 "POT-Creation-Date: 2025-12-02 08:54+0100\n"
-"PO-Revision-Date: 2025-11-27 04:17+0000\n"
-"Last-Translator: Karl Yin <yinxiangbo@me.com>\n"
+"PO-Revision-Date: 2025-12-12 08:17+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Chinese (Simplified Han script) <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/zh_Hans/>\n"
 "Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
@@ -79,10 +80,9 @@ msgid "Character"
 msgstr "角色"
 
 #: aasrp/admin.py:236
-#, fuzzy, python-format
-#| msgid "Activate selected fleet types"
+#, python-format
 msgid "Activate selected %(verbose_name_plural)s"
-msgstr "激活选定的舰队类型"
+msgstr "选定的有效%(verbose_name_plural)s"
 
 #: aasrp/admin.py:262
 #, python-brace-format
@@ -97,10 +97,9 @@ msgid_plural "Activated {notifications_count} fleet types"
 msgstr[0] "激活 {notifications_count} 舰队类型"
 
 #: aasrp/admin.py:278
-#, fuzzy, python-format
-#| msgid "Deactivate selected fleet types"
+#, python-format
 msgid "Deactivate selected %(verbose_name_plural)s"
-msgstr "停用选定的舰队类型"
+msgstr "停用选定的%(verbose_name_plural)s"
 
 #: aasrp/admin.py:304
 #, python-brace-format
@@ -237,7 +236,7 @@ msgstr "查看舰船补损情况"
 #: aasrp/helper/icons.py:125
 #: aasrp/templates/aasrp/partials/link-edit/form.html:19
 msgid "Add/Change AAR link"
-msgstr "增加或修改舰船补损链接"
+msgstr ""
 
 #: aasrp/helper/icons.py:134
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:4
