@@ -46,7 +46,7 @@ from aasrp.helper.srp_data import (
     request_fleet_details_html,
 )
 from aasrp.helper.urls import reverse_absolute
-from aasrp.helper.user import get_user_settings
+from aasrp.helper.user import get_pending_requests_count_for_user, get_user_settings
 from aasrp.models import RequestComment, SrpLink, SrpRequest
 from aasrp.providers import AppLogger
 
@@ -562,7 +562,13 @@ def srp_request_approve(  # pylint: disable=too-many-locals
 
         # Return a success response
         return JsonResponse(
-            data={"success": True, "message": _("SRP request has been approved")},
+            data={
+                "success": True,
+                "message": _("SRP request has been approved"),
+                "pending_requests": get_pending_requests_count_for_user(
+                    user=request.user
+                ),
+            },
             safe=False,
         )
 
@@ -666,7 +672,13 @@ def srp_requests_bulk_approve(request: WSGIRequest, srp_code: str) -> JsonRespon
 
         # Return a success response
         return JsonResponse(
-            data={"success": True, "message": _("SRP requests have been approved")},
+            data={
+                "success": True,
+                "message": _("SRP requests have been approved"),
+                "pending_requests": get_pending_requests_count_for_user(
+                    user=request.user
+                ),
+            },
             safe=False,
         )
 
@@ -761,7 +773,13 @@ def srp_request_deny(
 
         # Return a success response
         return JsonResponse(
-            data={"success": True, "message": _("SRP request has been rejected")},
+            data={
+                "success": True,
+                "message": _("SRP request has been rejected"),
+                "pending_requests": get_pending_requests_count_for_user(
+                    user=request.user
+                ),
+            },
             safe=False,
         )
 
@@ -802,7 +820,11 @@ def srp_request_remove(
         ).delete()
 
         # Prepare a success response
-        data = {"success": True, "message": _("SRP request has been removed")}
+        data = {
+            "success": True,
+            "message": _("SRP request has been removed"),
+            "pending_requests": get_pending_requests_count_for_user(user=request.user),
+        }
     except SrpRequest.DoesNotExist:
         # Prepare a failure response if the SRP request does not exist
         data = {"success": False, "message": _("No matching SRP request found")}
@@ -868,7 +890,13 @@ def srp_requests_bulk_remove(request: WSGIRequest, srp_code: str) -> JsonRespons
 
         # Return a success response
         return JsonResponse(
-            data={"success": True, "message": _("SRP requests have been removed")},
+            data={
+                "success": True,
+                "message": _("SRP requests have been removed"),
+                "pending_requests": get_pending_requests_count_for_user(
+                    user=request.user
+                ),
+            },
             safe=False,
         )
 

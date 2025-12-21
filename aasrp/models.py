@@ -9,7 +9,7 @@ from typing import ClassVar
 from solo.models import SingletonModel
 
 # Django
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser, AnonymousUser, User
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -366,7 +366,9 @@ class SrpRequest(models.Model):
         )
 
     @staticmethod
-    def pending_requests_count_for_user(user: User) -> int | None:
+    def pending_requests_count_for_user(
+        user: User | AbstractUser | AnonymousUser,
+    ) -> int | None:
         """
         Returns the number of open SRP requests for given user or None if user has no permission
 
