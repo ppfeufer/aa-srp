@@ -2,11 +2,14 @@
 Test the helper functions in aasrp/helper/user.py
 """
 
+# Standard Library
+from unittest.mock import patch
+
 # Django
 from django.contrib.auth.models import User
 
 # AA SRP
-from aasrp.helper.user import get_user_settings
+from aasrp.helper.user import get_pending_requests_count_for_user, get_user_settings
 from aasrp.models import UserSetting
 from aasrp.tests import BaseTestCase
 
@@ -57,3 +60,49 @@ class TestGetUserSettings(BaseTestCase):
         second_call_settings = get_user_settings(user)
 
         self.assertEqual(first_call_settings, second_call_settings)
+
+
+class TestPendingRequestsCount(BaseTestCase):
+    """
+    Test the get_pending_requests_count_for_user function
+    """
+
+    def test_returns_pending_request_count_for_user(self):
+        """
+        Test that the function returns the correct count of pending requests for a user
+
+        :return:
+        :rtype:
+        """
+
+        user = User.objects.create_user(username="user1", password="pass")
+
+        with patch(
+            "aasrp.models.SrpRequest.pending_requests_count_for_user"
+        ) as mock_pending:
+            mock_pending.return_value = 5
+
+            result = get_pending_requests_count_for_user(user)
+
+            self.assertEqual(result, 5)
+            mock_pending.assert_called_once_with(user=user)
+
+    def test_returns_none_when_no_pending_requests_exist(self):
+        """
+        Test that the function returns None when there are no pending requests for a user
+
+        :return:
+        :rtype:
+        """
+
+        user = User.objects.create_user(username="user2", password="pass")
+
+        with patch(
+            "aasrp.models.SrpRequest.pending_requests_count_for_user"
+        ) as mock_pending:
+            mock_pending.return_value = None
+
+            result = get_pending_requests_count_for_user(user)
+
+            self.assertIsNone(result)
+            mock_pending.assert_called_once_with(user=user)

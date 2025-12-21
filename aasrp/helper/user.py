@@ -5,10 +5,10 @@ This module provides utility functions for working with user-related data in the
 """
 
 # Django
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser, AnonymousUser, User
 
 # AA SRP
-from aasrp.models import UserSetting
+from aasrp.models import SrpRequest, UserSetting
 
 
 def get_user_settings(user: User) -> UserSetting:
@@ -25,3 +25,18 @@ def get_user_settings(user: User) -> UserSetting:
     """
 
     return UserSetting.objects.get_or_create(user=user)[0]
+
+
+def get_pending_requests_count_for_user(
+    user: User | AbstractUser | AnonymousUser,
+) -> int | None:
+    """
+    Retrieve the count of pending SRP (Ship Replacement Program) requests for the current user.
+
+    :param user: The user object for whom to count pending SRP requests.
+    :type user: User
+    :return: The count of pending SRP requests for the user, or None if there are no pending requests.
+    :rtype: int | None
+    """
+
+    return SrpRequest.pending_requests_count_for_user(user=user)

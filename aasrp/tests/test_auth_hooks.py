@@ -112,7 +112,7 @@ class TestAaSrpMenuItem(BaseTestCase):
 
         self.assertEqual(result, "")
 
-    @patch("aasrp.auth_hooks.SrpRequest.pending_requests_count_for_user")
+    @patch("aasrp.models.SrpRequest.pending_requests_count_for_user")
     def test_render_with_permission(self, mock_pending_requests):
         """
         Test should return html if a user has permission

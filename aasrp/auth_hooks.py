@@ -9,7 +9,7 @@ from allianceauth.services.hooks import MenuItemHook, UrlHook
 
 # AA SRP
 from aasrp import __title_translated__, urls
-from aasrp.models import SrpRequest
+from aasrp.helper.user import get_pending_requests_count_for_user
 
 
 class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
@@ -46,8 +46,12 @@ class AaSrpMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
             return ""
 
         # Get the count of pending SRP requests for the user
-        app_count = SrpRequest.pending_requests_count_for_user(request.user)
-        self.count = app_count if app_count and app_count > 0 else None
+        pending_srp_requests = get_pending_requests_count_for_user(user=request.user)
+        self.count = (
+            pending_srp_requests
+            if pending_srp_requests and pending_srp_requests > 0
+            else None
+        )
 
         return MenuItemHook.render(self, request=request)
 

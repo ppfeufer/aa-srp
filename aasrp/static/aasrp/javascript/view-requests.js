@@ -6,7 +6,34 @@ $(document).ready(() => {
     const elementSrpRequestsTable = $('#tab_aasrp_srp_requests');
     const elementBulkActions = $('div.card-srp-request-bulk-actions');
 
-    console.log('aaSrpSettings:', aaSrpSettings);
+    /**
+     * Update total notifications badge in sidebar menu
+     */
+    const updateTotalNotificationsBadge = () => {
+        const badges = [];
+        let notificationCount = 0;
+
+        document.querySelectorAll('#sidebar-menu .badge').forEach(b => {
+            const li = b.closest('li');
+
+            if (!li || !li.querySelector('ul.collapse')) {
+                badges.push(b);
+                notificationCount += parseInt(b.textContent);
+            }
+        });
+
+        if (badges.length > 0 && notificationCount > 0) {
+            const notificationBadge = $('span.sidemenu-total-notifications-badge');
+
+            if (notificationCount === 0) {
+                notificationBadge.remove();
+
+                return;
+            }
+
+            notificationBadge.text(String(notificationCount));
+        }
+    };
 
     /**
      * Table :: SRP Requests
@@ -215,8 +242,6 @@ $(document).ready(() => {
                          * @private
                          */
                         const _filterDataTable = (selector, predicate) => {
-                            console.log('Setting up filter for selector:', selector);
-                            console.log('Predicate function:', predicate);
                             $(selector).click(() => {
                                 // Clear any existing custom filters before applying a new one
                                 $.fn.dataTable.ext.search = [];
@@ -464,6 +489,18 @@ $(document).ready(() => {
                                 });
                             } else if (typeof initComplete === 'function') {
                                 initComplete.call(dt, settings);
+                            }
+
+                            if (data.pending_requests >= 0) {
+                                const target = $(`a[href="/ship-replacement/"] + span.badge`);
+
+                                if (data.pending_requests === 0) {
+                                    target.remove();
+                                } else {
+                                    target.text(data.pending_requests);
+                                }
+
+                                updateTotalNotificationsBadge();
                             }
                         }
                     } catch (err) {

@@ -151,8 +151,11 @@ class TestSrpRequestsBulkRemove(BaseViewsTestCase):
         :rtype:
         """
 
-        mock_filter.return_value.exists.return_value = True
-        mock_filter.return_value.delete.return_value = None
+        mock_qs = MagicMock()
+        mock_qs.exists.return_value = True
+        mock_qs.delete.return_value = None
+        mock_qs.count.return_value = 0
+        mock_filter.return_value = mock_qs
 
         request = MagicMock(
             method="POST", body=json.dumps({"srp_request_codes": ["code1", "code2"]})
@@ -162,7 +165,11 @@ class TestSrpRequestsBulkRemove(BaseViewsTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(
             json.loads(response.content),
-            {"success": True, "message": "SRP requests have been removed"},
+            {
+                "success": True,
+                "message": "SRP requests have been removed",
+                "pending_requests": 0,
+            },
         )
 
     @patch("aasrp.models.SrpRequest.objects.filter")
@@ -248,7 +255,11 @@ class TestSrpRequestRemove(BaseViewsTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(
             json.loads(response.content),
-            {"success": True, "message": "SRP request has been removed"},
+            {
+                "success": True,
+                "message": "SRP request has been removed",
+                "pending_requests": 1,
+            },
         )
 
     @patch("aasrp.models.SrpRequest.objects.get")
@@ -314,7 +325,11 @@ class TestSrpRequestDeny(BaseViewsTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(
             json.loads(response.content),
-            {"success": True, "message": "SRP request has been rejected"},
+            {
+                "success": True,
+                "message": "SRP request has been rejected",
+                "pending_requests": 1,
+            },
         )
         mock_notify.assert_called_once()
 
@@ -452,7 +467,11 @@ class TestSrpRequestsBulkApprove(BaseViewsTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(
             json.loads(response.content),
-            {"success": True, "message": "SRP requests have been approved"},
+            {
+                "success": True,
+                "message": "SRP requests have been approved",
+                "pending_requests": 2,
+            },
         )
         mock_bulk_update.assert_called_once()
         mock_bulk_create.assert_called_once()
@@ -557,7 +576,11 @@ class TestSrpRequestApprove(BaseViewsTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(
             json.loads(response.content),
-            {"success": True, "message": "SRP request has been approved"},
+            {
+                "success": True,
+                "message": "SRP request has been approved",
+                "pending_requests": 0,
+            },
         )
         mock_bulk_create.assert_called_once()
         mock_notify.assert_called_once()

@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Update pending SRP request number in the menu badge when actioning requests
+
 ## [3.2.0] - 2025-12-02
 
 ### Fixed
