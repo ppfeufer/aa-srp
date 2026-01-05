@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-12-02 08:54+0100\n"
-"PO-Revision-Date: 2025-11-01 19:17+0000\n"
+"POT-Creation-Date: 2026-01-05 23:09+0100\n"
+"PO-Revision-Date: 2025-12-08 09:17+0000\n"
 "Last-Translator: s0k0l -_- <salarysalo@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/uk/>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: aasrp/__init__.py:11 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -31,7 +31,7 @@ msgid "Ship Replacement"
 msgstr "Компенсація корабля"
 
 #: aasrp/admin.py:45 aasrp/models.py:161 aasrp/models.py:290
-#: aasrp/models.py:450
+#: aasrp/models.py:452
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
 msgid "Creator"
 msgstr "Автор"
@@ -172,7 +172,7 @@ msgstr "Будь ласка, розкажіть про обставини ваш
 msgid "Killboard link"
 msgstr "Посилання на Killboard"
 
-#: aasrp/form.py:163 aasrp/form.py:172 aasrp/models.py:310 aasrp/models.py:429
+#: aasrp/form.py:163 aasrp/form.py:172 aasrp/models.py:310 aasrp/models.py:431
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:42
@@ -200,7 +200,7 @@ msgstr "Значення виплати SRP"
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "Будь ласка, надайте причину, чому цей запит на SRP був відхилений."
 
-#: aasrp/form.py:295 aasrp/models.py:330 aasrp/models.py:430
+#: aasrp/form.py:295 aasrp/models.py:330 aasrp/models.py:432
 msgid "Reject reason"
 msgstr "Причина відхилення"
 
@@ -216,8 +216,8 @@ msgstr "Коментар (не обов'язково)"
 msgid "Please provide the reason why this former rejected SRP request is now accepted."
 msgstr "Будь ласка, надайте причину, чому цей раніше відхилений запит на SRP тепер прийнятий."
 
-#: aasrp/form.py:355 aasrp/models.py:427 aasrp/models.py:434
-#: aasrp/models.py:486
+#: aasrp/form.py:355 aasrp/models.py:429 aasrp/models.py:436
+#: aasrp/models.py:488
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
 msgid "Comment"
 msgstr "Коментар"
@@ -432,104 +432,104 @@ msgstr "Запити"
 msgid "{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
 msgstr "Запит на SRP для {character_name} ({user_name}): {ship} ({request_code})"
 
-#: aasrp/models.py:399 aasrp/models.py:460
+#: aasrp/models.py:401 aasrp/models.py:462
 msgid "SRP request"
 msgstr "Запит на SRP"
 
-#: aasrp/models.py:402
+#: aasrp/models.py:404
 msgid "Insurance level"
 msgstr "Категорія страхування"
 
-#: aasrp/models.py:404
+#: aasrp/models.py:406
 msgid "Insurance cost"
 msgstr "Вартість страхування"
 
-#: aasrp/models.py:405
+#: aasrp/models.py:407
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
 #: aasrp/templates/aasrp/view-requests.html:41
 msgid "Insurance payout"
 msgstr "Виплата за страховкою"
 
-#: aasrp/models.py:413
+#: aasrp/models.py:415
 msgid "Ship insurance"
 msgstr "Страхування корабля"
 
-#: aasrp/models.py:414
+#: aasrp/models.py:416
 msgid "Ship insurances"
 msgstr "Страхування кораблів"
 
-#: aasrp/models.py:428
+#: aasrp/models.py:430
 msgid "SRP request added"
 msgstr "Запит на SRP додано"
 
-#: aasrp/models.py:431
+#: aasrp/models.py:433
 msgid "Status changed"
 msgstr "Статус змінено"
 
-#: aasrp/models.py:432
+#: aasrp/models.py:434
 msgid "Reviser comment"
 msgstr "Коментар ревізора"
 
-#: aasrp/models.py:440
+#: aasrp/models.py:442
 msgid "Comment type"
 msgstr "Тип коментаря"
 
 #. Translators: This is the time when the comment was made
-#: aasrp/models.py:468
+#: aasrp/models.py:470
 msgid "Comment time"
 msgstr "Час коментаря"
 
 #. Translators: New SRP request status that might have been set
-#: aasrp/models.py:477
+#: aasrp/models.py:479
 msgid "New SRP request status"
 msgstr "Новий статус запиту на SRP"
 
-#: aasrp/models.py:487
+#: aasrp/models.py:489
 msgid "Comments"
 msgstr "Коментарі"
 
-#: aasrp/models.py:502
+#: aasrp/models.py:504
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:103
 msgid "User"
 msgstr "Користувач"
 
-#: aasrp/models.py:506
+#: aasrp/models.py:508
 msgid "Disable notifications"
 msgstr "Вимкнути сповіщення"
 
-#: aasrp/models.py:515 aasrp/models.py:516
+#: aasrp/models.py:517 aasrp/models.py:518
 msgid "User settings"
 msgstr "Налаштування користувача"
 
-#: aasrp/models.py:530
+#: aasrp/models.py:532
 msgid "SRP team Discord channel ID"
 msgstr "ID каналу Discord для SRP-команди"
 
-#: aasrp/models.py:533
+#: aasrp/models.py:535
 msgid "Loss value source"
 msgstr "Джерело вартості збитків"
 
-#: aasrp/models.py:540
+#: aasrp/models.py:542
 msgid "Fitted value (Ship and Fitting)"
 msgstr "Вартість фіту (корабель та Фіттинг)"
 
-#: aasrp/models.py:541
+#: aasrp/models.py:543
 msgid "Total value (Ship, Fitting and Cargo)"
 msgstr "Загальна вартість (корабель, фіттинг та карго)"
 
-#: aasrp/models.py:554
+#: aasrp/models.py:556
 msgid "The source for the loss value of a killmail. Fitted value is the value of the ship and its fitting. Total value is the value of the ship, its fitting and the cargo. (Default: Total value)"
 msgstr "Джерело для вартості збитків killmail. Вартість фіту — це вартість корабля та його фіттингу. Загальна вартість — це вартість корабля, його фіттингу та карго. (За замовчуванням: Загальна вартість)"
 
-#: aasrp/models.py:571
+#: aasrp/models.py:573
 msgid "Setting"
 msgstr "Налаштування"
 
-#: aasrp/models.py:572
+#: aasrp/models.py:574
 msgid "Settings"
 msgstr "Налаштування"
 
-#: aasrp/models.py:582
+#: aasrp/models.py:584
 msgid "AA-SRP settings"
 msgstr "Налаштування AA-SRP"
 
@@ -921,14 +921,12 @@ msgstr "Запити на SRP"
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:9
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:11
-#, fuzzy
-#| msgid "New SRP request status"
 msgid "Filter by request status"
-msgstr "Новий статус запиту на SRP"
+msgstr "Фільтр за статусом запиту"
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:24
 msgid "All"
-msgstr ""
+msgstr "Усі"
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:89
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
@@ -963,41 +961,41 @@ msgstr "Посилання"
 msgid "Copy SRP link to clipboard"
 msgstr "Скопіювати SRP-посилання у буфер обміну"
 
-#: aasrp/views/ajax.py:497 aasrp/views/ajax.py:709 aasrp/views/ajax.py:808
+#: aasrp/views/ajax.py:497 aasrp/views/ajax.py:721 aasrp/views/ajax.py:830
 msgid "No matching SRP request found"
 msgstr "Нема підходящого запиту на відшкодування втрат"
 
-#: aasrp/views/ajax.py:516 aasrp/views/ajax.py:607 aasrp/views/ajax.py:720
-#: aasrp/views/ajax.py:845
+#: aasrp/views/ajax.py:516 aasrp/views/ajax.py:613 aasrp/views/ajax.py:732
+#: aasrp/views/ajax.py:867
 msgid "Invalid form data"
 msgstr "Не коректний формат даних"
 
-#: aasrp/views/ajax.py:565
+#: aasrp/views/ajax.py:567
 msgid "SRP request has been approved"
 msgstr "SRP запит одобрено"
 
-#: aasrp/views/ajax.py:571 aasrp/views/ajax.py:675 aasrp/views/ajax.py:770
-#: aasrp/views/ajax.py:877
+#: aasrp/views/ajax.py:577 aasrp/views/ajax.py:687 aasrp/views/ajax.py:788
+#: aasrp/views/ajax.py:905
 msgid "Invalid request method"
 msgstr "Не коректний виклик методу"
 
-#: aasrp/views/ajax.py:626 aasrp/views/ajax.py:862
+#: aasrp/views/ajax.py:632 aasrp/views/ajax.py:884
 msgid "No matching SRP requests found"
 msgstr "Нема підходящих запитів на відшкодування втрат"
 
-#: aasrp/views/ajax.py:669
+#: aasrp/views/ajax.py:677
 msgid "SRP requests have been approved"
 msgstr "SRP запити одобрені"
 
-#: aasrp/views/ajax.py:764
+#: aasrp/views/ajax.py:778
 msgid "SRP request has been rejected"
 msgstr "Запит SRP відхилено"
 
-#: aasrp/views/ajax.py:805
+#: aasrp/views/ajax.py:825
 msgid "SRP request has been removed"
 msgstr "Запит SRP видалено"
 
-#: aasrp/views/ajax.py:871
+#: aasrp/views/ajax.py:895
 msgid "SRP requests have been removed"
 msgstr "Запити SRP видалено"
 
