@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2025-12-02 08:54+0100\n"
+"POT-Creation-Date: 2026-01-05 23:09+0100\n"
 "PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ko/>\n"
@@ -31,7 +31,7 @@ msgid "Ship Replacement"
 msgstr "SRP"
 
 #: aasrp/admin.py:45 aasrp/models.py:161 aasrp/models.py:290
-#: aasrp/models.py:450
+#: aasrp/models.py:452
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
 msgid "Creator"
 msgstr "생성자"
@@ -162,7 +162,7 @@ msgstr "당신이 사망하게 된 경위를 설명하십시오. FC 이름, 독�
 msgid "Killboard link"
 msgstr "킬보드 링크"
 
-#: aasrp/form.py:163 aasrp/form.py:172 aasrp/models.py:310 aasrp/models.py:429
+#: aasrp/form.py:163 aasrp/form.py:172 aasrp/models.py:310 aasrp/models.py:431
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:42
@@ -190,7 +190,7 @@ msgstr "SRP 반환금"
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "이 요청이 거부된 사유를 작성하십시오."
 
-#: aasrp/form.py:295 aasrp/models.py:330 aasrp/models.py:430
+#: aasrp/form.py:295 aasrp/models.py:330 aasrp/models.py:432
 msgid "Reject reason"
 msgstr "반송 사유"
 
@@ -206,8 +206,8 @@ msgstr "내용 (선택)"
 msgid "Please provide the reason why this former rejected SRP request is now accepted."
 msgstr "이미 거부되었던 요청이 이제서 수락된 이유를 작성하여 주십시오."
 
-#: aasrp/form.py:355 aasrp/models.py:427 aasrp/models.py:434
-#: aasrp/models.py:486
+#: aasrp/form.py:355 aasrp/models.py:429 aasrp/models.py:436
+#: aasrp/models.py:488
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
 msgid "Comment"
 msgstr "메모"
@@ -430,108 +430,108 @@ msgstr "요청"
 msgid "{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
 msgstr "{character_name}{user_name} 에 의한 요청 {ship}{request_code}"
 
-#: aasrp/models.py:399 aasrp/models.py:460
+#: aasrp/models.py:401 aasrp/models.py:462
 msgid "SRP request"
 msgstr "SRP 요청"
 
-#: aasrp/models.py:402
+#: aasrp/models.py:404
 msgid "Insurance level"
 msgstr "보험등급"
 
-#: aasrp/models.py:404
+#: aasrp/models.py:406
 msgid "Insurance cost"
 msgstr "보험 가입금"
 
-#: aasrp/models.py:405
+#: aasrp/models.py:407
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
 #: aasrp/templates/aasrp/view-requests.html:41
 msgid "Insurance payout"
 msgstr "보험금"
 
-#: aasrp/models.py:413
+#: aasrp/models.py:415
 msgid "Ship insurance"
 msgstr "함선 보험"
 
-#: aasrp/models.py:414
+#: aasrp/models.py:416
 msgid "Ship insurances"
 msgstr "함선 보험"
 
-#: aasrp/models.py:428
+#: aasrp/models.py:430
 msgid "SRP request added"
 msgstr "SRP 요청 추가됨"
 
-#: aasrp/models.py:431
+#: aasrp/models.py:433
 msgid "Status changed"
 msgstr "상태 변경됨"
 
-#: aasrp/models.py:432
+#: aasrp/models.py:434
 msgid "Reviser comment"
 msgstr "수정자 의견"
 
-#: aasrp/models.py:440
+#: aasrp/models.py:442
 msgid "Comment type"
 msgstr "코멘트 종류"
 
 #. Translators: This is the time when the comment was made
-#: aasrp/models.py:468
+#: aasrp/models.py:470
 msgid "Comment time"
 msgstr "작성 시간"
 
 #. Translators: New SRP request status that might have been set
-#: aasrp/models.py:477
+#: aasrp/models.py:479
 msgid "New SRP request status"
 msgstr "새 SRP 요청 상태"
 
-#: aasrp/models.py:487
+#: aasrp/models.py:489
 msgid "Comments"
 msgstr "코멘트"
 
-#: aasrp/models.py:502
+#: aasrp/models.py:504
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:103
 msgid "User"
 msgstr "사용자"
 
-#: aasrp/models.py:506
+#: aasrp/models.py:508
 msgid "Disable notifications"
 msgstr "알람 비활성화"
 
-#: aasrp/models.py:515 aasrp/models.py:516
+#: aasrp/models.py:517 aasrp/models.py:518
 #, fuzzy
 #| msgid "settings"
 msgid "User settings"
 msgstr "설정"
 
-#: aasrp/models.py:530
+#: aasrp/models.py:532
 msgid "SRP team Discord channel ID"
 msgstr "SRP 팀 디스코드 채널 아이디"
 
-#: aasrp/models.py:533
+#: aasrp/models.py:535
 msgid "Loss value source"
 msgstr "손실금 출처"
 
-#: aasrp/models.py:540
+#: aasrp/models.py:542
 msgid "Fitted value (Ship and Fitting)"
 msgstr "피팅 금액 (헐+피팅)"
 
-#: aasrp/models.py:541
+#: aasrp/models.py:543
 msgid "Total value (Ship, Fitting and Cargo)"
 msgstr "총액 (헐, 피팅, 카고)"
 
-#: aasrp/models.py:554
+#: aasrp/models.py:556
 msgid "The source for the loss value of a killmail. Fitted value is the value of the ship and its fitting. Total value is the value of the ship, its fitting and the cargo. (Default: Total value)"
 msgstr "킬메일의 손실 금액에 대한 자료입니다. 함선 금액은 피팅된 모듈과 헐의 가격이며, 총액은 카고의 화물을 포함합니다.(기본값:총액)"
 
-#: aasrp/models.py:571
+#: aasrp/models.py:573
 #, fuzzy
 #| msgid "Settings"
 msgid "Setting"
 msgstr "설정"
 
-#: aasrp/models.py:572
+#: aasrp/models.py:574
 msgid "Settings"
 msgstr "설정"
 
-#: aasrp/models.py:582
+#: aasrp/models.py:584
 msgid "AA-SRP settings"
 msgstr "SRP 설정"
 
@@ -976,43 +976,43 @@ msgstr "링크"
 msgid "Copy SRP link to clipboard"
 msgstr "복사"
 
-#: aasrp/views/ajax.py:497 aasrp/views/ajax.py:709 aasrp/views/ajax.py:808
+#: aasrp/views/ajax.py:497 aasrp/views/ajax.py:721 aasrp/views/ajax.py:830
 msgid "No matching SRP request found"
 msgstr ""
 
-#: aasrp/views/ajax.py:516 aasrp/views/ajax.py:607 aasrp/views/ajax.py:720
-#: aasrp/views/ajax.py:845
+#: aasrp/views/ajax.py:516 aasrp/views/ajax.py:613 aasrp/views/ajax.py:732
+#: aasrp/views/ajax.py:867
 msgid "Invalid form data"
 msgstr ""
 
-#: aasrp/views/ajax.py:565
+#: aasrp/views/ajax.py:567
 msgid "SRP request has been approved"
 msgstr "SRP 요청이 수락되었습니다"
 
-#: aasrp/views/ajax.py:571 aasrp/views/ajax.py:675 aasrp/views/ajax.py:770
-#: aasrp/views/ajax.py:877
+#: aasrp/views/ajax.py:577 aasrp/views/ajax.py:687 aasrp/views/ajax.py:788
+#: aasrp/views/ajax.py:905
 msgid "Invalid request method"
 msgstr ""
 
-#: aasrp/views/ajax.py:626 aasrp/views/ajax.py:862
+#: aasrp/views/ajax.py:632 aasrp/views/ajax.py:884
 msgid "No matching SRP requests found"
 msgstr ""
 
-#: aasrp/views/ajax.py:669
+#: aasrp/views/ajax.py:677
 #, fuzzy
 #| msgid "SRP request has been approved"
 msgid "SRP requests have been approved"
 msgstr "SRP 요청이 수락되었습니다"
 
-#: aasrp/views/ajax.py:764
+#: aasrp/views/ajax.py:778
 msgid "SRP request has been rejected"
 msgstr "SRP 요청이 거부되었습니다"
 
-#: aasrp/views/ajax.py:805
+#: aasrp/views/ajax.py:825
 msgid "SRP request has been removed"
 msgstr "SRP 요청이 삭제되었습니다"
 
-#: aasrp/views/ajax.py:871
+#: aasrp/views/ajax.py:895
 #, fuzzy
 #| msgid "SRP request has been removed"
 msgid "SRP requests have been removed"
