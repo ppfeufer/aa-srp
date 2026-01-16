@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-01-05 23:09+0100\n"
+"POT-Creation-Date: 2026-01-16 13:53+0100\n"
 "PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ko/>\n"
@@ -732,12 +732,12 @@ msgstr "SRP 금액"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:25
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:23
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:92
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:94
 msgid "Status"
 msgstr "상태"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:27
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:93
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:95
 msgid "Actions"
 msgstr ""
 
@@ -862,7 +862,7 @@ msgid "SRP payout"
 msgstr "SRP 지불금"
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:8
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:94
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:96
 msgid "Bulk actions"
 msgstr ""
 
@@ -941,7 +941,7 @@ msgstr "새 SRP 요청 상태"
 msgid "All"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:89
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:90
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr "클릭하여 값을 수정할 수 있으며, Enter 로 저장, ESC로 취소할 수 있습니다."
 

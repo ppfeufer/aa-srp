@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024, 2025.
+# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024, 2025, 2026.
 # Mike Grap <mike.grap@gmx.net>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-01-05 23:09+0100\n"
-"PO-Revision-Date: 2025-11-18 19:12+0000\n"
+"POT-Creation-Date: 2026-01-16 13:53+0100\n"
+"PO-Revision-Date: 2026-01-12 12:17+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/de/>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: aasrp/__init__.py:11 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -718,18 +718,18 @@ msgstr "SRP Kosten"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:25
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:23
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:92
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:94
 msgid "Status"
 msgstr "Status"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:27
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:93
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:95
 msgid "Actions"
 msgstr "Aktionen"
 
 #: aasrp/templates/aasrp/partials/footer/app-translation-footer.html:5
 msgid "Do you want to help translate this app into your language or improve the existing translation?"
-msgstr "Du möchtest helfen diese App in Deine Sprache zu übersetzen oder die bestehende Übersetzung verbessern?"
+msgstr "Du möchtest helfen diese App in Deine Sprache zu übersetzen oder die bestehende Übersetzung zu verbessern?"
 
 #: aasrp/templates/aasrp/partials/footer/app-translation-footer.html:8
 msgid "Join our team of translators!"
@@ -832,7 +832,7 @@ msgid "SRP payout"
 msgstr "SRP Auszahlung"
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:8
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:94
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:96
 msgid "Bulk actions"
 msgstr "Massenaktionen"
 
@@ -899,7 +899,7 @@ msgstr "Filter nach Anfragestatus"
 msgid "All"
 msgstr "Alle"
 
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:89
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:90
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr "Klicke auf den Wert zum Bearbeiten, Enter zum Speichern, ESC zum Abbrechen."
 
