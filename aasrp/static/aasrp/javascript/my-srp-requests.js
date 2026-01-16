@@ -22,11 +22,9 @@ $(document).ready(() => {
                     columns: [
                         {
                             data: {
-                                display: (data) => data.request_time === null ? '' : moment(data.request_time).utc().format(
-                                    aaSrpSettings.datetimeFormat
-                                ),
+                                display: (data) => moment(data.request_time).utc().format(aaSrpSettings.datetimeFormat),
                                 filter: (data) => data.request_time,
-                                sort: (data) => data.request_time
+                                sort: (data) => moment(data.request_time).unix()
                             },
                             className: 'srp-request-time'
                         },
