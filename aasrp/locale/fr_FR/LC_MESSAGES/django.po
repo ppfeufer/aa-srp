@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024, 2025.
+# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024, 2025, 2026.
 # Houbi_Houba <paul.lacape@live.fr>, 2024.
 # balbozorre <loic.petiot2002@gmail.com>, 2024, 2025.
 # Onyx <The_Onyx_best@hotmail.com>, 2025.
@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-01-05 23:09+0100\n"
-"PO-Revision-Date: 2025-09-16 16:43+0000\n"
+"POT-Creation-Date: 2026-01-16 13:53+0100\n"
+"PO-Revision-Date: 2026-01-09 17:17+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/fr/>\n"
 "Language: fr_FR\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: aasrp/__init__.py:11 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -602,7 +602,7 @@ msgstr "Supprimer le de SRP"
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:12
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:19
 msgid "Close"
-msgstr "Clôturé"
+msgstr "Fermer"
 
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:20
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:20
@@ -729,12 +729,12 @@ msgstr "Coût du SRP"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:25
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:23
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:92
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:94
 msgid "Status"
 msgstr "Statut"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:27
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:93
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:95
 msgid "Actions"
 msgstr "Actions"
 
@@ -843,7 +843,7 @@ msgid "SRP payout"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:8
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:94
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:96
 #, fuzzy
 #| msgid "Actions"
 msgid "Bulk actions"
@@ -924,7 +924,7 @@ msgstr "Nouveau statut de la demande de SRP"
 msgid "All"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:89
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:90
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr "Cliquez sur la valeur à modifier, Enter pour enregistrer, ESC pour annuler."
 
