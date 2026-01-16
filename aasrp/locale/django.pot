@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 3.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-01-05 23:09+0100\n"
+"POT-Creation-Date: 2026-01-16 13:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -737,12 +737,12 @@ msgstr ""
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:25
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:23
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:92
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:94
 msgid "Status"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:27
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:93
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:95
 msgid "Actions"
 msgstr ""
 
@@ -853,7 +853,7 @@ msgid "SRP payout"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:8
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:94
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:96
 msgid "Bulk actions"
 msgstr ""
 
@@ -922,7 +922,7 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:89
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:90
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr ""
 

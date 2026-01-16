@@ -33,9 +33,9 @@ $(document).ready(() => {
                         },
                         {
                             data: {
-                                display: (data) => data.fleet_time === null ? '' : moment(data.fleet_time).utc().format(aaSrpSettings.datetimeFormat),
-                                sort: (data) => data.fleet_time === null ? '' : data.fleet_time
-
+                                display: (data) => moment(data.fleet_time).utc().format(aaSrpSettings.datetimeFormat),
+                                filter: (data) => data.fleet_time,
+                                sort: (data) => moment(data.fleet_time).unix()
                             },
                             className: 'srp-link-fleet-time'
                         },
