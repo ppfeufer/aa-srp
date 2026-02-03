@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-01-23 00:44+0100\n"
-"PO-Revision-Date: 2026-01-09 17:17+0000\n"
+"POT-Creation-Date: 2026-02-03 15:11+0100\n"
+"PO-Revision-Date: 2026-02-01 14:23+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ja/>\n"
 "Language: ja\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: aasrp/__init__.py:11 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -545,7 +545,7 @@ msgstr ""
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:102
 msgid "Action"
-msgstr ""
+msgstr "実行"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:126
 msgid "SRP request has been added."
@@ -593,7 +593,7 @@ msgstr ""
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:12
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:19
 msgid "Close"
-msgstr ""
+msgstr "閉じる"
 
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:20
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:20
@@ -606,7 +606,7 @@ msgstr ""
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:43
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:35
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:25
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:29
@@ -717,7 +717,7 @@ msgstr ""
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:23
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:94
 msgid "Status"
-msgstr ""
+msgstr "ステータス"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:27
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:95
@@ -800,7 +800,7 @@ msgstr ""
 
 #: aasrp/templates/aasrp/partials/request-srp/form.html:29
 msgid "Working on it, please be patient …"
-msgstr ""
+msgstr "作業中です、少々お待ちください…"
 
 #: aasrp/templates/aasrp/partials/request-srp/form.html:32
 msgid "Fetching kill mail information, this might take a moment …"
@@ -876,7 +876,7 @@ msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:17
 msgid "Total"
-msgstr ""
+msgstr "合計"
 
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:52
 #, fuzzy
