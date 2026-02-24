@@ -13,7 +13,6 @@ import aasrp.models
 class Migration(migrations.Migration):
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("eveuniverse", "0010_alter_eveindustryactivityduration_eve_type_and_more"),
         ("eveonline", "0017_alliance_and_corp_names_are_not_unique"),
         ("aasrp", "0011_default_settings"),
     ]

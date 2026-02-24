@@ -12,7 +12,6 @@ import aasrp.models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("eveuniverse", "0010_alter_eveindustryactivityduration_eve_type_and_more"),
         ("eveonline", "0017_alliance_and_corp_names_are_not_unique"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ("aasrp", "0009_add_fleet_type_to_srp_link"),
