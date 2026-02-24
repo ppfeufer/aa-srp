@@ -35,7 +35,6 @@ ______________________________________________________________________
     - [Step 1: Install the Package](#step-1-install-the-package)
     - [Step 2: Configure Alliance Auth](#step-2-configure-alliance-auth)
     - [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
-    - [Step 4: Preload Eve Universe Data](#step-4-preload-eve-universe-data)
   - [Docker Installation](#docker-installation)
     - [Step 1: Add the App](#step-1-add-the-app)
     - [Step 2: Update Your AA Settings](#step-2-update-your-aa-settings)
@@ -111,8 +110,6 @@ ______________________________________________________________________
   already, please install it first before proceeding. (see the official
   [Alliance Auth installation guide] for details)
 - AA SRP needs at least Alliance Auth v4.12.0
-- AA SRP needs [Eve Universe] to function. Please make sure it is installed, before
-  continuing.
 
 ### Bare Metal Installation<a name="bare-metal-installation"></a>
 
@@ -122,7 +119,7 @@ Make sure you're in the virtual environment (venv) of your Alliance Auth
 installation Then install the latest release directly from PyPi.
 
 ```shell
-pip install aa-srp==3.3.1
+pip install aa-srp==4.0.0
 ```
 
 #### Step 2: Configure Alliance Auth<a name="step-2-configure-alliance-auth"></a>
@@ -131,7 +128,6 @@ This is fairly simple, just add the following to the `INSTALLED_APPS` of your `l
 
 Configure your AA settings (`local.py`) as follows:
 
-- Add `"eveuniverse",` to `INSTALLED_APPS`
 - Add `"aasrp",` to `INSTALLED_APPS`
 
 #### Step 3: Finalizing the Installation<a name="step-3-finalizing-the-installation"></a>
@@ -145,15 +141,6 @@ python manage.py migrate
 
 Restart your supervisor services for Auth
 
-#### Step 4: Preload Eve Universe Data<a name="step-4-preload-eve-universe-data"></a>
-
-AA SRP utilizes the EveUniverse module, so it doesn't need to ask ESI for ship
-information. To set this up, you now need to run the following command.
-
-```shell
-python manage.py aasrp_load_eve
-```
-
 ### Docker Installation<a name="docker-installation"></a>
 
 #### Step 1: Add the App<a name="step-1-add-the-app"></a>
@@ -161,14 +148,13 @@ python manage.py aasrp_load_eve
 Add the app to your `conf/requirements.txt`
 
 ```requirements
-aa-srp==3.3.1
+aa-srp==4.0.0
 ```
 
 #### Step 2: Update Your AA Settings<a name="step-2-update-your-aa-settings"></a>
 
 Configure your AA settings as (`conf/local.py`) follows:
 
-- Add `"eveuniverse",` to `INSTALLED_APPS` if not already done
 - Add `"aasrp",` to `INSTALLED_APPS`
 
 #### Step 3: Build Auth and Restart Your Containers<a name="step-3-build-auth-and-restart-your-containers"></a>
@@ -180,14 +166,13 @@ docker compose --env-file=.env up -d
 
 #### Step 4: Finalizing the Installation<a name="step-4-finalizing-the-installation"></a>
 
-Run migrations, copy static files and load EVE universe data:
+Run migrations and copy static files:
 
 ```shell
 docker compose exec allianceauth_gunicorn bash
 
 auth collectstatic
 auth migrate
-auth aasrp_load_eve
 ```
 
 ### Common Installation Steps<a name="common-installation-steps"></a>
@@ -261,7 +246,7 @@ To update your existing installation of AA SRP, first enable your virtual enviro
 Then run the following command to update AA SRP to the latest version.
 
 ```shell
-pip install aa-srp==3.3.1
+pip install aa-srp==4.0.0
 
 python manage.py collectstatic
 python manage.py migrate
@@ -277,7 +262,7 @@ To update your existing installation of AA SRP, first update the version in your
 `conf/requirements.txt` to the latest version.
 
 ```requirements
-aa-srp==3.3.1
+aa-srp==4.0.0
 ```
 
 Then build your Auth container and restart your containers.
@@ -351,7 +336,6 @@ Please make sure to read the [Contribution Guidelines].\
 [contribution guidelines]: https://github.com/ppfeufer/aa-srp/blob/master/CONTRIBUTING.md "Contribution Guidelines"
 [discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "Discord Notify"
 [discord proxy]: https://gitlab.com/ErikKalkoken/discordproxy "Discord Proxy"
-[eve universe]: https://gitlab.com/ErikKalkoken/django-eveuniverse "Eve Universe"
 [eve-kill]: https://eve-kill.com/ "EVE-Kill"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
 [image: aa srp dashboard]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/aa-srp-dashboard.jpg "AA SRP Dashboard"
