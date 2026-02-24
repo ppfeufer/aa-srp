@@ -94,8 +94,13 @@ migrations: check-python-venv check-myauth-path
 	@echo "Creating or updating migrations"
 	@python $(myauth_path)/manage.py makemigrations $(package)
 
+.PHONY: showmigrations
+showmigrations: check-python-venv check-myauth-path
+	@echo "Showing migrations"
+	@python $(myauth_path)/manage.py showmigrations $(package)
+
 .PHONY: squashmigrations
-squashmigrations: check-python-venv
+squashmigrations: check-python-venv check-myauth-path
 	@echo "Squashing migrations"
 	@python $(myauth_path)/manage.py squashmigrations $(package) --squashed-name=squashed_$(shell date +%Y%m%d_%H%M%S)
 
@@ -106,6 +111,8 @@ help::
 	@echo "    Migration Handling:"
 	@echo "      migrate                   Migrate all database changes"
 	@echo "      migrations                Create or update migrations"
+	@echo "      showmigrations            Show migrations"
+	@echo "      squashmigrations          Squash migrations"
 	@echo ""
 	@echo "    Translation Handling:"
 	@echo "      add-translation           Add a new translation"

@@ -42,6 +42,20 @@ Section Order:
 
 <!-- Your changes go here -->
 
+> [!IMPORTANT]
+>
+> This release completes transitioning away from Django Eveuniverse as a dependency,
+> which was already started in v3.0.0.
+>
+> Before you update to this version, please make sure to update to at least v3.0.0
+> first and run the migrations, otherwise, you might run into issues with missing
+> dependencies.
+
+### Removed
+
+- Dependency on Django Eveuniverse from the migrations. \
+  Older migrations have been squashed, so there are no more migrations that require it.
+
 ## [3.3.1] - 2026-02-03
 
 ### Changed
