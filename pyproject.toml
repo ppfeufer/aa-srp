@@ -38,8 +38,8 @@ dynamic = [
     "version",
 ]
 dependencies = [
-    "allianceauth>=4.12,<5",
-    "django-esi>=8,<9",
+    "allianceauth>=4.12",
+    "django-esi>=8.3.1",
 ]
 optional-dependencies.tests-allianceauth-latest = [
     "aa-discordnotify",
