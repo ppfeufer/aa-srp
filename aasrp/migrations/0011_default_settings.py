@@ -1,8 +1,9 @@
-# Django
-from django.db import migrations
-
+# Third Party
 # Alliance Auth (External Libs)
 from app_utils.app_settings import clean_setting
+
+# Django
+from django.db import migrations
 
 srp_team_discord_channel_id = clean_setting(
     name="AASRP_SRP_TEAM_DISCORD_CHANNEL", default_value=None, required_type=int
