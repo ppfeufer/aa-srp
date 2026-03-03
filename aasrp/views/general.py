@@ -6,6 +6,9 @@ various functionalities such as rendering dashboards, managing SRP links, and
 processing user requests.
 """
 
+# Third Party
+from eve_sde.models import ItemType
+
 # Django
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
@@ -33,11 +36,10 @@ from aasrp.form import (
     SrpRequestRejectForm,
     UserSettingsForm,
 )
-from aasrp.handler import esi_handler
 from aasrp.helper.notification import notify_srp_team
 from aasrp.helper.user import get_user_settings
 from aasrp.models import Insurance, RequestComment, Setting, SrpLink, SrpRequest
-from aasrp.providers import AppLogger, esi
+from aasrp.providers import AppLogger
 
 # Initialize a logger with a custom tag for the AA SRP application
 logger = AppLogger(my_logger=get_extension_logger(__name__), prefix=__title__)
@@ -314,11 +316,12 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         character_id=victim_id
     )
 
-    # Get ship information from ESI
-    operation = esi.client.Universe.GetUniverseTypesTypeId(type_id=ship_type_id)
-    srp_request__ship = esi_handler.result(operation=operation, use_etag=False)
+    # Get ship information from SDE based on the ship type ID
+    srp_request__ship = ItemType.objects.get(id=ship_type_id)
 
     logger.debug(msg=f"Ship type {srp_request__ship.name}")
+
+    ship_type = ItemType.objects.get(id=ship_type_id)
 
     # Create the SRP request object
     srp_request = SrpRequest.objects.create(
@@ -326,8 +329,7 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         creator=creator,
         srp_link=srp_link,
         character=srp_request__character,
-        ship_name=srp_request__ship.name,
-        ship_id=ship_type_id,
+        ship=ship_type,
         loss_amount=ship_value,
         post_time=post_time,
         request_code=get_random_string(length=16),
@@ -461,7 +463,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 srp_kill_link_id = SrpRequest.objects.get_kill_id(
                     killboard_link=submitted_killmail_link
                 )
-                ship_type_id, ship_value, victim_id = SrpRequest.objects.get_kill_data(
+                killmail_info = SrpRequest.objects.get_kill_data(
                     killmail_id=srp_kill_link_id, loss_value_field=loss_value_field
                 )
             except ValueError as err:
@@ -491,16 +493,16 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 return redirect(to="aasrp:srp_links")
 
             if request.user.character_ownerships.filter(
-                character__character_id=str(victim_id)
+                character__character_id=str(killmail_info["victim_id"])
             ).exists():
                 # Save the SRP request
                 srp_request = _save_srp_request(
                     request=request,
                     srp_link=srp_link,
                     killmail_link=submitted_killmail_link,
-                    ship_type_id=ship_type_id,
-                    ship_value=ship_value,
-                    victim_id=victim_id,
+                    ship_type_id=killmail_info["ship_type_id"],
+                    ship_value=killmail_info["ship_value"],
+                    victim_id=killmail_info["victim_id"],
                     additional_info=srp_request_additional_info,
                 )
 
@@ -516,7 +518,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 message=_(
                     "Character {victim_id} does not belong to your Auth account. "
                     "Please add this character as an alt to your main and try again."
-                ).format(victim_id=victim_id),
+                ).format(victim_id=killmail_info["victim_id"]),
             )
 
             return redirect(to="aasrp:srp_links")

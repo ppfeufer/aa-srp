@@ -28,11 +28,7 @@ esi = ESIClientProvider(
     ua_version=__version__,
     ua_url=__github_url__,
     # Specify the ESI operations that this client will support.
-    operations=[
-        "GetUniverseTypesTypeId",
-        "GetKillmailsKillmailIdKillmailHash",
-        "GetInsurancePrices",
-    ],
+    operations=["GetKillmailsKillmailIdKillmailHash", "GetInsurancePrices"],
 )
 
 

@@ -105,7 +105,9 @@ class SrpRequestManager(models.Manager):
             raise ValueError("Invalid Kill ID or Hash.") from exc
 
     @staticmethod
-    def get_kill_data(killmail_id: str, loss_value_field: str) -> tuple[int, int, int]:
+    def get_kill_data(
+        killmail_id: str, loss_value_field: str
+    ) -> dict[str, int | float | None]:
         """
         Retrieve detailed killmail data, including ship type, loss value, and victim ID.
 
@@ -114,7 +116,10 @@ class SrpRequestManager(models.Manager):
         :param loss_value_field: The field name for the loss value in the zKillboard data.
         :type loss_value_field: str
         :return: A tuple containing the ship type ID, loss value, and victim character ID.
-        :rtype: tuple[int, int, int]
+                    - `ship_type_id`: The ID of the ship type involved in the killmail.
+                    - `loss_value`: The value of the loss as retrieved from zKillboard.
+                    - `victim_id`: The character ID of the victim in the killmail.
+        :rtype: dict[str, int | float | None]
         """
 
         zkillboard_data = SrpRequestManager.get_zkillboard_data(kill_id=killmail_id)
@@ -125,15 +130,19 @@ class SrpRequestManager(models.Manager):
         )
         esi_killmail = esi_handler.result(operation=operation, use_etag=False)
 
-        ship_type = esi_killmail.victim.ship_type_id
+        ship_type_id = esi_killmail.victim.ship_type_id
         ship_value = zkillboard_data.get("zkb", {}).get(loss_value_field, 0)
         victim_id = esi_killmail.victim.character_id
 
         logger.debug(
-            f"Kill ID {killmail_id}: Ship type = {ship_type}, Loss value = {ship_value}"
+            f"Kill ID {killmail_id}: Ship type = {ship_type_id}, Loss value = {ship_value}"
         )
 
-        return ship_type, ship_value, victim_id
+        return {
+            "ship_type_id": ship_type_id,
+            "ship_value": ship_value,
+            "victim_id": victim_id,
+        }
 
     @staticmethod
     def get_insurance_for_ship_type(ship_type_id: int) -> dict | None:
