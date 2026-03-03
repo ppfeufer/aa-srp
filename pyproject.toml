@@ -60,10 +60,8 @@ urls.GitHub = "https://github.com/ppfeufer/aa-srp"
 urls.Tracker = "https://github.com/ppfeufer/aa-srp/issues"
 urls.Translation = "https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/"
 
-[tool.hatch.build]
-include = [
+[tool.hatch]
+build.include = [
     "/aasrp",
 ]
-
-[tool.hatch.version]
-path = "aasrp/__init__.py"
+version.path = "aasrp/__init__.py"
