@@ -200,7 +200,12 @@ class SettingManager(models.Manager):
         :rtype: Any
         """
 
-        return getattr(self.first(), setting_key)
+        instance = self.get_queryset().first()
+
+        if instance is None:
+            return None
+
+        return getattr(instance, setting_key, None)
 
     def get_queryset(self) -> SettingQuerySet:
         """

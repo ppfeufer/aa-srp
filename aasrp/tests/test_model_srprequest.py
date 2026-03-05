@@ -1,6 +1,9 @@
 # Standard Library
 from unittest.mock import MagicMock, patch
 
+# Django
+from django.contrib.auth.models import AnonymousUser
+
 # AA SRP
 from aasrp.models import SrpRequest
 from aasrp.tests import BaseTestCase
@@ -20,9 +23,12 @@ class TestSrpRequest(BaseTestCase):
         """
 
         self.srp_request = MagicMock(spec=SrpRequest)
+        # provide related objects matching the model's usage
+        self.srp_request.character = MagicMock()
         self.srp_request.character.character_name = "Test Character"
         self.srp_request.creator = MagicMock()
-        self.srp_request.ship_name = "Test Ship"
+        self.srp_request.ship = MagicMock()
+        self.srp_request.ship.name = "Test Ship"
         self.srp_request.request_code = "REQ123"
 
     @patch("aasrp.models.get_main_character_name_from_user")
@@ -56,8 +62,10 @@ class TestSrpRequest(BaseTestCase):
         """
 
         self.srp_request.character.character_name = None
-
+        self.srp_request.ship = MagicMock()
+        self.srp_request.ship.name = "Test Ship"
         mock_get_main_character_name.return_value = "Main Character"
+
         result = SrpRequest.__str__(self.srp_request)
 
         self.assertEqual(
@@ -76,8 +84,10 @@ class TestSrpRequest(BaseTestCase):
         """
 
         self.srp_request.creator = None
-
+        self.srp_request.ship = MagicMock()
+        self.srp_request.ship.name = "Test Ship"
         mock_get_main_character_name.return_value = None
+
         result = SrpRequest.__str__(self.srp_request)
 
         self.assertEqual(
@@ -95,7 +105,7 @@ class TestSrpRequest(BaseTestCase):
         :rtype:
         """
 
-        self.srp_request.ship_name = None
+        self.srp_request.ship.name = None
 
         mock_get_main_character_name.return_value = "Main Character"
         result = SrpRequest.__str__(self.srp_request)
@@ -116,6 +126,8 @@ class TestSrpRequest(BaseTestCase):
         """
 
         self.srp_request.request_code = None
+        self.srp_request.ship = MagicMock()
+        self.srp_request.ship.name = "Test Ship"
 
         mock_get_main_character_name.return_value = "Main Character"
         result = SrpRequest.__str__(self.srp_request)
@@ -123,3 +135,35 @@ class TestSrpRequest(BaseTestCase):
         self.assertEqual(
             result, "Test Character (Main Character) SRP request for: Test Ship (None)"
         )
+
+    @patch("aasrp.models.SrpRequest.objects.filter")
+    def test_returns_pending_requests_count_for_user_with_permission(self, mock_filter):
+        user = MagicMock()
+        user.has_perm.side_effect = lambda perm: perm in ["aasrp.manage_srp"]
+        mock_filter.return_value.count.return_value = 5
+
+        result = SrpRequest.pending_requests_count_for_user(user)
+
+        self.assertEqual(result, 5)
+        user.has_perm.assert_called_with(perm="aasrp.manage_srp")
+        mock_filter.assert_called_with(request_status=SrpRequest.Status.PENDING)
+
+    @patch("aasrp.models.SrpRequest.objects.filter")
+    def test_returns_none_for_user_without_permission(self, mock_filter):
+        user = MagicMock()
+        user.has_perm.return_value = False
+
+        result = SrpRequest.pending_requests_count_for_user(user)
+
+        self.assertIsNone(result)
+        user.has_perm.assert_called_with(perm="aasrp.manage_srp_requests")
+        mock_filter.assert_not_called()
+
+    @patch("aasrp.models.SrpRequest.objects.filter")
+    def test_returns_none_for_anonymous_user(self, mock_filter):
+        user = AnonymousUser()
+
+        result = SrpRequest.pending_requests_count_for_user(user)
+
+        self.assertIsNone(result)
+        mock_filter.assert_not_called()

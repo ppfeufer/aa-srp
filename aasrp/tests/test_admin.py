@@ -1,18 +1,19 @@
 """
-Test the admin interface.
+Unit tests for the admin classes in the aasrp application.
 """
 
 # Standard Library
-from http import HTTPStatus
-from unittest.mock import MagicMock, patch
+from types import SimpleNamespace
+from unittest import mock
+
+# Third Party
+from eve_sde.models import ItemType
 
 # Django
-from django.contrib import admin
-from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import User
-from django.http import HttpRequest
-from django.test import Client
-from django.urls import reverse
+
+# Alliance Auth
+from allianceauth.eveonline.models import EveCharacter
 
 # AA SRP
 from aasrp.admin import (
@@ -21,444 +22,376 @@ from aasrp.admin import (
     SrpLinkAdmin,
     SrpRequestAdmin,
 )
-from aasrp.models import FleetType, RequestComment, SrpRequest
+from aasrp.models import FleetType, RequestComment, SrpLink, SrpRequest
 from aasrp.tests import BaseTestCase
-
-
-class TestFleetTypeAdmin(BaseTestCase):
-    """
-    Test the FleetType admin interface.
-    """
-
-    @classmethod
-    def setUpTestData(cls):
-        """
-        Set up test data for the admin interface tests.
-
-        :return:
-        :rtype:
-        """
-
-        cls.admin_user = User.objects.create_superuser(
-            username="admin", email="admin@example.com", password="password"
-        )
-        cls.client = Client()
-        cls.client.login(username="admin", password="password")
-        cls.fleet_type = FleetType.objects.create(name="Test Fleet", is_enabled=True)
-        cls.admin_site = AdminSite()
-
-    def test_admin_page_loads(self):
-        """
-        Test that the admin page loads correctly.
-
-        :return:
-        :rtype:
-        """
-
-        url = reverse("admin:aasrp_fleettype_changelist")
-
-        self.client.login(username="admin", password="password")
-
-        response = self.client.get(url)
-
-        self.assertEqual(first=response.status_code, second=HTTPStatus.OK)
-
-    def test_admin_form_saves_valid_data(self):
-        """
-        Test that the admin form saves valid data correctly.
-
-        :return:
-        :rtype:
-        """
-
-        url = reverse("admin:aasrp_fleettype_change", args=[self.fleet_type.pk])
-
-        self.client.login(username="admin", password="password")
-
-        data = {
-            "name": "Updated Fleet",
-            "is_enabled": False,
-            "_save": "Save",  # Include the save button name to simulate form submission
-        }
-        response = self.client.post(path=url, data=data)
-
-        self.assertEqual(first=response.status_code, second=HTTPStatus.FOUND)
-        self.fleet_type.refresh_from_db()
-        self.assertEqual(first=self.fleet_type.name, second="Updated Fleet")
-        self.assertFalse(self.fleet_type.is_enabled)
-
-    def test_activate_action_activates_selected_fleet_types(self):
-        """
-        Test that the activate action activates selected fleet types.
-
-        :return:
-        :rtype:
-        """
-
-        url = reverse("admin:aasrp_fleettype_changelist")
-
-        self.client.login(username="admin", password="password")
-
-        data = {
-            "action": "activate",
-            "_selected_action": [self.fleet_type.pk],
-        }
-        response = self.client.post(path=url, data=data, follow=True)
-
-        self.assertEqual(first=response.status_code, second=HTTPStatus.OK)
-        self.fleet_type.refresh_from_db()
-        self.assertTrue(self.fleet_type.is_enabled)
-
-    @patch("django.contrib.messages.error")
-    def test_displays_error_message_when_activation_fails(self, mock_error):
-        """
-        Test that an error message is displayed when activation fails.
-
-        :param mock_error:
-        :type mock_error:
-        :return:
-        :rtype:
-        """
-
-        fleet_type = FleetType.objects.create(name="Fleet A", is_enabled=False)
-        queryset = FleetType.objects.filter(pk=fleet_type.pk)
-        admin = FleetTypeAdmin(FleetType, self.admin_site)
-        request = HttpRequest()
-        request.user = self.admin_user
-
-        with patch.object(FleetType, "save", side_effect=Exception):
-            admin.activate(request, queryset)
-
-        mock_error.assert_called_once_with(
-            request=request,
-            message="Failed to activate 1 fleet type",
-        )
-
-    def test_deactivate_action_deactivates_selected_fleet_types(self):
-        """
-        Test that the deactivate action deactivates selected fleet types.
-
-        :return:
-        :rtype:
-        """
-
-        url = reverse("admin:aasrp_fleettype_changelist")
-
-        self.client.login(username="admin", password="password")
-
-        data = {
-            "action": "deactivate",
-            "_selected_action": [self.fleet_type.pk],
-        }
-        response = self.client.post(path=url, data=data, follow=True)
-
-        self.assertEqual(first=response.status_code, second=HTTPStatus.OK)
-        self.fleet_type.refresh_from_db()
-        self.assertFalse(self.fleet_type.is_enabled)
-
-    @patch("django.contrib.messages.error")
-    def test_displays_error_message_when_deactivation_fails(self, mock_error):
-        """
-        Test that an error message is displayed when deactivation fails.
-
-        :param mock_error:
-        :type mock_error:
-        :return:
-        :rtype:
-        """
-
-        fleet_type = FleetType.objects.create(name="Fleet A", is_enabled=True)
-        queryset = FleetType.objects.filter(pk=fleet_type.pk)
-        admin = FleetTypeAdmin(FleetType, self.admin_site)
-        request = HttpRequest()
-        request.user = self.admin_user
-
-        with patch.object(FleetType, "save", side_effect=Exception):
-            admin.deactivate(request, queryset)
-
-        mock_error.assert_called_once_with(
-            request=request,
-            message="Failed to deactivate 1 fleet type",
-        )
-
-
-class TestRequestCommentAdmin(BaseTestCase):
-    """
-    Test the RequestComment admin interface.
-    """
-
-    def test_displays_correct_srp_code_in_admin(self):
-        """
-        Test that the SRP code is displayed correctly in the admin interface.
-
-        :return:
-        :rtype:
-        """
-
-        request_comment = MagicMock()
-        request_comment.srp_request.srp_link.srp_code = "SRP123"
-
-        admin_instance = RequestCommentAdmin(
-            model=RequestComment, admin_site=admin.site
-        )
-        result = admin_instance._srp_code(request_comment)
-
-        self.assertEqual(first=result, second="SRP123")
-
-    def test_displays_correct_request_code_in_admin(self):
-        """
-        Test that the request code is displayed correctly in the admin interface.
-
-        :return:
-        :rtype:
-        """
-
-        request_comment = MagicMock()
-        request_comment.srp_request.request_code = "REQ456"
-
-        admin_instance = RequestCommentAdmin(
-            model=RequestComment, admin_site=admin.site
-        )
-        result = admin_instance._request_code(request_comment)
-
-        self.assertEqual(first=result, second="REQ456")
-
-    def test_displays_correct_requestor_name_in_admin(self):
-        """
-        Test that the requestor name is displayed correctly in the admin interface.
-
-        :return:
-        :rtype:
-        """
-
-        request_comment = MagicMock()
-        request_comment.srp_request.creator = MagicMock()
-
-        with patch(
-            target="aasrp.admin.get_main_character_name_from_user",
-            return_value="John Doe",
-        ):
-            admin_instance = RequestCommentAdmin(
-                model=RequestComment, admin_site=admin.site
-            )
-            result = admin_instance._requestor(request_comment)
-
-        self.assertEqual(first=result, second="John Doe")
-
-    def test_displays_correct_character_name_in_admin(self):
-        request_comment = MagicMock()
-        request_comment.srp_request.character.character_name = "Jane Doe"
-
-        admin_instance = RequestCommentAdmin(
-            model=RequestComment, admin_site=admin.site
-        )
-        result = admin_instance._character(request_comment)
-
-        self.assertEqual(first=result, second="Jane Doe")
-
-
-class TestSrpRequestAdmin(BaseTestCase):
-    """
-    Test the SrpRequest admin interface.
-    """
-
-    def setUp(self):
-        self.srp_request = MagicMock()
-        self.admin = SrpRequestAdmin(SrpRequest, None)
-
-    def test_displays_correct_requestor_name_for_valid_creator(self):
-        """
-        Test that the requestor name is displayed correctly when the creator is valid.
-
-        :return:
-        :rtype:
-        """
-
-        srp_request = MagicMock()
-        srp_request.creator = MagicMock()
-
-        with patch(
-            target="aasrp.admin.get_main_character_name_from_user",
-            return_value="John Doe",
-        ):
-            result = SrpRequestAdmin._requestor(srp_request)
-
-        self.assertEqual(first=result, second="John Doe")
-
-    def test_handles_missing_creator_gracefully(self):
-        """
-        Test that the requestor name is None when the creator is missing.
-
-        :return:
-        :rtype:
-        """
-
-        srp_request = MagicMock()
-        srp_request.creator = None
-
-        with patch(
-            target="aasrp.admin.get_main_character_name_from_user", return_value=None
-        ):
-            result = SrpRequestAdmin._requestor(srp_request)
-
-        self.assertIsNone(result)
-
-    def test_displays_correct_srp_code_for_valid_link(self):
-        """
-        Test that the SRP code is displayed correctly when the SRP link is valid.
-
-        :return:
-        :rtype:
-        """
-
-        srp_request = MagicMock()
-        srp_request.srp_link.srp_code = "SRP123"
-
-        admin_instance = SrpRequestAdmin(model=RequestComment, admin_site=admin.site)
-        result = admin_instance._srp_code(srp_request)
-
-        self.assertEqual(first=result, second="SRP123")
-
-    @patch("aasrp.admin.l10n_number_format")
-    def test_displays_positive_loss_amount(self, mock_format):
-        """
-        Test that a positive loss amount is displayed correctly.
-
-        :param mock_format:
-        :type mock_format:
-        :return:
-        :rtype:
-        """
-
-        self.srp_request.loss_amount = 123456.789
-
-        mock_format.return_value = "123,456.79"
-        result = self.admin._loss_amount(self.srp_request)
-
-        self.assertEqual(result, "123,456.79 ISK")
-
-    @patch("aasrp.admin.l10n_number_format")
-    def test_displays_zero_loss_amount(self, mock_format):
-        """
-        Test that a zero loss amount is displayed correctly.
-
-        :param mock_format:
-        :type mock_format:
-        :return:
-        :rtype:
-        """
-
-        self.srp_request.loss_amount = 0
-
-        mock_format.return_value = "0.00"
-        result = self.admin._loss_amount(self.srp_request)
-
-        self.assertEqual(result, "0.00 ISK")
-
-    @patch("aasrp.admin.l10n_number_format")
-    def test_displays_large_loss_amount(self, mock_format):
-        """
-        Test that a large loss amount is displayed correctly.
-
-        :param mock_format:
-        :type mock_format:
-        :return:
-        :rtype:
-        """
-
-        self.srp_request.loss_amount = 1_000_000_000.99
-
-        mock_format.return_value = "1,000,000,000.99"
-        result = self.admin._loss_amount(self.srp_request)
-
-        self.assertEqual(result, "1,000,000,000.99 ISK")
-
-    @patch("aasrp.admin.l10n_number_format")
-    def test_displays_positive_payout_amount(self, mock_format):
-        """
-        Test that a positive payout amount is displayed correctly.
-
-        :param mock_format:
-        :type mock_format:
-        :return:
-        :rtype:
-        """
-
-        self.srp_request.payout_amount = 987654.321
-
-        mock_format.return_value = "987,654.32"
-        result = self.admin._payout_amount(self.srp_request)
-
-        self.assertEqual(result, "987,654.32 ISK")
-
-    @patch("aasrp.admin.l10n_number_format")
-    def test_displays_zero_payout_amount(self, mock_format):
-        """
-        Test that a zero payout amount is displayed correctly.
-
-        :param mock_format:
-        :type mock_format:
-        :return:
-        :rtype:
-        """
-
-        self.srp_request.payout_amount = 0
-
-        mock_format.return_value = "0.00"
-        result = self.admin._payout_amount(self.srp_request)
-
-        self.assertEqual(result, "0.00 ISK")
-
-    @patch("aasrp.admin.l10n_number_format")
-    def test_displays_large_payout_amount(self, mock_format):
-        """
-        Test that a large payout amount is displayed correctly.
-
-        :param mock_format:
-        :type mock_format:
-        :return:
-        :rtype:
-        """
-
-        self.srp_request.payout_amount = 1_000_000_000.99
-
-        mock_format.return_value = "1,000,000,000.99"
-        result = self.admin._payout_amount(self.srp_request)
-
-        self.assertEqual(result, "1,000,000,000.99 ISK")
 
 
 class TestSrpLinkAdmin(BaseTestCase):
     """
-    Test the SrpLink admin interface.
+    Test case for the SrpLinkAdmin class, which is responsible for displaying SRP links in the Django admin interface.
     """
 
-    def test_displays_correct_creator_name_for_valid_creator(self):
+    def setUp(self):
         """
-        Test that the creator name is displayed correctly when the creator is valid.
+        Set up the test environment
 
         :return:
         :rtype:
         """
 
-        srp_link = MagicMock()
-        srp_link.creator = MagicMock()
+        self.user = User.objects.create(username="testuser")
+        self.srp_link = SrpLink.objects.create(
+            srp_code="SRP123",
+            srp_name="Test SRP",
+            fleet_time="2023-01-01 12:00:00",
+            creator=self.user,
+            srp_status="Pending",
+            fleet_doctrine="Doctrine A",
+        )
 
-        with patch(
-            target="aasrp.admin.get_main_character_name_from_user",
-            return_value="Jane Doe",
+    def test_displays_correct_creator_name(self):
+        """
+        Tests that the _creator method returns the correct username for the creator of the SRP link.
+
+        :return:
+        :rtype:
+        """
+
+        creator_name = SrpLinkAdmin._creator(self.srp_link)
+
+        self.assertEqual(creator_name, "testuser")
+
+    def test_handles_missing_creator(self):
+        """
+        Tests that the _creator method returns "deleted" when the creator of the SRP link has been deleted.
+
+        :return:
+        :rtype:
+        """
+
+        self.srp_link.creator = None
+        self.srp_link.save()
+
+        creator_name = SrpLinkAdmin._creator(self.srp_link)
+
+        self.assertEqual(creator_name, "deleted")
+
+
+class TestSrpRequestAdminTests(BaseTestCase):
+    """
+    Test case for the SrpRequestAdmin class, which is responsible for displaying SRP requests in the Django admin interface.
+    """
+
+    def setUp(self):
+        """
+        Set up the test environment
+
+        :return:
+        :rtype:
+        """
+
+        self.user = User.objects.create(username="testuser")
+        self.srp_link = SrpLink.objects.create(
+            srp_code="SRP123",
+            srp_name="Test SRP",
+            fleet_time="2023-01-01 12:00:00",
+            creator=self.user,
+            srp_status="Pending",
+            fleet_doctrine="Doctrine A",
+        )
+
+        self.ship = ItemType.objects.create(name="Test Ship", id=12345)
+        self.srp_request = SrpRequest.objects.create(
+            request_code="REQ001",
+            creator=self.user,
+            character=None,
+            srp_link=self.srp_link,
+            ship=self.ship,
+            loss_amount=1000000,
+            payout_amount=500000,
+            request_status="Pending",
+        )
+
+    def test_handles_missing_requestor(self):
+        """
+        Tests that the _requestor method returns "deleted" when the creator of the SRP request has been deleted.
+
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.creator = None
+        self.srp_request.save()
+
+        requestor_name = SrpRequestAdmin._requestor(self.srp_request)
+
+        self.assertEqual(requestor_name, "deleted")
+
+    def test_displays_correct_srp_code(self):
+        """
+        Tests that the _srp_code method returns the correct SRP code for the associated SRP link.
+
+        :return:
+        :rtype:
+        """
+
+        srp_code = SrpRequestAdmin._srp_code(None, self.srp_request)
+
+        self.assertEqual(srp_code, "SRP123")
+
+    def test_displays_correct_ship_name(self):
+        """
+        Tests that the _ship_name method returns the correct ship name for the associated ship.
+
+        :return:
+        :rtype:
+        """
+
+        ship_name = SrpRequestAdmin._ship_name(None, self.srp_request)
+
+        self.assertEqual(ship_name, "Test Ship")
+
+    def test_handles_missing_ship(self):
+        """
+        Tests that the _ship_name method returns "N/A" when the associated ship has been deleted.
+
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.ship = None
+        self.srp_request.save()
+
+        ship_name = SrpRequestAdmin._ship_name(None, self.srp_request)
+
+        self.assertEqual(ship_name, "N/A")
+
+    def test_formats_loss_amount_correctly(self):
+        """
+        Tests that the _loss_amount method returns the loss amount formatted as a string with two decimal places and a comma as a thousands separator.
+
+        :return:
+        :rtype:
+        """
+
+        loss_amount = SrpRequestAdmin._loss_amount(None, self.srp_request)
+
+        self.assertEqual(loss_amount, "1,000,000.00 ISK")
+
+    def test_formats_payout_amount_correctly(self):
+        """
+        Tests that the _payout_amount method returns the payout amount formatted as a string with two decimal places and a comma as a thousands separator.
+
+        :return:
+        :rtype:
+        """
+
+        payout_amount = SrpRequestAdmin._payout_amount(None, self.srp_request)
+
+        self.assertEqual(payout_amount, "500,000.00 ISK")
+
+
+class TestRequestCommentAdmin(BaseTestCase):
+    """
+    Test case for the RequestCommentAdmin class, which is responsible for displaying request comments in the Django admin interface.
+    """
+
+    def setUp(self):
+        """
+        Set up the test environment
+
+        :return:
+        :rtype:
+        """
+
+        self.user = User.objects.create(username="testuser")
+        self.srp_link = SrpLink.objects.create(
+            srp_code="SRP123",
+            srp_name="Test SRP",
+            fleet_time="2023-01-01 12:00:00",
+            creator=self.user,
+            srp_status="Pending",
+            fleet_doctrine="Doctrine A",
+        )
+        self.srp_request = SrpRequest.objects.create(
+            request_code="REQ001",
+            creator=self.user,
+            character=None,
+            srp_link=self.srp_link,
+            ship=None,
+            loss_amount=1000000,
+            payout_amount=500000,
+            request_status="Pending",
+        )
+        self.comment = RequestComment.objects.create(
+            srp_request=self.srp_request,
+            comment_type="General",
+        )
+
+    def test_displays_correct_srp_code(self):
+        """
+        Tests that the _srp_code method returns the correct SRP code for the associated SRP link.
+
+        :return:
+        :rtype:
+        """
+
+        srp_code = RequestCommentAdmin._srp_code(None, self.comment)
+
+        self.assertEqual(srp_code, "SRP123")
+
+    def test_displays_correct_request_code(self):
+        """
+        Tests that the _request_code method returns the correct request code for the associated SRP request.
+
+        :return:
+        :rtype:
+        """
+
+        request_code = RequestCommentAdmin._request_code(None, self.comment)
+
+        self.assertEqual(request_code, "REQ001")
+
+    def test_displays_correct_requestor_name(self):
+        """
+        Tests that the _requestor method returns the correct username for the creator of the SRP request.
+
+        :return:
+        :rtype:
+        """
+
+        requestor_name = RequestCommentAdmin._requestor(None, self.comment)
+
+        self.assertEqual(requestor_name, "testuser")
+
+    def test_handles_missing_requestor(self):
+        """
+        Tests that the _requestor method returns "deleted" when the creator of the SRP request has been deleted.
+
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.creator = None
+        self.srp_request.save()
+
+        requestor_name = RequestCommentAdmin._requestor(None, self.comment)
+
+        self.assertEqual(requestor_name, "deleted")
+
+    def test_displays_correct_character_name(self):
+        """
+        Tests that the _character method returns the correct character name for the associated character.
+
+        :return:
+        :rtype:
+        """
+
+        char = EveCharacter(character_name="TestChar")
+        self.srp_request.character = char
+
+        character_name = RequestCommentAdmin._character(None, self.comment)
+
+        self.assertEqual(character_name, "TestChar")
+
+
+class TestFleetTypeAdmin(BaseTestCase):
+    """
+    Test case for the FleetTypeAdmin class, which is responsible for displaying fleet types in the Django admin interface.
+    """
+
+    def test_activates_selected_fleet_types(self):
+        """
+        Tests that the activate method sets is_enabled to True for all selected fleet types.
+
+        :return:
+        :rtype:
+        """
+
+        fleet_type_1 = FleetType.objects.create(name="Fleet A", is_enabled=False)
+        fleet_type_2 = FleetType.objects.create(name="Fleet B", is_enabled=False)
+        queryset = FleetType.objects.filter(id__in=[fleet_type_1.id, fleet_type_2.id])
+        request = SimpleNamespace()
+
+        with (
+            mock.patch("aasrp.admin.messages.success"),
+            mock.patch("aasrp.admin.messages.error"),
         ):
-            result = SrpLinkAdmin._creator(srp_link)
+            FleetTypeAdmin.activate(None, request, queryset)
 
-        self.assertEqual(first=result, second="Jane Doe")
+        fleet_type_1.refresh_from_db()
+        fleet_type_2.refresh_from_db()
 
-    def test_handles_missing_creator_gracefully(self):
-        srp_link = MagicMock()
-        srp_link.creator = None
+        self.assertTrue(fleet_type_1.is_enabled)
+        self.assertTrue(fleet_type_2.is_enabled)
 
-        with patch(
-            target="aasrp.admin.get_main_character_name_from_user", return_value=None
+    def test_handles_activation_failure_gracefully(self):
+        """
+        Tests that the activate method handles exceptions gracefully and does not change the is_enabled status if an error occurs.
+
+        :return:
+        :rtype:
+        """
+
+        fleet_type = FleetType.objects.create(name="Fleet C", is_enabled=False)
+        queryset = FleetType.objects.filter(id=fleet_type.id)
+        request = SimpleNamespace()
+
+        with (
+            mock.patch.object(FleetType, "save", side_effect=Exception("Save failed")),
+            mock.patch("aasrp.admin.messages.success"),
+            mock.patch("aasrp.admin.messages.error"),
         ):
-            result = SrpLinkAdmin._creator(srp_link)
+            FleetTypeAdmin.activate(None, request, queryset)
 
-        self.assertIsNone(result)
+        fleet_type.refresh_from_db()
+
+        self.assertFalse(fleet_type.is_enabled)
+
+    def test_deactivates_selected_fleet_types(self):
+        """
+        Tests that the deactivate method sets is_enabled to False for all selected fleet types.
+
+        :return:
+        :rtype:
+        """
+
+        fleet_type_1 = FleetType.objects.create(name="Fleet D", is_enabled=True)
+        fleet_type_2 = FleetType.objects.create(name="Fleet E", is_enabled=True)
+        queryset = FleetType.objects.filter(id__in=[fleet_type_1.id, fleet_type_2.id])
+        request = SimpleNamespace()
+
+        with (
+            mock.patch("aasrp.admin.messages.success"),
+            mock.patch("aasrp.admin.messages.error"),
+        ):
+            FleetTypeAdmin.deactivate(None, request, queryset)
+
+        fleet_type_1.refresh_from_db()
+        fleet_type_2.refresh_from_db()
+
+        self.assertFalse(fleet_type_1.is_enabled)
+        self.assertFalse(fleet_type_2.is_enabled)
+
+    def test_handles_deactivation_failure_gracefully(self):
+        """
+        Tests that the deactivate method handles exceptions gracefully and does not change the is_enabled status if an error occurs.
+
+        :return:
+        :rtype:
+        """
+
+        fleet_type = FleetType.objects.create(name="Fleet F", is_enabled=True)
+        queryset = FleetType.objects.filter(id=fleet_type.id)
+        request = SimpleNamespace()
+
+        with (
+            mock.patch.object(FleetType, "save", side_effect=Exception("Save failed")),
+            mock.patch("aasrp.admin.messages.success"),
+            mock.patch("aasrp.admin.messages.error"),
+        ):
+            FleetTypeAdmin.deactivate(None, request, queryset)
+
+        fleet_type.refresh_from_db()
+
+        self.assertTrue(fleet_type.is_enabled)

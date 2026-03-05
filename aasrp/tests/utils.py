@@ -14,6 +14,7 @@ from faker import Faker
 # Django
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
+from django.utils import timezone
 
 # Alliance Auth
 from allianceauth.authentication.models import CharacterOwnership
@@ -93,7 +94,7 @@ def _generate_token(
     """
 
     if timestamp_dt is None:
-        timestamp_dt = dt.datetime.utcnow()
+        timestamp_dt = timezone.now()
 
     if scopes is None:
         scopes = [

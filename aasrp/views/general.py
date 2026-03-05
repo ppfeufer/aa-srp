@@ -321,15 +321,13 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
 
     logger.debug(msg=f"Ship type {srp_request__ship.name}")
 
-    ship_type = ItemType.objects.get(id=ship_type_id)
-
     # Create the SRP request object
     srp_request = SrpRequest.objects.create(
         killboard_link=killmail_link,
         creator=creator,
         srp_link=srp_link,
         character=srp_request__character,
-        ship=ship_type,
+        ship=srp_request__ship,
         loss_amount=ship_value,
         post_time=post_time,
         request_code=get_random_string(length=16),
@@ -493,7 +491,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 return redirect(to="aasrp:srp_links")
 
             if request.user.character_ownerships.filter(
-                character__character_id=str(killmail_info["victim_id"])
+                character__character_id=killmail_info["victim_id"]
             ).exists():
                 # Save the SRP request
                 srp_request = _save_srp_request(
@@ -507,9 +505,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 )
 
                 # Send a message to the srp team in their discord channel.
-                notify_srp_team(
-                    srp_request=srp_request, additional_info=srp_request_additional_info
-                )
+                notify_srp_team(srp_request=srp_request)
 
                 return redirect(to="aasrp:srp_links")
 

@@ -1,33 +1,29 @@
 """
-Tests for the views in aasrp/views/general.py
+Tests for aasrp/views/general.py
 """
 
 # Standard Library
-from datetime import datetime
 from http import HTTPStatus
 from unittest.mock import MagicMock, patch
 
+# Third Party
+from eve_sde.models import ItemType
+
 # Django
-from django.contrib import messages
-from django.contrib.messages.middleware import MessageMiddleware
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.test import RequestFactory
+from django.contrib.auth.models import Permission, User
+from django.test import Client
 from django.urls import reverse
 from django.utils import timezone
 
+# Alliance Auth
+from allianceauth.eveonline.models import EveCharacter
+from allianceauth.tests.auth_utils import AuthUtils
+
 # AA SRP
-from aasrp.models import SrpLink, SrpRequest, UserSetting
+from aasrp.models import Setting, SrpLink, SrpRequest, UserSetting
 from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import create_fake_user
-from aasrp.views.general import (
-    _save_srp_request,
-    complete_srp_link,
-    delete_srp_link,
-    disable_srp_link,
-    enable_srp_link,
-    request_srp,
-    srp_link_view_requests,
-)
+from aasrp.views.general import _save_srp_request
 
 
 class BaseViewsTestCase(BaseTestCase):
@@ -56,576 +52,6 @@ class BaseViewsTestCase(BaseTestCase):
             character_name="Wesley Crusher",
             permissions=["aasrp.basic_access"],
         )
-
-
-class TestSrpLinkDelete(BaseViewsTestCase):
-    """
-    Test the srp_link_delete view.
-    """
-
-    @patch("aasrp.views.general.SrpLink.objects.get")
-    def test_srp_link_deleted_successfully(self, mock_get_srp_link):
-        """
-        Test the srp_link_delete view for a user with the manage_srp permissions and successful deletion.
-
-        :param mock_get_srp_link:
-        :type mock_get_srp_link:
-        :return:
-        :rtype:
-        """
-
-        user = self.user_jean_luc_picard
-        self.client.force_login(user)
-
-        srp_link = SrpLink.objects.create(srp_code="SRP123", fleet_time=datetime.now())
-        mock_get_srp_link.return_value = srp_link
-
-        factory = RequestFactory()
-        request = factory.get(reverse("aasrp:delete_srp_link", args=["SRP123"]))
-        request.user = user
-
-        # Add session and messages middleware to the request
-        session_middleware = SessionMiddleware(lambda req: None)
-        session_middleware.process_request(request)
-        request.session.save()
-
-        message_middleware = MessageMiddleware(lambda req: None)
-        message_middleware.process_request(request)
-
-        response = delete_srp_link(request, "SRP123")
-
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertIn(reverse("aasrp:srp_links"), response.url)
-
-    @patch("aasrp.views.general.SrpLink.objects.get")
-    def test_srp_link_not_found(self, mock_get_srp_link):
-        """
-        Test the srp_link_delete view for a user with the manage_srp permissions and not found.
-
-        :param mock_get_srp_link:
-        :type mock_get_srp_link:
-        :return:
-        :rtype:
-        """
-
-        user = self.user_jean_luc_picard
-        self.client.force_login(user)
-
-        mock_get_srp_link.side_effect = SrpLink.DoesNotExist
-
-        factory = RequestFactory()
-        request = factory.get(reverse("aasrp:delete_srp_link", args=["SRP123"]))
-        request.user = user
-
-        # Add session and messages middleware to the request
-        session_middleware = SessionMiddleware(lambda req: None)
-        session_middleware.process_request(request)
-        request.session.save()
-
-        message_middleware = MessageMiddleware(lambda req: None)
-        message_middleware.process_request(request)
-
-        response = delete_srp_link(request, "SRP123")
-
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertIn(reverse("aasrp:srp_links"), response.url)
-
-
-class TestSrpLinkDisable(BaseViewsTestCase):
-    """
-    Test the srp_link_disable view.
-    """
-
-    @patch("aasrp.views.general.SrpLink.objects.get")
-    def test_disable_srp_link_successfully(self, mock_get_srp_link):
-        """
-        Test the srp_link_disable view for a user with the manage_srp permissions and successful disabling.
-
-        :param mock_get_srp_link:
-        :type mock_get_srp_link:
-        :return:
-        :rtype:
-        """
-
-        user = self.user_jean_luc_picard
-        self.client.force_login(user)
-
-        srp_link = SrpLink.objects.create(srp_code="SRP123", fleet_time=datetime.now())
-        mock_get_srp_link.return_value = srp_link
-
-        factory = RequestFactory()
-        request = factory.post(reverse("aasrp:disable_srp_link", args=["SRP123"]))
-        request.user = user
-
-        session_middleware = SessionMiddleware(lambda req: None)
-        session_middleware.process_request(request)
-        request.session.save()
-
-        message_middleware = MessageMiddleware(lambda req: None)
-        message_middleware.process_request(request)
-
-        response = disable_srp_link(request, "SRP123")
-
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertIn(reverse("aasrp:srp_links"), response.url)
-
-    @patch("aasrp.views.general.SrpLink.objects.get")
-    def test_disable_srp_link_not_found(self, mock_get_srp_link):
-        """
-        Test the srp_link_disable view for a user with the manage_srp permissions and not found.
-
-        :param mock_get_srp_link:
-        :type mock_get_srp_link:
-        :return:
-        :rtype:
-        """
-
-        user = self.user_jean_luc_picard
-        self.client.force_login(user)
-
-        mock_get_srp_link.side_effect = SrpLink.DoesNotExist
-
-        factory = RequestFactory()
-        request = factory.post(reverse("aasrp:disable_srp_link", args=["SRP123"]))
-        request.user = user
-
-        session_middleware = SessionMiddleware(lambda req: None)
-        session_middleware.process_request(request)
-        request.session.save()
-
-        message_middleware = MessageMiddleware(lambda req: None)
-        message_middleware.process_request(request)
-
-        response = disable_srp_link(request, "SRP123")
-
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertIn(reverse("aasrp:srp_links"), response.url)
-
-
-class TestSrpLinkEnable(BaseViewsTestCase):
-    """
-    Test the srp_link_enable view.
-    """
-
-    @patch("aasrp.views.general.SrpLink.objects.get")
-    def test_enable_srp_link_successfully(self, mock_get_srp_link):
-        """
-        Test the srp_link_enable view for a user with the manage_srp permissions and successful enabling.
-
-        :param mock_get_srp_link:
-        :type mock_get_srp_link:
-        :return:
-        :rtype:
-        """
-
-        user = self.user_jean_luc_picard
-        self.client.force_login(user)
-
-        srp_link = SrpLink.objects.create(
-            srp_code="SRP123",
-            srp_status=SrpLink.Status.CLOSED,
-            fleet_time=datetime.now(),
-        )
-        mock_get_srp_link.return_value = srp_link
-
-        factory = RequestFactory()
-        request = factory.get(reverse("aasrp:enable_srp_link", args=["SRP123"]))
-        request.user = user
-
-        session_middleware = SessionMiddleware(lambda req: None)
-        session_middleware.process_request(request)
-        request.session.save()
-
-        message_middleware = MessageMiddleware(lambda req: None)
-        message_middleware.process_request(request)
-
-        response = enable_srp_link(request, "SRP123")
-
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertIn(reverse("aasrp:srp_links"), response.url)
-        srp_link.refresh_from_db()
-        self.assertEqual(srp_link.srp_status, SrpLink.Status.ACTIVE)
-
-    @patch("aasrp.views.general.SrpLink.objects.get")
-    def test_enable_srp_link_not_found(self, mock_get_srp_link):
-        """
-        Test the srp_link_enable view for a user with the manage_srp permissions and not found.
-
-        :param mock_get_srp_link:
-        :type mock_get_srp_link:
-        :return:
-        :rtype:
-        """
-
-        user = self.user_jean_luc_picard
-        self.client.force_login(user)
-
-        mock_get_srp_link.side_effect = SrpLink.DoesNotExist
-
-        factory = RequestFactory()
-        request = factory.post(reverse("aasrp:enable_srp_link", args=["SRP123"]))
-        request.user = user
-
-        session_middleware = SessionMiddleware(lambda req: None)
-        session_middleware.process_request(request)
-        request.session.save()
-
-        message_middleware = MessageMiddleware(lambda req: None)
-        message_middleware.process_request(request)
-
-        response = enable_srp_link(request, "SRP123")
-
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertIn(reverse("aasrp:srp_links"), response.url)
-
-
-class TestSrpLinkViewRequests(BaseViewsTestCase):
-    """
-    Test the srp_link_view_requests view.
-    """
-
-    @patch("aasrp.views.general.SrpLink.objects.get")
-    def test_view_requests_srp_link_not_found(self, mock_get_srp_link):
-        """
-        Test the srp_link_view_requests view for a user with the manage_srp permissions and not found.
-
-        :param mock_get_srp_link:
-        :type mock_get_srp_link:
-        :return:
-        :rtype:
-        """
-
-        user = self.user_jean_luc_picard
-        self.client.force_login(user)
-
-        mock_get_srp_link.side_effect = SrpLink.DoesNotExist
-
-        factory = RequestFactory()
-        request = factory.get(reverse("aasrp:view_srp_requests", args=["SRP123"]))
-        request.user = user
-
-        session_middleware = SessionMiddleware(lambda req: None)
-        session_middleware.process_request(request)
-        request.session.save()
-
-        message_middleware = MessageMiddleware(lambda req: None)
-        message_middleware.process_request(request)
-
-        response = srp_link_view_requests(request, "SRP123")
-
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertIn(reverse("aasrp:srp_links"), response.url)
-        self.assertEqual(len(messages.get_messages(request)), 1)
-        self.assertEqual(
-            str(list(messages.get_messages(request))[0]),
-            "Unable to locate SRP link with ID SRP123",
-        )
-
-
-class TestCompleteSrpLink(BaseViewsTestCase):
-    """
-    Test the complete_srp_link view.
-    """
-
-    @patch("aasrp.views.general.SrpLink.objects.get")
-    def test_complete_srp_link_successfully(self, mock_get_srp_link):
-        """
-        Test the complete_srp_link view for a user with the manage_srp permissions and successful completion.
-
-        :param mock_get_srp_link:
-        :type mock_get_srp_link:
-        :return:
-        :rtype:
-        """
-
-        user = self.user_jean_luc_picard
-        self.client.force_login(user)
-
-        srp_link = SrpLink.objects.create(
-            srp_code="SRP123",
-            srp_status=SrpLink.Status.ACTIVE,
-            fleet_time=datetime.now(),
-        )
-        mock_get_srp_link.return_value = srp_link
-
-        factory = RequestFactory()
-        request = factory.get(reverse("aasrp:complete_srp_link", args=["SRP123"]))
-        request.user = user
-
-        session_middleware = SessionMiddleware(lambda req: None)
-        session_middleware.process_request(request)
-        request.session.save()
-
-        message_middleware = MessageMiddleware(lambda req: None)
-        message_middleware.process_request(request)
-
-        response = complete_srp_link(request, "SRP123")
-
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertIn(reverse("aasrp:srp_links"), response.url)
-        self.assertEqual(len(messages.get_messages(request)), 1)
-        self.assertEqual(
-            str(list(messages.get_messages(request))[0]), "SRP link marked as completed"
-        )
-        srp_link.refresh_from_db()
-        self.assertEqual(srp_link.srp_status, SrpLink.Status.COMPLETED)
-
-    @patch("aasrp.views.general.SrpLink.objects.get")
-    def test_complete_srp_link_not_found(self, mock_get_srp_link):
-        """
-        Test the complete_srp_link view for a user with the manage_srp permissions and not found.
-
-        :param mock_get_srp_link:
-        :type mock_get_srp_link:
-        :return:
-        :rtype:
-        """
-
-        user = self.user_jean_luc_picard
-        self.client.force_login(user)
-
-        mock_get_srp_link.side_effect = SrpLink.DoesNotExist
-
-        factory = RequestFactory()
-        request = factory.get(reverse("aasrp:complete_srp_link", args=["SRP123"]))
-        request.user = user
-
-        session_middleware = SessionMiddleware(lambda req: None)
-        session_middleware.process_request(request)
-        request.session.save()
-
-        message_middleware = MessageMiddleware(lambda req: None)
-        message_middleware.process_request(request)
-
-        response = complete_srp_link(request, "SRP123")
-
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertIn(reverse("aasrp:srp_links"), response.url)
-        self.assertEqual(len(messages.get_messages(request)), 1)
-        self.assertEqual(
-            str(list(messages.get_messages(request))[0]),
-            "Unable to locate SRP link with ID SRP123",
-        )
-
-
-class TestRequestSrp(BaseViewsTestCase):
-    """
-    Test the request_srp view.
-    """
-
-    def setUp(self):
-        """
-        Set up a SrpLink instance for testing.
-
-        :return:
-        :rtype:
-        """
-
-        self.user = self.user_wesley_crusher
-        self.client.force_login(self.user)
-        self.srp_link = SrpLink.objects.create(
-            srp_name="Test SRP",
-            fleet_time=timezone.now(),
-            fleet_doctrine="Doctrine A",
-            aar_link="http://example.com/aar",
-            srp_code="SRP123",
-            fleet_commander=self.user.profile.main_character,
-            creator=self.user,
-            srp_status=SrpLink.Status.ACTIVE,
-        )
-        self.url = reverse("aasrp:request_srp", args=[self.srp_link.srp_code])
-
-    @patch("aasrp.views.general.SrpLink.objects.get")
-    def test_request_srp_link_not_found(self, mock_get_srp_link):
-        """
-        Test the request_srp view for a user with the basic_access permissions and not found.
-
-        :param mock_get_srp_link:
-        :type mock_get_srp_link:
-        :return:
-        :rtype:
-        """
-
-        user = self.user_wesley_crusher
-        self.client.force_login(user)
-
-        mock_get_srp_link.side_effect = SrpLink.DoesNotExist
-
-        factory = RequestFactory()
-        request = factory.post(
-            reverse("aasrp:request_srp", args=["SRP123"]),
-            {
-                "killboard_link": "https://zkillboard.com/kill/12345/",
-                "additional_info": "Test info",
-            },
-        )
-        request.user = user
-
-        session_middleware = SessionMiddleware(lambda req: None)
-        session_middleware.process_request(request)
-        request.session.save()
-
-        message_middleware = MessageMiddleware(lambda req: None)
-        message_middleware.process_request(request)
-
-        response = request_srp(request, "SRP123")
-
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertIn(reverse("aasrp:srp_links"), response.url)
-        self.assertEqual(len(messages.get_messages(request)), 1)
-        self.assertEqual(
-            str(list(messages.get_messages(request))[0]),
-            "Unable to locate SRP Fleet using SRP code SRP123",
-        )
-
-    @patch("aasrp.views.general.SrpLink.objects.get")
-    def test_request_srp_link_not_active(self, mock_get_srp_link):
-        """
-        Test the request_srp view for a user with the basic_access permissions and not active.
-
-        :param mock_get_srp_link:
-        :type mock_get_srp_link:
-        :return:
-        :rtype:
-        """
-
-        user = self.user_wesley_crusher
-        self.client.force_login(user)
-
-        srp_link = SrpLink.objects.create(
-            srp_code="SRP123",
-            srp_status=SrpLink.Status.CLOSED,
-            fleet_time=datetime.now(),
-        )
-        mock_get_srp_link.return_value = srp_link
-
-        factory = RequestFactory()
-        request = factory.post(
-            reverse("aasrp:request_srp", args=["SRP123"]),
-            {
-                "killboard_link": "https://zkillboard.com/kill/12345/",
-                "additional_info": "Test info",
-            },
-        )
-        request.user = user
-
-        session_middleware = SessionMiddleware(lambda req: None)
-        session_middleware.process_request(request)
-        request.session.save()
-
-        message_middleware = MessageMiddleware(lambda req: None)
-        message_middleware.process_request(request)
-
-        response = request_srp(request, "SRP123")
-
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertIn(reverse("aasrp:srp_links"), response.url)
-        self.assertEqual(len(messages.get_messages(request)), 1)
-        self.assertEqual(
-            str(list(messages.get_messages(request))[0]),
-            "This SRP link is no longer available for SRP requests.",
-        )
-
-    def test_renders_form_on_get_request(self):
-        """
-        Test that a GET request to the view shows the form.
-
-        :return:
-        :rtype:
-        """
-
-        response = self.client.get(self.url)
-
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "form")
-
-    @patch("aasrp.models.SrpRequest.objects.get_kill_id")
-    @patch("aasrp.models.SrpRequest.objects.get_kill_data")
-    @patch("aasrp.views.general._save_srp_request")
-    def test_creates_srp_request_on_valid_post(
-        self, mock_save_request, mock_get_kill_data, mock_get_kill_id
-    ):
-        """
-        Test that a valid form submission creates a new SrpRequest instance.
-
-        :param mock_save_request:
-        :type mock_save_request:
-        :param mock_get_kill_data:
-        :type mock_get_kill_data:
-        :param mock_get_kill_id:
-        :type mock_get_kill_id:
-        :return:
-        :rtype:
-        """
-
-        mock_get_kill_id.return_value = "kill_id_123"
-        mock_get_kill_data.return_value = (
-            1,
-            "1000000",
-            self.user.profile.main_character.character_id,
-        )
-        mock_save_request.return_value = SrpRequest(
-            killboard_link="https://zkillboard.com/kill/123456789/",
-            srp_link=self.srp_link,
-            creator=self.user,
-        )
-        form_data = {
-            "killboard_link": "https://zkillboard.com/kill/123456789/",
-            "additional_info": "Test info",
-        }
-        response = self.client.post(self.url, data=form_data)
-        self.assertRedirects(response, reverse("aasrp:srp_links"))
-
-    @patch("aasrp.models.SrpRequest.objects.get_kill_id")
-    @patch("aasrp.models.SrpRequest.objects.get_kill_data")
-    def test_shows_error_for_invalid_killmail(
-        self, mock_get_kill_data, mock_get_kill_id
-    ):
-        """
-        Test that an invalid killmail shows an error message.
-
-        :param mock_get_kill_data:
-        :type mock_get_kill_data:
-        :param mock_get_kill_id:
-        :type mock_get_kill_id:
-        :return:
-        :rtype:
-        """
-
-        mock_get_kill_id.side_effect = ValueError("Invalid killmail")
-        form_data = {
-            "killboard_link": "https://zkillboard.com/kill/128743453/",
-            "additional_info": "Test info",
-        }
-        response = self.client.post(self.url, data=form_data)
-
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertContains(response, "Invalid killmail")
-
-    @patch("aasrp.models.SrpRequest.objects.get_kill_id")
-    @patch("aasrp.models.SrpRequest.objects.get_kill_data")
-    def test_shows_error_when_character_not_owned(
-        self, mock_get_kill_data, mock_get_kill_id
-    ):
-        """
-        Test that a killmail not involving the user's character shows an error message.
-
-        :param mock_get_kill_data:
-        :type mock_get_kill_data:
-        :param mock_get_kill_id:
-        :type mock_get_kill_id:
-        :return:
-        :rtype:
-        """
-
-        mock_get_kill_id.return_value = "kill_id_123"
-        mock_get_kill_data.return_value = (1, "1000000", 99999)
-        form_data = {
-            "killboard_link": "https://zkillboard.com/kill/128743453/",
-            "additional_info": "Test info",
-        }
-        response = self.client.post(self.url, data=form_data)
-        self.assertRedirects(response, reverse("aasrp:srp_links"))
 
 
 class TestViewOwnRequests(BaseViewsTestCase):
@@ -732,190 +158,810 @@ class TestUserSettingsView(BaseViewsTestCase):
         self.assertRedirects(response, reverse("aasrp:user_settings"))
 
 
-class SrpLinkAddViewTests(BaseViewsTestCase):
+class TestSrpLinkAddView(BaseTestCase):
     """
-    Test the srp_link_add view.
+    Tests for the srp_link_add view.
     """
 
-    def test_renders_add_srp_link_template_for_authenticated_user_with_permission(self):
+    @classmethod
+    def setUpTestData(cls):
         """
-        Test that an authenticated user with the manage_srp permission can access the srp_link_add view and the correct template is used.
+        Set up test data for the srp_link_add view tests.
 
         :return:
         :rtype:
         """
 
-        user = self.user_jean_luc_picard
-        self.client.force_login(user)
+        cls.user = AuthUtils.create_user("test_user")
 
-        response = self.client.get(reverse("aasrp:add_srp_link"))
-
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, "aasrp/link-add.html")
-
-    def test_redirects_unauthorized_user_to_login(self):
-        """
-        Test that an unauthorized user is redirected to the login page when trying to access the srp_link_add view.
-
-        :return:
-        :rtype:
-        """
-
-        user = self.user_wesley_crusher
-        self.client.force_login(user)
-
-        response = self.client.get(reverse("aasrp:add_srp_link"))
-
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertIn("/login/", response.url)
-
-    def test_creates_srp_link_with_valid_form_data(self):
-        """
-        Test that a valid form submission creates a new SrpLink instance.
-
-        :return:
-        :rtype:
-        """
-
-        user = self.user_jean_luc_picard
-        self.client.force_login(user)
-
-        form_data = {
-            "srp_name": "Test SRP",
-            "fleet_type": "",
-            "fleet_time": timezone.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "fleet_doctrine": "Doctrine A",
-            "aar_link": "http://example.com/aar",
-        }
-        response = self.client.post(reverse("aasrp:add_srp_link"), data=form_data)
-
-        self.assertEqual(SrpLink.objects.count(), 1)
-
-        srp_link = SrpLink.objects.first()
-
-        self.assertEqual(srp_link.srp_name, "Test SRP")
-        self.assertRedirects(response, reverse("aasrp:srp_links"))
-
-
-class TestSrpLinkEditView(BaseViewsTestCase):
-    """
-    Test the srp_link_edit view.
-    """
+        AuthUtils.add_permission_to_user_by_name("aasrp.basic_access", cls.user)
+        AuthUtils.add_permission_to_user_by_name("aasrp.create_srp", cls.user)
+        AuthUtils.add_main_character_2(
+            cls.user, name="Test Character", character_id=123456
+        )
 
     def setUp(self):
         """
-        Set up a SrpLink instance for testing.
-
+        Set up the test client and log in the test user.
         :return:
         :rtype:
         """
 
-        self.user = self.user_jean_luc_picard
+        self.client = Client()
         self.client.force_login(self.user)
-        self.srp_link = SrpLink.objects.create(
-            srp_name="Test SRP",
-            fleet_time=timezone.now(),
-            fleet_doctrine="Doctrine A",
-            aar_link="http://example.com/aar",
-            srp_code="SRP123",
-            fleet_commander=self.user.profile.main_character,
-            creator=self.user,
-        )
-        self.url = reverse("aasrp:edit_srp_link", args=[self.srp_link.srp_code])
 
-    def test_updates_aar_link_successfully(self):
+    def test_srp_link_add_get_renders(self):
         """
-        Test that a valid form submission updates the aar_link of the SrpLink instance.
+        Test that the add SRP link GET view renders correctly.
 
         :return:
         :rtype:
         """
 
-        form_data = {"aar_link": "http://example.com/new-aar"}
-        response = self.client.post(self.url, data=form_data)
+        response = self.client.get(reverse("aasrp:add_srp_link"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "aasrp/link-add.html")
+
+    def test_srp_link_add_post_valid(self):
+        """
+        Test that a valid POST creates a new SRP link.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.post(
+            reverse("aasrp:add_srp_link"),
+            data={
+                "srp_name": "Test Fleet",
+                "fleet_time": "2024-01-01 12:00:00",
+                "fleet_doctrine": "Test Doctrine",
+                "aar_link": "",
+            },
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+        self.assertTrue(SrpLink.objects.filter(srp_name="Test Fleet").exists())
+
+    def test_srp_link_add_post_invalid(self):
+        """
+        Test that an invalid POST does not create a new SRP link and re-renders the form with errors.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.post(
+            reverse("aasrp:add_srp_link"),
+            data={},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "aasrp/link-add.html")
+
+    def test_srp_link_add_requires_permission(self):
+        """
+        Test that adding an SRP link requires the create_srp permission.
+
+        :return:
+        :rtype:
+        """
+
+        user_no_perm = AuthUtils.create_user("user_no_perm")
+        AuthUtils.add_permission_to_user_by_name("aasrp.basic_access", user_no_perm)
+        self.client.force_login(user_no_perm)
+
+        response = self.client.get(reverse("aasrp:add_srp_link"))
+
+        self.assertNotEqual(response.status_code, 200)
+
+
+class TestSrpLinkEditView(BaseTestCase):
+    """
+    Tests for the srp_link_edit view.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Set up test data for the srp_link_edit view tests.
+
+        :return:
+        :rtype:
+        """
+
+        cls.user = AuthUtils.create_user("test_user")
+
+        AuthUtils.add_permission_to_user_by_name("aasrp.basic_access", cls.user)
+        AuthUtils.add_permission_to_user_by_name("aasrp.create_srp", cls.user)
+        AuthUtils.add_main_character_2(
+            cls.user, name="Test Character", character_id=123456
+        )
+
+        cls.srp_link = SrpLink.objects.create(
+            srp_name="Test Fleet",
+            fleet_time="2024-01-01 12:00:00",
+            fleet_doctrine="Test Doctrine",
+            srp_code="TESTCODE1234",
+            creator=cls.user,
+        )
+
+    def setUp(self):
+        """
+        Set up the test client and log in the test user.
+
+        :return:
+        :rtype:
+        """
+
+        self.client = Client()
+        self.client.force_login(self.user)
+
+    def test_srp_link_edit_get_renders(self):
+        """
+        Test that the edit SRP link GET view renders correctly.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.get(
+            reverse("aasrp:edit_srp_link", args=[self.srp_link.srp_code])
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "aasrp/link-edit.html")
+
+    def test_srp_link_edit_invalid_code_redirects(self):
+        """
+        Test that an invalid SRP code redirects with an error.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.get(reverse("aasrp:edit_srp_link", args=["INVALIDCODE"]))
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+
+    def test_srp_link_edit_post_valid(self):
+        """
+        Test that a valid POST updates the SRP link.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.post(
+            reverse("aasrp:edit_srp_link", args=[self.srp_link.srp_code]),
+            data={"aar_link": "https://example.com/aar"},
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+        self.srp_link.refresh_from_db()
+        self.assertEqual(self.srp_link.aar_link, "https://example.com/aar")
+
+
+class TestCompleteSrpLinkView(BaseTestCase):
+    """
+    Tests for the complete_srp_link view.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Set up test data for the complete_srp_link view tests.
+
+        :return:
+        :rtype:
+        """
+
+        cls.user = AuthUtils.create_user("test_user")
+
+        AuthUtils.add_permission_to_user_by_name("aasrp.manage_srp", cls.user)
+        AuthUtils.add_main_character_2(
+            cls.user, name="Test Character", character_id=123456
+        )
+
+        cls.srp_link = SrpLink.objects.create(
+            srp_name="Test Fleet",
+            fleet_time="2024-01-01 12:00:00",
+            fleet_doctrine="Test Doctrine",
+            srp_code="TESTCODE5678",
+            creator=cls.user,
+        )
+
+    def setUp(self):
+        """
+        Set up the test client and log in the test user.
+
+        :return:
+        :rtype:
+        """
+
+        self.client = Client()
+        self.client.force_login(self.user)
+
+    def test_complete_srp_link(self):
+        """
+        Test that an SRP link can be marked as complete.
+
+        :return:
+        :rtype:
+        """
+
+        self.client.force_login(self.user)  # ensure user is logged in
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                codename="basic_access", content_type__app_label="aasrp"
+            ),
+            Permission.objects.get(
+                codename="manage_srp", content_type__app_label="aasrp"
+            ),
+        )
+
+        response = self.client.get(
+            reverse("aasrp:complete_srp_link", args=[self.srp_link.srp_code])
+        )
+
+        self.assertRedirects(
+            response,
+            reverse("aasrp:srp_links"),
+        )
 
         self.srp_link.refresh_from_db()
-        self.assertEqual(self.srp_link.aar_link, "http://example.com/new-aar")
-        self.assertRedirects(response, reverse("aasrp:srp_links"))
+        self.assertEqual(self.srp_link.srp_status, SrpLink.Status.COMPLETED)
 
-    def test_shows_error_for_invalid_srp_code(self):
+    def test_complete_srp_link_invalid_code(self):
         """
-        Test that accessing the view with an invalid srp_code redirects to the srp_links page.
+        Test that an invalid SRP code redirects with an error.
 
         :return:
         :rtype:
         """
 
-        invalid_url = reverse("aasrp:edit_srp_link", args=["INVALID_CODE"])
-        response = self.client.get(invalid_url)
-
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                codename="basic_access", content_type__app_label="aasrp"
+            ),
+            Permission.objects.get(
+                codename="manage_srp", content_type__app_label="aasrp"
+            ),
+        )
+        response = self.client.get(
+            reverse("aasrp:complete_srp_link", args=["INVALID_CODE"])
+        )
         self.assertRedirects(response, reverse("aasrp:srp_links"))
 
-    def test_shows_form_with_existing_data_on_get(self):
+    def test_complete_srp_link_requires_manage_srp(self):
         """
-        Test that a GET request to the view shows the form with existing data.
+        Test that marking an SRP link as complete requires the manage_srp permission.
 
         :return:
         :rtype:
         """
 
-        response = self.client.get(self.url)
+        user_no_perm = AuthUtils.create_user("user_no_manage")
+        AuthUtils.add_permission_to_user_by_name("aasrp.basic_access", user_no_perm)
+        self.client.force_login(user_no_perm)
 
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertContains(response, self.srp_link.aar_link)
+        response = self.client.get(
+            reverse("aasrp:complete_srp_link", args=[self.srp_link.srp_code])
+        )
+
+        self.assertNotEqual(response.status_code, 200)
+
+
+class TestEnableDisableSrpLinkViews(BaseTestCase):
+    """
+    Tests for the enable_srp_link and disable_srp_link views.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Set up test data for the enable_srp_link and disable_srp_link view tests.
+
+        :return:
+        :rtype:
+        """
+
+        cls.user = AuthUtils.create_user("test_user")
+
+        AuthUtils.add_permission_to_user_by_name("aasrp.manage_srp", cls.user)
+        AuthUtils.add_main_character_2(
+            cls.user, name="Test Character", character_id=123456
+        )
+
+        cls.srp_link = SrpLink.objects.create(
+            srp_name="Test Fleet",
+            fleet_time="2024-01-01 12:00:00",
+            fleet_doctrine="Test Doctrine",
+            srp_code="ENABLETEST01",
+            creator=cls.user,
+        )
+
+    def setUp(self):
+        """
+        Set up the test client and log in the test user.
+
+        :return:
+        :rtype:
+        """
+
+        self.client = Client()
+        self.client.force_login(self.user)
+
+    def test_enable_srp_link(self):
+        """
+        Test that an SRP link can be enabled.
+
+        :return:
+        :rtype:
+        """
+
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                codename="basic_access", content_type__app_label="aasrp"
+            ),
+            Permission.objects.get(
+                codename="manage_srp", content_type__app_label="aasrp"
+            ),
+        )
+
+        self.srp_link.srp_status = SrpLink.Status.CLOSED
+        self.srp_link.save()
+
+        response = self.client.get(
+            reverse("aasrp:enable_srp_link", args=[self.srp_link.srp_code])
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+        self.srp_link.refresh_from_db()
+        self.assertEqual(self.srp_link.srp_status, SrpLink.Status.ACTIVE)
+
+    def test_disable_srp_link(self):
+        """
+        Test that an SRP link can be disabled.
+
+        :return:
+        :rtype:
+        """
+
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                codename="basic_access", content_type__app_label="aasrp"
+            ),
+            Permission.objects.get(
+                codename="manage_srp", content_type__app_label="aasrp"
+            ),
+        )
+
+        response = self.client.get(
+            reverse("aasrp:disable_srp_link", args=[self.srp_link.srp_code])
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+        self.srp_link.refresh_from_db()
+        self.assertEqual(self.srp_link.srp_status, SrpLink.Status.CLOSED)
+
+    def test_enable_srp_link_invalid_code(self):
+        """
+        Test that enabling an invalid SRP link shows an error.
+
+        :return:
+        :rtype:
+        """
+
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                codename="basic_access", content_type__app_label="aasrp"
+            ),
+            Permission.objects.get(
+                codename="manage_srp", content_type__app_label="aasrp"
+            ),
+        )
+
+        response = self.client.get(
+            reverse("aasrp:enable_srp_link", args=["INVALIDCODE"])
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+
+    def test_disable_srp_link_invalid_code(self):
+        """
+        Test that disabling an invalid SRP link shows an error.
+
+        :return:
+        :rtype:
+        """
+
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                codename="basic_access", content_type__app_label="aasrp"
+            ),
+            Permission.objects.get(
+                codename="manage_srp", content_type__app_label="aasrp"
+            ),
+        )
+
+        response = self.client.get(
+            reverse("aasrp:disable_srp_link", args=["INVALIDCODE"])
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+
+
+class TestDeleteSrpLinkView(BaseTestCase):
+    """
+    Tests for the delete_srp_link view.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Set up test data for the delete_srp_link view tests.
+
+        :return:
+        :rtype:
+        """
+
+        cls.user = AuthUtils.create_user("test_user")
+
+        AuthUtils.add_permission_to_user_by_name("aasrp.manage_srp", cls.user)
+        AuthUtils.add_main_character_2(
+            cls.user, name="Test Character", character_id=123456
+        )
+
+    def setUp(self):
+        """
+        Set up the test client and log in the test user.
+
+        :return:
+        :rtype:
+        """
+
+        self.client = Client()
+        self.client.force_login(self.user)
+
+        self.srp_link = SrpLink.objects.create(
+            srp_name="Test Fleet",
+            fleet_time="2024-01-01 12:00:00",
+            fleet_doctrine="Test Doctrine",
+            srp_code="DELETETEST01",
+            creator=self.user,
+        )
+
+    def test_delete_srp_link(self):
+        """
+        Test that an SRP link can be deleted.
+
+        :return:
+        :rtype:
+        """
+
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                codename="basic_access", content_type__app_label="aasrp"
+            ),
+            Permission.objects.get(
+                codename="manage_srp", content_type__app_label="aasrp"
+            ),
+        )
+
+        response = self.client.get(
+            reverse("aasrp:delete_srp_link", args=[self.srp_link.srp_code])
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+        self.assertFalse(
+            SrpLink.objects.filter(srp_code=self.srp_link.srp_code).exists()
+        )
+
+    def test_delete_srp_link_invalid_code(self):
+        """
+        Test that deleting an SRP link with an invalid code redirects with an error.
+
+        :return:
+        :rtype:
+        """
+
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                codename="basic_access", content_type__app_label="aasrp"
+            ),
+            Permission.objects.get(
+                codename="manage_srp", content_type__app_label="aasrp"
+            ),
+        )
+
+        response = self.client.get(
+            reverse("aasrp:delete_srp_link", args=["INVALIDCODE"])
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+
+    def test_delete_srp_link_requires_manage_srp(self):
+        """
+        Test that deleting an SRP link requires the manage_srp permission.
+
+        :return:
+        :rtype:
+        """
+
+        user_no_perm = AuthUtils.create_user("user_no_delete")
+        AuthUtils.add_permission_to_user_by_name("aasrp.basic_access", user_no_perm)
+        self.client.force_login(user_no_perm)
+
+        response = self.client.get(
+            reverse("aasrp:delete_srp_link", args=[self.srp_link.srp_code])
+        )
+
+        self.assertNotEqual(response.status_code, 200)
+
+
+class TestSrpLinkViewRequestsView(BaseTestCase):
+    """
+    Tests for the srp_link_view_requests view.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Set up test data for the srp_link_view_requests view tests.
+
+        :return:
+        :rtype:
+        """
+
+        cls.user = AuthUtils.create_user("test_user")
+
+        AuthUtils.add_permission_to_user_by_name("aasrp.manage_srp", cls.user)
+        AuthUtils.add_main_character_2(
+            cls.user, name="Test Character", character_id=123456
+        )
+
+        cls.srp_link = SrpLink.objects.create(
+            srp_name="Test Fleet",
+            fleet_time="2024-01-01 12:00:00",
+            fleet_doctrine="Test Doctrine",
+            srp_code="VIEWREQTEST1",
+            creator=cls.user,
+        )
+
+    def setUp(self):
+        """
+        Set up the test client and log in the test user.
+
+        :return:
+        :rtype:
+        """
+
+        self.client = Client()
+        self.client.force_login(self.user)
+
+    def test_view_srp_requests_renders(self):
+        """
+        Test that the view SRP requests view renders correctly.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.get(
+            reverse("aasrp:view_srp_requests", args=[self.srp_link.srp_code])
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "aasrp/view-requests.html")
+
+    def test_view_srp_requests_context(self):
+        """
+        Test that the view SRP requests view context contains the expected data.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.get(
+            reverse("aasrp:view_srp_requests", args=[self.srp_link.srp_code])
+        )
+
+        self.assertIn("srp_link", response.context)
+        self.assertIn("forms", response.context)
+        self.assertIn("reject_request", response.context["forms"])
+        self.assertIn("accept_request", response.context["forms"])
+        self.assertIn("accept_rejected_request", response.context["forms"])
+
+    def test_view_srp_requests_invalid_code_redirects(self):
+        """
+        Test that an invalid SRP code redirects with an error.
+
+        :return:
+        :rtype:
+        """
+
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                codename="basic_access", content_type__app_label="aasrp"
+            ),
+        )
+
+        response = self.client.get(
+            reverse("aasrp:view_srp_requests", args=["INVALIDCODE"])
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+
+    def test_view_srp_requests_requires_permission(self):
+        """
+        Test that viewing SRP requests requires the manage_srp permission.
+
+        :return:
+        :rtype:
+        """
+
+        user_no_perm = AuthUtils.create_user("user_no_viewreq")
+        AuthUtils.add_permission_to_user_by_name("aasrp.basic_access", user_no_perm)
+        self.client.force_login(user_no_perm)
+
+        response = self.client.get(
+            reverse("aasrp:view_srp_requests", args=[self.srp_link.srp_code])
+        )
+
+        self.assertNotEqual(response.status_code, 200)
+
+
+class TestRequestSrpView(BaseTestCase):
+    """
+    Tests for the request_srp view.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Set up test data for the request_srp view tests.
+
+        :return:
+        :rtype:
+        """
+
+        cls.user = AuthUtils.create_user("test_user")
+
+        AuthUtils.add_permission_to_user_by_name("aasrp.basic_access", cls.user)
+        AuthUtils.add_main_character_2(
+            cls.user, name="Test Character", character_id=123456
+        )
+
+        cls.srp_link = SrpLink.objects.create(
+            srp_name="Test Fleet",
+            fleet_time="2024-01-01 12:00:00",
+            fleet_doctrine="Test Doctrine",
+            srp_code="REQSRPTEST01",
+            srp_status=SrpLink.Status.ACTIVE,
+            creator=cls.user,
+        )
+
+        cls.closed_srp_link = SrpLink.objects.create(
+            srp_name="Closed Fleet",
+            fleet_time="2024-01-01 12:00:00",
+            fleet_doctrine="Test Doctrine",
+            srp_code="CLOSEDSRP001",
+            srp_status=SrpLink.Status.CLOSED,
+            creator=cls.user,
+        )
+
+    def setUp(self):
+        """
+        Set up the test client and log in the test user.
+
+        :return:
+        :rtype:
+        """
+
+        self.client = Client()
+        self.client.force_login(self.user)
+
+    def test_request_srp_get_renders(self):
+        """
+        Test that the request SRP GET view renders correctly.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.get(
+            reverse("aasrp:request_srp", args=[self.srp_link.srp_code])
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "aasrp/request-srp.html")
+
+    def test_request_srp_invalid_code_redirects(self):
+        """
+        Test that an invalid SRP code redirects with an error.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.get(reverse("aasrp:request_srp", args=["INVALIDCODE"]))
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+
+    def test_request_srp_closed_link_redirects(self):
+        """
+        Test that trying to request an SRP for a closed link redirects with an error.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.get(
+            reverse("aasrp:request_srp", args=[self.closed_srp_link.srp_code])
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+
+    def test_request_srp_requires_login(self):
+        """
+        Test that requesting an SRP requires the user to be logged in.
+
+        :return:
+        :rtype:
+        """
+
+        self.client.logout()
+
+        response = self.client.get(
+            reverse("aasrp:request_srp", args=[self.srp_link.srp_code])
+        )
+
+        self.assertNotEqual(response.status_code, 200)
 
 
 class TestSaveSrpRequest(BaseTestCase):
     """
-    Test the _save_srp_request function.
+    Tests for the _save_srp_request function.
     """
 
     def setUp(self):
         """
-        Set up common test data.
-
+        Set up common test data for the _save_srp_request tests.
         :return:
         :rtype:
         """
 
-        self.request = MagicMock()
-        self.request.user = create_fake_user(
-            character_id=1002,
-            character_name="Test User",
-            permissions=["aasrp.basic_access"],
+        # use a real User instance so RequestComment.creator accepts it
+        self.user = User.objects.create_user(
+            username="save_srp_user", password="password"
         )
-        # Use a real SrpLink instance
-        self.srp_link = SrpLink.objects.create(
-            srp_code="SRP123",
-            fleet_time=datetime.now(),
-            srp_name="Test SRP",
-            fleet_doctrine="Doctrine A",
-            aar_link="http://example.com/aar",
-        )
+        self.request = MagicMock(user=self.user)
+        self.srp_link = MagicMock(srp_name="Test Fleet", srp_code="TESTCODE")
         self.killmail_link = "https://zkillboard.com/kill/12345678/"
         self.ship_type_id = 123
         self.ship_value = 1000000
         self.victim_id = 456
-        self.additional_info = "Additional information"
+        self.additional_info = "Test additional info"
 
     @patch("aasrp.views.general.EveCharacter.objects.get_character_by_id")
-    @patch("aasrp.views.general.esi")
+    @patch("aasrp.views.general.ItemType.objects.get")
     @patch("aasrp.views.general.SrpRequest.objects.create")
     @patch("aasrp.views.general.RequestComment.objects.bulk_create")
     @patch("aasrp.views.general.SrpRequest.objects.get_insurance_for_ship_type")
     @patch("aasrp.views.general.Insurance.objects.bulk_create")
-    def test_creates_srp_request_successfully(
+    def test_saves_valid_srp_request(
         self,
         mock_insurance_bulk_create,
         mock_get_insurance,
         mock_comment_bulk_create,
         mock_srp_request_create,
-        mock_esi,
+        mock_item_type_get,
         mock_get_character_by_id,
     ):
         """
-        Test that _save_srp_request creates an SrpRequest successfully.
+        Test that a valid SRP request is saved correctly.
 
         :param mock_insurance_bulk_create:
         :type mock_insurance_bulk_create:
@@ -925,8 +971,8 @@ class TestSaveSrpRequest(BaseTestCase):
         :type mock_comment_bulk_create:
         :param mock_srp_request_create:
         :type mock_srp_request_create:
-        :param mock_esi:
-        :type mock_esi:
+        :param mock_item_type_get:
+        :type mock_item_type_get:
         :param mock_get_character_by_id:
         :type mock_get_character_by_id:
         :return:
@@ -936,15 +982,11 @@ class TestSaveSrpRequest(BaseTestCase):
         mock_character = MagicMock()
         mock_get_character_by_id.return_value = mock_character
 
-        mock_ship = MagicMock()
-        mock_ship.name = "Test Ship"
-        mock_esi.client.Universe.GetUniverseTypesTypeId.return_value.result.return_value = (
-            mock_ship
-        )
+        mock_ship = MagicMock(name="Test Ship")
+        mock_item_type_get.return_value = mock_ship
 
-        # Use a real SrpRequest instance for the mock
-        real_srp_request = SrpRequest()
-        mock_srp_request_create.return_value = real_srp_request
+        srp_request_instance = SrpRequest()
+        mock_srp_request_create.return_value = srp_request_instance
 
         mock_insurance = MagicMock()
         mock_get_insurance.return_value.levels = [mock_insurance]
@@ -959,20 +1001,18 @@ class TestSaveSrpRequest(BaseTestCase):
             additional_info=self.additional_info,
         )
 
-        self.assertEqual(result, real_srp_request)
+        self.assertEqual(result, srp_request_instance)
         mock_get_character_by_id.assert_called_once_with(character_id=self.victim_id)
-        mock_esi.client.Universe.GetUniverseTypesTypeId.assert_called_once_with(
-            type_id=self.ship_type_id
-        )
+        mock_item_type_get.assert_called_once_with(id=self.ship_type_id)
         mock_srp_request_create.assert_called_once()
         mock_comment_bulk_create.assert_called_once()
         mock_get_insurance.assert_called_once_with(ship_type_id=self.ship_type_id)
         mock_insurance_bulk_create.assert_called_once()
 
     @patch("aasrp.views.general.EveCharacter.objects.get_character_by_id")
-    def test_handles_invalid_character_id(self, mock_get_character_by_id):
+    def test_raises_error_for_invalid_character(self, mock_get_character_by_id):
         """
-        Test that _save_srp_request handles an invalid character ID.
+        Test that an invalid character ID raises an error.
 
         :param mock_get_character_by_id:
         :type mock_get_character_by_id:
@@ -980,9 +1020,9 @@ class TestSaveSrpRequest(BaseTestCase):
         :rtype:
         """
 
-        mock_get_character_by_id.side_effect = ValueError("Invalid character ID")
+        mock_get_character_by_id.side_effect = EveCharacter.DoesNotExist
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(EveCharacter.DoesNotExist):
             _save_srp_request(
                 request=self.request,
                 srp_link=self.srp_link,
@@ -993,22 +1033,20 @@ class TestSaveSrpRequest(BaseTestCase):
                 additional_info=self.additional_info,
             )
 
-    @patch("aasrp.views.general.esi")
-    def test_handles_invalid_ship_type_id(self, mock_esi):
+    @patch("aasrp.views.general.ItemType.objects.get")
+    def test_raises_error_for_invalid_ship_type(self, mock_item_type_get):
         """
-        Test that _save_srp_request handles an invalid ship type ID.
+        Test that an invalid ship type ID raises an error.
 
-        :param mock_esi:
-        :type mock_esi:
+        :param mock_item_type_get:
+        :type mock_item_type_get:
         :return:
         :rtype:
         """
 
-        mock_esi.client.Universe.GetUniverseTypesTypeId.side_effect = ValueError(
-            "Invalid ship type ID"
-        )
+        mock_item_type_get.side_effect = ItemType.DoesNotExist
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ItemType.DoesNotExist):
             _save_srp_request(
                 request=self.request,
                 srp_link=self.srp_link,
@@ -1019,25 +1057,224 @@ class TestSaveSrpRequest(BaseTestCase):
                 additional_info=self.additional_info,
             )
 
-    @patch("aasrp.views.general.esi")
-    @patch("aasrp.views.general.SrpRequest.objects.get_insurance_for_ship_type")
-    def test_handles_missing_insurance_information(self, mock_get_insurance, mock_esi):
-        mock_ship = MagicMock()
-        mock_ship.name = "Test Ship"  # Ensure this is a string
-        mock_esi.client.Universe.GetUniverseTypesTypeId.return_value.result.return_value = (
-            mock_ship
-        )
-        mock_get_insurance.return_value.levels = []
 
-        result = _save_srp_request(
-            request=self.request,
-            srp_link=self.srp_link,
-            killmail_link=self.killmail_link,
-            ship_type_id=self.ship_type_id,
-            ship_value=self.ship_value,
-            victim_id=self.victim_id,
-            additional_info=self.additional_info,
+class TestRequestSrp(BaseViewsTestCase):
+    """
+    Tests for the request_srp view.
+    """
+
+    def setUp(self):
+        """
+        Set up common test data for the request_srp view tests.
+
+        :return:
+        :rtype:
+        """
+
+        self.user = self.user_wesley_crusher
+        self.client.force_login(self.user)
+
+        self.srp_link = SrpLink.objects.create(
+            srp_name="Test Fleet",
+            srp_code="TESTCODE",
+            srp_status=SrpLink.Status.ACTIVE,
+            creator=self.user,
+            fleet_time=timezone.now(),
+        )
+        self.url = reverse("aasrp:request_srp", args=[self.srp_link.srp_code])
+
+    @patch("aasrp.managers.SrpRequestManager.get_kill_id")
+    @patch("aasrp.managers.SrpRequestManager.get_kill_data")
+    @patch("aasrp.views.general._save_srp_request")
+    @patch("aasrp.views.general.notify_srp_team")
+    def test_saves_valid_srp_request(
+        self,
+        mock_notify_srp_team,
+        mock_save_srp_request,
+        mock_get_kill_data,
+        mock_get_kill_id,
+    ):
+        """
+        Test that a valid SRP request is saved correctly through the request_srp view.
+
+        :param mock_notify_srp_team:
+        :type mock_notify_srp_team:
+        :param mock_save_srp_request:
+        :type mock_save_srp_request:
+        :param mock_get_kill_data:
+        :type mock_get_kill_data:
+        :param mock_get_kill_id:
+        :type mock_get_kill_id:
+        :return:
+        :rtype:
+        """
+
+        # Get or create the singleton Setting instance
+        setting = Setting.get_solo()
+        setting.loss_value_source = "totalValue"
+        setting.save()
+
+        mock_get_kill_id.return_value = 12345678
+        mock_get_kill_data.return_value = {
+            "victim_id": 456,
+            "ship_type_id": 123,
+            "ship_value": 1000000,
+        }
+
+        victim_char = EveCharacter.objects.create(
+            character_id=456,
+            character_name="Victim Character",
+            corporation_id=789,
+            corporation_name="Victim Corp",
+        )
+        self.user.character_ownerships.create(character=victim_char)
+        self.user.profile.main_character = victim_char
+        self.user.profile.save()
+
+        mock_save_srp_request.return_value = MagicMock()
+
+        response = self.client.post(
+            self.url,
+            {
+                "killboard_link": "https://zkillboard.com/kill/12345678/",
+                "additional_info": "Test additional info",
+            },
         )
 
-        self.assertIsNotNone(result)
-        mock_get_insurance.assert_called_once_with(ship_type_id=self.ship_type_id)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse("aasrp:srp_links"))
+        # Called twice: once in form validation, once in view
+        self.assertEqual(mock_get_kill_id.call_count, 2)
+        mock_get_kill_data.assert_called_once()
+        mock_save_srp_request.assert_called_once()
+        mock_notify_srp_team.assert_called_once()
+
+    @patch("aasrp.models.SrpRequest.objects.get_kill_id")
+    @patch("aasrp.models.SrpRequest.objects.get_kill_data")
+    def test_shows_error_when_character_not_owned(
+        self, mock_get_kill_data, mock_get_kill_id
+    ):
+        """
+        Test that a killmail not involving the user's character shows an error message.
+
+        :param mock_get_kill_data:
+        :type mock_get_kill_data:
+        :param mock_get_kill_id:
+        :type mock_get_kill_id:
+        :return:
+        :rtype:
+        """
+
+        mock_get_kill_id.return_value = "kill_id_123"
+        mock_get_kill_data.return_value = {
+            "victim_id": 1,
+            "ship_value": "1000000",
+            "ship_type_id": 99999,
+        }
+        form_data = {
+            "killboard_link": "https://zkillboard.com/kill/128743453/",
+            "additional_info": "Test info",
+        }
+        response = self.client.post(self.url, data=form_data)
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+
+    def test_redirects_for_invalid_srp_code(self):
+        """
+        Test that accessing the request_srp view with an invalid SRP code redirects with an error.
+
+        :return:
+        :rtype:
+        """
+
+        invalid_url = reverse("aasrp:request_srp", args=["INVALIDCODE"])
+
+        response = self.client.get(invalid_url)
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+
+    def test_redirects_for_inactive_srp_link(self):
+        """
+        Test that accessing the request_srp view for an inactive SRP link redirects with an error.
+
+        :return:
+        :rtype:
+        """
+
+        self.srp_link.srp_status = SrpLink.Status.CLOSED
+        self.srp_link.save()
+
+        response = self.client.get(self.url)
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+
+    @patch("aasrp.form.SrpRequest.objects.get_kill_id")
+    def test_handles_invalid_killmail(self, mock_get_kill_id):
+        """
+        Test that submitting a killmail that cannot be parsed shows form errors.
+
+        :return:
+        :rtype:
+        """
+
+        mock_get_kill_id.side_effect = ValueError("Invalid killmail")
+
+        response = self.client.post(
+            self.url,
+            {
+                "killboard_link": "https://zkillboard.com/kill/12345/",
+                "additional_info": "Test info",
+            },
+        )
+
+        # Should re-render the form with errors, not redirect
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertFormError(
+            response.context["form"], "killboard_link", "Invalid killmail"
+        )
+
+    @patch("aasrp.views.general.SrpRequest.objects.get_kill_data")
+    @patch("aasrp.views.general.SrpRequest.objects.get_kill_id")
+    def test_handles_invalid_killmail_in_view(
+        self, mock_get_kill_id, mock_get_kill_data
+    ):
+        """
+        Test that if the killmail is valid enough to get an ID but fails when fetching data, it shows an error message.
+
+        :param mock_get_kill_id:
+        :type mock_get_kill_id:
+        :param mock_get_kill_data:
+        :type mock_get_kill_data:
+        :return:
+        :rtype:
+        """
+
+        mock_get_kill_id.return_value = "12345"
+        mock_get_kill_data.side_effect = ValueError("API error")
+
+        response = self.client.post(
+            self.url,
+            {
+                "killboard_link": "https://zkillboard.com/kill/12345/",
+                "additional_info": "Test info",
+            },
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+
+    def test_rejects_request_for_unowned_character(self):
+        """
+        Test that submitting a killmail for a character not owned by the user redirects with an error.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.post(
+            self.url,
+            {
+                "killboard_link": "https://zkillboard.com/kill/12345678/",
+                "additional_info": "Test additional info",
+            },
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
