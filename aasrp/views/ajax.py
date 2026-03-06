@@ -160,6 +160,7 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
             "srp_link",
             "srp_link__creator",
             "srp_link__creator__profile__main_character",
+            "ship",
         )
     )
 
@@ -265,6 +266,7 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
         "srp_link__creator",
         "srp_link__creator__profile__main_character",
         "character",
+        "ship",
     )
 
     logger.debug(f"Found {srp_requests.count()} SRP requests for SRP code: {srp_code}")
@@ -362,9 +364,9 @@ def srp_request_additional_information(
 
     # Retrieve the SRP request based on the provided SRP code and request code
     try:
-        srp_request = SrpRequest.objects.get(
-            srp_link__srp_code=srp_code, request_code=srp_request_code
-        )
+        srp_request = SrpRequest.objects.prefetch_related(
+            "insurance", "character", "ship"
+        ).get(srp_link__srp_code=srp_code, request_code=srp_request_code)
     except SrpRequest.DoesNotExist:
         return HttpResponseNotFound("SRP request not found")
 
