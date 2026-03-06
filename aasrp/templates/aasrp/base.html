@@ -34,6 +34,7 @@
                     locale: '{{ LANGUAGE_CODE }}',
                     dataTables: {
                         paging: true,
+                        processing: true, // Show processing indicator when loading data from the server
                         language: {url: '{{ DT_LANG_PATH }}'},
                         layout: { // see https://datatables.net/reference/option/layout
                             topStart: 'pageLength',

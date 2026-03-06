@@ -36,14 +36,12 @@ from aasrp.helper.icons import (
     copy_to_clipboard_icon,
     dashboard_action_icons,
     get_srp_request_action_icons,
-    get_srp_request_details_icon,
     get_srp_request_status_icon,
 )
 from aasrp.helper.notification import notify_requester
 from aasrp.helper.srp_data import (
     payout_amount_html,
     request_code_html,
-    request_fleet_details_html,
 )
 from aasrp.helper.urls import reverse_absolute
 from aasrp.helper.user import get_pending_requests_count_for_user, get_user_settings
@@ -125,114 +123,6 @@ def dashboard_srp_links_data(
                 "srp_status": srp_link.srp_status,
                 "pending_requests": srp_link.pending_requests,
                 "actions": dashboard_action_icons(request=request, srp_link=srp_link),
-            }
-        )
-
-    # Return the prepared data as a JSON response
-    return JsonResponse(data=data, safe=False)
-
-
-@permission_required("aasrp.basic_access")
-def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
-    """
-    Handle an AJAX request to retrieve all SRP (Ship Replacement Program) requests made by the current user.
-
-    This view generates a JSON response containing data about the user's SRP requests, including details
-    about the ship, fleet, payout, and request status. The data is formatted for use in a dashboard or
-    datatable.
-
-    :param request: The HTTP request object containing metadata about the request.
-    :type request: WSGIRequest
-    :return: A JSON response containing the user's SRP request data.
-    :rtype: JsonResponse
-    """
-
-    data = []
-
-    # Retrieve all SRP requests created by the current user, prefetching related data for efficiency
-    requests = (
-        SrpRequest.objects.filter(creator=request.user)
-        # .filter(ship__isnull=False)  # Uncomment to filter out requests without a ship
-        .prefetch_related(
-            "creator",
-            "creator__profile__main_character",
-            "character",
-            "srp_link",
-            "srp_link__creator",
-            "srp_link__creator__profile__main_character",
-            "ship",
-        )
-    )
-
-    # Iterate through each SRP request and prepare its data for the response
-    for srp_request in requests:
-        killboard_link = ""
-
-        # Generate a killboard link with the ship's render icon if available
-        if srp_request.killboard_link:
-            ship_render_icon_html = get_type_render_url_from_type_id(
-                evetype_id=srp_request.ship.id,
-                evetype_name=srp_request.ship.name,
-                size=32,
-                as_html=True,
-            )
-
-            zkb_link = srp_request.killboard_link
-            zkb_link_text = srp_request.ship.name
-            killboard_link = (
-                f'<a href="{zkb_link}" target="_blank">'
-                f"{ship_render_icon_html}"
-                f"<span>{zkb_link_text}</span>"
-                "</a>"
-            )
-
-        # Generate icons for the request status and details
-        srp_request_status_icon = get_srp_request_status_icon(
-            request=request, srp_request=srp_request
-        )
-        srp_request_details_icon = get_srp_request_details_icon(
-            request=request, srp_link=srp_request.srp_link, srp_request=srp_request
-        )
-
-        # Format the character name for display and sorting
-        character_display = get_formatted_character_name(
-            character=srp_request.character, with_portrait=True
-        )
-        character_sort = get_formatted_character_name(character=srp_request.character)
-
-        # Append the SRP request data to the response list
-        data.append(
-            {
-                "request_time": srp_request.post_time,  # Time the request was posted
-                "character": srp_request.character.character_name,  # Character name
-                "character_html": {
-                    "display": character_display,  # Formatted character name with portrait
-                    "sort": character_sort,  # Character name for sorting
-                },
-                "fleet_name_html": {
-                    "display": request_fleet_details_html(  # Fleet details
-                        srp_request=srp_request
-                    ),
-                    "sort": srp_request.srp_link.srp_name,  # Fleet name for sorting
-                },
-                "srp_code": srp_request.srp_link.srp_code,  # SRP link code
-                "request_code": srp_request.request_code,  # Unique request code
-                "ship": srp_request.ship.name,  # Name of the ship
-                "ship_html": {
-                    "display": killboard_link,  # Killboard link with ship render icon
-                    "sort": srp_request.ship.name,  # Ship name for sorting
-                },
-                "zkb_link": killboard_link,
-                "zkb_loss_amount": srp_request.loss_amount,
-                "payout_amount": srp_request.payout_amount,
-                # "payout_amount_html": {
-                #     "display": localized_isk_value(srp_request.payout_amount),
-                #     "sort": srp_request.loss_amount,
-                # },
-                "request_status_icon": (
-                    srp_request_details_icon + srp_request_status_icon
-                ),  # Combined status and details icons
-                "request_status": srp_request.get_request_status_display(),  # Translated request status
             }
         )
 

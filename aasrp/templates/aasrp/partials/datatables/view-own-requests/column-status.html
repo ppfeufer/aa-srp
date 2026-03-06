@@ -1,0 +1,38 @@
+{% load i18n %}
+
+<button
+    data-link="{% url "aasrp:ajax_srp_request_additional_information" row.srp_link.srp_code row.request_code %}"
+    data-bs-tooltip="aa-srp"
+    data-bs-toggle="modal"
+    data-bs-target="#srp-request-details"
+    class="btn btn-primary btn-sm btn-icon-aasrp"
+    title="SRP request details"
+>
+    <i class="fa-solid fa-circle-info"></i>
+</button>
+
+{% if row.request_status == 'Pending' %}
+    <button
+        class="btn btn-info btn-sm btn-icon-aasrp btn-icon-aasrp-status cursor-default"
+        title='{% translate "SRP request pending" %}'
+        data-bs-tooltip="aa-srp"
+    >
+        <i class="fa-solid fa-clock"></i>
+    </button>
+{% elif row.request_status == 'Approved' %}
+    <button
+        class="btn btn-success btn-sm btn-icon-aasrp btn-icon-aasrp-status cursor-default"
+        title='{% translate "SRP request approved" %}'
+        data-bs-tooltip="aa-srp"
+    >
+        <i class="fa-solid fa-thumbs-up"></i>
+    </button>
+{% elif row.request_status == 'Rejected' %}
+    <button
+        class="btn btn-danger btn-sm btn-icon-aasrp btn-icon-aasrp-status cursor-default"
+        title='{% translate "SRP request rejected" %}'
+        data-bs-tooltip="aa-srp"
+    >
+        <i class="fa-solid fa-thumbs-down"></i>
+    </button>
+{% endif %}

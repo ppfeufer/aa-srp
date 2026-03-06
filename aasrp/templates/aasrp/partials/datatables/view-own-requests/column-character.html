@@ -1,0 +1,13 @@
+{% load evelinks %}
+
+<img class="aasrp-character-portrait rounded" src="{{ row.character.character_id|character_portrait_url:32 }}" alt="{{ row.character.character_name }}" loading="lazy">
+<span class='aasrp-character-portrait-character-name d-inline-block align-middle'>
+    <small class='text-muted'>
+        {% if row.character.alliance_ticker %}
+            {{ row.character.alliance_ticker }}&nbsp;
+        {% endif %}
+
+        [{{ row.character.corporation_ticker }}]
+    </small>
+    <br>{{ row.character.character_name }}
+</span>

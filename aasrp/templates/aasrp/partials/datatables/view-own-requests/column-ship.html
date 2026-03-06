@@ -1,0 +1,5 @@
+{% load evelinks %}
+
+<a href="{{ row.killboard_link }}" target="_blank">
+    <img class="aasrp-evetype-icon rounded" src="{{ row.ship.id|type_render_url:32 }}" alt="Eagle" loading="lazy"><span>{{ row.ship.name }}</span>
+</a>

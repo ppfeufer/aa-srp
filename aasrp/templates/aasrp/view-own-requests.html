@@ -1,4 +1,5 @@
 {% extends "aasrp/base.html" %}
+{% load aa_i18n %}
 
 {% load i18n %}
 
@@ -50,6 +51,11 @@
                             rejectInformation: '{{ translationRejectInformation|escapejs }}',
                         }
                     }
+                }
+            },
+            dataTables: {
+                language: {
+                    processing: `{% include "framework/datatables/process-indicator.html" %}`
                 }
             }
         };
