@@ -40,7 +40,7 @@ dynamic = [
 dependencies = [
     "allianceauth>=4.12",
     "django-esi>=8.3.1",
-    "django-eveonline-sde>=0.0.1b3",
+    "django-eveonline-sde>=0.0.1b5",
 ]
 optional-dependencies.tests-allianceauth-latest = [
     "aa-discordnotify",
