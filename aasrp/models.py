@@ -6,6 +6,7 @@ Models for AA-SRP
 from typing import ClassVar
 
 # Third Party
+from eve_sde.models import ItemType
 from solo.models import SingletonModel
 
 # Django
@@ -297,11 +298,14 @@ class SrpRequest(models.Model):
         on_delete=models.SET_NULL,
         verbose_name=_("Character"),
     )
-    ship_name = models.CharField(
-        max_length=254, default="", verbose_name=_("Ship type")
-    )
-    ship_id = models.PositiveBigIntegerField(
-        null=True, blank=True, default=None, verbose_name=_("Ship type ID")
+    ship = models.ForeignKey(
+        to=ItemType,
+        related_name="srp_requests",
+        null=True,
+        blank=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        verbose_name=_("Ship"),
     )
     killboard_link = models.CharField(
         max_length=254, default="", verbose_name=_("Killboard link")
@@ -351,7 +355,7 @@ class SrpRequest(models.Model):
 
         character_name = self.character.character_name
         user_name = get_main_character_name_from_user(self.creator)
-        ship = self.ship_name
+        ship = self.ship.name
         request_code = self.request_code
 
         return str(

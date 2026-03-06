@@ -42,6 +42,61 @@ Section Order:
 
 <!-- Your changes go here -->
 
+> [!IMPORTANT]
+>
+> Before you update to this version, please make sure to update to at v4.0.0 first and
+> ensure it is in a working state.
+>
+> This version includes a new dependency, so please make sure to read the update
+> instructions carefully before updating to this version, otherwise, the app will
+> not work properly.
+
+### Changed
+
+- Switched to SDE (This will safe a bunch of ESI calls)
+
+### Update Instructions
+
+After installing this version, modify your `INSTALLED_APPS` in your `local.py` (or
+`conf/local.py` for Docker installations):
+
+```python
+INSTALLED_APPS += [
+    # …
+    "eve_sde",  # Only if not already added for another app
+    "aasrp",  # This one should already be in there
+    # …
+]
+
+# This line is right below the `INSTALLED_APPS` list, and only if not already added for another app
+INSTALLED_APPS = ["modeltranslation"] + INSTALLED_APPS
+```
+
+Add the following new task to ensure the SDE data is kept up to date:
+
+```python
+if "eve_sde" in INSTALLED_APPS:
+    # Run at 12:00 UTC each day
+    CELERYBEAT_SCHEDULE["EVE SDE :: Check for SDE Updates"] = {
+        "task": "eve_sde.tasks.check_for_sde_updates",
+        "schedule": crontab(minute="0", hour="12"),
+    }
+```
+
+Migrate and populate SDE:
+
+```shell
+python manage.py migrate eve_sde
+python manage.py esde_load_sde
+```
+
+Migare the app and run static collection:
+
+```shell
+python manage.py migrate aasrp
+python manage.py collectstatic --noinput
+```
+
 ## [4.0.0] - 2026-02-24
 
 > [!IMPORTANT]

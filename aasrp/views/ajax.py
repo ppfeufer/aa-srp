@@ -160,6 +160,7 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
             "srp_link",
             "srp_link__creator",
             "srp_link__creator__profile__main_character",
+            "ship",
         )
     )
 
@@ -170,14 +171,14 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
         # Generate a killboard link with the ship's render icon if available
         if srp_request.killboard_link:
             ship_render_icon_html = get_type_render_url_from_type_id(
-                evetype_id=srp_request.ship_id,
-                evetype_name=srp_request.ship_name,
+                evetype_id=srp_request.ship.id,
+                evetype_name=srp_request.ship.name,
                 size=32,
                 as_html=True,
             )
 
             zkb_link = srp_request.killboard_link
-            zkb_link_text = srp_request.ship_name
+            zkb_link_text = srp_request.ship.name
             killboard_link = (
                 f'<a href="{zkb_link}" target="_blank">'
                 f"{ship_render_icon_html}"
@@ -216,10 +217,10 @@ def dashboard_user_srp_requests_data(request: WSGIRequest) -> JsonResponse:
                 },
                 "srp_code": srp_request.srp_link.srp_code,  # SRP link code
                 "request_code": srp_request.request_code,  # Unique request code
-                "ship": srp_request.ship_name,  # Name of the ship
+                "ship": srp_request.ship.name,  # Name of the ship
                 "ship_html": {
                     "display": killboard_link,  # Killboard link with ship render icon
-                    "sort": srp_request.ship_name,  # Ship name for sorting
+                    "sort": srp_request.ship.name,  # Ship name for sorting
                 },
                 "zkb_link": killboard_link,
                 "zkb_loss_amount": srp_request.loss_amount,
@@ -265,7 +266,10 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
         "srp_link__creator",
         "srp_link__creator__profile__main_character",
         "character",
+        "ship",
     )
+
+    logger.debug(f"Found {srp_requests.count()} SRP requests for SRP code: {srp_code}")
 
     # Iterate through each SRP request and prepare its data for the response
     for srp_request in srp_requests:
@@ -274,8 +278,8 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
         # Generate a killboard link with the ship's render icon if available
         if srp_request.killboard_link:
             ship_render_icon_html = get_type_render_url_from_type_id(
-                evetype_id=srp_request.ship_id,
-                evetype_name=srp_request.ship_name,
+                evetype_id=srp_request.ship.id,
+                evetype_name=srp_request.ship.name,
                 size=32,
                 as_html=True,
             )
@@ -283,7 +287,7 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
             killboard_link = (
                 f'<a href="{srp_request.killboard_link}" target="_blank">'
                 f"{ship_render_icon_html}"
-                f"<span>{srp_request.ship_name}</span></a>"
+                f"<span>{srp_request.ship.name}</span></a>"
             )
 
         # Append the SRP request data to the response list
@@ -310,8 +314,8 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
                 },
                 "request_code": srp_request.request_code,
                 "srp_code": srp_request.srp_link.srp_code,
-                "ship_html": {"display": killboard_link, "sort": srp_request.ship_name},
-                "ship": srp_request.ship_name,
+                "ship_html": {"display": killboard_link, "sort": srp_request.ship.name},
+                "ship": srp_request.ship.name,
                 "zkb_link": killboard_link,
                 "zbk_loss_amount": srp_request.loss_amount,
                 "payout_amount_html": {
@@ -360,9 +364,9 @@ def srp_request_additional_information(
 
     # Retrieve the SRP request based on the provided SRP code and request code
     try:
-        srp_request = SrpRequest.objects.get(
-            srp_link__srp_code=srp_code, request_code=srp_request_code
-        )
+        srp_request = SrpRequest.objects.prefetch_related(
+            "insurance", "character", "ship"
+        ).get(srp_link__srp_code=srp_code, request_code=srp_request_code)
     except SrpRequest.DoesNotExist:
         return HttpResponseNotFound("SRP request not found")
 
@@ -376,8 +380,8 @@ def srp_request_additional_information(
 
     # Generate the ship render icon HTML for the SRP request
     ship_render_icon_html = get_type_render_url_from_type_id(
-        evetype_id=srp_request.ship_id,
-        evetype_name=srp_request.ship_name,
+        evetype_id=srp_request.ship.id,
+        evetype_name=srp_request.ship.name,
         size=64,
         as_html=True,
     )
@@ -404,7 +408,7 @@ def srp_request_additional_information(
     data = {
         "srp_request": srp_request,
         "ship_render_icon_html": ship_render_icon_html,
-        "ship_type": srp_request.ship_name,
+        "ship_type": srp_request.ship.name,
         "requester": get_main_character_name_from_user(user=srp_request.creator),
         "character": character,
         "additional_info": additional_info,

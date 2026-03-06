@@ -50,7 +50,7 @@ def notify_requester(
     reviser_name = get_main_character_name_from_user(reviser)
 
     context = {
-        "ship": srp_request.ship_name,
+        "ship": srp_request.ship.name,
         "srp_name": srp_request.srp_link.srp_name,
         "status": request_status.lower(),
         "srp_code": srp_request.srp_link.srp_code,
@@ -80,14 +80,12 @@ def notify_requester(
     )
 
 
-def notify_srp_team(srp_request: SrpRequest, additional_info: str) -> None:
+def notify_srp_team(srp_request: SrpRequest) -> None:
     """
     Send SRP request notification to the SRP teams Discord channel
 
     :param srp_request: The SRP request object
     :type srp_request: SrpRequest
-    :param additional_info: Additional information to be included in the notification
-    :type additional_info: str
     :return: None
     :rtype: None
     """
@@ -108,9 +106,9 @@ def notify_srp_team(srp_request: SrpRequest, additional_info: str) -> None:
             context={
                 "request_code": srp_request.request_code,
                 "character": srp_request.character.character_name,
-                "ship": srp_request.ship_name,
+                "ship": srp_request.ship.name,
                 "killboard_link": srp_request.killboard_link,
-                "additional_info": additional_info.replace("@", "{@}"),
+                "additional_info": srp_request.additional_info.replace("@", "{@}"),
                 "srp_code": srp_code,
                 "srp_link": srp_link,
             },

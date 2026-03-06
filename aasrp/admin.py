@@ -70,7 +70,7 @@ class SrpRequestAdmin(admin.ModelAdmin):
         "srp_link",
         "_srp_code",
         "post_time",
-        "ship_name",
+        "_ship_name",
         "_loss_amount",
         "_payout_amount",
         "killboard_link",
@@ -81,7 +81,7 @@ class SrpRequestAdmin(admin.ModelAdmin):
     search_fields = (
         "request_code",
         "character__character_name",
-        "ship_name",
+        "ship__name",
         "srp_link__srp_name",
         "srp_link__srp_code",
     )
@@ -112,6 +112,19 @@ class SrpRequestAdmin(admin.ModelAdmin):
         """
 
         return obj.srp_link.srp_code
+
+    @admin.display(description=_("Ship name"), ordering="ship__name")
+    def _ship_name(self, obj: SrpRequest) -> str:
+        """
+        Display the name of the ship associated with the request.
+
+        :param obj: The SrpRequest object.
+        :type obj: SrpRequest
+        :return: The name of the ship, or "N/A" if no ship is associated.
+        :rtype: str
+        """
+
+        return obj.ship.name if obj.ship else "N/A"
 
     @admin.display(description=_("Loss amount"), ordering="loss_amount")
     def _loss_amount(self, obj: SrpRequest) -> str:

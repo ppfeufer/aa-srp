@@ -9,7 +9,7 @@ from unittest.mock import MagicMock, patch
 import requests
 
 # AA SRP
-from aasrp.managers import SrpRequestManager
+from aasrp.managers import SettingManager, SettingQuerySet, SrpRequestManager
 from aasrp.tests import BaseTestCase
 
 
@@ -234,7 +234,9 @@ class TestSrpRequestManagerKetKillData(BaseTestCase):
 
         result = SrpRequestManager.get_kill_data("12345", "loss_value")
 
-        self.assertEqual(result, (123, 5000000, 456))
+        self.assertEqual(
+            result, {"ship_type_id": 123, "ship_value": 5000000, "victim_id": 456}
+        )
 
     @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
     @patch("aasrp.managers.esi_handler.result")
@@ -300,4 +302,71 @@ class TestSrpRequestManagerKetKillData(BaseTestCase):
 
         result = SrpRequestManager.get_kill_data("12345", "nonexistent_field")
 
-        self.assertEqual(result, (123, 0, 456))
+        self.assertEqual(
+            result, {"ship_type_id": 123, "ship_value": 0, "victim_id": 456}
+        )
+
+
+class TestSettingQuerySet(BaseTestCase):
+    """
+    Test cases for the SettingQuerySet class.
+    """
+
+    def test_prevents_deletion_of_settings(self):
+        """
+        Test that delete method prevents deletion of settings and instead updates them.
+
+        :return:
+        :rtype:
+        """
+
+        queryset = SettingQuerySet(model=MagicMock())
+
+        with patch("django.db.models.QuerySet.update", return_value=1) as mock_update:
+            result = queryset.delete()
+
+            self.assertEqual(result, 1)
+            mock_update.assert_called_once()
+
+    def test_handles_no_settings_to_update(self):
+        """
+        Test that delete method handles the case where there are no settings to update.
+
+        :return:
+        :rtype:
+        """
+
+        queryset = SettingQuerySet(model=MagicMock())
+
+        with patch("django.db.models.QuerySet.update", return_value=0) as mock_update:
+            result = queryset.delete()
+
+            self.assertEqual(result, 0)
+            mock_update.assert_called_once()
+
+
+class TestSettingManager(BaseTestCase):
+    """
+    Test cases for the SettingManager class.
+    """
+
+    def test_retrieves_setting_value_by_key(self):
+        manager = SettingManager()
+        mock_queryset = MagicMock()
+        mock_queryset.first.return_value = MagicMock(my_setting="value")
+        with patch.object(manager, "get_queryset", return_value=mock_queryset):
+            result = manager.get_setting("my_setting")
+            self.assertEqual(result, "value")
+
+    def test_returns_none_if_setting_key_does_not_exist(self):
+        manager = SettingManager()
+        mock_queryset = MagicMock()
+        mock_queryset.first.return_value = None
+        with patch.object(manager, "get_queryset", return_value=mock_queryset):
+            result = manager.get_setting("non_existent_key")
+            self.assertIsNone(result)
+
+    def test_returns_custom_queryset_instance(self):
+        manager = SettingManager()
+        queryset = manager.get_queryset()
+        self.assertIsInstance(queryset, SettingQuerySet)

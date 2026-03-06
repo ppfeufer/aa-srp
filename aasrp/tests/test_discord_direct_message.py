@@ -430,26 +430,94 @@ class TestSendUserNotification(BaseTestCase):
 
     @patch("aasrp.discord.direct_message.notify")
     def test_sends_allianceauth_notification_when_message_provided(self, mock_notify):
+        """
+        Test that an Alliance Auth notification is sent when an appropriate message is provided, regardless of Discord notification path.
+
+        :param mock_notify:
+        :type mock_notify:
+        :return:
+        :rtype:
+        """
+
         user = MagicMock()
+        user.discord = MagicMock(uid="12345")
+        title = "Notification Title"
         message = {"allianceauth": "Auth message", "discord": "Discord message"}
-        title = "Notification Title"
         level = "info"
 
-        send_user_notification(user, title, message, embed_message=True, level=level)
+        # Patch both send implementations and the feature-detection helpers to avoid any network/Celery usage.
+        with (
+            patch(
+                "aasrp.discord.direct_message._discordproxy_send_private_message"
+            ) as mock_dp,
+            patch(
+                "aasrp.discord.direct_message._aadiscordbot_send_private_message"
+            ) as mock_aad,
+            patch(
+                "aasrp.discord.direct_message.discordproxy_installed", return_value=True
+            ),
+            patch(
+                "aasrp.discord.direct_message.aa_discordnotify_installed",
+                return_value=False,
+            ),
+        ):
+            send_user_notification(
+                user, title, message, embed_message=True, level=level
+            )
 
-        mock_notify.info.assert_called_once_with(
-            user=user, title=title, message=message["allianceauth"]
-        )
+            # Alliance Auth notification must be sent
+            mock_notify.info.assert_called_once_with(
+                user=user, title=title, message=message["allianceauth"]
+            )
 
-    @patch("aasrp.discord.direct_message.notify")
-    def test_does_not_send_allianceauth_notification_when_message_missing(
-        self, mock_notify
-    ):
+            # discordproxy path should be attempted with the expected kwargs and no actual network calls occur
+            mock_dp.assert_called_once_with(
+                user_id=int(user.discord.uid),
+                level=level,
+                title=title,
+                message=message["discord"],
+                embed_message=True,
+            )
+
+            # aadiscordbot fallback must not be invoked in this scenario
+            mock_aad.assert_not_called()
+
+    def test_does_not_send_allianceauth_notification_when_message_missing(self):
+        """
+        Test that no Alliance Auth notification is sent when the 'allianceauth' message is missing, but a Discord message is provided.
+
+        :return:
+        :rtype:
+        """
+
         user = MagicMock()
-        message = {"allianceauth": "", "discord": "Discord message"}
-        title = "Notification Title"
-        level = "info"
+        user.discord = MagicMock(uid="123456789")
+        title = "No AA message"
+        message = {"allianceauth": "", "discord": "Discord body"}
 
-        send_user_notification(user, title, message, embed_message=True, level=level)
+        with (
+            patch(
+                "aasrp.discord.direct_message._aadiscordbot_send_private_message"
+            ) as mock_aad,
+            patch(
+                "aasrp.discord.direct_message.discordproxy_installed",
+                return_value=False,
+            ),
+            patch(
+                "aasrp.discord.direct_message.aa_discordnotify_installed",
+                return_value=False,
+            ),
+            patch("aasrp.discord.direct_message.notify") as mock_notify,
+        ):
+            send_user_notification(
+                user, title, message, embed_message=True, level="info"
+            )
 
-        mock_notify.info.assert_not_called()
+            mock_notify.assert_not_called()
+            mock_aad.assert_called_once_with(
+                user_id=int(user.discord.uid),
+                title=title,
+                message=message["discord"],
+                embed_message=True,
+                level="info",
+            )

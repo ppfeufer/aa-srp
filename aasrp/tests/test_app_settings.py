@@ -5,9 +5,6 @@ Test checks for installed modules we might use
 # Standard Library
 from unittest.mock import patch
 
-# Django
-from django.test import modify_settings
-
 # AA SRP
 from aasrp.app_settings import (
     aa_discordnotify_installed,
@@ -17,54 +14,80 @@ from aasrp.app_settings import (
 from aasrp.tests import BaseTestCase
 
 
-class TestModulesInstalled(BaseTestCase):
+class TestAllianceauthDiscordbotInstalled(BaseTestCase):
     """
-    Test for installed modules
+    Test allianceauth_discordbot_installed function
     """
 
-    @modify_settings(INSTALLED_APPS={"remove": "aadiscordbot"})
-    def test_allianceauth_discordbot_installed_should_return_false(self):
+    def test_returns_true_when_aadiscordbot_is_installed(self):
         """
-        Test allianceauth_discordbot_installed should return False
+        Test returns true when aadiscordbot is installed
 
         :return:
         :rtype:
         """
 
-        self.assertFalse(expr=allianceauth_discordbot_installed())
+        with patch(
+            "django.apps.apps.is_installed", return_value=True
+        ) as mock_is_installed:
 
-    @modify_settings(INSTALLED_APPS={"append": "aadiscordbot"})
-    def test_allianceauth_discordbot_installed_should_return_true(self):
+            self.assertTrue(allianceauth_discordbot_installed())
+            mock_is_installed.assert_called_once_with(app_name="aadiscordbot")
+
+    def test_returns_false_when_aadiscordbot_is_not_installed(self):
         """
-        Test allianceauth_discordbot_installed should return True
+        Test returns false when aadiscordbot is not installed
 
         :return:
         :rtype:
         """
 
-        self.assertTrue(expr=allianceauth_discordbot_installed())
+        with patch(
+            "django.apps.apps.is_installed", return_value=False
+        ) as mock_is_installed:
+            self.assertFalse(allianceauth_discordbot_installed())
+            mock_is_installed.assert_called_once_with(app_name="aadiscordbot")
 
-    @modify_settings(INSTALLED_APPS={"remove": "discordnotify"})
-    def test_aa_discordnotify_installed_should_return_false(self):
+
+class TestDiscordnotifyInstalled(BaseTestCase):
+    """
+    Test aa_discordnotify_installed function
+    """
+
+    def test_returns_true_when_discordnotify_is_installed(self):
         """
-        Test aa_discordnotify_installed should return False
+        Test returns true when discordnotify is installed
 
         :return:
         :rtype:
         """
 
-        self.assertFalse(expr=aa_discordnotify_installed())
+        with patch(
+            "django.apps.apps.is_installed", return_value=True
+        ) as mock_is_installed:
 
-    @modify_settings(INSTALLED_APPS={"append": "discordnotify"})
-    def test_aa_discordnotify_installed_should_return_true(self):
+            self.assertTrue(aa_discordnotify_installed())
+            mock_is_installed.assert_called_once_with(app_name="discordnotify")
+
+    def test_returns_false_when_discordnotify_is_not_installed(self):
         """
-        Test aa_discordnotify_installed should return True
+        Test returns false when discordnotify is not installed
 
         :return:
         :rtype:
         """
 
-        self.assertTrue(expr=aa_discordnotify_installed())
+        with patch(
+            "django.apps.apps.is_installed", return_value=False
+        ) as mock_is_installed:
+            self.assertFalse(aa_discordnotify_installed())
+            mock_is_installed.assert_called_once_with(app_name="discordnotify")
+
+
+class TestDiscordProxyInstalled(BaseTestCase):
+    """
+    Test discordproxy_installed function
+    """
 
     @patch("discordproxy.client.DiscordClient")
     def test_returns_true_when_discordclient_imported_successfully(

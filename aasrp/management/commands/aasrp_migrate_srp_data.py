@@ -6,6 +6,9 @@ from the built-in SRP module to the AA SRP module. It handles the migration of S
 their associated requests, ensuring data integrity and avoiding duplication.
 """
 
+# Third Party
+from eve_sde.models import ItemType
+
 # Django
 from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
@@ -14,10 +17,8 @@ from django.utils.crypto import get_random_string
 from allianceauth.srp.models import SrpFleetMain
 
 # AA SRP
-from aasrp.handler import esi_handler
 from aasrp.helper.character import get_user_for_character
-from aasrp.models import RequestComment, Setting, SrpLink, SrpRequest
-from aasrp.providers import esi
+from aasrp.models import RequestComment, SrpLink, SrpRequest
 
 
 def get_input(text):
@@ -44,28 +45,34 @@ class Command(BaseCommand):
 
     help = "Migrate SRP data from the built-in SRP module"
 
-    # Cache for ship info to minimize ESI calls
+    # Cache for ship info to minimize SDE calls
     ship_info_cache = {}
 
-    def _get_ship_info_from_esi_by_id(self, ship_type_id):
+    def _get_ship_info_from_sde_by_name(self, ship_type_name: str) -> ItemType:
         """
-        Retrieve ship information from ESI by ship type ID, with caching to avoid redundant API calls.
+        Retrieve ship information from SDE by ship type name, with caching to avoid redundant API calls.
 
-        :param ship_type_id:
-        :type ship_type_id:
-        :return:
-        :rtype:
+        :param ship_type_name: The name of the ship type to retrieve information for.
+        :type ship_type_name: str
+        :return: The ItemType instance corresponding to the given ship type name.
+        :rtype: ItemType
         """
 
-        if ship_type_id not in self.ship_info_cache:
-            self.stdout.write(f"Adding ship info for type ID {ship_type_id} to cache")
+        if ship_type_name not in self.ship_info_cache:
+            self.stdout.write(f"Adding ship info for '{ship_type_name}' to cache")
 
-            operation = esi.client.Universe.GetUniverseTypesTypeId(type_id=ship_type_id)
-            self.ship_info_cache[ship_type_id] = esi_handler.result(
-                operation, use_etag=False
-            )
+            try:
+                ship = ItemType.objects.get(name__iexact=ship_type_name)
+                self.ship_info_cache[ship_type_name] = ship
+            except ItemType.DoesNotExist:
+                self.stdout.write(
+                    self.style.ERROR(
+                        f"Ship '{ship_type_name}' not found in SDE. Setting ship to None."
+                    )
+                )
+                self.ship_info_cache[ship_type_name] = None
 
-        return self.ship_info_cache[ship_type_id]
+        return self.ship_info_cache[ship_type_name]
 
     def _migrate_srp_data(self):  # pylint: disable=too-many-locals, too-many-statements
         """
@@ -88,8 +95,6 @@ class Command(BaseCommand):
         srp_fleets = SrpFleetMain.objects.all()
 
         # Retrieve the loss value field setting
-        loss_value_field = Setting.objects.get_setting(Setting.Field.LOSS_VALUE_SOURCE)
-
         for srp_fleet in srp_fleets:
             # Check if the fleet creator is valid
             srp_fleet_creator = get_user_for_character(
@@ -173,62 +178,55 @@ class Command(BaseCommand):
                             srp_userrequest_payout = srp_userrequest.srp_total_amount
                             srp_userrequest_loss_amount = srp_userrequest.kb_total_loss
 
-                            srp_kill_link = SrpRequest.objects.get_kill_id(
-                                srp_userrequest_killboard_link
+                            srp_userrequest_ship = self._get_ship_info_from_sde_by_name(
+                                srp_userrequest.srp_ship_name
                             )
 
-                            (
-                                ship_type_id,
-                                ship_value,  # pylint: disable=unused-variable
-                                victim_id,  # pylint: disable=unused-variable
-                            ) = SrpRequest.objects.get_kill_data(
-                                killmail_id=srp_kill_link,
-                                loss_value_field=loss_value_field,
-                            )
+                            # Only proceed with the migration if we have valid ship information,
+                            # otherwise we end up with a lot of requests with ship set to None and that is not ideal.
+                            if srp_userrequest_ship is not None:
+                                srp_userrequest_post_time = srp_userrequest.post_time
+                                srp_userrequest_request_code = get_random_string(
+                                    length=16
+                                )
+                                srp_userrequest_character = srp_userrequest.character
+                                srp_userrequest_srp_link = srp_link
 
-                            srp_userrequest_ship = self._get_ship_info_from_esi_by_id(
-                                ship_type_id
-                            )
+                                srp_userrequest_status = SrpRequest.Status.PENDING
+                                if srp_userrequest.srp_status == "Approved":
+                                    srp_userrequest_status = SrpRequest.Status.APPROVED
 
-                            srp_userrequest_post_time = srp_userrequest.post_time
-                            srp_userrequest_request_code = get_random_string(length=16)
-                            srp_userrequest_character = srp_userrequest.character
-                            srp_userrequest_srp_link = srp_link
+                                if srp_userrequest.srp_status == "Rejected":
+                                    srp_userrequest_status = SrpRequest.Status.REJECTED
 
-                            srp_userrequest_status = SrpRequest.Status.PENDING
-                            if srp_userrequest.srp_status == "Approved":
-                                srp_userrequest_status = SrpRequest.Status.APPROVED
+                                srp_request = SrpRequest()
+                                srp_request.killboard_link = (
+                                    srp_userrequest_killboard_link
+                                )
+                                srp_request.request_status = srp_userrequest_status
+                                srp_request.payout_amount = srp_userrequest_payout
+                                srp_request.loss_amount = srp_userrequest_loss_amount
+                                srp_request.ship = srp_userrequest_ship
+                                srp_request.post_time = srp_userrequest_post_time
+                                srp_request.request_code = srp_userrequest_request_code
+                                srp_request.character = srp_userrequest_character
+                                srp_request.creator = srp_userrequest_creator
+                                srp_request.srp_link = srp_userrequest_srp_link
+                                srp_request.save()
 
-                            if srp_userrequest.srp_status == "Rejected":
-                                srp_userrequest_status = SrpRequest.Status.REJECTED
+                                # Add request info as a comment
+                                srp_request_comment = RequestComment()
+                                srp_request_comment.comment = (
+                                    srp_userrequest_additional_info
+                                )
+                                srp_request_comment.srp_request = srp_request
+                                srp_request_comment.comment_type = (
+                                    RequestComment.Type.REQUEST_INFO
+                                )
+                                srp_request_comment.creator = srp_userrequest_creator
+                                srp_request_comment.save()
 
-                            srp_request = SrpRequest()
-                            srp_request.killboard_link = srp_userrequest_killboard_link
-                            srp_request.request_status = srp_userrequest_status
-                            srp_request.payout_amount = srp_userrequest_payout
-                            srp_request.loss_amount = srp_userrequest_loss_amount
-                            srp_request.ship_name = srp_userrequest_ship.name
-                            srp_request.ship_id = ship_type_id
-                            srp_request.post_time = srp_userrequest_post_time
-                            srp_request.request_code = srp_userrequest_request_code
-                            srp_request.character = srp_userrequest_character
-                            srp_request.creator = srp_userrequest_creator
-                            srp_request.srp_link = srp_userrequest_srp_link
-                            srp_request.save()
-
-                            # Add request info as a comment
-                            srp_request_comment = RequestComment()
-                            srp_request_comment.comment = (
-                                srp_userrequest_additional_info
-                            )
-                            srp_request_comment.srp_request = srp_request
-                            srp_request_comment.comment_type = (
-                                RequestComment.Type.REQUEST_INFO
-                            )
-                            srp_request_comment.creator = srp_userrequest_creator
-                            srp_request_comment.save()
-
-                            srp_requests_migrated += 1
+                                srp_requests_migrated += 1
 
         self.stdout.write("Migration finished.")
         self.stdout.write(f"SRP links migrated: {srp_links_migrated}")
