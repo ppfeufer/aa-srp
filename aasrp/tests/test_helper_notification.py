@@ -78,7 +78,8 @@ class TestNotifySrpTeam(BaseTestCase):
         srp_request.request_code = "REQ123"
         srp_request.character = MagicMock(character_name="Test Character")
         ship = MagicMock()
-        ship.name = "Test Ship"
+        ship.name = "キキモラ"  # Japanese translation for "Kikomora" returned by `modeltranslate` for the `name` field when the locale is set to Japanese
+        ship.name_en = "Kikomora"
         srp_request.ship = ship
         srp_request.killboard_link = "https://zkillboard.com/kill/123456/"
         srp_request.additional_info = "Info with @mention"
@@ -99,7 +100,7 @@ class TestNotifySrpTeam(BaseTestCase):
             context = mock_render.call_args.kwargs["context"]
             self.assertEqual(context["request_code"], "REQ123")
             self.assertEqual(context["character"], "Test Character")
-            self.assertEqual(context["ship"], "Test Ship")
+            self.assertEqual(context["ship"], "Kikomora")
             self.assertEqual(
                 context["killboard_link"], "https://zkillboard.com/kill/123456/"
             )
