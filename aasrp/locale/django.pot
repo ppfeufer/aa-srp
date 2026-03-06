@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 4.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-03-06 08:28+0100\n"
+"POT-Creation-Date: 2026-03-06 08:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,8 +50,14 @@ msgstr ""
 msgid "SRP code"
 msgstr ""
 
-#: aasrp/admin.py:116
-msgid "Ship name"
+#: aasrp/admin.py:116 aasrp/models.py:308
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
+#: aasrp/templates/aasrp/dashboard.html:23
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:82
+#: aasrp/templates/aasrp/view-own-requests.html:22
+#: aasrp/templates/aasrp/view-requests.html:35
+msgid "Ship"
 msgstr ""
 
 #: aasrp/admin.py:129 aasrp/models.py:329
@@ -401,16 +407,6 @@ msgstr ""
 
 #: aasrp/models.py:290
 msgid "Who created the SRP request?"
-msgstr ""
-
-#: aasrp/models.py:308
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
-#: aasrp/templates/aasrp/dashboard.html:23
-#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:22
-#: aasrp/templates/aasrp/view-requests.html:35
-msgid "Ship"
 msgstr ""
 
 #: aasrp/models.py:320 aasrp/templates/aasrp/dashboard.html:24
