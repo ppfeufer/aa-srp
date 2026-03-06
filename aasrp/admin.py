@@ -113,7 +113,7 @@ class SrpRequestAdmin(admin.ModelAdmin):
 
         return obj.srp_link.srp_code
 
-    @admin.display(description=_("Ship name"), ordering="ship__name")
+    @admin.display(description=_("Ship"), ordering="ship__name")
     def _ship_name(self, obj: SrpRequest) -> str:
         """
         Display the name of the ship associated with the request.
