@@ -44,7 +44,7 @@ Section Order:
 
 > [!IMPORTANT]
 >
-> Before you update to this version, please make sure to update to at v4.0.0 first and
+> Before you update to this version, please make sure to update to v4.0.0 first and
 > ensure it is in a working state.
 >
 > This version includes a new dependency, so please make sure to read the update
