@@ -119,7 +119,7 @@ Make sure you're in the virtual environment (venv) of your Alliance Auth
 installation Then install the latest release directly from PyPi.
 
 ```shell
-pip install aa-srp==4.0.0
+pip install aa-srp==4.1.0
 ```
 
 #### Step 2: Configure Alliance Auth<a name="step-2-configure-alliance-auth"></a>
@@ -128,15 +128,45 @@ This is fairly simple, just add the following to the `INSTALLED_APPS` of your `l
 
 Configure your AA settings (`local.py`) as follows:
 
-- Add `"aasrp",` to `INSTALLED_APPS`
+```python
+INSTALLED_APPS += [
+    # …
+    "eve_sde",  # Only if not already added for another app
+    "aasrp",
+    # …
+]
+
+# This line is right below the `INSTALLED_APPS` list, and only if not already added for another app
+INSTALLED_APPS = ["modeltranslation"] + INSTALLED_APPS
+```
+
+Add the following new task to ensure the SDE data is kept up to date:
+
+```python
+if "eve_sde" in INSTALLED_APPS:
+    # Run at 12:00 UTC each day
+    CELERYBEAT_SCHEDULE["EVE SDE :: Check for SDE Updates"] = {
+        "task": "eve_sde.tasks.check_for_sde_updates",
+        "schedule": crontab(minute="0", hour="12"),
+    }
+```
 
 #### Step 3: Finalizing the Installation<a name="step-3-finalizing-the-installation"></a>
 
 Run static files collection and migrations
 
+Migrate and populate SDE:
+
 ```shell
-python manage.py collectstatic
-python manage.py migrate
+python manage.py migrate eve_sde
+python manage.py esde_load_sde
+```
+
+Migare the app and run static collection:
+
+```shell
+python manage.py migrate aasrp
+python manage.py collectstatic --noinput
 ```
 
 Restart your supervisor services for Auth
@@ -148,14 +178,35 @@ Restart your supervisor services for Auth
 Add the app to your `conf/requirements.txt`
 
 ```requirements
-aa-srp==4.0.0
+aa-srp==4.1.0
 ```
 
 #### Step 2: Update Your AA Settings<a name="step-2-update-your-aa-settings"></a>
 
 Configure your AA settings as (`conf/local.py`) follows:
 
-- Add `"aasrp",` to `INSTALLED_APPS`
+```python
+INSTALLED_APPS += [
+    # …
+    "eve_sde",  # Only if not already added for another app
+    "aasrp",
+    # …
+]
+
+# This line is right below the `INSTALLED_APPS` list, and only if not already added for another app
+INSTALLED_APPS = ["modeltranslation"] + INSTALLED_APPS
+```
+
+Add the following new task to ensure the SDE data is kept up to date:
+
+```python
+if "eve_sde" in INSTALLED_APPS:
+    # Run at 12:00 UTC each day
+    CELERYBEAT_SCHEDULE["EVE SDE :: Check for SDE Updates"] = {
+        "task": "eve_sde.tasks.check_for_sde_updates",
+        "schedule": crontab(minute="0", hour="12"),
+    }
+```
 
 #### Step 3: Build Auth and Restart Your Containers<a name="step-3-build-auth-and-restart-your-containers"></a>
 
@@ -171,8 +222,11 @@ Run migrations and copy static files:
 ```shell
 docker compose exec allianceauth_gunicorn bash
 
+auth migrate eve_sde
+auth esde_load_sde
+
+auth migrate aasrp
 auth collectstatic
-auth migrate
 ```
 
 ### Common Installation Steps<a name="common-installation-steps"></a>
@@ -246,7 +300,7 @@ To update your existing installation of AA SRP, first enable your virtual enviro
 Then run the following command to update AA SRP to the latest version.
 
 ```shell
-pip install aa-srp==4.0.0
+pip install aa-srp==4.1.0
 
 python manage.py collectstatic
 python manage.py migrate
@@ -262,7 +316,7 @@ To update your existing installation of AA SRP, first update the version in your
 `conf/requirements.txt` to the latest version.
 
 ```requirements
-aa-srp==4.0.0
+aa-srp==4.1.0
 ```
 
 Then build your Auth container and restart your containers.
