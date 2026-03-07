@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 4.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-03-06 08:41+0100\n"
+"POT-Creation-Date: 2026-03-07 17:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: aasrp/templates/aasrp/link-edit.html:6
 #: aasrp/templates/aasrp/request-srp.html:6
 #: aasrp/templates/aasrp/user-settings.html:6
-#: aasrp/templates/aasrp/view-own-requests.html:6
+#: aasrp/templates/aasrp/view-own-requests.html:7
 #: aasrp/templates/aasrp/view-requests.html:6
 msgid "Ship Replacement"
 msgstr ""
@@ -37,7 +37,7 @@ msgstr ""
 #: aasrp/admin.py:90 aasrp/admin.py:209
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:79
-#: aasrp/templates/aasrp/view-own-requests.html:25
+#: aasrp/templates/aasrp/view-own-requests.html:26
 #: aasrp/templates/aasrp/view-requests.html:41
 msgid "Requestor"
 msgstr ""
@@ -55,7 +55,7 @@ msgstr ""
 #: aasrp/templates/aasrp/dashboard.html:23
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:22
+#: aasrp/templates/aasrp/view-own-requests.html:23
 #: aasrp/templates/aasrp/view-requests.html:35
 msgid "Ship"
 msgstr ""
@@ -79,7 +79,7 @@ msgstr ""
 #: aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:18
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:80
-#: aasrp/templates/aasrp/view-own-requests.html:24
+#: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:36
 msgid "Character"
 msgstr ""
@@ -179,7 +179,7 @@ msgstr ""
 
 #: aasrp/form.py:163 aasrp/form.py:172 aasrp/models.py:314 aasrp/models.py:435
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:26
+#: aasrp/templates/aasrp/view-own-requests.html:27
 #: aasrp/templates/aasrp/view-requests.html:43
 msgid "Additional information"
 msgstr ""
@@ -276,14 +276,17 @@ msgid "Remove SRP link"
 msgstr ""
 
 #: aasrp/helper/icons.py:185 aasrp/helper/icons.py:200
+#: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-status.html:17
 msgid "SRP request pending"
 msgstr ""
 
 #: aasrp/helper/icons.py:189
+#: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-status.html:25
 msgid "SRP request approved"
 msgstr ""
 
 #: aasrp/helper/icons.py:194
+#: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-status.html:33
 msgid "SRP request rejected"
 msgstr ""
 
@@ -410,7 +413,7 @@ msgid "Who created the SRP request?"
 msgstr ""
 
 #: aasrp/models.py:320 aasrp/templates/aasrp/dashboard.html:24
-#: aasrp/templates/aasrp/view-own-requests.html:23
+#: aasrp/templates/aasrp/view-own-requests.html:24
 #: aasrp/templates/aasrp/view-requests.html:34
 msgid "Request status"
 msgstr ""
@@ -786,7 +789,7 @@ msgid "SRP links (active)"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/navigation/top-navigation.html:24
-#: aasrp/templates/aasrp/view-own-requests.html:6
+#: aasrp/templates/aasrp/view-own-requests.html:7
 msgid "My SRP requests"
 msgstr ""
 
@@ -843,6 +846,22 @@ msgstr ""
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:22
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:85
 msgid "SRP payout"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:30
+msgid "SRP Code"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:31
+msgid "Request Code"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:32
+msgid "Request Status"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:33
+msgid "Killboard Link"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:8
@@ -919,7 +938,7 @@ msgstr ""
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr ""
 
-#: aasrp/templates/aasrp/view-own-requests.html:27
+#: aasrp/templates/aasrp/view-own-requests.html:28
 #: aasrp/templates/aasrp/view-requests.html:44
 msgid "Reject information"
 msgstr ""
@@ -940,49 +959,49 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: aasrp/views/ajax.py:94
+#: aasrp/views/ajax.py:92
 msgid "Link"
 msgstr ""
 
-#: aasrp/views/ajax.py:107
+#: aasrp/views/ajax.py:105
 msgid "Copy SRP link to clipboard"
 msgstr ""
 
-#: aasrp/views/ajax.py:501 aasrp/views/ajax.py:725 aasrp/views/ajax.py:834
+#: aasrp/views/ajax.py:391 aasrp/views/ajax.py:615 aasrp/views/ajax.py:724
 msgid "No matching SRP request found"
 msgstr ""
 
-#: aasrp/views/ajax.py:520 aasrp/views/ajax.py:617 aasrp/views/ajax.py:736
-#: aasrp/views/ajax.py:871
+#: aasrp/views/ajax.py:410 aasrp/views/ajax.py:507 aasrp/views/ajax.py:626
+#: aasrp/views/ajax.py:761
 msgid "Invalid form data"
 msgstr ""
 
-#: aasrp/views/ajax.py:571
+#: aasrp/views/ajax.py:461
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:581 aasrp/views/ajax.py:691 aasrp/views/ajax.py:792
-#: aasrp/views/ajax.py:909
+#: aasrp/views/ajax.py:471 aasrp/views/ajax.py:581 aasrp/views/ajax.py:682
+#: aasrp/views/ajax.py:799
 msgid "Invalid request method"
 msgstr ""
 
-#: aasrp/views/ajax.py:636 aasrp/views/ajax.py:888
+#: aasrp/views/ajax.py:526 aasrp/views/ajax.py:778
 msgid "No matching SRP requests found"
 msgstr ""
 
-#: aasrp/views/ajax.py:681
+#: aasrp/views/ajax.py:571
 msgid "SRP requests have been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:782
+#: aasrp/views/ajax.py:672
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:829
+#: aasrp/views/ajax.py:719
 msgid "SRP request has been removed"
 msgstr ""
 
-#: aasrp/views/ajax.py:899
+#: aasrp/views/ajax.py:789
 msgid "SRP requests have been removed"
 msgstr ""
 
