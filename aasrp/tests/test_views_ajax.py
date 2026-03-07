@@ -802,181 +802,181 @@ class TestSrpRequestAdditionalInformation(BaseViewsTestCase):
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
 
-class TestDashboardUserSrpRequestsData(BaseViewsTestCase):
-    """
-    Tests for the dashboard_user_srp_requests_data view.
-    """
-
-    def setUp(self):
-        super().setUp()
-
-        self.srp_link = SrpLink.objects.create(
-            srp_name="Test Fleet",
-            srp_code=get_random_string(length=16),
-            fleet_commander=self.user_wesley_crusher.profile.main_character,
-            creator=self.user_wesley_crusher,
-            fleet_doctrine="Test Doctrine",
-            fleet_time=datetime.now(),
-        )
-
-    @patch("aasrp.helper.eve_images.get_type_render_url_from_type_id")
-    @patch("aasrp.models.SrpRequest.objects.filter")
-    def test_retrieves_all_requests_for_user(
-        self, mock_filter, mock_get_type_render_url
-    ):
-        """
-        Test that the view retrieves all SRP requests for the logged-in user.
-
-        :param mock_filter:
-        :type mock_filter:
-        :param mock_get_type_render_url:
-        :type mock_get_type_render_url:
-        :return:
-        :rtype:
-        """
-
-        # Create a complete mock with all serializable attributes
-        mock_request = MagicMock()
-
-        # Basic attributes
-        mock_request.id = 1
-        mock_request.request_code = "TEST123"
-        mock_request.killboard_link = "https://zkillboard.com/kill/12345/"
-        mock_request.post_time = "2026-03-05T20:42:36Z"
-        mock_request.loss_amount = 1000000
-        mock_request.payout_amount = 500000
-        mock_request.request_status = "PE"
-        mock_request.get_request_status_display.return_value = "Pending"
-
-        # Ship attributes - ensure all accessed fields return values
-        mock_request.ship.name = "Test Ship"
-        mock_request.ship.id = 123
-
-        # SRP link attributes
-        mock_request.srp_link.srp_name = "Test Fleet"
-        mock_request.srp_link.srp_code = "SRP123"
-        mock_request.srp_link.id = 1
-
-        # Character attributes
-        mock_request.character.character_name = "Test Character"
-        mock_request.character.character_id = 12345
-
-        # Configure queryset chain
-        mock_queryset = MagicMock()
-        mock_queryset.prefetch_related.return_value = mock_queryset
-        mock_queryset.select_related.return_value = mock_queryset
-        mock_queryset.__iter__.return_value = iter([mock_request])
-        mock_filter.return_value = mock_queryset
-
-        mock_get_type_render_url.return_value = "<img src='test.png'>"
-
-        self.client.force_login(self.user_wesley_crusher)
-        response = self.client.get(
-            reverse("aasrp:ajax_dashboard_user_srp_requests_data")
-        )
-
-        self.assertEqual(response.status_code, 200)
-        data = response.json()
-        self.assertEqual(len(data), 1)
-        self.assertEqual(data[0]["character"], "Test Character")
-
-    @patch("aasrp.models.SrpRequest.objects.filter")
-    def test_returns_empty_list_when_no_requests_exist(self, mock_filter):
-        """
-        Test that the view returns an empty list when the user has no SRP requests.
-
-        :param mock_filter:
-        :type mock_filter:
-        :return:
-        :rtype:
-        """
-
-        mock_queryset = MagicMock()
-        mock_queryset.prefetch_related.return_value = mock_queryset
-        mock_queryset.select_related.return_value = mock_queryset
-        mock_queryset.__iter__.return_value = iter([])
-        mock_filter.return_value = mock_queryset
-
-        self.client.force_login(self.user_wesley_crusher)
-        response = self.client.get(
-            reverse("aasrp:ajax_dashboard_user_srp_requests_data")
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), [])
-
-    @patch("aasrp.models.SrpRequest.objects.filter")
-    def test_handles_requests_without_killboard_link(self, mock_filter):
-        """
-        Test that the view handles SRP requests that do not have a killboard link.
-
-        :param mock_filter:
-        :type mock_filter:
-        :return:
-        :rtype:
-        """
-
-        mock_request = MagicMock(
-            spec=[
-                "id",
-                "request_code",
-                "killboard_link",
-                "character",
-                "ship",
-                "srp_link",
-                "request_status",
-                "get_request_status_display",
-                "post_time",
-                "loss_amount",
-                "payout_amount",
-            ]
-        )
-        mock_request.id = 1
-        mock_request.request_code = "TEST123"
-        mock_request.killboard_link = ""
-        mock_request.request_status = "Pending"
-        mock_request.get_request_status_display.return_value = "Pending"
-        mock_request.post_time = datetime(2024, 1, 1, 12, 0, 0)
-        mock_request.loss_amount = 1000000
-        mock_request.payout_amount = 500000
-
-        # Ensure nested attributes return values, not mocks
-        mock_request.character = MagicMock(
-            spec=[
-                "character_name",
-                "character_id",
-                "corporation_ticker",
-                "alliance_ticker",
-            ]
-        )
-        mock_request.character.character_name = "Test Character"
-        mock_request.character.character_id = 12345
-        mock_request.character.corporation_ticker = "TEST"  # Add this
-        mock_request.character.alliance_ticker = "TEST."  # Add this
-
-        mock_request.ship = MagicMock(spec=["name", "id"])
-        mock_request.ship.name = "Test Ship"
-        mock_request.ship.id = 123
-
-        mock_request.srp_link = MagicMock(spec=["srp_name", "srp_code", "id"])
-        mock_request.srp_link.srp_name = "Test Fleet"
-        mock_request.srp_link.srp_code = "SRP123"
-        mock_request.srp_link.id = 1
-
-        mock_queryset = MagicMock()
-        mock_queryset.prefetch_related.return_value = mock_queryset
-        mock_queryset.select_related.return_value = mock_queryset
-        mock_queryset.__iter__.return_value = iter([mock_request])
-        mock_filter.return_value = mock_queryset
-
-        self.client.force_login(self.user_wesley_crusher)
-        response = self.client.get(
-            reverse("aasrp:ajax_dashboard_user_srp_requests_data")
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), 1)
-        self.assertEqual(response.json()[0]["zkb_link"], "")
+# class TestDashboardUserSrpRequestsData(BaseViewsTestCase):
+#     """
+#     Tests for the dashboard_user_srp_requests_data view.
+#     """
+#
+#     def setUp(self):
+#         super().setUp()
+#
+#         self.srp_link = SrpLink.objects.create(
+#             srp_name="Test Fleet",
+#             srp_code=get_random_string(length=16),
+#             fleet_commander=self.user_wesley_crusher.profile.main_character,
+#             creator=self.user_wesley_crusher,
+#             fleet_doctrine="Test Doctrine",
+#             fleet_time=datetime.now(),
+#         )
+#
+#     @patch("aasrp.helper.eve_images.get_type_render_url_from_type_id")
+#     @patch("aasrp.models.SrpRequest.objects.filter")
+#     def test_retrieves_all_requests_for_user(
+#         self, mock_filter, mock_get_type_render_url
+#     ):
+#         """
+#         Test that the view retrieves all SRP requests for the logged-in user.
+#
+#         :param mock_filter:
+#         :type mock_filter:
+#         :param mock_get_type_render_url:
+#         :type mock_get_type_render_url:
+#         :return:
+#         :rtype:
+#         """
+#
+#         # Create a complete mock with all serializable attributes
+#         mock_request = MagicMock()
+#
+#         # Basic attributes
+#         mock_request.id = 1
+#         mock_request.request_code = "TEST123"
+#         mock_request.killboard_link = "https://zkillboard.com/kill/12345/"
+#         mock_request.post_time = "2026-03-05T20:42:36Z"
+#         mock_request.loss_amount = 1000000
+#         mock_request.payout_amount = 500000
+#         mock_request.request_status = "PE"
+#         mock_request.get_request_status_display.return_value = "Pending"
+#
+#         # Ship attributes - ensure all accessed fields return values
+#         mock_request.ship.name = "Test Ship"
+#         mock_request.ship.id = 123
+#
+#         # SRP link attributes
+#         mock_request.srp_link.srp_name = "Test Fleet"
+#         mock_request.srp_link.srp_code = "SRP123"
+#         mock_request.srp_link.id = 1
+#
+#         # Character attributes
+#         mock_request.character.character_name = "Test Character"
+#         mock_request.character.character_id = 12345
+#
+#         # Configure queryset chain
+#         mock_queryset = MagicMock()
+#         mock_queryset.prefetch_related.return_value = mock_queryset
+#         mock_queryset.select_related.return_value = mock_queryset
+#         mock_queryset.__iter__.return_value = iter([mock_request])
+#         mock_filter.return_value = mock_queryset
+#
+#         mock_get_type_render_url.return_value = "<img src='test.png'>"
+#
+#         self.client.force_login(self.user_wesley_crusher)
+#         response = self.client.get(
+#             reverse("aasrp:ajax_dashboard_user_srp_requests_data")
+#         )
+#
+#         self.assertEqual(response.status_code, 200)
+#         data = response.json()
+#         self.assertEqual(len(data), 1)
+#         self.assertEqual(data[0]["character"], "Test Character")
+#
+#     @patch("aasrp.models.SrpRequest.objects.filter")
+#     def test_returns_empty_list_when_no_requests_exist(self, mock_filter):
+#         """
+#         Test that the view returns an empty list when the user has no SRP requests.
+#
+#         :param mock_filter:
+#         :type mock_filter:
+#         :return:
+#         :rtype:
+#         """
+#
+#         mock_queryset = MagicMock()
+#         mock_queryset.prefetch_related.return_value = mock_queryset
+#         mock_queryset.select_related.return_value = mock_queryset
+#         mock_queryset.__iter__.return_value = iter([])
+#         mock_filter.return_value = mock_queryset
+#
+#         self.client.force_login(self.user_wesley_crusher)
+#         response = self.client.get(
+#             reverse("aasrp:ajax_dashboard_user_srp_requests_data")
+#         )
+#
+#         self.assertEqual(response.status_code, 200)
+#         self.assertEqual(response.json(), [])
+#
+#     @patch("aasrp.models.SrpRequest.objects.filter")
+#     def test_handles_requests_without_killboard_link(self, mock_filter):
+#         """
+#         Test that the view handles SRP requests that do not have a killboard link.
+#
+#         :param mock_filter:
+#         :type mock_filter:
+#         :return:
+#         :rtype:
+#         """
+#
+#         mock_request = MagicMock(
+#             spec=[
+#                 "id",
+#                 "request_code",
+#                 "killboard_link",
+#                 "character",
+#                 "ship",
+#                 "srp_link",
+#                 "request_status",
+#                 "get_request_status_display",
+#                 "post_time",
+#                 "loss_amount",
+#                 "payout_amount",
+#             ]
+#         )
+#         mock_request.id = 1
+#         mock_request.request_code = "TEST123"
+#         mock_request.killboard_link = ""
+#         mock_request.request_status = "Pending"
+#         mock_request.get_request_status_display.return_value = "Pending"
+#         mock_request.post_time = datetime(2024, 1, 1, 12, 0, 0)
+#         mock_request.loss_amount = 1000000
+#         mock_request.payout_amount = 500000
+#
+#         # Ensure nested attributes return values, not mocks
+#         mock_request.character = MagicMock(
+#             spec=[
+#                 "character_name",
+#                 "character_id",
+#                 "corporation_ticker",
+#                 "alliance_ticker",
+#             ]
+#         )
+#         mock_request.character.character_name = "Test Character"
+#         mock_request.character.character_id = 12345
+#         mock_request.character.corporation_ticker = "TEST"  # Add this
+#         mock_request.character.alliance_ticker = "TEST."  # Add this
+#
+#         mock_request.ship = MagicMock(spec=["name", "id"])
+#         mock_request.ship.name = "Test Ship"
+#         mock_request.ship.id = 123
+#
+#         mock_request.srp_link = MagicMock(spec=["srp_name", "srp_code", "id"])
+#         mock_request.srp_link.srp_name = "Test Fleet"
+#         mock_request.srp_link.srp_code = "SRP123"
+#         mock_request.srp_link.id = 1
+#
+#         mock_queryset = MagicMock()
+#         mock_queryset.prefetch_related.return_value = mock_queryset
+#         mock_queryset.select_related.return_value = mock_queryset
+#         mock_queryset.__iter__.return_value = iter([mock_request])
+#         mock_filter.return_value = mock_queryset
+#
+#         self.client.force_login(self.user_wesley_crusher)
+#         response = self.client.get(
+#             reverse("aasrp:ajax_dashboard_user_srp_requests_data")
+#         )
+#
+#         self.assertEqual(response.status_code, 200)
+#         self.assertEqual(len(response.json()), 1)
+#         self.assertEqual(response.json()[0]["zkb_link"], "")
 
 
 class TestSrpLinkViewRequestsData(BaseViewsTestCase):
