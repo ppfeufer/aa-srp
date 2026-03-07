@@ -53,6 +53,8 @@ Section Order:
 
 ### Changed
 
+- Switched the DataTable in "My SRP Requests" view to server-side processing, which
+  should improve performance for users with a lot of SRP requests.
 - Switched to SDE (This will safe a bunch of ESI calls)
 
 ### Update Instructions
