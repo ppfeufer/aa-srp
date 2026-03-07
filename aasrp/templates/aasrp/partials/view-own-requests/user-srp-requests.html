@@ -21,6 +21,15 @@
                         <th class="w-auto">{% translate "ISK lost" %}</th>
                         <th class="w-auto">{% translate "SRP payout" %}</th>
                         <th class="w-auto"><!-- {% translate "Status" %} --></th>
+
+                        {% comment %}
+                        Hidden columns for data that is needed for the datatable but
+                        not relevant to show to the user in a column of its own.
+                        {% endcomment %}
+                        <th class="w-auto"><!-- {% translate "SRP Code" %} --></th>
+                        <th class="w-auto"><!-- {% translate "Request Code" %} --></th>
+                        <th class="w-auto"><!-- {% translate "Request Status" %} --></th>
+                        <th class="w-auto"><!-- {% translate "Killboard Link" %} --></th>
                     </tr>
                 </thead>
 

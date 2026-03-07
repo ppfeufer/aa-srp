@@ -10,145 +10,138 @@ $(document).ready(() => {
      */
     let userSrpAmount = 0;
 
-    fetchGet({url: aaSrpSettings.url.userSrpRequests})
-        .then((data) => {
-            if (data) {
-                const dt = new DataTable(elementTableUserSrpRequests, { // eslint-disable-line no-unused-vars
-                    language: aaSrpSettings.dataTables.language,
-                    data: data,
-                    layout: aaSrpSettings.dataTables.layout,
-                    ordering: aaSrpSettings.dataTables.ordering,
-                    columnControl: aaSrpSettings.dataTables.columnControl,
-                    columns: [
-                        {
-                            data: {
-                                display: (data) => moment(data.request_time).utc().format(aaSrpSettings.datetimeFormat),
-                                filter: (data) => data.request_time,
-                                sort: (data) => moment(data.request_time).unix()
-                            },
-                            className: 'srp-request-time'
-                        },
-                        {
-                            data: {
-                                display: (data) => data.character_html.display,
-                                filter: (data) => data.character_html.sort,
-                                sort: (data) => data.character_html.sort
-                            },
-                            className: 'srp-request-character'
-                        },
-                        {
-                            data: {
-                                display: (data) => data.fleet_name_html.display,
-                                filter: (data) => data.fleet_name_html.sort,
-                                sort: (data) => data.fleet_name_html.sort
-                            },
-                            className: 'srp-request-fleet-details'
-                        },
-                        {
-                            data: {
-                                display: (data) => data.ship_html.display,
-                                filter: (data) => data.ship_html.sort,
-                                sort: (data) => data.ship_html.sort
-                            },
-                            className: 'srp-request-ship'
-                        },
-                        {
-                            data: {
-                                display: (data) => numberFormatter({
-                                    value: data.zkb_loss_amount,
-                                    locales: aaSrpSettings.locale,
-                                    options: {
-                                        style: 'currency',
-                                        currency: 'ISK'
-                                    }
-                                }),
-                                filter: (data) => data.zkb_loss_amount,
-                                sort: (data) => data.zkb_loss_amount
-                            },
-                            className: 'srp-request-zkb-loss-amount text-end'
-                        },
-                        {
-                            data: {
-                                display: (data) => numberFormatter({
-                                    value: data.payout_amount,
-                                    locales: aaSrpSettings.locale,
-                                    options: {
-                                        style: 'currency',
-                                        currency: 'ISK'
-                                    }
-                                }),
-                                filter: (data) => data.payout_amount,
-                                sort: (data) => data.payout_amount
-                            },
-                            className: 'srp-request-payout text-end'
-                        },
-                        {
-                            data: 'request_status_icon',
-                            className: 'srp-request-status text-end'
-                        },
-                    ],
-                    columnDefs: [
-                        {
-                            target: 0,
-                            columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
-                        },
-                        {
-                            targets: [4, 5, 6],
-                            orderable: false,
-                            columnControl: [
-                                {target: 0, content: []},
-                                {target: 1, content: []}
-                            ]
-                        },
-                        {
-                            target: 6,
-                            width: 90
-                        }
-                    ],
-                    order: [
-                        [0, 'desc']
-                    ],
-                    /**
-                     * When ever a row is created …
-                     *
-                     * @param row
-                     * @param data
-                     * @param rowIndex
-                     */
-                    createdRow: (row, data, rowIndex) => {
-                        // Row id attr
-                        $(row).attr('data-row-id', rowIndex);
-                        $(row).attr('data-srp-request-code', data.request_code);
-
-                        userSrpAmount += parseInt(data.payout_amount);
-
-                        $('.srp-dashboard-user-isk-cost-amount').html(
-                            numberFormatter({
-                                value: userSrpAmount,
-                                locales: aaSrpSettings.locale,
-                                options: {
-                                    style: 'currency',
-                                    currency: 'ISK'
-                                }
-                            })
-                        );
-                    },
-                    initComplete: () => {
-                        const dt = elementTableUserSrpRequests.DataTable();
-
-                        // Show bootstrap tooltips
-                        _bootstrapTooltip({selector: '#table_tab-user-srp-requests'});
-
-                        dt.on('draw', () => {
-                            _bootstrapTooltip({selector: '#table_tab-user-srp-requests'});
-                        });
+    const dt = new DataTable(elementTableUserSrpRequests, { // eslint-disable-line no-unused-vars
+        ...aaSrpSettings.dataTables,
+        order: [[0, 'desc']], // Default sorting by request time (newest first)
+        serverSide: true, // Enable server-side processing
+        ajax: {
+            url: aaSrpSettings.url.userSrpRequests,
+            error: (xhr, error) => console.error('Error fetching data:', xhr, error)
+        },
+        columnDefs: [
+            // Request time
+            {
+                target: 0,
+                render: (data) => moment(data).utc().format(aaSrpSettings.datetimeFormat),
+                className: 'srp-request-time',
+                columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
+            },
+            // Character
+            {
+                target: 1,
+                className: 'srp-request-character'
+            },
+            // Fleet details
+            {
+                target: 2,
+                className: 'srp-request-fleet-details'
+            },
+            // Ship
+            {
+                target: 3,
+                className: 'srp-request-ship'
+            },
+            // ISK lost
+            {
+                target: 4,
+                render: (data) => numberFormatter({
+                    value: data,
+                    locales: aaSrpSettings.locale,
+                    options: {
+                        style: 'currency',
+                        currency: 'ISK'
                     }
-                });
+                }),
+                className: 'srp-request-zkb-loss-amount',
+                columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1),
+                type: 'num'
+            },
+            // SRP payout
+            {
+                target: 5,
+                render: (data) => numberFormatter({
+                    value: data,
+                    locales: aaSrpSettings.locale,
+                    options: {
+                        style: 'currency',
+                        currency: 'ISK'
+                    }
+                }),
+                className: 'srp-request-payout',
+                columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1),
+                type: 'num'
+            },
+            // Status
+            {
+                target: 6,
+                render: (data) => data,
+                className: 'srp-request-status text-end',
+                orderable: false,
+                columnControl: [
+                    {target: 0, content: []},
+                    {target: 1, content: []}
+                ],
+                width: '90'
+            },
+            // Invisible: SRP Code (for internal use, not displayed to users)
+            {
+                target: 7,
+                visible: false,
+            },
+            // Invisible: Request Code (for internal use, not displayed to users)
+            {
+                target: 8,
+                visible: false,
+            },
+            // Invisible: Request Status (for internal use, not displayed to users)
+            {
+                target: 9,
+                visible: false,
+            },
+            // Invisible: Killboard Link (for internal use, not displayed to users)
+            {
+                target: 10,
+                visible: false,
             }
-        })
-        .catch((error) => {
-            console.error('Error fetching SRP request data:', error);
-        });
+        ],
+        /**
+         * When ever a row is created …
+         *
+         * @param row
+         * @param data
+         * @param rowIndex
+         */
+        createdRow: (row, data, rowIndex) => {
+            console.log('Row created:', row, data, rowIndex);
+
+            // Row id attr
+            $(row).attr('data-row-id', rowIndex);
+            $(row).attr('data-srp-request-code', data.request_code);
+
+            userSrpAmount += parseInt(data[5]) || 0;
+
+            $('.srp-dashboard-user-isk-cost-amount').html(
+                numberFormatter({
+                    value: userSrpAmount,
+                    locales: aaSrpSettings.locale,
+                    options: {
+                        style: 'currency',
+                        currency: 'ISK'
+                    }
+                })
+            );
+        },
+        initComplete: () => {
+            const dt = elementTableUserSrpRequests.DataTable();
+
+            // Show bootstrap tooltips
+            _bootstrapTooltip({selector: '#table_tab-user-srp-requests'});
+
+            dt.on('draw', () => {
+                _bootstrapTooltip({selector: '#table_tab-user-srp-requests'});
+            });
+        }
+    });
 
     /**
      * Modals
