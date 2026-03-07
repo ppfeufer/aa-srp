@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 4.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-03-07 17:08+0100\n"
+"POT-Creation-Date: 2026-03-07 17:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,6 +46,7 @@ msgstr ""
 #: aasrp/models.py:124 aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:30
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:50
 msgid "SRP code"
 msgstr ""
@@ -70,6 +71,7 @@ msgstr ""
 
 #: aasrp/admin.py:196 aasrp/helper/srp_data.py:66 aasrp/models.py:281
 #: aasrp/templates/aasrp/dashboard.html:27
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:31
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:81
 msgid "Request code"
 msgstr ""
@@ -174,6 +176,7 @@ msgid ""
 msgstr ""
 
 #: aasrp/form.py:161 aasrp/form.py:168 aasrp/models.py:311
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:33
 msgid "Killboard link"
 msgstr ""
 
@@ -413,6 +416,7 @@ msgid "Who created the SRP request?"
 msgstr ""
 
 #: aasrp/models.py:320 aasrp/templates/aasrp/dashboard.html:24
+#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:32
 #: aasrp/templates/aasrp/view-own-requests.html:24
 #: aasrp/templates/aasrp/view-requests.html:34
 msgid "Request status"
@@ -846,22 +850,6 @@ msgstr ""
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:22
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:85
 msgid "SRP payout"
-msgstr ""
-
-#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:30
-msgid "SRP Code"
-msgstr ""
-
-#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:31
-msgid "Request Code"
-msgstr ""
-
-#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:32
-msgid "Request Status"
-msgstr ""
-
-#: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:33
-msgid "Killboard Link"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:8
