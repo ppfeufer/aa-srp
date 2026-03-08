@@ -104,7 +104,7 @@ def view_own_requests(request: WSGIRequest) -> HttpResponse:
     characters = qs.values_list(
         "character__character_name", "character__character_id"
     ).distinct()
-    ships = qs.values_list("ship__name", "ship__id").distinct()
+    ships = ItemType.objects.filter(id__in=qs.values_list("ship", flat=True)).distinct()
     total_srp_cost = qs.aggregate(total_cost=Sum("payout_amount"))["total_cost"] or 0
 
     return render(
