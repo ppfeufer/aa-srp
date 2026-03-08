@@ -4,6 +4,11 @@ $(document).ready(() => {
     'use strict';
 
     const elementTableUserSrpRequests = $('#table_tab-user-srp-requests');
+    const custom_dt_filter = {
+        request_status: $('#filter-request-status'),
+        ship: $('#filter-ship'),
+        character: $('#filter-character'),
+    };
 
     /**
      * Table: User's own SRP requests
@@ -16,6 +21,13 @@ $(document).ready(() => {
         serverSide: true, // Enable server-side processing
         ajax: {
             url: aaSrpSettings.url.userSrpRequests,
+            data: (data) => {
+                const mappedFilters = Object.fromEntries(
+                    Object.entries(custom_dt_filter).map(([key, $el]) => [`filter_${key}`, $el.val()])
+                );
+
+                return {...data, ...mappedFilters};
+            },
             error: (xhr, error) => console.error('Error fetching data:', xhr, error)
         },
         columnDefs: [
@@ -112,8 +124,6 @@ $(document).ready(() => {
          * @param rowIndex
          */
         createdRow: (row, data, rowIndex) => {
-            console.log('Row created:', row, data, rowIndex);
-
             // Row id attr
             $(row).attr('data-row-id', rowIndex);
             $(row).attr('data-srp-request-code', data.request_code);
@@ -133,6 +143,11 @@ $(document).ready(() => {
         },
         initComplete: () => {
             const dt = elementTableUserSrpRequests.DataTable();
+
+            // Redraw table when filter values change
+            Object.values(custom_dt_filter).forEach(($el) => {
+                $el.on('change', () => dt.draw());
+            });
 
             // Show bootstrap tooltips
             _bootstrapTooltip({selector: '#table_tab-user-srp-requests'});

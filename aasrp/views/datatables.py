@@ -67,18 +67,30 @@ class OwnSrpRequestsView(PermissionRequiredMixin, DataTablesView):
         :rtype:
         """
 
-        qs = (
-            self.model.objects.filter(creator=request.user)
-            # .filter(ship__isnull=False)  # Uncomment to filter out requests without a ship
-            .prefetch_related(
-                "creator",
-                "creator__profile__main_character",
-                "character",
-                "srp_link",
-                "srp_link__creator",
-                "srp_link__creator__profile__main_character",
-                "ship",
-            )
+        qs = self.model.objects.filter(creator=request.user).prefetch_related(
+            "creator",
+            "creator__profile__main_character",
+            "character",
+            "srp_link",
+            "srp_link__creator",
+            "srp_link__creator__profile__main_character",
+            "ship",
         )
+
+        # Custom filters
+        get_params = request.GET.dict()
+
+        filter_request_status = get_params.get("filter_request_status", None)
+        filter_character = get_params.get("filter_character", None)
+        filter_ship = get_params.get("filter_ship", None)
+
+        if filter_request_status:
+            qs = qs.filter(request_status=filter_request_status)
+
+        if filter_character:
+            qs = qs.filter(character__character_id=filter_character)
+
+        if filter_ship:
+            qs = qs.filter(ship__id=filter_ship)
 
         return qs

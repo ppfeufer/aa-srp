@@ -98,7 +98,19 @@ def view_own_requests(request: WSGIRequest) -> HttpResponse:
 
     logger.info(msg=f"Own SRP requests view called by {request.user}")
 
-    return render(request=request, template_name="aasrp/view-own-requests.html")
+    qs = SrpRequest.objects.filter(creator=request.user)
+
+    characters = qs.values_list(
+        "character__character_name", "character__character_id"
+    ).distinct()
+
+    ships = qs.values_list("ship__name", "ship__id").distinct()
+
+    return render(
+        request=request,
+        template_name="aasrp/view-own-requests.html",
+        context={"characters": characters, "ships": ships},
+    )
 
 
 @permission_required("aasrp.basic_access")
