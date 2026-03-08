@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 4.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-03-08 15:14+0100\n"
+"POT-Creation-Date: 2026-03-08 15:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1028,74 +1028,74 @@ msgstr ""
 msgid "You do not have the needed permissions to view all SRP links"
 msgstr ""
 
-#: aasrp/views/general.py:150
+#: aasrp/views/general.py:156
 msgid "Settings saved."
 msgstr ""
 
-#: aasrp/views/general.py:216
+#: aasrp/views/general.py:222
 #, python-brace-format
 msgid "SRP link \"{srp_code}\" created"
 msgstr ""
 
-#: aasrp/views/general.py:268
+#: aasrp/views/general.py:274
 #, python-brace-format
 msgid "Unable to locate SRP link using SRP code {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:283
+#: aasrp/views/general.py:289
 msgid "AAR link changed"
 msgstr ""
 
-#: aasrp/views/general.py:401
+#: aasrp/views/general.py:407
 #, python-brace-format
 msgid "Submitted SRP request for your {ship_name}."
 msgstr ""
 
-#: aasrp/views/general.py:445
+#: aasrp/views/general.py:451
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:457
+#: aasrp/views/general.py:463
 msgid "This SRP link is no longer available for SRP requests."
 msgstr ""
 
-#: aasrp/views/general.py:488
+#: aasrp/views/general.py:494
 #, python-brace-format
 msgid ""
 "Something went wrong, your kill mail ({submitted_killmail_link}) could not "
 "be parsed: {error}"
 msgstr ""
 
-#: aasrp/views/general.py:532
+#: aasrp/views/general.py:538
 #, python-brace-format
 msgid ""
 "Character {victim_id} does not belong to your Auth account. Please add this "
 "character as an alt to your main and try again."
 msgstr ""
 
-#: aasrp/views/general.py:581
+#: aasrp/views/general.py:587
 msgid "SRP link marked as completed"
 msgstr ""
 
-#: aasrp/views/general.py:590 aasrp/views/general.py:628
-#: aasrp/views/general.py:688 aasrp/views/general.py:736
-#: aasrp/views/general.py:783
+#: aasrp/views/general.py:596 aasrp/views/general.py:634
+#: aasrp/views/general.py:694 aasrp/views/general.py:742
+#: aasrp/views/general.py:789
 #, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:678
+#: aasrp/views/general.py:684
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr ""
 
-#: aasrp/views/general.py:726
+#: aasrp/views/general.py:732
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr ""
 
-#: aasrp/views/general.py:773
+#: aasrp/views/general.py:779
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""
