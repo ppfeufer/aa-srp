@@ -46,9 +46,6 @@ Section Order:
 
 > [!IMPORTANT]
 >
-> Before you update to this version, please make sure to update to v4.0.0 first and
-> ensure it is in a working state.
->
 > This version includes a new dependency, so please make sure to read the update
 > instructions carefully before updating to this version, otherwise, the app will
 > not work properly.
