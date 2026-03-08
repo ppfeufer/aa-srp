@@ -13,6 +13,7 @@ from eve_sde.models import ItemType
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -103,13 +104,17 @@ def view_own_requests(request: WSGIRequest) -> HttpResponse:
     characters = qs.values_list(
         "character__character_name", "character__character_id"
     ).distinct()
-
     ships = qs.values_list("ship__name", "ship__id").distinct()
+    total_srp_cost = qs.aggregate(total_cost=Sum("payout_amount"))["total_cost"] or 0
 
     return render(
         request=request,
         template_name="aasrp/view-own-requests.html",
-        context={"characters": characters, "ships": ships},
+        context={
+            "characters": characters,
+            "ships": ships,
+            "total_srp_cost": total_srp_cost,
+        },
     )
 
 

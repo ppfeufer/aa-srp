@@ -46,6 +46,10 @@ Section Order:
 
 - Dropdown filter for the "My SRP Requests" view to filter by request character, ship type, and request status
 
+### Fixed
+
+- Total SRP costs calculation in "My SRP Requests" view
+
 ## [4.1.0] - 2026-03-08
 
 > [!IMPORTANT]
