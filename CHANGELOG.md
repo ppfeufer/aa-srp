@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- Dropdown filter for the "My SRP Requests" view to filter by request character, ship type, and request status
+
 ## [4.1.0] - 2026-03-08
 
 > [!IMPORTANT]
