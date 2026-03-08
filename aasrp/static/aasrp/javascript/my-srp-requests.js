@@ -3,7 +3,10 @@
 $(document).ready(() => {
     'use strict';
 
-    const elementTableUserSrpRequests = $('#table_tab-user-srp-requests');
+    const element = {
+        tableUserSrpRequests: $('#table_tab-user-srp-requests'),
+        totalSrpCost: $('#srp-dashboard-user-isk-cost-amount'),
+    };
     const custom_dt_filter = {
         request_status: $('#filter-request-status'),
         ship: $('#filter-ship'),
@@ -13,9 +16,20 @@ $(document).ready(() => {
     /**
      * Table: User's own SRP requests
      */
-    let userSrpAmount = 0;
+    const userSrpAmount = element.totalSrpCost.data('total-srp-cost') || 0;
+    element.totalSrpCost.html(
+        numberFormatter({
+            value: userSrpAmount,
+            locales: aaSrpSettings.locale,
+            options: {
+                style: 'currency',
+                currency: 'ISK'
+            }
+        })
+    );
 
-    const dt = new DataTable(elementTableUserSrpRequests, { // eslint-disable-line no-unused-vars
+    // Initialize DataTable with server-side processing
+    const dt = new DataTable(element.tableUserSrpRequests, { // eslint-disable-line no-unused-vars
         ...aaSrpSettings.dataTables,
         order: [[0, 'desc']], // Default sorting by request time (newest first)
         serverSide: true, // Enable server-side processing
@@ -116,33 +130,8 @@ $(document).ready(() => {
                 visible: false,
             }
         ],
-        /**
-         * When ever a row is created …
-         *
-         * @param row
-         * @param data
-         * @param rowIndex
-         */
-        createdRow: (row, data, rowIndex) => {
-            // Row id attr
-            $(row).attr('data-row-id', rowIndex);
-            $(row).attr('data-srp-request-code', data.request_code);
-
-            userSrpAmount += parseInt(data[5]) || 0;
-
-            $('.srp-dashboard-user-isk-cost-amount').html(
-                numberFormatter({
-                    value: userSrpAmount,
-                    locales: aaSrpSettings.locale,
-                    options: {
-                        style: 'currency',
-                        currency: 'ISK'
-                    }
-                })
-            );
-        },
         initComplete: () => {
-            const dt = elementTableUserSrpRequests.DataTable();
+            const dt = element.tableUserSrpRequests.DataTable();
 
             // Redraw table when filter values change
             Object.values(custom_dt_filter).forEach(($el) => {
