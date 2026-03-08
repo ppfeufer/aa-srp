@@ -21,8 +21,8 @@
             <select id="filter-ship" class="form-select w-auto">
                 <option value="">{% translate "All ships" %}</option>
 
-                {% for ship_name, ship_id in ships %}
-                    <option value="{{ ship_id }}">{{ ship_name }}</option>
+                {% for ship in ships %}
+                    <option value="{{ ship.id }}">{{ ship.name }}</option>
                 {% endfor %}
             </select>
         </div>
