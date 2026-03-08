@@ -101,10 +101,16 @@ def view_own_requests(request: WSGIRequest) -> HttpResponse:
 
     qs = SrpRequest.objects.filter(creator=request.user)
 
-    characters = qs.values_list(
-        "character__character_name", "character__character_id"
-    ).distinct()
-    ships = ItemType.objects.filter(id__in=qs.values_list("ship", flat=True)).distinct()
+    characters = (
+        qs.values_list("character__character_name", "character__character_id")
+        .distinct()
+        .order_by("character__character_name")
+    )
+    ships = (
+        ItemType.objects.filter(id__in=qs.values_list("ship", flat=True))
+        .distinct()
+        .order_by("name")
+    )
     total_srp_cost = qs.aggregate(total_cost=Sum("payout_amount"))["total_cost"] or 0
 
     return render(
