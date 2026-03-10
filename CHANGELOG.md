@@ -45,6 +45,7 @@ Section Order:
 ### Changed
 
 - Move generation of SRP link and request codes into the model save method
+- (Internal) Better property names for the `SrpLink` model
 
 ## [4.2.1] - 2026-03-10
 
