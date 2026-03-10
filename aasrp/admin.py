@@ -40,6 +40,18 @@ class SrpLinkAdmin(admin.ModelAdmin):
     ordering = ("fleet_time",)
     list_filter = ("creator", "srp_status", "fleet_doctrine")
     search_fields = ("srp_code", "fleet_doctrine", "srp_name")
+    readonly_fields = (
+        "aar_link",
+        "_creator",
+        "fleet_commander",
+        "fleet_doctrine",
+        "fleet_time",
+        "fleet_type",
+        "srp_code",
+        "srp_name",
+        "srp_status",
+    )
+    exclude = ("creator",)
 
     @classmethod
     @admin.display(description=_("Creator"), ordering="creator")
@@ -85,6 +97,20 @@ class SrpRequestAdmin(admin.ModelAdmin):
         "srp_link__srp_name",
         "srp_link__srp_code",
     )
+    readonly_fields = (
+        "request_code",
+        "_requestor",
+        "character",
+        "_ship_name",
+        "killboard_link",
+        "additional_info",
+        "request_status",
+        "_payout_amount",
+        "srp_link",
+        "_loss_amount",
+        "post_time",
+    )
+    exclude = ("payout_amount", "loss_amount", "creator", "ship", "reject_info")
 
     @classmethod
     @admin.display(description=_("Requestor"), ordering="creator")
