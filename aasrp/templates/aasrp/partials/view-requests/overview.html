@@ -63,7 +63,7 @@
             <div class="col-md-6 col-lg-3">
                 <div class="card-srp-request-overview-cell">
                     <dt>{% translate "SRP cost" %}:</dt>
-                    <dd class="srp-fleet-total-amount">{{ srp_link.total_cost|intcomma }} ISK</dd>
+                    <dd id="srp-fleet-total-cost" data-total-srp-cost="{{ srp_link.total_cost }}"></dd>
                 </div>
             </div>
         </div>

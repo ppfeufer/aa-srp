@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Total SRP costs display in SRP link view is now correctly localized
+
 ### Changed
 
 - Admin views for SRP links and SRP requests to be read-only. SRP links and SRP requests should not be changed via the admin interface.
