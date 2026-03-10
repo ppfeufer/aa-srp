@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-03-08 16:04+0100\n"
+"POT-Creation-Date: 2026-03-10 12:44+0100\n"
 "PO-Revision-Date: 2026-01-09 17:17+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/fr/>\n"
@@ -31,13 +31,13 @@ msgstr ""
 msgid "Ship Replacement"
 msgstr "Remplacement de vaisseau"
 
-#: aasrp/admin.py:45 aasrp/models.py:162 aasrp/models.py:291
+#: aasrp/admin.py:57 aasrp/models.py:162 aasrp/models.py:291
 #: aasrp/models.py:456
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
 msgid "Creator"
 msgstr "Créateur"
 
-#: aasrp/admin.py:90 aasrp/admin.py:209
+#: aasrp/admin.py:116 aasrp/admin.py:235
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:79
 #: aasrp/templates/aasrp/view-own-requests.html:26
@@ -45,7 +45,7 @@ msgstr "Créateur"
 msgid "Requestor"
 msgstr "Solliciteur"
 
-#: aasrp/admin.py:103 aasrp/admin.py:183 aasrp/helper/srp_data.py:65
+#: aasrp/admin.py:129 aasrp/admin.py:209 aasrp/helper/srp_data.py:65
 #: aasrp/models.py:124 aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
@@ -54,7 +54,7 @@ msgstr "Solliciteur"
 msgid "SRP code"
 msgstr "Code de SRP"
 
-#: aasrp/admin.py:116 aasrp/models.py:308
+#: aasrp/admin.py:142 aasrp/models.py:308
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
 #: aasrp/templates/aasrp/dashboard.html:23
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:20
@@ -65,22 +65,22 @@ msgstr "Code de SRP"
 msgid "Ship"
 msgstr "Vaisseau"
 
-#: aasrp/admin.py:129 aasrp/models.py:329
+#: aasrp/admin.py:155 aasrp/models.py:329
 msgid "Loss amount"
 msgstr ""
 
-#: aasrp/admin.py:144 aasrp/models.py:322
+#: aasrp/admin.py:170 aasrp/models.py:322
 msgid "Payout amount"
 msgstr ""
 
-#: aasrp/admin.py:196 aasrp/helper/srp_data.py:66 aasrp/models.py:281
+#: aasrp/admin.py:222 aasrp/helper/srp_data.py:66 aasrp/models.py:281
 #: aasrp/templates/aasrp/dashboard.html:27
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:33
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:81
 msgid "Request code"
 msgstr ""
 
-#: aasrp/admin.py:222 aasrp/models.py:299
+#: aasrp/admin.py:248 aasrp/models.py:299
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:27
 #: aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:8
@@ -91,39 +91,39 @@ msgstr ""
 msgid "Character"
 msgstr ""
 
-#: aasrp/admin.py:249
+#: aasrp/admin.py:275
 #, python-format
 msgid "Activate selected %(verbose_name_plural)s"
 msgstr "Activer les %(verbose_name_plural)s sélectionné(e)s"
 
-#: aasrp/admin.py:275
+#: aasrp/admin.py:301
 #, python-brace-format
 msgid "Failed to activate {failed} fleet type"
 msgid_plural "Failed to activate {failed} fleet types"
 msgstr[0] "Échec de l'activation du type de flotte {failed}"
 msgstr[1] "Échec de l'activation des type de flotte {failed}"
 
-#: aasrp/admin.py:285
+#: aasrp/admin.py:311
 #, python-brace-format
 msgid "Activated {notifications_count} fleet type"
 msgid_plural "Activated {notifications_count} fleet types"
 msgstr[0] "{notifications_count} type de flotte activé"
 msgstr[1] "{notifications_count} types de flottes activé"
 
-#: aasrp/admin.py:291
+#: aasrp/admin.py:317
 #, fuzzy, python-format
 #| msgid "Deactivate selected fleet types"
 msgid "Deactivate selected %(verbose_name_plural)s"
 msgstr "Désactiver les types de flotte sélectionnés"
 
-#: aasrp/admin.py:317
+#: aasrp/admin.py:343
 #, python-brace-format
 msgid "Failed to deactivate {failed} fleet type"
 msgid_plural "Failed to deactivate {failed} fleet types"
 msgstr[0] "Échec de la désactivation de {failed} type de flotte"
 msgstr[1] "Échec de la désactivation de {failed} types de flotte"
 
-#: aasrp/admin.py:327
+#: aasrp/admin.py:353
 #, python-brace-format
 msgid "Deactivated {notifications_count} fleet type"
 msgid_plural "Deactivated {notifications_count} fleet types"
