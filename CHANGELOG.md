@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Admin views for SRP links and SRP requests to be read-only. SRP links and SRP requests should not be changed via the admin interface.
+
 ## [4.2.0] - 2026-03-08
 
 ### Added
