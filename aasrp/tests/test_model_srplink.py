@@ -191,7 +191,7 @@ class TestSrpLink(BaseTestCase):
 
             srp_link = SrpLink()
 
-            result = srp_link.total_requests
+            result = srp_link.total_requests_count
 
             self.assertEqual(result, 5)
             mock_rels.return_value.count.assert_called_once()
@@ -211,7 +211,7 @@ class TestSrpLink(BaseTestCase):
 
             srp_link = SrpLink()
 
-            result = srp_link.total_requests
+            result = srp_link.total_requests_count
 
             self.assertEqual(result, 0)
             mock_rels.return_value.count.assert_called_once()
@@ -231,7 +231,7 @@ class TestSrpLink(BaseTestCase):
 
             srp_link = SrpLink()
 
-            result = srp_link.pending_requests
+            result = srp_link.pending_requests_count
 
             self.assertEqual(result, 3)
             mock_rels.return_value.filter.assert_called_with(
@@ -253,7 +253,7 @@ class TestSrpLink(BaseTestCase):
 
             srp_link = SrpLink()
 
-            result = srp_link.pending_requests
+            result = srp_link.pending_requests_count
 
             self.assertEqual(result, 0)
             mock_rels.return_value.filter.assert_called_with(
@@ -275,7 +275,7 @@ class TestSrpLink(BaseTestCase):
 
             srp_link = SrpLink()
 
-            result = srp_link.approved_requests
+            result = srp_link.approved_requests_count
 
             self.assertEqual(result, 4)
             mock_rels.return_value.filter.assert_called_with(
@@ -297,7 +297,7 @@ class TestSrpLink(BaseTestCase):
 
             srp_link = SrpLink()
 
-            result = srp_link.approved_requests
+            result = srp_link.approved_requests_count
 
             self.assertEqual(result, 0)
             mock_rels.return_value.filter.assert_called_with(
@@ -319,7 +319,7 @@ class TestSrpLink(BaseTestCase):
 
             srp_link = SrpLink()
 
-            result = srp_link.rejected_requests
+            result = srp_link.rejected_requests_count
 
             self.assertEqual(result, 2)
             mock_rels.return_value.filter.assert_called_with(
@@ -341,7 +341,7 @@ class TestSrpLink(BaseTestCase):
 
             srp_link = SrpLink()
 
-            result = srp_link.rejected_requests
+            result = srp_link.rejected_requests_count
 
             self.assertEqual(result, 0)
             mock_rels.return_value.filter.assert_called_with(
