@@ -46,7 +46,7 @@ Section Order:
 
 ### Fixed
 
-- Total SRP costs display in SRP link view is now correctly localized
+- Total SRP cost displayed in SRP link view is now correctly localized
 
 ### Changed
 
