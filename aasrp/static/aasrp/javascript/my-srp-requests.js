@@ -29,7 +29,7 @@ $(document).ready(() => {
     );
 
     // Initialize DataTable with server-side processing
-    const dt = new DataTable(element.tableUserSrpRequests, { // eslint-disable-line no-unused-vars
+    const dt = new DataTable(element.tableUserSrpRequests, {
         ...aaSrpSettings.dataTables,
         order: [[0, 'desc']], // Default sorting by request time (newest first)
         serverSide: true, // Enable server-side processing
@@ -131,8 +131,6 @@ $(document).ready(() => {
             }
         ],
         initComplete: () => {
-            const dt = element.tableUserSrpRequests.DataTable();
-
             // Redraw table when filter values change
             Object.values(custom_dt_filter).forEach(($el) => {
                 $el.on('change', () => dt.draw());

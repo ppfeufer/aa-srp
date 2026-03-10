@@ -46,6 +46,10 @@ Section Order:
 
 - Admin views for SRP links and SRP requests to be read-only. SRP links and SRP requests should not be changed via the admin interface.
 
+### Removed
+
+- Unnecessary DataTables initialization
+
 ## [4.2.0] - 2026-03-08
 
 ### Added
