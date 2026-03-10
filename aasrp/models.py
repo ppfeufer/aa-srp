@@ -182,6 +182,23 @@ class SrpLink(models.Model):
 
         return str(self.srp_name)
 
+    def save(self, *args, **kwargs) -> None:
+        """
+        Override the save method to add custom behavior when saving an SRP link.
+
+        :param args: Positional arguments for the save method.
+        :type args: tuple
+        :param kwargs: Keyword arguments for the save method.
+        :type kwargs: dict
+        """
+
+        if self.srp_code == "":
+            # Generate a unique SRP code if it is not already set
+            self.srp_code = get_random_string(length=16)
+
+        # Call the original save method to ensure the SRP link is saved to the database
+        super().save(*args, **kwargs)
+
     @property
     def total_cost(self) -> int:
         """

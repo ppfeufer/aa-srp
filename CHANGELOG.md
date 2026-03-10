@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Move generation of SRP link and request codes into the model save method
+
 ## [4.2.1] - 2026-03-10
 
 ### Fixed
