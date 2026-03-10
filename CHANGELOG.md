@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- (Internal) Better property names for the `SrpLink` model
+
 ## [4.2.1] - 2026-03-10
 
 ### Fixed

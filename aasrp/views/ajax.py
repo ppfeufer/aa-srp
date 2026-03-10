@@ -121,7 +121,7 @@ def dashboard_srp_links_data(
                 "srp_code": {"display": srp_code_html, "sort": srp_link.srp_code},
                 "srp_costs": srp_link.total_cost,
                 "srp_status": srp_link.srp_status,
-                "pending_requests": srp_link.pending_requests,
+                "pending_requests": srp_link.pending_requests_count,
                 "actions": dashboard_action_icons(request=request, srp_link=srp_link),
             }
         )

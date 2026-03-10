@@ -208,7 +208,7 @@ class SrpLink(models.Model):
         return self.srp_requests.filter(request_status=status).count()
 
     @property
-    def total_requests(self) -> int:
+    def total_requests_count(self) -> int:
         """
         Get the total number of SRP requests linked to this SRP link.
 
@@ -219,7 +219,7 @@ class SrpLink(models.Model):
         return self.srp_requests.count()
 
     @property
-    def pending_requests(self) -> int:
+    def pending_requests_count(self) -> int:
         """
         Get the number of pending SRP requests linked to this SRP link.
 
@@ -230,7 +230,7 @@ class SrpLink(models.Model):
         return self._count_requests_by_status(SrpRequest.Status.PENDING)
 
     @property
-    def approved_requests(self) -> int:
+    def approved_requests_count(self) -> int:
         """
         Get the number of approved SRP requests linked to this SRP link.
 
@@ -241,7 +241,7 @@ class SrpLink(models.Model):
         return self._count_requests_by_status(SrpRequest.Status.APPROVED)
 
     @property
-    def rejected_requests(self) -> int:
+    def rejected_requests_count(self) -> int:
         """
         Get the number of rejected SRP requests linked to this SRP link.
 
