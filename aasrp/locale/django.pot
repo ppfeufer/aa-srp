@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 4.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-03-10 12:44+0100\n"
+"POT-Creation-Date: 2026-03-10 23:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,8 +28,8 @@ msgstr ""
 msgid "Ship Replacement"
 msgstr ""
 
-#: aasrp/admin.py:57 aasrp/models.py:162 aasrp/models.py:291
-#: aasrp/models.py:456
+#: aasrp/admin.py:57 aasrp/models.py:163 aasrp/models.py:309
+#: aasrp/models.py:491
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
 msgid "Creator"
 msgstr ""
@@ -43,7 +43,7 @@ msgid "Requestor"
 msgstr ""
 
 #: aasrp/admin.py:129 aasrp/admin.py:209 aasrp/helper/srp_data.py:65
-#: aasrp/models.py:124 aasrp/templates/aasrp/dashboard.html:26
+#: aasrp/models.py:125 aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:32
@@ -51,7 +51,7 @@ msgstr ""
 msgid "SRP code"
 msgstr ""
 
-#: aasrp/admin.py:142 aasrp/models.py:308
+#: aasrp/admin.py:142 aasrp/models.py:326
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
 #: aasrp/templates/aasrp/dashboard.html:23
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:20
@@ -62,22 +62,22 @@ msgstr ""
 msgid "Ship"
 msgstr ""
 
-#: aasrp/admin.py:155 aasrp/models.py:329
+#: aasrp/admin.py:155 aasrp/models.py:347
 msgid "Loss amount"
 msgstr ""
 
-#: aasrp/admin.py:170 aasrp/models.py:322
+#: aasrp/admin.py:170 aasrp/models.py:340
 msgid "Payout amount"
 msgstr ""
 
-#: aasrp/admin.py:222 aasrp/helper/srp_data.py:66 aasrp/models.py:281
+#: aasrp/admin.py:222 aasrp/helper/srp_data.py:66 aasrp/models.py:299
 #: aasrp/templates/aasrp/dashboard.html:27
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:33
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:81
 msgid "Request code"
 msgstr ""
 
-#: aasrp/admin.py:248 aasrp/models.py:299
+#: aasrp/admin.py:248 aasrp/models.py:317
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:27
 #: aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:8
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Fleet name"
 msgstr ""
 
-#: aasrp/form.py:98 aasrp/form.py:109 aasrp/models.py:149
+#: aasrp/form.py:98 aasrp/form.py:109 aasrp/models.py:150
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:37
 msgid "Fleet time"
@@ -146,7 +146,7 @@ msgstr ""
 msgid "Fleet type (optional)"
 msgstr ""
 
-#: aasrp/form.py:100 aasrp/form.py:112 aasrp/models.py:135
+#: aasrp/form.py:100 aasrp/form.py:112 aasrp/models.py:136
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:45
@@ -157,7 +157,7 @@ msgstr ""
 msgid "After action report link"
 msgstr ""
 
-#: aasrp/form.py:111 aasrp/models.py:89 aasrp/models.py:146
+#: aasrp/form.py:111 aasrp/models.py:90 aasrp/models.py:147
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
@@ -177,12 +177,12 @@ msgid ""
 "on. Be as detailed as you can."
 msgstr ""
 
-#: aasrp/form.py:161 aasrp/form.py:168 aasrp/models.py:311
+#: aasrp/form.py:161 aasrp/form.py:168 aasrp/models.py:329
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:35
 msgid "Killboard link"
 msgstr ""
 
-#: aasrp/form.py:163 aasrp/form.py:172 aasrp/models.py:314 aasrp/models.py:435
+#: aasrp/form.py:163 aasrp/form.py:172 aasrp/models.py:332 aasrp/models.py:470
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:27
 #: aasrp/templates/aasrp/view-requests.html:43
@@ -214,7 +214,7 @@ msgstr ""
 msgid "Please provide the reason this SRP request is rejected."
 msgstr ""
 
-#: aasrp/form.py:295 aasrp/models.py:334 aasrp/models.py:436
+#: aasrp/form.py:295 aasrp/models.py:352 aasrp/models.py:471
 msgid "Reject reason"
 msgstr ""
 
@@ -232,8 +232,8 @@ msgid ""
 "accepted."
 msgstr ""
 
-#: aasrp/form.py:355 aasrp/models.py:433 aasrp/models.py:440
-#: aasrp/models.py:492
+#: aasrp/form.py:355 aasrp/models.py:468 aasrp/models.py:475
+#: aasrp/models.py:527
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
 msgid "Comment"
 msgstr ""
@@ -329,95 +329,95 @@ msgstr ""
 msgid "Copy payout amount to clipboard"
 msgstr ""
 
-#: aasrp/models.py:72
+#: aasrp/models.py:73
 msgid "Descriptive name of your fleet type"
 msgstr ""
 
-#: aasrp/models.py:73
+#: aasrp/models.py:74
 msgid "Name"
 msgstr ""
 
-#: aasrp/models.py:79
+#: aasrp/models.py:80
 msgid "Whether this fleet type is active or not"
 msgstr ""
 
-#: aasrp/models.py:80
+#: aasrp/models.py:81
 msgid "Is enabled"
 msgstr ""
 
-#: aasrp/models.py:90
+#: aasrp/models.py:91
 msgid "Fleet types"
 msgstr ""
 
-#: aasrp/models.py:113
+#: aasrp/models.py:114
 msgid "Active"
 msgstr ""
 
-#: aasrp/models.py:114
+#: aasrp/models.py:115
 msgid "Closed"
 msgstr ""
 
-#: aasrp/models.py:115
+#: aasrp/models.py:116
 msgid "Completed"
 msgstr ""
 
-#: aasrp/models.py:117
+#: aasrp/models.py:118
 msgid "SRP name"
 msgstr ""
 
-#: aasrp/models.py:122
+#: aasrp/models.py:123
 msgid "SRP status"
 msgstr ""
 
-#: aasrp/models.py:132
+#: aasrp/models.py:133
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:32
 msgid "Fleet commander"
 msgstr ""
 
-#: aasrp/models.py:145
+#: aasrp/models.py:146
 msgid "The SRP link fleet type, if it's set"
 msgstr ""
 
-#: aasrp/models.py:151
+#: aasrp/models.py:152
 msgid "AAR link"
 msgstr ""
 
-#: aasrp/models.py:161
+#: aasrp/models.py:162
 msgid "Who created the SRP link?"
 msgstr ""
 
-#: aasrp/models.py:171 aasrp/models.py:327
+#: aasrp/models.py:172 aasrp/models.py:345
 msgid "SRP link"
 msgstr ""
 
-#: aasrp/models.py:172
+#: aasrp/models.py:173
 #: aasrp/templates/aasrp/partials/navigation/top-navigation.html:15
 msgid "SRP links"
 msgstr ""
 
-#: aasrp/models.py:276
+#: aasrp/models.py:294
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:18
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:38
 msgid "Pending"
 msgstr ""
 
-#: aasrp/models.py:277
+#: aasrp/models.py:295
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:19
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:52
 msgid "Approved"
 msgstr ""
 
-#: aasrp/models.py:278
+#: aasrp/models.py:296
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:20
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:66
 msgid "Rejected"
 msgstr ""
 
-#: aasrp/models.py:290
+#: aasrp/models.py:308
 msgid "Who created the SRP request?"
 msgstr ""
 
-#: aasrp/models.py:320 aasrp/templates/aasrp/dashboard.html:24
+#: aasrp/models.py:338 aasrp/templates/aasrp/dashboard.html:24
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:32
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:34
 #: aasrp/templates/aasrp/view-own-requests.html:24
@@ -425,128 +425,128 @@ msgstr ""
 msgid "Request status"
 msgstr ""
 
-#: aasrp/models.py:331
+#: aasrp/models.py:349
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:19
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:78
 msgid "Request time"
 msgstr ""
 
-#: aasrp/models.py:345
+#: aasrp/models.py:363
 msgid "Request"
 msgstr ""
 
-#: aasrp/models.py:346
+#: aasrp/models.py:364
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:26
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:16
 msgid "Requests"
 msgstr ""
 
-#: aasrp/models.py:363
+#: aasrp/models.py:381
 #, python-brace-format
 msgid "{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
 msgstr ""
 
-#: aasrp/models.py:405 aasrp/models.py:466
+#: aasrp/models.py:440 aasrp/models.py:501
 msgid "SRP request"
 msgstr ""
 
-#: aasrp/models.py:408
+#: aasrp/models.py:443
 msgid "Insurance level"
 msgstr ""
 
-#: aasrp/models.py:410
+#: aasrp/models.py:445
 msgid "Insurance cost"
 msgstr ""
 
-#: aasrp/models.py:411
+#: aasrp/models.py:446
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
 #: aasrp/templates/aasrp/view-requests.html:42
 msgid "Insurance payout"
 msgstr ""
 
-#: aasrp/models.py:419
+#: aasrp/models.py:454
 msgid "Ship insurance"
 msgstr ""
 
-#: aasrp/models.py:420
+#: aasrp/models.py:455
 msgid "Ship insurances"
 msgstr ""
 
-#: aasrp/models.py:434
+#: aasrp/models.py:469
 msgid "SRP request added"
 msgstr ""
 
-#: aasrp/models.py:437
+#: aasrp/models.py:472
 msgid "Status changed"
 msgstr ""
 
-#: aasrp/models.py:438
+#: aasrp/models.py:473
 msgid "Reviser comment"
 msgstr ""
 
-#: aasrp/models.py:446
+#: aasrp/models.py:481
 msgid "Comment type"
 msgstr ""
 
 #. Translators: This is the time when the comment was made
-#: aasrp/models.py:474
+#: aasrp/models.py:509
 msgid "Comment time"
 msgstr ""
 
 #. Translators: New SRP request status that might have been set
-#: aasrp/models.py:483
+#: aasrp/models.py:518
 msgid "New SRP request status"
 msgstr ""
 
-#: aasrp/models.py:493
+#: aasrp/models.py:528
 msgid "Comments"
 msgstr ""
 
-#: aasrp/models.py:508
+#: aasrp/models.py:543
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:103
 msgid "User"
 msgstr ""
 
-#: aasrp/models.py:512
+#: aasrp/models.py:547
 msgid "Disable notifications"
 msgstr ""
 
-#: aasrp/models.py:521 aasrp/models.py:522
+#: aasrp/models.py:556 aasrp/models.py:557
 msgid "User settings"
 msgstr ""
 
-#: aasrp/models.py:536
+#: aasrp/models.py:571
 msgid "SRP team Discord channel ID"
 msgstr ""
 
-#: aasrp/models.py:539
+#: aasrp/models.py:574
 msgid "Loss value source"
 msgstr ""
 
-#: aasrp/models.py:546
+#: aasrp/models.py:581
 msgid "Fitted value (Ship and Fitting)"
 msgstr ""
 
-#: aasrp/models.py:547
+#: aasrp/models.py:582
 msgid "Total value (Ship, Fitting and Cargo)"
 msgstr ""
 
-#: aasrp/models.py:560
+#: aasrp/models.py:595
 msgid ""
 "The source for the loss value of a killmail. Fitted value is the value of "
 "the ship and its fitting. Total value is the value of the ship, its fitting "
 "and the cargo. (Default: Total value)"
 msgstr ""
 
-#: aasrp/models.py:577
+#: aasrp/models.py:612
 msgid "Setting"
 msgstr ""
 
-#: aasrp/models.py:578
+#: aasrp/models.py:613
 msgid "Settings"
 msgstr ""
 
-#: aasrp/models.py:588
+#: aasrp/models.py:623
 msgid "AA-SRP settings"
 msgstr ""
 
@@ -1024,78 +1024,78 @@ msgstr ""
 msgid "SRP requests have been removed"
 msgstr ""
 
-#: aasrp/views/general.py:72
+#: aasrp/views/general.py:71
 msgid "You do not have the needed permissions to view all SRP links"
 msgstr ""
 
-#: aasrp/views/general.py:156
+#: aasrp/views/general.py:155
 msgid "Settings saved."
 msgstr ""
 
-#: aasrp/views/general.py:222
+#: aasrp/views/general.py:220
 #, python-brace-format
 msgid "SRP link \"{srp_code}\" created"
 msgstr ""
 
-#: aasrp/views/general.py:274
+#: aasrp/views/general.py:272
 #, python-brace-format
 msgid "Unable to locate SRP link using SRP code {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:289
+#: aasrp/views/general.py:287
 msgid "AAR link changed"
 msgstr ""
 
-#: aasrp/views/general.py:407
+#: aasrp/views/general.py:404
 #, python-brace-format
 msgid "Submitted SRP request for your {ship_name}."
 msgstr ""
 
-#: aasrp/views/general.py:451
+#: aasrp/views/general.py:448
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:463
+#: aasrp/views/general.py:460
 msgid "This SRP link is no longer available for SRP requests."
 msgstr ""
 
-#: aasrp/views/general.py:494
+#: aasrp/views/general.py:491
 #, python-brace-format
 msgid ""
 "Something went wrong, your kill mail ({submitted_killmail_link}) could not "
 "be parsed: {error}"
 msgstr ""
 
-#: aasrp/views/general.py:538
+#: aasrp/views/general.py:535
 #, python-brace-format
 msgid ""
 "Character {victim_id} does not belong to your Auth account. Please add this "
 "character as an alt to your main and try again."
 msgstr ""
 
-#: aasrp/views/general.py:587
+#: aasrp/views/general.py:584
 msgid "SRP link marked as completed"
 msgstr ""
 
-#: aasrp/views/general.py:596 aasrp/views/general.py:634
-#: aasrp/views/general.py:694 aasrp/views/general.py:742
-#: aasrp/views/general.py:789
+#: aasrp/views/general.py:593 aasrp/views/general.py:631
+#: aasrp/views/general.py:691 aasrp/views/general.py:739
+#: aasrp/views/general.py:786
 #, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:684
+#: aasrp/views/general.py:681
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr ""
 
-#: aasrp/views/general.py:732
+#: aasrp/views/general.py:729
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr ""
 
-#: aasrp/views/general.py:779
+#: aasrp/views/general.py:776
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""
