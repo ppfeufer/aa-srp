@@ -3,8 +3,22 @@
 $(document).ready(() => {
     'use strict';
 
-    const elementSrpRequestsTable = $('#tab_aasrp_srp_requests');
-    const elementBulkActions = $('div.card-srp-request-bulk-actions');
+    const element = {
+        srpRequestsTable: $('#tab_aasrp_srp_requests'),
+        bulkActions: $('div.card-srp-request-bulk-actions'),
+        totalSrpCost: $('#srp-fleet-total-cost')
+    };
+
+    // Set initial total SRP cost value
+    const totalSrpCost = element.totalSrpCost.data('total-srp-cost') || 0;
+    element.totalSrpCost.html(numberFormatter({
+        value: totalSrpCost,
+        locales: aaSrpSettings.locale,
+        options: {
+            style: 'currency',
+            currency: 'ISK'
+        }
+    }));
 
     /**
      * Update total notifications badge in sidebar menu
@@ -44,7 +58,7 @@ $(document).ready(() => {
     fetchGet({url: aaSrpSettings.url.requestsForSrpLink})
         .then((data) => {
             if (data) {
-                const dt = new DataTable(elementSrpRequestsTable, { // eslint-disable-line no-unused-vars
+                const dt = new DataTable(element.srpRequestsTable, { // eslint-disable-line no-unused-vars
                     language: aaSrpSettings.dataTables.language,
                     data: data,
                     layout: aaSrpSettings.dataTables.layout,
@@ -232,7 +246,7 @@ $(document).ready(() => {
                         }
                     },
                     initComplete: () => {
-                        const dt = elementSrpRequestsTable.DataTable();
+                        const dt = element.srpRequestsTable.DataTable();
 
                         /**
                          * Helper function: Filter DataTable
@@ -286,7 +300,7 @@ $(document).ready(() => {
                         });
 
                         // Make the SRP payout field editable for pending and rejected requests.
-                        elementSrpRequestsTable.editable({
+                        element.srpRequestsTable.editable({
                             container: 'body',
                             selector: '.srp-request-payout-amount-editable .srp-payout-amount',
                             title: aaSrpSettings.translation.changeSrpPayoutHeader,
@@ -331,9 +345,9 @@ $(document).ready(() => {
                                 const checkedCheckboxes = $(elementBulkActionsCheckboxes).filter(':checked');
 
                                 if (checkedCheckboxes.length > 0) {
-                                    elementBulkActions.removeClass('d-none');
+                                    element.bulkActions.removeClass('d-none');
                                 } else {
-                                    elementBulkActions.addClass('d-none');
+                                    element.bulkActions.addClass('d-none');
                                 }
                             });
                         });
@@ -385,8 +399,7 @@ $(document).ready(() => {
             totalSrpAmount += parseInt(payoutElement.getAttribute('data-value'));
         });
 
-        // $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
-        $('.srp-fleet-total-amount').html(numberFormatter({
+        element.totalSrpCost.html(numberFormatter({
             value: totalSrpAmount,
             locales: aaSrpSettings.locale,
             options: {
@@ -431,16 +444,14 @@ $(document).ready(() => {
         });
 
         // Update fleet total SRP amount
-        // $('.srp-fleet-total-amount').html(`${new Intl.NumberFormat(aaSrpSettings.locale).format(totalSrpAmount)} ISK`);
-        $('.srp-fleet-total-amount')
-            .html(numberFormatter({
-                value: totalSrpAmount,
-                locales: aaSrpSettings.locale,
-                options: {
-                    style: 'currency',
-                    currency: 'ISK'
-                }
-            }));
+        element.totalSrpCost.html(numberFormatter({
+            value: totalSrpAmount,
+            locales: aaSrpSettings.locale,
+            options: {
+                style: 'currency',
+                currency: 'ISK'
+            }
+        }));
 
         // Update requests counts
         $('.srp-requests-total-count').html(requestsTotal);
@@ -471,7 +482,7 @@ $(document).ready(() => {
         if (data.success === true) {
             fetchGet({url: aaSrpSettings.url.requestsForSrpLink})
                 .then((newData) => {
-                    const dt = elementSrpRequestsTable.DataTable();
+                    const dt = element.srpRequestsTable.DataTable();
 
                     dt.clear().rows.add(newData).draw();
 
@@ -768,7 +779,7 @@ $(document).ready(() => {
                                 $(checkbox).prop('checked', false);
                             });
 
-                            elementBulkActions.addClass('d-none');
+                            element.bulkActions.addClass('d-none');
                         })
                         .catch((error) => {
                             console.error(`Error: ${error.message}`);
@@ -813,7 +824,7 @@ $(document).ready(() => {
                                 $(checkbox).prop('checked', false);
                             });
 
-                            elementBulkActions.addClass('d-none');
+                            element.bulkActions.addClass('d-none');
                         })
                         .catch((error) => {
                             console.error(`Error: ${error.message}`);
@@ -840,6 +851,6 @@ $(document).ready(() => {
                 $(checkbox).prop('checked', false);
             });
             // Hide bulk actions
-            elementBulkActions.addClass('d-none');
+            element.bulkActions.addClass('d-none');
         });
 });

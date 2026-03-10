@@ -13,9 +13,7 @@ $(document).ready(() => {
         character: $('#filter-character'),
     };
 
-    /**
-     * Table: User's own SRP requests
-     */
+    // Display total SRP cost to user
     const userSrpAmount = element.totalSrpCost.data('total-srp-cost') || 0;
     element.totalSrpCost.html(
         numberFormatter({
