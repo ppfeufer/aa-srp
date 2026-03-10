@@ -353,7 +353,6 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         ship=srp_request__ship,
         loss_amount=ship_value,
         post_time=post_time,
-        request_code=get_random_string(length=16),
     )
 
     # Create comments for the SRP request
