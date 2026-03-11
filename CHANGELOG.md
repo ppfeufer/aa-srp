@@ -42,9 +42,11 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [4.2.2] - 2026-03-11
+
 ### Changed
 
-- Move away from `django.utils.datetime_safe` in preparation for Django 5
+- Move away from `django.utils.datetime_safe` in preparation for Alliance Auth v5
 - Move generation of SRP link and request codes into the model save method
 - (Internal) Better property names for the `SrpLink` model
 
@@ -1728,11 +1730,12 @@ python manage.py aasrp_update_db_relations
 [4.1.0]: https://github.com/ppfeufer/aa-srp/compare/v4.0.0...v4.1.0 "v4.1.0"
 [4.2.0]: https://github.com/ppfeufer/aa-srp/compare/v4.1.0...v4.2.0 "v4.2.0"
 [4.2.1]: https://github.com/ppfeufer/aa-srp/compare/v4.2.0...v4.2.1 "v4.2.1"
+[4.2.2]: https://github.com/ppfeufer/aa-srp/compare/v4.2.1...v4.2.2 "v4.2.2"
 [aa discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "AA Discord Notify"
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[in development]: https://github.com/ppfeufer/aa-srp/compare/v4.2.1...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-srp/compare/v4.2.2...HEAD "In Development"
 [keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
 [semantic versioning]: http://semver.org/ "Semantic Versioning"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
