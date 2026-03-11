@@ -5,6 +5,9 @@ Unit tests for the SrpLink model.
 # Standard Library
 from unittest.mock import MagicMock, PropertyMock, patch
 
+# Django
+from django.utils import timezone
+
 # AA SRP
 from aasrp.models import SrpLink, SrpRequest
 from aasrp.tests import BaseTestCase
@@ -347,3 +350,54 @@ class TestSrpLink(BaseTestCase):
             mock_rels.return_value.filter.assert_called_with(
                 request_status=SrpRequest.Status.REJECTED
             )
+
+    def test_saves_srp_link_with_empty_code_generates_unique_code(self):
+        """
+        Test that saving an SrpLink with an empty code generates a unique code.
+
+        :return:
+        :rtype:
+        """
+
+        srp_link = SrpLink(srp_name="Test SRP", fleet_time=timezone.now(), srp_code="")
+        srp_link.save()
+
+        self.assertNotEqual(srp_link.srp_code, "")
+        self.assertEqual(len(srp_link.srp_code), 16)
+
+    def test_saves_srp_link_with_existing_code_preserves_code(self):
+        """
+        Test that saving an SrpLink with an existing code preserves the code.
+
+        :return:
+        :rtype:
+        """
+
+        srp_link = SrpLink(
+            srp_name="Test SRP", fleet_time=timezone.now(), srp_code="EXISTINGCODE1234"
+        )
+        srp_link.save()
+
+        self.assertEqual(srp_link.srp_code, "EXISTINGCODE1234")
+
+    def test_saves_multiple_srp_links_with_empty_code_generates_unique_codes(self):
+        """
+        Test that saving multiple SrpLinks with empty codes generates unique codes for each link.
+
+        :return:
+        :rtype:
+        """
+
+        srp_link1 = SrpLink(
+            srp_name="Test SRP 1", fleet_time=timezone.now(), srp_code=""
+        )
+        srp_link1.save()
+
+        srp_link2 = SrpLink(
+            srp_name="Test SRP 2", fleet_time=timezone.now(), srp_code=""
+        )
+        srp_link2.save()
+
+        self.assertNotEqual(srp_link1.srp_code, srp_link2.srp_code)
+        self.assertEqual(len(srp_link1.srp_code), 16)
+        self.assertEqual(len(srp_link2.srp_code), 16)

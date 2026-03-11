@@ -1,12 +1,21 @@
+"""
+Unit tests for the SrpRequest model in the AA SRP application.
+"""
+
 # Standard Library
 from unittest.mock import MagicMock, patch
 
+# Third Party
+from eve_sde.models import ItemType
+
 # Django
 from django.contrib.auth.models import AnonymousUser
+from django.utils import timezone
 
 # AA SRP
-from aasrp.models import SrpRequest
+from aasrp.models import SrpLink, SrpRequest
 from aasrp.tests import BaseTestCase
+from aasrp.tests.utils import create_eve_character, create_fake_user
 
 
 class TestSrpRequest(BaseTestCase):
@@ -22,8 +31,35 @@ class TestSrpRequest(BaseTestCase):
         :rtype:
         """
 
+        self.user = create_fake_user(
+            character_id=123456,
+            character_name="Willam Riker",
+            corporation_id=98000001,
+            corporation_name="Bridge Vrew",
+            corporation_ticker="BC",
+            alliance_id=99000001,
+            alliance_name="USS Enterprise",
+            alliance_ticker="NX-01",
+        )
+        self.character = self.user.profile.main_character
+
+        self.character_2 = create_eve_character(
+            character_id=654321,
+            character_name="Worf",
+            corporation_id=98000001,
+            corporation_name="Bridge Crew",
+            corporation_ticker="BC",
+        )
+        # minimal ItemType/Ship entry
+        self.ship_type = ItemType.objects.create(
+            id=587, name="Test Ship", published=True
+        )
+        self.srp_link_1 = SrpLink.objects.create(
+            srp_name="Test SRP", fleet_time=timezone.now()
+        )
+
+        # keep mocks for tests that exercise __str__ and permission logic
         self.srp_request = MagicMock(spec=SrpRequest)
-        # provide related objects matching the model's usage
         self.srp_request.character = MagicMock()
         self.srp_request.character.character_name = "Test Character"
         self.srp_request.creator = MagicMock()
@@ -167,3 +203,67 @@ class TestSrpRequest(BaseTestCase):
 
         self.assertIsNone(result)
         mock_filter.assert_not_called()
+
+    def test_saves_request_with_empty_code_generates_unique_code(self):
+        """
+        Test that saving an SrpRequest with an empty request_code generates a unique code.
+
+        :return:
+        :rtype:
+        """
+
+        srp_request = SrpRequest(
+            creator=self.user,
+            character=self.character,
+            ship=self.ship_type,
+            srp_link=self.srp_link_1,
+            request_code="",
+        )
+        srp_request.save()
+
+        self.assertNotEqual(srp_request.request_code, "")
+        self.assertEqual(len(srp_request.request_code), 16)
+
+    def test_saves_request_with_existing_code_preserves_code(self):
+        """
+        Test that saving an SrpRequest with an existing request_code preserves the code.
+
+        :return:
+        :rtype:
+        """
+
+        srp_request = SrpRequest(
+            creator=self.user,
+            character=self.character,
+            ship=self.ship_type,
+            srp_link=self.srp_link_1,
+            request_code="EXISTINGCODE1234",
+        )
+        srp_request.save()
+
+        self.assertEqual(srp_request.request_code, "EXISTINGCODE1234")
+
+    def test_saves_request_with_empty_code_generates_different_codes_for_multiple_requests(
+        self,
+    ):
+        srp_request1 = SrpRequest(
+            creator=self.user,
+            character=self.character,
+            ship=self.ship_type,
+            srp_link=self.srp_link_1,
+            request_code="",
+        )
+        srp_request1.save()
+
+        srp_request2 = SrpRequest(
+            creator=self.user,
+            character=self.character_2,
+            ship=self.ship_type,
+            srp_link=self.srp_link_1,
+            request_code="",
+        )
+        srp_request2.save()
+
+        self.assertNotEqual(srp_request1.request_code, srp_request2.request_code)
+        self.assertEqual(len(srp_request1.request_code), 16)
+        self.assertEqual(len(srp_request2.request_code), 16)

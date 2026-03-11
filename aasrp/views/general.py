@@ -17,7 +17,6 @@ from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
-from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
@@ -210,7 +209,6 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
                 fleet_type=fleet_type,
                 fleet_doctrine=fleet_doctrine,
                 aar_link=aar_link,
-                srp_code=get_random_string(length=16),
                 fleet_commander=request.user.profile.main_character,
                 creator=request.user,
             )
@@ -353,7 +351,6 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         ship=srp_request__ship,
         loss_amount=ship_value,
         post_time=post_time,
-        request_code=get_random_string(length=16),
     )
 
     # Create comments for the SRP request

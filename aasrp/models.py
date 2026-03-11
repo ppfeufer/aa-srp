@@ -13,6 +13,7 @@ from solo.models import SingletonModel
 from django.contrib.auth.models import AbstractUser, AnonymousUser, User
 from django.db import models
 from django.utils import timezone
+from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
@@ -180,6 +181,23 @@ class SrpLink(models.Model):
         """
 
         return str(self.srp_name)
+
+    def save(self, *args, **kwargs) -> None:
+        """
+        Override the save method to add custom behavior when saving an SRP link.
+
+        :param args: Positional arguments for the save method.
+        :type args: tuple
+        :param kwargs: Keyword arguments for the save method.
+        :type kwargs: dict
+        """
+
+        if self.srp_code == "":
+            # Generate a unique SRP code if it is not already set
+            self.srp_code = get_random_string(length=16)
+
+        # Call the original save method to ensure the SRP link is saved to the database
+        super().save(*args, **kwargs)
 
     @property
     def total_cost(self) -> int:
@@ -368,6 +386,23 @@ class SrpRequest(models.Model):
                 request_code=request_code,
             )
         )
+
+    def save(self, *args, **kwargs) -> None:
+        """
+        Override the save method to add custom behavior when saving an SRP request.
+
+        :param args: Positional arguments for the save method.
+        :type args: tuple
+        :param kwargs: Keyword arguments for the save method.
+        :type kwargs: dict
+        """
+
+        if self.request_code == "":
+            # Generate a unique request code if it is not already set
+            self.request_code = get_random_string(length=16)
+
+        # Call the original save method to ensure the SRP request is saved to the database
+        super().save(*args, **kwargs)
 
     @staticmethod
     def pending_requests_count_for_user(
