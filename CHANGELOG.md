@@ -44,6 +44,7 @@ Section Order:
 
 ### Changed
 
+- Move away from `django.utils.datetime_safe` in preparation for Django 5
 - Move generation of SRP link and request codes into the model save method
 - (Internal) Better property names for the `SrpLink` model
 

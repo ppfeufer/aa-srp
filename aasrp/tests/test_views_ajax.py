@@ -14,7 +14,6 @@ from eve_sde.models import ItemType
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.crypto import get_random_string
-from django.utils.datetime_safe import datetime
 
 # AA SRP
 from aasrp.models import RequestComment, SrpLink, SrpRequest
@@ -60,7 +59,7 @@ class BaseViewsTestCase(BaseTestCase):
             srp_name="Active SRP",
             srp_status=SrpLink.Status.ACTIVE,
             creator=cls.user_jean_luc_picard,
-            fleet_time=datetime.now(),
+            fleet_time=timezone.now(),
             srp_code=get_random_string(length=16),
         )
         cls.srp_link_active.save()
@@ -69,7 +68,7 @@ class BaseViewsTestCase(BaseTestCase):
             srp_name="Closed SRP",
             srp_status=SrpLink.Status.CLOSED,
             creator=cls.user_jean_luc_picard,
-            fleet_time=datetime.now(),
+            fleet_time=timezone.now(),
             srp_code=get_random_string(length=16),
         )
         cls.srp_link_closed.save()
