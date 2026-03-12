@@ -4,7 +4,7 @@ $(document).ready(() => {
     'use strict';
 
     const element = {
-        srpRequestsTable: $('#tab_aasrp_srp_requests'),
+        srpRequestsTable: $('#table_aasrp_srp_requests'),
         bulkActions: $('div.card-srp-request-bulk-actions'),
         totalSrpCost: $('#srp-fleet-total-cost')
     };
@@ -306,6 +306,7 @@ $(document).ready(() => {
                             title: aaSrpSettings.translation.changeSrpPayoutHeader,
                             type: 'number',
                             placement: 'top',
+                            highlight: 'rgb(170 255 128)',
                             /**
                              * @returns {boolean}
                              */
@@ -365,11 +366,11 @@ $(document).ready(() => {
     /**
      * Helper function: Refresh the Payout Amount field
      *
-     * @param element
+     * @param valueField
      * @param {int|string} newValue
      * @private
      */
-    const _refreshSrpAmountField = (element, newValue) => {
+    const _refreshSrpAmountField = (valueField, newValue) => {
         newValue = parseInt(newValue);
 
         // Update payout value formatted
@@ -384,7 +385,7 @@ $(document).ready(() => {
         });
 
         // Update the element
-        element
+        valueField
             .attr('data-value', newValue)
             .addClass('srp-payout-amount-changed')
             .html(newValueFormatted);
@@ -399,6 +400,8 @@ $(document).ready(() => {
             totalSrpAmount += parseInt(payoutElement.getAttribute('data-value'));
         });
 
+        console.log('Element Total Cost', element.totalSrpCost);
+
         element.totalSrpCost.html(numberFormatter({
             value: totalSrpAmount,
             locales: aaSrpSettings.locale,
@@ -409,7 +412,7 @@ $(document).ready(() => {
         }));
 
         // Update copy to clipboard icon value
-        const copyToClipboard = element.parent().parent().find('.copy-to-clipboard-icon i');
+        const copyToClipboard = valueField.parent().parent().find('.copy-to-clipboard-icon i');
         copyToClipboard.attr('data-clipboard-text', newValue);
     };
 
@@ -442,6 +445,8 @@ $(document).ready(() => {
                 requestsRejected += 1;
             }
         });
+
+        console.log('ELEMENT TOTAL COST', element.totalSrpCost);
 
         // Update fleet total SRP amount
         element.totalSrpCost.html(numberFormatter({

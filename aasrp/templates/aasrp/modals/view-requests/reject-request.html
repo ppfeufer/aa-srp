@@ -1,4 +1,4 @@
-{% load bootstrap %}
+{% load django_bootstrap5 %}
 {% load i18n %}
 
 <!-- reject request modal -->
@@ -22,7 +22,7 @@
                     {% csrf_token %}
 
                     <fieldset class="aa-srp-request-form">
-                        {{ forms.reject_request|bootstrap }}
+                        {% bootstrap_field forms.reject_request.comment %}
 
                         {% include "aasrp/partials/form/required-field-hint.html" %}
                     </fieldset>

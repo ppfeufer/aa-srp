@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Replaced deprecated templatetag
+
 ## [4.2.2] - 2026-03-11
 
 ### Changed
