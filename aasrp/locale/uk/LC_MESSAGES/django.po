@@ -4,13 +4,13 @@
 # "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024, 2025.
 # "Andrii M." <elfleg0las88@gmail.com>, 2023, 2024.
 # M <skrypets@gmail.com>, 2025.
-# s0k0l -_- <salarysalo@gmail.com>, 2025.
+# s0k0l -_- <salarysalo@gmail.com>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-03-11 13:35+0100\n"
-"PO-Revision-Date: 2025-12-08 09:17+0000\n"
+"POT-Creation-Date: 2026-03-12 11:22+0100\n"
+"PO-Revision-Date: 2026-03-12 10:23+0000\n"
 "Last-Translator: s0k0l -_- <salarysalo@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/uk/>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: aasrp/__init__.py:11 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -302,8 +302,8 @@ msgstr "Деталі запиту на SRP"
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:38
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:38
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:40
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:37
 msgid "Accept SRP request"
 msgstr "Прийняти запит на SRP"
 
@@ -314,7 +314,7 @@ msgid "Reject SRP request"
 msgstr "Відхилити запит на SRP"
 
 #: aasrp/helper/icons.py:401
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:38
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:37
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr "Видалити запит на SRP"
@@ -583,7 +583,7 @@ msgstr "Створити SRP-посилання"
 
 #: aasrp/templates/aasrp/link-edit.html:6
 msgid "Add/Edit After Action Report Link"
-msgstr "Додати/редагувати посилання на звіт після дії (AAR)"
+msgstr "Додати/редагувати посилання на звіт після дії"
 
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:9
@@ -595,8 +595,8 @@ msgstr "Видалити посилання на SRP"
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:12
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:13
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:13
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:13
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:13
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:12
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:12
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:12
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:12
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:13
@@ -609,9 +609,9 @@ msgstr "Закрити"
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:35
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:33
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:33
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:33
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:35
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:32
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:32
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:24
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:43
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:35
@@ -637,27 +637,27 @@ msgstr "Увімкнути"
 msgid "Are you sure you want to accept this SRP request?"
 msgstr "Ви впевнені, що хочете прийняти цей запит на SRP?"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:10
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:9
 msgid "Accept SRP requests"
 msgstr "Прийняти запити на SRP"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:18
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:17
 msgid "Are you sure you want to accept these SRP requests?"
 msgstr "Ви впевнені, що хочете прийняти ці запити на SRP?"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:22
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:21
 msgid "<b>Note:</b><br>Only pending SRP requests will be bulk approved.<br>Denied requests will not be bulk approved, as they need a reason for being approved again. Please review them manually."
 msgstr "<b>Примітка:</b><br>Тільки невиплачені SRP запити будуть масово погоджені.<br>Заборонені запити не будуть масово погоджені, оскільки вони потребують причини для повторного погодження. Будь ласка, передивіться їх вручну."
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:10
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:9
 msgid "Delete SRP requests"
 msgstr "Видалити запити на SRP"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:18
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:17
 msgid "Are you sure you want to delete these SRP requests?"
 msgstr "Ви впевнені, що хочете видалити ці запити на SRP?"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:22
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:21
 msgid "<b>Note:</b><br>This action is irreversible.<br>All selected SRP requests will be deleted."
 msgstr "<b>Примітка:</b><br>Ця дія незворотня.<br>Усі обрані SRP запити будуть видалені."
 
@@ -846,44 +846,32 @@ msgid "Save settings"
 msgstr "Зберегти налаштування"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:4
-#, fuzzy
-#| msgid "Your SRP request"
 msgid "Filter your SRP requests by"
-msgstr "Ваш запит на SRP"
+msgstr "Фільтрувати SRP-запити по"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:10
-#, fuzzy
-#| msgid "Character"
 msgid "All characters"
-msgstr "Персонаж"
+msgstr "усі персонажі"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:22
 msgid "All ships"
-msgstr ""
+msgstr "Усі кораблі"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:34
-#, fuzzy
-#| msgid "SRP requests"
 msgid "All requests"
-msgstr "Запити на SRP"
+msgstr "Усі запити"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:35
-#, fuzzy
-#| msgid "SRP requests"
 msgid "Pending requests"
-msgstr "Запити на SRP"
+msgstr "Запити в очікуванні"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:36
-#, fuzzy
-#| msgid "Approve selected SRP requests"
 msgid "Approved requests"
-msgstr "Погодити обрані SRP запити"
+msgstr "Погоджені запити"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:37
-#, fuzzy
-#| msgid "Reject SRP request"
 msgid "Rejected requests"
-msgstr "Відхилити запит на SRP"
+msgstr "Відхилені запити"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:8
 msgid "My total SRP cost"
