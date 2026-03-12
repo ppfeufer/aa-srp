@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-03-11 13:35+0100\n"
+"POT-Creation-Date: 2026-03-12 11:22+0100\n"
 "PO-Revision-Date: 2026-03-10 09:34+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/de/>\n"
@@ -292,8 +292,8 @@ msgstr "SRP Anfrage Details"
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:38
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:38
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:40
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:37
 msgid "Accept SRP request"
 msgstr "SRP Anfrage akzeptieren"
 
@@ -304,7 +304,7 @@ msgid "Reject SRP request"
 msgstr "SRP Anfrage ablehnen"
 
 #: aasrp/helper/icons.py:401
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:38
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:37
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr "SRP Anfrage löschen"
@@ -585,8 +585,8 @@ msgstr "SRP Link löschen"
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:12
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:13
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:13
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:13
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:13
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:12
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:12
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:12
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:12
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:13
@@ -599,9 +599,9 @@ msgstr "Schließen"
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:35
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:33
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:33
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:33
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:35
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:32
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:32
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:24
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:43
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:35
@@ -627,27 +627,27 @@ msgstr "Aktivieren"
 msgid "Are you sure you want to accept this SRP request?"
 msgstr "Bist Du sicher das Du diese SRP Anfrage akzeptieren willst?"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:10
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:9
 msgid "Accept SRP requests"
 msgstr "SRP Anfragen akzeptieren"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:18
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:17
 msgid "Are you sure you want to accept these SRP requests?"
 msgstr "Bist Du sicher das Du diese SRP Anfragen akzeptieren willst?"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:22
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:21
 msgid "<b>Note:</b><br>Only pending SRP requests will be bulk approved.<br>Denied requests will not be bulk approved, as they need a reason for being approved again. Please review them manually."
 msgstr "<b>Hinweis:</b><br>Nur ausstehende SRP Anfragen werden genehmigt.<br>Abgelehnte Anfragen werden nicht genehmigt, da für eine erneute Genehmigung ein Grund erforderlich ist. Bitte überprüfe diese manuell."
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:10
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:9
 msgid "Delete SRP requests"
 msgstr "SRP Anfragen löschen"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:18
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:17
 msgid "Are you sure you want to delete these SRP requests?"
 msgstr "Bist Du sicher das Du diese SRP Anfragen löschen willst?"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:22
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:21
 msgid "<b>Note:</b><br>This action is irreversible.<br>All selected SRP requests will be deleted."
 msgstr "<b>Hinweis:</b><br>Diese Aktion kann nicht rückgängig gemacht werden.<br>Alle ausgewählten SRP Anfragen werden gelöscht."
 
