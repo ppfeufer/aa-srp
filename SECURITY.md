@@ -6,7 +6,7 @@ If you believe you have found a security vulnerability, please report it to me t
 
 **Please do not report security vulnerabilities through public GitHub issues, discussions, or pull requests.**
 
-Instead, please send an email to develop@ppfeufer.de.
+Instead, please [report it to us in private](https://github.com/ppfeufer/aa-srp/security/advisories/new).
 
 Please include as much of the information listed below as you can to help us better understand and resolve the issue:
 
