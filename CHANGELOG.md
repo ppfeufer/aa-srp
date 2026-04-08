@@ -44,6 +44,7 @@ Section Order:
 
 ### Changed
 
+- Sanitize user input to prevent potential XSS vulnerabilities
 - Typehinting improved
 - Ajax URLs shortened
 - Replaced deprecated templatetag
