@@ -44,6 +44,7 @@ Section Order:
 
 ### Changed
 
+- Ajax URLs shortened
 - Replaced deprecated templatetag
 
 ## [4.2.2] - 2026-03-11
