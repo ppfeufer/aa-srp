@@ -22,6 +22,7 @@ from aasrp.form import (
     SrpRequestRejectForm,
     UserSettingsForm,
     get_mandatory_form_label_text,
+    sanitize_cleaned_data,
 )
 from aasrp.models import FleetType, SrpLink
 from aasrp.tests import BaseTestCase
@@ -81,6 +82,135 @@ class TestGetMandatoryFormLabelText(BaseTestCase):
             '<span aria-label="This field is mandatory" class="form-required-marker">*</span>',
             result,
         )
+
+
+class TestSanitizeCleanedData(BaseTestCase):
+    """
+    Test sanitize_cleaned_data function
+    """
+
+    def test_return_none_when_input_is_none(self):
+        """
+        Test return none when input is None.
+
+        :return:
+        :rtype:
+        """
+
+        self.assertIsNone(sanitize_cleaned_data(None))
+
+    def test_return_empty_dict_when_input_is_empty(self):
+        """
+        Test return empty dict when input is empty.
+
+        :return:
+        :rtype:
+        """
+
+        inp = {}
+
+        self.assertEqual(sanitize_cleaned_data(inp), {})
+
+    def test_non_string_values_are_untouched(self):
+        """
+        Test non string values are untouched.
+
+        :return:
+        :rtype:
+        """
+
+        original = {"num": 1, "lst": [1, 2], "map": {"a": "b"}, "none": None}
+
+        self.assertEqual(sanitize_cleaned_data(original.copy()), original)
+
+    def test_strips_simple_html_tags_from_strings(self):
+        """
+        Test strips simple HTML tags from strings.
+
+        :return:
+        :rtype:
+        """
+
+        inp = {"field": "<div>Hello <span>World</span></div>"}
+        out = sanitize_cleaned_data(inp)
+
+        self.assertEqual(out["field"], "Hello World")
+
+    def test_removes_control_characters_but_keeps_linefeeds(self):
+        """
+        Test removes control characters and keeps linefeeds.
+
+        :return:
+        :rtype:
+        """
+
+        inp = {"text": "A\x00B\x07C\x0bD\tE\nF\x0cG\x7fH"}
+        out = sanitize_cleaned_data(inp)
+
+        self.assertNotIn("\x00", out["text"])
+        self.assertNotIn("\x07", out["text"])
+        self.assertNotIn("\x0b", out["text"])
+        self.assertNotIn("\x0c", out["text"])
+        self.assertNotIn("\x7f", out["text"])
+        self.assertNotIn("\t", out["text"])
+        self.assertIn("\n", out["text"])
+
+    def test_normalizes_crlf_and_cr_to_lf_and_preserves_line_structure(self):
+        """
+        Test normalizes CRLF and CR to LF and preserves line structure.
+
+        :return:
+        :rtype:
+        """
+
+        inp = {"lines": "one\r\ntwo\rthree\nfour"}
+        out = sanitize_cleaned_data(inp)
+
+        self.assertNotIn("\r", out["lines"])
+        self.assertEqual(out["lines"].split("\n"), ["one", "two", "three", "four"])
+
+    def test_collapses_spaces_and_tabs_within_each_line_and_trims(self):
+        """
+        Test collapses spaces and tabs within each line and trims.
+
+        :return:
+        :rtype:
+        """
+
+        inp = {"p": "  lead  spaces\tand   multiple\t\tspaces  \n  second   line "}
+        out = sanitize_cleaned_data(inp)
+
+        self.assertEqual(out["p"], "lead spaces and multiple spaces\nsecond line")
+
+    def test_mixed_fields_only_string_fields_are_sanitized(self):
+        """
+        Test mixed fields only string fields are sanitized.
+
+        :return:
+        :rtype:
+        """
+
+        inp = {"a": "<b>hi</b>", "b": 0, "c": "  spaced \n <i>tag</i>two  "}
+        out = sanitize_cleaned_data(inp.copy())
+
+        self.assertEqual(out["a"], "hi")
+        self.assertEqual(out["b"], 0)
+        self.assertEqual(out["c"], "spaced\ntagtwo")
+
+    def test_preserves_unicode_and_emojis(self):
+        """
+        Test preserve unicode and emojis in sanitize_cleaned_data.
+
+        :return:
+        :rtype:
+        """
+
+        raw = "<span>Emoji 👍\n\tand    multiple   spaces</span>"
+        cleaned_data = {"val": raw}
+
+        result = sanitize_cleaned_data(cleaned_data)
+
+        self.assertEqual(result["val"], "Emoji 👍\nand multiple spaces")
 
 
 class TestSrpLinkForm(BaseTestCase):

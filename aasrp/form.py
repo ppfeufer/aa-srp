@@ -4,6 +4,7 @@ Form definitions for the AA-SRP application.
 
 # Standard Library
 import re
+from typing import Any
 
 # Django
 from django import forms
@@ -81,6 +82,51 @@ def get_mandatory_form_label_text(text: str | Promise) -> str:
     )
 
 
+def sanitize_cleaned_data(cleaned_data: dict[str, Any] | None) -> dict[str, Any] | None:
+    """
+    Sanitize all string values in cleaned_data:
+    - Remove simple HTML tags
+    - Remove control characters (but preserve line breaks and tabs)
+    - Collapse intra-line whitespace and trim, preserving line breaks
+
+    :param cleaned_data: The cleaned_data dictionary to sanitize.
+    :type cleaned_data: dict[str, Any] | None
+    :return: The sanitized cleaned_data dictionary.
+    :rtype: dict[str, Any] | None
+    """
+
+    if not cleaned_data:
+        return cleaned_data
+
+    for field, value in list(cleaned_data.items()):
+        if isinstance(value, str):
+            # Remove simple HTML tags
+            cleaned = re.sub(pattern=r"<[^>]*?>", repl="", string=value)
+
+            # Remove control characters except tab (\x09), line feed (\x0a) and carriage return (\x0d)
+            cleaned = re.sub(
+                pattern=r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]+", repl="", string=cleaned
+            )
+
+            # Normalize CRLF and CR to LF
+            cleaned = cleaned.replace("\r\n", "\n").replace("\r", "\n")
+
+            # Collapse spaces/tabs within each line but preserve line breaks
+            lines = cleaned.split("\n")
+            processed_lines = [
+                re.sub(pattern=r"[ \t]+", repl=" ", string=line).strip()
+                for line in lines
+            ]
+            cleaned = "\n".join(processed_lines)
+
+            if cleaned != value:
+                logger.debug(f"Sanitized field: {field}")
+
+            cleaned_data[field] = cleaned
+
+    return cleaned_data
+
+
 class SrpLinkForm(ModelForm):
     """
     Form for creating a new SRP link.
@@ -115,6 +161,18 @@ class SrpLinkForm(ModelForm):
             ),
         }
 
+    def clean(self):
+        """
+        Clean all input from HTML tags and other nefarious things.
+
+        :return: cleaned_data
+        :rtype: dict
+        """
+
+        cleaned_data = super().clean()
+
+        return sanitize_cleaned_data(cleaned_data)
+
 
 class SrpLinkUpdateForm(ModelForm):
     """
@@ -129,6 +187,18 @@ class SrpLinkUpdateForm(ModelForm):
         model = SrpLink
         fields = ["aar_link"]
         labels = {"aar_link": _("After action report link")}
+
+    def clean(self):
+        """
+        Clean all input from HTML tags and other nefarious things.
+
+        :return: cleaned_data
+        :rtype: dict
+        """
+
+        cleaned_data = super().clean()
+
+        return sanitize_cleaned_data(cleaned_data)
 
 
 class SrpRequestForm(ModelForm):
@@ -175,6 +245,18 @@ class SrpRequestForm(ModelForm):
                 }
             ),
         }
+
+    def clean(self):
+        """
+        Clean all input from HTML tags and other nefarious things.
+
+        :return: cleaned_data
+        :rtype: dict
+        """
+
+        cleaned_data = super().clean()
+
+        return sanitize_cleaned_data(cleaned_data)
 
     def clean_killboard_link(self) -> str:
         """
@@ -275,6 +357,18 @@ class SrpRequestPayoutForm(forms.Form):
 
     value = forms.CharField(label=_("SRP payout value"), max_length=254, required=True)
 
+    def clean(self):
+        """
+        Clean all input from HTML tags and other nefarious things.
+
+        :return: cleaned_data
+        :rtype: dict
+        """
+
+        cleaned_data = super().clean()
+
+        return sanitize_cleaned_data(cleaned_data)
+
 
 class SrpRequestRejectForm(ModelForm):
     """
@@ -304,6 +398,18 @@ class SrpRequestRejectForm(ModelForm):
             ),
         }
 
+    def clean(self):
+        """
+        Clean all input from HTML tags and other nefarious things.
+
+        :return: cleaned_data
+        :rtype: dict
+        """
+
+        cleaned_data = super().clean()
+
+        return sanitize_cleaned_data(cleaned_data)
+
 
 class SrpRequestAcceptForm(ModelForm):
     """
@@ -331,6 +437,18 @@ class SrpRequestAcceptForm(ModelForm):
                 }
             ),
         }
+
+    def clean(self):
+        """
+        Clean all input from HTML tags and other nefarious things.
+
+        :return: cleaned_data
+        :rtype: dict
+        """
+
+        cleaned_data = super().clean()
+
+        return sanitize_cleaned_data(cleaned_data)
 
 
 class SrpRequestAcceptRejectedForm(ModelForm):
@@ -363,6 +481,18 @@ class SrpRequestAcceptRejectedForm(ModelForm):
                 }
             ),
         }
+
+    def clean(self):
+        """
+        Clean all input from HTML tags and other nefarious things.
+
+        :return: cleaned_data
+        :rtype: dict
+        """
+
+        cleaned_data = super().clean()
+
+        return sanitize_cleaned_data(cleaned_data)
 
 
 class UserSettingsForm(ModelForm):
