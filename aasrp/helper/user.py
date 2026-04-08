@@ -5,13 +5,14 @@ This module provides utility functions for working with user-related data in the
 """
 
 # Django
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AbstractUser, AnonymousUser, User
 
 # AA SRP
 from aasrp.models import SrpRequest, UserSetting
 
 
-def get_user_settings(user: User) -> UserSetting:
+def get_user_settings(user: User | AbstractBaseUser | AnonymousUser) -> UserSetting:
     """
     Retrieve or create a user's settings.
 

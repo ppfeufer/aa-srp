@@ -14,7 +14,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Sum
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -553,7 +553,7 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
 
 @permission_required("aasrp.manage_srp")
-def complete_srp_link(request: WSGIRequest, srp_code: str):
+def complete_srp_link(request: WSGIRequest, srp_code: str) -> HttpResponseRedirect:
     """
     Mark an SRP link as completed.
 
@@ -566,7 +566,7 @@ def complete_srp_link(request: WSGIRequest, srp_code: str):
     :param srp_code: The unique code identifying the SRP link to be marked as completed.
     :type srp_code: str
     :return: A redirect to the SRP links page.
-    :rtype: HttpResponse
+    :rtype: HttpResponseRedirect
     """
 
     logger.info(
@@ -650,7 +650,7 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
 
 @permission_required("aasrp.manage_srp")
-def enable_srp_link(request: WSGIRequest, srp_code: str):
+def enable_srp_link(request: WSGIRequest, srp_code: str) -> HttpResponseRedirect:
     """
     Enable an SRP link.
 
@@ -663,7 +663,7 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
     :param srp_code: The unique code identifying the SRP link to be enabled.
     :type srp_code: str
     :return: A redirect to the SRP links page.
-    :rtype: HttpResponse
+    :rtype: HttpResponseRedirect
     """
 
     logger.info(msg=f"Enable SRP link {srp_code} called by {request.user}")
@@ -698,7 +698,7 @@ def enable_srp_link(request: WSGIRequest, srp_code: str):
 
 
 @permission_required("aasrp.manage_srp")
-def disable_srp_link(request: WSGIRequest, srp_code: str):
+def disable_srp_link(request: WSGIRequest, srp_code: str) -> HttpResponseRedirect:
     """
     Disable an SRP link.
 
@@ -711,7 +711,7 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
     :param srp_code: The unique code identifying the SRP link to be disabled.
     :type srp_code: str
     :return: A redirect to the SRP links page.
-    :rtype: HttpResponse
+    :rtype: HttpResponseRedirect
     """
 
     logger.info(msg=f"Disable SRP link {srp_code} called by {request.user}")
@@ -746,7 +746,7 @@ def disable_srp_link(request: WSGIRequest, srp_code: str):
 
 
 @permission_required("aasrp.manage_srp")
-def delete_srp_link(request: WSGIRequest, srp_code: str):
+def delete_srp_link(request: WSGIRequest, srp_code: str) -> HttpResponseRedirect:
     """
     Delete an SRP link.
 
@@ -759,7 +759,7 @@ def delete_srp_link(request: WSGIRequest, srp_code: str):
     :param srp_code: The unique code identifying the SRP link to be deleted.
     :type srp_code: str
     :return: A redirect to the SRP links page.
-    :rtype: HttpResponse
+    :rtype: HttpResponseRedirect
     """
 
     logger.info(msg=f"Delete SRP link {srp_code} called by {request.user}")

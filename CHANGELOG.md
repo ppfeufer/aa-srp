@@ -44,6 +44,7 @@ Section Order:
 
 ### Changed
 
+- Typehinting improved
 - Ajax URLs shortened
 - Replaced deprecated templatetag
 
