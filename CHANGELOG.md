@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Restored missing "Additional Information" to SRP team Discord message
+
 ### Changed
 
 - Sanitize user input to prevent potential XSS vulnerabilities

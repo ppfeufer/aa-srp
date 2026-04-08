@@ -16,7 +16,7 @@ from allianceauth.services.hooks import get_extension_logger
 from aasrp import __title__
 from aasrp.discord.channel_message import send_message_to_discord_channel
 from aasrp.discord.direct_message import send_user_notification
-from aasrp.models import Setting, SrpRequest
+from aasrp.models import RequestComment, Setting, SrpRequest
 from aasrp.providers import AppLogger
 
 logger = AppLogger(my_logger=get_extension_logger(__name__), prefix=__title__)
@@ -101,6 +101,11 @@ def notify_srp_team(srp_request: SrpRequest) -> None:
             viewname="aasrp:view_srp_requests", args=[srp_code]
         )
 
+        additional_info = RequestComment.objects.filter(
+            srp_request=srp_request, comment_type=RequestComment.Type.REQUEST_INFO
+        ).first()
+        additional_info = additional_info.comment if additional_info else ""
+
         message = render_to_string(
             template_name="aasrp/notifications/discord/srp-team.html",
             context={
@@ -108,7 +113,7 @@ def notify_srp_team(srp_request: SrpRequest) -> None:
                 "character": srp_request.character.character_name,
                 "ship": srp_request.ship.name_en,
                 "killboard_link": srp_request.killboard_link,
-                "additional_info": srp_request.additional_info.replace("@", "{@}"),
+                "additional_info": additional_info.replace("@", "{@}"),
                 "srp_code": srp_code,
                 "srp_link": srp_link,
             },
