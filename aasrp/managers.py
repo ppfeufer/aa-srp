@@ -8,6 +8,7 @@ from typing import Any
 
 # Third Party
 import requests
+from httpx import Response
 
 # Django
 from django.db import models
@@ -48,7 +49,7 @@ class SrpRequestManager(models.Manager):
         return kill_id
 
     @staticmethod
-    def get_zkillboard_data(kill_id: str) -> dict:
+    def get_zkillboard_data(kill_id: str) -> dict | None:
         """
         Retrieve killmail data from the zKillboard API.
 
@@ -105,9 +106,7 @@ class SrpRequestManager(models.Manager):
             raise ValueError("Invalid Kill ID or Hash.") from exc
 
     @staticmethod
-    def get_kill_data(
-        killmail_id: str, loss_value_field: str
-    ) -> dict[str, int | float | None]:
+    def get_kill_data(killmail_id: str, loss_value_field: str) -> dict[str, int | Any]:
         """
         Retrieve detailed killmail data, including ship type, loss value, and victim ID.
 
@@ -145,7 +144,7 @@ class SrpRequestManager(models.Manager):
         }
 
     @staticmethod
-    def get_insurance_for_ship_type(ship_type_id: int) -> dict | None:
+    def get_insurance_for_ship_type(ship_type_id: int) -> Response | None:
         """
         Retrieve insurance details for a given ship type ID from the ESI.
 
