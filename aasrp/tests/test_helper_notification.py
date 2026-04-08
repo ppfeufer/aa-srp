@@ -33,6 +33,10 @@ class TestNotifySrpTeam(BaseTestCase):
         with (
             patch("aasrp.models.Setting.objects.get_setting", return_value=123456789),
             patch(
+                "aasrp.models.RequestComment.objects.filter",
+                return_value=MagicMock(first=MagicMock(return_value=None)),
+            ),
+            patch(
                 "aasrp.helper.notification.render_to_string",
                 return_value="Rendered Message",
             ),
@@ -78,7 +82,7 @@ class TestNotifySrpTeam(BaseTestCase):
         srp_request.request_code = "REQ123"
         srp_request.character = MagicMock(character_name="Test Character")
         ship = MagicMock()
-        ship.name = "キキモラ"  # Japanese translation for "Kikomora" returned by `modeltranslate` for the `name` field when the locale is set to Japanese
+        ship.name = "キキモラ"
         ship.name_en = "Kikomora"
         srp_request.ship = ship
         srp_request.killboard_link = "https://zkillboard.com/kill/123456/"
@@ -89,6 +93,14 @@ class TestNotifySrpTeam(BaseTestCase):
 
         with (
             patch("aasrp.models.Setting.objects.get_setting", return_value=12345),
+            patch(
+                "aasrp.models.RequestComment.objects.filter",
+                return_value=MagicMock(
+                    first=MagicMock(
+                        return_value=MagicMock(comment="Info with @mention")
+                    )
+                ),
+            ),
             patch("aasrp.helper.notification.render_to_string") as mock_render,
             patch(
                 "aasrp.helper.notification.send_message_to_discord_channel"
