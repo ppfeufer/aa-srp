@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024.
+# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023, 2024, 2026.
 # Nikolay <nick.postnikov@gmail.com>, 2023, 2024.
 # Max <mark25@inbox.ru>, 2023, 2024.
 # Dromiel <dimhry@yandex.ru>, 2024.
@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-03-11 13:35+0100\n"
-"PO-Revision-Date: 2024-12-02 17:40+0000\n"
+"POT-Creation-Date: 2026-04-08 13:07+0200\n"
+"PO-Revision-Date: 2026-03-22 19:23+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ru/>\n"
 "Language: ru\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.8.4\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: aasrp/__init__.py:11 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -139,108 +139,108 @@ msgstr[1] "Деактивировать {notifications_count} типа флот�
 msgstr[2] "Деактивировать {notifications_count} типов флота"
 msgstr[3] "Деактивировать {notifications_count} тип флота"
 
-#: aasrp/form.py:76
+#: aasrp/form.py:77
 msgid "This field is mandatory"
 msgstr "Обязательное поле"
 
-#: aasrp/form.py:97 aasrp/form.py:107
+#: aasrp/form.py:143 aasrp/form.py:153
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:13
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:27
 msgid "Fleet name"
 msgstr "Название флота"
 
-#: aasrp/form.py:98 aasrp/form.py:109 aasrp/models.py:150
+#: aasrp/form.py:144 aasrp/form.py:155 aasrp/models.py:150
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:37
 msgid "Fleet time"
 msgstr "Время флота"
 
-#: aasrp/form.py:99
+#: aasrp/form.py:145
 msgid "Fleet type (optional)"
 msgstr "Тип флота (не обязательно)"
 
-#: aasrp/form.py:100 aasrp/form.py:112 aasrp/models.py:136
+#: aasrp/form.py:146 aasrp/form.py:158 aasrp/models.py:136
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:45
 msgid "Doctrine"
 msgstr "Формат"
 
-#: aasrp/form.py:101 aasrp/form.py:114 aasrp/form.py:131
+#: aasrp/form.py:147 aasrp/form.py:160 aasrp/form.py:189
 msgid "After action report link"
 msgstr "Ссылка на отчет о боевых действиях"
 
-#: aasrp/form.py:111 aasrp/models.py:90 aasrp/models.py:147
+#: aasrp/form.py:157 aasrp/models.py:90 aasrp/models.py:147
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
 msgstr "Тип флота"
 
-#: aasrp/form.py:148
+#: aasrp/form.py:218
 #, python-brace-format
 msgid "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
 msgstr ""
 
-#: aasrp/form.py:155
+#: aasrp/form.py:225
 msgid "Please tell us about the circumstances of your untimely demise. Who was the FC, what doctrine was called, have changes to the fit been requested and so on. Be as detailed as you can."
 msgstr "Пожалуйста, расскажите нам об обстоятельствах вашей безвременной кончины. Кто был ФК, какая требовалась доктрина, были ли анонсированы изменения в фитах и так далее. Будьте настолько подробны, насколько это возможно."
 
-#: aasrp/form.py:161 aasrp/form.py:168 aasrp/models.py:329
+#: aasrp/form.py:231 aasrp/form.py:238 aasrp/models.py:329
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:35
 msgid "Killboard link"
 msgstr "Ссылка на килборду"
 
-#: aasrp/form.py:163 aasrp/form.py:172 aasrp/models.py:332 aasrp/models.py:470
+#: aasrp/form.py:233 aasrp/form.py:242 aasrp/models.py:332 aasrp/models.py:470
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:27
 #: aasrp/templates/aasrp/view-requests.html:43
 msgid "Additional information"
 msgstr "Дополнительная информация"
 
-#: aasrp/form.py:226
+#: aasrp/form.py:308
 #, python-brace-format
 msgid "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
 msgstr ""
 
-#: aasrp/form.py:241
+#: aasrp/form.py:323
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr "Некорректная ссылка. Укажите действительную ссылка на kill mail."
 
-#: aasrp/form.py:261
+#: aasrp/form.py:343
 msgid "There is already an SRP request for this kill mail. Please check if you got the right one."
 msgstr "Для указанного kill mail уже зарегистрирован SRP запрос. Убедитесь, что Вы указали верную ссылку."
 
-#: aasrp/form.py:276
+#: aasrp/form.py:358
 msgid "SRP payout value"
 msgstr "SRP выплата"
 
-#: aasrp/form.py:292
+#: aasrp/form.py:386
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "Укажите причину отказа для данного SRP запроса."
 
-#: aasrp/form.py:295 aasrp/models.py:352 aasrp/models.py:471
+#: aasrp/form.py:389 aasrp/models.py:352 aasrp/models.py:471
 msgid "Reject reason"
 msgstr "Причина отказа"
 
-#: aasrp/form.py:321
+#: aasrp/form.py:427
 msgid "Leave a comment for the requestor"
 msgstr "Оставьте комментарий для заявителя"
 
-#: aasrp/form.py:324
+#: aasrp/form.py:430
 msgid "Comment (optional)"
 msgstr "Комментарий (не обязательно)"
 
-#: aasrp/form.py:350
+#: aasrp/form.py:468
 msgid "Please provide the reason why this former rejected SRP request is now accepted."
 msgstr "Укажите причину удовлетворения SRP запроса, который ранее был отклонен."
 
-#: aasrp/form.py:355 aasrp/models.py:468 aasrp/models.py:475
+#: aasrp/form.py:473 aasrp/models.py:468 aasrp/models.py:475
 #: aasrp/models.py:527
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
 msgid "Comment"
 msgstr "Комментарий"
 
-#: aasrp/form.py:382
+#: aasrp/form.py:512
 msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "Отключить уведомления. (Auth и Discord при установленных модулях)"
 
@@ -307,8 +307,8 @@ msgstr "Детали SRP запроса"
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:38
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:38
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:40
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:37
 msgid "Accept SRP request"
 msgstr "Удовлетворить SRP запрос"
 
@@ -319,7 +319,7 @@ msgid "Reject SRP request"
 msgstr "Отклонить SRP запрос"
 
 #: aasrp/helper/icons.py:401
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:38
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:37
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr "Удалить SRP запрос"
@@ -604,8 +604,8 @@ msgstr "Удаление SRP ссылки"
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:12
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:13
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:13
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:13
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:13
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:12
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:12
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:12
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:12
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:13
@@ -618,9 +618,9 @@ msgstr "Закрыть"
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:35
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:33
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:33
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:33
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:35
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:32
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:32
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:24
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:43
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:35
@@ -646,35 +646,35 @@ msgstr "Включить"
 msgid "Are you sure you want to accept this SRP request?"
 msgstr "Вы уверены, что хотите удовлетворить SRP запрос?"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:10
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:9
 #, fuzzy
 #| msgid "Accept SRP request"
 msgid "Accept SRP requests"
 msgstr "Удовлетворить SRP запрос"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:18
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:17
 #, fuzzy
 #| msgid "Are you sure you want to accept this SRP request?"
 msgid "Are you sure you want to accept these SRP requests?"
 msgstr "Вы уверены, что хотите удовлетворить SRP запрос?"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:22
+#: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:21
 msgid "<b>Note:</b><br>Only pending SRP requests will be bulk approved.<br>Denied requests will not be bulk approved, as they need a reason for being approved again. Please review them manually."
 msgstr ""
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:10
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:9
 #, fuzzy
 #| msgid "Delete SRP request"
 msgid "Delete SRP requests"
 msgstr "Удалить SRP запрос"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:18
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:17
 #, fuzzy
 #| msgid "Are you sure you want to delete this SRP request?"
 msgid "Are you sure you want to delete these SRP requests?"
 msgstr "Вы уверены, что хотите удалит данный SRP запрос?"
 
-#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:22
+#: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:21
 msgid "<b>Note:</b><br>This action is irreversible.<br>All selected SRP requests will be deleted."
 msgstr ""
 
@@ -888,7 +888,7 @@ msgstr "Пилот"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:22
 msgid "All ships"
-msgstr ""
+msgstr "Все корабли"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:34
 #, fuzzy
