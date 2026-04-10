@@ -62,7 +62,9 @@ class Command(BaseCommand):
             self.stdout.write(f"Adding ship info for '{ship_type_name}' to cache")
 
             try:
-                ship = ItemType.objects.get(name__iexact=ship_type_name)
+                ship = ItemType.objects.filter(published=1).get(
+                    name__iexact=ship_type_name
+                )
                 self.ship_info_cache[ship_type_name] = ship
             except ItemType.DoesNotExist:
                 self.stdout.write(
