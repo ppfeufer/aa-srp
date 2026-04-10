@@ -42,6 +42,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Take duplicate items in SDE into account
+
 ## [4.2.3] - 2026-04-08
 
 ### Fixed
