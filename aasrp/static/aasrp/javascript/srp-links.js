@@ -16,12 +16,8 @@ $(document).ready(() => {
         .then((data) => {
             if (data) {
                 const dt = new DataTable(elementTableSrpLinks, { // eslint-disable-line no-unused-vars
-                    language: aaSrpSettings.dataTables.language,
+                    ...aaSrpSettings.dataTables,
                     data: data,
-                    layout: aaSrpSettings.dataTables.layout,
-                    ordering: aaSrpSettings.dataTables.ordering,
-                    columnControl: aaSrpSettings.dataTables.columnControl,
-                    paging: aaSrpSettings.dataTables.paging,
                     columns: [
                         {
                             data: 'srp_name',
