@@ -59,12 +59,8 @@ $(document).ready(() => {
         .then((data) => {
             if (data) {
                 const dt = new DataTable(element.srpRequestsTable, { // eslint-disable-line no-unused-vars
-                    language: aaSrpSettings.dataTables.language,
+                    ...aaSrpSettings.dataTables,
                     data: data,
-                    layout: aaSrpSettings.dataTables.layout,
-                    ordering: aaSrpSettings.dataTables.ordering,
-                    columnControl: aaSrpSettings.dataTables.columnControl,
-                    paging: false,
                     columns: [
                         // Column 0: Request Time
                         {

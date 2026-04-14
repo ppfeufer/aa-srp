@@ -47,6 +47,10 @@ Section Order:
 - CSS classes in DataTables dropdown filter in "My SRP Requests" view
 - Take duplicate items in SDE into account
 
+### Changed
+
+- Shorten DataTables options in DataTables initialization
+
 ## [4.2.3] - 2026-04-08
 
 ### Fixed
