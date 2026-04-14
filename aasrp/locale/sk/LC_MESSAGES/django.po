@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-04-08 13:07+0200\n"
+"POT-Creation-Date: 2026-04-14 06:25+0200\n"
 "PO-Revision-Date: 2024-05-10 14:11+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Slovak <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/sk/>\n"
@@ -54,7 +54,7 @@ msgstr ""
 #: aasrp/admin.py:142 aasrp/models.py:326
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
 #: aasrp/templates/aasrp/dashboard.html:23
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:20
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:21
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:22
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:23
@@ -80,7 +80,7 @@ msgstr ""
 #: aasrp/admin.py:248 aasrp/models.py:317
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:27
 #: aasrp/templates/aasrp/dashboard.html:25
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:8
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:9
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:80
 #: aasrp/templates/aasrp/view-own-requests.html:25
@@ -414,7 +414,7 @@ msgid "Who created the SRP request?"
 msgstr ""
 
 #: aasrp/models.py:338 aasrp/templates/aasrp/dashboard.html:24
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:32
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:33
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:34
 #: aasrp/templates/aasrp/view-own-requests.html:24
 #: aasrp/templates/aasrp/view-requests.html:34
@@ -817,31 +817,31 @@ msgstr ""
 msgid "Save settings"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:4
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:5
 msgid "Filter your SRP requests by"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:10
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:11
 msgid "All characters"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:22
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:23
 msgid "All ships"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:34
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:35
 msgid "All requests"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:35
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:36
 msgid "Pending requests"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:36
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:37
 msgid "Approved requests"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:37
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:38
 msgid "Rejected requests"
 msgstr ""
 
