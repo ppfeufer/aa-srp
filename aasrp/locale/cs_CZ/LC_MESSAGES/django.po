@@ -2,20 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Peter Pfeufer <info@ppfeufer.de>, 2024.
+# Automatic translation add-on <noreply-addon-autotranslate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
 "POT-Creation-Date: 2026-05-06 10:28+0200\n"
-"PO-Revision-Date: 2024-08-06 07:28+0000\n"
-"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"PO-Revision-Date: 2026-05-07 11:23+0000\n"
+"Last-Translator: Automatic translation add-on <noreply-addon-autotranslate@weblate.org>\n"
 "Language-Team: Czech <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/cs/>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: aasrp/__init__.py:11 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -740,7 +741,7 @@ msgstr "Připoj se k našemu týmu překladatelů!"
 
 #: aasrp/templates/aasrp/partials/form/required-field-hint.html:5
 msgid "Fields marked with an asterisk (*) are mandatory"
-msgstr ""
+msgstr "Pole označená hvězdičkou (*) jsou povinná."
 
 #: aasrp/templates/aasrp/partials/link-add/form.html:7
 msgid "SRP link details"
