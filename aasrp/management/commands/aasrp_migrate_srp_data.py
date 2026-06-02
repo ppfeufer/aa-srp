@@ -122,7 +122,7 @@ class Command(BaseCommand):
 
                 srp_fleet_srp_code = srp_fleet.fleet_srp_code
 
-                self.stdout.write(f"Migrating SRP fleet {srp_fleet_srp_code} …")
+                self.stdout.write(f"Migrating SRP fleet {srp_fleet_srp_code}…")
 
                 try:
                     # Check if the SRP link already exists

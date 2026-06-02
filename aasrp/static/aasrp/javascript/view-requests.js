@@ -186,7 +186,7 @@ $(document).ready(() => {
                         [0, 'asc']
                     ],
                     /**
-                     * When ever a row is created …
+                     * When ever a row is created…
                      *
                      * @param row
                      * @param data
@@ -310,7 +310,7 @@ $(document).ready(() => {
                                 return false;
                             },
                             /**
-                             * On success …
+                             * On success…
                              *
                              * Arrow functions don't work here since we need `$(this)`.
                              *
