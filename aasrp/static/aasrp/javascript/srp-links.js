@@ -105,7 +105,7 @@ $(document).ready(() => {
                     ],
                     order: [[2, 'asc']],
                     /**
-                     * When ever a row is created …
+                     * When ever a row is created…
                      *
                      * @param row
                      * @param data

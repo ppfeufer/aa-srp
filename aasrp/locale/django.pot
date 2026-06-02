@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 4.3.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-05-06 10:28+0200\n"
+"POT-Creation-Date: 2026-06-02 18:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -826,11 +826,11 @@ msgid "Submit SRP request"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/request-srp/form.html:29
-msgid "Working on it, please be patient …"
+msgid "Working on it, please be patient…"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/request-srp/form.html:32
-msgid "Fetching kill mail information, this might take a moment …"
+msgid "Fetching kill mail information, this might take a moment…"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/user-settings/form.html:13

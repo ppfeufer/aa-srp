@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Grammar - No space before ellipsis
+
 ## [4.3.0] - 2026-05-06
 
 ### Fixed
@@ -527,7 +531,7 @@ python manage.py collectstatic --noinput
 
 ### Changed
 
-- Discord Proxy settings are now also applied to DM messages, missed that one in the last release …
+- Discord Proxy settings are now also applied to DM messages, missed that one in the last release…
 
 ## [2.5.2] - 2024-12-05
 
