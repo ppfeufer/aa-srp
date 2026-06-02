@@ -17,13 +17,12 @@ from django.db import models
 from allianceauth.services.hooks import get_extension_logger
 
 # AA SRP
-from aasrp import __title__
 from aasrp.constants import KILLBOARD_DATA, UserAgent
-from aasrp.handler import esi_handler
-from aasrp.providers import AppLogger, esi
+from aasrp.providers.applogger import AppLogger
+from aasrp.providers.esi import ESIHandler, esi
 
 # Initialize a logger with a custom tag for the AA-SRP module
-logger = AppLogger(my_logger=get_extension_logger(__name__), prefix=__title__)
+logger = AppLogger(my_logger=get_extension_logger(__name__))
 
 
 class SrpRequestManager(models.Manager):
@@ -123,11 +122,13 @@ class SrpRequestManager(models.Manager):
 
         zkillboard_data = SrpRequestManager.get_zkillboard_data(kill_id=killmail_id)
 
-        operation = esi.client.Killmails.GetKillmailsKillmailIdKillmailHash(
-            killmail_id=killmail_id,
-            killmail_hash=zkillboard_data.get("zkb", {}).get("hash"),
+        esi_killmail = ESIHandler.result(
+            operation=esi.client.Killmails.GetKillmailsKillmailIdKillmailHash(
+                killmail_id=killmail_id,
+                killmail_hash=zkillboard_data.get("zkb", {}).get("hash"),
+            ),
+            use_etag=False,
         )
-        esi_killmail = esi_handler.result(operation=operation, use_etag=False)
 
         ship_type_id = esi_killmail.victim.ship_type_id
         ship_value = zkillboard_data.get("zkb", {}).get(loss_value_field, 0)
@@ -154,8 +155,9 @@ class SrpRequestManager(models.Manager):
         :rtype: dict | None
         """
 
-        operation = esi.client.Insurance.GetInsurancePrices()
-        insurance_from_esi = esi_handler.result(operation=operation, use_etag=False)
+        insurance_from_esi = ESIHandler.result(
+            operation=esi.client.Insurance.GetInsurancePrices(), use_etag=False
+        )
 
         insurance = next(
             (i for i in insurance_from_esi if i.type_id == ship_type_id),

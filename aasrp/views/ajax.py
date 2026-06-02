@@ -23,7 +23,6 @@ from allianceauth.framework.api.user import get_main_character_name_from_user
 from allianceauth.services.hooks import get_extension_logger
 
 # AA SRP
-from aasrp import __title__
 from aasrp.form import (
     SrpRequestAcceptForm,
     SrpRequestAcceptRejectedForm,
@@ -46,10 +45,10 @@ from aasrp.helper.srp_data import (
 from aasrp.helper.urls import reverse_absolute
 from aasrp.helper.user import get_pending_requests_count_for_user, get_user_settings
 from aasrp.models import RequestComment, SrpLink, SrpRequest
-from aasrp.providers import AppLogger
+from aasrp.providers.applogger import AppLogger
 
 # Initialize a logger with a custom tag for the AA SRP application
-logger = AppLogger(my_logger=get_extension_logger(__name__), prefix=__title__)
+logger = AppLogger(my_logger=get_extension_logger(__name__))
 
 
 @permission_required("aasrp.basic_access")

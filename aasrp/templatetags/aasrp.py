@@ -13,11 +13,10 @@ from allianceauth.framework.api.user import get_main_character_name_from_user
 from allianceauth.services.hooks import get_extension_logger
 
 # AA SRP
-from aasrp import __title__
-from aasrp.providers import AppLogger
+from aasrp.providers.applogger import AppLogger
 
 # Initialize a logger with a custom tag for the AA SRP module
-logger = AppLogger(my_logger=get_extension_logger(__name__), prefix=__title__)
+logger = AppLogger(my_logger=get_extension_logger(__name__))
 
 
 @register.filter
