@@ -43,6 +43,8 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [4.4.0] - 2026-06-02
+
 ### Fixed
 
 - Grammar - No space before ellipsis
@@ -50,6 +52,7 @@ Section Order:
 ### Changed
 
 - Modular providers
+- Translations updated
 
 ## [4.3.0] - 2026-05-06
 
@@ -1775,11 +1778,12 @@ python manage.py aasrp_update_db_relations
 [4.2.2]: https://github.com/ppfeufer/aa-srp/compare/v4.2.1...v4.2.2 "v4.2.2"
 [4.2.3]: https://github.com/ppfeufer/aa-srp/compare/v4.2.2...v4.2.3 "v4.2.3"
 [4.3.0]: https://github.com/ppfeufer/aa-srp/compare/v4.2.3...v4.3.0 "v4.3.0"
+[4.4.0]: https://github.com/ppfeufer/aa-srp/compare/v4.3.0...v4.4.0 "v4.4.0"
 [aa discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "AA Discord Notify"
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[in development]: https://github.com/ppfeufer/aa-srp/compare/v4.3.0...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-srp/compare/v4.4.0...HEAD "In Development"
 [keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
 [semantic versioning]: http://semver.org/ "Semantic Versioning"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
