@@ -17,7 +17,6 @@ from django.utils.translation import gettext_lazy as _
 from allianceauth.services.hooks import get_extension_logger
 
 # AA SRP
-from aasrp import __title__
 from aasrp.constants import KILLBOARD_DATA
 from aasrp.models import (
     FleetType,
@@ -27,7 +26,7 @@ from aasrp.models import (
     SrpRequest,
     UserSetting,
 )
-from aasrp.providers import AppLogger
+from aasrp.providers.applogger import AppLogger
 
 # Killboard URLs
 zkillboard_base_url: str = KILLBOARD_DATA["zKillboard"][  # pylint: disable=invalid-name
@@ -61,7 +60,7 @@ eve_kill_killmail_url_regex: str = KILLBOARD_DATA[  # pylint: disable=invalid-na
 ]["killmail_url_regex"]
 
 # Initialize a logger with a custom tag for the AA-SRP module
-logger = AppLogger(my_logger=get_extension_logger(__name__), prefix=__title__)
+logger = AppLogger(my_logger=get_extension_logger(__name__))
 
 
 def get_mandatory_form_label_text(text: str | Promise) -> str:

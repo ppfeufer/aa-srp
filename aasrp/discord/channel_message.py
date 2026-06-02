@@ -36,9 +36,9 @@ from aasrp.app_settings import (
     discordproxy_installed,
 )
 from aasrp.constants import DISCORD_EMBED_COLOR_MAP
-from aasrp.providers import AppLogger
+from aasrp.providers.applogger import AppLogger
 
-logger = AppLogger(get_extension_logger(__name__), __title__)
+logger = AppLogger(get_extension_logger(__name__))
 
 
 def _aadiscordbot_send_channel_message(

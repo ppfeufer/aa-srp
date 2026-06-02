@@ -132,7 +132,7 @@ class TestSrpRequestManagerGetInsuranceForShipType(BaseTestCase):
     Test cases for SrpRequestManager.get_insurance_for_ship_type method.
     """
 
-    @patch("aasrp.managers.esi_handler.result")
+    @patch("aasrp.managers.ESIHandler.result")
     @patch("aasrp.managers.esi")
     def test_returns_insurance_details_for_valid_ship_type(
         self, mock_esi, mock_esi_result
@@ -159,7 +159,7 @@ class TestSrpRequestManagerGetInsuranceForShipType(BaseTestCase):
 
         self.assertEqual(result.insurance, "Platinum")
 
-    @patch("aasrp.managers.esi_handler.result")
+    @patch("aasrp.managers.ESIHandler.result")
     @patch("aasrp.managers.esi")
     def test_returns_none_for_invalid_ship_type(self, mock_esi, mock_esi_result):
         """
@@ -184,7 +184,7 @@ class TestSrpRequestManagerGetInsuranceForShipType(BaseTestCase):
 
         self.assertIsNone(result)
 
-    @patch("aasrp.managers.esi_handler.result")
+    @patch("aasrp.managers.ESIHandler.result")
     @patch("aasrp.managers.esi")
     def test_handles_empty_insurance_data(self, mock_esi, mock_esi_result):
         """
@@ -213,7 +213,7 @@ class TestSrpRequestManagerKetKillData(BaseTestCase):
 
     @patch("aasrp.managers.esi")
     @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
-    @patch("aasrp.managers.esi_handler.result")
+    @patch("aasrp.managers.ESIHandler.result")
     def test_returns_correct_kill_data(
         self, mock_esi_result, mock_get_zkillboard_data, mock_esi
     ):
@@ -239,7 +239,7 @@ class TestSrpRequestManagerKetKillData(BaseTestCase):
         )
 
     @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
-    @patch("aasrp.managers.esi_handler.result")
+    @patch("aasrp.managers.ESIHandler.result")
     def test_raises_value_error_for_missing_killmail_hash(
         self, mock_esi_result, mock_get_zkillboard_data
     ):
@@ -262,7 +262,7 @@ class TestSrpRequestManagerKetKillData(BaseTestCase):
         self.assertIn("No kill mail hash found", str(context.exception))
 
     @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
-    @patch("aasrp.managers.esi_handler.result")
+    @patch("aasrp.managers.ESIHandler.result")
     def test_raises_value_error_for_invalid_killmail_id(
         self, mock_esi_result, mock_get_zkillboard_data
     ):
@@ -286,7 +286,7 @@ class TestSrpRequestManagerKetKillData(BaseTestCase):
 
     @patch("aasrp.managers.esi")
     @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
-    @patch("aasrp.managers.esi_handler.result")
+    @patch("aasrp.managers.ESIHandler.result")
     def test_handles_missing_loss_value_field(
         self, mock_esi_result, mock_get_zkillboard_data, mock_esi
     ):
