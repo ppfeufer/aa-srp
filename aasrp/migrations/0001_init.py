@@ -39,24 +39,6 @@ def on_default_settings_migrate_zero(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
-    replaces = [
-        ("aasrp", "0001_initial"),
-        ("aasrp", "0002_relations_update"),
-        ("aasrp", "0003_aasrprequest_reject_info"),
-        ("aasrp", "0004_aasrpusersettings"),
-        ("aasrp", "0005_insurance"),
-        ("aasrp", "0006_related_names"),
-        ("aasrp", "0007_aasrprequestcomment_comment_time_and_more"),
-        ("aasrp", "0008_aasrprequestcomment_new_status_and_more"),
-        ("aasrp", "0009_add_fleet_type_to_srp_link"),
-        ("aasrp", "0010_model_changes"),
-        ("aasrp", "0011_default_settings"),
-        ("aasrp", "0012_alter_fleettype_options_alter_insurance_options_and_more"),
-        ("aasrp", "0013_setting_loss_value_source"),
-        ("aasrp", "0014_alter_srprequest_ship"),
-    ]
-
     initial = True
 
     dependencies = [
