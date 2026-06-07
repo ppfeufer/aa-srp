@@ -12,7 +12,7 @@
 [![Badge: Translation Status]][weblate engage]
 [![Badge: Contributor Covenant]][code of conduct]
 [![Discord](https://img.shields.io/discord/399006117012832262?label=discord)](https://discord.gg/fjnHAmk)
-[![Alliance Auth Compatibility](https://img.shields.io/badge/Alliance_Auth-v4_%7C_v5-brightgreen)](https://gitlab.com/allianceauth/allianceauth)
+[![Alliance Auth Compatibility](https://img.shields.io/badge/Alliance_Auth-v5-brightgreen)](https://gitlab.com/allianceauth/allianceauth)
 
 [![Badge: Buy me a coffee]][ppfeufer on ko-fi]
 
