@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Migration dependency updates to squashed migrations in Alliance Auth v5
+
 ## [5.0.0] - 2026-06-07
 
 > [!IMPORTANT]
