@@ -3,6 +3,7 @@ Test checks for installed modules we might use
 """
 
 # Standard Library
+import importlib
 from unittest.mock import patch
 
 # AA SRP
@@ -105,7 +106,7 @@ class TestDiscordProxyInstalled(BaseTestCase):
         result = discordproxy_installed()
         self.assertTrue(result)
 
-    @patch("builtins.__import__", side_effect=ModuleNotFoundError)
+    @patch("builtins.__import__")
     def test_returns_false_when_discordclient_import_fails(self, mock_import):
         """
         Test returns false when discordclient import fails
@@ -115,6 +116,21 @@ class TestDiscordProxyInstalled(BaseTestCase):
         :return:
         :rtype:
         """
+
+        # Make the mocked __import__ raise ModuleNotFoundError only for
+        # imports that target the discordproxy package. This avoids breaking
+        # unrelated imports (coverage, test infrastructure) while still
+        # simulating that discordproxy cannot be imported.
+        # Capture the original import implementation from importlib so we
+        # don't end up calling the mocked `__import__` and recursing.
+        real_import = importlib.__import__
+
+        def selective_import(name, globals=None, locals=None, fromlist=(), level=0):
+            if isinstance(name, str) and name.startswith("discordproxy"):
+                raise ModuleNotFoundError
+            return real_import(name, globals, locals, fromlist, level)
+
+        mock_import.side_effect = selective_import
 
         result = discordproxy_installed()
         self.assertFalse(result)
