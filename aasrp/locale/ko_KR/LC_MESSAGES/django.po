@@ -1,24 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Author50CO <tkddlschry@gmail.com>, 2023, 2024.
+# Author50CO <tkddlschry@gmail.com>, 2023, 2024, 2026.
 # Peter Pfeufer <info@ppfeufer.de>, 2023, 2024, 2026.
-# Mind of the Raven <okanieva@gmail.com>, 2024.
-# Rodpold Shard <rodpold@gmail.com>, 2024.
+# Mind of the Raven <okanieva@gmail.com>, 2024, 2026.
+# Rodpold Shard <rodpold@gmail.com>, 2024, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-06-02 19:54+0200\n"
-"PO-Revision-Date: 2026-06-02 17:36+0000\n"
-"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"POT-Creation-Date: 2026-07-07 10:45+0200\n"
+"PO-Revision-Date: 2026-07-07 08:54+0000\n"
+"Last-Translator: Author50CO <tkddlschry@gmail.com>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ko/>\n"
 "Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.7\n"
 
 #: aasrp/__init__.py:11 aasrp/templates/aasrp/base.html:7
 #: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
@@ -28,7 +28,7 @@ msgstr ""
 #: aasrp/templates/aasrp/view-own-requests.html:7
 #: aasrp/templates/aasrp/view-requests.html:6
 msgid "Ship Replacement"
-msgstr "SRP"
+msgstr ""
 
 #: aasrp/admin.py:57 aasrp/models.py:163 aasrp/models.py:309
 #: aasrp/models.py:491
@@ -91,10 +91,9 @@ msgid "Character"
 msgstr "캐릭터"
 
 #: aasrp/admin.py:275
-#, fuzzy, python-format
-#| msgid "Activate selected fleet types"
+#, python-format
 msgid "Activate selected %(verbose_name_plural)s"
-msgstr "선택된 플릿을 필터에서 활성화"
+msgstr ""
 
 #: aasrp/admin.py:301
 #, python-brace-format
@@ -109,10 +108,9 @@ msgid_plural "Activated {notifications_count} fleet types"
 msgstr[0] "{notifications_count} 개의 함대 종류 활성화됨"
 
 #: aasrp/admin.py:317
-#, fuzzy, python-format
-#| msgid "Deactivate selected fleet types"
+#, python-format
 msgid "Deactivate selected %(verbose_name_plural)s"
-msgstr "선택된 플릿을 필터에서 제외"
+msgstr ""
 
 #: aasrp/admin.py:343
 #, python-brace-format
@@ -155,7 +153,7 @@ msgstr "독트린"
 
 #: aasrp/form.py:146 aasrp/form.py:159 aasrp/form.py:188
 msgid "After action report link"
-msgstr "AAR 링크"
+msgstr ""
 
 #: aasrp/form.py:156 aasrp/models.py:90 aasrp/models.py:147
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
@@ -759,10 +757,8 @@ msgid "SRP link details"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/link-add/form.html:21
-#, fuzzy
-#| msgid "Create SRP Link"
 msgid "Create link"
-msgstr "SRP 주소 생성"
+msgstr ""
 
 #: aasrp/templates/aasrp/partials/link-edit/form.html:7
 msgid "After action report"
@@ -871,16 +867,12 @@ msgid "Pending requests"
 msgstr "요청 목록"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:37
-#, fuzzy
-#| msgid "Delete SRP request"
 msgid "Approved requests"
-msgstr "SRP 요청 삭제"
+msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:38
-#, fuzzy
-#| msgid "Reject SRP request"
 msgid "Rejected requests"
-msgstr "SRP 요청 거부"
+msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:8
 #, fuzzy
@@ -973,10 +965,8 @@ msgstr "요청 목록"
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:9
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:11
-#, fuzzy
-#| msgid "New SRP request status"
 msgid "Filter by request status"
-msgstr "새 SRP 요청 상태"
+msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:24
 msgid "All"
@@ -1068,10 +1058,9 @@ msgid "Settings saved."
 msgstr "설정 저장됨."
 
 #: aasrp/views/general.py:219
-#, fuzzy, python-brace-format
-#| msgid "SRP link \"{srp_link.srp_code}\" created"
+#, python-brace-format
 msgid "SRP link \"{srp_code}\" created"
-msgstr "SRP 세션{srp_link.srp_code} 이 생성됨"
+msgstr "SRP 세션“{srp_code}”이 생성됨"
 
 #: aasrp/views/general.py:271
 #, fuzzy, python-brace-format
@@ -1084,10 +1073,9 @@ msgid "AAR link changed"
 msgstr "AAR 링크 변경됨"
 
 #: aasrp/views/general.py:403
-#, fuzzy, python-brace-format
-#| msgid "Submitted SRP request for your {srp_request__ship.name}."
+#, python-brace-format
 msgid "Submitted SRP request for your {ship_name}."
-msgstr "다음 링크에 대한 SRP 요청이 제출되었습니다. ({srp_request__ship.name})."
+msgstr ""
 
 #: aasrp/views/general.py:447
 #, python-brace-format
