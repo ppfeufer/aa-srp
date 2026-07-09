@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-07-07 10:45+0200\n"
+"POT-Creation-Date: 2026-07-09 12:35+0200\n"
 "PO-Revision-Date: 2026-07-07 08:54+0000\n"
 "Last-Translator: Author50CO <tkddlschry@gmail.com>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ko/>\n"
@@ -31,7 +31,7 @@ msgid "Ship Replacement"
 msgstr ""
 
 #: aasrp/admin.py:57 aasrp/models.py:163 aasrp/models.py:309
-#: aasrp/models.py:491
+#: aasrp/models.py:489
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
 msgid "Creator"
 msgstr "생성자"
@@ -175,7 +175,7 @@ msgstr "당신이 사망하게 된 경위를 설명하십시오. FC 이름, 독�
 msgid "Killboard link"
 msgstr "킬보드 링크"
 
-#: aasrp/form.py:232 aasrp/form.py:241 aasrp/models.py:332 aasrp/models.py:470
+#: aasrp/form.py:232 aasrp/form.py:241 aasrp/models.py:332 aasrp/models.py:468
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:27
 #: aasrp/templates/aasrp/view-requests.html:43
@@ -203,7 +203,7 @@ msgstr "SRP 반환금"
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "이 요청이 거부된 사유를 작성하십시오."
 
-#: aasrp/form.py:388 aasrp/models.py:352 aasrp/models.py:471
+#: aasrp/form.py:388 aasrp/models.py:352 aasrp/models.py:469
 msgid "Reject reason"
 msgstr "반송 사유"
 
@@ -219,8 +219,8 @@ msgstr "내용 (선택)"
 msgid "Please provide the reason why this former rejected SRP request is now accepted."
 msgstr "이미 거부되었던 요청이 이제서 수락된 이유를 작성하여 주십시오."
 
-#: aasrp/form.py:472 aasrp/models.py:468 aasrp/models.py:475
-#: aasrp/models.py:527
+#: aasrp/form.py:472 aasrp/models.py:466 aasrp/models.py:473
+#: aasrp/models.py:525
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
 msgid "Comment"
 msgstr "메모"
@@ -229,11 +229,11 @@ msgstr "메모"
 msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "알람 비활성화. (AA, 디스코드, 또는 동기화된 모듈)"
 
-#: aasrp/helper/character.py:45 aasrp/helper/character.py:48
+#: aasrp/helper/character.py:44 aasrp/helper/character.py:47
 msgid "Unknown character"
 msgstr "알 수 없는 캐릭터"
 
-#: aasrp/helper/character.py:72
+#: aasrp/helper/character.py:71
 msgid "Copy character name to clipboard"
 msgstr "캐릭터 이름 복사"
 
@@ -438,108 +438,108 @@ msgstr "요청"
 msgid "{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
 msgstr "{character_name}{user_name} 에 의한 요청 {ship}{request_code}"
 
-#: aasrp/models.py:440 aasrp/models.py:501
+#: aasrp/models.py:438 aasrp/models.py:499
 msgid "SRP request"
 msgstr "SRP 요청"
 
-#: aasrp/models.py:443
+#: aasrp/models.py:441
 msgid "Insurance level"
 msgstr "보험등급"
 
-#: aasrp/models.py:445
+#: aasrp/models.py:443
 msgid "Insurance cost"
 msgstr "보험 가입금"
 
-#: aasrp/models.py:446
+#: aasrp/models.py:444
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
 #: aasrp/templates/aasrp/view-requests.html:42
 msgid "Insurance payout"
 msgstr "보험금"
 
-#: aasrp/models.py:454
+#: aasrp/models.py:452
 msgid "Ship insurance"
 msgstr "함선 보험"
 
-#: aasrp/models.py:455
+#: aasrp/models.py:453
 msgid "Ship insurances"
 msgstr "함선 보험"
 
-#: aasrp/models.py:469
+#: aasrp/models.py:467
 msgid "SRP request added"
 msgstr "SRP 요청 추가됨"
 
-#: aasrp/models.py:472
+#: aasrp/models.py:470
 msgid "Status changed"
 msgstr "상태 변경됨"
 
-#: aasrp/models.py:473
+#: aasrp/models.py:471
 msgid "Reviser comment"
 msgstr "수정자 의견"
 
-#: aasrp/models.py:481
+#: aasrp/models.py:479
 msgid "Comment type"
 msgstr "코멘트 종류"
 
 #. Translators: This is the time when the comment was made
-#: aasrp/models.py:509
+#: aasrp/models.py:507
 msgid "Comment time"
 msgstr "작성 시간"
 
 #. Translators: New SRP request status that might have been set
-#: aasrp/models.py:518
+#: aasrp/models.py:516
 msgid "New SRP request status"
 msgstr "새 SRP 요청 상태"
 
-#: aasrp/models.py:528
+#: aasrp/models.py:526
 msgid "Comments"
 msgstr "코멘트"
 
-#: aasrp/models.py:543
+#: aasrp/models.py:541
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:103
 msgid "User"
 msgstr "사용자"
 
-#: aasrp/models.py:547
+#: aasrp/models.py:545
 msgid "Disable notifications"
 msgstr "알람 비활성화"
 
-#: aasrp/models.py:556 aasrp/models.py:557
+#: aasrp/models.py:554 aasrp/models.py:555
 #, fuzzy
 #| msgid "settings"
 msgid "User settings"
 msgstr "설정"
 
-#: aasrp/models.py:571
+#: aasrp/models.py:569
 msgid "SRP team Discord channel ID"
 msgstr "SRP 팀 디스코드 채널 아이디"
 
-#: aasrp/models.py:574
+#: aasrp/models.py:572
 msgid "Loss value source"
 msgstr "손실금 출처"
 
-#: aasrp/models.py:581
+#: aasrp/models.py:579
 msgid "Fitted value (Ship and Fitting)"
 msgstr "피팅 금액 (헐+피팅)"
 
-#: aasrp/models.py:582
+#: aasrp/models.py:580
 msgid "Total value (Ship, Fitting and Cargo)"
 msgstr "총액 (헐, 피팅, 카고)"
 
-#: aasrp/models.py:595
+#: aasrp/models.py:593
 msgid "The source for the loss value of a killmail. Fitted value is the value of the ship and its fitting. Total value is the value of the ship, its fitting and the cargo. (Default: Total value)"
 msgstr "킬메일의 손실 금액에 대한 자료입니다. 함선 금액은 피팅된 모듈과 헐의 가격이며, 총액은 카고의 화물을 포함합니다.(기본값:총액)"
 
-#: aasrp/models.py:612
+#: aasrp/models.py:610
 #, fuzzy
 #| msgid "Settings"
 msgid "Setting"
 msgstr "설정"
 
-#: aasrp/models.py:613
+#: aasrp/models.py:611
 msgid "Settings"
 msgstr "설정"
 
-#: aasrp/models.py:623
+#: aasrp/models.py:621
 msgid "AA-SRP settings"
 msgstr "SRP 설정"
 

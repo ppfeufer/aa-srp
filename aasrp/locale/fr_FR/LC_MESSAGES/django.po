@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-07-07 10:45+0200\n"
+"POT-Creation-Date: 2026-07-09 12:35+0200\n"
 "PO-Revision-Date: 2026-07-07 08:54+0000\n"
 "Last-Translator: Houbi_Houba <paul.lacape@live.fr>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/fr/>\n"
@@ -32,7 +32,7 @@ msgid "Ship Replacement"
 msgstr "Remplacement de vaisseau"
 
 #: aasrp/admin.py:57 aasrp/models.py:163 aasrp/models.py:309
-#: aasrp/models.py:491
+#: aasrp/models.py:489
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
 msgid "Creator"
 msgstr "Créateur"
@@ -180,7 +180,7 @@ msgstr "Veuillez nous raconter les circonstances de vôtre décès prématuré. 
 msgid "Killboard link"
 msgstr "Lien vers Killboard"
 
-#: aasrp/form.py:232 aasrp/form.py:241 aasrp/models.py:332 aasrp/models.py:470
+#: aasrp/form.py:232 aasrp/form.py:241 aasrp/models.py:332 aasrp/models.py:468
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:27
 #: aasrp/templates/aasrp/view-requests.html:43
@@ -208,7 +208,7 @@ msgstr "Valeur du paiement de SRP"
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "Veuillez fournir la raison du rejet de cette demande de SRP."
 
-#: aasrp/form.py:388 aasrp/models.py:352 aasrp/models.py:471
+#: aasrp/form.py:388 aasrp/models.py:352 aasrp/models.py:469
 msgid "Reject reason"
 msgstr "Raison du rejet"
 
@@ -224,8 +224,8 @@ msgstr "Commentaire (facultatif)"
 msgid "Please provide the reason why this former rejected SRP request is now accepted."
 msgstr "Veuillez fournir la raison pour laquelle cette demande de SRP a finalement été acceptée."
 
-#: aasrp/form.py:472 aasrp/models.py:468 aasrp/models.py:475
-#: aasrp/models.py:527
+#: aasrp/form.py:472 aasrp/models.py:466 aasrp/models.py:473
+#: aasrp/models.py:525
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
 msgid "Comment"
 msgstr "Commentaire"
@@ -234,11 +234,11 @@ msgstr "Commentaire"
 msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "Désactiver les notifications. (Auth et Discord, si un module approprié est installé)"
 
-#: aasrp/helper/character.py:45 aasrp/helper/character.py:48
+#: aasrp/helper/character.py:44 aasrp/helper/character.py:47
 msgid "Unknown character"
 msgstr "Personnage inconnu"
 
-#: aasrp/helper/character.py:72
+#: aasrp/helper/character.py:71
 msgid "Copy character name to clipboard"
 msgstr "Copier le nom du personnage dans le presse-papiers"
 
@@ -443,104 +443,104 @@ msgstr "Demandes"
 msgid "{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
 msgstr ""
 
-#: aasrp/models.py:440 aasrp/models.py:501
+#: aasrp/models.py:438 aasrp/models.py:499
 msgid "SRP request"
 msgstr "Demande de SRP"
 
-#: aasrp/models.py:443
+#: aasrp/models.py:441
 msgid "Insurance level"
 msgstr "Niveau de l'assurance"
 
-#: aasrp/models.py:445
+#: aasrp/models.py:443
 msgid "Insurance cost"
 msgstr "Coût de l'assurance"
 
-#: aasrp/models.py:446
+#: aasrp/models.py:444
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
 #: aasrp/templates/aasrp/view-requests.html:42
 msgid "Insurance payout"
 msgstr ""
 
-#: aasrp/models.py:454
+#: aasrp/models.py:452
 msgid "Ship insurance"
 msgstr "Assurance du vaisseau"
 
-#: aasrp/models.py:455
+#: aasrp/models.py:453
 msgid "Ship insurances"
 msgstr ""
 
-#: aasrp/models.py:469
+#: aasrp/models.py:467
 msgid "SRP request added"
 msgstr "Demande de SRP ajoutée"
 
-#: aasrp/models.py:472
+#: aasrp/models.py:470
 msgid "Status changed"
 msgstr "Statut modifié"
 
-#: aasrp/models.py:473
+#: aasrp/models.py:471
 msgid "Reviser comment"
 msgstr "Commentaire du réviseur"
 
-#: aasrp/models.py:481
+#: aasrp/models.py:479
 msgid "Comment type"
 msgstr "Type de commentaire"
 
 #. Translators: This is the time when the comment was made
-#: aasrp/models.py:509
+#: aasrp/models.py:507
 msgid "Comment time"
 msgstr "Heure du commentaire"
 
 #. Translators: New SRP request status that might have been set
-#: aasrp/models.py:518
+#: aasrp/models.py:516
 msgid "New SRP request status"
 msgstr "Nouveau statut de la demande de SRP"
 
-#: aasrp/models.py:528
+#: aasrp/models.py:526
 msgid "Comments"
 msgstr "Commentaires"
 
-#: aasrp/models.py:543
+#: aasrp/models.py:541
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:103
 msgid "User"
 msgstr "Utilisateur"
 
-#: aasrp/models.py:547
+#: aasrp/models.py:545
 msgid "Disable notifications"
 msgstr "Désactiver les notifications"
 
-#: aasrp/models.py:556 aasrp/models.py:557
+#: aasrp/models.py:554 aasrp/models.py:555
 msgid "User settings"
 msgstr "Paramètres de l'utilisateur"
 
-#: aasrp/models.py:571
+#: aasrp/models.py:569
 msgid "SRP team Discord channel ID"
 msgstr "Identifiant du canal Discord de l'équipe SRP"
 
-#: aasrp/models.py:574
+#: aasrp/models.py:572
 msgid "Loss value source"
 msgstr ""
 
-#: aasrp/models.py:581
+#: aasrp/models.py:579
 msgid "Fitted value (Ship and Fitting)"
 msgstr ""
 
-#: aasrp/models.py:582
+#: aasrp/models.py:580
 msgid "Total value (Ship, Fitting and Cargo)"
 msgstr "Valeur total (Vaisseau, Assemblage et Cargaison)"
 
-#: aasrp/models.py:595
+#: aasrp/models.py:593
 msgid "The source for the loss value of a killmail. Fitted value is the value of the ship and its fitting. Total value is the value of the ship, its fitting and the cargo. (Default: Total value)"
 msgstr ""
 
-#: aasrp/models.py:612
+#: aasrp/models.py:610
 msgid "Setting"
 msgstr "Paramètre"
 
-#: aasrp/models.py:613
+#: aasrp/models.py:611
 msgid "Settings"
 msgstr "Paramètres"
 
-#: aasrp/models.py:623
+#: aasrp/models.py:621
 msgid "AA-SRP settings"
 msgstr ""
 
