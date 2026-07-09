@@ -5,8 +5,8 @@ Test the helper functions in aasrp/helper/user.py
 # Standard Library
 from unittest.mock import patch
 
-# Django
-from django.contrib.auth.models import User
+# Alliance Auth
+from allianceauth.authentication.models import User
 
 # AA SRP
 from aasrp.helper.user import get_pending_requests_count_for_user, get_user_settings

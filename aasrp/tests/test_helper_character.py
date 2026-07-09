@@ -2,12 +2,10 @@
 Tests for aasrp.helper.character
 """
 
-# Django
-from django.contrib.auth.models import Group
-
 # Alliance Auth
 from allianceauth.authentication.models import CharacterOwnership
 from allianceauth.eveonline.models import EveCharacter
+from allianceauth.groupmanagement.models import Group
 
 # AA SRP
 from aasrp.helper.character import (
@@ -23,6 +21,7 @@ from aasrp.tests.utils import (
     add_character_to_user,
     create_eve_character,
     create_fake_user,
+    random_id,
 )
 
 
@@ -59,17 +58,17 @@ class TestGetFormattedCharacterName(BaseTestCase):
         cls.group = Group.objects.create(name="Enterprise Crew")
 
         cls.user_main_character = create_fake_user(
-            character_id=1001, character_name="William T. Riker"
+            character_id=random_id(), character_name="William T. Riker"
         )
 
         cls.alt_character = create_eve_character(
-            character_id=1002, character_name="Thomas Riker"
+            character_id=random_id(), character_name="Thomas Riker"
         )
 
         add_character_to_user(user=cls.user_main_character, character=cls.alt_character)
 
         cls.character_without_profile = create_eve_character(
-            character_id=1003, character_name="Christopher Pike"
+            character_id=random_id(), character_name="Christopher Pike"
         )
 
     def test_should_return_formatted_character_name(self):
@@ -213,15 +212,15 @@ class TestGetMainForCharacter(BaseTestCase):
         cls.group = Group.objects.create(name="Enterprise Crew")
 
         cls.user_main_character = create_fake_user(
-            character_id=1001, character_name="William T. Riker"
+            character_id=random_id(), character_name="William T. Riker"
         )
 
         cls.alt_character = create_eve_character(
-            character_id=1002, character_name="Thomas Riker"
+            character_id=random_id(), character_name="Thomas Riker"
         )
 
         cls.alt_character_2 = create_eve_character(
-            character_id=1004, character_name="Jean Luc Riker"
+            character_id=random_id(), character_name="Jean Luc Riker"
         )
 
         add_character_to_user(user=cls.user_main_character, character=cls.alt_character)
@@ -230,7 +229,7 @@ class TestGetMainForCharacter(BaseTestCase):
         )
 
         cls.character_without_profile = create_eve_character(
-            character_id=1003, character_name="Christopher Pike"
+            character_id=random_id(), character_name="Christopher Pike"
         )
 
     def test_get_main_for_character_returns_none(self):
@@ -312,15 +311,15 @@ class TestGetUserForCharacter(BaseTestCase):
         cls.group = Group.objects.create(name="Enterprise Crew")
 
         cls.user_main_character = create_fake_user(
-            character_id=1001, character_name="William T. Riker"
+            character_id=random_id(), character_name="William T. Riker"
         )
 
         cls.alt_character = create_eve_character(
-            character_id=1002, character_name="Thomas Riker"
+            character_id=random_id(), character_name="Thomas Riker"
         )
 
         cls.alt_character_2 = create_eve_character(
-            character_id=1004, character_name="Jean Luc Riker"
+            character_id=random_id(), character_name="Jean Luc Riker"
         )
 
         add_character_to_user(user=cls.user_main_character, character=cls.alt_character)
@@ -329,7 +328,7 @@ class TestGetUserForCharacter(BaseTestCase):
         )
 
         cls.character_without_profile = create_eve_character(
-            character_id=1003, character_name="Christopher Pike"
+            character_id=random_id(), character_name="Christopher Pike"
         )
 
     def test_get_user_for_character_returns_sentinel_user(self):

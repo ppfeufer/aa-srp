@@ -26,7 +26,7 @@ from aasrp.form import (
 )
 from aasrp.models import FleetType, SrpLink
 from aasrp.tests import BaseTestCase
-from aasrp.tests.utils import create_fake_user
+from aasrp.tests.utils import create_fake_user, random_id
 
 
 class BaseFormTestCase(BaseTestCase):
@@ -55,7 +55,7 @@ class BaseFormTestCase(BaseTestCase):
         )
 
         cls.user_jean_luc_picard = create_fake_user(
-            character_id=1000,
+            character_id=random_id(),
             character_name="Jean Luc Picard",
         )
 

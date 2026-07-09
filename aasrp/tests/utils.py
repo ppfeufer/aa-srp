@@ -6,18 +6,18 @@ Helper for our tests
 import datetime as dt
 import random
 import re
+import secrets
 import string
 
 # Third Party
 from faker import Faker
 
 # Django
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 
 # Alliance Auth
-from allianceauth.authentication.models import CharacterOwnership
+from allianceauth.authentication.models import CharacterOwnership, User
 from allianceauth.eveonline.models import EveCharacter
 from allianceauth.tests.auth_utils import AuthUtils
 from esi.models import Scope, Token
@@ -394,3 +394,16 @@ def create_eve_character(
     params.update(kwargs)
 
     return EveCharacter.objects.create(**params)
+
+
+def random_id(n: int = 26) -> int:
+    """
+    Generate a random ID
+
+    :param n: Length of the ID, optional (default=26 (8 digits in base36))
+    :type n: int
+    :return: A random ID
+    :rtype: int
+    """
+
+    return secrets.randbits(n)

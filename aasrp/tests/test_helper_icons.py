@@ -1,9 +1,11 @@
 # Django
-from django.contrib.auth.models import Permission, User
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import SafeString
+
+# Alliance Auth
+from allianceauth.authentication.models import Permission, User
 
 # AA SRP
 from aasrp.helper.icons import (

@@ -5,10 +5,10 @@ This module provides custom Django template tags for the AA SRP application.
 """
 
 # Django
-from django.contrib.auth.models import User
 from django.template.defaulttags import register
 
 # Alliance Auth
+from allianceauth.authentication.models import User
 from allianceauth.framework.api.user import get_main_character_name_from_user
 from allianceauth.services.hooks import get_extension_logger
 

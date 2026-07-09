@@ -15,7 +15,7 @@ from django.utils import timezone
 # AA SRP
 from aasrp.models import SrpLink, SrpRequest
 from aasrp.tests import BaseTestCase
-from aasrp.tests.utils import create_fake_user
+from aasrp.tests.utils import create_fake_user, random_id
 from aasrp.views.datatables import OwnSrpRequestsView
 
 
@@ -33,7 +33,7 @@ class TestOwnSrpRequestsView(BaseTestCase):
         """
 
         self.user = create_fake_user(
-            character_id=1000,
+            character_id=random_id(),
             character_name="Jean Luc Picard",
             permissions=["aasrp.basic_access", "aasrp.manage_srp"],
         )
@@ -113,7 +113,7 @@ class TestOwnSrpRequestsView(BaseTestCase):
         from allianceauth.eveonline.models import EveCharacter
 
         character = EveCharacter.objects.create(
-            character_id=12345,
+            character_id=random_id(),
             character_name="Test Character",
             corporation_id=1,
             corporation_name="Test Corp",

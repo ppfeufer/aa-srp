@@ -11,7 +11,7 @@ from allianceauth.tests.auth_utils import AuthUtils
 # AA SRP
 from aasrp.models import get_sentinel_user
 from aasrp.tests import BaseTestCase
-from aasrp.tests.utils import create_fake_user
+from aasrp.tests.utils import create_fake_user, random_id
 
 
 class TestMainCharacterName(BaseTestCase):
@@ -35,7 +35,7 @@ class TestMainCharacterName(BaseTestCase):
         """
 
         # given
-        user = create_fake_user(character_id=1001, character_name="Bruce Wayne")
+        user = create_fake_user(character_id=random_id(), character_name="Bruce Wayne")
         context = Context(dict_={"user": user})
 
         # when
@@ -116,15 +116,17 @@ class TestMainCharacterId(BaseTestCase):
         :rtype:
         """
 
+        character_id = random_id()
+
         # given
-        user = create_fake_user(character_id=1001, character_name="Bruce Wayne")
+        user = create_fake_user(character_id=character_id, character_name="Bruce Wayne")
         context = Context(dict_={"user": user})
 
         # when
         result = self.template.render(context=context)
 
         # then
-        self.assertEqual(first=result, second="1001")
+        self.assertEqual(first=result, second=str(character_id))
 
     def test_should_contain_dummy_id_for_users_without_main(self):
         """
@@ -203,9 +205,9 @@ class TestMainCharacterCorporationName(BaseTestCase):
 
         # given
         user = create_fake_user(
-            character_id=1001,
+            character_id=random_id(),
             character_name="Bruce Wayne",
-            corporation_id=2001,
+            corporation_id=random_id(),
             corporation_name="Wayne Tech Inc.",
             corporation_ticker="WYT",
         )
@@ -292,11 +294,13 @@ class TestMainCorporationId(BaseTestCase):
         :rtype:
         """
 
+        corporation_id = random_id()
+
         # given
         user = create_fake_user(
-            character_id=1001,
+            character_id=random_id(),
             character_name="Bruce Wayne",
-            corporation_id=2001,
+            corporation_id=corporation_id,
             corporation_name="Wayne Tech Inc.",
             corporation_ticker="WYT",
         )
@@ -306,7 +310,7 @@ class TestMainCorporationId(BaseTestCase):
         result = self.template.render(context=context)
 
         # then
-        self.assertEqual(first=result, second="2001")
+        self.assertEqual(first=result, second=str(corporation_id))
 
     def test_should_be_dummy_id_for_users_without_main(self):
         """
@@ -385,12 +389,12 @@ class TestMainCharacterAllianceName(BaseTestCase):
 
         # given
         user = create_fake_user(
-            character_id=1001,
+            character_id=random_id(),
             character_name="Bruce Wayne",
-            corporation_id=2001,
+            corporation_id=random_id(),
             corporation_name="Wayne Tech Inc.",
             corporation_ticker="WYT",
-            alliance_id=3001,
+            alliance_id=random_id(),
             alliance_name="Wayne Enterprices",
         )
 
@@ -430,9 +434,9 @@ class TestMainCharacterAllianceName(BaseTestCase):
 
         # given
         user = create_fake_user(
-            character_id=2012,
+            character_id=random_id(),
             character_name="William Riker",
-            corporation_id=2012,
+            corporation_id=random_id(),
             corporation_name="Starfleet",
             corporation_ticker="SF",
             alliance_id=None,
@@ -503,14 +507,16 @@ class TestMainAllianceId(BaseTestCase):
         :rtype:
         """
 
+        alliance_id = random_id()
+
         # given
         user = create_fake_user(
-            character_id=1001,
+            character_id=random_id(),
             character_name="Bruce Wayne",
-            corporation_id=2001,
+            corporation_id=random_id(),
             corporation_name="Wayne Tech Inc.",
             corporation_ticker="WYT",
-            alliance_id=3001,
+            alliance_id=alliance_id,
             alliance_name="Wayne Enterprises",
         )
         context = Context(dict_={"user": user})
@@ -519,7 +525,7 @@ class TestMainAllianceId(BaseTestCase):
         result = self.template.render(context=context)
 
         # then
-        self.assertEqual(first=result, second="3001")
+        self.assertEqual(first=result, second=str(alliance_id))
 
     def test_should_be_dummy_id_for_users_without_main(self):
         """
@@ -549,9 +555,9 @@ class TestMainAllianceId(BaseTestCase):
 
         # given
         user = create_fake_user(
-            character_id=2012,
+            character_id=random_id(),
             character_name="William Riker",
-            corporation_id=2012,
+            corporation_id=random_id(),
             corporation_name="Starfleet",
             corporation_ticker="SF",
             alliance_id=None,

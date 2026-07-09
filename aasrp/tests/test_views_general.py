@@ -10,19 +10,19 @@ from unittest.mock import MagicMock, patch
 from eve_sde.models import ItemType
 
 # Django
-from django.contrib.auth.models import Permission, User
 from django.test import Client
 from django.urls import reverse
 from django.utils import timezone
 
 # Alliance Auth
+from allianceauth.authentication.models import Permission, User
 from allianceauth.eveonline.models import EveCharacter
 from allianceauth.tests.auth_utils import AuthUtils
 
 # AA SRP
 from aasrp.models import Setting, SrpLink, SrpRequest, UserSetting
 from aasrp.tests import BaseTestCase
-from aasrp.tests.utils import create_fake_user
+from aasrp.tests.utils import create_fake_user, random_id
 from aasrp.views.general import _save_srp_request
 
 
@@ -43,12 +43,12 @@ class BaseViewsTestCase(BaseTestCase):
         super().setUpClass()
 
         cls.user_jean_luc_picard = create_fake_user(
-            character_id=1000,
+            character_id=random_id(),
             character_name="Jean Luc Picard",
             permissions=["aasrp.basic_access", "aasrp.manage_srp"],
         )
         cls.user_wesley_crusher = create_fake_user(
-            character_id=1001,
+            character_id=random_id(),
             character_name="Wesley Crusher",
             permissions=["aasrp.basic_access"],
         )
@@ -177,7 +177,7 @@ class TestSrpLinkAddView(BaseTestCase):
         AuthUtils.add_permission_to_user_by_name("aasrp.basic_access", cls.user)
         AuthUtils.add_permission_to_user_by_name("aasrp.create_srp", cls.user)
         AuthUtils.add_main_character_2(
-            cls.user, name="Test Character", character_id=123456
+            cls.user, name="Test Character", character_id=random_id()
         )
 
     def setUp(self):
@@ -276,7 +276,7 @@ class TestSrpLinkEditView(BaseTestCase):
         AuthUtils.add_permission_to_user_by_name("aasrp.basic_access", cls.user)
         AuthUtils.add_permission_to_user_by_name("aasrp.create_srp", cls.user)
         AuthUtils.add_main_character_2(
-            cls.user, name="Test Character", character_id=123456
+            cls.user, name="Test Character", character_id=random_id()
         )
 
         cls.srp_link = SrpLink.objects.create(
@@ -361,7 +361,7 @@ class TestCompleteSrpLinkView(BaseTestCase):
 
         AuthUtils.add_permission_to_user_by_name("aasrp.manage_srp", cls.user)
         AuthUtils.add_main_character_2(
-            cls.user, name="Test Character", character_id=123456
+            cls.user, name="Test Character", character_id=random_id()
         )
 
         cls.srp_link = SrpLink.objects.create(
@@ -471,7 +471,7 @@ class TestEnableDisableSrpLinkViews(BaseTestCase):
 
         AuthUtils.add_permission_to_user_by_name("aasrp.manage_srp", cls.user)
         AuthUtils.add_main_character_2(
-            cls.user, name="Test Character", character_id=123456
+            cls.user, name="Test Character", character_id=random_id()
         )
 
         cls.srp_link = SrpLink.objects.create(
@@ -611,7 +611,7 @@ class TestDeleteSrpLinkView(BaseTestCase):
 
         AuthUtils.add_permission_to_user_by_name("aasrp.manage_srp", cls.user)
         AuthUtils.add_main_character_2(
-            cls.user, name="Test Character", character_id=123456
+            cls.user, name="Test Character", character_id=random_id()
         )
 
     def setUp(self):
@@ -719,7 +719,7 @@ class TestSrpLinkViewRequestsView(BaseTestCase):
 
         AuthUtils.add_permission_to_user_by_name("aasrp.manage_srp", cls.user)
         AuthUtils.add_main_character_2(
-            cls.user, name="Test Character", character_id=123456
+            cls.user, name="Test Character", character_id=random_id()
         )
 
         cls.srp_link = SrpLink.objects.create(
@@ -831,7 +831,7 @@ class TestRequestSrpView(BaseTestCase):
 
         AuthUtils.add_permission_to_user_by_name("aasrp.basic_access", cls.user)
         AuthUtils.add_main_character_2(
-            cls.user, name="Test Character", character_id=123456
+            cls.user, name="Test Character", character_id=random_id()
         )
 
         cls.srp_link = SrpLink.objects.create(
