@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-07-07 10:45+0200\n"
+"POT-Creation-Date: 2026-07-09 12:35+0200\n"
 "PO-Revision-Date: 2026-07-07 08:55+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/uk/>\n"
@@ -32,7 +32,7 @@ msgid "Ship Replacement"
 msgstr "Компенсація корабля"
 
 #: aasrp/admin.py:57 aasrp/models.py:163 aasrp/models.py:309
-#: aasrp/models.py:491
+#: aasrp/models.py:489
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
 msgid "Creator"
 msgstr "Автор"
@@ -188,7 +188,7 @@ msgstr "Будь ласка, розкажіть про обставини ваш
 msgid "Killboard link"
 msgstr "Посилання на Killboard"
 
-#: aasrp/form.py:232 aasrp/form.py:241 aasrp/models.py:332 aasrp/models.py:470
+#: aasrp/form.py:232 aasrp/form.py:241 aasrp/models.py:332 aasrp/models.py:468
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
 #: aasrp/templates/aasrp/view-own-requests.html:27
 #: aasrp/templates/aasrp/view-requests.html:43
@@ -216,7 +216,7 @@ msgstr "Значення виплати SRP"
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "Будь ласка, надайте причину, чому цей запит на SRP був відхилений."
 
-#: aasrp/form.py:388 aasrp/models.py:352 aasrp/models.py:471
+#: aasrp/form.py:388 aasrp/models.py:352 aasrp/models.py:469
 msgid "Reject reason"
 msgstr "Причина відхилення"
 
@@ -232,8 +232,8 @@ msgstr "Коментар (не обов'язково)"
 msgid "Please provide the reason why this former rejected SRP request is now accepted."
 msgstr "Будь ласка, надайте причину, чому цей раніше відхилений запит на SRP тепер прийнятий."
 
-#: aasrp/form.py:472 aasrp/models.py:468 aasrp/models.py:475
-#: aasrp/models.py:527
+#: aasrp/form.py:472 aasrp/models.py:466 aasrp/models.py:473
+#: aasrp/models.py:525
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
 msgid "Comment"
 msgstr "Коментар"
@@ -242,11 +242,11 @@ msgstr "Коментар"
 msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "Вимкнути сповіщення. (Auth та Discord, якщо відповідний модуль встановлений)"
 
-#: aasrp/helper/character.py:45 aasrp/helper/character.py:48
+#: aasrp/helper/character.py:44 aasrp/helper/character.py:47
 msgid "Unknown character"
 msgstr "Невідомий персонаж"
 
-#: aasrp/helper/character.py:72
+#: aasrp/helper/character.py:71
 msgid "Copy character name to clipboard"
 msgstr "Скопіювати ім'я персонажа в буфер обміну"
 
@@ -445,104 +445,104 @@ msgstr "Запити"
 msgid "{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
 msgstr "Запит на SRP для {character_name} ({user_name}): {ship} ({request_code})"
 
-#: aasrp/models.py:440 aasrp/models.py:501
+#: aasrp/models.py:438 aasrp/models.py:499
 msgid "SRP request"
 msgstr "Запит на SRP"
 
-#: aasrp/models.py:443
+#: aasrp/models.py:441
 msgid "Insurance level"
 msgstr "Категорія страхування"
 
-#: aasrp/models.py:445
+#: aasrp/models.py:443
 msgid "Insurance cost"
 msgstr "Вартість страхування"
 
-#: aasrp/models.py:446
+#: aasrp/models.py:444
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
 #: aasrp/templates/aasrp/view-requests.html:42
 msgid "Insurance payout"
 msgstr "Виплата за страховкою"
 
-#: aasrp/models.py:454
+#: aasrp/models.py:452
 msgid "Ship insurance"
 msgstr "Страхування корабля"
 
-#: aasrp/models.py:455
+#: aasrp/models.py:453
 msgid "Ship insurances"
 msgstr "Страхування кораблів"
 
-#: aasrp/models.py:469
+#: aasrp/models.py:467
 msgid "SRP request added"
 msgstr "Запит на SRP додано"
 
-#: aasrp/models.py:472
+#: aasrp/models.py:470
 msgid "Status changed"
 msgstr "Статус змінено"
 
-#: aasrp/models.py:473
+#: aasrp/models.py:471
 msgid "Reviser comment"
 msgstr "Коментар ревізора"
 
-#: aasrp/models.py:481
+#: aasrp/models.py:479
 msgid "Comment type"
 msgstr "Тип коментаря"
 
 #. Translators: This is the time when the comment was made
-#: aasrp/models.py:509
+#: aasrp/models.py:507
 msgid "Comment time"
 msgstr "Час коментаря"
 
 #. Translators: New SRP request status that might have been set
-#: aasrp/models.py:518
+#: aasrp/models.py:516
 msgid "New SRP request status"
 msgstr "Новий статус запиту на SRP"
 
-#: aasrp/models.py:528
+#: aasrp/models.py:526
 msgid "Comments"
 msgstr "Коментарі"
 
-#: aasrp/models.py:543
+#: aasrp/models.py:541
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:103
 msgid "User"
 msgstr "Користувач"
 
-#: aasrp/models.py:547
+#: aasrp/models.py:545
 msgid "Disable notifications"
 msgstr "Вимкнути сповіщення"
 
-#: aasrp/models.py:556 aasrp/models.py:557
+#: aasrp/models.py:554 aasrp/models.py:555
 msgid "User settings"
 msgstr "Налаштування користувача"
 
-#: aasrp/models.py:571
+#: aasrp/models.py:569
 msgid "SRP team Discord channel ID"
 msgstr "ID каналу Discord для SRP-команди"
 
-#: aasrp/models.py:574
+#: aasrp/models.py:572
 msgid "Loss value source"
 msgstr "Джерело вартості збитків"
 
-#: aasrp/models.py:581
+#: aasrp/models.py:579
 msgid "Fitted value (Ship and Fitting)"
 msgstr "Вартість фіту (корабель та Фіттинг)"
 
-#: aasrp/models.py:582
+#: aasrp/models.py:580
 msgid "Total value (Ship, Fitting and Cargo)"
 msgstr "Загальна вартість (корабель, фіттинг та карго)"
 
-#: aasrp/models.py:595
+#: aasrp/models.py:593
 msgid "The source for the loss value of a killmail. Fitted value is the value of the ship and its fitting. Total value is the value of the ship, its fitting and the cargo. (Default: Total value)"
 msgstr "Джерело для вартості збитків killmail. Вартість фіту — це вартість корабля та його фіттингу. Загальна вартість — це вартість корабля, його фіттингу та карго. (За замовчуванням: Загальна вартість)"
 
-#: aasrp/models.py:612
+#: aasrp/models.py:610
 msgid "Setting"
 msgstr "Налаштування"
 
-#: aasrp/models.py:613
+#: aasrp/models.py:611
 msgid "Settings"
 msgstr "Налаштування"
 
-#: aasrp/models.py:623
+#: aasrp/models.py:621
 msgid "AA-SRP settings"
 msgstr "Налаштування AA-SRP"
 
