@@ -15,10 +15,10 @@ notified both within the application and on Discord, if applicable.
 from datetime import datetime
 
 # Django
-from django.contrib.auth.models import User
 from django.utils import timezone
 
 # Alliance Auth
+from allianceauth.authentication.models import User
 from allianceauth.notifications import notify
 from allianceauth.services.hooks import get_extension_logger
 

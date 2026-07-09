@@ -9,15 +9,17 @@ from http import HTTPStatus
 from faker import Faker
 
 # Django
-from django.contrib.auth.models import Group
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 
+# Alliance Auth
+from allianceauth.groupmanagement.models import Group
+
 # AA SRP
 from aasrp.models import SrpLink
 from aasrp.tests import BaseTestCase
-from aasrp.tests.utils import create_fake_user
+from aasrp.tests.utils import create_fake_user, random_id
 
 fake = Faker()
 
@@ -38,33 +40,33 @@ class TestAccess(BaseTestCase):
 
         # User without access
         cls.user_without_access = create_fake_user(
-            character_id=1001, character_name="Wesley Crusher"
+            character_id=random_id(), character_name="Wesley Crusher"
         )
 
         # User with basic_access
         cls.user_with_basic_access = create_fake_user(
-            character_id=1002,
+            character_id=random_id(),
             character_name="Miles O'Brian",
             permissions=["aasrp.basic_access"],
         )
 
         # User with create_srp
         cls.user_with_create_srp = create_fake_user(
-            character_id=1003,
+            character_id=random_id(),
             character_name="Worf",
             permissions=["aasrp.basic_access", "aasrp.create_srp"],
         )
 
         # User with manage_srp_requests
         cls.user_with_manage_srp_requests = create_fake_user(
-            character_id=1004,
+            character_id=random_id(),
             character_name="James T. Kirk",
             permissions=["aasrp.basic_access", "aasrp.manage_srp_requests"],
         )
 
         # User with manage_srp
         cls.user_with_manage_srp = create_fake_user(
-            character_id=1005,
+            character_id=random_id(),
             character_name="Jean Luc Picard",
             permissions=["aasrp.basic_access", "aasrp.manage_srp"],
         )

@@ -8,6 +8,7 @@ from aasrp.helper.eve_images import (
     get_type_render_url_from_type_id,
 )
 from aasrp.tests import BaseTestCase
+from aasrp.tests.utils import random_id
 
 
 class TestGetTypeRenderUrlFromTypeId(BaseTestCase):
@@ -102,8 +103,10 @@ class TestGetCharacterPortraitFromEvecharacter(BaseTestCase):
         :rtype:
         """
 
+        character_id = random_id()
+
         character = EveCharacter.objects.create(
-            character_id=12345,
+            character_id=character_id,
             character_name="Test Character",
             corporation_id=2001,
             corporation_name="Test Corp",
@@ -114,7 +117,7 @@ class TestGetCharacterPortraitFromEvecharacter(BaseTestCase):
 
         self.assertIn('<img class="aasrp-character-portrait rounded"', result)
         self.assertIn(
-            f'src="{eveimageserver.character_portrait_url(character_id=12345, size=64)}"',
+            f'src="{eveimageserver.character_portrait_url(character_id=character_id, size=64)}"',
             result,
         )
         self.assertIn('alt="Test Character"', result)
@@ -128,8 +131,10 @@ class TestGetCharacterPortraitFromEvecharacter(BaseTestCase):
         :rtype:
         """
 
+        character_id = random_id()
+
         character = EveCharacter.objects.create(
-            character_id=12345,
+            character_id=character_id,
             character_name="Test Character",
             corporation_id=2001,
             corporation_name="Test Corp",
@@ -139,7 +144,8 @@ class TestGetCharacterPortraitFromEvecharacter(BaseTestCase):
         )
 
         self.assertEqual(
-            result, eveimageserver.character_portrait_url(character_id=12345, size=64)
+            result,
+            eveimageserver.character_portrait_url(character_id=character_id, size=64),
         )
 
     def test_character_portrait_with_default_size(self):
@@ -150,8 +156,10 @@ class TestGetCharacterPortraitFromEvecharacter(BaseTestCase):
         :rtype:
         """
 
+        character_id = random_id()
+
         character = EveCharacter.objects.create(
-            character_id=12345,
+            character_id=character_id,
             character_name="Test Character",
             corporation_id=2001,
             corporation_name="Test Corp",
@@ -159,5 +167,6 @@ class TestGetCharacterPortraitFromEvecharacter(BaseTestCase):
         result = get_character_portrait_from_evecharacter(character)
 
         self.assertEqual(
-            result, eveimageserver.character_portrait_url(character_id=12345, size=32)
+            result,
+            eveimageserver.character_portrait_url(character_id=character_id, size=32),
         )

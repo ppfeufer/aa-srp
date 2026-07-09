@@ -15,7 +15,7 @@ from django.utils import timezone
 # AA SRP
 from aasrp.models import SrpLink, SrpRequest
 from aasrp.tests import BaseTestCase
-from aasrp.tests.utils import create_eve_character, create_fake_user
+from aasrp.tests.utils import create_eve_character, create_fake_user, random_id
 
 
 class TestSrpRequest(BaseTestCase):
@@ -32,7 +32,7 @@ class TestSrpRequest(BaseTestCase):
         """
 
         self.user = create_fake_user(
-            character_id=123456,
+            character_id=random_id(),
             character_name="Willam Riker",
             corporation_id=98000001,
             corporation_name="Bridge Vrew",
@@ -44,7 +44,7 @@ class TestSrpRequest(BaseTestCase):
         self.character = self.user.profile.main_character
 
         self.character_2 = create_eve_character(
-            character_id=654321,
+            character_id=random_id(),
             character_name="Worf",
             corporation_id=98000001,
             corporation_name="Bridge Crew",

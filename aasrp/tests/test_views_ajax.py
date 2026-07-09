@@ -18,7 +18,7 @@ from django.utils.crypto import get_random_string
 # AA SRP
 from aasrp.models import RequestComment, SrpLink, SrpRequest
 from aasrp.tests import BaseTestCase
-from aasrp.tests.utils import create_fake_user
+from aasrp.tests.utils import create_fake_user, random_id
 from aasrp.views.ajax import (
     srp_request_approve,
     srp_request_deny,
@@ -45,12 +45,12 @@ class BaseViewsTestCase(BaseTestCase):
         super().setUpClass()
 
         cls.user_jean_luc_picard = create_fake_user(
-            character_id=1000,
+            character_id=random_id(),
             character_name="Jean Luc Picard",
             permissions=["aasrp.basic_access", "aasrp.manage_srp"],
         )
         cls.user_wesley_crusher = create_fake_user(
-            character_id=1001,
+            character_id=random_id(),
             character_name="Wesley Crusher",
             permissions=["aasrp.basic_access"],
         )

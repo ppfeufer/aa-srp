@@ -3,11 +3,10 @@ This module provides helper functions for working with Eve characters.
 """
 
 # Django
-from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
-from allianceauth.authentication.models import CharacterOwnership
+from allianceauth.authentication.models import CharacterOwnership, User
 from allianceauth.eveonline.models import EveCharacter
 
 # AA SRP

@@ -9,10 +9,8 @@ from unittest import mock
 # Third Party
 from eve_sde.models import ItemType
 
-# Django
-from django.contrib.auth.models import User
-
 # Alliance Auth
+from allianceauth.authentication.models import User
 from allianceauth.eveonline.models import EveCharacter
 
 # AA SRP

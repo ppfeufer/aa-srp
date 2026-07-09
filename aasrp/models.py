@@ -10,13 +10,13 @@ from eve_sde.models import ItemType
 from solo.models import SingletonModel
 
 # Django
-from django.contrib.auth.models import AbstractUser, AnonymousUser, User
 from django.db import models
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
+from allianceauth.authentication.models import User
 from allianceauth.eveonline.models import EveCharacter
 from allianceauth.framework.api.user import get_main_character_name_from_user
 
@@ -405,9 +405,7 @@ class SrpRequest(models.Model):
         super().save(*args, **kwargs)
 
     @staticmethod
-    def pending_requests_count_for_user(
-        user: User | AbstractUser | AnonymousUser,
-    ) -> int | None:
+    def pending_requests_count_for_user(user: User) -> int | None:
         """
         Returns the number of open SRP requests for given user or None if user has no permission
 

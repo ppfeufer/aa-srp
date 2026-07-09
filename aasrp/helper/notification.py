@@ -4,11 +4,11 @@ Notifications helper
 
 # Django
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.urls import reverse
 
 # Alliance Auth
+from allianceauth.authentication.models import User
 from allianceauth.framework.api.user import get_main_character_name_from_user
 from allianceauth.services.hooks import get_extension_logger
 
