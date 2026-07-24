@@ -23,7 +23,7 @@
                     <option value="">{% translate "All ships" %}</option>
 
                     {% for ship in ships %}
-                        <option value="{{ ship.id }}">{{ ship.name }}</option>
+                        <option value="{{ ship.pk }}">{{ ship.name }}</option>
                     {% endfor %}
                 </select>
             </div>

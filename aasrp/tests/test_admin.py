@@ -308,7 +308,7 @@ class TestFleetTypeAdmin(BaseTestCase):
 
         fleet_type_1 = FleetType.objects.create(name="Fleet A", is_enabled=False)
         fleet_type_2 = FleetType.objects.create(name="Fleet B", is_enabled=False)
-        queryset = FleetType.objects.filter(id__in=[fleet_type_1.id, fleet_type_2.id])
+        queryset = FleetType.objects.filter(pk__in=[fleet_type_1.pk, fleet_type_2.pk])
         request = SimpleNamespace()
 
         with (
@@ -332,7 +332,7 @@ class TestFleetTypeAdmin(BaseTestCase):
         """
 
         fleet_type = FleetType.objects.create(name="Fleet C", is_enabled=False)
-        queryset = FleetType.objects.filter(id=fleet_type.id)
+        queryset = FleetType.objects.filter(pk=fleet_type.pk)
         request = SimpleNamespace()
 
         with (
@@ -356,7 +356,7 @@ class TestFleetTypeAdmin(BaseTestCase):
 
         fleet_type_1 = FleetType.objects.create(name="Fleet D", is_enabled=True)
         fleet_type_2 = FleetType.objects.create(name="Fleet E", is_enabled=True)
-        queryset = FleetType.objects.filter(id__in=[fleet_type_1.id, fleet_type_2.id])
+        queryset = FleetType.objects.filter(pk__in=[fleet_type_1.pk, fleet_type_2.pk])
         request = SimpleNamespace()
 
         with (
@@ -380,7 +380,7 @@ class TestFleetTypeAdmin(BaseTestCase):
         """
 
         fleet_type = FleetType.objects.create(name="Fleet F", is_enabled=True)
-        queryset = FleetType.objects.filter(id=fleet_type.id)
+        queryset = FleetType.objects.filter(pk=fleet_type.pk)
         request = SimpleNamespace()
 
         with (

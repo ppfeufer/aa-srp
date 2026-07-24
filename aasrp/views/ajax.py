@@ -167,7 +167,7 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
         # Generate a killboard link with the ship's render icon if available
         if srp_request.killboard_link:
             ship_render_icon_html = get_type_render_url_from_type_id(
-                evetype_id=srp_request.ship.id,
+                evetype_id=srp_request.ship.pk,
                 evetype_name=srp_request.ship.name,
                 size=32,
                 as_html=True,
@@ -269,7 +269,7 @@ def srp_request_additional_information(
 
     # Generate the ship render icon HTML for the SRP request
     ship_render_icon_html = get_type_render_url_from_type_id(
-        evetype_id=srp_request.ship.id,
+        evetype_id=srp_request.ship.pk,
         evetype_name=srp_request.ship.name,
         size=64,
         as_html=True,
