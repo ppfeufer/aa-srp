@@ -105,7 +105,7 @@ def view_own_requests(request: WSGIRequest) -> HttpResponse:
         .order_by("character__character_name")
     )
     ships = (
-        ItemType.objects.filter(id__in=qs.values_list("ship", flat=True))
+        ItemType.objects.filter(pk__in=qs.values_list("ship", flat=True))
         .distinct()
         .order_by("name")
     )

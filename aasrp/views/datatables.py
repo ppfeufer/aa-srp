@@ -90,6 +90,6 @@ class OwnSrpRequestsView(PermissionRequiredMixin, DataTablesView):
             qs = qs.filter(character__character_id=filter_character)
 
         if filter_ship:
-            qs = qs.filter(ship__id=filter_ship)
+            qs = qs.filter(ship__pk=filter_ship)
 
         return qs

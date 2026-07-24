@@ -130,13 +130,13 @@ class TestOwnSrpRequestsView(BaseTestCase):
         )
 
     def test_returns_queryset_filtered_by_ship(self):
-        ship = ItemType.objects.create(id=12345, name="TestShip")
+        ship = ItemType.objects.create(pk=12345, name="TestShip")
         SrpRequest.objects.create(creator=self.user, ship=ship, srp_link=self.srp_link)
         SrpRequest.objects.create(creator=self.user, srp_link=self.srp_link)
-        self.request.GET = QueryDict(f"filter_ship={ship.id}")
+        self.request.GET = QueryDict(f"filter_ship={ship.pk}")
         queryset = self.view.get_model_qs(self.request)
         self.assertEqual(queryset.count(), 1)
-        self.assertEqual(queryset.first().ship.id, ship.id)
+        self.assertEqual(queryset.first().ship.pk, ship.pk)
 
     def test_returns_full_queryset_when_no_filters_applied(self):
         SrpRequest.objects.create(creator=self.user, srp_link=self.srp_link)
