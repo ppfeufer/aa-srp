@@ -1,27 +1,33 @@
 @media all {
-    .aa-srp .aasrp-form-field-errors {
-        margin-top: 0.5rem;
-        padding: 0.5rem;
-    }
+    .aa-srp {
+        .aasrp-form-field-errors {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+        }
 
-    .aa-srp form label {
-        font-weight: normal;
-    }
+        form {
+            &.is-submitting {
+                .aa-srp-form-submitted-info {
+                    display: block;
+                }
 
-    .aa-srp form label .form-field-required {
-        font-weight: bold;
-    }
+                button[type="submit"] {
+                    cursor: not-allowed;
+                    opacity: 0.5;
+                }
+            }
 
-    .aa-srp form .aa-srp-form-submitted-info {
-        display: none;
-    }
+            label {
+                font-weight: normal;
 
-    .aa-srp form.is-submitting .aa-srp-form-submitted-info {
-        display: block;
-    }
+                .form-field-required {
+                    font-weight: bold;
+                }
+            }
 
-    .aa-srp form.is-submitting button[type="submit"] {
-        cursor: not-allowed;
-        opacity: 0.5;
+            .aa-srp-form-submitted-info {
+                display: none;
+            }
+        }
     }
 }
