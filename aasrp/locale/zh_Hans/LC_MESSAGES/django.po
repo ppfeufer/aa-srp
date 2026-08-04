@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-07-09 12:35+0200\n"
+"POT-Creation-Date: 2026-08-04 07:11+0200\n"
 "PO-Revision-Date: 2026-07-07 08:54+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/zh_Hans/>\n"
@@ -1092,74 +1092,3 @@ msgstr "舰船补损链接 {srp_code} 被关闭了。"
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "舰船补损链接 {srp_code} 被删除了。"
-
-#, fuzzy
-#~| msgid "SRP code"
-#~ msgid "SRP Code"
-#~ msgstr "舰船补损代码"
-
-#, fuzzy
-#~| msgid "Request code"
-#~ msgid "Request Code"
-#~ msgstr "请求代码"
-
-#, fuzzy
-#~| msgid "Request status"
-#~ msgid "Request Status"
-#~ msgstr "请求状态"
-
-#, fuzzy
-#~| msgid "Killboard link"
-#~ msgid "Killboard Link"
-#~ msgstr "KB网链接"
-
-#, fuzzy
-#~| msgid "SRP name"
-#~ msgid "Ship name"
-#~ msgstr "舰船补损名字"
-
-#~ msgid "Ship type"
-#~ msgstr "舰船类型"
-
-#~ msgid "Ship type ID"
-#~ msgstr "舰船类型ID"
-
-#, fuzzy
-#~| msgid "New SRP request status"
-#~ msgid "Filter by request status:"
-#~ msgstr "新的舰船补损请求状态"
-
-#, fuzzy, python-brace-format
-#~| msgid "AA Ship Replacement v{__version__}"
-#~ msgid "Ship Replacement v{__version__}"
-#~ msgstr "AA 补损 v{__version__}"
-
-#~ msgid ""
-#~ "If you have any questions regarding your SRP request, feel free to contact your request reviser.\n"
-#~ "Please make sure to always add the SRP code and the request code with your inquiry."
-#~ msgstr ""
-#~ "如果您对您的舰船补损请求有任何疑问，请随时联系您的舰船补损官。\n"
-#~ "请确保始终添加舰船补损代码和请求代码在您查询的时候。"
-
-#, fuzzy, python-brace-format
-#~| msgid "Submitted SRP request for your {srp_request__ship.name}."
-#~ msgid "Your SRP request regarding your {srp_request.ship.name} lost during "
-#~ msgstr "保存舰船补损请求 {srp_request__ship.name}。"
-
-#, python-brace-format
-#~ msgid "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
-#~ msgstr "你的击杀报告链接 （{submitted_killmail_link} ）是无效的或者KB网上目前没有你的数据。请确保你使用了正确的 {zkillboard_base_url} 、 {evetools_base_url} 或者是 {eve_kill_base_url}"
-
-#~ msgctxt "Decimal separator"
-#~ msgid "."
-#~ msgstr "."
-
-#~ msgctxt "Thousands separator"
-#~ msgid ","
-#~ msgstr ","
-
-#~ msgid "Loading …"
-#~ msgstr "加载中…"
-
-#~ msgid "Processing …"
-#~ msgstr "处理中…"

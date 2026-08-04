@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-07-09 12:35+0200\n"
+"POT-Creation-Date: 2026-08-04 07:11+0200\n"
 "PO-Revision-Date: 2026-07-07 08:54+0000\n"
 "Last-Translator: Houbi_Houba <paul.lacape@live.fr>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/fr/>\n"
@@ -1100,100 +1100,3 @@ msgstr ""
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""
-
-#, fuzzy
-#~| msgid "SRP code"
-#~ msgid "SRP Code"
-#~ msgstr "Code de SRP"
-
-#, fuzzy
-#~| msgid "Requestor"
-#~ msgid "Request Code"
-#~ msgstr "Solliciteur"
-
-#, fuzzy
-#~| msgid "Request status"
-#~ msgid "Request Status"
-#~ msgstr "Status de la demande"
-
-#, fuzzy
-#~| msgid "Killboard link"
-#~ msgid "Killboard Link"
-#~ msgstr "Lien vers Killboard"
-
-#, fuzzy
-#~| msgid "SRP name"
-#~ msgid "Ship name"
-#~ msgstr "Nom de SRP"
-
-#~ msgid "Ship type"
-#~ msgstr "Type de vaisseaux"
-
-#, fuzzy
-#~| msgid "Ship type"
-#~ msgid "Ship type ID"
-#~ msgstr "Type de vaisseaux"
-
-#, fuzzy
-#~| msgid "New SRP request status"
-#~ msgid "Filter by request status:"
-#~ msgstr "Nouveau statut de la demande de SRP"
-
-#, python-brace-format
-#~ msgid "Ship Replacement v{__version__}"
-#~ msgstr "Remplacement des Vaisseaux v{__version__}"
-
-#~ msgid ""
-#~ "If you have any questions regarding your SRP request, feel free to contact your request reviser.\n"
-#~ "Please make sure to always add the SRP code and the request code with your inquiry."
-#~ msgstr ""
-#~ "Si vous avez des questions concernant votre demande de SRP, n'hésitez pas à contacter la personne gérant les requêtes\n"
-#~ "Veillez à toujours joindre le code de SRP ainsi que le code de requête à vôtre demande."
-
-#~ msgctxt "Decimal separator"
-#~ msgid "."
-#~ msgstr "."
-
-#~ msgctxt "Thousands separator"
-#~ msgid ","
-#~ msgstr ","
-
-#~ msgid "No data available in this table"
-#~ msgstr "Aucune donnée disponible dans cette table"
-
-#~ msgctxt "Keep _END_ as it is. It will be replaced by a number."
-#~ msgid "Showing _END_ entries"
-#~ msgstr "Montre les _END_ entrées"
-
-#~ msgid "No records available"
-#~ msgstr "Aucun enregistrement disponible"
-
-#~ msgid "Loading …"
-#~ msgstr "Chargement …"
-
-#~ msgid "Processing …"
-#~ msgstr "Traitement …"
-
-#~ msgid "Nothing found, sorry …"
-#~ msgstr "Rien n'a été trouvé, désolé …"
-
-#~ msgid "Search …"
-#~ msgstr "Recherche …"
-
-#~ msgid "First"
-#~ msgstr "Premier"
-
-#~ msgid "Last"
-#~ msgstr "Dernier"
-
-#~ msgid "Next"
-#~ msgstr "Suivant"
-
-#~ msgid "Previous"
-#~ msgstr "Précèdent"
-
-#~ msgid ": activate to sort column ascending"
-#~ msgstr ": activer pour trier les colonnes par ordre croissant"
-
-#~ msgid ": activate to sort column descending"
-#~ msgstr ": activer pour trier les colonnes dans l'ordre décroissant"

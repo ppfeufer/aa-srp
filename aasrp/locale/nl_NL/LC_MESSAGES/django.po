@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-07-09 12:35+0200\n"
+"POT-Creation-Date: 2026-08-04 07:11+0200\n"
 "PO-Revision-Date: 2026-07-07 08:55+0000\n"
 "Last-Translator: Automatic translation add-on <noreply-addon-autotranslate@weblate.org>\n"
 "Language-Team: Dutch <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/nl/>\n"
@@ -1063,8 +1063,3 @@ msgstr ""
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""
-
-#, fuzzy
-#~| msgid "Ship Replacement"
-#~ msgid "Ship name"
-#~ msgstr "Schip Vervanging"

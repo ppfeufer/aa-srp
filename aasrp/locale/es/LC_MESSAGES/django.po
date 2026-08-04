@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-07-09 12:35+0200\n"
+"POT-Creation-Date: 2026-08-04 07:11+0200\n"
 "PO-Revision-Date: 2026-07-07 08:54+0000\n"
 "Last-Translator: Mak3rco <depormanuf1@gmail.com>\n"
 "Language-Team: Spanish <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/es/>\n"
@@ -1132,41 +1132,3 @@ msgstr ""
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""
-
-#, fuzzy
-#~| msgid "Requestor"
-#~ msgid "Request Code"
-#~ msgstr "Solicitante"
-
-#, fuzzy
-#~| msgid "Requestor"
-#~ msgid "Request Status"
-#~ msgstr "Solicitante"
-
-#, fuzzy
-#~| msgid "Killboard link"
-#~ msgid "Killboard Link"
-#~ msgstr "Enlace de Killboard"
-
-#, fuzzy
-#~| msgid "Ship type"
-#~ msgid "Ship name"
-#~ msgstr "Tipo de Nave"
-
-#, fuzzy
-#~| msgid "Ship type"
-#~ msgid "Ship type ID"
-#~ msgstr "Tipo de Nave"
-
-#, fuzzy
-#~| msgid "Requestor"
-#~ msgid "Filter by request status:"
-#~ msgstr "Solicitante"
-
-#, python-brace-format
-#~ msgid "Ship Replacement v{__version__}"
-#~ msgstr "Reemplazo de Naves v{__version__}"
-
-#~ msgctxt "Decimal separator"
-#~ msgid "."
-#~ msgstr "."
