@@ -12,18 +12,23 @@ Highlighting:
 https://docs.github.com/assets/cb-41128/mw-1440/images/help/writing/alerts-rendered.webp
 
 > [!NOTE]
+>
 > Highlights information that users should take into account, even when skimming.
 
 > [!TIP]
+>
 > Optional information to help a user be more successful.
 
 > [!IMPORTANT]
+>
 > Crucial information necessary for users to succeed.
 
 > [!WARNING]
+>
 > Urgent info that needs immediate user attention to avoid problems.
 
 > [!CAUTION]
+>
 > Advised about risks or negative outcomes of certain actions.
 -->
 
@@ -43,10 +48,12 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [5.2.0] - 2026-08-04
+
 ### Changed
 
 - Use `pk` instead of `id` when referring to the primary key of a model instance, since `id` is not guaranteed to be the primary key in Django.
-- CSS modernized
+- CSS modernized (If you have an older browser that can't handle the new CSS, update your browser…)
 
 ## [5.1.0] - 2026-07-09
 
@@ -1831,11 +1838,12 @@ python manage.py aasrp_update_db_relations
 [5.0.0]: https://github.com/ppfeufer/aa-srp/compare/v4.4.0...v5.0.0 "v5.0.0"
 [5.0.1]: https://github.com/ppfeufer/aa-srp/compare/v5.0.0...v5.0.1 "v5.0.1"
 [5.1.0]: https://github.com/ppfeufer/aa-srp/compare/v5.0.1...v5.1.0 "v5.1.0"
+[5.2.0]: https://github.com/ppfeufer/aa-srp/compare/v5.1.0...v5.2.0 "v5.2.0"
 [aa discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "AA Discord Notify"
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[in development]: https://github.com/ppfeufer/aa-srp/compare/v5.1.0...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-srp/compare/v5.2.0...HEAD "In Development"
 [keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
 [semantic versioning]: http://semver.org/ "Semantic Versioning"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
