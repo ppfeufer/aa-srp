@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-07-09 12:35+0200\n"
+"POT-Creation-Date: 2026-08-04 07:11+0200\n"
 "PO-Revision-Date: 2026-07-07 08:53+0000\n"
 "Last-Translator: Mike Grap <mike.grap@gmx.net>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/de/>\n"
@@ -1072,109 +1072,3 @@ msgstr "SRP Link {srp_code} deaktiviert."
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "SRP Link {srp_code} gelöscht."
-
-#, fuzzy
-#~| msgid "SRP code"
-#~ msgid "SRP Code"
-#~ msgstr "SRP Code"
-
-#, fuzzy
-#~| msgid "Request code"
-#~ msgid "Request Code"
-#~ msgstr "Anfrage Code"
-
-#, fuzzy
-#~| msgid "Request status"
-#~ msgid "Request Status"
-#~ msgstr "Anfragestatus"
-
-#, fuzzy
-#~| msgid "Killboard link"
-#~ msgid "Killboard Link"
-#~ msgstr "Killboard Link"
-
-#, fuzzy
-#~| msgid "SRP name"
-#~ msgid "Ship name"
-#~ msgstr "SRP Name"
-
-#~ msgid "Ship type"
-#~ msgstr "Schiffstyp"
-
-#~ msgid "Ship type ID"
-#~ msgstr "Schiffstyp ID"
-
-#~ msgid "Filter by request status:"
-#~ msgstr "Filter nach Anfragestatus:"
-
-#, python-brace-format
-#~ msgid "Ship Replacement v{__version__}"
-#~ msgstr "Schiffserstattung v{__version__}"
-
-#~ msgid ""
-#~ "If you have any questions regarding your SRP request, feel free to contact your request reviser.\n"
-#~ "Please make sure to always add the SRP code and the request code with your inquiry."
-#~ msgstr ""
-#~ "Solltest Du Fragen zu Deiner SRP Anfrage haben, kontaktiere bitte den SRP Manager.\n"
-#~ "Bitte stelle sicher immer den SRP Code und den Anfrage Code mit anzugeben."
-
-#, fuzzy, python-brace-format
-#~| msgid "Submitted SRP request for your {srp_request__ship.name}."
-#~ msgid "Your SRP request regarding your {srp_request.ship.name} lost during "
-#~ msgstr "SRP Anfrage für Deine {srp_request__ship.name} eingereicht."
-
-#, python-brace-format
-#~ msgid "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
-#~ msgstr "Dein Killmail-Link ({submitted_killmail_link}) ist ungültig oder die zKillboard-API antwortet derzeit nicht. Bitte stelle sicher, dass Du entweder {zkillboard_base_url}, {evetools_base_url} oder {eve_kill_base_url} verwendest"
-
-#~ msgctxt "Decimal separator"
-#~ msgid "."
-#~ msgstr ","
-
-#~ msgctxt "Thousands separator"
-#~ msgid ","
-#~ msgstr "."
-
-#~ msgid "No data available in this table"
-#~ msgstr "In dieser Tabelle sind keine Daten verfügbar"
-
-#~ msgctxt "Keep _END_ as it is. It will be replaced by a number."
-#~ msgid "Showing _END_ entries"
-#~ msgstr "Zeige _END_ Einträge"
-
-#~ msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
-#~ msgid "(filtered from _MAX_ total entries)"
-#~ msgstr "(gefiltert von _MAX_ Einträgen)"
-
-#~ msgid "No records available"
-#~ msgstr "Keine Datensätze vorhanden"
-
-#~ msgid "Loading …"
-#~ msgstr "Lade …"
-
-#~ msgid "Processing …"
-#~ msgstr "Verarbeite …"
-
-#~ msgid "Nothing found, sorry …"
-#~ msgstr "Nichts gefunden, tut mir leid …"
-
-#~ msgid "Search …"
-#~ msgstr "Suche …"
-
-#~ msgid "First"
-#~ msgstr "Erster"
-
-#~ msgid "Last"
-#~ msgstr "Letzter"
-
-#~ msgid "Next"
-#~ msgstr "Nächster"
-
-#~ msgid "Previous"
-#~ msgstr "Vorheriger"
-
-#~ msgid ": activate to sort column ascending"
-#~ msgstr ": aktivieren, um die Spalte aufsteigend zu sortieren"
-
-#~ msgid ": activate to sort column descending"
-#~ msgstr ": aktivieren, um die Spalte absteigend zu sortieren"

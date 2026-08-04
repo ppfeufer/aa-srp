@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-07-09 12:35+0200\n"
+"POT-Creation-Date: 2026-08-04 07:11+0200\n"
 "PO-Revision-Date: 2026-07-07 08:55+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/uk/>\n"
@@ -1102,59 +1102,3 @@ msgstr "Посилання SRP {srp_code} вимкнено."
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "Посилання SRP {srp_code} видалено."
-
-#, fuzzy
-#~| msgid "SRP code"
-#~ msgid "SRP Code"
-#~ msgstr "Код SRP"
-
-#, fuzzy
-#~| msgid "Request code"
-#~ msgid "Request Code"
-#~ msgstr "Код запиту"
-
-#, fuzzy
-#~| msgid "Request status"
-#~ msgid "Request Status"
-#~ msgstr "Статус запиту"
-
-#, fuzzy
-#~| msgid "Killboard link"
-#~ msgid "Killboard Link"
-#~ msgstr "Посилання на Killboard"
-
-#, fuzzy
-#~| msgid "SRP name"
-#~ msgid "Ship name"
-#~ msgstr "Назва SRP"
-
-#~ msgid "Ship type"
-#~ msgstr "Тип корабля"
-
-#~ msgid "Ship type ID"
-#~ msgstr "ID типу корабля"
-
-#, fuzzy
-#~| msgid "New SRP request status"
-#~ msgid "Filter by request status:"
-#~ msgstr "Новий статус запиту на SRP"
-
-#, python-brace-format
-#~ msgid "Ship Replacement v{__version__}"
-#~ msgstr "SRP v{__version__}"
-
-#~ msgid ""
-#~ "If you have any questions regarding your SRP request, feel free to contact your request reviser.\n"
-#~ "Please make sure to always add the SRP code and the request code with your inquiry."
-#~ msgstr ""
-#~ "Якщо у вас є будь-які питання щодо вашого запиту на SRP, звертатйтеся до ревізора вашого запиту.\n"
-#~ "Будь ласка, переконайтесь, що завжди додаєте код SRP та код запиту у своєму зверненні."
-
-#, fuzzy, python-brace-format
-#~| msgid "Submitted SRP request for your {srp_request__ship.name}."
-#~ msgid "Your SRP request regarding your {srp_request.ship.name} lost during "
-#~ msgstr "Відправлено SRP запит для вашого {srp_request__ship.name}."
-
-#, python-brace-format
-#~ msgid "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
-#~ msgstr "Ваше kill mail посилання({submitted_killmail_link}) недійсне або API zKillboard наразі не відповідає. Переконайтеся, що ви використовуєте {zkillboard_base_url}, {evetools_base_url} або {eve_kill_base_url}"

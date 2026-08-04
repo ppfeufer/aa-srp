@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP 2.5.3\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-07-09 12:35+0200\n"
+"POT-Creation-Date: 2026-08-04 07:11+0200\n"
 "PO-Revision-Date: 2026-07-07 08:54+0000\n"
 "Last-Translator: Deleted User <noreply+44@weblate.org>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ja/>\n"
@@ -1085,47 +1085,3 @@ msgstr ""
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""
-
-#, fuzzy
-#~| msgid "SRP code"
-#~ msgid "SRP Code"
-#~ msgstr "SRPコード"
-
-#, fuzzy
-#~| msgid "Request code"
-#~ msgid "Request Code"
-#~ msgstr "リクエストコード"
-
-#, fuzzy
-#~| msgid "New SRP request status"
-#~ msgid "Request Status"
-#~ msgstr "新規SRP依頼ステータス"
-
-#, fuzzy
-#~| msgid "Killboard link"
-#~ msgid "Killboard Link"
-#~ msgstr "キルへのURL"
-
-#, fuzzy
-#~| msgid "SRP name"
-#~ msgid "Ship name"
-#~ msgstr "SRP名"
-
-#~ msgid "Ship type"
-#~ msgstr "シップタイプ"
-
-#, fuzzy
-#~| msgid "New SRP request status"
-#~ msgid "Filter by request status:"
-#~ msgstr "新規SRP依頼ステータス"
-
-#, python-brace-format
-#~ msgid "Ship Replacement v{__version__}"
-#~ msgstr "宇宙船損失補填を請求 v{__version__}"
-
-#~ msgid ""
-#~ "If you have any questions regarding your SRP request, feel free to contact your request reviser.\n"
-#~ "Please make sure to always add the SRP code and the request code with your inquiry."
-#~ msgstr ""
-#~ "請求に関してご質問がある場合は、担当者にお気軽にお問い合わせください。\n"
-#~ "必ず請求番号（SRPコード）と依頼コード（リクエストコード）も書いてください。"
