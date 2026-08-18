@@ -48,6 +48,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Error handling improved when fetching killmail information from zKillboard's API
+
 ## [5.2.0] - 2026-08-04
 
 ### Changed
