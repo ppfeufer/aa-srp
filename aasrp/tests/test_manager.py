@@ -3,6 +3,7 @@ Unit tests for the SrpRequestManager class.
 """
 
 # Standard Library
+import json
 from unittest.mock import MagicMock, patch
 
 # Third Party
@@ -54,7 +55,10 @@ class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
             with self.assertRaises(ValueError) as cm:
                 SrpRequestManager.get_zkillboard_data("12345")
 
-            self.assertIn("Invalid Kill ID or Hash.", str(cm.exception))
+            self.assertIn(
+                "No kill mail information found in zKillboard's API response.",
+                str(cm.exception),
+            )
 
     def test_raises_value_error_when_no_hash_found(self):
         """
@@ -72,7 +76,10 @@ class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
             with self.assertRaises(ValueError) as cm:
                 SrpRequestManager.get_zkillboard_data("12345")
 
-            self.assertIn("Invalid Kill ID or Hash.", str(cm.exception))
+            self.assertIn(
+                "No kill mail hash found in zKillboard's API response.",
+                str(cm.exception),
+            )
 
     @patch("aasrp.managers.requests.get")
     @patch("aasrp.managers.logger.warning")
@@ -125,6 +132,49 @@ class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
         mock_logger_warning.assert_called_once_with(
             "Error fetching kill mail details: Request timed out", exc_info=True
         )
+
+    @patch("aasrp.managers.requests.get")
+    def test_get_zkillboard_data_raises_valueerror_on_non_json_response(self, mock_get):
+        """
+        Test that get_zkillboard_data raises ValueError when the response is not valid JSON.
+
+        :param mock_get:
+        :return:
+        """
+
+        # Simulate response.json() raising JSONDecodeError
+        response_mock = MagicMock()
+        response_mock.raise_for_status.return_value = None
+        response_mock.text = "not-json"
+        response_mock.json.side_effect = json.JSONDecodeError(
+            "Expecting value", "doc", 0
+        )
+        mock_get.return_value = response_mock
+
+        with self.assertRaises(ValueError):
+            SrpRequestManager.get_zkillboard_data(kill_id="99999")
+
+    @patch("aasrp.managers.requests.get")
+    def test_raises_valueerror_for_unexpected_inner_exception(self, mock_get):
+        """
+        Test that get_zkillboard_data raises ValueError for unexpected inner exceptions.
+
+        :param mock_get:
+        :return:
+        """
+
+        response_mock = MagicMock()
+        response_mock.raise_for_status.return_value = None
+        # Return a list of non-dict items so the generator expression raises
+        # an unexpected exception when trying to access .get on an int.
+        response_mock.json.return_value = [12345]
+        mock_get.return_value = response_mock
+
+        with self.assertRaises(ValueError) as cm:
+            SrpRequestManager.get_zkillboard_data(kill_id="12345")
+
+        self.assertEqual(str(cm.exception), "Invalid Kill ID or Hash.")
+        self.assertIsInstance(cm.exception.__cause__, Exception)
 
 
 class TestSrpRequestManagerGetInsuranceForShipType(BaseTestCase):

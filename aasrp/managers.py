@@ -4,6 +4,7 @@ This module contains custom managers for handling SRP (Ship Replacement Program)
 """
 
 # Standard Library
+import json
 from typing import Any
 
 # Third Party
@@ -72,8 +73,20 @@ class SrpRequestManager(models.Manager):
                 timeout=5,
             )
             response.raise_for_status()
-            result_killmails = response.json()
+        except (requests.HTTPError, requests.Timeout) as exc:
+            logger.warning(f"Error fetching kill mail details: {exc}", exc_info=True)
+            raise ValueError(str(exc)) from exc
 
+        try:
+            result_killmails = response.json()
+        except json.JSONDecodeError as ex:
+            # Response could not be parsed as JSON
+            logger.warning(
+                f"zKillboard API returned a non-parsable JSON for kill ID {kill_id}: {response.text[:200]}"
+            )
+            raise ValueError("zKillboard API returned an unparseable response") from ex
+
+        try:
             result = next(
                 (
                     killmail
@@ -96,12 +109,11 @@ class SrpRequestManager(models.Manager):
                 )
 
             return result
-
-        except (requests.HTTPError, requests.Timeout) as exc:
-            logger.warning(f"Error fetching kill mail details: {exc}", exc_info=True)
-
-            raise ValueError(str(exc)) from exc
+        except ValueError:
+            # Propagate ValueError from missing data/hash as-is
+            raise
         except Exception as exc:
+            # Any other unexpected exception
             raise ValueError("Invalid Kill ID or Hash.") from exc
 
     @staticmethod

@@ -1261,13 +1261,30 @@ class TestRequestSrp(BaseViewsTestCase):
 
         self.assertRedirects(response, reverse("aasrp:srp_links"))
 
-    def test_rejects_request_for_unowned_character(self):
+    @patch("aasrp.views.general.SrpRequest.objects.get_kill_data")
+    @patch("aasrp.views.general.SrpRequest.objects.get_kill_id")
+    def test_rejects_request_for_unowned_character(
+        self, mock_get_kill_id, mock_get_kill_data
+    ):
         """
         Test that submitting a killmail for a character not owned by the user redirects with an error.
 
         :return:
         :rtype:
         """
+
+        # Ensure singleton setting exists and has expected loss value source
+        setting = Setting.get_solo()
+        setting.loss_value_source = "totalValue"
+        setting.save()
+
+        # Mock killmail parsing and data retrieval so we don't hit the network
+        mock_get_kill_id.return_value = "12345678"
+        mock_get_kill_data.return_value = {
+            "victim_id": 9999999,
+            "ship_type_id": 123,
+            "ship_value": 1000,
+        }
 
         response = self.client.post(
             self.url,

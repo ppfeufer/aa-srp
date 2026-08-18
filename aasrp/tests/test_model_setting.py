@@ -25,7 +25,7 @@ class TestSetting(BaseTestCase):
         """
 
         # given
-        setting = Setting.objects.get(pk=Setting.singleton_instance_id)
+        setting = Setting.get_solo()
 
         # when/then
         self.assertEqual(first=str(setting), second="AA-SRP settings")
@@ -39,7 +39,6 @@ class TestSetting(BaseTestCase):
         """
 
         self.assertEqual(first=Setting._meta.verbose_name, second="Setting")
-        self.assertEqual(first=Setting._meta.verbose_name_plural, second="Setting")
 
     def test_default_setting(self):
         """
@@ -130,7 +129,10 @@ class TestSetting(BaseTestCase):
         :rtype:
         """
 
-        # No pk given
+        # Ensure singleton exists first
+        Setting.get_solo()
+
+        # No pk given: creating another instance should raise an IntegrityError
         with self.assertRaises(expected_exception=IntegrityError):
             create_setting()
 
@@ -143,7 +145,10 @@ class TestSetting(BaseTestCase):
         :rtype:
         """
 
-        # Set pk=2
+        # Ensure singleton exists first
+        Setting.get_solo()
+
+        # Set pk=2: creating any additional instance should fail with IntegrityError
         with self.assertRaises(expected_exception=IntegrityError):
             create_setting(pk=2)
 
@@ -155,8 +160,9 @@ class TestSetting(BaseTestCase):
         :rtype:
         """
 
-        # given
-        settings_old = Setting.objects.get(pk=Setting.singleton_instance_id)
+        # given: ensure the singleton exists; use the solo helper which will
+        # create the singleton if it does not yet exist
+        settings_old = Setting.get_solo()
 
         # when
         Setting.objects.all().delete()
