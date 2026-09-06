@@ -43,70 +43,23 @@ class TestOwnSrpRequestsView(BaseTestCase):
             srp_code="TEST001", creator=self.user, fleet_time=timezone.now()
         )
 
-    # def test_retrieves_only_requests_created_by_user(self):
-    #     """
-    #     Test that get_model_qs retrieves only SrpRequest objects created by the user.
-    #
-    #     :return:
-    #     :rtype:
-    #     """
-    #
-    #     SrpRequest.objects.create(
-    #         creator=self.user, request_code="REQ001", srp_link=self.srp_link
-    #     )
-    #     SrpRequest.objects.create(
-    #         creator=self.user, request_code="REQ002", srp_link=self.srp_link
-    #     )
-    #     SrpRequest.objects.create(
-    #         creator=User.objects.create_user(username="otheruser"),
-    #         request_code="REQ003",
-    #         srp_link=self.srp_link,
-    #     )
-    #
-    #     queryset = self.view.get_model_qs(self.request)
-    #
-    #     self.assertEqual(queryset.count(), 2)
-    #     self.assertTrue(all(req.creator == self.user for req in queryset))
-
-    # def test_handles_empty_queryset(self):
-    #     """
-    #     Test that get_model_qs handles an empty queryset correctly.
-    #
-    #     :return:
-    #     :rtype:
-    #     """
-    #
-    #     queryset = self.view.get_model_qs(self.request)
-    #
-    #     self.assertEqual(queryset.count(), 0)
-
-    # def test_prefetches_related_fields(self):
-    #     """
-    #     Test that get_model_qs prefetches related fields to optimize database queries.
-    #
-    #     :return:
-    #     :rtype:
-    #     """
-    #
-    #     SrpRequest.objects.create(
-    #         creator=self.user, request_code="REQ001", srp_link=self.srp_link
-    #     )
-    #
-    #     queryset = self.view.get_model_qs(self.request)
-    #
-    #     self.assertTrue(len(queryset._prefetch_related_lookups) > 0)
-
     def test_returns_queryset_filtered_by_request_status(self):
         SrpRequest.objects.create(
-            creator=self.user, request_status="approved", srp_link=self.srp_link
+            creator=self.user,
+            request_status=SrpRequest.Status.APPROVED,
+            srp_link=self.srp_link,
         )
         SrpRequest.objects.create(
-            creator=self.user, request_status="pending", srp_link=self.srp_link
+            creator=self.user,
+            request_status=SrpRequest.Status.PENDING,
+            srp_link=self.srp_link,
         )
-        self.request.GET = QueryDict("filter_request_status=approved")
+        self.request.GET = QueryDict(
+            f"dropdown_filter[request_status]={SrpRequest.Status.APPROVED}"
+        )
         queryset = self.view.get_model_qs(self.request)
         self.assertEqual(queryset.count(), 1)
-        self.assertEqual(queryset.first().request_status, "approved")
+        self.assertEqual(queryset.first().request_status, SrpRequest.Status.APPROVED)
 
     def test_returns_queryset_filtered_by_character(self):
         # Alliance Auth
@@ -122,7 +75,9 @@ class TestOwnSrpRequestsView(BaseTestCase):
             creator=self.user, character=character, srp_link=self.srp_link
         )
         SrpRequest.objects.create(creator=self.user, srp_link=self.srp_link)
-        self.request.GET = QueryDict(f"filter_character={character.character_id}")
+        self.request.GET = QueryDict(
+            f"dropdown_filter[character]={character.character_id}"
+        )
         queryset = self.view.get_model_qs(self.request)
         self.assertEqual(queryset.count(), 1)
         self.assertEqual(
@@ -133,7 +88,7 @@ class TestOwnSrpRequestsView(BaseTestCase):
         ship = ItemType.objects.create(pk=12345, name="TestShip")
         SrpRequest.objects.create(creator=self.user, ship=ship, srp_link=self.srp_link)
         SrpRequest.objects.create(creator=self.user, srp_link=self.srp_link)
-        self.request.GET = QueryDict(f"filter_ship={ship.pk}")
+        self.request.GET = QueryDict(f"dropdown_filter[ship]={ship.pk}")
         queryset = self.view.get_model_qs(self.request)
         self.assertEqual(queryset.count(), 1)
         self.assertEqual(queryset.first().ship.pk, ship.pk)
@@ -147,8 +102,12 @@ class TestOwnSrpRequestsView(BaseTestCase):
 
     def test_returns_empty_queryset_for_non_matching_filters(self):
         SrpRequest.objects.create(
-            creator=self.user, request_status="approved", srp_link=self.srp_link
+            creator=self.user,
+            request_status=SrpRequest.Status.APPROVED,
+            srp_link=self.srp_link,
         )
-        self.request.GET = QueryDict("filter_request_status=pending")
+        self.request.GET = QueryDict(
+            f"dropdown_filter[request_status]={SrpRequest.Status.PENDING}"
+        )
         queryset = self.view.get_model_qs(self.request)
         self.assertEqual(queryset.count(), 0)
