@@ -48,6 +48,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Ajax URL name for server-side DataTable in "My SRP Requests" view
+
 ### Changed
 
 - Error handling improved when fetching killmail information from zKillboard's API
