@@ -27,7 +27,7 @@ urls = [
     path(
         "user-srp-requests-data/",
         datatables.OwnSrpRequestsView.as_view(),
-        name="ajax_dashboard_user_srp_requests_data",
+        name="ajax_own_srp_requests_data",
     ),
     path(
         "srp-link/<str:srp_code>/view-srp-requests-data/",
