@@ -79,9 +79,9 @@ class OwnSrpRequestsView(PermissionRequiredMixin, DataTablesView):
         # Custom filters
         get_params = request.GET.dict()
 
-        filter_request_status = get_params.get("filter_request_status", None)
-        filter_character = get_params.get("filter_character", None)
-        filter_ship = get_params.get("filter_ship", None)
+        filter_request_status = get_params.get("dropdown_filter[request_status]", None)
+        filter_character = get_params.get("dropdown_filter[character]", None)
+        filter_ship = get_params.get("dropdown_filter[ship]", None)
 
         if filter_request_status:
             qs = qs.filter(request_status=filter_request_status)

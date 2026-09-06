@@ -50,6 +50,7 @@ Section Order:
 
 ### Fixed
 
+- URL paramater for dropdown filters in "My SRP Requests" view
 - Ajax URL name for server-side DataTable in "My SRP Requests" view
 
 ### Changed

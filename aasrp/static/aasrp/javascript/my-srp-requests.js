@@ -5,12 +5,12 @@ $(document).ready(() => {
 
     const element = {
         tableUserSrpRequests: $('#table_tab-user-srp-requests'),
-        totalSrpCost: $('#srp-dashboard-user-isk-cost-amount'),
+        totalSrpCost: $('#srp-dashboard-user-isk-cost-amount')
     };
     const custom_dt_filter = {
         request_status: $('#filter-request-status'),
         ship: $('#filter-ship'),
-        character: $('#filter-character'),
+        character: $('#filter-character')
     };
 
     // Display total SRP cost to user
@@ -35,7 +35,7 @@ $(document).ready(() => {
             url: aaSrpSettings.url.userSrpRequests,
             data: (data) => {
                 const mappedFilters = Object.fromEntries(
-                    Object.entries(custom_dt_filter).map(([key, $el]) => [`filter_${key}`, $el.val()])
+                    Object.entries(custom_dt_filter).map(([key, $el]) => [`dropdown_filter[${key}]`, $el.val()])
                 );
 
                 return {...data, ...mappedFilters};
@@ -110,22 +110,22 @@ $(document).ready(() => {
             // Invisible: SRP Code (for internal use, not displayed to users)
             {
                 target: 7,
-                visible: false,
+                visible: false
             },
             // Invisible: Request Code (for internal use, not displayed to users)
             {
                 target: 8,
-                visible: false,
+                visible: false
             },
             // Invisible: Request Status (for internal use, not displayed to users)
             {
                 target: 9,
-                visible: false,
+                visible: false
             },
             // Invisible: Killboard Link (for internal use, not displayed to users)
             {
                 target: 10,
-                visible: false,
+                visible: false
             }
         ],
         initComplete: () => {
