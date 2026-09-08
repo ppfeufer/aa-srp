@@ -8,9 +8,9 @@
 # Bandera Primary <skrypets@gmail.com>, 2026.
 msgid ""
 msgstr ""
-"Project-Id-Version: AA SRP 2.5.3\n"
-"Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-09-08 10:32+0200\n"
+"Project-Id-Version: AA SRP\n"
+"Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
+"POT-Creation-Date: 2026-09-08 17:24+0200\n"
 "PO-Revision-Date: 2026-07-07 08:55+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/uk/>\n"

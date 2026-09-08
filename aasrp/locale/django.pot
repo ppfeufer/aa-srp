@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AA SRP 5.2.1\n"
-"Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-srp/issues\n"
-"POT-Creation-Date: 2026-09-08 10:32+0200\n"
+"Project-Id-Version: AA SRP\n"
+"Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
+"POT-Creation-Date: 2026-09-08 17:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -165,16 +165,11 @@ msgstr ""
 
 #: aasrp/form.py:217
 #, python-brace-format
-msgid ""
-"Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or "
-"{eve_kill_base_url} and paste the link here."
+msgid "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
 msgstr ""
 
 #: aasrp/form.py:224
-msgid ""
-"Please tell us about the circumstances of your untimely demise. Who was the "
-"FC, what doctrine was called, have changes to the fit been requested and so "
-"on. Be as detailed as you can."
+msgid "Please tell us about the circumstances of your untimely demise. Who was the FC, what doctrine was called, have changes to the fit been requested and so on. Be as detailed as you can."
 msgstr ""
 
 #: aasrp/form.py:230 aasrp/form.py:237 aasrp/models.py:329
@@ -191,9 +186,7 @@ msgstr ""
 
 #: aasrp/form.py:307
 #, python-brace-format
-msgid ""
-"Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or "
-"{eve_kill_base_url}"
+msgid "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
 msgstr ""
 
 #: aasrp/form.py:322
@@ -201,9 +194,7 @@ msgid "Invalid link. Please post a link to a kill mail."
 msgstr ""
 
 #: aasrp/form.py:342
-msgid ""
-"There is already an SRP request for this kill mail. Please check if you got "
-"the right one."
+msgid "There is already an SRP request for this kill mail. Please check if you got the right one."
 msgstr ""
 
 #: aasrp/form.py:357
@@ -227,9 +218,7 @@ msgid "Comment (optional)"
 msgstr ""
 
 #: aasrp/form.py:467
-msgid ""
-"Please provide the reason why this former rejected SRP request is now "
-"accepted."
+msgid "Please provide the reason why this former rejected SRP request is now accepted."
 msgstr ""
 
 #: aasrp/form.py:472 aasrp/models.py:466 aasrp/models.py:473
@@ -239,8 +228,7 @@ msgid "Comment"
 msgstr ""
 
 #: aasrp/form.py:511
-msgid ""
-"Disable notifications. (Auth and Discord, if a relevant module is installed)"
+msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
 
 #: aasrp/helper/character.py:44 aasrp/helper/character.py:47
@@ -532,10 +520,7 @@ msgid "Total value (Ship, Fitting and Cargo)"
 msgstr ""
 
 #: aasrp/models.py:593
-msgid ""
-"The source for the loss value of a killmail. Fitted value is the value of "
-"the ship and its fitting. Total value is the value of the ship, its fitting "
-"and the cargo. (Default: Total value)"
+msgid "The source for the loss value of a killmail. Fitted value is the value of the ship and its fitting. Total value is the value of the ship, its fitting and the cargo. (Default: Total value)"
 msgstr ""
 
 #: aasrp/models.py:610
@@ -579,9 +564,7 @@ msgid "Are you sure you want to disable the following SRP link?"
 msgstr ""
 
 #: aasrp/templates/aasrp/dashboard.html:30
-msgid ""
-"Are you sure you want to delete the following SRP link and all SRP requests "
-"tied to it?"
+msgid "Are you sure you want to delete the following SRP link and all SRP requests tied to it?"
 msgstr ""
 
 #: aasrp/templates/aasrp/link-add.html:6
@@ -653,10 +636,7 @@ msgid "Are you sure you want to accept these SRP requests?"
 msgstr ""
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:21
-msgid ""
-"<b>Note:</b><br>Only pending SRP requests will be bulk approved.<br>Denied "
-"requests will not be bulk approved, as they need a reason for being approved "
-"again. Please review them manually."
+msgid "<b>Note:</b><br>Only pending SRP requests will be bulk approved.<br>Denied requests will not be bulk approved, as they need a reason for being approved again. Please review them manually."
 msgstr ""
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:9
@@ -668,9 +648,7 @@ msgid "Are you sure you want to delete these SRP requests?"
 msgstr ""
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:21
-msgid ""
-"<b>Note:</b><br>This action is irreversible.<br>All selected SRP requests "
-"will be deleted."
+msgid "<b>Note:</b><br>This action is irreversible.<br>All selected SRP requests will be deleted."
 msgstr ""
 
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:17
@@ -686,10 +664,8 @@ msgstr ""
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:17
 msgid ""
 "\n"
-"                        Are you sure you want to mark this SRP link as "
-"completed and\n"
-"                        close it for good? Be aware that once it's "
-"completed,\n"
+"                        Are you sure you want to mark this SRP link as completed and\n"
+"                        close it for good? Be aware that once it's completed,\n"
 "                        your pilots can no longer file SRP requests for\n"
 "                        this link / fleet.\n"
 "                    "
@@ -699,18 +675,14 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                            This SRP link still has "
-"%(number_pending_requests)s pending\n"
-"                            SRP request. Are you absolutely certain you want "
-"to mark\n"
+"                            This SRP link still has %(number_pending_requests)s pending\n"
+"                            SRP request. Are you absolutely certain you want to mark\n"
 "                            this SRP link as completed?\n"
 "                        "
 msgid_plural ""
 "\n"
-"                            This SRP link still has "
-"%(number_pending_requests)s pending\n"
-"                            SRP requests. Are you absolutely certain you "
-"want to mark\n"
+"                            This SRP link still has %(number_pending_requests)s pending\n"
+"                            SRP requests. Are you absolutely certain you want to mark\n"
 "                            this SRP link as completed?\n"
 "                        "
 msgstr[0] ""
@@ -750,9 +722,7 @@ msgid "Actions"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/footer/app-translation-footer.html:5
-msgid ""
-"Do you want to help translate this app into your language or improve the "
-"existing translation?"
+msgid "Do you want to help translate this app into your language or improve the existing translation?"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/footer/app-translation-footer.html:8
@@ -893,9 +863,7 @@ msgid "Bulk approve"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:21
-msgid ""
-"Only pending SRP requests will be approved. Denied requests will not be bulk "
-"approved, as they need a reason for being approved again."
+msgid "Only pending SRP requests will be approved. Denied requests will not be bulk approved, as they need a reason for being approved again."
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:32
@@ -1062,16 +1030,12 @@ msgstr ""
 
 #: aasrp/views/general.py:490
 #, python-brace-format
-msgid ""
-"Something went wrong, your kill mail ({submitted_killmail_link}) could not "
-"be parsed: {error}"
+msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {error}"
 msgstr ""
 
 #: aasrp/views/general.py:534
 #, python-brace-format
-msgid ""
-"Character {victim_id} does not belong to your Auth account. Please add this "
-"character as an alt to your main and try again."
+msgid "Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."
 msgstr ""
 
 #: aasrp/views/general.py:583
