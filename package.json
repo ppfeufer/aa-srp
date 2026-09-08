@@ -1,6 +1,6 @@
 {
     "name": "@ppfeufer/aa-srp",
-    "version": "5.2.0",
+    "version": "5.2.1",
     "type": "module",
     "devDependencies": {
         "@eslint/js": "^10.0.1",
