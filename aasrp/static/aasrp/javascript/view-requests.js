@@ -27,7 +27,7 @@ $(document).ready(() => {
         const badges = [];
         let notificationCount = 0;
 
-        document.querySelectorAll('#sidebar-menu .badge').forEach(b => {
+        document.querySelectorAll('#sidebar-menu .badge').forEach((b) => {
             const li = b.closest('li');
 
             if (!li || !li.querySelector('ul.collapse')) {
@@ -161,8 +161,8 @@ $(document).ready(() => {
                                     return `<div class="checkbox"><label><input class="srp-requests-bulk-action" type="checkbox" name="${data.request_code}"><span class="cr"><i class="cr-icon fas fa-check"></i></span></label></div>`;
                                 }
                             },
-                            className: 'srp-request-bulk-actions-checkbox text-end',
-                        },
+                            className: 'srp-request-bulk-actions-checkbox text-end'
+                        }
                     ],
                     columnDefs: [
                         {
@@ -281,9 +281,9 @@ $(document).ready(() => {
 
                         const _filters = [
                             ['#aasrp-srp-request-filter-all', () => true],
-                            ['#aasrp-srp-request-filter-pending', rowData => rowData.request_status === 'Pending'],
-                            ['#aasrp-srp-request-filter-approved', rowData => rowData.request_status === 'Approved'],
-                            ['#aasrp-srp-request-filter-rejected', rowData => rowData.request_status === 'Rejected']
+                            ['#aasrp-srp-request-filter-pending', (rowData) => rowData.request_status === 'Pending'],
+                            ['#aasrp-srp-request-filter-approved', (rowData) => rowData.request_status === 'Approved'],
+                            ['#aasrp-srp-request-filter-rejected', (rowData) => rowData.request_status === 'Rejected']
                         ];
 
                         _filters.forEach(([selector, predicate]) => _filterDataTable(selector, predicate));
@@ -504,7 +504,7 @@ $(document).ready(() => {
                             }
 
                             if (data.pending_requests >= 0) {
-                                const target = $(`a[href="/ship-replacement/"] + span.badge`);
+                                const target = $('a[href="/ship-replacement/"] + span.badge');
 
                                 if (data.pending_requests === 0) {
                                     target.remove();
@@ -766,7 +766,7 @@ $(document).ready(() => {
                         url: url,
                         csrfToken: csrfMiddlewareToken,
                         payload: {
-                            srp_request_codes: checkedValues,
+                            srp_request_codes: checkedValues
                         },
                         responseIsJson: true
                     })
@@ -811,7 +811,7 @@ $(document).ready(() => {
                         url: url,
                         csrfToken: csrfMiddlewareToken,
                         payload: {
-                            srp_request_codes: checkedValues,
+                            srp_request_codes: checkedValues
                         },
                         responseIsJson: true
                     })
