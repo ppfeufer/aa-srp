@@ -6,7 +6,7 @@ Test user agent header for ESI requests
 from unittest.mock import MagicMock, patch
 
 # Third Party
-import httpx
+import httpx2
 
 # Django
 from django.conf import settings
@@ -32,7 +32,7 @@ class TestUserAgent(BaseTestCase):
     Test suite for verifying the `User-Agent` header in ESI requests.
     """
 
-    @patch.object(httpx.Client, "send")
+    @patch.object(httpx2.Client, "send")
     def test_user_agent_header(self, send: MagicMock):
         """
         Test that the `User-Agent` header is correctly set in ESI requests.
@@ -41,7 +41,7 @@ class TestUserAgent(BaseTestCase):
         is constructed correctly based on the provided application name, version, and other metadata.
 
         Args:
-            send (MagicMock): A mocked `httpx.Client.send` method to intercept HTTP requests and provide a controlled response.
+            send (MagicMock): A mocked `httpx2.Client.send` method to intercept HTTP requests and provide a controlled response.
 
         Assertions:
             - The `User-Agent` header in the HTTP request matches the expected format.
@@ -59,14 +59,14 @@ class TestUserAgent(BaseTestCase):
         )
 
         # Mock the HTTP response returned by the `send` method
-        send.return_value = httpx.Response(
+        send.return_value = httpx2.Response(
             status_code=200,  # HTTP status code for the response
             json={  # Mocked JSON response body
                 "players": 1234,
                 "server_version": "1234",
                 "start_time": "2029-09-19T11:02:08Z",
             },
-            request=httpx.Request(method="GET", url="test"),  # Mocked HTTP request
+            request=httpx2.Request(method="GET", url="test"),  # Mocked HTTP request
         )
 
         # Perform the ESI client request and retrieve the status

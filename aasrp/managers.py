@@ -9,7 +9,7 @@ from typing import Any
 
 # Third Party
 import requests
-from httpx import Response
+from httpx2 import Response
 
 # Django
 from django.db import models
