@@ -48,6 +48,15 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [5.3.0] - 2026-10-04
+
+> [!IMPORTANT]
+>
+> **This version needs Alliance Auth v5.5.0 or newer!**
+>
+> Please make sure to update your Alliance Auth instance **before** you install this
+> version; otherwise, an update to Alliance Auth will be pulled in unsupervised.
+
 ### Changed
 
 - Switch to `httpx2`
@@ -1860,11 +1869,12 @@ python manage.py aasrp_update_db_relations
 [5.1.0]: https://github.com/ppfeufer/aa-srp/compare/v5.0.1...v5.1.0 "v5.1.0"
 [5.2.0]: https://github.com/ppfeufer/aa-srp/compare/v5.1.0...v5.2.0 "v5.2.0"
 [5.2.1]: https://github.com/ppfeufer/aa-srp/compare/v5.2.0...v5.2.1 "v5.2.1"
+[5.3.0]: https://github.com/ppfeufer/aa-srp/compare/v5.2.1...v5.3.0 "v5.3.0"
 [aa discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "AA Discord Notify"
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[in development]: https://github.com/ppfeufer/aa-srp/compare/v5.2.1...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-srp/compare/v5.3.0...HEAD "In Development"
 [keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
 [semantic versioning]: http://semver.org/ "Semantic Versioning"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
