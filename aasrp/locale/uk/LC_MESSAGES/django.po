@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-10-04 10:25+0200\n"
+"POT-Creation-Date: 2026-10-09 12:33+0200\n"
 "PO-Revision-Date: 2026-07-07 08:55+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/uk/>\n"
@@ -21,12 +21,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 2026.7\n"
 
-#: aasrp/__init__.py:11 aasrp/templates/aasrp/base.html:7
-#: aasrp/templates/aasrp/base.html:11 aasrp/templates/aasrp/link-add.html:6
+#: aasrp/__init__.py:11 aasrp/templates/aasrp/base.html:6
+#: aasrp/templates/aasrp/base.html:10 aasrp/templates/aasrp/link-add.html:6
 #: aasrp/templates/aasrp/link-edit.html:6
 #: aasrp/templates/aasrp/request-srp.html:6
 #: aasrp/templates/aasrp/user-settings.html:6
-#: aasrp/templates/aasrp/view-own-requests.html:7
+#: aasrp/templates/aasrp/view-own-requests.html:5
 #: aasrp/templates/aasrp/view-requests.html:6
 msgid "Ship Replacement"
 msgstr "Компенсація корабля"
@@ -38,29 +38,29 @@ msgid "Creator"
 msgstr "Автор"
 
 #: aasrp/admin.py:116 aasrp/admin.py:235
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:15
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:13
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:79
-#: aasrp/templates/aasrp/view-own-requests.html:26
+#: aasrp/templates/aasrp/view-own-requests.html:24
 #: aasrp/templates/aasrp/view-requests.html:41
 msgid "Requestor"
 msgstr "Заявник"
 
 #: aasrp/admin.py:129 aasrp/admin.py:209 aasrp/helper/srp_data.py:65
-#: aasrp/models.py:125 aasrp/templates/aasrp/dashboard.html:26
+#: aasrp/models.py:125 aasrp/templates/aasrp/dashboard.html:25
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:32
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:50
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:49
 msgid "SRP code"
 msgstr "Код SRP"
 
 #: aasrp/admin.py:142 aasrp/models.py:326
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:41
-#: aasrp/templates/aasrp/dashboard.html:23
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:21
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:39
+#: aasrp/templates/aasrp/dashboard.html:22
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:20
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:22
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:23
+#: aasrp/templates/aasrp/view-own-requests.html:21
 #: aasrp/templates/aasrp/view-requests.html:35
 msgid "Ship"
 msgstr "Корабель"
@@ -74,19 +74,19 @@ msgid "Payout amount"
 msgstr "Сума виплати"
 
 #: aasrp/admin.py:222 aasrp/helper/srp_data.py:66 aasrp/models.py:299
-#: aasrp/templates/aasrp/dashboard.html:27
+#: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:33
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:81
 msgid "Request code"
 msgstr "Код запиту"
 
 #: aasrp/admin.py:248 aasrp/models.py:317
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:27
-#: aasrp/templates/aasrp/dashboard.html:25
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:25
+#: aasrp/templates/aasrp/dashboard.html:24
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:9
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:80
-#: aasrp/templates/aasrp/view-own-requests.html:25
+#: aasrp/templates/aasrp/view-own-requests.html:23
 #: aasrp/templates/aasrp/view-requests.html:36
 msgid "Character"
 msgstr "Персонаж"
@@ -143,13 +143,13 @@ msgstr "Це поле обовʼязкове"
 
 #: aasrp/form.py:142 aasrp/form.py:152
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:13
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:27
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:26
 msgid "Fleet name"
 msgstr "Назва флоту"
 
 #: aasrp/form.py:143 aasrp/form.py:154 aasrp/models.py:150
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:37
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:36
 msgid "Fleet time"
 msgstr "Час флоту"
 
@@ -160,7 +160,7 @@ msgstr "Тип флоту (не обов'язково)"
 #: aasrp/form.py:145 aasrp/form.py:157 aasrp/models.py:136
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:45
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:44
 msgid "Doctrine"
 msgstr "Доктрина"
 
@@ -189,8 +189,8 @@ msgid "Killboard link"
 msgstr "Посилання на Killboard"
 
 #: aasrp/form.py:232 aasrp/form.py:241 aasrp/models.py:332 aasrp/models.py:468
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:82
-#: aasrp/templates/aasrp/view-own-requests.html:27
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:80
+#: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:43
 msgid "Additional information"
 msgstr "Додаткова інформація"
@@ -234,7 +234,7 @@ msgstr "Будь ласка, надайте причину, чому цей ра
 
 #: aasrp/form.py:472 aasrp/models.py:466 aasrp/models.py:473
 #: aasrp/models.py:525
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:104
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:102
 msgid "Comment"
 msgstr "Коментар"
 
@@ -259,7 +259,7 @@ msgid "View SRP requests"
 msgstr "Переглянути SRP запити"
 
 #: aasrp/helper/icons.py:125
-#: aasrp/templates/aasrp/partials/link-edit/form.html:19
+#: aasrp/templates/aasrp/partials/link-edit/form.html:18
 msgid "Add/Change AAR link"
 msgstr "Додати/змінити посилання на AAR"
 
@@ -300,17 +300,17 @@ msgid "SRP request details"
 msgstr "Деталі запиту на SRP"
 
 #: aasrp/helper/icons.py:303
-#: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:10
-#: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:40
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:10
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:40
+#: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:9
+#: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:39
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:9
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:39
 #: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:37
 msgid "Accept SRP request"
 msgstr "Прийняти запит на SRP"
 
 #: aasrp/helper/icons.py:356
-#: aasrp/templates/aasrp/modals/view-requests/reject-request.html:10
-#: aasrp/templates/aasrp/modals/view-requests/reject-request.html:40
+#: aasrp/templates/aasrp/modals/view-requests/reject-request.html:9
+#: aasrp/templates/aasrp/modals/view-requests/reject-request.html:39
 msgid "Reject SRP request"
 msgstr "Відхилити запит на SRP"
 
@@ -369,7 +369,7 @@ msgid "SRP status"
 msgstr "Статус SRP"
 
 #: aasrp/models.py:133
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:32
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:31
 msgid "Fleet commander"
 msgstr "Командувач флотом"
 
@@ -390,24 +390,24 @@ msgid "SRP link"
 msgstr "SRP-посилання"
 
 #: aasrp/models.py:173
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:15
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:14
 msgid "SRP links"
 msgstr "SRP-посилання"
 
 #: aasrp/models.py:294
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:18
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:17
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:38
 msgid "Pending"
 msgstr "Очікує"
 
 #: aasrp/models.py:295
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:19
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:18
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:52
 msgid "Approved"
 msgstr "Затверджено"
 
 #: aasrp/models.py:296
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:20
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:19
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:66
 msgid "Rejected"
 msgstr "Відхилено"
@@ -416,10 +416,10 @@ msgstr "Відхилено"
 msgid "Who created the SRP request?"
 msgstr "Хто створив запит на SRP?"
 
-#: aasrp/models.py:338 aasrp/templates/aasrp/dashboard.html:24
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:33
+#: aasrp/models.py:338 aasrp/templates/aasrp/dashboard.html:23
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:31
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:34
-#: aasrp/templates/aasrp/view-own-requests.html:24
+#: aasrp/templates/aasrp/view-own-requests.html:22
 #: aasrp/templates/aasrp/view-requests.html:34
 msgid "Request status"
 msgstr "Статус запиту"
@@ -436,7 +436,7 @@ msgstr "Запит"
 
 #: aasrp/models.py:364
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:26
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:16
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:15
 msgid "Requests"
 msgstr "Запити"
 
@@ -458,7 +458,7 @@ msgid "Insurance cost"
 msgstr "Вартість страхування"
 
 #: aasrp/models.py:444
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:58
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:56
 #: aasrp/templates/aasrp/view-requests.html:42
 msgid "Insurance payout"
 msgstr "Виплата за страховкою"
@@ -502,7 +502,7 @@ msgid "Comments"
 msgstr "Коментарі"
 
 #: aasrp/models.py:541
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:103
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:101
 msgid "User"
 msgstr "Користувач"
 
@@ -546,35 +546,35 @@ msgstr "Налаштування"
 msgid "AA-SRP settings"
 msgstr "Налаштування AA-SRP"
 
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:7
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:5
 msgid "SRP request status"
 msgstr "Статус запиту на SRP"
 
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:95
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:93
 msgid "Request history"
 msgstr "Історія запитів"
 
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:102
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:100
 msgid "Action"
 msgstr "Дія"
 
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:126
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:124
 msgid "SRP request has been added."
 msgstr "Запит на SRP був доданий."
 
-#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:128
+#: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:126
 msgid "SRP request status has changed to"
 msgstr "Статус запиту на SRP було змінено на"
 
-#: aasrp/templates/aasrp/dashboard.html:28
+#: aasrp/templates/aasrp/dashboard.html:27
 msgid "Are you sure you want to (re-)activate the following SRP link?"
 msgstr "Ви впевнені, що хочете (повторно) активувати наступне посилання на SRP?"
 
-#: aasrp/templates/aasrp/dashboard.html:29
+#: aasrp/templates/aasrp/dashboard.html:28
 msgid "Are you sure you want to disable the following SRP link?"
 msgstr "Ви впевнені, що хочете вимкнути наступне посилання на SRP?"
 
-#: aasrp/templates/aasrp/dashboard.html:30
+#: aasrp/templates/aasrp/dashboard.html:29
 msgid "Are you sure you want to delete the following SRP link and all SRP requests tied to it?"
 msgstr "Ви впевнені, що хочете видалити наступне посилання на SRP та всі запити SRP, пов'язані з ним?"
 
@@ -594,13 +594,13 @@ msgstr "Видалити посилання на SRP"
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:12
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:12
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:12
-#: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:13
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:13
+#: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:12
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:12
 #: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:12
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:12
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:12
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:12
-#: aasrp/templates/aasrp/modals/view-requests/reject-request.html:13
+#: aasrp/templates/aasrp/modals/view-requests/reject-request.html:12
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:12
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:19
 msgid "Close"
@@ -609,19 +609,19 @@ msgstr "Закрити"
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:20
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:20
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:20
-#: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:35
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:35
+#: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:34
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:34
 #: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:32
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:32
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:24
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:43
-#: aasrp/templates/aasrp/modals/view-requests/reject-request.html:35
+#: aasrp/templates/aasrp/modals/view-requests/reject-request.html:34
 msgid "Cancel"
 msgstr "Скасувати"
 
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:25
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:29
-#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:62
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:61
 msgid "Delete"
 msgstr "Видалити"
 
@@ -633,8 +633,8 @@ msgstr "Вимкнути"
 msgid "Enable"
 msgstr "Увімкнути"
 
-#: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:18
-#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:18
+#: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:17
+#: aasrp/templates/aasrp/modals/view-requests/accept-request.html:17
 msgid "Are you sure you want to accept this SRP request?"
 msgstr "Ви впевнені, що хочете прийняти цей запит на SRP?"
 
@@ -668,7 +668,7 @@ msgstr "Ви впевнені, що хочете видалити цей зап�
 
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:9
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:48
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:79
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:78
 msgid "Mark completed"
 msgstr "Позначити як завершене"
 
@@ -727,7 +727,7 @@ msgstr[3] ""
 "                           посилання на SRP як завершені?\n"
 "                        "
 
-#: aasrp/templates/aasrp/modals/view-requests/reject-request.html:18
+#: aasrp/templates/aasrp/modals/view-requests/reject-request.html:17
 msgid "Are you sure you want to reject this SRP request?"
 msgstr "Ви впевнені, що хочете відхилити цей запит на SRP?"
 
@@ -745,7 +745,7 @@ msgid "AAR"
 msgstr "AAR (звіт)"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:24
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:65
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:64
 msgid "SRP cost"
 msgstr "Вартість SRP"
 
@@ -772,15 +772,15 @@ msgstr "Приєднуйтесь до нашої команди переклад
 msgid "Fields marked with an asterisk (*) are mandatory"
 msgstr "Поля, позначені зірочкою (*), є обов'язковими"
 
-#: aasrp/templates/aasrp/partials/link-add/form.html:7
+#: aasrp/templates/aasrp/partials/link-add/form.html:6
 msgid "SRP link details"
 msgstr "Деталі посилання на SRP"
 
-#: aasrp/templates/aasrp/partials/link-add/form.html:21
+#: aasrp/templates/aasrp/partials/link-add/form.html:20
 msgid "Create link"
 msgstr "Створити посилання"
 
-#: aasrp/templates/aasrp/partials/link-edit/form.html:7
+#: aasrp/templates/aasrp/partials/link-edit/form.html:6
 msgid "After action report"
 msgstr "Звіт після дії"
 
@@ -796,20 +796,20 @@ msgstr "Переклянути усі"
 msgid "Add SRP link"
 msgstr "Додати посилання на SRP"
 
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:8
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:7
 msgid "SRP links (all)"
 msgstr "Посилання на SRP (всі)"
 
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:11
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:10
 msgid "SRP links (active)"
 msgstr "Посилання на SRP (активні)"
 
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:24
-#: aasrp/templates/aasrp/view-own-requests.html:7
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:23
+#: aasrp/templates/aasrp/view-own-requests.html:5
 msgid "My SRP requests"
 msgstr "Мої посилання на SRP"
 
-#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:30
+#: aasrp/templates/aasrp/partials/navigation/top-navigation.html:29
 #: aasrp/templates/aasrp/user-settings.html:6
 msgid "My settings"
 msgstr "Мої налаштування"
@@ -826,23 +826,23 @@ msgstr "ФК"
 msgid "Read here"
 msgstr "Читати тут"
 
-#: aasrp/templates/aasrp/partials/request-srp/form.html:8
+#: aasrp/templates/aasrp/partials/request-srp/form.html:7
 msgid "Your SRP request"
 msgstr "Ваш запит на SRP"
 
-#: aasrp/templates/aasrp/partials/request-srp/form.html:22
+#: aasrp/templates/aasrp/partials/request-srp/form.html:21
 msgid "Submit SRP request"
 msgstr "Подати запит на SRP"
 
-#: aasrp/templates/aasrp/partials/request-srp/form.html:29
+#: aasrp/templates/aasrp/partials/request-srp/form.html:28
 msgid "Working on it, please be patient…"
 msgstr "В процесі, будь ласка, зачекайте…"
 
-#: aasrp/templates/aasrp/partials/request-srp/form.html:32
+#: aasrp/templates/aasrp/partials/request-srp/form.html:31
 msgid "Fetching kill mail information, this might take a moment…"
 msgstr "Завантажую kill mail інформацію…"
 
-#: aasrp/templates/aasrp/partials/user-settings/form.html:13
+#: aasrp/templates/aasrp/partials/user-settings/form.html:12
 msgid "Save settings"
 msgstr "Зберегти налаштування"
 
@@ -854,23 +854,23 @@ msgstr "Фільтрувати SRP-запити по"
 msgid "All characters"
 msgstr "Всі персонажі"
 
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:23
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:22
 msgid "All ships"
 msgstr "Усі кораблі"
 
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:35
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:33
 msgid "All requests"
 msgstr "Усі запити"
 
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:36
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:34
 msgid "Pending requests"
 msgstr "Запити в очікуванні"
 
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:37
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:35
 msgid "Approved requests"
 msgstr "Погоджені запити"
 
-#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:38
+#: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:36
 msgid "Rejected requests"
 msgstr "Відхилені запити"
 
@@ -892,57 +892,57 @@ msgstr "Втрачено ISK"
 msgid "SRP payout"
 msgstr "SRP компенсація"
 
-#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:8
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:7
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:96
 msgid "Bulk actions"
 msgstr "Масові операції"
 
-#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:16
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:15
 msgid "Bulk approve"
 msgstr "Масове погодження"
 
-#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:21
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:20
 msgid "Only pending SRP requests will be approved. Denied requests will not be bulk approved, as they need a reason for being approved again."
 msgstr "Тільки заявки, що очікують, будуть погоджені. Відхилені запити не будуть погоджені, оскільки вони потребують причини для повторного погодження."
 
-#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:32
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:31
 msgid "Approve selected SRP requests"
 msgstr "Погодити обрані SRP запити"
 
-#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:35
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:34
 msgid "Approve"
 msgstr "Погодити"
 
-#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:43
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:42
 msgid "Bulk delete"
 msgstr "Масове видалення"
 
-#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:48
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:47
 msgid "Please note that the \"Delete\" action is irreversible."
 msgstr "Будь ласка, майте на увазі, що \"Видалення\" - незворотня операція."
 
-#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:59
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:58
 msgid "Delete selected SRP requests"
 msgstr "Видалити обрані запити на SRP"
 
-#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:74
-#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:77
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:73
+#: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:76
 msgid "Clear selection"
 msgstr "Очистити виділення"
 
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:7
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:6
 msgid "Overview"
 msgstr "Перегляд"
 
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:17
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:16
 msgid "Total"
 msgstr "Сума"
 
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:52
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:51
 msgid "Copy SRP code to clipboard"
 msgstr "Скопіювати код SRP в буфер обміну"
 
-#: aasrp/templates/aasrp/partials/view-requests/overview.html:85
+#: aasrp/templates/aasrp/partials/view-requests/overview.html:84
 msgid "Back to SRP overview"
 msgstr "Назад до перегляду SRP"
 
@@ -964,7 +964,7 @@ msgstr "Усі"
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr "Натисніть на значення для редагування, натисніть Enter для збереження, ESC для скасування."
 
-#: aasrp/templates/aasrp/view-own-requests.html:28
+#: aasrp/templates/aasrp/view-own-requests.html:26
 #: aasrp/templates/aasrp/view-requests.html:44
 msgid "Reject information"
 msgstr "Інформація про відхилення"
