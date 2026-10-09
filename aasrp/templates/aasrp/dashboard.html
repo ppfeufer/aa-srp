@@ -1,7 +1,6 @@
 {% extends "aasrp/base.html" %}
 
-{% load i18n %}
-{% load static %}
+{% load i18n static %}
 
 {% block aasrp_body %}
     {% include "aasrp/partials/dashboard/srp-links.html" %}
@@ -10,14 +9,14 @@
     {% include "aasrp/modals/dashboard/enable-srp-link.html" %}
     {% include "aasrp/modals/dashboard/disable-srp-link.html" %}
     {% include "aasrp/modals/dashboard/delete-srp-link.html" %}
-{% endblock %}
+{% endblock aasrp_body %}
 
 {% block extra_css %}
     {% include "bundles/datatables-2-css-bs5.html" %}
     {% include "bundles/datatables-2-columncontrol-css-bs5.html" %}
     {% include "aasrp/bundles/aa-srp-css.html" %}
     {% include "aasrp/bundles/aa-srp-form-css.html" %}
-{% endblock %}
+{% endblock extra_css %}
 
 {% block extra_javascript %}
     {% translate "Ship" as translateShip %}
@@ -91,4 +90,4 @@
     {% include "bundles/datatables-2-columncontrol-js-bs5.html" %}
     {% include "bundles/moment-js.html" with locale=True %}
     {% include "aasrp/bundles/srp-links-js.html" %}
-{% endblock %}
+{% endblock extra_javascript %}

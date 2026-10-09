@@ -1,23 +1,22 @@
 {% extends "allianceauth/base-bs5.html" %}
 
-{% load i18n %}
-{% load aa_i18n %}
+{% load aa_i18n i18n %}
 
 {% block page_title %}
     {% translate "Ship Replacement" %}
-{% endblock %}
+{% endblock page_title %}
 
 {% block header_nav_brand %}
     {% translate "Ship Replacement" %}
-{% endblock %}
+{% endblock header_nav_brand %}
 
 {% block header_nav_collapse_left %}
     {% include "aasrp/partials/navigation/top-navigation.html" %}
-{% endblock %}
+{% endblock header_nav_collapse_left %}
 
 {% block header_nav_collapse_right %}
     {% include "aasrp/partials/navigation/actions-navigation.html" %}
-{% endblock %}
+{% endblock header_nav_collapse_right %}
 
 {% block content %}
     <div class="aa-srp">
@@ -88,4 +87,4 @@
             {% include "aasrp/partials/footer/app-translation-footer.html" %}
         </div>
     </div>
-{% endblock %}
+{% endblock content %}
