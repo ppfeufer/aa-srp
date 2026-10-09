@@ -1,23 +1,21 @@
 {% extends "aasrp/base.html" %}
-{% load aa_i18n %}
-
-{% load i18n %}
+{% load aa_i18n i18n %}
 
 {% block page_title %}
     {% translate "My SRP requests" %} » {% translate "Ship Replacement" %}
-{% endblock %}
+{% endblock page_title %}
 
 {% block aasrp_body %}
     {% include "aasrp/partials/view-own-requests/user-srp-requests.html" with tab_name="tab-user-srp-requests" %}
     {% include "aasrp/modals/view-requests/request-details.html" %}
-{% endblock %}
+{% endblock aasrp_body %}
 
 {% block extra_css %}
     {% include "bundles/datatables-2-css-bs5.html" %}
     {% include "bundles/datatables-2-columncontrol-css-bs5.html" %}
     {% include "aasrp/bundles/aa-srp-css.html" %}
     {% include "aasrp/bundles/aa-srp-form-css.html" %}
-{% endblock %}
+{% endblock extra_css %}
 
 {% block extra_javascript %}
     {% translate "Ship" as translationShip %}
@@ -66,4 +64,4 @@
     {% include "bundles/moment-js.html" with locale=True %}
     {% include "aasrp/bundles/aa-srp-js.html" %}
     {% include "aasrp/bundles/my-srp-requests-js.html" %}
-{% endblock %}
+{% endblock extra_javascript %}

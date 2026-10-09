@@ -4,13 +4,13 @@
 
 {% block page_title %}
     {% translate "Add/Edit After Action Report Link" %} » {% translate "Ship Replacement" %}
-{% endblock %}
+{% endblock page_title %}
 
 {% block aasrp_body %}
     {% include "aasrp/partials/link-edit/form.html" %}
-{% endblock %}
+{% endblock aasrp_body %}
 
 {% block extra_css %}
     {% include "aasrp/bundles/aa-srp-css.html" %}
     {% include "aasrp/bundles/aa-srp-form-css.html" %}
-{% endblock %}
+{% endblock extra_css %}

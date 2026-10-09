@@ -1,6 +1,4 @@
-{% load aasrp %}
-{% load humanize %}
-{% load i18n %}
+{% load aasrp humanize i18n %}
 
 <div class="alert alert-{{ request_status_banner_alert_level }}">
     <div class="text-center">
@@ -65,7 +63,7 @@
                         <tr>
                             <td>{{ insurance_level.insurance_level }}</td>
                             <td class="text-end">
-                                {{ insurance_level.insurance_payout|floatformat:2|intcomma}} ISK
+                                {{ insurance_level.insurance_payout|floatformat:2|intcomma }} ISK
                             </td>
                         </tr>
                     {% endfor %}
