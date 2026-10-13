@@ -375,18 +375,19 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         ship_type_id=ship_type_id
     )
 
-    # Create insurance entries for the SRP request
-    Insurance.objects.bulk_create(
-        [
-            Insurance(
-                srp_request=srp_request,
-                insurance_level=level.name,
-                insurance_cost=level.cost,
-                insurance_payout=level.payout,
-            )
-            for level in insurance_information.levels
-        ]
-    )
+    # Not all ship types are insurable (e.g. capsules), or the ESI call may have failed
+    if insurance_information is not None:
+        Insurance.objects.bulk_create(
+            [
+                Insurance(
+                    srp_request=srp_request,
+                    insurance_level=level.name,
+                    insurance_cost=level.cost,
+                    insurance_payout=level.payout,
+                )
+                for level in insurance_information.levels
+            ]
+        )
 
     # Log the creation of the SRP request
     logger.info(

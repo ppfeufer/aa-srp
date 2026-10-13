@@ -10,7 +10,13 @@ from unittest.mock import MagicMock
 from aiopenapi3 import ContentTypeError, RequestError
 
 # Alliance Auth
-from esi.exceptions import HTTPClientError, HTTPNotModified
+from esi.exceptions import (
+    ESIBucketLimitException,
+    ESIErrorLimitException,
+    HTTPClientError,
+    HTTPNotModified,
+    HTTPServerError,
+)
 
 # AA SRP
 from aasrp import __title__
@@ -182,6 +188,41 @@ class TestESIHandlerResult(BaseTestCase):
         request_exc = RequestError(None, None, None, None)
 
         for exc in (client_exc, request_exc):
+            operation = MagicMock()
+            operation.operation = MagicMock(operationId="GetSomething")
+            operation.result.side_effect = exc
+
+            result = ESIHandler.result(operation=operation)
+            self.assertIsNone(result)
+
+    def test_returns_none_on_server_error(self):
+        """
+        Test returns `None` on ESI 5xx errors.
+
+        :return:
+        :rtype:
+        """
+
+        operation = MagicMock()
+        operation.operation = MagicMock(operationId="GetSomething")
+        operation.result.side_effect = HTTPServerError(502, {}, None)
+
+        result = ESIHandler.result(operation=operation)
+
+        self.assertIsNone(result)
+
+    def test_returns_none_on_rate_limit(self):
+        """
+        Test returns `None` when django-esi refuses to send a request due to rate limiting.
+
+        :return:
+        :rtype:
+        """
+
+        for exc in (
+            ESIErrorLimitException(reset=60),
+            ESIBucketLimitException(bucket=MagicMock(), reset=60),
+        ):
             operation = MagicMock()
             operation.operation = MagicMock(operationId="GetSomething")
             operation.result.side_effect = exc

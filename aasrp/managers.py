@@ -73,7 +73,7 @@ class SrpRequestManager(models.Manager):
                 timeout=5,
             )
             response.raise_for_status()
-        except (requests.HTTPError, requests.Timeout) as exc:
+        except requests.RequestException as exc:
             logger.warning(f"Error fetching kill mail details: {exc}", exc_info=True)
             raise ValueError(str(exc)) from exc
 
@@ -134,13 +134,18 @@ class SrpRequestManager(models.Manager):
 
         zkillboard_data = SrpRequestManager.get_zkillboard_data(kill_id=killmail_id)
 
-        esi_killmail = ESIHandler.result(
-            operation=esi.client.Killmails.GetKillmailsKillmailIdKillmailHash(
-                killmail_id=killmail_id,
-                killmail_hash=zkillboard_data.get("zkb", {}).get("hash"),
-            ),
-            use_etag=False,
-        )
+        if (
+            esi_killmail := ESIHandler.result(
+                operation=esi.client.Killmails.GetKillmailsKillmailIdKillmailHash(
+                    killmail_id=killmail_id,
+                    killmail_hash=zkillboard_data.get("zkb", {}).get("hash"),
+                ),
+                use_etag=False,
+            )
+        ) is None:
+            raise ValueError(
+                "Unable to fetch kill mail details from ESI. Please try again later."
+            )
 
         ship_type_id = esi_killmail.victim.ship_type_id
         ship_value = zkillboard_data.get("zkb", {}).get(loss_value_field, 0)
@@ -167,9 +172,16 @@ class SrpRequestManager(models.Manager):
         :rtype: dict | None
         """
 
-        insurance_from_esi = ESIHandler.result(
-            operation=esi.client.Insurance.GetInsurancePrices(), use_etag=False
-        )
+        if (
+            insurance_from_esi := ESIHandler.result(
+                operation=esi.client.Insurance.GetInsurancePrices(), use_etag=False
+            )
+        ) is None:
+            logger.warning(
+                f"Unable to fetch insurance prices from ESI for ship type {ship_type_id}"
+            )
+
+            return None
 
         insurance = next(
             (i for i in insurance_from_esi if i.type_id == ship_type_id),

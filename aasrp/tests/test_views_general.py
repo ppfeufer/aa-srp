@@ -7,6 +7,7 @@ from http import HTTPStatus
 from unittest.mock import MagicMock, patch
 
 # Third Party
+import requests
 from eve_sde.models import ItemType
 
 # Django
@@ -18,6 +19,7 @@ from django.utils import timezone
 from allianceauth.authentication.models import Permission, User
 from allianceauth.eveonline.models import EveCharacter
 from allianceauth.tests.auth_utils import AuthUtils
+from esi.exceptions import ESIErrorLimitException, HTTPClientError, HTTPServerError
 
 # AA SRP
 from aasrp.models import Setting, SrpLink, SrpRequest, UserSetting
@@ -1295,3 +1297,212 @@ class TestRequestSrp(BaseViewsTestCase):
         )
 
         self.assertRedirects(response, reverse("aasrp:srp_links"))
+
+
+class TestRequestSrpUpstreamFailures(BaseTestCase):
+    """
+    Upstream (zKillboard/ESI) failures during SRP submission must not cause HTTP 500.
+    """
+
+    KILLMAIL_ID = 123456789
+    KILLBOARD_LINK = f"https://zkillboard.com/kill/{KILLMAIL_ID}/"
+    ZKILLBOARD_DATA = {
+        "killmail_id": KILLMAIL_ID,
+        "zkb": {"hash": "abc123", "totalValue": 1000000.0},
+    }
+
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Set up a user owning the victim character, a ship type and an active SRP link.
+
+        :return:
+        :rtype:
+        """
+
+        cls.victim_id = random_id()
+        cls.user = create_fake_user(
+            character_id=cls.victim_id,
+            character_name="Upstream Victim",
+            permissions=["aasrp.basic_access"],
+        )
+        cls.user.character_ownerships.get_or_create(
+            character=EveCharacter.objects.get(character_id=cls.victim_id)
+        )
+        cls.ship = ItemType.objects.create(id=587, name="Rifter")
+        cls.srp_link = SrpLink.objects.create(
+            srp_name="Upstream Fleet",
+            srp_code="UPSTREAM0001",
+            srp_status=SrpLink.Status.ACTIVE,
+            creator=cls.user,
+            fleet_time=timezone.now(),
+        )
+
+        setting = Setting.get_solo()
+        setting.loss_value_source = "totalValue"
+        setting.save()
+
+    def setUp(self):
+        """
+        Use a client that returns 500 responses instead of re-raising view exceptions.
+
+        :return:
+        :rtype:
+        """
+
+        self.client = Client(raise_request_exception=False)
+        self.client.force_login(self.user)
+
+        notify_patcher = patch("aasrp.views.general.notify_srp_team")
+        notify_patcher.start()
+        self.addCleanup(notify_patcher.stop)
+
+    def _post_killmail(self):
+        return self.client.post(
+            reverse("aasrp:request_srp", args=[self.srp_link.srp_code]),
+            data={
+                "killboard_link": self.KILLBOARD_LINK,
+                "additional_info": "Lost it in fleet",
+            },
+        )
+
+    def _mock_esi_killmail(self, mock_esi):
+        killmail = MagicMock()
+        killmail.victim.ship_type_id = self.ship.id
+        killmail.victim.character_id = self.victim_id
+        mock_esi.client.Killmails.GetKillmailsKillmailIdKillmailHash.return_value.result.return_value = (
+            killmail
+        )
+
+    def _assert_handled_gracefully(self, response):
+        self.assertNotEqual(response.status_code, HTTPStatus.INTERNAL_SERVER_ERROR)
+        self.assertRedirects(
+            response, reverse("aasrp:srp_links"), fetch_redirect_response=False
+        )
+
+    @patch("aasrp.managers.requests.get")
+    def test_zkillboard_connection_error_does_not_500(self, mock_requests_get):
+        """
+        requests.ConnectionError is not caught by get_zkillboard_data().
+
+        :param mock_requests_get:
+        :type mock_requests_get:
+        :return:
+        :rtype:
+        """
+
+        mock_requests_get.side_effect = requests.ConnectionError("Connection reset")
+
+        self._assert_handled_gracefully(self._post_killmail())
+
+    @patch("aasrp.managers.esi")
+    @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
+    def test_esi_killmail_client_error_does_not_500(self, mock_zkb, mock_esi):
+        """
+        ESIHandler returns None on HTTPClientError and get_kill_data() dereferences it.
+
+        :param mock_zkb:
+        :type mock_zkb:
+        :param mock_esi:
+        :type mock_esi:
+        :return:
+        :rtype:
+        """
+
+        mock_zkb.return_value = self.ZKILLBOARD_DATA
+        mock_esi.client.Killmails.GetKillmailsKillmailIdKillmailHash.return_value.result.side_effect = HTTPClientError(
+            420, {}, None
+        )
+
+        self._assert_handled_gracefully(self._post_killmail())
+
+    @patch("aasrp.managers.esi")
+    @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
+    def test_esi_killmail_server_error_does_not_500(self, mock_zkb, mock_esi):
+        """
+        ESIHandler does not catch HTTPServerError (ESI 5xx).
+
+        :param mock_zkb:
+        :type mock_zkb:
+        :param mock_esi:
+        :type mock_esi:
+        :return:
+        :rtype:
+        """
+
+        mock_zkb.return_value = self.ZKILLBOARD_DATA
+        mock_esi.client.Killmails.GetKillmailsKillmailIdKillmailHash.return_value.result.side_effect = HTTPServerError(
+            502, {}, None
+        )
+
+        self._assert_handled_gracefully(self._post_killmail())
+
+    @patch("aasrp.managers.esi")
+    @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
+    def test_esi_error_limit_does_not_500(self, mock_zkb, mock_esi):
+        """
+        ESIHandler does not catch ESIErrorLimitException, which django-esi raises
+        for every request while the shared ESI error limit is exhausted.
+
+        :param mock_zkb:
+        :type mock_zkb:
+        :param mock_esi:
+        :type mock_esi:
+        :return:
+        :rtype:
+        """
+
+        mock_zkb.return_value = self.ZKILLBOARD_DATA
+        mock_esi.client.Killmails.GetKillmailsKillmailIdKillmailHash.return_value.result.side_effect = ESIErrorLimitException(
+            reset=60
+        )
+
+        self._assert_handled_gracefully(self._post_killmail())
+
+    @patch("aasrp.managers.esi")
+    @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
+    def test_esi_insurance_failure_does_not_500(self, mock_zkb, mock_esi):
+        """
+        ESIHandler returns None for the insurance call and get_insurance_for_ship_type() iterates it.
+
+        :param mock_zkb:
+        :type mock_zkb:
+        :param mock_esi:
+        :type mock_esi:
+        :return:
+        :rtype:
+        """
+
+        mock_zkb.return_value = self.ZKILLBOARD_DATA
+        self._mock_esi_killmail(mock_esi)
+        mock_esi.client.Insurance.GetInsurancePrices.return_value.result.side_effect = (
+            HTTPClientError(420, {}, None)
+        )
+
+        self._assert_handled_gracefully(self._post_killmail())
+
+    @patch("aasrp.managers.esi")
+    @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
+    def test_ship_without_insurance_entry_is_saved(self, mock_zkb, mock_esi):
+        """
+        Ships without an ESI insurance entry (e.g. capsules) make _save_srp_request()
+        access `.levels` on None.
+
+        :param mock_zkb:
+        :type mock_zkb:
+        :param mock_esi:
+        :type mock_esi:
+        :return:
+        :rtype:
+        """
+
+        mock_zkb.return_value = self.ZKILLBOARD_DATA
+        self._mock_esi_killmail(mock_esi)
+        mock_esi.client.Insurance.GetInsurancePrices.return_value.result.return_value = [
+            MagicMock(type_id=self.ship.id + 1, levels=[])
+        ]
+
+        self._assert_handled_gracefully(self._post_killmail())
+        self.assertTrue(
+            SrpRequest.objects.filter(killboard_link=self.KILLBOARD_LINK).exists()
+        )
