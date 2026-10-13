@@ -13,6 +13,7 @@ from httpx2 import Response
 
 # Django
 from django.db import models
+from django.utils.translation import gettext as _
 
 # Alliance Auth
 from allianceauth.services.hooks import get_extension_logger
@@ -75,7 +76,12 @@ class SrpRequestManager(models.Manager):
             response.raise_for_status()
         except requests.RequestException as exc:
             logger.warning(f"Error fetching kill mail details: {exc}", exc_info=True)
-            raise ValueError(str(exc)) from exc
+            raise ValueError(
+                _(
+                    "zKillboard is not responding at the moment. "
+                    "Please try again in an hour."
+                )
+            ) from exc
 
         try:
             result_killmails = response.json()
@@ -144,7 +150,10 @@ class SrpRequestManager(models.Manager):
             )
         ) is None:
             raise ValueError(
-                "Unable to fetch kill mail details from ESI. Please try again later."
+                _(
+                    "Unable to fetch kill mail details from ESI. "
+                    "Please try again in an hour."
+                )
             )
 
         ship_type_id = esi_killmail.victim.ship_type_id

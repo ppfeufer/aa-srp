@@ -102,7 +102,8 @@ class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
         with self.assertRaises(ValueError) as context:
             SrpRequestManager.get_zkillboard_data("12345")
 
-        self.assertIn("HTTP error occurred", str(context.exception))
+        self.assertIn("Please try again in an hour", str(context.exception))
+        self.assertNotIn("HTTP error occurred", str(context.exception))
         mock_logger_warning.assert_called_once_with(
             "Error fetching kill mail details: HTTP error occurred", exc_info=True
         )
@@ -128,7 +129,8 @@ class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
         with self.assertRaises(ValueError) as context:
             SrpRequestManager.get_zkillboard_data("12345")
 
-        self.assertIn("Request timed out", str(context.exception))
+        self.assertIn("Please try again in an hour", str(context.exception))
+        self.assertNotIn("Request timed out", str(context.exception))
         mock_logger_warning.assert_called_once_with(
             "Error fetching kill mail details: Request timed out", exc_info=True
         )
@@ -149,7 +151,8 @@ class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
         with self.assertRaises(ValueError) as context:
             SrpRequestManager.get_zkillboard_data("12345")
 
-        self.assertIn("Connection reset", str(context.exception))
+        self.assertIn("Please try again in an hour", str(context.exception))
+        self.assertNotIn("Connection reset", str(context.exception))
 
     @patch("aasrp.managers.requests.get")
     def test_get_zkillboard_data_raises_valueerror_on_non_json_response(self, mock_get):
@@ -400,6 +403,7 @@ class TestSrpRequestManagerKetKillData(BaseTestCase):
         self.assertIn(
             "Unable to fetch kill mail details from ESI", str(context.exception)
         )
+        self.assertIn("Please try again in an hour", str(context.exception))
 
     @patch("aasrp.managers.esi")
     @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")

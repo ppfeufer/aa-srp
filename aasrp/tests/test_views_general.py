@@ -11,6 +11,7 @@ import requests
 from eve_sde.models import ItemType
 
 # Django
+from django.contrib.messages import get_messages
 from django.test import Client
 from django.urls import reverse
 from django.utils import timezone
@@ -1393,7 +1394,12 @@ class TestRequestSrpUpstreamFailures(BaseTestCase):
 
         mock_requests_get.side_effect = requests.ConnectionError("Connection reset")
 
-        self._assert_handled_gracefully(self._post_killmail())
+        response = self._post_killmail()
+
+        self._assert_handled_gracefully(response)
+        message = str(list(get_messages(response.wsgi_request))[0])
+        self.assertIn("Please try again in an hour", message)
+        self.assertNotIn("Connection reset", message)
 
     @patch("aasrp.managers.esi")
     @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
