@@ -51,6 +51,7 @@ Section Order:
 ### Fixed
 
 - Unhandled upstream failures potentially cause HTTP 500 on SRP submission
+- SRP request save is not atomic and allows duplicate requests for the same kill mail
 
 ## [5.3.0] - 2026-10-04
 
