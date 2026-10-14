@@ -102,7 +102,8 @@ class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
         with self.assertRaises(ValueError) as context:
             SrpRequestManager.get_zkillboard_data("12345")
 
-        self.assertIn("HTTP error occurred", str(context.exception))
+        self.assertIn("Please try again in an hour", str(context.exception))
+        self.assertNotIn("HTTP error occurred", str(context.exception))
         mock_logger_warning.assert_called_once_with(
             "Error fetching kill mail details: HTTP error occurred", exc_info=True
         )
@@ -128,10 +129,30 @@ class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
         with self.assertRaises(ValueError) as context:
             SrpRequestManager.get_zkillboard_data("12345")
 
-        self.assertIn("Request timed out", str(context.exception))
+        self.assertIn("Please try again in an hour", str(context.exception))
+        self.assertNotIn("Request timed out", str(context.exception))
         mock_logger_warning.assert_called_once_with(
             "Error fetching kill mail details: Request timed out", exc_info=True
         )
+
+    @patch("aasrp.managers.requests.get")
+    def test_raises_value_error_for_connection_error(self, mock_requests_get):
+        """
+        Test that get_zkillboard_data raises ValueError for connection errors.
+
+        :param mock_requests_get:
+        :type mock_requests_get:
+        :return:
+        :rtype:
+        """
+
+        mock_requests_get.side_effect = requests.ConnectionError("Connection reset")
+
+        with self.assertRaises(ValueError) as context:
+            SrpRequestManager.get_zkillboard_data("12345")
+
+        self.assertIn("Please try again in an hour", str(context.exception))
+        self.assertNotIn("Connection reset", str(context.exception))
 
     @patch("aasrp.managers.requests.get")
     def test_get_zkillboard_data_raises_valueerror_on_non_json_response(self, mock_get):
@@ -255,6 +276,26 @@ class TestSrpRequestManagerGetInsuranceForShipType(BaseTestCase):
 
         self.assertIsNone(result)
 
+    @patch("aasrp.managers.ESIHandler.result")
+    @patch("aasrp.managers.esi")
+    def test_returns_none_when_esi_fails(self, mock_esi, mock_esi_result):
+        """
+        Test that get_insurance_for_ship_type returns None when the ESI call fails.
+
+        :param mock_esi:
+        :type mock_esi:
+        :param mock_esi_result:
+        :type mock_esi_result:
+        :return:
+        :rtype:
+        """
+
+        mock_esi_result.return_value = None
+
+        result = SrpRequestManager.get_insurance_for_ship_type(123)
+
+        self.assertIsNone(result)
+
 
 class TestSrpRequestManagerKetKillData(BaseTestCase):
     """
@@ -333,6 +374,36 @@ class TestSrpRequestManagerKetKillData(BaseTestCase):
             SrpRequestManager.get_kill_data("invalid_id", "loss_value")
 
         self.assertIn("Invalid Kill ID or Hash.", str(context.exception))
+
+    @patch("aasrp.managers.esi")
+    @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
+    @patch("aasrp.managers.ESIHandler.result")
+    def test_raises_value_error_when_esi_killmail_unavailable(
+        self, mock_esi_result, mock_get_zkillboard_data, mock_esi
+    ):
+        """
+        Test that get_kill_data raises ValueError when ESI returns no killmail.
+
+        :param mock_esi_result:
+        :type mock_esi_result:
+        :param mock_get_zkillboard_data:
+        :type mock_get_zkillboard_data:
+        :param mock_esi:
+        :type mock_esi:
+        :return:
+        :rtype:
+        """
+
+        mock_get_zkillboard_data.return_value = {"zkb": {"hash": "test_hash"}}
+        mock_esi_result.return_value = None
+
+        with self.assertRaises(ValueError) as context:
+            SrpRequestManager.get_kill_data("12345", "totalValue")
+
+        self.assertIn(
+            "Unable to fetch kill mail details from ESI", str(context.exception)
+        )
+        self.assertIn("Please try again in an hour", str(context.exception))
 
     @patch("aasrp.managers.esi")
     @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")

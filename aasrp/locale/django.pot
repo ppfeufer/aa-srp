@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-10-09 12:33+0200\n"
+"POT-Creation-Date: 2026-10-14 20:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -315,6 +315,14 @@ msgstr ""
 
 #: aasrp/helper/srp_data.py:45
 msgid "Copy payout amount to clipboard"
+msgstr ""
+
+#: aasrp/managers.py:81
+msgid "zKillboard is not responding at the moment. Please try again in an hour."
+msgstr ""
+
+#: aasrp/managers.py:154
+msgid "Unable to fetch kill mail details from ESI. Please try again in an hour."
 msgstr ""
 
 #: aasrp/models.py:73
@@ -1014,52 +1022,52 @@ msgstr ""
 msgid "AAR link changed"
 msgstr ""
 
-#: aasrp/views/general.py:403
+#: aasrp/views/general.py:404
 #, python-brace-format
 msgid "Submitted SRP request for your {ship_name}."
 msgstr ""
 
-#: aasrp/views/general.py:447
+#: aasrp/views/general.py:448
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:459
+#: aasrp/views/general.py:460
 msgid "This SRP link is no longer available for SRP requests."
 msgstr ""
 
-#: aasrp/views/general.py:490
+#: aasrp/views/general.py:491
 #, python-brace-format
 msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {error}"
 msgstr ""
 
-#: aasrp/views/general.py:534
+#: aasrp/views/general.py:535
 #, python-brace-format
 msgid "Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."
 msgstr ""
 
-#: aasrp/views/general.py:583
+#: aasrp/views/general.py:584
 msgid "SRP link marked as completed"
 msgstr ""
 
-#: aasrp/views/general.py:592 aasrp/views/general.py:630
-#: aasrp/views/general.py:690 aasrp/views/general.py:738
-#: aasrp/views/general.py:785
+#: aasrp/views/general.py:593 aasrp/views/general.py:631
+#: aasrp/views/general.py:691 aasrp/views/general.py:739
+#: aasrp/views/general.py:786
 #, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:680
+#: aasrp/views/general.py:681
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr ""
 
-#: aasrp/views/general.py:728
+#: aasrp/views/general.py:729
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr ""
 
-#: aasrp/views/general.py:775
+#: aasrp/views/general.py:776
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""

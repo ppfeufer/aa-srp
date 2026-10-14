@@ -48,6 +48,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Unhandled upstream failures potentially cause HTTP 500 on SRP submission
+
 ## [5.3.0] - 2026-10-04
 
 > [!IMPORTANT]
