@@ -16,7 +16,7 @@ from eve_sde.models import ItemType
 # Django
 from django.apps import apps as django_apps
 from django.contrib.messages import get_messages
-from django.db import DatabaseError, connection
+from django.db import DatabaseError, IntegrityError, connection
 from django.test import Client
 from django.urls import reverse
 from django.utils import timezone
@@ -215,6 +215,27 @@ class TestRequestSrpSaveIntegrity(BaseTestCase):
             "There is already an SRP request for this kill mail.",
             [str(message) for message in get_messages(response.wsgi_request)][0],
         )
+
+    def test_integrity_error_without_duplicate_is_not_swallowed(self):
+        """
+        An IntegrityError not caused by a duplicate kill mail must not be reported as one.
+
+        :return:
+        :rtype:
+        """
+
+        with (
+            patch.object(
+                RequestComment.objects,
+                "bulk_create",
+                side_effect=IntegrityError("simulated failure"),
+            ),
+            self.assertLogs("django.request", level="ERROR"),
+        ):
+            response = self._post_killmail()
+
+        self.assertEqual(response.status_code, HTTPStatus.INTERNAL_SERVER_ERROR)
+        self.assertFalse(self._requests_for_killmail().exists())
 
 
 class TestKillmailIdBackfillMigration(BaseTestCase):
