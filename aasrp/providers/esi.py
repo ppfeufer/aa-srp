@@ -7,7 +7,7 @@ from typing import Any
 
 # Third Party
 from aiopenapi3 import ContentTypeError
-from aiopenapi3.errors import HTTPClientError, HTTPServerError, RequestError
+from aiopenapi3.errors import RequestError
 from httpx2 import Response
 
 # Alliance Auth
@@ -15,7 +15,9 @@ from allianceauth.services.hooks import get_extension_logger
 from esi.exceptions import (
     ESIBucketLimitException,
     ESIErrorLimitException,
+    HTTPClientError,
     HTTPNotModified,
+    HTTPServerError,
 )
 from esi.openapi_clients import ESIClientProvider, EsiOperation
 
