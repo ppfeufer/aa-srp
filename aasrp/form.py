@@ -331,7 +331,7 @@ class SrpRequestForm(ModelForm):
         logger.debug(f"Extracted killmail ID: {killmail_id}")
 
         if SrpRequest.objects.filter(
-            killboard_link__icontains=f"/kill/{killmail_id}"
+            killmail_id=killmail_id
         ).exists():
             logger.debug(
                 f"SRP request already exists for killmail ID {killmail_id} and link {killboard_link}"
