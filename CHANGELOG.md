@@ -50,9 +50,7 @@ Section Order:
 
 ### Fixed
 
-- HTTP 500 on SRP request submission when zKillboard or ESI is unreachable, returns
-  an error, or is rate limited
-- HTTP 500 on SRP request submission when no insurance data is available for the lost ship
+- Unhandled upstream failures potentially cause HTTP 500 on SRP submission
 
 ## [5.3.0] - 2026-10-04
 
