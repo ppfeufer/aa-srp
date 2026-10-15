@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-10-14 20:10+0200\n"
+"POT-Creation-Date: 2026-10-14 19:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgid "Ship Replacement"
 msgstr ""
 
 #: aasrp/admin.py:57 aasrp/models.py:163 aasrp/models.py:309
-#: aasrp/models.py:489
+#: aasrp/models.py:496
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
 msgid "Creator"
 msgstr ""
@@ -62,11 +62,11 @@ msgstr ""
 msgid "Ship"
 msgstr ""
 
-#: aasrp/admin.py:155 aasrp/models.py:347
+#: aasrp/admin.py:155 aasrp/models.py:354
 msgid "Loss amount"
 msgstr ""
 
-#: aasrp/admin.py:170 aasrp/models.py:340
+#: aasrp/admin.py:170 aasrp/models.py:347
 msgid "Payout amount"
 msgstr ""
 
@@ -177,7 +177,7 @@ msgstr ""
 msgid "Killboard link"
 msgstr ""
 
-#: aasrp/form.py:232 aasrp/form.py:241 aasrp/models.py:332 aasrp/models.py:468
+#: aasrp/form.py:232 aasrp/form.py:241 aasrp/models.py:339 aasrp/models.py:475
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:80
 #: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:43
@@ -193,41 +193,41 @@ msgstr ""
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr ""
 
-#: aasrp/form.py:342
+#: aasrp/form.py:340 aasrp/views/general.py:541
 msgid "There is already an SRP request for this kill mail. Please check if you got the right one."
 msgstr ""
 
-#: aasrp/form.py:357
+#: aasrp/form.py:355
 msgid "SRP payout value"
 msgstr ""
 
-#: aasrp/form.py:385
+#: aasrp/form.py:383
 msgid "Please provide the reason this SRP request is rejected."
 msgstr ""
 
-#: aasrp/form.py:388 aasrp/models.py:352 aasrp/models.py:469
+#: aasrp/form.py:386 aasrp/models.py:359 aasrp/models.py:476
 msgid "Reject reason"
 msgstr ""
 
-#: aasrp/form.py:426
+#: aasrp/form.py:424
 msgid "Leave a comment for the requestor"
 msgstr ""
 
-#: aasrp/form.py:429
+#: aasrp/form.py:427
 msgid "Comment (optional)"
 msgstr ""
 
-#: aasrp/form.py:467
+#: aasrp/form.py:465
 msgid "Please provide the reason why this former rejected SRP request is now accepted."
 msgstr ""
 
-#: aasrp/form.py:472 aasrp/models.py:466 aasrp/models.py:473
-#: aasrp/models.py:525
+#: aasrp/form.py:470 aasrp/models.py:473 aasrp/models.py:480
+#: aasrp/models.py:532
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:102
 msgid "Comment"
 msgstr ""
 
-#: aasrp/form.py:511
+#: aasrp/form.py:509
 msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
 
@@ -382,7 +382,7 @@ msgstr ""
 msgid "Who created the SRP link?"
 msgstr ""
 
-#: aasrp/models.py:172 aasrp/models.py:345
+#: aasrp/models.py:172 aasrp/models.py:352
 msgid "SRP link"
 msgstr ""
 
@@ -413,7 +413,11 @@ msgstr ""
 msgid "Who created the SRP request?"
 msgstr ""
 
-#: aasrp/models.py:338 aasrp/templates/aasrp/dashboard.html:23
+#: aasrp/models.py:336
+msgid "Kill mail ID"
+msgstr ""
+
+#: aasrp/models.py:345 aasrp/templates/aasrp/dashboard.html:23
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:31
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:34
 #: aasrp/templates/aasrp/view-own-requests.html:22
@@ -421,125 +425,125 @@ msgstr ""
 msgid "Request status"
 msgstr ""
 
-#: aasrp/models.py:349
+#: aasrp/models.py:356
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:19
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:78
 msgid "Request time"
 msgstr ""
 
-#: aasrp/models.py:363
+#: aasrp/models.py:370
 msgid "Request"
 msgstr ""
 
-#: aasrp/models.py:364
+#: aasrp/models.py:371
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:26
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:15
 msgid "Requests"
 msgstr ""
 
-#: aasrp/models.py:381
+#: aasrp/models.py:388
 #, python-brace-format
 msgid "{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
 msgstr ""
 
-#: aasrp/models.py:438 aasrp/models.py:499
+#: aasrp/models.py:445 aasrp/models.py:506
 msgid "SRP request"
 msgstr ""
 
-#: aasrp/models.py:441
+#: aasrp/models.py:448
 msgid "Insurance level"
 msgstr ""
 
-#: aasrp/models.py:443
+#: aasrp/models.py:450
 msgid "Insurance cost"
 msgstr ""
 
-#: aasrp/models.py:444
+#: aasrp/models.py:451
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:56
 #: aasrp/templates/aasrp/view-requests.html:42
 msgid "Insurance payout"
 msgstr ""
 
-#: aasrp/models.py:452
+#: aasrp/models.py:459
 msgid "Ship insurance"
 msgstr ""
 
-#: aasrp/models.py:453
+#: aasrp/models.py:460
 msgid "Ship insurances"
 msgstr ""
 
-#: aasrp/models.py:467
+#: aasrp/models.py:474
 msgid "SRP request added"
 msgstr ""
 
-#: aasrp/models.py:470
+#: aasrp/models.py:477
 msgid "Status changed"
 msgstr ""
 
-#: aasrp/models.py:471
+#: aasrp/models.py:478
 msgid "Reviser comment"
 msgstr ""
 
-#: aasrp/models.py:479
+#: aasrp/models.py:486
 msgid "Comment type"
 msgstr ""
 
 #. Translators: This is the time when the comment was made
-#: aasrp/models.py:507
+#: aasrp/models.py:514
 msgid "Comment time"
 msgstr ""
 
 #. Translators: New SRP request status that might have been set
-#: aasrp/models.py:516
+#: aasrp/models.py:523
 msgid "New SRP request status"
 msgstr ""
 
-#: aasrp/models.py:526
+#: aasrp/models.py:533
 msgid "Comments"
 msgstr ""
 
-#: aasrp/models.py:541
+#: aasrp/models.py:548
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:101
 msgid "User"
 msgstr ""
 
-#: aasrp/models.py:545
+#: aasrp/models.py:552
 msgid "Disable notifications"
 msgstr ""
 
-#: aasrp/models.py:554 aasrp/models.py:555
+#: aasrp/models.py:561 aasrp/models.py:562
 msgid "User settings"
 msgstr ""
 
-#: aasrp/models.py:569
+#: aasrp/models.py:576
 msgid "SRP team Discord channel ID"
 msgstr ""
 
-#: aasrp/models.py:572
+#: aasrp/models.py:579
 msgid "Loss value source"
 msgstr ""
 
-#: aasrp/models.py:579
+#: aasrp/models.py:586
 msgid "Fitted value (Ship and Fitting)"
 msgstr ""
 
-#: aasrp/models.py:580
+#: aasrp/models.py:587
 msgid "Total value (Ship, Fitting and Cargo)"
 msgstr ""
 
-#: aasrp/models.py:593
+#: aasrp/models.py:600
 msgid "The source for the loss value of a killmail. Fitted value is the value of the ship and its fitting. Total value is the value of the ship, its fitting and the cargo. (Default: Total value)"
 msgstr ""
 
-#: aasrp/models.py:610
+#: aasrp/models.py:617
 msgid "Setting"
 msgstr ""
 
-#: aasrp/models.py:611
+#: aasrp/models.py:618
 msgid "Settings"
 msgstr ""
 
-#: aasrp/models.py:621
+#: aasrp/models.py:628
 msgid "AA-SRP settings"
 msgstr ""
 
@@ -1000,74 +1004,74 @@ msgstr ""
 msgid "SRP requests have been removed"
 msgstr ""
 
-#: aasrp/views/general.py:70
+#: aasrp/views/general.py:71
 msgid "You do not have the needed permissions to view all SRP links"
 msgstr ""
 
-#: aasrp/views/general.py:154
+#: aasrp/views/general.py:155
 msgid "Settings saved."
 msgstr ""
 
-#: aasrp/views/general.py:219
+#: aasrp/views/general.py:220
 #, python-brace-format
 msgid "SRP link \"{srp_code}\" created"
 msgstr ""
 
-#: aasrp/views/general.py:271
+#: aasrp/views/general.py:272
 #, python-brace-format
 msgid "Unable to locate SRP link using SRP code {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:286
+#: aasrp/views/general.py:287
 msgid "AAR link changed"
 msgstr ""
 
-#: aasrp/views/general.py:404
+#: aasrp/views/general.py:408
 #, python-brace-format
 msgid "Submitted SRP request for your {ship_name}."
 msgstr ""
 
-#: aasrp/views/general.py:448
+#: aasrp/views/general.py:452
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:460
+#: aasrp/views/general.py:464
 msgid "This SRP link is no longer available for SRP requests."
 msgstr ""
 
-#: aasrp/views/general.py:491
+#: aasrp/views/general.py:495
 #, python-brace-format
 msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {error}"
 msgstr ""
 
-#: aasrp/views/general.py:535
+#: aasrp/views/general.py:554
 #, python-brace-format
 msgid "Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."
 msgstr ""
 
-#: aasrp/views/general.py:584
+#: aasrp/views/general.py:603
 msgid "SRP link marked as completed"
 msgstr ""
 
-#: aasrp/views/general.py:593 aasrp/views/general.py:631
-#: aasrp/views/general.py:691 aasrp/views/general.py:739
-#: aasrp/views/general.py:786
+#: aasrp/views/general.py:612 aasrp/views/general.py:650
+#: aasrp/views/general.py:710 aasrp/views/general.py:758
+#: aasrp/views/general.py:805
 #, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:681
+#: aasrp/views/general.py:700
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr ""
 
-#: aasrp/views/general.py:729
+#: aasrp/views/general.py:748
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr ""
 
-#: aasrp/views/general.py:776
+#: aasrp/views/general.py:795
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""

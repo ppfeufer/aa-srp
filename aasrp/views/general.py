@@ -13,6 +13,7 @@ from eve_sde.models import ItemType
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core.handlers.wsgi import WSGIRequest
+from django.db import IntegrityError, transaction
 from django.db.models import Sum
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -341,53 +342,56 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
 
     logger.debug(msg=f"Ship type {srp_request__ship.name}")
 
-    # Create the SRP request object
-    srp_request = SrpRequest.objects.create(
-        killboard_link=killmail_link,
-        creator=creator,
-        srp_link=srp_link,
-        character=srp_request__character,
-        ship=srp_request__ship,
-        loss_amount=ship_value,
-        post_time=post_time,
-    )
-
-    # Create comments for the SRP request
-    RequestComment.objects.bulk_create(
-        [
-            RequestComment(
-                srp_request=srp_request,
-                comment_type=RequestComment.Type.REQUEST_ADDED,
-                creator=creator,
-                new_status=SrpRequest.Status.PENDING,
-            ),
-            RequestComment(
-                comment=additional_info,
-                srp_request=srp_request,
-                comment_type=RequestComment.Type.REQUEST_INFO,
-                creator=creator,
-            ),
-        ]
-    )
-
     # Retrieve insurance information for the ship type
     insurance_information = SrpRequest.objects.get_insurance_for_ship_type(
         ship_type_id=ship_type_id
     )
 
-    # Not all ship types are insurable (e.g. capsules), or the ESI call may have failed
-    if insurance_information is not None:
-        Insurance.objects.bulk_create(
+    # All upstream lookups are done, so either everything below is saved or nothing is
+    with transaction.atomic():
+        srp_request = SrpRequest.objects.create(
+            killboard_link=killmail_link,
+            killmail_id=int(
+                SrpRequest.objects.get_kill_id(killboard_link=killmail_link)
+            ),
+            creator=creator,
+            srp_link=srp_link,
+            character=srp_request__character,
+            ship=srp_request__ship,
+            loss_amount=ship_value,
+            post_time=post_time,
+        )
+
+        RequestComment.objects.bulk_create(
             [
-                Insurance(
+                RequestComment(
                     srp_request=srp_request,
-                    insurance_level=level.name,
-                    insurance_cost=level.cost,
-                    insurance_payout=level.payout,
-                )
-                for level in insurance_information.levels
+                    comment_type=RequestComment.Type.REQUEST_ADDED,
+                    creator=creator,
+                    new_status=SrpRequest.Status.PENDING,
+                ),
+                RequestComment(
+                    comment=additional_info,
+                    srp_request=srp_request,
+                    comment_type=RequestComment.Type.REQUEST_INFO,
+                    creator=creator,
+                ),
             ]
         )
+
+        # Not all ship types are insurable (e.g. capsules), or the ESI call may have failed
+        if insurance_information is not None:
+            Insurance.objects.bulk_create(
+                [
+                    Insurance(
+                        srp_request=srp_request,
+                        insurance_level=level.name,
+                        insurance_cost=level.cost,
+                        insurance_payout=level.payout,
+                    )
+                    for level in insurance_information.levels
+                ]
+            )
 
     # Log the creation of the SRP request
     logger.info(
@@ -514,18 +518,33 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                 character__character_id=killmail_info["victim_id"]
             ).exists():
                 # Save the SRP request
-                srp_request = _save_srp_request(
-                    request=request,
-                    srp_link=srp_link,
-                    killmail_link=submitted_killmail_link,
-                    ship_type_id=killmail_info["ship_type_id"],
-                    ship_value=killmail_info["ship_value"],
-                    victim_id=killmail_info["victim_id"],
-                    additional_info=srp_request_additional_info,
-                )
+                try:
+                    srp_request = _save_srp_request(
+                        request=request,
+                        srp_link=srp_link,
+                        killmail_link=submitted_killmail_link,
+                        ship_type_id=killmail_info["ship_type_id"],
+                        ship_value=killmail_info["ship_value"],
+                        victim_id=killmail_info["victim_id"],
+                        additional_info=srp_request_additional_info,
+                    )
+                except IntegrityError:
+                    # Lost the race against a concurrent submission of the same kill mail
+                    if not SrpRequest.objects.filter(
+                        killmail_id=srp_kill_link_id
+                    ).exists():
+                        raise
 
-                # Send a message to the srp team in their discord channel.
-                notify_srp_team(srp_request=srp_request)
+                    messages.error(
+                        request=request,
+                        message=_(
+                            "There is already an SRP request for this kill mail. "
+                            "Please check if you got the right one."
+                        ),
+                    )
+                else:
+                    # Send a message to the srp team in their discord channel.
+                    notify_srp_team(srp_request=srp_request)
 
                 return redirect(to="aasrp:srp_links")
 

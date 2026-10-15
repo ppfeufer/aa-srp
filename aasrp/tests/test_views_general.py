@@ -1168,7 +1168,7 @@ class TestRequestSrp(BaseViewsTestCase):
         :rtype:
         """
 
-        mock_get_kill_id.return_value = "kill_id_123"
+        mock_get_kill_id.return_value = "128743453"
         mock_get_kill_data.return_value = {
             "victim_id": 1,
             "ship_value": "1000000",

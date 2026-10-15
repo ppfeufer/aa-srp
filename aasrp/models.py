@@ -328,6 +328,13 @@ class SrpRequest(models.Model):
     killboard_link = models.CharField(
         max_length=254, default="", verbose_name=_("Killboard link")
     )
+    killmail_id = models.PositiveBigIntegerField(
+        null=True,
+        blank=True,
+        default=None,
+        unique=True,
+        verbose_name=_("Kill mail ID"),
+    )
     additional_info = models.TextField(
         blank=True, default="", verbose_name=_("Additional information")
     )
