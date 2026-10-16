@@ -155,9 +155,8 @@ def _discordproxy_send_private_message(
     except DiscordProxyException as ex:
         # Log the error and attempt to send the message using allianceauth-discordbot
         logger.debug(
-            "Something went wrong with discordproxy, cannot send a direct message. "
-            "Trying allianceauth-discordbot if available. Error: %s",
-            ex,
+            f"Something went wrong with discordproxy, cannot send a direct message. Error: {ex}"
+            "Trying allianceauth-discordbot."
         )
         _aadiscordbot_send_private_message(
             user_id=user_id,

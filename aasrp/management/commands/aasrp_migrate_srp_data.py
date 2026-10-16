@@ -205,6 +205,11 @@ class Command(BaseCommand):
                                 srp_request.killboard_link = (
                                     srp_userrequest_killboard_link
                                 )
+                                srp_request.killmail_id = int(
+                                    SrpRequest.objects.get_kill_id(
+                                        killboard_link=srp_userrequest_killboard_link
+                                    )
+                                )
                                 srp_request.request_status = srp_userrequest_status
                                 srp_request.payout_amount = srp_userrequest_payout
                                 srp_request.loss_amount = srp_userrequest_loss_amount
