@@ -4,6 +4,9 @@ User helper module.
 This module provides utility functions for working with user-related data in the AA SRP application.
 """
 
+# Django
+from django.db.models import QuerySet
+
 # Alliance Auth
 from allianceauth.authentication.models import User
 from allianceauth.eveonline.models import EveCharacter
@@ -43,7 +46,7 @@ def get_pending_requests_count_for_user(user: User) -> int | None:
     return SrpRequest.pending_requests_count_for_user(user=user)
 
 
-def get_ui_characters_for_user(user: User):
+def get_ui_characters_for_user(user: User) -> QuerySet[EveCharacter]:
     """
     Retrieve the characters of a user that can be used to open windows in the EVE client.
 
