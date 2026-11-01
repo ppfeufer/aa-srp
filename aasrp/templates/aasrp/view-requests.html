@@ -42,6 +42,10 @@
     {% translate "Insurance payout" as translateInsurancePayout %}
     {% translate "Additional information" as translateAdditionalInformation %}
     {% translate "Reject information" as translateRejectInformation %}
+    {% translate "Copied #amount# to clipboard" as translateOpenInfoCopied %}
+    {% translate "Could not copy the amount to the clipboard" as translateOpenInfoNotCopied %}
+    {% translate "Note: this request is rejected" as translateOpenInfoRequestRejected %}
+    {% translate "The request failed. Your session may have expired, please reload the page." as translateOpenInfoRequestFailed %}
 
     <script>
         /**
@@ -66,6 +70,12 @@
                 changeSrpPayoutAmount: '{{ translateChangeSrpPayoutAmount|escapejs }}',
                 changeSrpPayoutHeader: '{{ translateChangeSrpPayoutHeader|escapejs }}',
                 editableValidate: '{{ translateEditableValidate|escapejs }}',
+                openCharacterInfo: {
+                    copied: '{{ translateOpenInfoCopied|escapejs }}',
+                    notCopied: '{{ translateOpenInfoNotCopied|escapejs }}',
+                    requestRejected: '{{ translateOpenInfoRequestRejected|escapejs }}',
+                    requestFailed: '{{ translateOpenInfoRequestFailed|escapejs }}'
+                },
                 modal: {
                     srpDetails: {
                         body: {

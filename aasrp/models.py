@@ -552,6 +552,20 @@ class UserSetting(models.Model):
         default=False, verbose_name=_("Disable notifications")
     )
 
+    ui_character = models.ForeignKey(
+        to=EveCharacter,
+        related_name="+",
+        null=True,
+        blank=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        verbose_name=_("In-game UI character"),
+        help_text=_(
+            "Character used to open information windows in your EVE client "
+            "from the SRP requests view"
+        ),
+    )
+
     class Meta:  # pylint: disable=too-few-public-methods
         """
         Meta options for the UserSetting model.

@@ -17,6 +17,9 @@ from aasrp import __version__ as app_version
 # All internal URLs need to start with this prefix
 INTERNAL_URL_PREFIX = "-"
 
+# ESI scope required to open windows in the EVE client
+ESI_SCOPE_UI_OPEN_WINDOW = "esi-ui.open_window.v1"
+
 
 class UserAgent(Enum):
     """

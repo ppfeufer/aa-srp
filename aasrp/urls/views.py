@@ -30,6 +30,11 @@ urls = [
     ),
     # Route for managing user settings
     path(route="my-settings/", view=general.user_settings, name="user_settings"),
+    path(
+        route="my-settings/add-ui-character/",
+        view=general.add_ui_character,
+        name="add_ui_character",
+    ),
     # Route for adding a new SRP link
     path(route="add/", view=general.srp_link_add, name="add_srp_link"),
     # Route for editing an SRP link identified by its code

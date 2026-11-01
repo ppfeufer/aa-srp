@@ -1,4 +1,4 @@
-/* global aaSrpSettings, _bootstrapTooltip, fetchGet, fetchPost, moment, numberFormatter, _removeSearchFromColumnControl, DataTable */
+/* global aaSrpSettings, _bootstrapTooltip, fetchGet, fetchPost, moment, numberFormatter, _removeSearchFromColumnControl, DataTable, ClipboardJS, bootstrap */
 
 $(document).ready(() => {
     'use strict';
@@ -179,7 +179,7 @@ $(document).ready(() => {
                         },
                         {
                             targets: [8],
-                            width: 115
+                            width: 150
                         }
                     ],
                     order: [
@@ -838,8 +838,130 @@ $(document).ready(() => {
             _unbindClickEvent($('#modal-button-confirm-bulk-remove-requests'));
         });
 
+    /**
+     * Helper function: Show a short-lived toast message, without reloading the page
+     *
+     * @param {string} message The message to show
+     * @param {boolean} success Whether this is a success or an error message
+     * @private
+     */
+    const _showToast = (message, success) => {
+        let container = $('#aasrp-toast-container');
+
+        if (container.length === 0) {
+            container = $('<div id="aasrp-toast-container" class="toast-container position-fixed bottom-0 end-0 p-3"></div>');
+
+            $('body').append(container);
+        }
+
+        const toastElement = $('<div class="toast align-items-center border-0" role="status" aria-live="polite" aria-atomic="true"><div class="d-flex"><div class="toast-body"></div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div></div>');
+
+        toastElement
+            .addClass(success ? 'text-bg-success' : 'text-bg-danger')
+            .find('.toast-body')
+            .text(message);
+
+        container.append(toastElement);
+
+        toastElement.on('hidden.bs.toast', () => {
+            toastElement.remove();
+        });
+
+        new bootstrap.Toast(toastElement[0], {delay: 6000}).show();
+    };
+
+    /**
+     * Helper function: Copy text to the clipboard
+     *
+     * Must be called synchronously from a user click, so browsers allow it.
+     * Falls back to ClipboardJS on non-secure (non-HTTPS) origins.
+     *
+     * @param {string} text The text to copy
+     * @returns {Promise<boolean>} Whether copying succeeded
+     * @private
+     */
+    const _copyToClipboard = (text) => {
+        if (window.isSecureContext && navigator.clipboard) {
+            return navigator.clipboard.writeText(text)
+                .then(() => true)
+                .catch(() => false);
+        }
+
+        try {
+            ClipboardJS.copy(text);
+
+            return Promise.resolve(true);
+        } catch (error) {
+            console.error('Error copying to clipboard:', error);
+
+            return Promise.resolve(false);
+        }
+    };
+
     /* Events
     --------------------------------------------------------------------------------- */
+    /**
+     * Show info in game & copy ISK amount
+     *
+     * Copies the current payout amount (respecting inline edits) and asks ESI to
+     * open the character's information window in the EVE client.
+     * Deliberately does not reload the page or the table.
+     */
+    element.srpRequestsTable.on('click', 'button.srp-request-open-info', (event) => {
+        event.preventDefault();
+
+        const button = $(event.currentTarget);
+        const row = button.closest('tr');
+        const payoutAmount = parseInt(row.find('span.srp-payout-amount').attr('data-value')) || 0;
+        const requestStatus = row.attr('class').match(/srp-request-status-(\w+)/);
+        const translation = aaSrpSettings.translation.openCharacterInfo;
+
+        const formattedAmount = numberFormatter({
+            value: payoutAmount,
+            locales: aaSrpSettings.locale,
+            options: {
+                style: 'currency',
+                currency: 'ISK'
+            }
+        });
+
+        // Copy first, while still inside the user's click
+        const copyPromise = _copyToClipboard(String(payoutAmount));
+
+        button.prop('disabled', true);
+
+        const esiPromise = fetchPost({
+            url: button.data('link'),
+            csrfToken: aaSrpSettings.csrfToken,
+            payload: {},
+            responseIsJson: true
+        }).catch((error) => {
+            console.error(`Error: ${error.message}`);
+
+            return {success: false, message: translation.requestFailed};
+        });
+
+        Promise.all([copyPromise, esiPromise]).then(([copied, response]) => {
+            const messageParts = [];
+
+            messageParts.push(
+                copied
+                    ? translation.copied.replace('#amount#', formattedAmount) // jshint ignore:line
+                    : translation.notCopied
+            );
+
+            if (requestStatus && requestStatus[1] === 'rejected') {
+                messageParts.push(translation.requestRejected);
+            }
+
+            messageParts.push(response.message);
+
+            _showToast(messageParts.join(' · '), copied && response.success === true);
+        }).finally(() => {
+            button.prop('disabled', false);
+        });
+    });
+
     /**
      * Bulk actions: Clear selection
      */
