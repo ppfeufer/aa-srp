@@ -55,7 +55,7 @@ Section Order:
 
 > [!NOTE]
 >
-> There is an ESI issue with this endpoint where you will want to open and info
+> There is an ESI issue with this endpoint where you will want to open an info
 > box before the ESI call will work.
 >
 > [See this ESI issue for details](https://github.com/esi/esi-issues/issues/1349#issuecomment-1557991662)…
