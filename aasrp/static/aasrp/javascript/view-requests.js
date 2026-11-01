@@ -946,7 +946,7 @@ $(document).ready(() => {
 
             messageParts.push(
                 copied
-                    ? translation.copied.replace('#amount#', formattedAmount)
+                    ? translation.copied.replace('#amount#', formattedAmount) // jshint ignore:line
                     : translation.notCopied
             );
 
