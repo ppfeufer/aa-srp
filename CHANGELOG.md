@@ -48,6 +48,18 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- A button for SRP managers to open a characters info in game and copy the ISK amount to
+  clipboard for much less of a click fest during payouts (Thanks @pvyParts)
+
+> [!NOTE]
+>
+> There is an ESI issue with this endpoint where you will want to open and info
+> box before the ESI call will work.
+>
+> [See this ESI issue for details](https://github.com/esi/esi-issues/issues/1349#issuecomment-1557991662)…
+
 ### Fixed
 
 - Unhandled upstream failures potentially cause HTTP 500 on SRP submission
