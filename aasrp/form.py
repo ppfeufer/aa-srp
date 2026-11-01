@@ -18,6 +18,7 @@ from allianceauth.services.hooks import get_extension_logger
 
 # AA SRP
 from aasrp.constants import KILLBOARD_DATA
+from aasrp.helper.user import get_ui_characters_for_user
 from aasrp.models import (
     FleetType,
     RequestComment,
@@ -503,13 +504,37 @@ class UserSettingsForm(ModelForm):
         """
 
         model = UserSetting
-        fields = ["disable_notifications"]
+        fields = ["disable_notifications", "ui_character"]
         labels = {
             "disable_notifications": _(
                 "Disable notifications. "
                 "(Auth and Discord, if a relevant module is installed)"
             ),
         }
+
+    def __init__(self, *args, user=None, **kwargs):
+        """
+        Initialize the form.
+
+        The UI character field is only shown to SRP managers, and only lists
+        characters of the user that have a token with the required ESI scope.
+
+        :param user: The user whose settings are edited.
+        :type user: User | None
+        """
+
+        super().__init__(*args, **kwargs)
+
+        if user is None or not (
+            user.has_perm("aasrp.manage_srp")
+            or user.has_perm("aasrp.manage_srp_requests")
+        ):
+            del self.fields["ui_character"]
+
+            return
+
+        self.fields["ui_character"].queryset = get_ui_characters_for_user(user=user)
+        self.fields["ui_character"].empty_label = _("None")
 
 
 class SettingAdminForm(forms.ModelForm):

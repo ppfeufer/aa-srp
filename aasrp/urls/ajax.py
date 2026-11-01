@@ -60,6 +60,11 @@ urls = [
         name="ajax_srp_request_deny",
     ),
     path(
+        "srp-link/<str:srp_code>/srp-request/<str:srp_request_code>/open-character-info/",
+        ajax.srp_request_open_character_info,
+        name="ajax_srp_request_open_character_info",
+    ),
+    path(
         "srp-link/<str:srp_code>/srp-request/<str:srp_request_code>/remove/",
         ajax.srp_request_remove,
         name="ajax_srp_request_remove",

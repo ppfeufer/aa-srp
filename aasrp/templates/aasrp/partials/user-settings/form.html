@@ -9,6 +9,15 @@
             <fieldset class="aa-srp-request-form">
                 {% bootstrap_form user_settings_form %}
 
+                {% if can_use_ui_character %}
+                    <p class="mb-3">
+                        <a class="btn btn-sm btn-outline-primary" href="{% url 'aasrp:add_ui_character' %}">
+                            <i class="fa-solid fa-plus"></i>
+                            {% translate "Add character for in-game UI actions" %}
+                        </a>
+                    </p>
+                {% endif %}
+
                 {% translate "Save settings" as button_text %}
                 {% bootstrap_button button_type="submit" content=button_text %}
             </fieldset>

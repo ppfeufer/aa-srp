@@ -24,9 +24,11 @@ from django.utils.translation import gettext_lazy as _
 from allianceauth.authentication.decorators import permissions_required
 from allianceauth.eveonline.models import EveCharacter
 from allianceauth.services.hooks import get_extension_logger
+from esi.decorators import token_required
+from esi.models import Token
 
 # AA SRP
-from aasrp.constants import KILLBOARD_DATA
+from aasrp.constants import ESI_SCOPE_UI_OPEN_WINDOW, KILLBOARD_DATA
 from aasrp.form import (
     SrpLinkForm,
     SrpLinkUpdateForm,
@@ -144,7 +146,7 @@ def user_settings(request: WSGIRequest) -> HttpResponse:
     if request.method == "POST":
         # Populate the form with the submitted data and the current settings instance
         user_settings_form = UserSettingsForm(
-            data=request.POST, instance=current_user_settings
+            data=request.POST, instance=current_user_settings, user=request.user
         )
 
         # If the form is valid, save the data to the database
@@ -158,16 +160,70 @@ def user_settings(request: WSGIRequest) -> HttpResponse:
             return redirect("aasrp:user_settings")
     else:
         # Create a form instance pre-filled with the current user settings
-        user_settings_form = UserSettingsForm(instance=current_user_settings)
+        user_settings_form = UserSettingsForm(
+            instance=current_user_settings, user=request.user
+        )
 
     # Log the access to the user settings view
     logger.info(f"User settings view called by {request.user}")
 
     # Prepare the context for rendering the template
-    context = {"user_settings_form": user_settings_form}
+    context = {
+        "user_settings_form": user_settings_form,
+        "can_use_ui_character": "ui_character" in user_settings_form.fields,
+    }
 
     # Render the user settings template with the provided context
     return render(request, "aasrp/user-settings.html", context)
+
+
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
+@token_required(scopes=[ESI_SCOPE_UI_OPEN_WINDOW])
+def add_ui_character(request: WSGIRequest, token: Token) -> HttpResponseRedirect:
+    """
+    Add a character to be used for opening windows in the EVE client.
+
+    The user is sent through EVE SSO to grant the UI scope, and the selected
+    character is then saved as their UI character.
+
+    :param request: The HTTP request object.
+    :type request: WSGIRequest
+    :param token: The ESI token returned by EVE SSO.
+    :type token: Token
+    :return: A redirect to the user settings page.
+    :rtype: HttpResponseRedirect
+    """
+
+    try:
+        character = EveCharacter.objects.get(
+            character_id=token.character_id,
+            character_ownership__user=request.user,
+        )
+    except EveCharacter.DoesNotExist:
+        messages.error(
+            request,
+            _(
+                "{character} is not one of your registered characters. "
+                "Please add it to Auth first."
+            ).format(character=token.character_name),
+        )
+
+        return redirect("aasrp:user_settings")
+
+    current_user_settings = get_user_settings(user=request.user)
+    current_user_settings.ui_character = character
+    current_user_settings.save(update_fields=["ui_character"])
+
+    logger.info(f"{request.user} set {character} as their UI character")
+
+    messages.success(
+        request,
+        _("{character} will now be used for in-game UI actions.").format(
+            character=character.character_name
+        ),
+    )
+
+    return redirect("aasrp:user_settings")
 
 
 @permissions_required(("aasrp.manage_srp", "aasrp.create_srp"))

@@ -52,6 +52,7 @@ ______________________________________________________________________
   - [Bare Metal Installation](#bare-metal-installation-2)
   - [Docker Installation](#docker-installation-3)
 - [Permissions](#permissions)
+  - [In-Game UI Actions](#in-game-ui-actions)
 - [Changelog](#changelog)
 - [Translation Status](#translation-status)
 - [Contributing](#contributing)
@@ -76,6 +77,9 @@ ______________________________________________________________________
   either [AA-Discordbot], [Discord Notify] or [Discord Proxy] is installed
 - Notify your SRP team (optional) in their Discord channel about new SRP requests, if
   [AA-Discordbot] or [Discord Proxy] is installed
+- Open a pilot's information window in your EVE client straight from the SRP requests
+  view, and copy the payout amount to the clipboard at the same time
+  (needs the ESI scope `esi-ui.open_window.v1`, see [In-Game UI Actions](#in-game-ui-actions))
 
 ### Screenshots<a name="screenshots"></a>
 
@@ -352,6 +356,24 @@ auth migrate
 | `create_srp`          | Can create new SRP links     | Your FCs should have this permission.                                                                       |
 | `manage_srp`          | Can manage SRP               | Users with this permission can manage the AA SRP Module. Like changing and removing SRP links and requests. |
 | `manage_srp_requests` | Can manage SRP requests      | Users with this permission can manage the SRP requests. Like changing and removing SRP requests.            |
+
+### In-Game UI Actions<a name="in-game-ui-actions"></a>
+
+SRP managers (`manage_srp` or `manage_srp_requests`) can open a pilot's information
+window in their EVE client from the SRP requests view. The same click copies the
+payout amount to the clipboard, ready to paste into the "Give ISK" window.
+
+To use it:
+
+- Make sure the ESI scope `esi-ui.open_window.v1` is enabled for your EVE SSO
+  application on the [EVE Developers](https://developers.eveonline.com/applications)
+  site.
+- Go to "My settings" in the SRP module, click "Add character for in-game UI actions"
+  and log in with the character you play on.
+- Select that character as your "In-game UI character" and save.
+
+The button is only shown once a character is selected. The character has to be logged
+in to EVE for the window to open.
 
 ## Changelog<a name="changelog"></a>
 

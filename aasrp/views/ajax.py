@@ -43,9 +43,14 @@ from aasrp.helper.srp_data import (
     request_code_html,
 )
 from aasrp.helper.urls import reverse_absolute
-from aasrp.helper.user import get_pending_requests_count_for_user, get_user_settings
+from aasrp.helper.user import (
+    get_pending_requests_count_for_user,
+    get_ui_token_for_user,
+    get_user_settings,
+)
 from aasrp.models import RequestComment, SrpLink, SrpRequest
 from aasrp.providers.applogger import AppLogger
+from aasrp.providers.esi import esi
 
 # Initialize a logger with a custom tag for the AA SRP application
 logger = AppLogger(my_logger=get_extension_logger(__name__))
@@ -160,6 +165,12 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
 
     logger.debug(f"Found {srp_requests.count()} SRP requests for SRP code: {srp_code}")
 
+    # Only offer the "show info in game" button when the user has a UI character.
+    # Looked up once here, instead of once per row.
+    show_open_character_info = (
+        get_user_settings(user=request.user).ui_character_id is not None
+    )
+
     # Iterate through each SRP request and prepare its data for the response
     for srp_request in srp_requests:
         killboard_link = ""
@@ -221,6 +232,7 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
                     request=request,
                     srp_link=srp_request.srp_link,
                     srp_request=srp_request,
+                    show_open_character_info=show_open_character_info,
                 ),  # Available actions for the request
                 "request_status_translated": srp_request.get_request_status_display(),  # Translated request status
                 "request_status": srp_request.request_status,  # Request status
@@ -797,4 +809,125 @@ def srp_requests_bulk_remove(request: WSGIRequest, srp_code: str) -> JsonRespons
     return JsonResponse(
         data={"success": False, "message": _("Invalid request method")},
         safe=False,
+    )
+
+
+def srp_request_open_character_info(  # pylint: disable=too-many-return-statements
+    request: WSGIRequest, srp_code: str, srp_request_code: str
+) -> JsonResponse:
+    """
+    Handle an AJAX request to open the information window of an SRP request's character
+    in the EVE client of the current user.
+
+    The window is opened via ESI, using the UI character the user selected in their settings.
+    This view always returns a JSON response and never redirects, so it can safely be
+    called in the background without reloading the page.
+
+    :param request: The HTTP request object.
+    :type request: WSGIRequest
+    :param srp_code: The unique code identifying the SRP link.
+    :type srp_code: str
+    :param srp_request_code: The unique code identifying the SRP request.
+    :type srp_request_code: str
+    :return: A JSON response indicating whether the operation was successful.
+    :rtype: JsonResponse
+    """
+
+    # Check permissions here instead of using a decorator, since the decorator
+    # would redirect to the login page instead of returning JSON
+    if not request.user.is_authenticated or not (
+        request.user.has_perm("aasrp.manage_srp")
+        or request.user.has_perm("aasrp.manage_srp_requests")
+    ):
+        return JsonResponse(
+            data={"success": False, "message": _("Permission denied")}, status=403
+        )
+
+    if request.method != "POST":
+        return JsonResponse(
+            data={"success": False, "message": _("Method not allowed")}, status=405
+        )
+
+    try:
+        srp_request = SrpRequest.objects.select_related("character").get(
+            request_code=srp_request_code, srp_link__srp_code=srp_code
+        )
+    except SrpRequest.DoesNotExist:
+        return JsonResponse(
+            data={"success": False, "message": _("No matching SRP request found")},
+            status=404,
+        )
+
+    if srp_request.character is None:
+        return JsonResponse(
+            data={
+                "success": False,
+                "message": _("This SRP request has no character assigned"),
+            }
+        )
+
+    ui_character = get_user_settings(user=request.user).ui_character
+
+    if ui_character is None:
+        return JsonResponse(
+            data={
+                "success": False,
+                "message": _(
+                    "No in-game UI character selected. Please select one in your settings."
+                ),
+            }
+        )
+
+    token = get_ui_token_for_user(user=request.user, character=ui_character)
+
+    if token is None:
+        return JsonResponse(
+            data={
+                "success": False,
+                "message": _(
+                    "No valid ESI token found for {character}. "
+                    "Please add the character again in your settings."
+                ).format(character=ui_character.character_name),
+            }
+        )
+
+    # Call the operation directly instead of using ESIHandler, since ESIHandler
+    # returns None for both success (empty response) and failure
+    try:
+        esi.client.User_Interface.PostUiOpenwindowInformation(
+            target_id=srp_request.character.character_id, token=token
+        ).result(use_etag=False, use_cache=False, store_cache=False)
+    except Exception as exc:  # pylint: disable=broad-exception-caught
+        logger.error(
+            msg=(
+                f"Error opening information window for character "
+                f"{srp_request.character.character_id} via ESI: {exc}"
+            )
+        )
+
+        return JsonResponse(
+            data={
+                "success": False,
+                "message": _(
+                    "The information window could not be opened. "
+                    "Is {character} logged in to EVE?"
+                ).format(character=ui_character.character_name),
+            }
+        )
+
+    logger.info(
+        msg=(
+            f"{request.user} opened the information window for "
+            f"{srp_request.character.character_name} in game "
+            f"(SRP request {srp_request_code})"
+        )
+    )
+
+    return JsonResponse(
+        data={
+            "success": True,
+            "message": _("Information window for {character} opened in EVE").format(
+                character=srp_request.character.character_name
+            ),
+        }
     )

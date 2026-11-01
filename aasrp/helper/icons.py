@@ -413,9 +413,48 @@ def get_srp_request_delete_icon(
     return srp_request_delete_icon
 
 
+def get_srp_request_open_character_info_icon(
+    srp_link: SrpLink, srp_request: SrpRequest
+) -> str:
+    """
+    Generate an HTML button to open the character's information window in game
+    and copy the payout amount to the clipboard.
+
+    The button deliberately has no href and no modal, and is of type "button",
+    so clicking it never reloads the page. The payout amount is read client side
+    at click time, so inline payout edits are respected.
+
+    :param srp_link: The SRP link object associated with the SRP request.
+    :type srp_link: SrpLink
+    :param srp_request: The SRP request object containing the request details.
+    :type srp_request: SrpRequest
+    :return: An HTML string representing the button.
+    :rtype: str
+    """
+
+    button_url = reverse(
+        viewname="aasrp:ajax_srp_request_open_character_info",
+        args=[srp_link.srp_code, srp_request.request_code],
+    )
+
+    icon = '<i class="fa-solid fa-money-bill-1-wave"></i>'
+    title = _("Show info in game & copy ISK amount")
+
+    return (
+        '<button type="button" '
+        f'data-link="{button_url}" '
+        'data-bs-tooltip="aa-srp" '
+        'class="btn btn-info btn-sm btn-icon-aasrp srp-request-open-info" '
+        f'title="{title}" aria-label="{title}">{icon}</button>'
+    )
+
+
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def get_srp_request_action_icons(
-    request: WSGIRequest, srp_link: SrpLink, srp_request: SrpRequest
+    request: WSGIRequest,
+    srp_link: SrpLink,
+    srp_request: SrpRequest,
+    show_open_character_info: bool = False,
 ) -> str:
     """
     Generate HTML action icons for SRP requests.
@@ -430,6 +469,9 @@ def get_srp_request_action_icons(
     :type srp_link: SrpLink
     :param srp_request: The SRP request object containing the request details.
     :type srp_request: SrpRequest
+    :param show_open_character_info: Whether to add the "show info in game" button.
+        Only set this when the user has a UI character selected.
+    :type show_open_character_info: bool
     :return: A string containing the HTML for the action icons.
     :rtype: str
     """
@@ -438,6 +480,12 @@ def get_srp_request_action_icons(
     srp_request_action_icons = get_srp_request_details_icon(
         request=request, srp_link=srp_link, srp_request=srp_request
     )
+
+    # Add the "show info in game" button, if the user has a UI character
+    if show_open_character_info and srp_request.character is not None:
+        srp_request_action_icons += get_srp_request_open_character_info_icon(
+            srp_link=srp_link, srp_request=srp_request
+        )
 
     # Add additional action icons if the SRP link is active or closed
     if srp_link.srp_status in (SrpLink.Status.ACTIVE, SrpLink.Status.CLOSED):
