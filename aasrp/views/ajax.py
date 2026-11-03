@@ -12,9 +12,10 @@ import json
 # Django
 from django.contrib.auth.decorators import permission_required
 from django.core.handlers.wsgi import WSGIRequest
-from django.db.models import Q
+from django.db.models import Prefetch, Q
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render
+from django.utils.html import escape
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
@@ -39,6 +40,7 @@ from aasrp.helper.icons import (
 )
 from aasrp.helper.notification import notify_requester
 from aasrp.helper.srp_data import (
+    get_first_line,
     payout_amount_html,
     request_code_html,
 )
@@ -161,6 +163,13 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
         "srp_link__creator__profile__main_character",
         "character",
         "ship",
+        Prefetch(
+            "srp_request_comments",
+            queryset=RequestComment.objects.filter(
+                comment_type=RequestComment.Type.REQUEST_INFO
+            ).order_by("pk"),
+            to_attr="request_info_comments",
+        ),
     )
 
     logger.debug(f"Found {srp_requests.count()} SRP requests for SRP code: {srp_code}")
@@ -189,6 +198,12 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
                 f"{ship_render_icon_html}"
                 f"<span>{srp_request.ship.name}</span></a>"
             )
+
+        # Only the first line of the requester's additional information is shown
+        request_info_comments = srp_request.request_info_comments
+        additional_info = get_first_line(
+            request_info_comments[0].comment if request_info_comments else ""
+        )
 
         # Append the SRP request data to the response list
         data.append(
@@ -225,6 +240,11 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
                     "sort": srp_request.payout_amount,  # Payout amount for sorting
                 },
                 "payout_amount": srp_request.payout_amount,  # Payout amount
+                "additional_info_html": {
+                    # User input, rendered as HTML by DataTables, so it must be escaped
+                    "display": escape(additional_info),
+                    "sort": additional_info,
+                },
                 "request_status_icon": get_srp_request_status_icon(
                     request=request, srp_request=srp_request
                 ),  # Icon representing the request status

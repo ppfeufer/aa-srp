@@ -31,6 +31,21 @@ def request_code_html(request_code: str) -> str:
     return f"{request_code}<sup>{ctc_icon}</sup>"
 
 
+def get_first_line(text: str) -> str:
+    """
+    Get the first non-empty line of a text.
+
+    :param text: The text, which may span multiple lines.
+    :type text: str
+    :return: The first non-empty line without surrounding whitespace, or an empty string.
+    :rtype: str
+    """
+
+    lines = text.strip().splitlines()
+
+    return lines[0].strip() if lines else ""
+
+
 def payout_amount_html(payout_amount: int) -> str:
     """
     Generate HTML for displaying a payout amount with a copy-to-clipboard icon.

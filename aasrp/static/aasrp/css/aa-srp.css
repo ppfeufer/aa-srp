@@ -19,6 +19,13 @@
             white-space: nowrap;
         }
 
+        td.srp-request-additional-info {
+            max-width: 15rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
         .srp-dashboard-user-isk-cost,
         .srp-dashboard-total-isk-cost {
             font-weight: bold;

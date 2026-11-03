@@ -139,7 +139,16 @@ $(document).ready(() => {
                             },
                             className: 'srp-request-payout text-end'
                         },
-                        // Column 7: Request Status Icon
+                        // Column 7: Additional Information (first line)
+                        {
+                            data: {
+                                display: (data) => data.additional_info_html.display,
+                                filter: (data) => data.additional_info_html.sort,
+                                sort: (data) => data.additional_info_html.sort
+                            },
+                            className: 'srp-request-additional-info'
+                        },
+                        // Column 8: Request Status Icon
                         {
                             // data: 'request_status_icon',
                             data: {
@@ -148,12 +157,12 @@ $(document).ready(() => {
                             },
                             className: 'srp-request-status text-center'
                         },
-                        // Column 8: Actions
+                        // Column 9: Actions
                         {
                             data: 'actions',
                             className: 'srp-request-actions text-end'
                         },
-                        // Column 9: Bulk Actions Checkbox
+                        // Column 10: Bulk Actions Checkbox
                         {
                             // data: 'request_code',
                             data: {
@@ -170,7 +179,7 @@ $(document).ready(() => {
                             columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
                         },
                         {
-                            targets: [7, 8, 9],
+                            targets: [8, 9, 10],
                             orderable: false,
                             columnControl: [
                                 {target: 0, content: []},
@@ -178,7 +187,7 @@ $(document).ready(() => {
                             ]
                         },
                         {
-                            targets: [8],
+                            targets: [9],
                             width: 150
                         }
                     ],

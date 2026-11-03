@@ -847,6 +847,118 @@ class TestSrpLinkViewRequestsData(BaseViewsTestCase):
         self.assertEqual(len(data), 1)
         self.assertEqual(data[0]["request_code"], "REQ123")
 
+    def _get_additional_info_html(self, *comments: str) -> dict:
+        """
+        Create an SRP request with the given additional information comments,
+        and return the additional information cell from the view's response.
+
+        :param comments: The additional information comments to create.
+        :type comments: str
+        :return: The additional information cell data.
+        :rtype: dict
+        """
+
+        srp_link = SrpLink.objects.create(
+            srp_name="Test Fleet",
+            srp_code="SRP123",
+            fleet_time=timezone.now(),
+            fleet_doctrine="Test Doctrine",
+            fleet_commander=self.user_jean_luc_picard.profile.main_character,
+            creator=self.user_jean_luc_picard,
+        )
+        srp_request = SrpRequest.objects.create(
+            request_code="REQ123",
+            srp_link=srp_link,
+            character=self.user_wesley_crusher.profile.main_character,
+            ship=ItemType.objects.all().first(),
+            loss_amount=1000000,
+            payout_amount=500000,
+            creator=self.user_jean_luc_picard,
+            post_time=timezone.now(),
+        )
+
+        for comment in comments:
+            RequestComment.objects.create(
+                srp_request=srp_request,
+                comment=comment,
+                comment_type=RequestComment.Type.REQUEST_INFO,
+            )
+
+        # A comment of another type must never end up in the cell
+        RequestComment.objects.create(
+            srp_request=srp_request,
+            comment="Rejected, not doctrine",
+            comment_type=RequestComment.Type.STATUS_CHANGE,
+        )
+
+        self.client.force_login(self.user_jean_luc_picard)
+        response = self.client.get(
+            reverse("aasrp:ajax_srp_link_view_requests_data", args=["SRP123"])
+        )
+
+        return response.json()[0]["additional_info_html"]
+
+    def test_additional_info_shows_only_the_first_line(self):
+        """
+        Test that only the first line of the additional information is returned,
+        regardless of the line ending a browser submits.
+
+        :return:
+        :rtype:
+        """
+
+        cell = self._get_additional_info_html("Fleet ping\r\nSecond line\nThird line")
+
+        self.assertEqual(cell, {"display": "Fleet ping", "sort": "Fleet ping"})
+
+    def test_additional_info_skips_leading_blank_lines(self):
+        """
+        Test that blank lines before the first line of text are ignored.
+
+        :return:
+        :rtype:
+        """
+
+        cell = self._get_additional_info_html("\r\n  \r\n  Fleet ping  \r\nSecond line")
+
+        self.assertEqual(cell["sort"], "Fleet ping")
+
+    def test_additional_info_is_empty_without_a_comment(self):
+        """
+        Test that the cell is empty when there is no additional information.
+
+        :return:
+        :rtype:
+        """
+
+        cell = self._get_additional_info_html()
+
+        self.assertEqual(cell, {"display": "", "sort": ""})
+
+    def test_additional_info_uses_the_oldest_comment(self):
+        """
+        Test that the same comment is used as in the SRP request details modal.
+
+        :return:
+        :rtype:
+        """
+
+        cell = self._get_additional_info_html("First comment", "Second comment")
+
+        self.assertEqual(cell["sort"], "First comment")
+
+    def test_additional_info_display_value_is_escaped(self):
+        """
+        Test that user input can't inject HTML into the table.
+
+        :return:
+        :rtype:
+        """
+
+        cell = self._get_additional_info_html("<script>alert(1)</script>")
+
+        self.assertEqual(cell["display"], "&lt;script&gt;alert(1)&lt;/script&gt;")
+
     @patch("aasrp.models.SrpRequest.objects.filter")
     def test_returns_empty_list_for_invalid_srp_code(self, mock_filter):
         mock_filter.return_value = SrpRequest.objects.none()
