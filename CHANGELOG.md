@@ -52,8 +52,8 @@ Section Order:
 
 ### Added
 
-- A button for SRP managers to open a characters info in game and copy the ISK amount to
-  clipboard for much less of a click fest during payouts (Thanks @pvyParts)
+- A button for SRP managers to open a character's info in-game and copy the ISK amount to
+  clipboard for much less of a clickfest during payouts (Thanks @pvyParts)
 
 > [!NOTE]
 >
@@ -85,7 +85,7 @@ Section Order:
 
 ### Fixed
 
-- URL paramater for dropdown filters in "My SRP Requests" view
+- URL parameter for dropdown filters in "My SRP Requests" view
 - Ajax URL name for server-side DataTable in "My SRP Requests" view
 
 ### Changed
