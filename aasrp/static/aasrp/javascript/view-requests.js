@@ -9,6 +9,8 @@ $(document).ready(() => {
         totalSrpCost: $('#srp-fleet-total-cost')
     };
 
+    const editablePayoutSelector = '.srp-request-payout-amount-editable .srp-payout-amount';
+
     // Set initial total SRP cost value
     const totalSrpCost = element.totalSrpCost.data('total-srp-cost') || 0;
     element.totalSrpCost.html(numberFormatter({
@@ -307,7 +309,7 @@ $(document).ready(() => {
                         // Make the SRP payout field editable for pending and rejected requests.
                         element.srpRequestsTable.editable({
                             container: 'body',
-                            selector: '.srp-request-payout-amount-editable .srp-payout-amount',
+                            selector: editablePayoutSelector,
                             title: aaSrpSettings.translation.changeSrpPayoutHeader,
                             type: 'number',
                             placement: 'top',
@@ -969,6 +971,33 @@ $(document).ready(() => {
         }).finally(() => {
             button.prop('disabled', false);
         });
+    });
+
+    /**
+     * Payout amount: Pressing Enter moves on to the next editable payout amount
+     *
+     * Only moves on once the form actually closes because of the submit, so it stays
+     * put on validation or server errors. Unchanged values are skipped the same way.
+     * The popover lives in `body`, and x-editable's `hidden` event doesn't bubble,
+     * so neither can be delegated through the table.
+     */
+    $(document).on('keydown', '.editable-container form', (event) => {
+        if (event.key !== 'Enter') {
+            return;
+        }
+
+        const current = element.srpRequestsTable.find(`${editablePayoutSelector}.editable-open`);
+
+        current
+            .off('hidden.aasrpNextPayout')
+            .one('hidden.aasrpNextPayout', (hiddenEvent, reason) => {
+                if (reason === 'save' || reason === 'nochange') {
+                    const editablePayouts = element.srpRequestsTable.find(editablePayoutSelector);
+
+                    // Click, since x-editable only initializes an element on its first click
+                    editablePayouts.eq(editablePayouts.index(current) + 1).trigger('click');
+                }
+            });
     });
 
     /**
