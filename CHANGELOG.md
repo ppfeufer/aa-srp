@@ -51,6 +51,9 @@ Section Order:
 ### Added
 
 - Additional Information column to the SRP requests table (Thanks @pvyParts)
+- When entering a payout value in the SRP requests table, hitting `Return` now not
+  only saves the value, but also jumps to the next eligible value field, to match
+  the behaviour of the built-in SRP module (Thanks @pvyParts)
 
 ## [5.4.0] - 2026-11-03
 
