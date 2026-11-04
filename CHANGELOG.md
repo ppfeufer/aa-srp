@@ -48,6 +48,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- Additional Information column to the SRP requests table (Thanks @pvyParts)
+
 ## [5.4.0] - 2026-11-03
 
 ### Added
