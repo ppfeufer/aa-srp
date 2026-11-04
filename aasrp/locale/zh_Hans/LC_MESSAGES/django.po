@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-03 10:39+0100\n"
+"POT-Creation-Date: 2026-11-04 15:25+0100\n"
 "PO-Revision-Date: 2026-07-07 08:54+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/zh_Hans/>\n"
@@ -36,7 +36,7 @@ msgstr "补损"
 
 #: aasrp/admin.py:57 aasrp/models.py:163 aasrp/models.py:309
 #: aasrp/models.py:496
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:59
 msgid "Creator"
 msgstr "创建者"
 
@@ -48,9 +48,9 @@ msgstr "创建者"
 msgid "Requestor"
 msgstr "请求者"
 
-#: aasrp/admin.py:129 aasrp/admin.py:209 aasrp/helper/srp_data.py:65
+#: aasrp/admin.py:129 aasrp/admin.py:209 aasrp/helper/srp_data.py:80
 #: aasrp/models.py:125 aasrp/templates/aasrp/dashboard.html:25
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:64
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:32
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:49
@@ -62,7 +62,7 @@ msgstr "舰船补损代码"
 #: aasrp/templates/aasrp/dashboard.html:22
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:20
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:22
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:82
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:81
 #: aasrp/templates/aasrp/view-own-requests.html:21
 #: aasrp/templates/aasrp/view-requests.html:35
 msgid "Ship"
@@ -76,10 +76,10 @@ msgstr "损失金额"
 msgid "Payout amount"
 msgstr "发放金额"
 
-#: aasrp/admin.py:222 aasrp/helper/srp_data.py:66 aasrp/models.py:299
+#: aasrp/admin.py:222 aasrp/helper/srp_data.py:81 aasrp/models.py:299
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:33
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:81
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:97
 msgid "Request code"
 msgstr "请求代码"
 
@@ -139,7 +139,7 @@ msgid "Fleet name"
 msgstr "舰队名字"
 
 #: aasrp/form.py:144 aasrp/form.py:155 aasrp/models.py:150
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:60
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:36
 msgid "Fleet time"
 msgstr "舰队时间"
@@ -149,7 +149,7 @@ msgid "Fleet type (optional)"
 msgstr "舰队类型（可选）"
 
 #: aasrp/form.py:146 aasrp/form.py:158 aasrp/models.py:136
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:62
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:44
 msgid "Doctrine"
@@ -160,7 +160,7 @@ msgid "After action report link"
 msgstr "在行动后报告链接"
 
 #: aasrp/form.py:157 aasrp/models.py:90 aasrp/models.py:147
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:61
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
 msgstr "舰队类型"
@@ -181,6 +181,7 @@ msgstr "KB网链接"
 
 #: aasrp/form.py:233 aasrp/form.py:242 aasrp/models.py:339 aasrp/models.py:475
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:80
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:93
 #: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:43
 msgid "Additional information"
@@ -325,7 +326,7 @@ msgstr ""
 msgid "Copy request code to clipboard"
 msgstr "拷贝你的角色名字到粘贴板上"
 
-#: aasrp/helper/srp_data.py:45
+#: aasrp/helper/srp_data.py:60
 msgid "Copy payout amount to clipboard"
 msgstr "拷贝总支出到粘贴板上"
 
@@ -448,7 +449,7 @@ msgid "Request"
 msgstr "请求"
 
 #: aasrp/models.py:371
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:26
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:67
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:15
 msgid "Requests"
 msgstr "请求"
@@ -735,31 +736,55 @@ msgstr[0] ""
 msgid "Are you sure you want to reject this SRP request?"
 msgstr "你确定你要拒绝这个舰船更换请求吗？"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:8
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:7
+#, fuzzy
+#| msgid "SRP links"
+msgid "Active SRP links"
+msgstr "舰船补损链接"
+
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:10
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:12
+#, fuzzy
+#| msgid "Delete SRP link"
+msgid "Filter SRP links"
+msgstr "删除舰船补损链接"
+
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:25
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:24
+msgid "All"
+msgstr "全部"
+
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:39
+#, fuzzy
+#| msgid "SRP requests"
+msgid "Has pending requests"
+msgstr "舰船补损请求"
+
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:49
 msgid "Total SRP cost"
 msgstr "舰船补损总共花费"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:17
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:58
 msgid "SRP link name"
 msgstr "舰船补损链接名字"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:22
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:63
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:27
 msgid "AAR"
 msgstr "舰船补损"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:24
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:65
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:64
 msgid "SRP cost"
 msgstr "舰船补损支出"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:25
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:66
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:25
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:94
 msgid "Status"
 msgstr "状态"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:27
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:68
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:95
 msgid "Actions"
 msgstr "行动"
@@ -901,12 +926,12 @@ msgid "Request details"
 msgstr "请求具体详情"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:23
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:83
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:82
 msgid "ISK lost"
 msgstr "ISK损失"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:24
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:85
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:84
 msgid "SRP payout"
 msgstr "舰船补损支出"
 
@@ -974,11 +999,7 @@ msgstr "舰船补损请求"
 msgid "Filter by request status"
 msgstr "根据舰船补损请求状态筛选"
 
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:24
-msgid "All"
-msgstr "全部"
-
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:90
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:89
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr "点击Value进行编辑，按Enter键保存，按ESC键取消。"
 
@@ -1025,86 +1046,86 @@ msgstr "舰船补损请求已被拒绝"
 msgid "The request failed. Your session may have expired, please reload the page."
 msgstr ""
 
-#: aasrp/views/ajax.py:96
+#: aasrp/views/ajax.py:98
 msgid "Link"
 msgstr "链接"
 
-#: aasrp/views/ajax.py:109
+#: aasrp/views/ajax.py:111
 msgid "Copy SRP link to clipboard"
 msgstr "复制这个舰船补损链接到粘贴板"
 
-#: aasrp/views/ajax.py:402 aasrp/views/ajax.py:626 aasrp/views/ajax.py:735
-#: aasrp/views/ajax.py:857
+#: aasrp/views/ajax.py:422 aasrp/views/ajax.py:646 aasrp/views/ajax.py:755
+#: aasrp/views/ajax.py:877
 msgid "No matching SRP request found"
 msgstr "未找到匹配的补损请求"
 
-#: aasrp/views/ajax.py:421 aasrp/views/ajax.py:518 aasrp/views/ajax.py:637
-#: aasrp/views/ajax.py:772
+#: aasrp/views/ajax.py:441 aasrp/views/ajax.py:538 aasrp/views/ajax.py:657
+#: aasrp/views/ajax.py:792
 msgid "Invalid form data"
 msgstr "无效的表单数据"
 
-#: aasrp/views/ajax.py:472
+#: aasrp/views/ajax.py:492
 msgid "SRP request has been approved"
 msgstr "舰船补损请求已被接受"
 
-#: aasrp/views/ajax.py:482 aasrp/views/ajax.py:592 aasrp/views/ajax.py:693
-#: aasrp/views/ajax.py:810
+#: aasrp/views/ajax.py:502 aasrp/views/ajax.py:612 aasrp/views/ajax.py:713
+#: aasrp/views/ajax.py:830
 msgid "Invalid request method"
 msgstr "无效的请求方法"
 
-#: aasrp/views/ajax.py:537 aasrp/views/ajax.py:789
+#: aasrp/views/ajax.py:557 aasrp/views/ajax.py:809
 msgid "No matching SRP requests found"
 msgstr "未找到匹配的补损请求"
 
-#: aasrp/views/ajax.py:582
+#: aasrp/views/ajax.py:602
 #, fuzzy
 #| msgid "SRP request has been approved"
 msgid "SRP requests have been approved"
 msgstr "舰船补损请求已被接受"
 
-#: aasrp/views/ajax.py:683
+#: aasrp/views/ajax.py:703
 msgid "SRP request has been rejected"
 msgstr "舰船补损请求已被拒绝"
 
-#: aasrp/views/ajax.py:730
+#: aasrp/views/ajax.py:750
 msgid "SRP request has been removed"
 msgstr "舰船补损请求已被移除"
 
-#: aasrp/views/ajax.py:800
+#: aasrp/views/ajax.py:820
 #, fuzzy
 #| msgid "SRP request has been removed"
 msgid "SRP requests have been removed"
 msgstr "舰船补损请求已被移除"
 
-#: aasrp/views/ajax.py:843
+#: aasrp/views/ajax.py:863
 msgid "Permission denied"
 msgstr ""
 
-#: aasrp/views/ajax.py:848
+#: aasrp/views/ajax.py:868
 msgid "Method not allowed"
 msgstr ""
 
-#: aasrp/views/ajax.py:865
+#: aasrp/views/ajax.py:885
 #, fuzzy
 #| msgid "SRP request has been rejected"
 msgid "This SRP request has no character assigned"
 msgstr "舰船补损请求已被拒绝"
 
-#: aasrp/views/ajax.py:876
+#: aasrp/views/ajax.py:896
 msgid "No in-game UI character selected. Please select one in your settings."
 msgstr ""
 
-#: aasrp/views/ajax.py:888
+#: aasrp/views/ajax.py:908
 #, python-brace-format
 msgid "No valid ESI token found for {character}. Please add the character again in your settings."
 msgstr ""
 
-#: aasrp/views/ajax.py:912
+#: aasrp/views/ajax.py:932
 #, python-brace-format
 msgid "The information window could not be opened. Is {character} logged in to EVE?"
 msgstr ""
 
-#: aasrp/views/ajax.py:929
+#: aasrp/views/ajax.py:949
 #, python-brace-format
 msgid "Information window for {character} opened in EVE"
 msgstr ""
