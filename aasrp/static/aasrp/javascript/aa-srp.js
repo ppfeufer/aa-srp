@@ -54,3 +54,39 @@ const _removeSearchFromColumnControl = (columnControl, index = 1) => { // eslint
 
     return cc;
 };
+
+/**
+ * Filter DataTable
+ *
+ * @param {Object} dt The DataTable instance.
+ * @param {string} selector The selector for the filter button.
+ * @param {callback} predicate The predicate function to filter rows.
+ * @private
+ */
+const _filterDataTable = (dt, selector, predicate) => { // eslint-disable-line no-unused-vars
+    $(selector).click(() => {
+        // Clear any existing custom filters before applying a new one
+        $.fn.dataTable.ext.search = [];
+
+        /**
+         * Custom filter function.
+         *
+         * @param {Object} settings DataTable settings object.
+         * @param {Array} searchData Search data for the row.
+         * @param {int} index Row index.
+         * @param {Object} rowData Row data object.
+         * @return {boolean} True if the row matches the filter, false otherwise.
+         */
+        const filter = (settings, searchData, index, rowData) => {
+            if (!rowData) {
+                return true;
+            }
+
+            return predicate(rowData);
+        };
+
+        $.fn.dataTable.ext.search.push(filter);
+
+        dt.draw();
+    });
+};

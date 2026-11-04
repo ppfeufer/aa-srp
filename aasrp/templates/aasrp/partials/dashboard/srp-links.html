@@ -2,9 +2,50 @@
 
 <!-- active srp links tab -->
 <div class="card">
+    <div class="card-header">
+        <div class="card-title mb-0">
+            {% translate "Active SRP links" %}
+
+            <div class="float-end">
+                {% translate "Filter SRP links" %}
+
+                <div class="btn-group btn-group-sm ms-2 btn-group-aasrp-request-status-filter" role="group" aria-label="{% translate 'Filter SRP links' %}">
+                    <input
+                        type="radio"
+                        class="btn-check"
+                        id="aasrp-srp-request-filter-all"
+                        name="btn-srp-status-filter"
+                        autocomplete="off"
+                        checked
+                    >
+                    <label
+                        for="aasrp-srp-request-filter-all"
+                        class="btn btn-outline-primary"
+                    >
+                        {% translate "All" %}
+                    </label>
+
+                    <input
+                        type="radio"
+                        class="btn-check"
+                        id="aasrp-srp-request-filter-pending"
+                        name="btn-srp-status-filter"
+                        autocomplete="off"
+                    >
+                    <label
+                        for="aasrp-srp-request-filter-pending"
+                        class="btn btn-outline-primary"
+                    >
+                        {% translate "Has pending requests" %}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card-body">
-        <div class="alert alert-info" role="alert">
-            <div class="text-end srp-dashboard-total-isk-cost">
+        <div class="alert alert-info clearfix" role="alert">
+            <div class="text-end float-end srp-dashboard-total-isk-cost">
                 {% translate "Total SRP cost" %}:
                 <span class="srp-dashboard-total-isk-cost-amount"></span>
             </div>

@@ -1,4 +1,4 @@
-/* global _bootstrapTooltip, moment, aaSrpSettings, fetchGet, numberFormatter, _removeSearchFromColumnControl, DataTable */
+/* global _bootstrapTooltip, moment, aaSrpSettings, fetchGet, numberFormatter, _filterDataTable, _removeSearchFromColumnControl, DataTable */
 
 $(document).ready(() => {
     'use strict';
@@ -140,6 +140,14 @@ $(document).ready(() => {
                         dt.on('draw', () => {
                             _bootstrapTooltip({selector: '#table_tab-srp-links'});
                         });
+
+                        const _filters = [
+                            ['#aasrp-srp-request-filter-all', () => true],
+                            ['#aasrp-srp-request-filter-pending', (rowData) => rowData.pending_requests]
+                        ];
+
+                        // Apply filters
+                        _filters.forEach(([selector, predicate]) => _filterDataTable(dt, selector, predicate));
                     }
                 });
             }
