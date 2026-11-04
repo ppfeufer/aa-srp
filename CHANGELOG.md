@@ -55,6 +55,12 @@ Section Order:
   only saves the value, but also jumps to the next eligible value field, to match
   the behaviour of the built-in SRP module (Thanks @pvyParts)
 
+### Changed
+
+- Request code is now hidden in View SRP requests table, as it serves no real
+  purpose there (Throwing the request code in the search field still will result in
+  the SRP request you are looking for)
+
 ## [5.4.0] - 2026-11-03
 
 ### Added

@@ -87,16 +87,7 @@ $(document).ready(() => {
                             },
                             className: 'srp-request-character'
                         },
-                        // Column 3: Request Code
-                        {
-                            data: {
-                                display: (data) => data.request_code_html.display,
-                                filter: (data) => data.request_code_html.sort,
-                                sort: (data) => data.request_code_html.sort
-                            },
-                            className: 'srp-request-code'
-                        },
-                        // Column 4: Ship
+                        // Column 3: Ship
                         {
                             data: {
                                 display: (data) => data.ship_html.display,
@@ -105,8 +96,7 @@ $(document).ready(() => {
                             },
                             className: 'srp-request-ship'
                         },
-                        // {data: 'zkb_link'},
-                        // Column 5: Killboard Link
+                        // Column 4: ISK lost
                         {
                             data: {
                                 display: (data) => numberFormatter({
@@ -122,7 +112,7 @@ $(document).ready(() => {
                             },
                             className: 'srp-request-zbk-loss-amount text-end'
                         },
-                        // Column 6: Payout Amount
+                        // Column 5: Payout Amount
                         {
                             data: {
                                 display: (data) => data.payout_amount_html.display.replace(
@@ -141,7 +131,7 @@ $(document).ready(() => {
                             },
                             className: 'srp-request-payout text-end'
                         },
-                        // Column 7: Additional Information (first line)
+                        // Column 6: Additional Information (first line)
                         {
                             data: {
                                 display: (data) => data.additional_info_html.display,
@@ -150,38 +140,49 @@ $(document).ready(() => {
                             },
                             className: 'srp-request-additional-info'
                         },
-                        // Column 8: Request Status Icon
+                        // Column 7: Request Status Icon
                         {
-                            // data: 'request_status_icon',
                             data: {
                                 display: (data) => data.request_status_icon,
                                 sort: (data) => data.request_status
                             },
                             className: 'srp-request-status text-center'
                         },
-                        // Column 9: Actions
+                        // Column 8: Actions
                         {
                             data: 'actions',
                             className: 'srp-request-actions text-end'
                         },
-                        // Column 10: Bulk Actions Checkbox
+                        // Column 9: Bulk Actions Checkbox
                         {
-                            // data: 'request_code',
                             data: {
                                 display: (data) => {
                                     return `<div class="checkbox"><label><input class="srp-requests-bulk-action" type="checkbox" name="${data.request_code}"><span class="cr"><i class="cr-icon fas fa-check"></i></span></label></div>`;
                                 }
                             },
                             className: 'srp-request-bulk-actions-checkbox text-end'
+                        },
+                        // Hidden columns
+                        // Column 10: Request Code
+                        {
+                            data: {
+                                display: (data) => data.request_code_html.display,
+                                filter: (data) => data.request_code_html.sort,
+                                sort: (data) => data.request_code_html.sort
+                            },
+                            className: 'srp-request-code'
                         }
                     ],
                     columnDefs: [
                         {
-                            targets: [0, 5, 6],
-                            columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
+                            targets: [0, 4, 5],
+                            columnControl: _removeSearchFromColumnControl(
+                                aaSrpSettings.dataTables.columnControl,
+                                1
+                            )
                         },
                         {
-                            targets: [8, 9, 10],
+                            targets: [7, 8, 9],
                             orderable: false,
                             columnControl: [
                                 {target: 0, content: []},
@@ -189,8 +190,12 @@ $(document).ready(() => {
                             ]
                         },
                         {
-                            targets: [9],
-                            width: 150
+                            target: 8,
+                            width: 120
+                        },
+                        {
+                            target: 10,
+                            visible: false
                         }
                     ],
                     order: [
