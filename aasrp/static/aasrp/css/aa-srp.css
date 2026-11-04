@@ -14,13 +14,30 @@
             font-weight: bold;
         }
 
+        .srp-request-ship {
+            max-width: 12.5rem !important;
+
+            a {
+                align-items: center;
+                display: inline-flex;
+                width: 100%;
+
+                > span {
+                    max-width: calc(100% - 40px);
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+        }
+
         .srp-link-actions,
         .srp-request-actions {
             white-space: nowrap;
         }
 
-        td.srp-request-additional-info {
-            max-width: 15rem;
+        .srp-request-additional-info {
+            max-width: 12.5rem;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -80,11 +97,19 @@
         }
 
         .srp-request-bulk-actions-checkbox {
+            padding-left: 0;
+            max-width: 2rem;
+
             .checkbox {
-                padding: 0.25rem 0.5rem;
+                padding: 0.1rem 0;
 
                 label {
-                    font-size: 1.25rem;
+                    /* Match the button height */
+                    font-size: 1.44rem;
+
+                    .cr {
+                        margin-right: 0.25rem;
+                    }
                 }
             }
         }
