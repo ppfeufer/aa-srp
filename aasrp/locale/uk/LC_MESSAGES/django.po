@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-03 10:39+0100\n"
+"POT-Creation-Date: 2026-11-04 15:25+0100\n"
 "PO-Revision-Date: 2026-11-02 22:40+0000\n"
 "Last-Translator: s0k0l -_- <salarysalo@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/uk/>\n"
@@ -34,7 +34,7 @@ msgstr "Компенсація корабля"
 
 #: aasrp/admin.py:57 aasrp/models.py:163 aasrp/models.py:309
 #: aasrp/models.py:496
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:59
 msgid "Creator"
 msgstr "Автор"
 
@@ -46,9 +46,9 @@ msgstr "Автор"
 msgid "Requestor"
 msgstr "Заявник"
 
-#: aasrp/admin.py:129 aasrp/admin.py:209 aasrp/helper/srp_data.py:65
+#: aasrp/admin.py:129 aasrp/admin.py:209 aasrp/helper/srp_data.py:80
 #: aasrp/models.py:125 aasrp/templates/aasrp/dashboard.html:25
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:64
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:32
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:49
@@ -60,7 +60,7 @@ msgstr "Код SRP"
 #: aasrp/templates/aasrp/dashboard.html:22
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:20
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:22
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:82
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:81
 #: aasrp/templates/aasrp/view-own-requests.html:21
 #: aasrp/templates/aasrp/view-requests.html:35
 msgid "Ship"
@@ -74,10 +74,10 @@ msgstr "Сума збитків"
 msgid "Payout amount"
 msgstr "Сума виплати"
 
-#: aasrp/admin.py:222 aasrp/helper/srp_data.py:66 aasrp/models.py:299
+#: aasrp/admin.py:222 aasrp/helper/srp_data.py:81 aasrp/models.py:299
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:33
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:81
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:97
 msgid "Request code"
 msgstr "Код запиту"
 
@@ -149,7 +149,7 @@ msgid "Fleet name"
 msgstr "Назва флоту"
 
 #: aasrp/form.py:144 aasrp/form.py:155 aasrp/models.py:150
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:60
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:36
 msgid "Fleet time"
 msgstr "Час флоту"
@@ -159,7 +159,7 @@ msgid "Fleet type (optional)"
 msgstr "Тип флоту (не обов'язково)"
 
 #: aasrp/form.py:146 aasrp/form.py:158 aasrp/models.py:136
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:62
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:44
 msgid "Doctrine"
@@ -170,7 +170,7 @@ msgid "After action report link"
 msgstr "Посилання на звіт події"
 
 #: aasrp/form.py:157 aasrp/models.py:90 aasrp/models.py:147
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:61
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
 msgstr "Тип флоту"
@@ -191,6 +191,7 @@ msgstr "Посилання на Killboard"
 
 #: aasrp/form.py:233 aasrp/form.py:242 aasrp/models.py:339 aasrp/models.py:475
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:80
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:93
 #: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:43
 msgid "Additional information"
@@ -333,7 +334,7 @@ msgstr "Показ інфи у грі та кількість ISK"
 msgid "Copy request code to clipboard"
 msgstr "Скопіювати код запиту в буфер обміну"
 
-#: aasrp/helper/srp_data.py:45
+#: aasrp/helper/srp_data.py:60
 msgid "Copy payout amount to clipboard"
 msgstr "Скопіювати суму виплати в буфер обміну"
 
@@ -456,7 +457,7 @@ msgid "Request"
 msgstr "Запит"
 
 #: aasrp/models.py:371
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:26
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:67
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:15
 msgid "Requests"
 msgstr "Запити"
@@ -760,31 +761,55 @@ msgstr[3] ""
 msgid "Are you sure you want to reject this SRP request?"
 msgstr "Ви впевнені, що хочете відхилити цей запит на SRP?"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:8
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:7
+#, fuzzy
+#| msgid "SRP links"
+msgid "Active SRP links"
+msgstr "SRP-посилання"
+
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:10
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:12
+#, fuzzy
+#| msgid "Delete SRP link"
+msgid "Filter SRP links"
+msgstr "Видалити посилання на SRP"
+
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:25
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:24
+msgid "All"
+msgstr "Усі"
+
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:39
+#, fuzzy
+#| msgid "Pending requests"
+msgid "Has pending requests"
+msgstr "Запити в очікуванні"
+
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:49
 msgid "Total SRP cost"
 msgstr "Загальна вартість SRP"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:17
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:58
 msgid "SRP link name"
 msgstr "Назва посилання на SRP"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:22
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:63
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:27
 msgid "AAR"
 msgstr "AAR (звіт)"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:24
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:65
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:64
 msgid "SRP cost"
 msgstr "Вартість SRP"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:25
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:66
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:25
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:94
 msgid "Status"
 msgstr "Статус"
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:27
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:68
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:95
 msgid "Actions"
 msgstr "Дії"
@@ -916,12 +941,12 @@ msgid "Request details"
 msgstr "Деталі запиту"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:23
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:83
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:82
 msgid "ISK lost"
 msgstr "Втрачено ISK"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:24
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:85
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:84
 msgid "SRP payout"
 msgstr "SRP компенсація"
 
@@ -989,11 +1014,7 @@ msgstr "Запити на SRP"
 msgid "Filter by request status"
 msgstr "Фільтр за статусом запиту"
 
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:24
-msgid "All"
-msgstr "Усі"
-
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:90
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:89
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr "Натисніть на значення для редагування, натисніть Enter для збереження, ESC для скасування."
 
@@ -1040,82 +1061,82 @@ msgstr "Запит на SRP відхилено"
 msgid "The request failed. Your session may have expired, please reload the page."
 msgstr "Запит невдавсь. Твоя сесія може бути не актуальною, перезавантаж сторінку."
 
-#: aasrp/views/ajax.py:96
+#: aasrp/views/ajax.py:98
 msgid "Link"
 msgstr "Посилання"
 
-#: aasrp/views/ajax.py:109
+#: aasrp/views/ajax.py:111
 msgid "Copy SRP link to clipboard"
 msgstr "Скопіювати SRP-посилання у буфер обміну"
 
-#: aasrp/views/ajax.py:402 aasrp/views/ajax.py:626 aasrp/views/ajax.py:735
-#: aasrp/views/ajax.py:857
+#: aasrp/views/ajax.py:422 aasrp/views/ajax.py:646 aasrp/views/ajax.py:755
+#: aasrp/views/ajax.py:877
 msgid "No matching SRP request found"
 msgstr "Нема підходящого запиту на відшкодування втрат"
 
-#: aasrp/views/ajax.py:421 aasrp/views/ajax.py:518 aasrp/views/ajax.py:637
-#: aasrp/views/ajax.py:772
+#: aasrp/views/ajax.py:441 aasrp/views/ajax.py:538 aasrp/views/ajax.py:657
+#: aasrp/views/ajax.py:792
 msgid "Invalid form data"
 msgstr "Не коректний формат даних"
 
-#: aasrp/views/ajax.py:472
+#: aasrp/views/ajax.py:492
 msgid "SRP request has been approved"
 msgstr "SRP запит одобрено"
 
-#: aasrp/views/ajax.py:482 aasrp/views/ajax.py:592 aasrp/views/ajax.py:693
-#: aasrp/views/ajax.py:810
+#: aasrp/views/ajax.py:502 aasrp/views/ajax.py:612 aasrp/views/ajax.py:713
+#: aasrp/views/ajax.py:830
 msgid "Invalid request method"
 msgstr "Не коректний виклик методу"
 
-#: aasrp/views/ajax.py:537 aasrp/views/ajax.py:789
+#: aasrp/views/ajax.py:557 aasrp/views/ajax.py:809
 msgid "No matching SRP requests found"
 msgstr "Нема підходящих запитів на відшкодування втрат"
 
-#: aasrp/views/ajax.py:582
+#: aasrp/views/ajax.py:602
 msgid "SRP requests have been approved"
 msgstr "SRP запити одобрені"
 
-#: aasrp/views/ajax.py:683
+#: aasrp/views/ajax.py:703
 msgid "SRP request has been rejected"
 msgstr "Запит SRP відхилено"
 
-#: aasrp/views/ajax.py:730
+#: aasrp/views/ajax.py:750
 msgid "SRP request has been removed"
 msgstr "Запит SRP видалено"
 
-#: aasrp/views/ajax.py:800
+#: aasrp/views/ajax.py:820
 msgid "SRP requests have been removed"
 msgstr "Запити SRP видалено"
 
-#: aasrp/views/ajax.py:843
+#: aasrp/views/ajax.py:863
 msgid "Permission denied"
 msgstr "Запит заборонено"
 
-#: aasrp/views/ajax.py:848
+#: aasrp/views/ajax.py:868
 msgid "Method not allowed"
 msgstr "Метод не дозволено"
 
-#: aasrp/views/ajax.py:865
+#: aasrp/views/ajax.py:885
 #, fuzzy
 #| msgid "SRP request has been rejected"
 msgid "This SRP request has no character assigned"
 msgstr "Запит SRP відхилено"
 
-#: aasrp/views/ajax.py:876
+#: aasrp/views/ajax.py:896
 msgid "No in-game UI character selected. Please select one in your settings."
 msgstr "Нема ігрового персонажа, якого обрано. Обери його в налаштуваннях."
 
-#: aasrp/views/ajax.py:888
+#: aasrp/views/ajax.py:908
 #, python-brace-format
 msgid "No valid ESI token found for {character}. Please add the character again in your settings."
 msgstr "Нема валідного токену ESI для {character}. Додай персонажа знову в налаштуваннях."
 
-#: aasrp/views/ajax.py:912
+#: aasrp/views/ajax.py:932
 #, python-brace-format
 msgid "The information window could not be opened. Is {character} logged in to EVE?"
 msgstr "Вікно інформації не вдалось відкрити. {character} залогінений в Євку?"
 
-#: aasrp/views/ajax.py:929
+#: aasrp/views/ajax.py:949
 #, python-brace-format
 msgid "Information window for {character} opened in EVE"
 msgstr "Вікно інформації для {character} відкрито в Євці"
