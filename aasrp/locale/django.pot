@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-04 09:46+0100\n"
+"POT-Creation-Date: 2026-11-04 15:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr ""
 
 #: aasrp/admin.py:57 aasrp/models.py:163 aasrp/models.py:309
 #: aasrp/models.py:496
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:18
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:59
 msgid "Creator"
 msgstr ""
 
@@ -44,7 +44,7 @@ msgstr ""
 
 #: aasrp/admin.py:129 aasrp/admin.py:209 aasrp/helper/srp_data.py:80
 #: aasrp/models.py:125 aasrp/templates/aasrp/dashboard.html:25
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:23
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:64
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:14
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:32
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:49
@@ -137,7 +137,7 @@ msgid "Fleet name"
 msgstr ""
 
 #: aasrp/form.py:144 aasrp/form.py:155 aasrp/models.py:150
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:60
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:36
 msgid "Fleet time"
 msgstr ""
@@ -147,7 +147,7 @@ msgid "Fleet type (optional)"
 msgstr ""
 
 #: aasrp/form.py:146 aasrp/form.py:158 aasrp/models.py:136
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:62
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:44
 msgid "Doctrine"
@@ -158,7 +158,7 @@ msgid "After action report link"
 msgstr ""
 
 #: aasrp/form.py:157 aasrp/models.py:90 aasrp/models.py:147
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:20
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:61
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:17
 msgid "Fleet type"
 msgstr ""
@@ -445,7 +445,7 @@ msgid "Request"
 msgstr ""
 
 #: aasrp/models.py:371
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:26
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:67
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:15
 msgid "Requests"
 msgstr ""
@@ -721,31 +721,49 @@ msgstr[1] ""
 msgid "Are you sure you want to reject this SRP request?"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:8
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:7
+msgid "Active SRP links"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:10
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:12
+msgid "Filter SRP links"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:25
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:24
+msgid "All"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:39
+msgid "Has pending requests"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:49
 msgid "Total SRP cost"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:17
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:58
 msgid "SRP link name"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:22
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:63
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:27
 msgid "AAR"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:24
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:65
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:64
 msgid "SRP cost"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:25
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:66
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:25
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:94
 msgid "Status"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:27
+#: aasrp/templates/aasrp/partials/dashboard/srp-links.html:68
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:95
 msgid "Actions"
 msgstr ""
@@ -948,10 +966,6 @@ msgstr ""
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:9
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:11
 msgid "Filter by request status"
-msgstr ""
-
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:24
-msgid "All"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:89

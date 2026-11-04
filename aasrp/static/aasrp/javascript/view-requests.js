@@ -1,4 +1,4 @@
-/* global aaSrpSettings, _bootstrapTooltip, fetchGet, fetchPost, moment, numberFormatter, _removeSearchFromColumnControl, DataTable, ClipboardJS, bootstrap */
+/* global aaSrpSettings, _bootstrapTooltip, fetchGet, fetchPost, moment, numberFormatter, _filterDataTable, _removeSearchFromColumnControl, DataTable, ClipboardJS, bootstrap */
 
 $(document).ready(() => {
     'use strict';
@@ -260,41 +260,6 @@ $(document).ready(() => {
                     initComplete: () => {
                         const dt = element.srpRequestsTable.DataTable();
 
-                        /**
-                         * Helper function: Filter DataTable
-                         *
-                         * @param {string} selector The selector for the filter button.
-                         * @param {callback} predicate The predicate function to filter rows.
-                         * @private
-                         */
-                        const _filterDataTable = (selector, predicate) => {
-                            $(selector).click(() => {
-                                // Clear any existing custom filters before applying a new one
-                                $.fn.dataTable.ext.search = [];
-
-                                /**
-                                 * Custom filter function.
-                                 *
-                                 * @param {Object} settings DataTable settings object.
-                                 * @param {Array} searchData Search data for the row.
-                                 * @param {int} index Row index.
-                                 * @param {Object} rowData Row data object.
-                                 * @return {boolean} True if the row matches the filter, false otherwise.
-                                 */
-                                const filter = (settings, searchData, index, rowData) => {
-                                    if (!rowData) {
-                                        return true;
-                                    }
-
-                                    return predicate(rowData);
-                                };
-
-                                $.fn.dataTable.ext.search.push(filter);
-
-                                dt.draw();
-                            });
-                        };
-
                         const _filters = [
                             ['#aasrp-srp-request-filter-all', () => true],
                             ['#aasrp-srp-request-filter-pending', (rowData) => rowData.request_status === 'Pending'],
@@ -302,7 +267,7 @@ $(document).ready(() => {
                             ['#aasrp-srp-request-filter-rejected', (rowData) => rowData.request_status === 'Rejected']
                         ];
 
-                        _filters.forEach(([selector, predicate]) => _filterDataTable(selector, predicate));
+                        _filters.forEach(([selector, predicate]) => _filterDataTable(dt, selector, predicate));
 
                         // Show bootstrap tooltips
                         _bootstrapTooltip({selector: '#tab_aasrp_srp_requests'});
