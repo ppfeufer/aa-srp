@@ -589,8 +589,16 @@ class Setting(SingletonModel):
         SRP_TEAM_DISCORD_CHANNEL_ID = "srp_team_discord_channel_id", _(
             "SRP team Discord channel ID"
         )
-
         LOSS_VALUE_SOURCE = "loss_value_source", _("Loss value source")
+        PAYOUT_RECEIVER = "payout_receiver", _("Payout receiver")
+
+    class PayoutReceiver(models.TextChoices):
+        """
+        Choices for Setting.PayoutReceiver
+        """
+
+        REQUESTOR = "requestor", _("Requestor's main character")
+        LOSER = "loser", _("The character that lost the ship")
 
     class LossValueSource(models.TextChoices):
         """
@@ -618,6 +626,17 @@ class Setting(SingletonModel):
         ),
         max_length=11,
         verbose_name=Field.LOSS_VALUE_SOURCE.label,  # pylint: disable=no-member
+    )
+    payout_receiver = models.CharField(
+        choices=PayoutReceiver.choices,
+        default=PayoutReceiver.REQUESTOR,
+        help_text=_(
+            "Who should receive the payout for an approved SRP request? "
+            "The requestor's main character or the character that lost the ship. "
+            "(Default: Requestor's main character)"
+        ),
+        max_length=9,
+        verbose_name=Field.PAYOUT_RECEIVER.label,  # pylint: disable=no-member
     )
 
     objects: ClassVar[SettingManager] = SettingManager()
