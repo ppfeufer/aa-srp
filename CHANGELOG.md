@@ -57,6 +57,10 @@ Section Order:
 - Global setting to select how the payout amount is edited, either as popup as it
   has been the case so far (default), or inline in the table column
 
+### Fixed
+
+- Dashboard card header
+
 ## [5.5.0] - 2026-11-04
 
 ### Added

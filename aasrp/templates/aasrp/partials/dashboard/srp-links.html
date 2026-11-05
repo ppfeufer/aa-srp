@@ -4,7 +4,15 @@
 <div class="card">
     <div class="card-header">
         <div class="card-title mb-0">
-            {% translate "Active SRP links" %}
+            {% if perms.aasrp.manage_srp %}
+                {% if request.resolver_match.url_name == "srp_links_all" %}
+                    {% translate "SRP links (all)" %}
+                {% else %}
+                    {% translate "SRP links (active)" %}
+                {% endif %}
+            {% else %}
+                {% translate "SRP links" %}
+            {% endif %}
 
             <div class="float-end">
                 {% translate "Filter SRP links" %}
