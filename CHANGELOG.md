@@ -48,6 +48,13 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- Global setting to select who receives the SRP payout, the main character or the
+  character that lost the ship. This setting affects which in-game character info
+  window will be opened when clicking the "Open in-game" button in the SRP requests
+  table
+
 ## [5.5.0] - 2026-11-04
 
 ### Added

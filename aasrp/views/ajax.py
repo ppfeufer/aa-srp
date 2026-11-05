@@ -50,7 +50,7 @@ from aasrp.helper.user import (
     get_ui_token_for_user,
     get_user_settings,
 )
-from aasrp.models import RequestComment, SrpLink, SrpRequest
+from aasrp.models import RequestComment, Setting, SrpLink, SrpRequest
 from aasrp.providers.applogger import AppLogger
 from aasrp.providers.esi import esi
 
@@ -914,8 +914,15 @@ def srp_request_open_character_info(  # pylint: disable=too-many-return-statemen
     # Call the operation directly instead of using ESIHandler, since ESIHandler
     # returns None for both success (empty response) and failure
     try:
+        payment_receiver = Setting.objects.get_setting(Setting.Field.PAYOUT_RECEIVER)
+        target_id = (
+            srp_request.character.character_id
+            if payment_receiver == Setting.PayoutReceiver.LOSER
+            else srp_request.creator.profile.main_character.character_id
+        )
+
         esi.client.User_Interface.PostUiOpenwindowInformation(
-            target_id=srp_request.character.character_id, token=token
+            target_id=target_id, token=token
         ).result(use_etag=False, use_cache=False, store_cache=False)
     except Exception as exc:  # pylint: disable=broad-exception-caught
         logger.error(
@@ -947,7 +954,11 @@ def srp_request_open_character_info(  # pylint: disable=too-many-return-statemen
         data={
             "success": True,
             "message": _("Information window for {character} opened in EVE").format(
-                character=srp_request.character.character_name
+                character=(
+                    srp_request.character.character_name
+                    if payment_receiver == Setting.PayoutReceiver.LOSER
+                    else srp_request.creator.profile.main_character.character_name
+                )
             ),
         }
     )

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-04 15:25+0100\n"
+"POT-Creation-Date: 2026-11-05 12:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -536,31 +536,47 @@ msgstr ""
 msgid "SRP team Discord channel ID"
 msgstr ""
 
-#: aasrp/models.py:593
+#: aasrp/models.py:592
 msgid "Loss value source"
 msgstr ""
 
+#: aasrp/models.py:593
+msgid "Payout receiver"
+msgstr ""
+
 #: aasrp/models.py:600
-msgid "Fitted value (Ship and Fitting)"
+msgid "Requestor's main character"
 msgstr ""
 
 #: aasrp/models.py:601
+msgid "The character that lost the ship"
+msgstr ""
+
+#: aasrp/models.py:608
+msgid "Fitted value (Ship and Fitting)"
+msgstr ""
+
+#: aasrp/models.py:609
 msgid "Total value (Ship, Fitting and Cargo)"
 msgstr ""
 
-#: aasrp/models.py:614
+#: aasrp/models.py:622
 msgid "The source for the loss value of a killmail. Fitted value is the value of the ship and its fitting. Total value is the value of the ship, its fitting and the cargo. (Default: Total value)"
 msgstr ""
 
-#: aasrp/models.py:631
+#: aasrp/models.py:634
+msgid "Who should receive the payout for an approved SRP request? The requestor's main character or the character that lost the ship. (Default: Requestor's main character)"
+msgstr ""
+
+#: aasrp/models.py:650
 msgid "Setting"
 msgstr ""
 
-#: aasrp/models.py:632
+#: aasrp/models.py:651
 msgid "Settings"
 msgstr ""
 
-#: aasrp/models.py:642
+#: aasrp/models.py:661
 msgid "AA-SRP settings"
 msgstr ""
 
@@ -1077,12 +1093,12 @@ msgstr ""
 msgid "No valid ESI token found for {character}. Please add the character again in your settings."
 msgstr ""
 
-#: aasrp/views/ajax.py:932
+#: aasrp/views/ajax.py:939
 #, python-brace-format
 msgid "The information window could not be opened. Is {character} logged in to EVE?"
 msgstr ""
 
-#: aasrp/views/ajax.py:949
+#: aasrp/views/ajax.py:956
 #, python-brace-format
 msgid "Information window for {character} opened in EVE"
 msgstr ""
