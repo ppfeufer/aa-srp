@@ -54,6 +54,8 @@ Section Order:
   character that lost the ship. This setting affects which in-game character info
   window will be opened when clicking the "Open in-game" button in the SRP requests
   table
+- Global setting to select how the payout amount is edited, either as popup as it
+  has been the case so far (default), or inline in the table column
 
 ## [5.5.0] - 2026-11-04
 

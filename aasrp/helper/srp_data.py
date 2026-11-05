@@ -62,7 +62,7 @@ def payout_amount_html(payout_amount: int) -> str:
 
     return (
         '<span class="srp-payout d-flex justify-content-end align-items-baseline">'
-        '<span class="srp-payout-tooltip"><span class="srp-payout-amount d-block">'
+        '<span class="srp-payout-tooltip"><span class="srp-payout-amount">'
         f"#payout_amount_localized#</span></span><sup>{payout_amount_ctc_icon}</sup></span>"
     )
 

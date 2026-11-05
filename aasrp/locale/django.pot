@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-05 12:12+0100\n"
+"POT-Creation-Date: 2026-11-05 13:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -544,39 +544,55 @@ msgstr ""
 msgid "Payout receiver"
 msgstr ""
 
-#: aasrp/models.py:600
-msgid "Requestor's main character"
+#: aasrp/models.py:594
+msgid "Payout editable mode"
 msgstr ""
 
 #: aasrp/models.py:601
-msgid "The character that lost the ship"
+msgid "Popup"
 msgstr ""
 
-#: aasrp/models.py:608
-msgid "Fitted value (Ship and Fitting)"
+#: aasrp/models.py:602
+msgid "Inline"
 msgstr ""
 
 #: aasrp/models.py:609
+msgid "Requestor's main character"
+msgstr ""
+
+#: aasrp/models.py:610
+msgid "The character that lost the ship"
+msgstr ""
+
+#: aasrp/models.py:617
+msgid "Fitted value (Ship and Fitting)"
+msgstr ""
+
+#: aasrp/models.py:618
 msgid "Total value (Ship, Fitting and Cargo)"
 msgstr ""
 
-#: aasrp/models.py:622
+#: aasrp/models.py:631
 msgid "The source for the loss value of a killmail. Fitted value is the value of the ship and its fitting. Total value is the value of the ship, its fitting and the cargo. (Default: Total value)"
 msgstr ""
 
-#: aasrp/models.py:634
+#: aasrp/models.py:643
 msgid "Who should receive the payout for an approved SRP request? The requestor's main character or the character that lost the ship. (Default: Requestor's main character)"
 msgstr ""
 
-#: aasrp/models.py:650
+#: aasrp/models.py:654
+msgid "How should the payout amount be edited? Popup will open a popup window to edit the payout amount. Inline will allow editing the payout amount directly in the table. (Default: Popup)"
+msgstr ""
+
+#: aasrp/models.py:671
 msgid "Setting"
 msgstr ""
 
-#: aasrp/models.py:651
+#: aasrp/models.py:672
 msgid "Settings"
 msgstr ""
 
-#: aasrp/models.py:661
+#: aasrp/models.py:682
 msgid "AA-SRP settings"
 msgstr ""
 
@@ -1164,23 +1180,23 @@ msgid "SRP link marked as completed"
 msgstr ""
 
 #: aasrp/views/general.py:668 aasrp/views/general.py:706
-#: aasrp/views/general.py:766 aasrp/views/general.py:814
-#: aasrp/views/general.py:861
+#: aasrp/views/general.py:769 aasrp/views/general.py:817
+#: aasrp/views/general.py:864
 #, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:756
+#: aasrp/views/general.py:759
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr ""
 
-#: aasrp/views/general.py:804
+#: aasrp/views/general.py:807
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr ""
 
-#: aasrp/views/general.py:851
+#: aasrp/views/general.py:854
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""

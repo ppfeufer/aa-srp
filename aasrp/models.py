@@ -591,6 +591,15 @@ class Setting(SingletonModel):
         )
         LOSS_VALUE_SOURCE = "loss_value_source", _("Loss value source")
         PAYOUT_RECEIVER = "payout_receiver", _("Payout receiver")
+        PAYOUT_EDITABLE_MODE = "payout_editable_mode", _("Payout editable mode")
+
+    class PayoutEditableMode(models.TextChoices):
+        """
+        Choices for Setting.PayoutEditableMode
+        """
+
+        POPUP = "popup", _("Popup")
+        INLINE = "inline", _("Inline")
 
     class PayoutReceiver(models.TextChoices):
         """
@@ -637,6 +646,18 @@ class Setting(SingletonModel):
         ),
         max_length=9,
         verbose_name=Field.PAYOUT_RECEIVER.label,  # pylint: disable=no-member
+    )
+    payout_editable_mode = models.CharField(
+        choices=PayoutEditableMode.choices,
+        default=PayoutEditableMode.POPUP,
+        help_text=_(
+            "How should the payout amount be edited? "
+            "Popup will open a popup window to edit the payout amount. "
+            "Inline will allow editing the payout amount directly in the table. "
+            "(Default: Popup)"
+        ),
+        max_length=6,
+        verbose_name=Field.PAYOUT_EDITABLE_MODE.label,  # pylint: disable=no-member
     )
 
     objects: ClassVar[SettingManager] = SettingManager()

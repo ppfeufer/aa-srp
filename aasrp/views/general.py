@@ -718,6 +718,9 @@ def srp_link_view_requests(request: WSGIRequest, srp_code: str) -> HttpResponse:
             "accept_request": SrpRequestAcceptForm(),
             "accept_rejected_request": SrpRequestAcceptRejectedForm(),
         },
+        "payout_editable_mode": Setting.objects.get_setting(
+            setting_key=Setting.Field.PAYOUT_EDITABLE_MODE
+        ),
     }
 
     # Render the view with the provided context
