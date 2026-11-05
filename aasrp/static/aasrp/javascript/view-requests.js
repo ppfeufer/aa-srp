@@ -56,10 +56,44 @@ $(document).ready(() => {
      *
      * @type {*|jQuery}
      */
-
     fetchGet({url: aaSrpSettings.url.requestsForSrpLink})
         .then((data) => {
             if (data) {
+                const payoutEditableMode = aaSrpSettings.payoutEditableMode || 'popup';
+                const columnDefs = [
+                    {
+                        targets: [0, 4, 5],
+                        columnControl: _removeSearchFromColumnControl(
+                            aaSrpSettings.dataTables.columnControl,
+                            1
+                        )
+                    },
+                    {
+                        targets: [7, 8, 9],
+                        orderable: false,
+                        columnControl: [
+                            {target: 0, content: []},
+                            {target: 1, content: []}
+                        ]
+                    },
+                    {
+                        target: 8,
+                        width: 120
+                    },
+                    {
+                        target: 10,
+                        visible: false
+                    }
+                ];
+
+                // If the payout field is editable inline, we need to increase the width of the column to accommodate the input field.
+                if (payoutEditableMode === 'inline') {
+                    columnDefs.push({
+                        target: 5,
+                        width: 325
+                    });
+                }
+
                 const dt = new DataTable(element.srpRequestsTable, { // eslint-disable-line no-unused-vars
                     ...aaSrpSettings.dataTables,
                     data: data,
@@ -173,31 +207,7 @@ $(document).ready(() => {
                             className: 'srp-request-code'
                         }
                     ],
-                    columnDefs: [
-                        {
-                            targets: [0, 4, 5],
-                            columnControl: _removeSearchFromColumnControl(
-                                aaSrpSettings.dataTables.columnControl,
-                                1
-                            )
-                        },
-                        {
-                            targets: [7, 8, 9],
-                            orderable: false,
-                            columnControl: [
-                                {target: 0, content: []},
-                                {target: 1, content: []}
-                            ]
-                        },
-                        {
-                            target: 8,
-                            width: 120
-                        },
-                        {
-                            target: 10,
-                            visible: false
-                        }
-                    ],
+                    columnDefs: columnDefs,
                     order: [
                         [0, 'asc']
                     ],
@@ -278,18 +288,19 @@ $(document).ready(() => {
 
                         // Make the SRP payout field editable for pending and rejected requests.
                         element.srpRequestsTable.editable({
-                            container: 'body',
+                            // container: '.aa-srp',
                             selector: editablePayoutSelector,
                             title: aaSrpSettings.translation.changeSrpPayoutHeader,
                             type: 'number',
                             placement: 'top',
                             highlight: 'rgb(170 255 128)',
+                            mode: payoutEditableMode,
                             /**
                              * @returns {boolean}
                              */
-                            display: () => {
-                                return false;
-                            },
+                            // display: () => {
+                            //     return false;
+                            // },
                             /**
                              * On success…
                              *
