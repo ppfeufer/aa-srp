@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-06 13:29+0100\n"
+"POT-Creation-Date: 2026-11-06 15:24+0100\n"
 "PO-Revision-Date: 2026-07-07 08:55+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Polish <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/pl/>\n"
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Doctrine"
 msgstr "Doktryna"
 
-#: aasrp/form.py:147 aasrp/form.py:160 aasrp/form.py:189
+#: aasrp/form.py:147 aasrp/form.py:160 aasrp/form.py:189 aasrp/form.py:192
 msgid "After action report link"
 msgstr ""
 
@@ -166,21 +166,21 @@ msgstr ""
 msgid "Fleet type"
 msgstr "Typ floty"
 
-#: aasrp/form.py:218
+#: aasrp/form.py:223
 #, python-brace-format
 msgid "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
 msgstr ""
 
-#: aasrp/form.py:225
+#: aasrp/form.py:230
 msgid "Please tell us about the circumstances of your untimely demise. Who was the FC, what doctrine was called, have changes to the fit been requested and so on. Be as detailed as you can."
 msgstr ""
 
-#: aasrp/form.py:231 aasrp/form.py:238 aasrp/models.py:345
+#: aasrp/form.py:236 aasrp/form.py:243 aasrp/models.py:345
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:35
 msgid "Killboard link"
 msgstr ""
 
-#: aasrp/form.py:233 aasrp/form.py:242 aasrp/models.py:355 aasrp/models.py:491
+#: aasrp/form.py:238 aasrp/form.py:247 aasrp/models.py:355 aasrp/models.py:491
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:80
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:93
 #: aasrp/templates/aasrp/view-own-requests.html:25
@@ -188,54 +188,54 @@ msgstr ""
 msgid "Additional information"
 msgstr "Dodatkowe informacje"
 
-#: aasrp/form.py:308
+#: aasrp/form.py:313
 #, python-brace-format
 msgid "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
 msgstr "Niepoprawny link. Proszę użyć {zkillboard_base_url}, {evetools_base_url} lub {eve_kill_base_url}"
 
-#: aasrp/form.py:323
+#: aasrp/form.py:328
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr "Niepoprawny link. Proszę umieścić link do kill mail'a."
 
-#: aasrp/form.py:341 aasrp/views/general.py:600
+#: aasrp/form.py:346 aasrp/views/general.py:600
 msgid "There is already an SRP request for this kill mail. Please check if you got the right one."
 msgstr ""
 
-#: aasrp/form.py:356
+#: aasrp/form.py:361
 msgid "SRP payout value"
 msgstr ""
 
-#: aasrp/form.py:384
+#: aasrp/form.py:389
 msgid "Please provide the reason this SRP request is rejected."
 msgstr ""
 
-#: aasrp/form.py:387 aasrp/models.py:375 aasrp/models.py:492
+#: aasrp/form.py:392 aasrp/models.py:375 aasrp/models.py:492
 msgid "Reject reason"
 msgstr "Powód odmowy"
 
-#: aasrp/form.py:425
+#: aasrp/form.py:430
 msgid "Leave a comment for the requestor"
 msgstr ""
 
-#: aasrp/form.py:428
+#: aasrp/form.py:433
 msgid "Comment (optional)"
 msgstr ""
 
-#: aasrp/form.py:466
+#: aasrp/form.py:471
 msgid "Please provide the reason why this former rejected SRP request is now accepted."
 msgstr ""
 
-#: aasrp/form.py:471 aasrp/models.py:489 aasrp/models.py:496
+#: aasrp/form.py:476 aasrp/models.py:489 aasrp/models.py:496
 #: aasrp/models.py:548
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:102
 msgid "Comment"
 msgstr ""
 
-#: aasrp/form.py:510
+#: aasrp/form.py:515
 msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr ""
 
-#: aasrp/form.py:537
+#: aasrp/form.py:542
 msgid "None"
 msgstr ""
 
@@ -809,6 +809,10 @@ msgstr ""
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:78
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:95
 msgid "Actions"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/datatables/dashboard/column-aar-link.html:9
+msgid "Link"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/datatables/dashboard/column-srp-code.html:4
