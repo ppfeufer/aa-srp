@@ -156,7 +156,7 @@ class SrpLinkForm(ModelForm):
             ),
             "fleet_type": forms.Select(attrs={"placeholder": _("Fleet type")}),
             "fleet_doctrine": forms.TextInput(attrs={"placeholder": _("Doctrine")}),
-            "aar_link": forms.TextInput(
+            "aar_link": forms.URLInput(
                 attrs={"placeholder": _("After action report link")}
             ),
         }
@@ -187,6 +187,11 @@ class SrpLinkUpdateForm(ModelForm):
         model = SrpLink
         fields = ["aar_link"]
         labels = {"aar_link": _("After action report link")}
+        widgets = {
+            "aar_link": forms.URLInput(
+                attrs={"placeholder": _("After action report link")}
+            ),
+        }
 
     def clean(self):
         """
