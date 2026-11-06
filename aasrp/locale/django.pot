@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-06 13:29+0100\n"
+"POT-Creation-Date: 2026-11-06 14:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -805,6 +805,10 @@ msgstr ""
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:78
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:95
 msgid "Actions"
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/datatables/dashboard/column-aar-link.html:9
+msgid "Link"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/datatables/dashboard/column-srp-code.html:4
