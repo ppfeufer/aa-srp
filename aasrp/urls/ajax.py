@@ -10,23 +10,24 @@ Each URL pattern is associated with a specific view function that processes the 
 from django.urls import path
 
 # AA SRP
-from aasrp.views import ajax, datatables
+from aasrp.views import ajax
+from aasrp.views.datatables import own_srp_requests
 
 urls = [
     path(
-        "active-srp-links-data/",
+        "srp-link-data/active/",
         ajax.dashboard_srp_links_data,
         name="ajax_dashboard_srp_links_data",
     ),
     path(
-        "active-srp-links-data/all/",
+        "srp-link-data/all/",
         ajax.dashboard_srp_links_data,
         {"show_all_links": True},
         name="ajax_dashboard_srp_links_all_data",
     ),
     path(
         "user-srp-requests-data/",
-        datatables.OwnSrpRequestsView.as_view(),
+        own_srp_requests.OwnSrpRequestsView.as_view(),
         name="ajax_own_srp_requests_data",
     ),
     path(
