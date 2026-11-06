@@ -52,6 +52,7 @@ Section Order:
 
 - Valid URLs are now enforced for killmails and AAR links
 - Displayed text for AAR links in the Dashboard SRP links table
+- Uncaught ReferenceError: `_bootstrapTooltip` is not defined
 
 ## [5.6.0] - 2026-11-06
 
