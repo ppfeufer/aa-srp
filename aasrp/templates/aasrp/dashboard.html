@@ -1,6 +1,6 @@
 {% extends "aasrp/base.html" %}
 
-{% load i18n static %}
+{% load aa_i18n i18n static %}
 
 {% block aasrp_body %}
     {% include "aasrp/partials/dashboard/srp-links.html" %}
@@ -28,6 +28,8 @@
     {% translate "Are you sure you want to disable the following SRP link?" as translateDisableSrpLink %}
     {% translate "Are you sure you want to delete the following SRP link and all SRP requests tied to it?" as translateDeleteSrpLink %}
 
+    {% get_datatables_language_static LANGUAGE_CODE as DT_LANG_PATH %}
+
     <script>
         /**
          * Passing some setting to our JS
@@ -39,11 +41,32 @@
         {% endif %}
 
         const aaSrpJsSettingsOverride = {
-            url: {
-                availableSrpLinks: urlAvailableSrpLinks
-            },
             dataTables: {
-                paging: {{ show_all_links|yesno:"true,false" }}
+                paging: {{ show_all_links|yesno:"true,false" }},
+                language: {
+                    url: '{{ DT_LANG_PATH }}',
+                    // Important: The value for `language.processing` must be passed
+                    // as a JS template string, not as a normal string. This is to
+                    // allow for Django template rendering inside the processing
+                    // indicator.
+                    processing: `{% include "framework/datatables/process-indicator.html" %}`
+                },
+                layout: { // See: https://datatables.net/reference/option/layout
+                    topStart: 'pageLength',
+                    topEnd: 'search',
+                    bottomStart: 'info',
+                    bottomEnd: 'paging'
+                },
+                ordering: { // See: https://datatables.net/reference/option/ordering
+                    handler: true, // Enable ordering by clicking on column headers
+                    indicators: false, // Disable ordering indicators on column headers (important when ColumnControl is used)
+                },
+                processing: true, // Show processing indicator when loading data
+                serverSide: true, // Enable server-side processing
+                ajax: {
+                    url: urlAvailableSrpLinks,
+                    error: (xhr, error) => console.error('Error fetching data:', xhr, error)
+                },
             },
             translation: {
                 filter: {
@@ -90,4 +113,18 @@
     {% include "bundles/datatables-2-columncontrol-js-bs5.html" %}
     {% include "bundles/moment-js.html" with locale=True %}
     {% include "aasrp/bundles/srp-links-js.html" %}
+
+    <script>
+        const tital_srp_cost = {{ total_srp_cost }};
+
+        const formatted_value = numberFormatter({
+            value: tital_srp_cost,
+            locales: aaSrpSettings.locale,
+            options: {
+                style: 'currency',
+                currency: 'ISK'
+            }
+        });
+        document.querySelector('.srp-dashboard-total-isk-cost-amount').textContent = formatted_value;
+    </script>
 {% endblock extra_javascript %}

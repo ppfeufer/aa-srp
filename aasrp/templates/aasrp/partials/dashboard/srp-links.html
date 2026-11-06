@@ -14,40 +14,42 @@
                 {% translate "SRP links" %}
             {% endif %}
 
-            <div class="float-end">
-                {% translate "Filter SRP links" %}
+            {% if perms.aasrp.manage_srp %}
+                <div class="float-end">
+                    {% translate "Filter SRP links" %}
 
-                <div class="btn-group btn-group-sm ms-2 btn-group-aasrp-request-status-filter" role="group" aria-label="{% translate 'Filter SRP links' %}">
-                    <input
-                        type="radio"
-                        class="btn-check"
-                        id="aasrp-srp-request-filter-all"
-                        name="btn-srp-status-filter"
-                        autocomplete="off"
-                        checked
-                    >
-                    <label
-                        for="aasrp-srp-request-filter-all"
-                        class="btn btn-outline-primary"
-                    >
-                        {% translate "All" %}
-                    </label>
+                    <div class="btn-group btn-group-sm ms-2 btn-group-aasrp-request-status-filter" role="group" aria-label="{% translate 'Filter SRP links' %}">
+                        <input
+                            type="radio"
+                            class="btn-check"
+                            id="aasrp-srp-request-filter-all"
+                            name="srp-requests-filter"
+                            autocomplete="off"
+                            checked
+                        >
+                        <label
+                            for="aasrp-srp-request-filter-all"
+                            class="btn btn-outline-primary"
+                        >
+                            {% translate "All" %}
+                        </label>
 
-                    <input
-                        type="radio"
-                        class="btn-check"
-                        id="aasrp-srp-request-filter-pending"
-                        name="btn-srp-status-filter"
-                        autocomplete="off"
-                    >
-                    <label
-                        for="aasrp-srp-request-filter-pending"
-                        class="btn btn-outline-primary"
-                    >
-                        {% translate "Has pending requests" %}
-                    </label>
+                        <input
+                            type="radio"
+                            class="btn-check"
+                            id="aasrp-srp-request-filter-pending"
+                            name="srp-requests-filter"
+                            autocomplete="off"
+                        >
+                        <label
+                            for="aasrp-srp-request-filter-pending"
+                            class="btn btn-outline-primary"
+                        >
+                            {% translate "Has pending requests" %}
+                        </label>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 

@@ -1,4 +1,4 @@
-/* global _bootstrapTooltip, moment, aaSrpSettings, fetchGet, numberFormatter, _filterDataTable, _removeSearchFromColumnControl, DataTable */
+/* global _bootstrapTooltip, aaSrpSettings, numberFormatter, _removeSearchFromColumnControl, DataTable */
 
 $(document).ready(() => {
     'use strict';
@@ -8,153 +8,107 @@ $(document).ready(() => {
     console.log('aaSrpSettings:', aaSrpSettings);
 
     /**
-     * Table: SRP Links
+     * Format the Total Cost column in the DataTable to display currency values.
+     *
+     * @param {Object} dt - The DataTable instance.
+     * @returns {void}
+     * @private
      */
-    let totalSrpAmount = 0;
+    const _formatTotalCostColumn = (dt) => {
+        dt.rows().every((rowIdx) => {
+            const rowData = dt.row(rowIdx).data();
+            const formattedCost = numberFormatter({
+                value: rowData[7],
+                locales: aaSrpSettings.locale,
+                options: {
+                    style: 'currency',
+                    currency: 'ISK'
+                }
+            });
 
-    fetchGet({url: aaSrpSettings.url.availableSrpLinks})
-        .then((data) => {
-            if (data) {
-                const dt = new DataTable(elementTableSrpLinks, { // eslint-disable-line no-unused-vars
-                    ...aaSrpSettings.dataTables,
-                    data: data,
-                    columns: [
-                        {
-                            data: 'srp_name',
-                            className: 'srp-link-fleet-name'
-                        },
-                        {
-                            data: 'creator',
-                            className: 'srp-link-creator'
-                        },
-                        {
-                            data: {
-                                display: (data) => moment(data.fleet_time).utc().format(aaSrpSettings.datetimeFormat),
-                                filter: (data) => data.fleet_time,
-                                sort: (data) => moment(data.fleet_time).unix()
-                            },
-                            className: 'srp-link-fleet-time'
-                        },
-                        {
-                            data: 'fleet_type',
-                            className: 'srp-link-fleet-type'
-                        },
-                        // {
-                        //     data: 'fleet_commander',
-                        //     className: 'srp-link-fleet-commander'
-                        // },
-                        {
-                            data: 'fleet_doctrine',
-                            className: 'srp-link-fleet-doctrine'
-                        },
-                        {
-                            data: 'aar_link',
-                            className: 'srp-link-aar-link'
-                        },
-                        {
-                            data: 'srp_code',
-                            render: {
-                                display: 'display',
-                                filter: 'sort',
-                                sort: 'sort'
-                            },
-                            className: 'srp-link-code'
-                        },
-                        {
-                            data: {
-                                display: (data) => numberFormatter({
-                                    value: data.srp_costs,
-                                    locales: aaSrpSettings.locale,
-                                    options: {
-                                        style: 'currency',
-                                        currency: 'ISK'
-                                    }
-                                }),
-                                filter: (data) => data.srp_costs,
-                                sort: (data) => data.srp_costs
-                            },
-                            className: 'srp-link-total-cost text-end'
-                        },
-                        {
-                            data: 'srp_status',
-                            className: 'srp-link-status'
-                        },
-                        {
-                            data: 'pending_requests',
-                            className: 'srp-link-pending-requests text-end'
-                        },
-                        {
-                            data: 'actions',
-                            className: 'srp-link-actions text-end'
-                        }
-                    ],
-                    columnDefs: [
-                        {
-                            targets: [2, 5, 7, 9],
-                            columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
-                        },
-                        {
-                            target: 10,
-                            orderable: false,
-                            width: 115,
-                            columnControl: [
-                                {target: 0, content: []},
-                                {target: 1, content: []}
-                            ]
-                        }
-                    ],
-                    order: [[2, 'asc']],
-                    /**
-                     * When ever a row is created…
-                     *
-                     * @param row
-                     * @param data
-                     * @param rowIndex
-                     */
-                    createdRow: (row, data, rowIndex) => {
-                        // Row id attr
-                        $(row)
-                            .attr('data-row-id', rowIndex)
-                            .attr('data-srp-code', data.srp_code.sort);
-
-                        totalSrpAmount += parseInt(data.srp_costs);
-
-                        $('.srp-dashboard-total-isk-cost-amount').html(
-                            numberFormatter({
-                                value: totalSrpAmount,
-                                locales: aaSrpSettings.locale,
-                                options: {
-                                    style: 'currency',
-                                    currency: 'ISK'
-                                }
-                            })
-                        );
-                    },
-                    initComplete: () => {
-                        const dt = elementTableSrpLinks.DataTable();
-
-                        // Initialize Bootstrap tooltips
-                        _bootstrapTooltip({selector: '#table_tab-srp-links'});
-
-                        // Re-initialize tooltips on each draw
-                        dt.on('draw', () => {
-                            _bootstrapTooltip({selector: '#table_tab-srp-links'});
-                        });
-
-                        const _filters = [
-                            ['#aasrp-srp-request-filter-all', () => true],
-                            ['#aasrp-srp-request-filter-pending', (rowData) => rowData.pending_requests]
-                        ];
-
-                        // Apply filters
-                        _filters.forEach(([selector, predicate]) => _filterDataTable(dt, selector, predicate));
-                    }
-                });
-            }
-        })
-        .catch((error) => {
-            console.error('Error fetching SRP links:', error);
+            dt.cell(rowIdx, 7).data(formattedCost);
         });
+    };
+
+    // Initialize DataTable options
+    let dataTableOptions = {
+        ...aaSrpSettings.dataTables,
+        order: [[2, 'asc']],
+        columnDefs: [
+            // Remove column control search from these columns
+            {
+                targets: [
+                    2, // Fleet Time
+                    5 // AAR Link
+                ],
+                columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
+            },
+            // Remove column control from these columns completely and make them non-orderable
+            {
+                targets: [
+                    7, // Total Cost
+                    9 // Pending Requests
+                ],
+                columnControl: [
+                    {target: 0, content: []},
+                    {target: 1, content: []}
+                ]
+            },
+            // Make these columns non-orderable
+            {
+                targets: [
+                    5, // AAR Link
+                    7, // Total Cost
+                    9 // Pending Requests
+                ],
+                orderable: false
+            },
+            // Column definitions for specific columns
+            {
+                target: 7,
+                className: 'srp-link-total-cost',
+                type: 'num'
+            },
+            {
+                target: 9,
+                className: 'srp-link-pending-requests'
+            },
+            {
+                target: 10,
+                className: 'srp-link-actions text-end'
+            }
+        ],
+        initComplete: () => {
+            const dt = elementTableSrpLinks.DataTable();
+
+            _bootstrapTooltip({selector: '#table_tab-srp-links'});
+            _formatTotalCostColumn(dt);
+
+            dt.on('draw', () => {
+                _bootstrapTooltip({selector: '#table_tab-srp-links'});
+                _formatTotalCostColumn(dt);
+            });
+
+            $('input[name="srp-requests-filter"]').on('change', () => dt.draw());
+        }
+    };
+
+    if (aaSrpSettings.paging === false) {
+        dataTableOptions = {
+            ...dataTableOptions,
+            pageLength: 99999,
+            layout: { // See: https://datatables.net/reference/option/layout
+                topStart: null,
+                bottomEnd: null
+            }
+        };
+    }
+
+    // Initialize DataTable
+    const dt = new DataTable(elementTableSrpLinks, dataTableOptions);
+    dt.on('preXhr.dt', (e, settings, data) => {
+        data['filter[has_requests]'] = $('#aasrp-srp-request-filter-pending').is(':checked');
+    });
 
     /**
      * Modals

@@ -78,7 +78,10 @@ def srp_links(request: WSGIRequest, show_all_links: bool = False) -> HttpRespons
     logger.info(msg=logger_message)
 
     # Prepare the context for rendering the dashboard
-    context = {"show_all_links": show_all_links}
+    context = {
+        "show_all_links": show_all_links,
+        "total_srp_cost": SrpLink.total_srp_cost(),
+    }
 
     return render(
         request=request, template_name="aasrp/dashboard.html", context=context

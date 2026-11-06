@@ -33,8 +33,6 @@ from aasrp.form import (
 from aasrp.helper.character import get_formatted_character_name
 from aasrp.helper.eve_images import get_type_render_url_from_type_id
 from aasrp.helper.icons import (
-    copy_to_clipboard_icon,
-    dashboard_action_icons,
     get_srp_request_action_icons,
     get_srp_request_status_icon,
 )
@@ -44,96 +42,17 @@ from aasrp.helper.srp_data import (
     payout_amount_html,
     request_code_html,
 )
-from aasrp.helper.urls import reverse_absolute
 from aasrp.helper.user import (
     get_pending_requests_count_for_user,
     get_ui_token_for_user,
     get_user_settings,
 )
-from aasrp.models import RequestComment, Setting, SrpLink, SrpRequest
+from aasrp.models import RequestComment, Setting, SrpRequest
 from aasrp.providers.applogger import AppLogger
 from aasrp.providers.esi import esi
 
 # Initialize a logger with a custom tag for the AA SRP application
 logger = AppLogger(my_logger=get_extension_logger(__name__))
-
-
-@permission_required("aasrp.basic_access")
-def dashboard_srp_links_data(
-    request: WSGIRequest, show_all_links: bool = False
-) -> JsonResponse:
-    """
-    Handle an AJAX request to retrieve all active Ship Replacement Program (SRP) links.
-
-    This view generates a JSON response containing data about SRP links, including
-    their name, creator, fleet details, costs, status, and associated actions. If
-    `show_all_links` is set to `True`, all SRP links are included; otherwise, only
-    active links are returned.
-
-    :param request: The HTTP request object.
-    :type request: WSGIRequest
-    :param show_all_links: A flag indicating whether to include all SRP links or only active ones.
-    :type show_all_links: bool
-    :return: A JSON response containing SRP link data.
-    :rtype: JsonResponse
-    """
-
-    data = []
-
-    # Retrieve all SRP links with related data preloaded for efficiency
-    srp_links = SrpLink.objects.prefetch_related(
-        "fleet_commander",
-        "creator",
-        "creator__profile__main_character",
-        "srp_requests",
-    ).all()
-
-    # Filter to include only active SRP links if `show_all_links` is False
-    if not show_all_links:
-        srp_links = srp_links.filter(srp_status=SrpLink.Status.ACTIVE)
-
-    # Iterate through each SRP link and prepare its data for the response
-    for srp_link in srp_links:
-        # Generate a localized "Link" text and create an AAR link if available
-        l10n_link = _("Link")
-        aar_link = (
-            f'<a href="{srp_link.aar_link}" target="_blank">{l10n_link}</a>'
-            if srp_link.aar_link
-            else ""
-        )
-
-        # Prepare the SRP code with a copy-to-clipboard icon if the link is active
-        srp_code_html = srp_link.srp_code
-        if srp_link.srp_status == SrpLink.Status.ACTIVE:
-            srp_link_href = reverse_absolute(
-                viewname="aasrp:request_srp", args=[srp_link.srp_code]
-            )
-            title = _("Copy SRP link to clipboard")
-            copy_icon = copy_to_clipboard_icon(data=srp_link_href, title=title)
-            srp_code_html += f"<sup>{copy_icon}</sup>"
-
-        # Retrieve the fleet type name if available
-        fleet_type = srp_link.fleet_type.name if srp_link.fleet_type else ""
-
-        # Append the SRP link data to the response list
-        data.append(
-            {
-                "srp_name": srp_link.srp_name,
-                "creator": get_main_character_name_from_user(user=srp_link.creator),
-                "fleet_time": srp_link.fleet_time,
-                "fleet_type": fleet_type,
-                "fleet_doctrine": srp_link.fleet_doctrine,
-                "aar_link": aar_link,
-                "srp_code": {"display": srp_code_html, "sort": srp_link.srp_code},
-                "srp_costs": srp_link.total_cost,
-                "srp_status": srp_link.srp_status,
-                "pending_requests": srp_link.pending_requests_count,
-                "actions": dashboard_action_icons(request=request, srp_link=srp_link),
-            }
-        )
-
-    # Return the prepared data as a JSON response
-    return JsonResponse(data=data, safe=False)
 
 
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))

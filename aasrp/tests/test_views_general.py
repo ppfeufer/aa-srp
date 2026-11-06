@@ -160,6 +160,34 @@ class TestUserSettingsView(BaseViewsTestCase):
         self.assertEqual(user_settings.disable_notifications, False)
         self.assertRedirects(response, reverse("aasrp:user_settings"))
 
+    def test_re_renders_form_when_posted_user_settings_are_invalid(self):
+        """
+        Test that when invalid user settings are posted, the form is re-rendered with errors.
+
+        :return:
+        """
+
+        user = self.user_jean_luc_picard
+        self.client.force_login(user)
+
+        user_settings = UserSetting.objects.create(
+            user=user, disable_notifications=False
+        )
+
+        response = self.client.post(
+            reverse("aasrp:user_settings"),
+            data={
+                "disable_notifications": "on",
+                "ui_character": "99999999",
+            },
+        )
+        user_settings.refresh_from_db()
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(response, "aasrp/user-settings.html")
+        self.assertTrue(response.context["user_settings_form"].errors)
+        self.assertEqual(user_settings.disable_notifications, False)
+
 
 class TestSrpLinkAddView(BaseTestCase):
     """
@@ -344,6 +372,28 @@ class TestSrpLinkEditView(BaseTestCase):
         self.assertRedirects(response, reverse("aasrp:srp_links"))
         self.srp_link.refresh_from_db()
         self.assertEqual(self.srp_link.aar_link, "https://example.com/aar")
+
+    def test_srp_link_edit_post_invalid_re_renders_form(self):
+        """
+        Test that an invalid POST does not update the SRP link and re-renders the form.
+
+        :return:
+        :rtype:
+        """
+
+        self.srp_link.aar_link = "https://example.com/current-aar"
+        self.srp_link.save(update_fields=["aar_link"])
+
+        response = self.client.post(
+            reverse("aasrp:edit_srp_link", args=[self.srp_link.srp_code]),
+            data={"aar_link": "x" * 255},
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(response, "aasrp/link-edit.html")
+        self.assertIn("aar_link", response.context["form"].errors)
+        self.srp_link.refresh_from_db()
+        self.assertEqual(self.srp_link.aar_link, "https://example.com/current-aar")
 
 
 class TestCompleteSrpLinkView(BaseTestCase):

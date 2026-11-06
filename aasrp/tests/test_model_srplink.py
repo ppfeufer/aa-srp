@@ -401,3 +401,69 @@ class TestSrpLink(BaseTestCase):
         self.assertNotEqual(srp_link1.srp_code, srp_link2.srp_code)
         self.assertEqual(len(srp_link1.srp_code), 16)
         self.assertEqual(len(srp_link2.srp_code), 16)
+
+    def test_returns_total_srp_cost_from_approved_requests_only(self):
+        """
+        Test that the total SRP cost is calculated correctly from approved requests only.
+
+        :return:
+        """
+
+        srp_link = SrpLink.objects.create(srp_name="SRP A", fleet_time=timezone.now())
+        another_srp_link = SrpLink.objects.create(
+            srp_name="SRP B", fleet_time=timezone.now()
+        )
+
+        SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.APPROVED,
+            payout_amount=100,
+        )
+        SrpRequest.objects.create(
+            srp_link=another_srp_link,
+            request_status=SrpRequest.Status.APPROVED,
+            payout_amount=250,
+        )
+        SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.PENDING,
+            payout_amount=500,
+        )
+        SrpRequest.objects.create(
+            srp_link=another_srp_link,
+            request_status=SrpRequest.Status.REJECTED,
+            payout_amount=700,
+        )
+
+        self.assertEqual(SrpLink.total_srp_cost(), 350)
+
+    def test_returns_zero_total_srp_cost_when_no_approved_requests_exist(self):
+        """
+        Test that the total SRP cost is zero when there are no approved requests.
+
+        :return:
+        """
+
+        srp_link = SrpLink.objects.create(srp_name="SRP C", fleet_time=timezone.now())
+
+        SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.PENDING,
+            payout_amount=120,
+        )
+        SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.REJECTED,
+            payout_amount=180,
+        )
+
+        self.assertEqual(SrpLink.total_srp_cost(), 0)
+
+    def test_returns_zero_total_srp_cost_when_no_requests_exist(self):
+        """
+        Test that the total SRP cost is zero when there are no requests at all.
+
+        :return:
+        """
+
+        self.assertEqual(SrpLink.total_srp_cost(), 0)

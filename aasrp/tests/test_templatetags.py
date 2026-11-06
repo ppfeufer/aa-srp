@@ -2,14 +2,18 @@
 Tests for the template tags
 """
 
+# Standard Library
+from unittest.mock import patch
+
 # Django
 from django.template import Context, Template
+from django.test import RequestFactory
 
 # Alliance Auth
 from allianceauth.tests.auth_utils import AuthUtils
 
 # AA SRP
-from aasrp.models import get_sentinel_user
+from aasrp.models import SrpLink, get_sentinel_user
 from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import create_fake_user, random_id
 
@@ -605,3 +609,75 @@ class TestMainAllianceId(BaseTestCase):
 
         # then
         self.assertEqual(first=result, second="1")
+
+
+class TestSrpLinkActions(BaseTestCase):
+    """
+    Tests for srp_link_actions template tag
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        """
+        Set up the test class by initializing the template for srp_link_actions.
+
+        :return:
+        """
+
+        super().setUpClass()
+
+        cls.template = Template(
+            template_string="{% load aasrp %}{{ srp_link|srp_link_actions:request }}"
+        )
+
+    def test_should_return_empty_string_when_srp_link_is_none(self):
+        """
+        Test that the template tag returns an empty string when srp_link is None.
+
+        :return:
+        """
+
+        context = Context(
+            dict_={"srp_link": None, "request": RequestFactory().get("/")}
+        )
+
+        result = self.template.render(context=context)
+
+        self.assertEqual(first=result, second="")
+
+    def test_should_render_raw_html_from_action_icons(self):
+        """
+        Test that the template tag renders raw HTML returned from dashboard_action_icons.
+
+        :return:
+        """
+
+        srp_link = SrpLink(srp_name="SRP", fleet_time="2026-01-01T00:00:00Z")
+        context = Context(
+            dict_={"srp_link": srp_link, "request": RequestFactory().get("/")}
+        )
+
+        with patch("aasrp.templatetags.aasrp.dashboard_action_icons") as mock_icons:
+            mock_icons.return_value = "<span>View & Edit</span>"
+
+            result = self.template.render(context=context)
+
+        self.assertEqual(first=result, second="<span>View & Edit</span>")
+
+    def test_should_pass_request_and_srp_link_to_dashboard_action_icons(self):
+        """
+        Test that the template tag passes the request and srp_link to dashboard_action_icons.
+
+        :return:
+        """
+
+        srp_link = SrpLink(srp_name="SRP", fleet_time="2026-01-01T00:00:00Z")
+        request = RequestFactory().get("/")
+        context = Context(dict_={"srp_link": srp_link, "request": request})
+
+        with patch("aasrp.templatetags.aasrp.dashboard_action_icons") as mock_icons:
+            mock_icons.return_value = "<span>Actions</span>"
+
+            self.template.render(context=context)
+
+        mock_icons.assert_called_once_with(request=request, srp_link=srp_link)
