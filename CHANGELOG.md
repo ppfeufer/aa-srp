@@ -48,6 +48,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Displayed text for AAR links in the Dashboard SRP links table
+
 ## [5.6.0] - 2026-11-06
 
 ### Added
