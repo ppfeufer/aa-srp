@@ -78,7 +78,9 @@
                 $(document).ready(() => {
                     'use strict';
 
-                    _bootstrapTooltip({selector: '.aa-srp'});
+                    if (typeof _bootstrapTooltip === 'function') {
+                        _bootstrapTooltip({selector: '.aa-srp'});
+                    }
                 });
             </script>
         </div>
