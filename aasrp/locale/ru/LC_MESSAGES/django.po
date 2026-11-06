@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-06 13:29+0100\n"
+"POT-Creation-Date: 2026-11-06 15:24+0100\n"
 "PO-Revision-Date: 2026-07-07 08:54+0000\n"
 "Last-Translator: Roycce_ <malyasov.roma@mail.ru>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ru/>\n"
@@ -164,7 +164,7 @@ msgstr "Тип флота (не обязательно)"
 msgid "Doctrine"
 msgstr "Формат"
 
-#: aasrp/form.py:147 aasrp/form.py:160 aasrp/form.py:189
+#: aasrp/form.py:147 aasrp/form.py:160 aasrp/form.py:189 aasrp/form.py:192
 msgid "After action report link"
 msgstr "Ссылка на отчет о боевых действиях"
 
@@ -174,21 +174,21 @@ msgstr "Ссылка на отчет о боевых действиях"
 msgid "Fleet type"
 msgstr "Тип флота"
 
-#: aasrp/form.py:218
+#: aasrp/form.py:223
 #, python-brace-format
 msgid "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
 msgstr ""
 
-#: aasrp/form.py:225
+#: aasrp/form.py:230
 msgid "Please tell us about the circumstances of your untimely demise. Who was the FC, what doctrine was called, have changes to the fit been requested and so on. Be as detailed as you can."
 msgstr "Пожалуйста, расскажите нам об обстоятельствах вашей безвременной кончины. Кто был ФК, какая требовалась доктрина, были ли анонсированы изменения в фитах и так далее. Будьте настолько подробны, насколько это возможно."
 
-#: aasrp/form.py:231 aasrp/form.py:238 aasrp/models.py:345
+#: aasrp/form.py:236 aasrp/form.py:243 aasrp/models.py:345
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:35
 msgid "Killboard link"
 msgstr "Ссылка на килборду"
 
-#: aasrp/form.py:233 aasrp/form.py:242 aasrp/models.py:355 aasrp/models.py:491
+#: aasrp/form.py:238 aasrp/form.py:247 aasrp/models.py:355 aasrp/models.py:491
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:80
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:93
 #: aasrp/templates/aasrp/view-own-requests.html:25
@@ -196,54 +196,54 @@ msgstr "Ссылка на килборду"
 msgid "Additional information"
 msgstr "Дополнительная информация"
 
-#: aasrp/form.py:308
+#: aasrp/form.py:313
 #, python-brace-format
 msgid "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
 msgstr ""
 
-#: aasrp/form.py:323
+#: aasrp/form.py:328
 msgid "Invalid link. Please post a link to a kill mail."
 msgstr "Некорректная ссылка. Укажите действительную ссылка на kill mail."
 
-#: aasrp/form.py:341 aasrp/views/general.py:600
+#: aasrp/form.py:346 aasrp/views/general.py:600
 msgid "There is already an SRP request for this kill mail. Please check if you got the right one."
 msgstr "Для указанного kill mail уже зарегистрирован SRP запрос. Убедитесь, что Вы указали верную ссылку."
 
-#: aasrp/form.py:356
+#: aasrp/form.py:361
 msgid "SRP payout value"
 msgstr "SRP выплата"
 
-#: aasrp/form.py:384
+#: aasrp/form.py:389
 msgid "Please provide the reason this SRP request is rejected."
 msgstr "Укажите причину отказа для данного SRP запроса."
 
-#: aasrp/form.py:387 aasrp/models.py:375 aasrp/models.py:492
+#: aasrp/form.py:392 aasrp/models.py:375 aasrp/models.py:492
 msgid "Reject reason"
 msgstr "Причина отказа"
 
-#: aasrp/form.py:425
+#: aasrp/form.py:430
 msgid "Leave a comment for the requestor"
 msgstr "Оставьте комментарий для заявителя"
 
-#: aasrp/form.py:428
+#: aasrp/form.py:433
 msgid "Comment (optional)"
 msgstr "Комментарий (не обязательно)"
 
-#: aasrp/form.py:466
+#: aasrp/form.py:471
 msgid "Please provide the reason why this former rejected SRP request is now accepted."
 msgstr "Укажите причину удовлетворения SRP запроса, который ранее был отклонен."
 
-#: aasrp/form.py:471 aasrp/models.py:489 aasrp/models.py:496
+#: aasrp/form.py:476 aasrp/models.py:489 aasrp/models.py:496
 #: aasrp/models.py:548
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:102
 msgid "Comment"
 msgstr "Комментарий"
 
-#: aasrp/form.py:510
+#: aasrp/form.py:515
 msgid "Disable notifications. (Auth and Discord, if a relevant module is installed)"
 msgstr "Отключить уведомления. (Auth и Discord при установленных модулях)"
 
-#: aasrp/form.py:537
+#: aasrp/form.py:542
 msgid "None"
 msgstr ""
 
@@ -867,6 +867,10 @@ msgstr "Статус"
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:95
 msgid "Actions"
 msgstr "Действия"
+
+#: aasrp/templates/aasrp/partials/datatables/dashboard/column-aar-link.html:9
+msgid "Link"
+msgstr ""
 
 #: aasrp/templates/aasrp/partials/datatables/dashboard/column-srp-code.html:4
 msgid "Copy SRP link to clipboard"
