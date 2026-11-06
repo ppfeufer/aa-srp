@@ -61,6 +61,10 @@ Section Order:
 
 - Dashboard card header
 
+### Changed
+
+- Dashboard DataTables are now server-side processed, which should improve performance for users with a lot of SRP links and requests
+
 ## [5.5.0] - 2026-11-04
 
 ### Added

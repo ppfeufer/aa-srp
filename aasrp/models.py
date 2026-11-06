@@ -280,6 +280,22 @@ class SrpLink(models.Model):
 
         return self.srp_requests.all()
 
+    @staticmethod
+    def total_srp_cost() -> int:
+        """
+        Calculate the total payout amount for all approved SRP requests across all SRP links.
+
+        :return: The total payout amount.
+        :rtype: int
+        """
+
+        return sum(
+            int(r.payout_amount)
+            for r in SrpRequest.objects.filter(
+                request_status=SrpRequest.Status.APPROVED
+            )
+        )
+
 
 class SrpRequest(models.Model):
     """

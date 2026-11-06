@@ -1,0 +1,10 @@
+{% load i18n %}
+
+
+{% translate "Copy SRP link to clipboard" as copy_srp_link %}
+{% url "aasrp:request_srp" row.srp_code as srp_url %}
+
+{{ row.srp_code }}
+<sup>
+    {% include "aasrp/partials/common/copy-to-clipboard-icon.html" with data=SITE_URL|add:srp_url title=copy_srp_link %}
+</sup>
