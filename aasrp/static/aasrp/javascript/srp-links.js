@@ -5,8 +5,6 @@ $(document).ready(() => {
 
     const elementTableSrpLinks = $('#table_tab-srp-links');
 
-    console.log('aaSrpSettings:', aaSrpSettings);
-
     /**
      * Format the Total Cost column in the DataTable to display currency values.
      *
