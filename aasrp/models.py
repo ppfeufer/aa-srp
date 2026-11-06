@@ -148,7 +148,7 @@ class SrpLink(models.Model):
     )
 
     fleet_time = models.DateTimeField(verbose_name=_("Fleet time"))
-    aar_link = models.CharField(
+    aar_link = models.URLField(
         max_length=254, blank=True, default="", verbose_name=_("AAR link")
     )
 
@@ -341,7 +341,7 @@ class SrpRequest(models.Model):
         on_delete=models.SET_NULL,
         verbose_name=_("Ship"),
     )
-    killboard_link = models.CharField(
+    killboard_link = models.URLField(
         max_length=254, default="", verbose_name=_("Killboard link")
     )
     killmail_id = models.PositiveBigIntegerField(
