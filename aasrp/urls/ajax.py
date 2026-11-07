@@ -35,6 +35,11 @@ urls = [
         name="ajax_srp_link_view_requests_data",
     ),
     path(
+        "srp-link/<str:srp_code>/update-total-cost/",
+        ajax.srp_link_update_total_cost,
+        name="ajax_srp_link_update_total_cost",
+    ),
+    path(
         "srp-link/<str:srp_code>/srp-request/<str:srp_request_code>/view-additional-information-data/",
         ajax.srp_request_additional_information,
         name="ajax_srp_request_additional_information",

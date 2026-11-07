@@ -20,6 +20,7 @@ from aasrp.models import RequestComment, SrpLink, SrpRequest
 from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import create_fake_user, random_id
 from aasrp.views.ajax import (
+    srp_link_update_total_cost,
     srp_request_approve,
     srp_request_deny,
     srp_request_remove,
@@ -1189,3 +1190,60 @@ class TestSrpLinkViewRequestsData(BaseViewsTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), [])
+
+
+class TestSrpLinkUpdateTotalCost(BaseViewsTestCase):
+    """
+    Tests for the srp_link_update_total_cost view.
+    """
+
+    def test_returns_success_and_updates_total_cost_for_existing_srp_link(self):
+        request = MagicMock(method="POST", body=json.dumps({"total_cost": 987654321}))
+
+        response = srp_link_update_total_cost(request, self.srp_link_active.srp_code)
+        self.srp_link_active.refresh_from_db()
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(
+            json.loads(response.content),
+            {"success": True, "message": "Total cost updated successfully"},
+        )
+        self.assertEqual(self.srp_link_active.total_cost, 987654321)
+
+    def test_returns_success_and_allows_zero_total_cost(self):
+        self.srp_link_active.total_cost = 42
+        self.srp_link_active.save()
+
+        request = MagicMock(method="POST", body=json.dumps({"total_cost": 0}))
+
+        response = srp_link_update_total_cost(request, self.srp_link_active.srp_code)
+        self.srp_link_active.refresh_from_db()
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(
+            json.loads(response.content),
+            {"success": True, "message": "Total cost updated successfully"},
+        )
+        self.assertEqual(self.srp_link_active.total_cost, 0)
+
+    def test_returns_error_when_srp_link_does_not_exist(self):
+        request = MagicMock(method="POST", body=json.dumps({"total_cost": 500}))
+
+        response = srp_link_update_total_cost(request, "unknown_srp_code")
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(
+            json.loads(response.content),
+            {"success": False, "message": "SRP link not found"},
+        )
+
+    def test_returns_error_for_non_post_requests(self):
+        request = MagicMock(method="GET")
+
+        response = srp_link_update_total_cost(request, self.srp_link_active.srp_code)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(
+            json.loads(response.content),
+            {"success": False, "message": "Invalid request method"},
+        )

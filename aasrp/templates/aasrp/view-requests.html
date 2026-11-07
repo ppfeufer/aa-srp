@@ -56,7 +56,8 @@
             csrfToken: '{{ csrf_token }}',
             url: {
                 requestsForSrpLink: '{% url "aasrp:ajax_srp_link_view_requests_data" srp_link.srp_code %}',
-                changeSrpAmount: '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}'
+                changeSrpAmount: '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}',
+                updateTotalCost: "{% url 'aasrp:ajax_srp_link_update_total_cost' srp_link.srp_code %}"
             },
             payoutEditableMode: '{{ payout_editable_mode|default:"" }}',
             dataTables: {

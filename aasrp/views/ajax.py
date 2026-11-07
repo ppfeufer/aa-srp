@@ -47,7 +47,7 @@ from aasrp.helper.user import (
     get_ui_token_for_user,
     get_user_settings,
 )
-from aasrp.models import RequestComment, Setting, SrpRequest
+from aasrp.models import RequestComment, Setting, SrpLink, SrpRequest
 from aasrp.providers.applogger import AppLogger
 from aasrp.providers.esi import esi
 
@@ -880,4 +880,47 @@ def srp_request_open_character_info(  # pylint: disable=too-many-return-statemen
                 )
             ),
         }
+    )
+
+
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
+def srp_link_update_total_cost(request: WSGIRequest, srp_code: str) -> JsonResponse:
+    """
+    Handle an AJAX request to update the total cost of an SRP (Ship Replacement Program) link.
+
+    This view processes a POST request containing the new total cost value for an SRP link identified by its
+    unique SRP code. If the request is valid, the total cost is updated in the database.
+
+    :param request: The HTTP request object containing metadata and POST data.
+    :type request: WSGIRequest
+    :param srp_code: The unique code identifying the SRP link.
+    :type srp_code: str
+    :return: A JSON response indicating whether the operation was successful.
+    :rtype: JsonResponse
+    """
+
+    logger.debug("Received request to update total cost for SRP link: %s", srp_code)
+
+    if request.method == "POST":
+        # Parse the request body to retrieve the list of SRP request codes
+        request_body = json.loads(request.body)
+        total_cost = request_body.get("total_cost")
+
+        try:
+            srp_link = SrpLink.objects.get(srp_code=srp_code)
+            srp_link.total_cost = total_cost
+            srp_link.save()
+
+            return JsonResponse(
+                data={"success": True, "message": _("Total cost updated successfully")},
+                safe=False,
+            )
+        except SrpLink.DoesNotExist:
+            return JsonResponse(
+                data={"success": False, "message": _("SRP link not found")}, safe=False
+            )
+
+    # Return a failure response if the request method is not POST or an error occurs
+    return JsonResponse(
+        data={"success": False, "message": _("Invalid request method")}, safe=False
     )
