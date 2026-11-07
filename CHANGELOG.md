@@ -48,6 +48,8 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [5.7.1] - 2026-11-07
+
 ### Fixed
 
 - `display` function in the editable payout field
@@ -1970,11 +1972,12 @@ python manage.py aasrp_update_db_relations
 [5.6.0]: https://github.com/ppfeufer/aa-srp/compare/v5.5.0...v5.6.0 "v5.6.0"
 [5.6.1]: https://github.com/ppfeufer/aa-srp/compare/v5.6.0...v5.6.1 "v5.6.1"
 [5.7.0]: https://github.com/ppfeufer/aa-srp/compare/v5.6.1...v5.7.0 "v5.7.0"
+[5.7.1]: https://github.com/ppfeufer/aa-srp/compare/v5.7.0...v5.7.1 "v5.7.1"
 [aa discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "AA Discord Notify"
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[in development]: https://github.com/ppfeufer/aa-srp/compare/v5.7.0...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-srp/compare/v5.7.1...HEAD "In Development"
 [keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
 [semantic versioning]: http://semver.org/ "Semantic Versioning"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
