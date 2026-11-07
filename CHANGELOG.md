@@ -52,6 +52,10 @@ Section Order:
 
 - Date format in the Dashboard tables
 
+### Changed
+
+- Move helper functions into "global" JS
+
 ## [5.6.1] - 2026-11-06
 
 ### Fixed
