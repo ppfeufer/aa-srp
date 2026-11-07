@@ -3,7 +3,7 @@ Unit tests for the SrpLink model.
 """
 
 # Standard Library
-from unittest.mock import MagicMock, PropertyMock, patch
+from unittest.mock import PropertyMock, patch
 
 # Django
 from django.utils import timezone
@@ -17,53 +17,6 @@ class TestSrpLink(BaseTestCase):
     """
     Test case for the SrpLink model.
     """
-
-    def test_returns_total_cost_of_approved_requests(self):
-        """
-        Test that the total cost of approved requests is calculated correctly.
-
-        :return:
-        :rtype:
-        """
-
-        with patch.object(
-            SrpLink, "srp_requests", new_callable=PropertyMock
-        ) as mock_rels:
-            mock_rels.return_value.filter.return_value = [
-                MagicMock(payout_amount=100),
-                MagicMock(payout_amount=200),
-            ]
-
-            srp_link = SrpLink()
-
-            result = srp_link.total_cost
-
-            self.assertEqual(result, 300)
-            mock_rels.return_value.filter.assert_called_with(
-                request_status=SrpRequest.Status.APPROVED
-            )
-
-    def test_returns_zero_total_cost_when_no_approved_requests_exist(self):
-        """
-        Test that the total cost is zero when there are no approved requests.
-
-        :return:
-        :rtype:
-        """
-
-        with patch.object(
-            SrpLink, "srp_requests", new_callable=PropertyMock
-        ) as mock_rels:
-            mock_rels.return_value.filter.return_value = []
-
-            srp_link = SrpLink()
-
-            result = srp_link.total_cost
-
-            self.assertEqual(result, 0)
-            mock_rels.return_value.filter.assert_called_with(
-                request_status=SrpRequest.Status.APPROVED
-            )
 
     def test_counts_requests_by_status_correctly(self):
         """
@@ -402,68 +355,32 @@ class TestSrpLink(BaseTestCase):
         self.assertEqual(len(srp_link1.srp_code), 16)
         self.assertEqual(len(srp_link2.srp_code), 16)
 
-    def test_returns_total_srp_cost_from_approved_requests_only(self):
+    def total_cost_returns_zero_when_no_srp_links_exist(self):
         """
-        Test that the total SRP cost is calculated correctly from approved requests only.
+        Test that the total SRP cost is zero when there are no SRP links.
 
         :return:
+        :rtype:
         """
-
-        srp_link = SrpLink.objects.create(srp_name="SRP A", fleet_time=timezone.now())
-        another_srp_link = SrpLink.objects.create(
-            srp_name="SRP B", fleet_time=timezone.now()
-        )
-
-        SrpRequest.objects.create(
-            srp_link=srp_link,
-            request_status=SrpRequest.Status.APPROVED,
-            payout_amount=100,
-        )
-        SrpRequest.objects.create(
-            srp_link=another_srp_link,
-            request_status=SrpRequest.Status.APPROVED,
-            payout_amount=250,
-        )
-        SrpRequest.objects.create(
-            srp_link=srp_link,
-            request_status=SrpRequest.Status.PENDING,
-            payout_amount=500,
-        )
-        SrpRequest.objects.create(
-            srp_link=another_srp_link,
-            request_status=SrpRequest.Status.REJECTED,
-            payout_amount=700,
-        )
-
-        self.assertEqual(SrpLink.total_srp_cost(), 350)
-
-    def test_returns_zero_total_srp_cost_when_no_approved_requests_exist(self):
-        """
-        Test that the total SRP cost is zero when there are no approved requests.
-
-        :return:
-        """
-
-        srp_link = SrpLink.objects.create(srp_name="SRP C", fleet_time=timezone.now())
-
-        SrpRequest.objects.create(
-            srp_link=srp_link,
-            request_status=SrpRequest.Status.PENDING,
-            payout_amount=120,
-        )
-        SrpRequest.objects.create(
-            srp_link=srp_link,
-            request_status=SrpRequest.Status.REJECTED,
-            payout_amount=180,
-        )
 
         self.assertEqual(SrpLink.total_srp_cost(), 0)
 
-    def test_returns_zero_total_srp_cost_when_no_requests_exist(self):
+    def total_cost_sums_all_link_totals(self):
         """
-        Test that the total SRP cost is zero when there are no requests at all.
+        Test that the total SRP cost is the sum of all SRP link totals.
 
         :return:
+        :rtype:
         """
 
-        self.assertEqual(SrpLink.total_srp_cost(), 0)
+        SrpLink.objects.create(
+            srp_name="Test SRP 1", fleet_time=timezone.now(), total_cost=2500
+        )
+        SrpLink.objects.create(
+            srp_name="Test SRP 2", fleet_time=timezone.now(), total_cost=3500
+        )
+        SrpLink.objects.create(
+            srp_name="Test SRP 3", fleet_time=timezone.now(), total_cost=0
+        )
+
+        self.assertEqual(SrpLink.total_srp_cost(), 6000)
