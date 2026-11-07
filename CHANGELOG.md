@@ -48,6 +48,12 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- `total_cost` property to the `SrpLink` model, which calculates the total cost of all
+  SRP requests for that link to improve performance when displaying the total cost in
+  the Dashboard view
+
 ### Fixed
 
 - Date format in the Dashboard tables
