@@ -35,14 +35,16 @@ $(document).ready(() => {
         columnDefs: [
             // Remove column control search from these columns
             {
-                target: 2, // Fleet time (UTC)
+                targets: [
+                    2, // Fleet time (UTC)
+                    7 // SRP cost
+                ],
                 columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
             },
             // Remove column control from these columns completely and make them non-orderable
             {
                 targets: [
                     5, // AAR Link
-                    7, // SRP cost
                     9, // Pending requests
                     10 // Actions
                 ],
@@ -55,7 +57,6 @@ $(document).ready(() => {
             {
                 targets: [
                     5, // AAR Link
-                    7, // SRP cost
                     9, // Pending requests
                     10 // Actions
                 ],
