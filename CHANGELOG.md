@@ -48,6 +48,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Date format in the Dashboard tables
+
 ## [5.6.1] - 2026-11-06
 
 ### Fixed
