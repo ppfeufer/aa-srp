@@ -53,11 +53,11 @@ Section Order:
 - `total_cost` property to the `SrpLink` model, which calculates the total cost of all
   SRP requests for that link to improve performance when displaying the total cost in
   the Dashboard view
+- DataTable column indices for easier reference
 
 ### Fixed
 
 - Date format in the Dashboard tables
-- DataTable column indices for easier reference
 
 ### Changed
 
