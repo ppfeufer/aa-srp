@@ -1,4 +1,4 @@
-/* global _bootstrapTooltip, aaSrpSettings, numberFormatter, _removeSearchFromColumnControl, DataTable */
+/* global _bootstrapTooltip, aaSrpSettings, numberFormatter, moment, _removeSearchFromColumnControl, DataTable */
 
 $(document).ready(() => {
     'use strict';
@@ -35,15 +35,15 @@ $(document).ready(() => {
         columnDefs: [
             // Remove column control search from these columns
             {
-                target: 2, // SRP Link Name
+                target: 2, // Fleet time (UTC)
                 columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
             },
             // Remove column control from these columns completely and make them non-orderable
             {
                 targets: [
                     5, // AAR Link
-                    7, // Total Cost
-                    9, // Pending Requests
+                    7, // SRP cost
+                    9, // Pending requests
                     10 // Actions
                 ],
                 columnControl: [
@@ -55,24 +55,29 @@ $(document).ready(() => {
             {
                 targets: [
                     5, // AAR Link
-                    7, // Total Cost
-                    9, // Pending Requests
+                    7, // SRP cost
+                    9, // Pending requests
                     10 // Actions
                 ],
                 orderable: false
             },
             // Column definitions for specific columns
             {
-                target: 7,
+                target: 2, // Fleet time (UTC)
+                className: 'srp-link-fleet-time',
+                render: (data) => moment(data).utc().format(aaSrpSettings.datetimeFormat)
+            },
+            {
+                target: 7, // SRP cost
                 className: 'srp-link-total-cost',
                 type: 'num'
             },
             {
-                target: 9,
+                target: 9, // Pending requests
                 className: 'srp-link-pending-requests'
             },
             {
-                target: 10,
+                target: 10, // Actions
                 className: 'srp-link-actions text-end'
             }
         ],

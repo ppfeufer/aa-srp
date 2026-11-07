@@ -33,7 +33,7 @@ class DashboardSrpLinksView(PermissionRequiredMixin, DataTablesView):
             "creator__profile__main_character__character_name",
             "aasrp/partials/datatables/dashboard/column-creator-name.html",
         ),
-        ("fleet_time", "aasrp/partials/datatables/dashboard/column-fleet-time.html"),
+        ("fleet_time", "{{ row.fleet_time.isoformat }}"),
         (
             "fleet_type__name",
             "aasrp/partials/datatables/dashboard/column-fleet-type.html",
