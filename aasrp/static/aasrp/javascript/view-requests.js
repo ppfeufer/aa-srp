@@ -51,6 +51,21 @@ $(document).ready(() => {
         }
     };
 
+    // DataTable column indices for easier reference
+    const dtColumn = {
+        requestTime: 0,
+        requester: 1,
+        character: 2,
+        ship: 3,
+        iskLoss: 4,
+        srpPayout: 5,
+        additionalInfo: 6,
+        status: 7,
+        actions: 8,
+        bulkActionsCheckbox: 9,
+        requestCode: 10 // Invisible: Request Code (for internal use, not displayed to users)
+    };
+
     /**
      * Table :: SRP Requests
      *
@@ -62,14 +77,22 @@ $(document).ready(() => {
                 const payoutEditableMode = aaSrpSettings.payoutEditableMode || 'popup';
                 const columnDefs = [
                     {
-                        targets: [0, 4, 5],
+                        targets: [
+                            dtColumn.requestTime,
+                            dtColumn.iskLoss,
+                            dtColumn.srpPayout
+                        ],
                         columnControl: _removeSearchFromColumnControl(
                             aaSrpSettings.dataTables.columnControl,
                             1
                         )
                     },
                     {
-                        targets: [7, 8, 9],
+                        targets: [
+                            dtColumn.status,
+                            dtColumn.actions,
+                            dtColumn.bulkActionsCheckbox
+                        ],
                         orderable: false,
                         columnControl: [
                             {target: 0, content: []},
@@ -77,11 +100,11 @@ $(document).ready(() => {
                         ]
                     },
                     {
-                        target: 8,
+                        target: dtColumn.actions,
                         width: 120
                     },
                     {
-                        target: 10,
+                        target: dtColumn.requestCode,
                         visible: false
                     }
                 ];
@@ -89,7 +112,7 @@ $(document).ready(() => {
                 // If the payout field is editable inline, we need to increase the width of the column to accommodate the input field.
                 if (payoutEditableMode === 'inline') {
                     columnDefs.push({
-                        target: 5,
+                        target: dtColumn.srpPayout,
                         width: 325
                     });
                 }
@@ -209,7 +232,7 @@ $(document).ready(() => {
                     ],
                     columnDefs: columnDefs,
                     order: [
-                        [0, 'asc']
+                        [dtColumn.requestTime, 'asc']
                     ],
                     /**
                      * When ever a row is created…

@@ -5,48 +5,40 @@ $(document).ready(() => {
 
     const elementTableSrpLinks = $('#table_tab-srp-links');
 
-    /**
-     * Format the Total Cost column in the DataTable to display currency values.
-     *
-     * @param {Object} dt - The DataTable instance.
-     * @returns {void}
-     * @private
-     */
-    const _formatTotalCostColumn = (dt) => {
-        dt.rows().every((rowIdx) => {
-            const rowData = dt.row(rowIdx).data();
-            const formattedCost = numberFormatter({
-                value: rowData[7],
-                locales: aaSrpSettings.locale,
-                options: {
-                    style: 'currency',
-                    currency: 'ISK'
-                }
-            });
-
-            dt.cell(rowIdx, 7).data(formattedCost);
-        });
+    // DataTable column indices for easier reference
+    const dtColumn = {
+        linkName: 0,
+        creator: 1,
+        fleetTime: 2,
+        fleetType: 3,
+        doctrine: 4,
+        aarLink: 5,
+        srpCode: 6,
+        srpCost: 7,
+        status: 8,
+        pendingRequests: 9,
+        actions: 10
     };
 
     // Initialize DataTable options
     let dataTableOptions = {
         ...aaSrpSettings.dataTables,
-        order: [[2, 'asc']],
+        order: [[dtColumn.fleetTime, 'asc']],
         columnDefs: [
             // Remove column control search from these columns
             {
                 targets: [
-                    2, // Fleet time (UTC)
-                    7 // SRP cost
+                    dtColumn.fleetTime,
+                    dtColumn.srpCost
                 ],
                 columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
             },
             // Remove column control from these columns completely and make them non-orderable
             {
                 targets: [
-                    5, // AAR Link
-                    9, // Pending requests
-                    10 // Actions
+                    dtColumn.aarLink,
+                    dtColumn.pendingRequests,
+                    dtColumn.actions
                 ],
                 columnControl: [
                     {target: 0, content: []},
@@ -56,29 +48,37 @@ $(document).ready(() => {
             // Make these columns non-orderable
             {
                 targets: [
-                    5, // AAR Link
-                    9, // Pending requests
-                    10 // Actions
+                    dtColumn.aarLink,
+                    dtColumn.pendingRequests,
+                    dtColumn.actions
                 ],
                 orderable: false
             },
             // Column definitions for specific columns
             {
-                target: 2, // Fleet time (UTC)
+                target: dtColumn.fleetTime,
                 className: 'srp-link-fleet-time',
                 render: (data) => moment(data).utc().format(aaSrpSettings.datetimeFormat)
             },
             {
-                target: 7, // SRP cost
+                target: dtColumn.srpCost,
                 className: 'srp-link-total-cost',
+                render: (data) => numberFormatter({
+                    value: data,
+                    locales: aaSrpSettings.locale,
+                    options: {
+                        style: 'currency',
+                        currency: 'ISK'
+                    }
+                }),
                 type: 'num'
             },
             {
-                target: 9, // Pending requests
+                target: dtColumn.pendingRequests,
                 className: 'srp-link-pending-requests'
             },
             {
-                target: 10, // Actions
+                target: dtColumn.actions,
                 className: 'srp-link-actions text-end'
             }
         ],
@@ -86,11 +86,9 @@ $(document).ready(() => {
             const dt = elementTableSrpLinks.DataTable();
 
             _bootstrapTooltip({selector: '#table_tab-srp-links'});
-            _formatTotalCostColumn(dt);
 
             dt.on('draw', () => {
                 _bootstrapTooltip({selector: '#table_tab-srp-links'});
-                _formatTotalCostColumn(dt);
             });
 
             $('input[name="srp-requests-filter"]').on('change', () => dt.draw());
@@ -127,8 +125,7 @@ $(document).ready(() => {
         const url = button.data('url');
         const name = button.data('name');
 
-        modalEnableSrpLink.find('#modal-button-confirm-enable-srp-link')
-            .attr('href', url);
+        modalEnableSrpLink.find('#modal-button-confirm-enable-srp-link').attr('href', url);
         modalEnableSrpLink.find('.modal-body').html(`${aaSrpSettings.translation.modal.enableSrpLink.body}<p class="fw-bold">${name}</p>`);
     }).on('hide.bs.modal', () => {
         modalEnableSrpLink.find('.modal-body').html('');
@@ -140,8 +137,7 @@ $(document).ready(() => {
         const url = button.data('url');
         const name = button.data('name');
 
-        modalDisableSrpLink.find('#modal-button-confirm-disable-srp-link')
-            .attr('href', url);
+        modalDisableSrpLink.find('#modal-button-confirm-disable-srp-link').attr('href', url);
         modalDisableSrpLink.find('.modal-body').html(`${aaSrpSettings.translation.modal.disableSrpLink.body}<p class="fw-bold">${name}</p>`);
     }).on('hide.bs.modal', () => {
         modalDisableSrpLink.find('.modal-body').html('');

@@ -57,6 +57,7 @@ Section Order:
 ### Fixed
 
 - Date format in the Dashboard tables
+- DataTable column indices for easier reference
 
 ### Changed
 
