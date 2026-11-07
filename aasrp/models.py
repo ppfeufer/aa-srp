@@ -279,7 +279,12 @@ class SrpLink(models.Model):
         :rtype: int
         """
 
-        return sum(int(r.total_cost) for r in SrpLink.objects.all())
+        return (
+            SrpLink.objects.aggregate(total=models.aggregates.Sum("total_cost"))[
+                "total"
+            ]
+            or 0
+        )
 
 
 class SrpRequest(models.Model):

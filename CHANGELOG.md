@@ -65,6 +65,9 @@ Section Order:
 ### Changed
 
 - Move helper functions into "global" JS
+- Aggregate the total cost of all SRP links instead of running through all SRP requests
+  to calculate the total cost, which should improve performance for instances with a
+  lot of SRP links and requests
 
 ## [5.6.1] - 2026-11-06
 
