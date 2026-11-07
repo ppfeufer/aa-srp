@@ -9,6 +9,7 @@ from unittest.mock import MagicMock
 from eve_sde.models import ItemType
 
 # Django
+from django.core.exceptions import PermissionDenied
 from django.http import QueryDict
 from django.utils import timezone
 
@@ -193,6 +194,28 @@ class TestDashboardSrpLinksView(BaseTestCase):
         self.assertEqual(queryset.count(), 1)
         self.assertEqual(queryset.first().id, active_link.id)
 
+    def test_basic_user_sees_only_active_links_by_default(self):
+        basic_user = create_fake_user(
+            character_id=random_id(),
+            character_name="Basic User",
+            permissions=["aasrp.basic_access"],
+        )
+        self.request.user = basic_user
+        active_link = SrpLink.objects.create(
+            srp_code="BASICACTIVE", creator=self.user, fleet_time=timezone.now()
+        )
+        SrpLink.objects.create(
+            srp_code="BASICCLOSED",
+            creator=self.user,
+            fleet_time=timezone.now(),
+            srp_status=SrpLink.Status.CLOSED,
+        )
+
+        self.assertSetEqual(
+            set(self.view.get_model_qs(self.request).values_list("id", flat=True)),
+            {active_link.id},
+        )
+
     def test_returns_all_links_when_show_all_links_is_enabled(self):
         """
         Test that the view returns all SRP links when show_all_links is enabled.
@@ -217,6 +240,23 @@ class TestDashboardSrpLinksView(BaseTestCase):
         self.assertSetEqual(
             set(queryset.values_list("id", flat=True)), {active_link.id, closed_link.id}
         )
+
+    def test_basic_user_cannot_view_all_links(self):
+        """
+        Test that a basic user cannot view all SRP links when show_all_links is enabled.
+
+        :return:
+        """
+
+        self.request.user = create_fake_user(
+            character_id=random_id(),
+            character_name="Basic User",
+            permissions=["aasrp.basic_access"],
+        )
+        self.view.show_all_links = True
+
+        with self.assertRaises(PermissionDenied):
+            self.view.get_model_qs(self.request)
 
     def test_returns_only_links_with_pending_requests_when_has_requests_filter_is_true(
         self,
