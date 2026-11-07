@@ -4,6 +4,7 @@ Dashboard SRP links DataTables view for Alliance Auth SRP module.
 
 # Django
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.db.models import Count, Q, QuerySet
 from django.http.request import HttpRequest
 
@@ -75,7 +76,10 @@ class DashboardSrpLinksView(PermissionRequiredMixin, DataTablesView):
             "srp_requests",
         ).all()
 
-        if not self.show_all_links:
+        if self.show_all_links:
+            if not (request.user.has_perm("aasrp.manage_srp")):
+                raise PermissionDenied("You do not have permission to view this page.")
+        else:
             srp_links = srp_links.filter(srp_status=SrpLink.Status.ACTIVE)
 
         # Custom filters

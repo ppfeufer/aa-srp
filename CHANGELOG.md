@@ -58,6 +58,9 @@ Section Order:
 ### Fixed
 
 - Date format in the Dashboard tables
+- Put a permission lock on the "show_all_links" Ajax request, so that only users with
+  the `aasrp.manage_srp` permission can see all SRP links when opening the Ajax link
+  directly
 
 ### Changed
 
