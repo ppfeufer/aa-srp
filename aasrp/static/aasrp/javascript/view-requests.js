@@ -353,6 +353,7 @@ $(document).ready(() => {
      * @private
      */
     const _refreshSrpAmountField = (valueField, newValue) => {
+        console.log('New Value', newValue);
         newValue = parseInt(newValue);
 
         // Update payout value formatted
@@ -375,12 +376,14 @@ $(document).ready(() => {
         // Update fleet total SRP amount
         let totalSrpAmount = 0;
         const elementSrpAmount = $(
-            '#tab_aasrp_srp_requests .srp-request-status-approved .srp-payout-amount'
+            '#table_aasrp_srp_requests .srp-request-status-approved .srp-payout-amount'
         );
 
         elementSrpAmount.each((i, payoutElement) => {
             totalSrpAmount += parseInt(payoutElement.getAttribute('data-value'));
         });
+
+        console.log('Total SRP Amount', totalSrpAmount);
 
         console.log('Element Total Cost', element.totalSrpCost);
 
@@ -430,15 +433,35 @@ $(document).ready(() => {
 
         console.log('ELEMENT TOTAL COST', element.totalSrpCost);
 
-        // Update fleet total SRP amount
-        element.totalSrpCost.html(numberFormatter({
-            value: totalSrpAmount,
-            locales: aaSrpSettings.locale,
-            options: {
-                style: 'currency',
-                currency: 'ISK'
-            }
-        }));
+        // Update total_cost field in Database
+        fetchPost({
+            url: aaSrpSettings.url.updateTotalCost,
+            csrfToken: aaSrpSettings.csrfToken,
+            payload: {
+                total_cost: totalSrpAmount
+            },
+            responseIsJson: true
+        })
+            .then((data) => {
+                if (data.success === true) {
+                    console.log('Total cost updated successfully:', data.message);
+
+                    // Update fleet total SRP amount
+                    element.totalSrpCost.html(numberFormatter({
+                        value: totalSrpAmount,
+                        locales: aaSrpSettings.locale,
+                        options: {
+                            style: 'currency',
+                            currency: 'ISK'
+                        }
+                    }));
+                } else {
+                    console.error('Error updating total cost:', data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error updating total cost:', error);
+            });
 
         // Update requests counts
         $('.srp-requests-total-count').html(requestsTotal);

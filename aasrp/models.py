@@ -135,7 +135,6 @@ class SrpLink(models.Model):
     fleet_doctrine = models.CharField(
         max_length=254, default="", verbose_name=_("Doctrine")
     )
-
     fleet_type = models.ForeignKey(
         to=FleetType,
         related_name="+",
@@ -146,12 +145,10 @@ class SrpLink(models.Model):
         help_text=_("The SRP link fleet type, if it's set"),
         verbose_name=_("Fleet type"),
     )
-
     fleet_time = models.DateTimeField(verbose_name=_("Fleet time"))
     aar_link = models.URLField(
         max_length=254, blank=True, default="", verbose_name=_("AAR link")
     )
-
     creator = models.ForeignKey(
         to=User,
         related_name="+",
@@ -161,6 +158,13 @@ class SrpLink(models.Model):
         on_delete=models.SET(value=get_sentinel_user),
         help_text=_("Who created the SRP link?"),
         verbose_name=_("Creator"),
+    )
+    total_cost = models.PositiveBigIntegerField(
+        default=0,
+        help_text=_(
+            "The total payout amount for approved SRP requests linked to this SRP link"
+        ),
+        verbose_name=_("Total cost"),
     )
 
     class Meta:  # pylint: disable=too-few-public-methods
@@ -198,20 +202,6 @@ class SrpLink(models.Model):
 
         # Call the original save method to ensure the SRP link is saved to the database
         super().save(*args, **kwargs)
-
-    @property
-    def total_cost(self) -> int:
-        """
-        Calculate the total payout amount for approved SRP requests linked to this SRP link.
-
-        :return: The total payout amount.
-        :rtype: int
-        """
-
-        return sum(
-            int(r.payout_amount)
-            for r in self.srp_requests.filter(request_status=SrpRequest.Status.APPROVED)
-        )
 
     def _count_requests_by_status(self, status: str) -> int:
         """
@@ -289,12 +279,7 @@ class SrpLink(models.Model):
         :rtype: int
         """
 
-        return sum(
-            int(r.payout_amount)
-            for r in SrpRequest.objects.filter(
-                request_status=SrpRequest.Status.APPROVED
-            )
-        )
+        return sum(int(r.total_cost) for r in SrpLink.objects.all())
 
 
 class SrpRequest(models.Model):
@@ -360,14 +345,18 @@ class SrpRequest(models.Model):
         default=Status.PENDING,
         verbose_name=_("Request status"),
     )
-    payout_amount = models.BigIntegerField(default=0, verbose_name=_("Payout amount"))
+    payout_amount = models.PositiveBigIntegerField(
+        default=0, verbose_name=_("Payout amount")
+    )
     srp_link = models.ForeignKey(
         to=SrpLink,
         related_name="srp_requests",
         on_delete=models.CASCADE,
         verbose_name=_("SRP link"),
     )
-    loss_amount = models.BigIntegerField(default=0, verbose_name=_("Loss amount"))
+    loss_amount = models.PositiveBigIntegerField(
+        default=0, verbose_name=_("Loss amount")
+    )
     post_time = models.DateTimeField(
         default=timezone.now, verbose_name=_("Request time")
     )

@@ -44,7 +44,7 @@ class DashboardSrpLinksView(PermissionRequiredMixin, DataTablesView):
         ),
         ("aar_link", "aasrp/partials/datatables/dashboard/column-aar-link.html"),
         ("srp_code", "aasrp/partials/datatables/dashboard/column-srp-code.html"),
-        ("", "aasrp/partials/datatables/dashboard/column-total-cost.html"),
+        ("total_cost", "aasrp/partials/datatables/dashboard/column-total-cost.html"),
         ("srp_status", "aasrp/partials/datatables/dashboard/column-srp-status.html"),
         ("", "aasrp/partials/datatables/dashboard/column-request-count.html"),
         ("", "aasrp/partials/datatables/dashboard/column-actions.html"),
