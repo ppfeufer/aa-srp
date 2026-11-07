@@ -1,4 +1,4 @@
-/* global aaSrpJsSettingsDefaults, aaSrpJsSettingsOverride, objectDeepMerge, bootstrap */
+/* global aaSrpJsSettingsDefaults, aaSrpJsSettingsOverride, bootstrap, ClipboardJS, objectDeepMerge */
 
 /* jshint -W097 */
 'use strict';
@@ -35,6 +35,34 @@ const _bootstrapTooltip = ({selector = 'body', namespace = 'aa-srp'}) => { // es
             // Create new tooltip instance
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
+};
+
+/**
+ * Helper function: Copy text to the clipboard
+ *
+ * Must be called synchronously from a user click, so browsers allow it.
+ * Falls back to ClipboardJS on non-secure (non-HTTPS) origins.
+ *
+ * @param {string} text The text to copy
+ * @returns {Promise<boolean>} Whether copying succeeded
+ * @private
+ */
+const _copyToClipboard = (text) => { // eslint-disable-line no-unused-vars
+    if (window.isSecureContext && navigator.clipboard) {
+        return navigator.clipboard.writeText(text)
+            .then(() => true)
+            .catch(() => false);
+    }
+
+    try {
+        ClipboardJS.copy(text);
+
+        return Promise.resolve(true);
+    } catch (error) {
+        console.error('Error copying to clipboard:', error);
+
+        return Promise.resolve(false);
+    }
 };
 
 /**
@@ -89,4 +117,36 @@ const _filterDataTable = (dt, selector, predicate) => { // eslint-disable-line n
 
         dt.draw();
     });
+};
+
+/**
+ * Helper function: Show a short-lived toast message, without reloading the page
+ *
+ * @param {string} message The message to show
+ * @param {boolean} success Whether this is a success or an error message
+ * @private
+ */
+const _showToast = (message, success) => { // eslint-disable-line no-unused-vars
+    let container = $('#aasrp-toast-container');
+
+    if (container.length === 0) {
+        container = $('<div id="aasrp-toast-container" class="toast-container position-fixed bottom-0 end-0 p-3"></div>');
+
+        $('body').append(container);
+    }
+
+    const toastElement = $('<div class="toast align-items-center border-0" role="status" aria-live="polite" aria-atomic="true"><div class="d-flex"><div class="toast-body"></div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div></div>');
+
+    toastElement
+        .addClass(success ? 'text-bg-success' : 'text-bg-danger')
+        .find('.toast-body')
+        .text(message);
+
+    container.append(toastElement);
+
+    toastElement.on('hidden.bs.toast', () => {
+        toastElement.remove();
+    });
+
+    new bootstrap.Toast(toastElement[0], {delay: 6000}).show();
 };

@@ -1,4 +1,4 @@
-/* global aaSrpSettings, _bootstrapTooltip, fetchGet, fetchPost, moment, numberFormatter, _filterDataTable, _removeSearchFromColumnControl, DataTable, ClipboardJS, bootstrap */
+/* global _bootstrapTooltip, _copyToClipboard, _filterDataTable, _removeSearchFromColumnControl, _showToast, aaSrpSettings, DataTable, fetchGet, fetchPost, moment, numberFormatter */
 
 $(document).ready(() => {
     'use strict';
@@ -295,12 +295,6 @@ $(document).ready(() => {
                             placement: 'top',
                             highlight: 'rgb(170 255 128)',
                             mode: payoutEditableMode,
-                            /**
-                             * @returns {boolean}
-                             */
-                            // display: () => {
-                            //     return false;
-                            // },
                             /**
                              * On success…
                              *
@@ -829,66 +823,6 @@ $(document).ready(() => {
         .on('hide.bs.modal', () => {
             _unbindClickEvent($('#modal-button-confirm-bulk-remove-requests'));
         });
-
-    /**
-     * Helper function: Show a short-lived toast message, without reloading the page
-     *
-     * @param {string} message The message to show
-     * @param {boolean} success Whether this is a success or an error message
-     * @private
-     */
-    const _showToast = (message, success) => {
-        let container = $('#aasrp-toast-container');
-
-        if (container.length === 0) {
-            container = $('<div id="aasrp-toast-container" class="toast-container position-fixed bottom-0 end-0 p-3"></div>');
-
-            $('body').append(container);
-        }
-
-        const toastElement = $('<div class="toast align-items-center border-0" role="status" aria-live="polite" aria-atomic="true"><div class="d-flex"><div class="toast-body"></div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div></div>');
-
-        toastElement
-            .addClass(success ? 'text-bg-success' : 'text-bg-danger')
-            .find('.toast-body')
-            .text(message);
-
-        container.append(toastElement);
-
-        toastElement.on('hidden.bs.toast', () => {
-            toastElement.remove();
-        });
-
-        new bootstrap.Toast(toastElement[0], {delay: 6000}).show();
-    };
-
-    /**
-     * Helper function: Copy text to the clipboard
-     *
-     * Must be called synchronously from a user click, so browsers allow it.
-     * Falls back to ClipboardJS on non-secure (non-HTTPS) origins.
-     *
-     * @param {string} text The text to copy
-     * @returns {Promise<boolean>} Whether copying succeeded
-     * @private
-     */
-    const _copyToClipboard = (text) => {
-        if (window.isSecureContext && navigator.clipboard) {
-            return navigator.clipboard.writeText(text)
-                .then(() => true)
-                .catch(() => false);
-        }
-
-        try {
-            ClipboardJS.copy(text);
-
-            return Promise.resolve(true);
-        } catch (error) {
-            console.error('Error copying to clipboard:', error);
-
-            return Promise.resolve(false);
-        }
-    };
 
     /* Events
     --------------------------------------------------------------------------------- */

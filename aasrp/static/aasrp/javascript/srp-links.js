@@ -1,4 +1,4 @@
-/* global _bootstrapTooltip, aaSrpSettings, numberFormatter, moment, _removeSearchFromColumnControl, DataTable */
+/* global _bootstrapTooltip, _removeSearchFromColumnControl, aaSrpSettings, DataTable, moment, numberFormatter */
 
 $(document).ready(() => {
     'use strict';
