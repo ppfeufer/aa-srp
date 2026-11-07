@@ -319,6 +319,15 @@ $(document).ready(() => {
                             highlight: 'rgb(170 255 128)',
                             mode: payoutEditableMode,
                             /**
+                             * This needs to be exactly as it is, otherwise the number
+                             * formatter will not work correctly after the edit.
+                             *
+                             * @returns {boolean}
+                             */
+                            display: () => {
+                                return false;
+                            },
+                            /**
                              * On success…
                              *
                              * Arrow functions don't work here since we need `$(this)`.

@@ -48,6 +48,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- `display` function in the editable payout field
+
 ## [5.7.0] - 2026-11-07
 
 ### Added
