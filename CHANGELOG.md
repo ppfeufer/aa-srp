@@ -52,6 +52,10 @@ Section Order:
 
 - AttributeError: 'NoneType' object has no attribute 'character_name'
 
+### Removed
+
+- Unnecessary helper functions in favor of Alliance Auth framework functions
+
 ## [5.7.1] - 2026-11-07
 
 ### Fixed
