@@ -6,13 +6,11 @@ This module provides helper functions for working with Eve characters.
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
-from allianceauth.authentication.models import CharacterOwnership, User
 from allianceauth.eveonline.models import EveCharacter
 
 # AA SRP
 from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
 from aasrp.helper.icons import copy_to_clipboard_icon
-from aasrp.models import get_sentinel_user
 
 
 def get_formatted_character_name(
@@ -88,51 +86,3 @@ def get_formatted_character_name(
 
     # Return the formatted character name
     return character_name_formatted
-
-
-def get_main_for_character(character: EveCharacter) -> EveCharacter | None:
-    """
-    Retrieve the main character associated with a given Eve character.
-
-    This function attempts to access the main character linked to the provided Eve character
-    through the character's ownership and user profile. If any of the required relationships
-    or attributes are missing, it returns `None`.
-
-    :param character: The Eve character object for which to find the main character.
-    :type character: EveCharacter
-    :return: The main character associated with the given Eve character, or `None` if not found.
-    :rtype: EveCharacter | None
-    """
-
-    try:
-        return character.character_ownership.user.profile.main_character
-    except (
-        AttributeError,
-        EveCharacter.character_ownership.RelatedObjectDoesNotExist,
-        CharacterOwnership.user.RelatedObjectDoesNotExist,
-    ):
-        return None
-
-
-def get_user_for_character(character: EveCharacter) -> User:
-    """
-    Retrieve the user associated with a given Eve character.
-
-    This function attempts to access the user linked to the provided Eve character
-    through the character's ownership and user profile. If any of the required relationships
-    or attributes are missing, it returns a sentinel user.
-
-    :param character: The Eve character object for which to find the associated user.
-    :type character: EveCharacter
-    :return: The user associated with the given Eve character, or a sentinel user if not found.
-    :rtype: User
-    """
-
-    try:
-        return character.character_ownership.user.profile.user
-    except (
-        AttributeError,
-        EveCharacter.character_ownership.RelatedObjectDoesNotExist,
-        CharacterOwnership.user.RelatedObjectDoesNotExist,
-    ):
-        return get_sentinel_user()

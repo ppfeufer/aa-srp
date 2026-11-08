@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-08 12:53+0100\n"
+"POT-Creation-Date: 2026-11-08 14:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -236,12 +236,12 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: aasrp/helper/character.py:44 aasrp/helper/character.py:47
+#: aasrp/helper/character.py:42 aasrp/helper/character.py:45
 #: aasrp/views/ajax.py:131
 msgid "Unknown character"
 msgstr ""
 
-#: aasrp/helper/character.py:71
+#: aasrp/helper/character.py:69
 msgid "Copy character name to clipboard"
 msgstr ""
 

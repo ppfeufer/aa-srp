@@ -14,10 +14,10 @@ from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
 
 # Alliance Auth
+from allianceauth.framework.api.evecharacter import get_user_from_evecharacter
 from allianceauth.srp.models import SrpFleetMain
 
 # AA SRP
-from aasrp.helper.character import get_user_for_character
 from aasrp.models import RequestComment, SrpLink, SrpRequest
 
 
@@ -99,7 +99,7 @@ class Command(BaseCommand):
         # Retrieve the loss value field setting
         for srp_fleet in srp_fleets:
             # Check if the fleet creator is valid
-            srp_fleet_creator = get_user_for_character(
+            srp_fleet_creator = get_user_from_evecharacter(
                 character=srp_fleet.fleet_commander
             )
 
@@ -155,7 +155,7 @@ class Command(BaseCommand):
 
                 for srp_userrequest in srp_userrequests:
                     # Check if the request creator is valid
-                    srp_userrequest_creator = get_user_for_character(
+                    srp_userrequest_creator = get_user_from_evecharacter(
                         character=srp_userrequest.character
                     )
 
