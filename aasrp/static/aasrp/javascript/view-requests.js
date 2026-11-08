@@ -244,7 +244,7 @@ $(document).ready(() => {
                     createdRow: (row, data, rowIndex) => {
                         const srpRequestCode = data.request_code;
                         const srpRequestStatus = data.request_status.toLowerCase();
-                        const srpRequestPayoutAmount = data.payout_amount;
+                        const srpRequestPayoutAmount = data.payout_amount === 0 ? null : data.payout_amount;
 
                         // Row id attr
                         $(row)
@@ -324,9 +324,7 @@ $(document).ready(() => {
                              *
                              * @returns {boolean}
                              */
-                            display: () => {
-                                return false;
-                            },
+                            display: () => false,
                             /**
                              * On success…
                              *
@@ -401,7 +399,7 @@ $(document).ready(() => {
 
         // Update the element
         valueField
-            .attr('data-value', newValue)
+            .attr('data-value', newValue === 0 ? null : newValue)
             .addClass('srp-payout-amount-changed')
             .html(newValueFormatted);
 
@@ -412,7 +410,7 @@ $(document).ready(() => {
         );
 
         elementSrpAmount.each((i, payoutElement) => {
-            totalSrpAmount += parseInt(payoutElement.getAttribute('data-value'));
+            totalSrpAmount += parseInt(payoutElement.getAttribute('data-value') || 0);
         });
 
         console.log('Total SRP Amount', totalSrpAmount);

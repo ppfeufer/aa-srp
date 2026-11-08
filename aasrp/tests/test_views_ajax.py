@@ -5,6 +5,7 @@ Tests for AJAX views in the aasrp app.
 # Standard Library
 import json
 from http import HTTPStatus
+from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
 # Third Party
@@ -21,6 +22,7 @@ from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import create_fake_user, random_id
 from aasrp.views.ajax import (
     srp_link_update_total_cost,
+    srp_link_view_requests_data,
     srp_request_approve,
     srp_request_deny,
     srp_request_remove,
@@ -1181,6 +1183,13 @@ class TestSrpLinkViewRequestsData(BaseViewsTestCase):
 
     @patch("aasrp.models.SrpRequest.objects.filter")
     def test_returns_empty_list_for_invalid_srp_code(self, mock_filter):
+        """
+        Test that the view returns an empty list when an invalid SRP code is provided.
+
+        :param mock_filter:
+        :return:
+        """
+
         mock_filter.return_value = SrpRequest.objects.none()
 
         self.client.force_login(self.user_jean_luc_picard)
@@ -1191,6 +1200,138 @@ class TestSrpLinkViewRequestsData(BaseViewsTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), [])
 
+    def test_returns_character_name_for_requests_with_character(self):
+        """
+        Test that the view returns the character name for requests that have a character associated with them.
+
+        :return:
+        """
+
+        srp_link = SrpLink.objects.create(
+            srp_name="Test Fleet",
+            srp_code="SRP123",
+            fleet_time=timezone.now(),
+            fleet_doctrine="Test Doctrine",
+            fleet_commander=self.user_jean_luc_picard.profile.main_character,
+            creator=self.user_jean_luc_picard,
+        )
+
+        srp_request = SrpRequest.objects.create(
+            request_code="REQ123",
+            srp_link=srp_link,
+            character=self.user_wesley_crusher.profile.main_character,
+            ship=ItemType.objects.all().first(),
+            loss_amount=1000000,
+            payout_amount=500000,
+            creator=self.user_jean_luc_picard,
+            post_time=timezone.now(),
+        )
+
+        self.client.force_login(self.user_jean_luc_picard)
+        response = self.client.get(
+            reverse("aasrp:ajax_srp_link_view_requests_data", args=["SRP123"])
+        )
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data[0]["request_code"], "REQ123")
+        self.assertEqual(data[0]["character"], srp_request.character.character_name)
+        self.assertEqual(
+            data[0]["character_html"]["sort"], srp_request.character.character_name
+        )
+
+    def test_returns_unknown_character_label_when_character_is_missing(self):
+        """
+        Test that the view returns "Unknown character" when the character is missing (None).
+
+        :return:
+        """
+
+        srp_link = SrpLink.objects.create(
+            srp_name="Test Fleet",
+            srp_code="SRP124",
+            fleet_time=timezone.now(),
+            fleet_doctrine="Test Doctrine",
+            fleet_commander=self.user_jean_luc_picard.profile.main_character,
+            creator=self.user_jean_luc_picard,
+        )
+
+        SrpRequest.objects.create(
+            request_code="REQ124",
+            srp_link=srp_link,
+            character=None,
+            ship=ItemType.objects.all().first(),
+            loss_amount=1000000,
+            payout_amount=500000,
+            creator=self.user_jean_luc_picard,
+            post_time=timezone.now(),
+        )
+
+        self.client.force_login(self.user_jean_luc_picard)
+        response = self.client.get(
+            reverse("aasrp:ajax_srp_link_view_requests_data", args=["SRP124"])
+        )
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data[0]["character"], "Unknown character")
+        self.assertEqual(data[0]["character_html"]["sort"], "Unknown character")
+        self.assertIn("Unknown character", data[0]["character_html"]["display"])
+
+    @patch("aasrp.views.ajax.get_user_settings")
+    @patch("aasrp.views.ajax.get_srp_request_action_icons")
+    @patch("aasrp.views.ajax.get_srp_request_status_icon")
+    @patch("aasrp.models.SrpRequest.objects.filter")
+    def test_returns_unknown_character_label_when_character_cannot_be_loaded(
+        self,
+        mock_filter,
+        mock_status_icon,
+        mock_action_icons,
+        mock_get_user_settings,
+    ):
+        """
+        Test that the view returns "Unknown character" when the character cannot be loaded (e.g., due to a database error).
+
+        :param mock_filter:
+        :param mock_status_icon:
+        :param mock_action_icons:
+        :param mock_get_user_settings:
+        :return:
+        """
+
+        request = MagicMock(user=self.user_jean_luc_picard)
+        mock_get_user_settings.return_value.ui_character_id = None
+        mock_status_icon.return_value = ""
+        mock_action_icons.return_value = ""
+
+        srp_request = SimpleNamespace(
+            request_info_comments=[],
+            killboard_link="",
+            character=object(),
+            ship=ItemType.objects.create(name="Test Ship", id=42),
+            creator=self.user_jean_luc_picard,
+            post_time=timezone.now(),
+            request_code="REQ125",
+            srp_link=SimpleNamespace(srp_code="SRP125"),
+            loss_amount=1000000,
+            payout_amount=500000,
+            request_status=SrpRequest.Status.PENDING,
+            get_request_status_display=lambda: "Pending",
+        )
+
+        mock_queryset = MagicMock()
+        mock_queryset.prefetch_related.return_value = mock_queryset
+        mock_queryset.__iter__.return_value = [srp_request]
+        mock_queryset.count.return_value = 1
+        mock_filter.return_value = mock_queryset
+
+        response = srp_link_view_requests_data(request, "SRP125")
+
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEqual(data[0]["character"], "Unknown character")
+        self.assertEqual(data[0]["character_html"]["sort"], "Unknown character")
+
 
 class TestSrpLinkUpdateTotalCost(BaseViewsTestCase):
     """
@@ -1198,6 +1339,12 @@ class TestSrpLinkUpdateTotalCost(BaseViewsTestCase):
     """
 
     def test_returns_success_and_updates_total_cost_for_existing_srp_link(self):
+        """
+        Test that the view returns success and updates the total cost for an existing SRP link.
+
+        :return:
+        """
+
         request = MagicMock(method="POST", body=json.dumps({"total_cost": 987654321}))
 
         response = srp_link_update_total_cost(request, self.srp_link_active.srp_code)
@@ -1211,6 +1358,12 @@ class TestSrpLinkUpdateTotalCost(BaseViewsTestCase):
         self.assertEqual(self.srp_link_active.total_cost, 987654321)
 
     def test_returns_success_and_allows_zero_total_cost(self):
+        """
+        Test that the view returns success and allows setting the total cost to zero.
+
+        :return:
+        """
+
         self.srp_link_active.total_cost = 42
         self.srp_link_active.save()
 
@@ -1227,6 +1380,12 @@ class TestSrpLinkUpdateTotalCost(BaseViewsTestCase):
         self.assertEqual(self.srp_link_active.total_cost, 0)
 
     def test_returns_error_when_srp_link_does_not_exist(self):
+        """
+        Test that the view returns an error when the SRP link does not exist.
+
+        :return:
+        """
+
         request = MagicMock(method="POST", body=json.dumps({"total_cost": 500}))
 
         response = srp_link_update_total_cost(request, "unknown_srp_code")
@@ -1238,6 +1397,12 @@ class TestSrpLinkUpdateTotalCost(BaseViewsTestCase):
         )
 
     def test_returns_error_for_non_post_requests(self):
+        """
+        Test that the view returns an error for non-POST requests.
+
+        :return:
+        """
+
         request = MagicMock(method="GET")
 
         response = srp_link_update_total_cost(request, self.srp_link_active.srp_code)

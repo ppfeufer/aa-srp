@@ -79,7 +79,12 @@ def get_formatted_character_name(
             character, size=portrait_size, as_html=True
         )
 
-        return f"{portrait_html}{line_break}<span class='aasrp-character-portrait-character-name d-inline-block align-middle'>{character_name_formatted}</span>"
+        return (
+            f"{portrait_html}{line_break}"
+            "<span class='aasrp-character-portrait-character-name d-inline-block align-middle'>"
+            f"{character_name_formatted}"
+            "</span>"
+        )
 
     # Return the formatted character name
     return character_name_formatted
