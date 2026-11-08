@@ -125,6 +125,11 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
         )
 
         # Append the SRP request data to the response list
+        try:
+            request_character = srp_request.character.character_name
+        except AttributeError:
+            request_character = _("Unknown character")
+
         data.append(
             {
                 "request_time": srp_request.post_time,  # Time the request was posted
@@ -137,9 +142,9 @@ def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResp
                         with_portrait=True,
                         with_copy_icon=True,
                     ),  # Formatted character name with portrait and copy icon
-                    "sort": srp_request.character.character_name,  # Character name for sorting
+                    "sort": request_character,  # Character name for sorting
                 },
-                "character": srp_request.character.character_name,  # Character name
+                "character": request_character,  # Character name
                 "request_code_html": {
                     "display": request_code_html(
                         request_code=srp_request.request_code

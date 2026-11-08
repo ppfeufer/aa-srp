@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-07 20:52+0100\n"
+"POT-Creation-Date: 2026-11-08 12:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -237,6 +237,7 @@ msgid "None"
 msgstr ""
 
 #: aasrp/helper/character.py:44 aasrp/helper/character.py:47
+#: aasrp/views/ajax.py:131
 msgid "Unknown character"
 msgstr ""
 
@@ -1056,81 +1057,81 @@ msgstr ""
 msgid "The request failed. Your session may have expired, please reload the page."
 msgstr ""
 
-#: aasrp/views/ajax.py:341 aasrp/views/ajax.py:565 aasrp/views/ajax.py:674
-#: aasrp/views/ajax.py:796
+#: aasrp/views/ajax.py:346 aasrp/views/ajax.py:570 aasrp/views/ajax.py:679
+#: aasrp/views/ajax.py:801
 msgid "No matching SRP request found"
 msgstr ""
 
-#: aasrp/views/ajax.py:360 aasrp/views/ajax.py:457 aasrp/views/ajax.py:576
-#: aasrp/views/ajax.py:711
+#: aasrp/views/ajax.py:365 aasrp/views/ajax.py:462 aasrp/views/ajax.py:581
+#: aasrp/views/ajax.py:716
 msgid "Invalid form data"
 msgstr ""
 
-#: aasrp/views/ajax.py:411
+#: aasrp/views/ajax.py:416
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:421 aasrp/views/ajax.py:531 aasrp/views/ajax.py:632
-#: aasrp/views/ajax.py:749 aasrp/views/ajax.py:925
+#: aasrp/views/ajax.py:426 aasrp/views/ajax.py:536 aasrp/views/ajax.py:637
+#: aasrp/views/ajax.py:754 aasrp/views/ajax.py:930
 msgid "Invalid request method"
 msgstr ""
 
-#: aasrp/views/ajax.py:476 aasrp/views/ajax.py:728
+#: aasrp/views/ajax.py:481 aasrp/views/ajax.py:733
 msgid "No matching SRP requests found"
 msgstr ""
 
-#: aasrp/views/ajax.py:521
+#: aasrp/views/ajax.py:526
 msgid "SRP requests have been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:622
+#: aasrp/views/ajax.py:627
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:669
+#: aasrp/views/ajax.py:674
 msgid "SRP request has been removed"
 msgstr ""
 
-#: aasrp/views/ajax.py:739
+#: aasrp/views/ajax.py:744
 msgid "SRP requests have been removed"
 msgstr ""
 
-#: aasrp/views/ajax.py:782
+#: aasrp/views/ajax.py:787
 msgid "Permission denied"
 msgstr ""
 
-#: aasrp/views/ajax.py:787
+#: aasrp/views/ajax.py:792
 msgid "Method not allowed"
 msgstr ""
 
-#: aasrp/views/ajax.py:804
+#: aasrp/views/ajax.py:809
 msgid "This SRP request has no character assigned"
 msgstr ""
 
-#: aasrp/views/ajax.py:815
+#: aasrp/views/ajax.py:820
 msgid "No in-game UI character selected. Please select one in your settings."
 msgstr ""
 
-#: aasrp/views/ajax.py:827
+#: aasrp/views/ajax.py:832
 #, python-brace-format
 msgid "No valid ESI token found for {character}. Please add the character again in your settings."
 msgstr ""
 
-#: aasrp/views/ajax.py:858
+#: aasrp/views/ajax.py:863
 #, python-brace-format
 msgid "The information window could not be opened. Is {character} logged in to EVE?"
 msgstr ""
 
-#: aasrp/views/ajax.py:875
+#: aasrp/views/ajax.py:880
 #, python-brace-format
 msgid "Information window for {character} opened in EVE"
 msgstr ""
 
-#: aasrp/views/ajax.py:915
+#: aasrp/views/ajax.py:920
 msgid "Total cost updated successfully"
 msgstr ""
 
-#: aasrp/views/ajax.py:920
+#: aasrp/views/ajax.py:925
 msgid "SRP link not found"
 msgstr ""
 

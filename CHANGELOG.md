@@ -48,6 +48,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- AttributeError: 'NoneType' object has no attribute 'character_name'
+
 ## [5.7.1] - 2026-11-07
 
 ### Fixed
