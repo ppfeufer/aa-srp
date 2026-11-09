@@ -1,4 +1,4 @@
-{% load humanize i18n %}
+{% load aasrp humanize i18n %}
 
 <div class="card card-default card-srp-request-overview mb-3">
     <div class="card-header">
@@ -28,8 +28,8 @@
                 </div>
 
                 <div class="card-srp-request-overview-cell">
-                    <dt>{% translate "Fleet commander" %}:</dt>
-                    <dd>{{ srp_link.fleet_commander }}</dd>
+                    <dt>{% translate "Creator" %}:</dt>
+                    <dd>{{ srp_link.creator|main_character_name }}</dd>
                 </div>
 
                 <div class="card-srp-request-overview-cell">

@@ -70,7 +70,6 @@ class DashboardSrpLinksView(PermissionRequiredMixin, DataTablesView):
         """
 
         srp_links = self.model.objects.prefetch_related(
-            "fleet_commander",
             "creator",
             "creator__profile__main_character",
             "srp_requests",

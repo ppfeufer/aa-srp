@@ -77,7 +77,6 @@ class TestAccess(BaseTestCase):
             fleet_doctrine="Ships",
             aar_link="",
             srp_code=get_random_string(length=16),
-            fleet_commander=None,
             creator=cls.user_with_create_srp,
         )
         cls.defaul_srp_link.save()
