@@ -1,4 +1,4 @@
-/* global _bootstrapTooltip, _removeSearchFromColumnControl, aaSrpSettings, DataTable, fetchGet, moment, numberFormatter */
+/* global _bootstrapTooltip, _formatCurrency, _removeSearchFromColumnControl, aaSrpSettings, DataTable, fetchGet, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -15,16 +15,7 @@ $(document).ready(() => {
 
     // Display total SRP cost to user
     const userSrpAmount = element.totalSrpCost.data('total-srp-cost') || 0;
-    element.totalSrpCost.html(
-        numberFormatter({
-            value: userSrpAmount,
-            locales: aaSrpSettings.locale,
-            options: {
-                style: 'currency',
-                currency: 'ISK'
-            }
-        })
-    );
+    element.totalSrpCost.html(_formatCurrency(userSrpAmount));
 
     // DataTable column indices for easier reference
     const dtColumn = {
@@ -83,14 +74,7 @@ $(document).ready(() => {
             // ISK lost
             {
                 target: dtColumn.iskLoss,
-                render: (data) => numberFormatter({
-                    value: data,
-                    locales: aaSrpSettings.locale,
-                    options: {
-                        style: 'currency',
-                        currency: 'ISK'
-                    }
-                }),
+                render: (data) => _formatCurrency(data),
                 className: 'srp-request-zkb-loss-amount',
                 columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1),
                 type: 'num'
@@ -98,14 +82,7 @@ $(document).ready(() => {
             // SRP payout
             {
                 target: dtColumn.srpPayout,
-                render: (data) => numberFormatter({
-                    value: data,
-                    locales: aaSrpSettings.locale,
-                    options: {
-                        style: 'currency',
-                        currency: 'ISK'
-                    }
-                }),
+                render: (data) => _formatCurrency(data),
                 className: 'srp-request-payout',
                 columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1),
                 type: 'num'

@@ -1,4 +1,4 @@
-/* global _bootstrapTooltip, _copyToClipboard, _filterDataTable, _removeSearchFromColumnControl, _showToast, aaSrpSettings, DataTable, fetchGet, fetchPost, moment, numberFormatter */
+/* global _bootstrapTooltip, _copyToClipboard, _filterDataTable, _formatCurrency, _removeSearchFromColumnControl, _showToast, aaSrpSettings, DataTable, fetchGet, fetchPost, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -6,21 +6,14 @@ $(document).ready(() => {
     const element = {
         srpRequestsTable: $('#table_aasrp_srp_requests'),
         bulkActions: $('div.card-srp-request-bulk-actions'),
-        totalSrpCost: $('#srp-fleet-total-cost')
+        totalSrpCost: $('#srp-fleet-total-cost'),
+        pendingSrpCost: $('#srp-fleet-pending-cost')
     };
-
     const editablePayoutSelector = '.srp-request-payout-amount-editable .srp-payout-amount';
 
     // Set initial total SRP cost value
-    const totalSrpCost = element.totalSrpCost.data('total-srp-cost') || 0;
-    element.totalSrpCost.html(numberFormatter({
-        value: totalSrpCost,
-        locales: aaSrpSettings.locale,
-        options: {
-            style: 'currency',
-            currency: 'ISK'
-        }
-    }));
+    element.totalSrpCost.html(_formatCurrency(element.totalSrpCost.data('total-srp-cost') || 0));
+    element.pendingSrpCost.html(_formatCurrency(element.pendingSrpCost.data('pending-srp-cost') || 0));
 
     /**
      * Update total notifications badge in sidebar menu
@@ -156,14 +149,7 @@ $(document).ready(() => {
                         // Column 4: ISK lost
                         {
                             data: {
-                                display: (data) => numberFormatter({
-                                    value: data.zbk_loss_amount,
-                                    locales: aaSrpSettings.locale,
-                                    options: {
-                                        style: 'currency',
-                                        currency: 'ISK'
-                                    }
-                                }),
+                                display: (data) => _formatCurrency(data.zbk_loss_amount),
                                 filter: (data) => data.zbk_loss_amount,
                                 sort: (data) => data.zbk_loss_amount
                             },
@@ -174,14 +160,7 @@ $(document).ready(() => {
                             data: {
                                 display: (data) => data.payout_amount_html.display.replace(
                                     '#payout_amount_localized#',
-                                    numberFormatter({
-                                        value: data.payout_amount_html.sort,
-                                        locales: aaSrpSettings.locale,
-                                        options: {
-                                            style: 'currency',
-                                            currency: 'ISK'
-                                        }
-                                    })
+                                    _formatCurrency(data.payout_amount_html.sort)
                                 ),
                                 filter: (data) => data.payout_amount_html.sort,
                                 sort: (data) => data.payout_amount_html.sort
@@ -388,14 +367,7 @@ $(document).ready(() => {
 
         // Update payout value formatted
         // const newValueFormatted = `${new Intl.NumberFormat(aaSrpSettings.locale).format(newValue)} ISK`;
-        const newValueFormatted = numberFormatter({
-            value: newValue,
-            locales: aaSrpSettings.locale,
-            options: {
-                style: 'currency',
-                currency: 'ISK'
-            }
-        });
+        const newValueFormatted = _formatCurrency(newValue);
 
         // Update the element
         valueField
@@ -405,26 +377,27 @@ $(document).ready(() => {
 
         // Update fleet total SRP amount
         let totalSrpAmount = 0;
-        const elementSrpAmount = $(
-            '#table_aasrp_srp_requests .srp-request-status-approved .srp-payout-amount'
-        );
+        let pendingSrpAmount = 0;
 
-        elementSrpAmount.each((i, payoutElement) => {
+        const elementSrpPayoutAmount = {
+            approved: $('#table_aasrp_srp_requests .srp-request-status-approved .srp-payout-amount'),
+            pending: $('#table_aasrp_srp_requests .srp-request-status-pending .srp-payout-amount'),
+            rejected: $('#table_aasrp_srp_requests .srp-request-status-rejected .srp-payout-amount')
+        };
+
+        elementSrpPayoutAmount.approved.each((i, payoutElement) => {
             totalSrpAmount += parseInt(payoutElement.getAttribute('data-value') || 0);
+        });
+        elementSrpPayoutAmount.pending.each((i, payoutElement) => {
+            pendingSrpAmount += parseInt(payoutElement.getAttribute('data-value') || 0);
         });
 
         console.log('Total SRP Amount', totalSrpAmount);
 
         console.log('Element Total Cost', element.totalSrpCost);
 
-        element.totalSrpCost.html(numberFormatter({
-            value: totalSrpAmount,
-            locales: aaSrpSettings.locale,
-            options: {
-                style: 'currency',
-                currency: 'ISK'
-            }
-        }));
+        element.totalSrpCost.html(_formatCurrency(totalSrpAmount));
+        element.pendingSrpCost.html(_formatCurrency(pendingSrpAmount));
 
         // Update copy to clipboard icon value
         const copyToClipboard = valueField.parent().parent().find('.copy-to-clipboard-icon i');
@@ -439,6 +412,7 @@ $(document).ready(() => {
      */
     const _reloadSrpCalculations = (tableData) => {
         let totalSrpAmount = 0;
+        let pendingSrpAmount = 0;
         let requestsTotal = 0;
         let requestsPending = 0;
         let requestsApproved = 0;
@@ -448,6 +422,7 @@ $(document).ready(() => {
             requestsTotal += 1;
 
             if (item.request_status === 'Pending') {
+                pendingSrpAmount += parseInt(item.payout_amount);
                 requestsPending += 1;
             }
 
@@ -474,17 +449,10 @@ $(document).ready(() => {
         })
             .then((data) => {
                 if (data.success === true) {
-                    console.log('Total cost updated successfully:', data.message);
-
                     // Update fleet total SRP amount
-                    element.totalSrpCost.html(numberFormatter({
-                        value: totalSrpAmount,
-                        locales: aaSrpSettings.locale,
-                        options: {
-                            style: 'currency',
-                            currency: 'ISK'
-                        }
-                    }));
+                    element.totalSrpCost.html(_formatCurrency(totalSrpAmount));
+                    // Update fleet pending SRP amount
+                    element.pendingSrpCost.html(_formatCurrency(pendingSrpAmount));
                 } else {
                     console.error('Error updating total cost:', data.message);
                 }
@@ -894,15 +862,7 @@ $(document).ready(() => {
         const payoutAmount = parseInt(row.find('span.srp-payout-amount').attr('data-value')) || 0;
         const requestStatus = row.attr('class').match(/srp-request-status-(\w+)/);
         const translation = aaSrpSettings.translation.openCharacterInfo;
-
-        const formattedAmount = numberFormatter({
-            value: payoutAmount,
-            locales: aaSrpSettings.locale,
-            options: {
-                style: 'currency',
-                currency: 'ISK'
-            }
-        });
+        const formattedAmount = _formatCurrency(payoutAmount);
 
         // Copy first, while still inside the user's click
         const copyPromise = _copyToClipboard(String(payoutAmount));

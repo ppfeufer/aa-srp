@@ -1,4 +1,4 @@
-/* global _bootstrapTooltip, _removeSearchFromColumnControl, aaSrpSettings, DataTable, moment, numberFormatter */
+/* global _bootstrapTooltip, _formatCurrency, _removeSearchFromColumnControl, aaSrpSettings, DataTable, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -63,14 +63,7 @@ $(document).ready(() => {
             {
                 target: dtColumn.srpCost,
                 className: 'srp-link-total-cost',
-                render: (data) => numberFormatter({
-                    value: data,
-                    locales: aaSrpSettings.locale,
-                    options: {
-                        style: 'currency',
-                        currency: 'ISK'
-                    }
-                }),
+                render: (data) => _formatCurrency(data),
                 type: 'num'
             },
             {

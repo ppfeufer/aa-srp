@@ -304,6 +304,72 @@ class TestSrpLink(BaseTestCase):
                 request_status=SrpRequest.Status.REJECTED
             )
 
+    def test_pending_cost_sums_only_pending_request_payouts(self):
+        """
+        Test that the pending cost of an SrpLink sums only the payout amounts of pending requests.
+
+        :return:
+        """
+
+        srp_link = SrpLink.objects.create(
+            srp_name="Test SRP", fleet_time=timezone.now()
+        )
+
+        SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.PENDING,
+            payout_amount=125,
+        )
+        SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.PENDING,
+            payout_amount=375,
+        )
+        SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.APPROVED,
+            payout_amount=1000,
+        )
+
+        self.assertEqual(srp_link.pending_cost, 500)
+
+    def test_pending_cost_returns_zero_when_link_has_no_requests(self):
+        """
+        Test that the pending cost of an SrpLink returns zero when the link has no requests.
+
+        :return:
+        """
+
+        srp_link = SrpLink.objects.create(
+            srp_name="Test SRP", fleet_time=timezone.now()
+        )
+
+        self.assertEqual(srp_link.pending_cost, 0)
+
+    def test_pending_cost_returns_zero_when_no_pending_requests_exist(self):
+        """
+        Test that the pending cost of an SrpLink returns zero when there are no pending requests.
+
+        :return:
+        """
+
+        srp_link = SrpLink.objects.create(
+            srp_name="Test SRP", fleet_time=timezone.now()
+        )
+
+        SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.APPROVED,
+            payout_amount=400,
+        )
+        SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.REJECTED,
+            payout_amount=600,
+        )
+
+        self.assertEqual(srp_link.pending_cost, 0)
+
     def test_saves_srp_link_with_empty_code_generates_unique_code(self):
         """
         Test that saving an SrpLink with an empty code generates a unique code.
@@ -384,3 +450,68 @@ class TestSrpLink(BaseTestCase):
         )
 
         self.assertEqual(SrpLink.total_srp_cost(), 6000)
+
+    def test_pending_srp_cost_sums_pending_payouts_across_all_links(self):
+        """
+        Test that the pending SRP cost sums the payout amounts of all pending requests across all SRP links.
+
+        :return:
+        """
+
+        srp_link_1 = SrpLink.objects.create(
+            srp_name="Test SRP 1", fleet_time=timezone.now()
+        )
+        srp_link_2 = SrpLink.objects.create(
+            srp_name="Test SRP 2", fleet_time=timezone.now()
+        )
+
+        SrpRequest.objects.create(
+            srp_link=srp_link_1,
+            request_status=SrpRequest.Status.PENDING,
+            payout_amount=200,
+        )
+        SrpRequest.objects.create(
+            srp_link=srp_link_1,
+            request_status=SrpRequest.Status.APPROVED,
+            payout_amount=700,
+        )
+        SrpRequest.objects.create(
+            srp_link=srp_link_2,
+            request_status=SrpRequest.Status.PENDING,
+            payout_amount=300,
+        )
+
+        self.assertEqual(SrpLink.pending_srp_cost(), 500)
+
+    def test_pending_srp_cost_returns_zero_when_no_requests_exist(self):
+        """
+        Test that the pending SRP cost returns zero when there are no requests across all SRP links.
+
+        :return:
+        """
+
+        self.assertEqual(SrpLink.pending_srp_cost(), 0)
+
+    def test_pending_srp_cost_returns_zero_when_no_pending_requests_exist(self):
+        """
+        Test that the pending SRP cost returns zero when there are no pending requests across all SRP links.
+
+        :return:
+        """
+
+        srp_link = SrpLink.objects.create(
+            srp_name="Test SRP", fleet_time=timezone.now()
+        )
+
+        SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.APPROVED,
+            payout_amount=400,
+        )
+        SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.REJECTED,
+            payout_amount=600,
+        )
+
+        self.assertEqual(SrpLink.pending_srp_cost(), 0)
