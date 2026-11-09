@@ -268,7 +268,6 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
                 fleet_type=fleet_type,
                 fleet_doctrine=fleet_doctrine,
                 aar_link=aar_link,
-                fleet_commander=request.user.profile.main_character,
                 creator=request.user,
             )
             srp_link.save()

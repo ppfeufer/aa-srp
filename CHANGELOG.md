@@ -55,6 +55,7 @@ Section Order:
 ### Removed
 
 - Unnecessary helper functions in favor of Alliance Auth framework functions
+- Unused database field
 
 ## [5.7.1] - 2026-11-07
 

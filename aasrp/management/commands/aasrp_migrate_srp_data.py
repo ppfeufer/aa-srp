@@ -96,7 +96,6 @@ class Command(BaseCommand):
         self.stdout.write("Migrating SRP fleets ...")
         srp_fleets = SrpFleetMain.objects.all()
 
-        # Retrieve the loss value field setting
         for srp_fleet in srp_fleets:
             # Check if the fleet creator is valid
             srp_fleet_creator = get_user_from_evecharacter(
@@ -105,7 +104,6 @@ class Command(BaseCommand):
 
             if srp_fleet_creator is not None:
                 # Extract fleet details
-                srp_fleet_commander = srp_fleet.fleet_commander
                 srp_fleet_name = srp_fleet.fleet_name
                 srp_fleet_doctrine = srp_fleet.fleet_doctrine
                 srp_fleet_time = srp_fleet.fleet_time
@@ -138,7 +136,6 @@ class Command(BaseCommand):
                     srp_link.fleet_doctrine = srp_fleet_doctrine
                     srp_link.aar_link = srp_fleet_aar_link
                     srp_link.fleet_time = srp_fleet_time
-                    srp_link.fleet_commander = srp_fleet_commander
                     srp_link.creator = srp_fleet_creator
                     srp_link.save()
 

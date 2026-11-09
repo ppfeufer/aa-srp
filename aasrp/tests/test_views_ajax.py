@@ -1041,7 +1041,6 @@ class TestSrpLinkViewRequestsData(BaseViewsTestCase):
             srp_code="SRP123",
             fleet_time=timezone.now(),
             fleet_doctrine="Test Doctrine",
-            fleet_commander=self.user_jean_luc_picard.profile.main_character,
             creator=self.user_jean_luc_picard,
         )
 
@@ -1085,7 +1084,6 @@ class TestSrpLinkViewRequestsData(BaseViewsTestCase):
             srp_code="SRP123",
             fleet_time=timezone.now(),
             fleet_doctrine="Test Doctrine",
-            fleet_commander=self.user_jean_luc_picard.profile.main_character,
             creator=self.user_jean_luc_picard,
         )
         srp_request = SrpRequest.objects.create(
@@ -1212,7 +1210,6 @@ class TestSrpLinkViewRequestsData(BaseViewsTestCase):
             srp_code="SRP123",
             fleet_time=timezone.now(),
             fleet_doctrine="Test Doctrine",
-            fleet_commander=self.user_jean_luc_picard.profile.main_character,
             creator=self.user_jean_luc_picard,
         )
 
@@ -1252,7 +1249,6 @@ class TestSrpLinkViewRequestsData(BaseViewsTestCase):
             srp_code="SRP124",
             fleet_time=timezone.now(),
             fleet_doctrine="Test Doctrine",
-            fleet_commander=self.user_jean_luc_picard.profile.main_character,
             creator=self.user_jean_luc_picard,
         )
 

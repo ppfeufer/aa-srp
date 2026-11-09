@@ -123,15 +123,15 @@ class SrpLink(models.Model):
         verbose_name=_("SRP status"),
     )
     srp_code = models.CharField(max_length=16, default="", verbose_name=_("SRP code"))
-    fleet_commander = models.ForeignKey(
-        to=EveCharacter,
-        related_name="+",
-        null=True,
-        blank=True,
-        default=None,
-        on_delete=models.SET_NULL,
-        verbose_name=_("Fleet commander"),
-    )
+    # fleet_commander = models.ForeignKey(
+    #     to=EveCharacter,
+    #     related_name="+",
+    #     null=True,
+    #     blank=True,
+    #     default=None,
+    #     on_delete=models.SET_NULL,
+    #     verbose_name=_("Fleet commander"),
+    # )
     fleet_doctrine = models.CharField(
         max_length=254, default="", verbose_name=_("Doctrine")
     )

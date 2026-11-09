@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load aasrp i18n %}
 
 <div class="col-md-4 order-md-last">
     <div class="card card-default mb-3">
@@ -17,10 +17,7 @@
                     <li><b>{% translate "Fleet type" %}:</b> {{ srp_link.fleet_type }}</li>
                 {% endif %}
 
-                {% if srp_link.fleet_commander %}
-                    <li><b>{% translate "FC" %}:</b> {{ srp_link.fleet_commander }}</li>
-                {% endif %}
-
+                <li><b>{% translate "Creator" %}:</b> {{ srp_link.creator|main_character_name }}</li>
                 <li><b>{% translate "Doctrine" %}:</b> {{ srp_link.fleet_doctrine }}</li>
 
                 {% if srp_link.aar_link %}

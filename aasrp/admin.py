@@ -43,7 +43,6 @@ class SrpLinkAdmin(admin.ModelAdmin):
     readonly_fields = (
         "aar_link",
         "_creator",
-        "fleet_commander",
         "fleet_doctrine",
         "fleet_time",
         "fleet_type",
