@@ -1994,5 +1994,5 @@ python manage.py aasrp_update_db_relations
 [in development]: https://github.com/ppfeufer/aa-srp/compare/v5.7.1...HEAD "In Development"
 [keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
 [semantic versioning]: http://semver.org/ "Semantic Versioning"
-[tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/tooltip-change-srp-payout-amount.png "Tooltip: Change SRP Payout Amount"
+[tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/changelog/tooltip-change-srp-payout-amount.jpg "Tooltip: Change SRP Payout Amount"
 [v1.16.0 (yanked)]: https://github.com/ppfeufer/aa-srp/releases/tag/v1.16.0 "1.16.0 (YANKED)"
