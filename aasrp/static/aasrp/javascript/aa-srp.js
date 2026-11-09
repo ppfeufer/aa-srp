@@ -1,4 +1,4 @@
-/* global aaSrpJsSettingsDefaults, aaSrpJsSettingsOverride, bootstrap, ClipboardJS, objectDeepMerge */
+/* global aaSrpJsSettingsDefaults, aaSrpJsSettingsOverride, bootstrap, ClipboardJS, numberFormatter, objectDeepMerge */
 
 /* jshint -W097 */
 'use strict';
@@ -150,3 +150,20 @@ const _showToast = (message, success) => { // eslint-disable-line no-unused-vars
 
     new bootstrap.Toast(toastElement[0], {delay: 6000}).show();
 };
+
+/**
+ * Helper function: Format a numeric value as currency
+ *
+ * @param {number} value - The numeric value to format.
+ * @param {string} currency - The currency code (default is 'ISK').
+ * @returns {string} - The formatted currency string.
+ * @private
+ */
+const _formatCurrency = (value, currency = 'ISK') => numberFormatter({ // eslint-disable-line no-unused-vars
+    value,
+    locales: aaSrpSettings.locale,
+    options: {
+        style: 'currency',
+        currency: currency
+    }
+});

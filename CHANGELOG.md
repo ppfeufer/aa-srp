@@ -48,6 +48,11 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- "Pending cost" field to the overview section in thev SRP link view, which shows the
+  potential cost of all pending SRP requests for that link
+
 ### Fixed
 
 - AttributeError: 'NoneType' object has no attribute 'character_name'

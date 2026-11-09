@@ -270,6 +270,22 @@ class SrpLink(models.Model):
 
         return self.srp_requests.all()
 
+    @property
+    def pending_cost(self) -> int:
+        """
+        Calculate the total payout amount for all pending SRP requests linked to this SRP link.
+
+        :return: The total payout amount for pending requests.
+        :rtype: int
+        """
+
+        return (
+            self.srp_requests.filter(
+                request_status=SrpRequest.Status.PENDING
+            ).aggregate(total=models.aggregates.Sum("payout_amount"))["total"]
+            or 0
+        )
+
     @staticmethod
     def total_srp_cost() -> int:
         """
@@ -283,6 +299,22 @@ class SrpLink(models.Model):
             SrpLink.objects.aggregate(total=models.aggregates.Sum("total_cost"))[
                 "total"
             ]
+            or 0
+        )
+
+    @staticmethod
+    def pending_srp_cost() -> int:
+        """
+        Calculate the total payout amount for all pending SRP requests across all SRP links.
+
+        :return: The total payout amount for pending requests.
+        :rtype: int
+        """
+
+        return (
+            SrpRequest.objects.filter(
+                request_status=SrpRequest.Status.PENDING
+            ).aggregate(total=models.aggregates.Sum("payout_amount"))["total"]
             or 0
         )
 

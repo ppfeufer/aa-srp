@@ -28,21 +28,21 @@
                 </div>
 
                 <div class="card-srp-request-overview-cell">
-                    <dt>{% translate "Creator" %}:</dt>
-                    <dd>{{ srp_link.creator|main_character_name }}</dd>
+                    <dt>{% translate "Fleet time" %}:</dt>
+                    <dd>{{ srp_link.fleet_time|date:"Y-m-d H:i" }}</dd>
                 </div>
 
                 <div class="card-srp-request-overview-cell">
-                    <dt>{% translate "Fleet time" %}:</dt>
-                    <dd>{{ srp_link.fleet_time|date:"Y-m-d H:i" }}</dd>
+                    <dt>{% translate "Doctrine" %}:</dt>
+                    <dd>{{ srp_link.fleet_doctrine }}</dd>
                 </div>
             </div>
 
             <!-- middle right card -->
             <div class="col-md-6 col-lg-3">
                 <div class="card-srp-request-overview-cell">
-                    <dt>{% translate "Doctrine" %}:</dt>
-                    <dd>{{ srp_link.fleet_doctrine }}</dd>
+                    <dt>{% translate "Creator" %}:</dt>
+                    <dd>{{ srp_link.creator|main_character_name }}</dd>
                 </div>
 
                 <div class="card-srp-request-overview-cell">
@@ -63,6 +63,11 @@
                 <div class="card-srp-request-overview-cell">
                     <dt>{% translate "SRP cost" %}:</dt>
                     <dd id="srp-fleet-total-cost" data-total-srp-cost="{{ srp_link.total_cost }}"></dd>
+                </div>
+
+                <div class="card-srp-request-overview-cell">
+                    <dt>{% translate "Pending cost" %}:</dt>
+                    <dd id="srp-fleet-pending-cost" data-pending-srp-cost="{{ srp_link.pending_cost }}"></dd>
                 </div>
             </div>
         </div>
