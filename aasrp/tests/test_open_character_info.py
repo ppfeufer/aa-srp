@@ -636,6 +636,8 @@ class TestOpenCharacterInfoButton(BaseOpenCharacterInfoTestCase):
         :return:
         """
 
+        self._set_ui_character(self.manager, self.ui_character if show else None)
+
         request = RequestFactory().get("/")
         request.user = self.manager
 
@@ -643,7 +645,6 @@ class TestOpenCharacterInfoButton(BaseOpenCharacterInfoTestCase):
             request=request,
             srp_link=self.srp_link,
             srp_request=self.srp_request,
-            show_open_character_info=show,
         )
 
     def test_button_hidden_by_default(self):
@@ -695,10 +696,19 @@ class TestOpenCharacterInfoButton(BaseOpenCharacterInfoTestCase):
             "aasrp:ajax_srp_link_view_requests_data", args=[self.srp_link.srp_code]
         )
 
-        response = self.client.get(url)
-        self.assertNotIn("srp-request-open-info", response.json()[0]["actions"])
+        datatables_query = {
+            "draw": 1,
+            "start": 0,
+            "length": 10,
+            "search[value]": "",
+            "search[regex]": "false",
+            "columns[0][searchable]": "false",
+        }
+
+        response = self.client.get(url, datatables_query)
+        self.assertNotIn("srp-request-open-info", response.json()["data"][0][8])
 
         self._set_ui_character(self.manager, self.ui_character)
 
-        response = self.client.get(url)
-        self.assertIn("srp-request-open-info", response.json()[0]["actions"])
+        response = self.client.get(url, datatables_query)
+        self.assertIn("srp-request-open-info", response.json()["data"][0][8])

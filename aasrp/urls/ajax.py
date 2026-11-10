@@ -11,7 +11,7 @@ from django.urls import path
 
 # AA SRP
 from aasrp.views import ajax
-from aasrp.views.datatables import dashboard, view_own_requests
+from aasrp.views.datatables import dashboard, view_own_requests, view_requests
 
 urls = [
     path(
@@ -31,7 +31,7 @@ urls = [
     ),
     path(
         "srp-link/<str:srp_code>/view-srp-requests-data/",
-        ajax.srp_link_view_requests_data,
+        view_requests.SrpRequestsView.as_view(),
         name="ajax_srp_link_view_requests_data",
     ),
     path(

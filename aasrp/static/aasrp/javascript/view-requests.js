@@ -1,4 +1,4 @@
-/* global _bootstrapTooltip, _copyToClipboard, _filterDataTable, _formatCurrency, _removeSearchFromColumnControl, _showToast, aaSrpSettings, DataTable, fetchGet, fetchPost, moment */
+/* global _bootstrapTooltip, _copyToClipboard, _formatCurrency, _removeSearchFromColumnControl, _showToast, aaSrpSettings, DataTable, fetchGet, fetchPost, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -44,6 +44,8 @@ $(document).ready(() => {
         }
     };
 
+    const payoutEditableMode = aaSrpSettings.payoutEditableMode || 'popup';
+
     // DataTable column indices for easier reference
     const dtColumn = {
         requestTime: 0,
@@ -56,300 +58,258 @@ $(document).ready(() => {
         status: 7,
         actions: 8,
         bulkActionsCheckbox: 9,
-        requestCode: 10 // Invisible: Request Code (for internal use, not displayed to users)
+        requestCode: 10, // Invisible: Request Code (for internal use, not displayed to users)
+        requestStatus: 11 // Invisible: Request Status (for internal use, not displayed to users)
     };
+
+    const columnDefs = [
+        {
+            targets: [
+                dtColumn.requestTime,
+                dtColumn.iskLoss,
+                dtColumn.srpPayout
+            ],
+            columnControl: _removeSearchFromColumnControl(
+                aaSrpSettings.dataTables.columnControl,
+                1
+            )
+        },
+        // Remove column control from these columns completely
+        {
+            targets: [
+                dtColumn.status,
+                dtColumn.actions,
+                dtColumn.bulkActionsCheckbox
+            ],
+            columnControl: [
+                {target: 0, content: []},
+                {target: 1, content: []}
+            ]
+        },
+        // Make these columns non-orderable
+        {
+            targets: [
+                dtColumn.status,
+                dtColumn.actions,
+                dtColumn.bulkActionsCheckbox
+            ],
+            orderable: false
+        },
+        // Hidden columns
+        {
+            targets: [
+                dtColumn.requestCode,
+                dtColumn.requestStatus
+            ],
+            visible: false
+        },
+        // Request time column
+        {
+            target: dtColumn.requestTime,
+            render: (data) => moment(data).utc().format(aaSrpSettings.datetimeFormat),
+            className: 'srp-request-time'
+        },
+        // Requester column
+        {
+            target: dtColumn.requester,
+            className: 'srp-request-requester'
+        },
+        // Character column
+        {
+            target: dtColumn.character,
+            className: 'srp-request-character'
+        },
+        // Ship column
+        {
+            target: dtColumn.ship,
+            className: 'srp-request-ship'
+        },
+        // ISK lost column
+        {
+            target: dtColumn.iskLoss,
+            render: (data) => _formatCurrency(data),
+            className: 'srp-request-zkb-loss-amount',
+            type: 'num'
+        },
+        // SRP payout column
+        {
+            target: dtColumn.srpPayout,
+            render: (data) => {
+                const ctcIcon = `<sup class="copy-to-clipboard-icon"><i class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" data-clipboard-text="${data}" data-bs-tooltip="aa-srp" aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}" title="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"></i></sup>`;
+                const html = `<span class="srp-payout d-flex justify-content-end align-items-baseline"><span class="srp-payout-tooltip"><span class="srp-payout-amount">#payout_amount_localized#</span></span>${ctcIcon}</span>`;
+                return html.replace(
+                    '#payout_amount_localized#',
+                    _formatCurrency(data)
+                );
+            },
+            className: 'srp-request-payout',
+            type: 'num',
+            ...(payoutEditableMode === 'inline' ? {width: 325} : {})
+        },
+        // Additional Info column
+        {
+            target: dtColumn.additionalInfo,
+            className: 'srp-request-additional-info'
+        },
+        // Status column
+        {
+            target: dtColumn.status,
+            className: 'srp-request-status text-center'
+        },
+        // Actions column
+        {
+            target: dtColumn.actions,
+            className: 'srp-request-actions text-end',
+            width: 120
+        },
+        // Bulk action checkbox column
+        {
+            target: dtColumn.bulkActionsCheckbox,
+            className: 'srp-request-bulk-actions-checkbox text-end'
+        }
+    ];
 
     /**
      * Table :: SRP Requests
      *
      * @type {*|jQuery}
      */
-    fetchGet({url: aaSrpSettings.url.requestsForSrpLink})
-        .then((data) => {
-            if (data) {
-                const payoutEditableMode = aaSrpSettings.payoutEditableMode || 'popup';
-                const columnDefs = [
-                    {
-                        targets: [
-                            dtColumn.requestTime,
-                            dtColumn.iskLoss,
-                            dtColumn.srpPayout
-                        ],
-                        columnControl: _removeSearchFromColumnControl(
-                            aaSrpSettings.dataTables.columnControl,
-                            1
+    const dt = new DataTable(element.srpRequestsTable, {
+        ...aaSrpSettings.dataTables,
+        ajax: {
+            url: aaSrpSettings.url.requestsForSrpLink,
+            error: (xhr, error) => console.error('Error fetching data:', xhr, error)
+        },
+        columnDefs: columnDefs,
+        order: [dtColumn.requestTime, 'asc'],
+        /**
+         * When ever a row is created…
+         *
+         * @param row
+         * @param data
+         * @param rowIndex
+         */
+        createdRow: (row, data, rowIndex) => {
+            const srpRequestCode = data[dtColumn.requestCode];
+            const srpRequestStatus = data[dtColumn.requestStatus].toLowerCase();
+            const srpRequestPayoutAmount = data[dtColumn.srpPayout] === 0 ? null : data[dtColumn.srpPayout];
+
+            // Row id attr
+            $(row)
+                .attr('data-row-id', rowIndex)
+                .attr('data-srp-request-code', srpRequestCode)
+                .addClass('srp-request-status-' + srpRequestStatus);
+
+            $(row)
+                .find('span.srp-payout-amount')
+                .attr('data-value', srpRequestPayoutAmount);
+
+            // Add class and data attribute to the payout span
+            if (srpRequestStatus === 'pending' || srpRequestStatus === 'rejected') {
+                $(row)
+                    .find('td.srp-request-payout')
+                    .addClass('srp-request-payout-amount-editable');
+
+                $(row)
+                    .find('span.srp-payout-tooltip')
+                    .attr(
+                        'data-bs-tooltip',
+                        'aa-srp'
+                    )
+                    .attr(
+                        'title',
+                        aaSrpSettings.translation.changeSrpPayoutAmount
+                    );
+
+                $(row)
+                    .find('span.srp-payout-amount')
+                    .addClass(`cursor-pointer srp-request-${srpRequestCode}`)
+                    .attr('data-pk', srpRequestCode)
+                    .attr(
+                        'data-params',
+                        `{csrfmiddlewaretoken:'${aaSrpSettings.csrfToken}'}`
+                    )
+                    .attr(
+                        'data-url',
+                        aaSrpSettings.url.changeSrpAmount.replace(
+                            'SRP_REQUEST_CODE',
+                            srpRequestCode
                         )
-                    },
-                    {
-                        targets: [
-                            dtColumn.status,
-                            dtColumn.actions,
-                            dtColumn.bulkActionsCheckbox
-                        ],
-                        orderable: false,
-                        columnControl: [
-                            {target: 0, content: []},
-                            {target: 1, content: []}
-                        ]
-                    },
-                    {
-                        target: dtColumn.actions,
-                        width: 120
-                    },
-                    {
-                        target: dtColumn.requestCode,
-                        visible: false
+                    );
+            }
+        },
+        initComplete: () => {
+            const dt = element.srpRequestsTable.DataTable();
+
+            $('input[name="srp-request-status-filter"]').on('change', () => dt.draw());
+
+            // Show bootstrap tooltips
+            _bootstrapTooltip({selector: '#tab_aasrp_srp_requests'});
+
+            dt.on('draw', () => {
+                _bootstrapTooltip({selector: '#tab_aasrp_srp_requests'});
+            });
+
+            // Make the SRP payout field editable for pending and rejected requests.
+            element.srpRequestsTable.editable({
+                // container: '.aa-srp',
+                selector: editablePayoutSelector,
+                title: aaSrpSettings.translation.changeSrpPayoutHeader,
+                type: 'number',
+                placement: 'top',
+                highlight: 'rgb(170 255 128)',
+                mode: payoutEditableMode,
+                /**
+                 * This needs to be exactly as it is, otherwise the number
+                 * formatter will not work correctly after the edit.
+                 *
+                 * @returns {boolean}
+                 */
+                display: () => false,
+                /**
+                 * On success…
+                 *
+                 * Arrow functions don't work here since we need `$(this)`.
+                 *
+                 * @param response
+                 * @param newValue
+                 */
+                success: function (response, newValue) {
+                    _refreshSrpAmountField($(this), newValue);
+                },
+                /**
+                 * Check if input is not empty
+                 *
+                 * @param {string} value
+                 * @returns {string}
+                 */
+                validate: (value) => {
+                    if (value === '') {
+                        return aaSrpSettings.translation.editableValidate;
                     }
-                ];
-
-                // If the payout field is editable inline, we need to increase the width of the column to accommodate the input field.
-                if (payoutEditableMode === 'inline') {
-                    columnDefs.push({
-                        target: dtColumn.srpPayout,
-                        width: 325
-                    });
                 }
+            });
 
-                const dt = new DataTable(element.srpRequestsTable, { // eslint-disable-line no-unused-vars
-                    ...aaSrpSettings.dataTables,
-                    data: data,
-                    columns: [
-                        // Column 0: Request Time
-                        {
-                            data: {
-                                display: (data) => moment(data.request_time).utc().format(aaSrpSettings.datetimeFormat),
-                                filter: (data) => data.request_time,
-                                sort: (data) => moment(data.request_time).unix()
-                            },
-                            className: 'srp-request-time'
-                        },
-                        // Column 1: Requester
-                        {
-                            data: 'requester',
-                            className: 'srp-request-requester'
-                        },
-                        // Column 2: Character
-                        {
-                            data: {
-                                display: (data) => data.character_html.display,
-                                filter: (data) => data.character_html.sort,
-                                sort: (data) => data.character_html.sort
-                            },
-                            className: 'srp-request-character'
-                        },
-                        // Column 3: Ship
-                        {
-                            data: {
-                                display: (data) => data.ship_html.display,
-                                filter: (data) => data.ship_html.sort,
-                                sort: (data) => data.ship_html.sort
-                            },
-                            className: 'srp-request-ship'
-                        },
-                        // Column 4: ISK lost
-                        {
-                            data: {
-                                display: (data) => _formatCurrency(data.zbk_loss_amount),
-                                filter: (data) => data.zbk_loss_amount,
-                                sort: (data) => data.zbk_loss_amount
-                            },
-                            className: 'srp-request-zbk-loss-amount text-end'
-                        },
-                        // Column 5: Payout Amount
-                        {
-                            data: {
-                                display: (data) => data.payout_amount_html.display.replace(
-                                    '#payout_amount_localized#',
-                                    _formatCurrency(data.payout_amount_html.sort)
-                                ),
-                                filter: (data) => data.payout_amount_html.sort,
-                                sort: (data) => data.payout_amount_html.sort
-                            },
-                            className: 'srp-request-payout text-end'
-                        },
-                        // Column 6: Additional Information (first line)
-                        {
-                            data: {
-                                display: (data) => data.additional_info_html.display,
-                                filter: (data) => data.additional_info_html.sort,
-                                sort: (data) => data.additional_info_html.sort
-                            },
-                            className: 'srp-request-additional-info'
-                        },
-                        // Column 7: Request Status Icon
-                        {
-                            data: {
-                                display: (data) => data.request_status_icon,
-                                sort: (data) => data.request_status
-                            },
-                            className: 'srp-request-status text-center'
-                        },
-                        // Column 8: Actions
-                        {
-                            data: 'actions',
-                            className: 'srp-request-actions text-end'
-                        },
-                        // Column 9: Bulk Actions Checkbox
-                        {
-                            data: {
-                                display: (data) => {
-                                    return `<div class="checkbox"><label><input class="srp-requests-bulk-action" type="checkbox" name="${data.request_code}"><span class="cr"><i class="cr-icon fas fa-check"></i></span></label></div>`;
-                                }
-                            },
-                            className: 'srp-request-bulk-actions-checkbox text-end'
-                        },
-                        // Hidden columns
-                        // Column 10: Request Code
-                        {
-                            data: {
-                                display: (data) => data.request_code_html.display,
-                                filter: (data) => data.request_code_html.sort,
-                                sort: (data) => data.request_code_html.sort
-                            },
-                            className: 'srp-request-code'
-                        }
-                    ],
-                    columnDefs: columnDefs,
-                    order: [
-                        [dtColumn.requestTime, 'asc']
-                    ],
-                    /**
-                     * When ever a row is created…
-                     *
-                     * @param row
-                     * @param data
-                     * @param rowIndex
-                     */
-                    createdRow: (row, data, rowIndex) => {
-                        const srpRequestCode = data.request_code;
-                        const srpRequestStatus = data.request_status.toLowerCase();
-                        const srpRequestPayoutAmount = data.payout_amount === 0 ? null : data.payout_amount;
+            /**
+             * Bulk actions window
+             */
+            const elementBulkActionsCheckboxes = $('td.srp-request-bulk-actions-checkbox input.srp-requests-bulk-action');
+            elementBulkActionsCheckboxes.each((i, checkbox) => {
+                $(checkbox).change(() => {
+                    const checkedCheckboxes = $(elementBulkActionsCheckboxes).filter(':checked');
 
-                        // Row id attr
-                        $(row)
-                            .attr('data-row-id', rowIndex)
-                            .attr('data-srp-request-code', srpRequestCode)
-                            .addClass('srp-request-status-' + srpRequestStatus);
-
-                        $(row)
-                            .find('span.srp-payout-amount')
-                            .attr('data-value', srpRequestPayoutAmount);
-
-                        // Add class and data attribute to the payout span
-                        if (srpRequestStatus === 'pending' || srpRequestStatus === 'rejected') {
-                            $(row)
-                                .find('td.srp-request-payout')
-                                .addClass('srp-request-payout-amount-editable');
-
-                            $(row)
-                                .find('span.srp-payout-tooltip')
-                                .attr(
-                                    'data-bs-tooltip',
-                                    'aa-srp'
-                                )
-                                .attr(
-                                    'title',
-                                    aaSrpSettings.translation.changeSrpPayoutAmount
-                                );
-
-                            $(row)
-                                .find('span.srp-payout-amount')
-                                .addClass(`cursor-pointer srp-request-${srpRequestCode}`)
-                                .attr('data-pk', srpRequestCode)
-                                .attr(
-                                    'data-params',
-                                    `{csrfmiddlewaretoken:'${aaSrpSettings.csrfToken}'}`
-                                )
-                                .attr(
-                                    'data-url',
-                                    aaSrpSettings.url.changeSrpAmount.replace(
-                                        'SRP_REQUEST_CODE',
-                                        srpRequestCode
-                                    )
-                                );
-                        }
-                    },
-                    initComplete: () => {
-                        const dt = element.srpRequestsTable.DataTable();
-
-                        const _filters = [
-                            ['#aasrp-srp-request-filter-all', () => true],
-                            ['#aasrp-srp-request-filter-pending', (rowData) => rowData.request_status === 'Pending'],
-                            ['#aasrp-srp-request-filter-approved', (rowData) => rowData.request_status === 'Approved'],
-                            ['#aasrp-srp-request-filter-rejected', (rowData) => rowData.request_status === 'Rejected']
-                        ];
-
-                        _filters.forEach(([selector, predicate]) => _filterDataTable(dt, selector, predicate));
-
-                        // Show bootstrap tooltips
-                        _bootstrapTooltip({selector: '#tab_aasrp_srp_requests'});
-
-                        dt.on('draw', () => {
-                            _bootstrapTooltip({selector: '#tab_aasrp_srp_requests'});
-                        });
-
-                        // Make the SRP payout field editable for pending and rejected requests.
-                        element.srpRequestsTable.editable({
-                            // container: '.aa-srp',
-                            selector: editablePayoutSelector,
-                            title: aaSrpSettings.translation.changeSrpPayoutHeader,
-                            type: 'number',
-                            placement: 'top',
-                            highlight: 'rgb(170 255 128)',
-                            mode: payoutEditableMode,
-                            /**
-                             * This needs to be exactly as it is, otherwise the number
-                             * formatter will not work correctly after the edit.
-                             *
-                             * @returns {boolean}
-                             */
-                            display: () => false,
-                            /**
-                             * On success…
-                             *
-                             * Arrow functions don't work here since we need `$(this)`.
-                             *
-                             * @param response
-                             * @param newValue
-                             */
-                            success: function (response, newValue) {
-                                _refreshSrpAmountField($(this), newValue);
-                            },
-                            /**
-                             * Check if input is not empty
-                             *
-                             * @param {string} value
-                             * @returns {string}
-                             */
-                            validate: (value) => {
-                                if (value === '') {
-                                    return aaSrpSettings.translation.editableValidate;
-                                }
-                            }
-                        });
-
-                        /**
-                         * Bulk actions window
-                         */
-                        const elementBulkActionsCheckboxes = $('td.srp-request-bulk-actions-checkbox input.srp-requests-bulk-action');
-                        elementBulkActionsCheckboxes.each((i, checkbox) => {
-                            $(checkbox).change(() => {
-                                const checkedCheckboxes = $(elementBulkActionsCheckboxes).filter(':checked');
-
-                                if (checkedCheckboxes.length > 0) {
-                                    element.bulkActions.removeClass('d-none');
-                                } else {
-                                    element.bulkActions.addClass('d-none');
-                                }
-                            });
-                        });
+                    if (checkedCheckboxes.length > 0) {
+                        element.bulkActions.removeClass('d-none');
+                    } else {
+                        element.bulkActions.addClass('d-none');
                     }
                 });
-            }
-        })
-        .catch((error) => {
-            console.error('Error fetching SRP requests:', error);
-        });
+            });
+        }
+    });
+    dt.on('preXhr.dt', (e, settings, data) => {
+        data['filter[request_status]'] = $('input[name="srp-request-status-filter"]:checked').val();
+    });
 
     /* Helper Functions
     --------------------------------------------------------------------------------- */
@@ -362,7 +322,6 @@ $(document).ready(() => {
      * @private
      */
     const _refreshSrpAmountField = (valueField, newValue) => {
-        console.log('New Value', newValue);
         newValue = parseInt(newValue);
 
         // Update payout value formatted
@@ -391,10 +350,6 @@ $(document).ready(() => {
         elementSrpPayoutAmount.pending.each((i, payoutElement) => {
             pendingSrpAmount += parseInt(payoutElement.getAttribute('data-value') || 0);
         });
-
-        console.log('Total SRP Amount', totalSrpAmount);
-
-        console.log('Element Total Cost', element.totalSrpCost);
 
         element.totalSrpCost.html(_formatCurrency(totalSrpAmount));
         element.pendingSrpCost.html(_formatCurrency(pendingSrpAmount));
@@ -435,8 +390,6 @@ $(document).ready(() => {
                 requestsRejected += 1;
             }
         });
-
-        console.log('ELEMENT TOTAL COST', element.totalSrpCost);
 
         // Update total_cost field in Database
         fetchPost({

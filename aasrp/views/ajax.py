@@ -12,10 +12,9 @@ import json
 # Django
 from django.contrib.auth.decorators import permission_required
 from django.core.handlers.wsgi import WSGIRequest
-from django.db.models import Prefetch, Q
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render
-from django.utils.html import escape
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
@@ -32,16 +31,7 @@ from aasrp.form import (
 )
 from aasrp.helper.character import get_formatted_character_name
 from aasrp.helper.eve_images import get_type_render_url_from_type_id
-from aasrp.helper.icons import (
-    get_srp_request_action_icons,
-    get_srp_request_status_icon,
-)
 from aasrp.helper.notification import notify_requester
-from aasrp.helper.srp_data import (
-    get_first_line,
-    payout_amount_html,
-    request_code_html,
-)
 from aasrp.helper.user import (
     get_pending_requests_count_for_user,
     get_ui_token_for_user,
@@ -53,138 +43,6 @@ from aasrp.providers.esi import esi
 
 # Initialize a logger with a custom tag for the AA SRP application
 logger = AppLogger(my_logger=get_extension_logger(__name__))
-
-
-@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
-def srp_link_view_requests_data(request: WSGIRequest, srp_code: str) -> JsonResponse:
-    """
-    Handle an AJAX request to retrieve data for all SRP (Ship Replacement Program) requests associated with a specific SRP link.
-
-    This view generates a JSON response containing details about SRP requests, including the requester, ship, payout, and status.
-    The data is formatted for use in a datatable or dashboard.
-
-    :param request: The HTTP request object containing metadata about the request.
-    :type request: WSGIRequest
-    :param srp_code: The unique code identifying the SRP link.
-    :type srp_code: str
-    :return: A JSON response containing the SRP request data.
-    :rtype: JsonResponse
-    """
-
-    data = []
-
-    # Retrieve all SRP requests associated with the given SRP code, prefetching related data for efficiency
-    srp_requests = SrpRequest.objects.filter(
-        srp_link__srp_code__iexact=srp_code
-    ).prefetch_related(
-        "srp_link",
-        "srp_link__creator",
-        "srp_link__creator__profile__main_character",
-        "character",
-        "ship",
-        Prefetch(
-            "srp_request_comments",
-            queryset=RequestComment.objects.filter(
-                comment_type=RequestComment.Type.REQUEST_INFO
-            ).order_by("pk"),
-            to_attr="request_info_comments",
-        ),
-    )
-
-    logger.debug(f"Found {srp_requests.count()} SRP requests for SRP code: {srp_code}")
-
-    # Only offer the "show info in game" button when the user has a UI character.
-    # Looked up once here, instead of once per row.
-    show_open_character_info = (
-        get_user_settings(user=request.user).ui_character_id is not None
-    )
-
-    # Iterate through each SRP request and prepare its data for the response
-    for srp_request in srp_requests:
-        killboard_link = ""
-
-        # Generate a killboard link with the ship's render icon if available
-        if srp_request.killboard_link:
-            ship_render_icon_html = get_type_render_url_from_type_id(
-                evetype_id=srp_request.ship.pk,
-                evetype_name=srp_request.ship.name,
-                size=32,
-                as_html=True,
-            )
-
-            killboard_link = (
-                f'<a href="{srp_request.killboard_link}" target="_blank">'
-                f"{ship_render_icon_html}"
-                f"<span>{srp_request.ship.name}</span></a>"
-            )
-
-        # Only the first line of the requester's additional information is shown
-        request_info_comments = srp_request.request_info_comments
-        additional_info = get_first_line(
-            request_info_comments[0].comment if request_info_comments else ""
-        )
-
-        # Append the SRP request data to the response list
-        try:
-            request_character = srp_request.character.character_name
-        except AttributeError:
-            request_character = _("Unknown character")
-
-        data.append(
-            {
-                "request_time": srp_request.post_time,  # Time the request was posted
-                "requester": get_main_character_name_from_user(
-                    srp_request.creator
-                ),  # Requester's main character name
-                "character_html": {
-                    "display": get_formatted_character_name(
-                        character=srp_request.character,
-                        with_portrait=True,
-                        with_copy_icon=True,
-                    ),  # Formatted character name with portrait and copy icon
-                    "sort": request_character,  # Character name for sorting
-                },
-                "character": request_character,  # Character name
-                "request_code_html": {
-                    "display": request_code_html(
-                        request_code=srp_request.request_code
-                    ),  # HTML for request code
-                    "sort": srp_request.request_code,  # Request code for sorting
-                },
-                "request_code": srp_request.request_code,
-                "srp_code": srp_request.srp_link.srp_code,
-                "ship_html": {"display": killboard_link, "sort": srp_request.ship.name},
-                "ship": srp_request.ship.name,
-                "zkb_link": killboard_link,
-                "zbk_loss_amount": srp_request.loss_amount,
-                "payout_amount_html": {
-                    "display": payout_amount_html(
-                        payout_amount=srp_request.payout_amount
-                    ),  # Localized payout amount
-                    "sort": srp_request.payout_amount,  # Payout amount for sorting
-                },
-                "payout_amount": srp_request.payout_amount,  # Payout amount
-                "additional_info_html": {
-                    # User input, rendered as HTML by DataTables, so it must be escaped
-                    "display": escape(additional_info),
-                    "sort": additional_info,
-                },
-                "request_status_icon": get_srp_request_status_icon(
-                    request=request, srp_request=srp_request
-                ),  # Icon representing the request status
-                "actions": get_srp_request_action_icons(
-                    request=request,
-                    srp_link=srp_request.srp_link,
-                    srp_request=srp_request,
-                    show_open_character_info=show_open_character_info,
-                ),  # Available actions for the request
-                "request_status_translated": srp_request.get_request_status_display(),  # Translated request status
-                "request_status": srp_request.request_status,  # Request status
-            }
-        )
-
-    # Return the prepared data as a JSON response
-    return JsonResponse(data=data, safe=False)
 
 
 @permission_required("aasrp.basic_access")

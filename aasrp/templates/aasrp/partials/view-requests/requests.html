@@ -13,7 +13,8 @@
                         type="radio"
                         class="btn-check"
                         id="aasrp-srp-request-filter-all"
-                        name="btn-srp-status-filter"
+                        name="srp-request-status-filter"
+                        value=""
                         autocomplete="off"
                         checked
                     >
@@ -28,7 +29,8 @@
                         type="radio"
                         class="btn-check"
                         id="aasrp-srp-request-filter-pending"
-                        name="btn-srp-status-filter"
+                        name="srp-request-status-filter"
+                        value="Pending"
                         autocomplete="off"
                     >
                     <label
@@ -42,7 +44,8 @@
                         type="radio"
                         class="btn-check"
                         id="aasrp-srp-request-filter-approved"
-                        name="btn-srp-status-filter"
+                        name="srp-request-status-filter"
+                        value="Approved"
                         autocomplete="off"
                     >
                     <label
@@ -56,7 +59,8 @@
                         type="radio"
                         class="btn-check"
                         id="aasrp-srp-request-filter-rejected"
-                        name="btn-srp-status-filter"
+                        name="srp-request-status-filter"
+                        value="Rejected"
                         autocomplete="off"
                     >
                     <label
@@ -94,7 +98,9 @@
                         <th class="w-auto">{% translate "Status" %}</th>
                         <th class="w-auto">{% translate "Actions" %}</th>
                         <th class="w-auto"><!-- {% translate "Bulk actions" %} --></th>
+                        {% comment %}Hidden columns{% endcomment %}
                         <th class="w-auto"><!-- {% translate "Request code" %} --></th>
+                        <th class="w-auto"><!-- {% translate "Request status" %} --></th>
                     </tr>
                 </thead>
 
