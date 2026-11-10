@@ -362,34 +362,12 @@ $(document).ready(() => {
     /**
      * Helper function: Reloading SRP calculation in our DataTable
      *
-     * @param {object} tableData The DataTable data
+     * @param {object} summary Fleet-wide request counts and payout totals
      * @private
      */
-    const _reloadSrpCalculations = (tableData) => {
-        let totalSrpAmount = 0;
-        let pendingSrpAmount = 0;
-        let requestsTotal = 0;
-        let requestsPending = 0;
-        let requestsApproved = 0;
-        let requestsRejected = 0;
-
-        $.each(tableData, (i, item) => {
-            requestsTotal += 1;
-
-            if (item.request_status === 'Pending') {
-                pendingSrpAmount += parseInt(item.payout_amount);
-                requestsPending += 1;
-            }
-
-            if (item.request_status === 'Approved') {
-                totalSrpAmount += parseInt(item.payout_amount);
-                requestsApproved += 1;
-            }
-
-            if (item.request_status === 'Rejected') {
-                requestsRejected += 1;
-            }
-        });
+    const _reloadSrpCalculations = (summary) => {
+        const totalSrpAmount = summary.totalSrpAmount;
+        const pendingSrpAmount = summary.pendingSrpAmount;
 
         // Update total_cost field in Database
         fetchPost({
@@ -415,10 +393,10 @@ $(document).ready(() => {
             });
 
         // Update requests counts
-        $('.srp-requests-total-count').html(requestsTotal);
-        $('.srp-requests-pending-count').html(requestsPending);
-        $('.srp-requests-approved-count').html(requestsApproved);
-        $('.srp-requests-rejected-count').html(requestsRejected);
+        $('.srp-requests-total-count').html(summary.requestsTotal);
+        $('.srp-requests-pending-count').html(summary.requestsPending);
+        $('.srp-requests-approved-count').html(summary.requestsApproved);
+        $('.srp-requests-rejected-count').html(summary.requestsRejected);
     };
 
     /**
@@ -441,49 +419,21 @@ $(document).ready(() => {
     const _modalConfirmAction = (data) => {
         // Reload datatable on success and update SRP status values
         if (data.success === true) {
-            fetchGet({url: aaSrpSettings.url.requestsForSrpLink})
-                .then((newData) => {
-                    const dt = element.srpRequestsTable.DataTable();
+            element.srpRequestsTable.DataTable().ajax.reload((response) => {
+                _reloadSrpCalculations(response.summary);
+            });
 
-                    dt.clear().rows.add(newData).draw();
+            if (data.pending_requests >= 0) {
+                const target = $(`a[href="${aaSrpSettings.url.base}"] + span.badge`);
 
-                    // Attempt to call the original initComplete handler (if present)
-                    try {
-                        const settings = dt.settings()[0];
-                        const initComplete = settings && settings.oInit && settings.oInit.initComplete;
+                if (data.pending_requests === 0) {
+                    target.remove();
+                } else {
+                    target.text(data.pending_requests);
+                }
 
-                        if (initComplete) {
-                            if (Array.isArray(initComplete)) {
-                                initComplete.forEach((fn) => {
-                                    if (typeof fn === 'function') {
-                                        fn.call(dt, settings);
-                                    }
-                                });
-                            } else if (typeof initComplete === 'function') {
-                                initComplete.call(dt, settings);
-                            }
-
-                            if (data.pending_requests >= 0) {
-                                const target = $('a[href="/ship-replacement/"] + span.badge');
-
-                                if (data.pending_requests === 0) {
-                                    target.remove();
-                                } else {
-                                    target.text(data.pending_requests);
-                                }
-
-                                updateTotalNotificationsBadge();
-                            }
-                        }
-                    } catch (err) {
-                        console.error('Error calling initComplete:', err);
-                    }
-
-                    _reloadSrpCalculations(newData);
-                })
-                .catch((error) => {
-                    console.error('Error reloading SRP requests:', error);
-                });
+                updateTotalNotificationsBadge();
+            }
         }
     };
 

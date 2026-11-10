@@ -487,6 +487,51 @@ class TestSrpRequestsView(BaseTestCase):
             {approved_request.id, pending_request.id},
         )
 
+    def test_summary_includes_all_request_counts_and_payout_totals_for_srp_link(self):
+        """
+        Test that the summary includes every request on the SRP link, regardless
+        of the current table page or status filter.
+        """
+
+        SrpRequest.objects.create(
+            creator=self.user,
+            request_status=SrpRequest.Status.APPROVED,
+            payout_amount=100,
+            srp_link=self.srp_link,
+        )
+        SrpRequest.objects.create(
+            creator=self.user,
+            request_status=SrpRequest.Status.PENDING,
+            payout_amount=200,
+            srp_link=self.srp_link,
+        )
+        SrpRequest.objects.create(
+            creator=self.user,
+            request_status=SrpRequest.Status.REJECTED,
+            payout_amount=300,
+            srp_link=self.srp_link,
+        )
+        SrpRequest.objects.create(
+            creator=self.user,
+            request_status=SrpRequest.Status.APPROVED,
+            payout_amount=400,
+            srp_link=self.other_srp_link,
+        )
+
+        summary = self.view._get_summary(srp_code=self.srp_link.srp_code)
+
+        self.assertEqual(
+            summary,
+            {
+                "requestsTotal": 3,
+                "requestsPending": 1,
+                "requestsApproved": 1,
+                "requestsRejected": 1,
+                "totalSrpAmount": 100,
+                "pendingSrpAmount": 200,
+            },
+        )
+
     def test_loads_only_request_information_comments_for_each_request(self):
         """
         Test that the view loads only request information comments for each request.
