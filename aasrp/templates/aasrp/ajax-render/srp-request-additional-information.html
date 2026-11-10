@@ -81,7 +81,7 @@
             </h5>
         </header>
 
-        {{ additional_info|linebreaks }}
+        {{ additional_info|linebreaks|urlize }}
     </div>
 </div>
 
@@ -126,7 +126,7 @@
                                         {% translate "SRP request status has changed to" %}: <b>{{ comment.get_new_status_display }}</b>
                                     {% endif %}
                                 {% else %}
-                                    {{ comment.comment|default_if_none:""|linebreaks }}
+                                    {{ comment.comment|default_if_none:""|linebreaks|urlize }}
                                 {% endif %}
                             </td>
                         </tr>
