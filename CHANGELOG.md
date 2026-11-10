@@ -48,6 +48,12 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Moved "ISK lost" and "SRP payout" to templates for the "My SRP requests" view
+  DataTable
+- SRP link DataTables are now server-side processed
+
 ## [5.8.0] - 2026-11-09
 
 ### Added

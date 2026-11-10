@@ -18,6 +18,7 @@ from django.utils.translation import gettext_lazy as _
 from allianceauth.authentication.decorators import permissions_required
 
 # AA SRP
+from aasrp.helper.user import get_user_settings
 from aasrp.models import SrpLink, SrpRequest
 
 
@@ -454,7 +455,6 @@ def get_srp_request_action_icons(
     request: WSGIRequest,
     srp_link: SrpLink,
     srp_request: SrpRequest,
-    show_open_character_info: bool = False,
 ) -> str:
     """
     Generate HTML action icons for SRP requests.
@@ -469,12 +469,11 @@ def get_srp_request_action_icons(
     :type srp_link: SrpLink
     :param srp_request: The SRP request object containing the request details.
     :type srp_request: SrpRequest
-    :param show_open_character_info: Whether to add the "show info in game" button.
-        Only set this when the user has a UI character selected.
-    :type show_open_character_info: bool
     :return: A string containing the HTML for the action icons.
     :rtype: str
     """
+
+    has_ui_character = get_user_settings(user=request.user).ui_character_id is not None
 
     # Generate the details icon for the SRP request
     srp_request_action_icons = get_srp_request_details_icon(
@@ -482,7 +481,7 @@ def get_srp_request_action_icons(
     )
 
     # Add the "show info in game" button, if the user has a UI character
-    if show_open_character_info and srp_request.character is not None:
+    if has_ui_character and srp_request.character is not None:
         srp_request_action_icons += get_srp_request_open_character_info_icon(
             srp_link=srp_link, srp_request=srp_request
         )

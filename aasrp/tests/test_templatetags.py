@@ -3,7 +3,7 @@ Tests for the template tags
 """
 
 # Standard Library
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 # Django
 from django.template import Context, Template
@@ -14,6 +14,7 @@ from allianceauth.tests.auth_utils import AuthUtils
 
 # AA SRP
 from aasrp.models import SrpLink, get_sentinel_user
+from aasrp.templatetags.aasrp import srp_request_action_icons
 from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import create_fake_user, random_id
 
@@ -681,3 +682,184 @@ class TestSrpLinkActions(BaseTestCase):
             self.template.render(context=context)
 
         mock_icons.assert_called_once_with(request=request, srp_link=srp_link)
+
+
+class TestSrpRequestActionIcons(BaseTestCase):
+    """
+    Tests for srp_request_action_icons template tag
+    """
+
+    def test_returns_empty_string_when_user_has_no_required_permissions(self):
+        """
+        Test that the template tag returns an empty string when the user has no required permissions.
+
+        :return:
+        """
+
+        user = create_fake_user(
+            character_id=random_id(),
+            character_name="Miles O'Brien",
+            permissions=["aasrp.basic_access"],
+        )
+        request = RequestFactory().get("/")
+        request.user = user
+
+        with patch(
+            "aasrp.templatetags.aasrp.get_srp_request_action_icons"
+        ) as mock_icons:
+            result = srp_request_action_icons(
+                context={"request": request},
+                srp_link=MagicMock(),
+                srp_request=MagicMock(),
+            )
+
+        self.assertEqual(first=result, second="")
+        mock_icons.assert_not_called()
+
+    def test_returns_icons_when_user_has_manage_srp_permission(self):
+        """
+        Test that the template tag returns the action icons when the user has the "aasrp.manage_srp" permission.
+
+        :return:
+        """
+
+        user = create_fake_user(
+            character_id=random_id(),
+            character_name="Kira Nerys",
+            permissions=["aasrp.manage_srp"],
+        )
+        request = RequestFactory().get("/")
+        request.user = user
+        srp_link = MagicMock()
+        srp_request = MagicMock()
+
+        with patch(
+            "aasrp.templatetags.aasrp.get_srp_request_action_icons"
+        ) as mock_icons:
+            mock_icons.return_value = "<button>Open</button>"
+
+            result = srp_request_action_icons(
+                context={"request": request},
+                srp_link=srp_link,
+                srp_request=srp_request,
+            )
+
+        self.assertEqual(first=result, second="<button>Open</button>")
+        mock_icons.assert_called_once_with(request, srp_link, srp_request)
+
+    def test_returns_icons_when_user_has_manage_srp_requests_permission(self):
+        """
+        Test that the template tag returns the action icons when the user has the "aasrp.manage_srp_requests" permission.
+
+        :return:
+        """
+
+        user = create_fake_user(
+            character_id=random_id(),
+            character_name="Jadzia Dax",
+            permissions=["aasrp.manage_srp_requests"],
+        )
+        request = RequestFactory().get("/")
+        request.user = user
+        srp_link = MagicMock()
+        srp_request = MagicMock()
+
+        with patch(
+            "aasrp.templatetags.aasrp.get_srp_request_action_icons"
+        ) as mock_icons:
+            mock_icons.return_value = "<span>Actions</span>"
+
+            result = srp_request_action_icons(
+                context={"request": request},
+                srp_link=srp_link,
+                srp_request=srp_request,
+            )
+
+        self.assertEqual(first=result, second="<span>Actions</span>")
+        mock_icons.assert_called_once_with(request, srp_link, srp_request)
+
+    def test_raises_key_error_when_request_is_missing_from_context(self):
+        """
+        Test that the template tag raises a KeyError when the 'request' key is missing from the context.
+
+        :return:
+        """
+
+        with self.assertRaises(KeyError):
+            srp_request_action_icons(
+                context={},
+                srp_link=MagicMock(),
+                srp_request=MagicMock(),
+            )
+
+
+class TestFirstLineExcerpt(BaseTestCase):
+    """
+    Tests for first_line_excerpt template filter
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        """
+        Set up the test class by initializing the template for first_line_excerpt.
+
+        :return:
+        """
+
+        super().setUpClass()
+
+        cls.template = Template(
+            template_string="{% load aasrp %}{{ text|first_line_excerpt }}"
+        )
+
+    def test_returns_first_line_for_multiline_text(self):
+        """
+        Test that the template filter returns the first line of a multiline text.
+
+        :return:
+        """
+
+        context = Context(dict_={"text": "First line\nSecond line\nThird line"})
+
+        result = self.template.render(context=context)
+
+        self.assertEqual(first=result, second="First line")
+
+    def test_ignores_leading_blank_lines_and_trims_surrounding_whitespace(self):
+        """
+        Test that the template filter ignores leading blank lines and trims surrounding whitespace.
+
+        :return:
+        """
+
+        context = Context(dict_={"text": "\n\n   First line   \nSecond line"})
+
+        result = self.template.render(context=context)
+
+        self.assertEqual(first=result, second="First line")
+
+    def test_returns_single_line_when_text_has_no_line_breaks(self):
+        """
+        Test that the template filter returns the single line when the text has no line breaks.
+
+        :return:
+        """
+
+        context = Context(dict_={"text": "  Single line value  "})
+
+        result = self.template.render(context=context)
+
+        self.assertEqual(first=result, second="Single line value")
+
+    def test_returns_empty_string_for_empty_or_whitespace_only_text(self):
+        """
+        Test that the template filter returns an empty string for empty or whitespace-only text.
+
+        :return:
+        """
+
+        context = Context(dict_={"text": "   \n\n  "})
+
+        result = self.template.render(context=context)
+
+        self.assertEqual(first=result, second="")

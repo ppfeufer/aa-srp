@@ -46,6 +46,7 @@
     {% translate "Could not copy the amount to the clipboard" as translateOpenInfoNotCopied %}
     {% translate "Note: this request is rejected" as translateOpenInfoRequestRejected %}
     {% translate "The request failed. Your session may have expired, please reload the page." as translateOpenInfoRequestFailed %}
+    {% translate "Copy payout amount to clipboard" as translateCopyPayoutAmountToClipboard %}
 
     <script>
         /**
@@ -61,7 +62,15 @@
             },
             payoutEditableMode: '{{ payout_editable_mode|default:"" }}',
             dataTables: {
-                paging: false
+                serverSide: true, // Enable server-side processing
+                language: {
+                    processing: `{% include "framework/datatables/process-indicator.html" %}`
+                },
+                pageLength: 99999,
+                layout: { // See: https://datatables.net/reference/option/layout
+                    topStart: null,
+                    bottomEnd: null
+                },
             },
             translation: {
                 filter: {
@@ -71,6 +80,7 @@
                 },
                 changeSrpPayoutAmount: '{{ translateChangeSrpPayoutAmount|escapejs }}',
                 changeSrpPayoutHeader: '{{ translateChangeSrpPayoutHeader|escapejs }}',
+                copyPayoutAmountToClipboard: '{{ translateCopyPayoutAmountToClipboard|escapejs }}',
                 editableValidate: '{{ translateEditableValidate|escapejs }}',
                 openCharacterInfo: {
                     copied: '{{ translateOpenInfoCopied|escapejs }}',

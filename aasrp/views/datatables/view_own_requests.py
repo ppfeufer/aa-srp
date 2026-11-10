@@ -36,8 +36,14 @@ class OwnSrpRequestsView(PermissionRequiredMixin, DataTablesView):
             "aasrp/partials/datatables/view-own-requests/column-request-details.html",
         ),
         ("ship__name", "aasrp/partials/datatables/view-own-requests/column-ship.html"),
-        ("loss_amount", "{{ row.loss_amount }}"),
-        ("payout_amount", "{{ row.payout_amount }}"),
+        (
+            "loss_amount",
+            "aasrp/partials/datatables/view-own-requests/column-isk-lost.html",
+        ),
+        (
+            "payout_amount",
+            "aasrp/partials/datatables/view-own-requests/column-srp-payout.html",
+        ),
         ("", "aasrp/partials/datatables/view-own-requests/column-status.html"),
     ]
     invisible_columns = [

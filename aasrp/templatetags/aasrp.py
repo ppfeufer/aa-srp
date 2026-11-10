@@ -15,7 +15,8 @@ from allianceauth.framework.api.user import get_main_character_name_from_user
 from allianceauth.services.hooks import get_extension_logger
 
 # AA SRP
-from aasrp.helper.icons import dashboard_action_icons
+from aasrp.helper.icons import dashboard_action_icons, get_srp_request_action_icons
+from aasrp.helper.srp_data import get_first_line
 from aasrp.models import SrpLink
 from aasrp.providers.applogger import AppLogger
 
@@ -144,3 +145,40 @@ def srp_link_actions(srp_link: SrpLink, request: WSGIRequest) -> str:
 
     # Return the HTML for the dashboard action icons for the given SRP link
     return mark_safe(dashboard_action_icons(request=request, srp_link=srp_link))
+
+
+@register.simple_tag(takes_context=True)
+def srp_request_action_icons(context, srp_link, srp_request):
+    """
+    Get the HTML for the action icons available for a given SRP request.
+
+    :param context: The template context, which includes the request object.
+    :param srp_link: The SRP link object associated with the request.
+    :param srp_request: The SRP request object for which to retrieve action icons.
+    :return: The HTML string representing the action icons for the SRP request.
+    :rtype: str
+    """
+
+    request = context["request"]
+
+    if not any(
+        request.user.has_perm(permission)
+        for permission in ("aasrp.manage_srp", "aasrp.manage_srp_requests")
+    ):
+        return ""
+
+    return mark_safe(get_srp_request_action_icons(request, srp_link, srp_request))
+
+
+@register.filter
+def first_line_excerpt(text: str) -> str:
+    """
+    Get the first non-empty line of a text.
+
+    :param text: The text, which may span multiple lines.
+    :type text: str
+    :return: The first non-empty line without surrounding whitespace, or an empty string.
+    :rtype: str
+    """
+
+    return get_first_line(text)
