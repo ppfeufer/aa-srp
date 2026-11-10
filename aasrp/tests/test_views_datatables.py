@@ -17,7 +17,7 @@ from django.utils import timezone
 from aasrp.models import SrpLink, SrpRequest
 from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import create_fake_user, random_id
-from aasrp.views.datatables import dashboard, own_srp_requests
+from aasrp.views.datatables import dashboard, view_own_requests
 
 
 class TestOwnSrpRequestsView(BaseTestCase):
@@ -38,7 +38,7 @@ class TestOwnSrpRequestsView(BaseTestCase):
             character_name="Jean Luc Picard",
             permissions=["aasrp.basic_access", "aasrp.manage_srp"],
         )
-        self.view = own_srp_requests.OwnSrpRequestsView()
+        self.view = view_own_requests.OwnSrpRequestsView()
         self.request = MagicMock(user=self.user)
         self.srp_link = SrpLink.objects.create(
             srp_code="TEST001", creator=self.user, fleet_time=timezone.now()
