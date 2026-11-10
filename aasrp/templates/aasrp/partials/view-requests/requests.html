@@ -94,7 +94,16 @@
                                 ></i>
                             </sup>
                         </th>
-                        <th class="w-auto">{% translate "Additional information" %}</th>
+                        <th class="w-auto">
+                            {% translate "Additional information" %}
+                            <sup>
+                                <i
+                                    class="fa-solid fa-circle-question fa-fw"
+                                    data-bs-tooltip="aa-srp"
+                                    title="{% translate 'Only an excerpt of the first sentence is shown here. To view the full additional information, click on the info icon. This search field searches all comments submitted in response to this SRP request.' %}"
+                                ></i>
+                            </sup>
+                        </th>
                         <th class="w-auto">{% translate "Status" %}</th>
                         <th class="w-auto">{% translate "Actions" %}</th>
                         <th class="w-auto"><!-- {% translate "Bulk actions" %} --></th>

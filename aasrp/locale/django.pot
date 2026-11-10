@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-10 15:33+0100\n"
+"POT-Creation-Date: 2026-11-10 20:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,7 +75,7 @@ msgstr ""
 #: aasrp/admin.py:221 aasrp/helper/srp_data.py:81 aasrp/models.py:337
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:33
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:103
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:112
 msgid "Request code"
 msgstr ""
 
@@ -181,7 +181,7 @@ msgstr ""
 
 #: aasrp/form.py:238 aasrp/form.py:247 aasrp/models.py:377 aasrp/models.py:517
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:80
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:97
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:98
 #: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:43
 msgid "Additional information"
@@ -439,7 +439,7 @@ msgstr ""
 #: aasrp/models.py:383 aasrp/templates/aasrp/dashboard.html:23
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:31
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:34
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:104
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:113
 #: aasrp/templates/aasrp/view-own-requests.html:22
 #: aasrp/templates/aasrp/view-requests.html:34
 msgid "Request status"
@@ -808,12 +808,12 @@ msgstr ""
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:76
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:25
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:98
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:107
 msgid "Status"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:78
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:99
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:108
 msgid "Actions"
 msgstr ""
 
@@ -950,7 +950,7 @@ msgid "SRP payout"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:7
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:100
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:109
 msgid "Bulk actions"
 msgstr ""
 
@@ -1019,6 +1019,10 @@ msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:93
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:103
+msgid "Only an excerpt of the first sentence is shown here. To view the full additional information, click on the info icon. This search field searches all comments submitted in response to this SRP request."
 msgstr ""
 
 #: aasrp/templates/aasrp/view-own-requests.html:26
