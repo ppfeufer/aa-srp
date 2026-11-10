@@ -48,6 +48,12 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- Clarification in the "SRP requests" view on the "Additional Information" column
+  that only an excerpt of the additional information is shown, and that the full text
+  can be seen in the request detail modal
+
 ### Changed
 
 - Moved "ISK lost" and "SRP payout" to templates for the "My SRP requests" view
