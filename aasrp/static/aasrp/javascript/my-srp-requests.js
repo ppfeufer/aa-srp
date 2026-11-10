@@ -49,12 +49,28 @@ $(document).ready(() => {
             error: (xhr, error) => console.error('Error fetching data:', xhr, error)
         },
         columnDefs: [
+            // Remove ColumnControl search
+            {
+                targets: [
+                    dtColumn.requestTime,
+                    dtColumn.iskLoss,
+                    dtColumn.srpPayout
+                ],
+                columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
+            },
+            // Remove ColumnControl completely for certain columns
+            {
+                target: dtColumn.status,
+                columnControl: [
+                    {target: 0, content: []},
+                    {target: 1, content: []}
+                ]
+            },
             // Request time
             {
                 target: dtColumn.requestTime,
                 render: (data) => moment(data).utc().format(aaSrpSettings.datetimeFormat),
-                className: 'srp-request-time',
-                columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
+                className: 'srp-request-time'
             },
             // Character
             {
@@ -76,7 +92,6 @@ $(document).ready(() => {
                 target: dtColumn.iskLoss,
                 render: (data) => _formatCurrency(data),
                 className: 'srp-request-zkb-loss-amount',
-                columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1),
                 type: 'num'
             },
             // SRP payout
@@ -84,7 +99,6 @@ $(document).ready(() => {
                 target: dtColumn.srpPayout,
                 render: (data) => _formatCurrency(data),
                 className: 'srp-request-payout',
-                columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1),
                 type: 'num'
             },
             // Status
@@ -93,30 +107,16 @@ $(document).ready(() => {
                 render: (data) => data,
                 className: 'srp-request-status text-end',
                 orderable: false,
-                columnControl: [
-                    {target: 0, content: []},
-                    {target: 1, content: []}
-                ],
                 width: '90'
             },
-            // Invisible: SRP Code (for internal use, not displayed to users)
+            // Invisible columns for internal use (not displayed to users)
             {
-                target: dtColumn.srpCode,
-                visible: false
-            },
-            // Invisible: Request Code (for internal use, not displayed to users)
-            {
-                target: dtColumn.requestCode,
-                visible: false
-            },
-            // Invisible: Request Status (for internal use, not displayed to users)
-            {
-                target: dtColumn.requestStatus,
-                visible: false
-            },
-            // Invisible: Killboard Link (for internal use, not displayed to users)
-            {
-                target: dtColumn.killboardLink,
+                targets: [
+                    dtColumn.srpCode,
+                    dtColumn.requestCode,
+                    dtColumn.requestStatus,
+                    dtColumn.killboardLink
+                ],
                 visible: false
             }
         ],
