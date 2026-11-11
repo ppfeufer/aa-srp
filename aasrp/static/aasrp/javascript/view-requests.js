@@ -15,6 +15,14 @@ $(document).ready(() => {
     element.totalSrpCost.html(_formatCurrency(element.totalSrpCost.data('total-srp-cost') || 0));
     element.pendingSrpCost.html(_formatCurrency(element.pendingSrpCost.data('pending-srp-cost') || 0));
 
+    // Set fleet time in overview header
+    const fleetTimeElement = $('#srp-fleet-time');
+    const fleetTime = fleetTimeElement.data('fleet-time');
+
+    if (fleetTime) {
+        fleetTimeElement.html(moment(fleetTime).utc().format(aaSrpSettings.datetimeFormat));
+    }
+
     /**
      * Update total notifications badge in sidebar menu
      */

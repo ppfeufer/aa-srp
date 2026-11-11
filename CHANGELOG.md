@@ -53,6 +53,8 @@ Section Order:
 - Clarification in the "SRP requests" view on the "Additional Information" column
   that only an excerpt of the additional information is shown, and that the full text
   can be seen in the request detail modal
+- Reformatted fleet time in the "View SRP requests" overview header to match the rest
+  of the app's date and time formatting
 
 ### Fixed
 
