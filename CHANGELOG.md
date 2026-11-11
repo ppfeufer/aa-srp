@@ -48,13 +48,13 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [5.9.0] - 2026-11-11
+
 ### Added
 
 - Clarification in the "SRP requests" view on the "Additional Information" column
   that only an excerpt of the additional information is shown, and that the full text
   can be seen in the request detail modal
-- Reformatted fleet time in the "View SRP requests" overview header to match the rest
-  of the app's date and time formatting
 
 ### Fixed
 
@@ -65,6 +65,8 @@ Section Order:
 - Moved "ISK lost" and "SRP payout" to templates for the "My SRP requests" view
   DataTable
 - SRP link DataTables are now server-side processed
+- Reformatted fleet time in the "View SRP requests" overview header to match the rest
+  of the app's date and time formatting
 
 ## [5.8.0] - 2026-11-09
 
@@ -2008,11 +2010,12 @@ python manage.py aasrp_update_db_relations
 [5.7.0]: https://github.com/ppfeufer/aa-srp/compare/v5.6.1...v5.7.0 "v5.7.0"
 [5.7.1]: https://github.com/ppfeufer/aa-srp/compare/v5.7.0...v5.7.1 "v5.7.1"
 [5.8.0]: https://github.com/ppfeufer/aa-srp/compare/v5.7.1...v5.8.0 "v5.8.0"
+[5.9.0]: https://github.com/ppfeufer/aa-srp/compare/v5.8.0...v5.9.0 "v5.9.0"
 [aa discord notify]: https://gitlab.com/ErikKalkoken/aa-discordnotify "AA Discord Notify"
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[in development]: https://github.com/ppfeufer/aa-srp/compare/v5.8.0...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-srp/compare/v5.9.0...HEAD "In Development"
 [keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
 [semantic versioning]: http://semver.org/ "Semantic Versioning"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/changelog/tooltip-change-srp-payout-amount.jpg "Tooltip: Change SRP Payout Amount"
