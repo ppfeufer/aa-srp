@@ -29,7 +29,7 @@
 
                 <div class="card-srp-request-overview-cell">
                     <dt>{% translate "Fleet time" %}:</dt>
-                    <dd>{{ srp_link.fleet_time|date:"Y-m-d H:i" }}</dd>
+                    <dd id="srp-fleet-time" data-fleet-time="{{ srp_link.fleet_time.isoformat }}"></dd>
                 </div>
 
                 <div class="card-srp-request-overview-cell">
