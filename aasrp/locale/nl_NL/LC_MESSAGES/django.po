@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-09 11:10+0100\n"
+"POT-Creation-Date: 2026-11-11 20:28+0100\n"
 "PO-Revision-Date: 2026-09-05 10:58+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Dutch <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/nl/>\n"
@@ -38,7 +38,7 @@ msgstr ""
 
 #: aasrp/admin.py:115 aasrp/admin.py:234
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:13
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:79
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:83
 #: aasrp/templates/aasrp/view-own-requests.html:24
 #: aasrp/templates/aasrp/view-requests.html:41
 msgid "Requestor"
@@ -58,7 +58,7 @@ msgstr ""
 #: aasrp/templates/aasrp/dashboard.html:22
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:20
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:22
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:81
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:85
 #: aasrp/templates/aasrp/view-own-requests.html:21
 #: aasrp/templates/aasrp/view-requests.html:35
 msgid "Ship"
@@ -75,7 +75,7 @@ msgstr ""
 #: aasrp/admin.py:221 aasrp/helper/srp_data.py:81 aasrp/models.py:337
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:33
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:97
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:112
 msgid "Request code"
 msgstr ""
 
@@ -84,7 +84,7 @@ msgstr ""
 #: aasrp/templates/aasrp/dashboard.html:24
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:9
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:80
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:84
 #: aasrp/templates/aasrp/view-own-requests.html:23
 #: aasrp/templates/aasrp/view-requests.html:36
 msgid "Character"
@@ -181,7 +181,7 @@ msgstr ""
 
 #: aasrp/form.py:238 aasrp/form.py:247 aasrp/models.py:377 aasrp/models.py:517
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:80
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:93
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:98
 #: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:43
 msgid "Additional information"
@@ -239,64 +239,67 @@ msgid "None"
 msgstr ""
 
 #: aasrp/helper/character.py:42 aasrp/helper/character.py:45
-#: aasrp/views/ajax.py:131
 msgid "Unknown character"
 msgstr ""
 
 #: aasrp/helper/character.py:69
+#: aasrp/templates/aasrp/partials/datatables/view-requests/column-character.html:13
 msgid "Copy character name to clipboard"
 msgstr ""
 
-#: aasrp/helper/icons.py:92 aasrp/templates/aasrp/request-srp.html:6
+#: aasrp/helper/icons.py:93 aasrp/templates/aasrp/request-srp.html:6
 msgid "Request SRP"
 msgstr ""
 
-#: aasrp/helper/icons.py:107
+#: aasrp/helper/icons.py:108
 msgid "View SRP requests"
 msgstr ""
 
-#: aasrp/helper/icons.py:125
+#: aasrp/helper/icons.py:126
 #: aasrp/templates/aasrp/partials/link-edit/form.html:18
 msgid "Add/Change AAR link"
 msgstr ""
 
-#: aasrp/helper/icons.py:134
+#: aasrp/helper/icons.py:135
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:9
 msgid "Disable SRP link"
 msgstr ""
 
-#: aasrp/helper/icons.py:148
+#: aasrp/helper/icons.py:149
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:9
 msgid "Enable SRP link"
 msgstr ""
 
-#: aasrp/helper/icons.py:158
+#: aasrp/helper/icons.py:159
 msgid "Remove SRP link"
 msgstr ""
 
-#: aasrp/helper/icons.py:185 aasrp/helper/icons.py:200
+#: aasrp/helper/icons.py:186 aasrp/helper/icons.py:201
 #: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-status.html:17
+#: aasrp/templates/aasrp/partials/datatables/view-requests/column-status.html:6
 msgid "SRP request pending"
 msgstr ""
 
-#: aasrp/helper/icons.py:189
+#: aasrp/helper/icons.py:190
 #: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-status.html:25
+#: aasrp/templates/aasrp/partials/datatables/view-requests/column-status.html:14
 msgid "SRP request approved"
 msgstr ""
 
-#: aasrp/helper/icons.py:194
+#: aasrp/helper/icons.py:195
 #: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-status.html:33
+#: aasrp/templates/aasrp/partials/datatables/view-requests/column-status.html:22
 msgid "SRP request rejected"
 msgstr ""
 
-#: aasrp/helper/icons.py:243
+#: aasrp/helper/icons.py:244
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr ""
 
-#: aasrp/helper/icons.py:303
+#: aasrp/helper/icons.py:304
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:9
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:39
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:9
@@ -305,19 +308,19 @@ msgstr ""
 msgid "Accept SRP request"
 msgstr ""
 
-#: aasrp/helper/icons.py:356
+#: aasrp/helper/icons.py:357
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:9
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:39
 msgid "Reject SRP request"
 msgstr ""
 
-#: aasrp/helper/icons.py:401
+#: aasrp/helper/icons.py:402
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:37
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr ""
 
-#: aasrp/helper/icons.py:441
+#: aasrp/helper/icons.py:442
 msgid "Show info in game & copy ISK amount"
 msgstr ""
 
@@ -325,7 +328,7 @@ msgstr ""
 msgid "Copy request code to clipboard"
 msgstr ""
 
-#: aasrp/helper/srp_data.py:60
+#: aasrp/helper/srp_data.py:60 aasrp/templates/aasrp/view-requests.html:49
 msgid "Copy payout amount to clipboard"
 msgstr ""
 
@@ -409,19 +412,19 @@ msgstr ""
 
 #: aasrp/models.py:332
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:17
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:38
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:40
 msgid "Pending"
 msgstr ""
 
 #: aasrp/models.py:333
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:18
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:52
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:55
 msgid "Approved"
 msgstr ""
 
 #: aasrp/models.py:334
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:19
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:66
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:70
 msgid "Rejected"
 msgstr ""
 
@@ -436,6 +439,7 @@ msgstr ""
 #: aasrp/models.py:383 aasrp/templates/aasrp/dashboard.html:23
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:31
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:34
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:113
 #: aasrp/templates/aasrp/view-own-requests.html:22
 #: aasrp/templates/aasrp/view-requests.html:34
 msgid "Request status"
@@ -443,7 +447,7 @@ msgstr ""
 
 #: aasrp/models.py:398
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:19
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:78
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:82
 msgid "Request time"
 msgstr ""
 
@@ -776,7 +780,7 @@ msgid "Filter SRP links"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:34
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:24
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:25
 msgid "All"
 msgstr ""
 
@@ -804,12 +808,12 @@ msgstr ""
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:76
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:25
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:94
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:107
 msgid "Status"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:78
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:95
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:108
 msgid "Actions"
 msgstr ""
 
@@ -936,17 +940,17 @@ msgid "Request details"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:23
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:82
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:86
 msgid "ISK lost"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:24
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:84
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:88
 msgid "SRP payout"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:7
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:96
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:109
 msgid "Bulk actions"
 msgstr ""
 
@@ -1013,8 +1017,12 @@ msgstr ""
 msgid "Filter by request status"
 msgstr ""
 
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:89
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:93
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
+msgstr ""
+
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:103
+msgid "Only an excerpt of the first sentence is shown here. To view the full additional information, click on the info icon. This search field searches all comments submitted in response to this SRP request."
 msgstr ""
 
 #: aasrp/templates/aasrp/view-own-requests.html:26
@@ -1054,81 +1062,81 @@ msgstr ""
 msgid "The request failed. Your session may have expired, please reload the page."
 msgstr ""
 
-#: aasrp/views/ajax.py:346 aasrp/views/ajax.py:570 aasrp/views/ajax.py:679
-#: aasrp/views/ajax.py:801
+#: aasrp/views/ajax.py:204 aasrp/views/ajax.py:428 aasrp/views/ajax.py:537
+#: aasrp/views/ajax.py:659
 msgid "No matching SRP request found"
 msgstr ""
 
-#: aasrp/views/ajax.py:365 aasrp/views/ajax.py:462 aasrp/views/ajax.py:581
-#: aasrp/views/ajax.py:716
+#: aasrp/views/ajax.py:223 aasrp/views/ajax.py:320 aasrp/views/ajax.py:439
+#: aasrp/views/ajax.py:574
 msgid "Invalid form data"
 msgstr ""
 
-#: aasrp/views/ajax.py:416
+#: aasrp/views/ajax.py:274
 msgid "SRP request has been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:426 aasrp/views/ajax.py:536 aasrp/views/ajax.py:637
-#: aasrp/views/ajax.py:754 aasrp/views/ajax.py:930
+#: aasrp/views/ajax.py:284 aasrp/views/ajax.py:394 aasrp/views/ajax.py:495
+#: aasrp/views/ajax.py:612 aasrp/views/ajax.py:788
 msgid "Invalid request method"
 msgstr ""
 
-#: aasrp/views/ajax.py:481 aasrp/views/ajax.py:733
+#: aasrp/views/ajax.py:339 aasrp/views/ajax.py:591
 msgid "No matching SRP requests found"
 msgstr ""
 
-#: aasrp/views/ajax.py:526
+#: aasrp/views/ajax.py:384
 msgid "SRP requests have been approved"
 msgstr ""
 
-#: aasrp/views/ajax.py:627
+#: aasrp/views/ajax.py:485
 msgid "SRP request has been rejected"
 msgstr ""
 
-#: aasrp/views/ajax.py:674
+#: aasrp/views/ajax.py:532
 msgid "SRP request has been removed"
 msgstr ""
 
-#: aasrp/views/ajax.py:744
+#: aasrp/views/ajax.py:602
 msgid "SRP requests have been removed"
 msgstr ""
 
-#: aasrp/views/ajax.py:787
+#: aasrp/views/ajax.py:645
 msgid "Permission denied"
 msgstr ""
 
-#: aasrp/views/ajax.py:792
+#: aasrp/views/ajax.py:650
 msgid "Method not allowed"
 msgstr ""
 
-#: aasrp/views/ajax.py:809
+#: aasrp/views/ajax.py:667
 msgid "This SRP request has no character assigned"
 msgstr ""
 
-#: aasrp/views/ajax.py:820
+#: aasrp/views/ajax.py:678
 msgid "No in-game UI character selected. Please select one in your settings."
 msgstr ""
 
-#: aasrp/views/ajax.py:832
+#: aasrp/views/ajax.py:690
 #, python-brace-format
 msgid "No valid ESI token found for {character}. Please add the character again in your settings."
 msgstr ""
 
-#: aasrp/views/ajax.py:863
+#: aasrp/views/ajax.py:721
 #, python-brace-format
 msgid "The information window could not be opened. Is {character} logged in to EVE?"
 msgstr ""
 
-#: aasrp/views/ajax.py:880
+#: aasrp/views/ajax.py:738
 #, python-brace-format
 msgid "Information window for {character} opened in EVE"
 msgstr ""
 
-#: aasrp/views/ajax.py:920
+#: aasrp/views/ajax.py:778
 msgid "Total cost updated successfully"
 msgstr ""
 
-#: aasrp/views/ajax.py:925
+#: aasrp/views/ajax.py:783
 msgid "SRP link not found"
 msgstr ""
 

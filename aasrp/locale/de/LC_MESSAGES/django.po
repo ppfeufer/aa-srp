@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-09 11:10+0100\n"
-"PO-Revision-Date: 2026-11-09 10:06+0000\n"
+"POT-Creation-Date: 2026-11-11 20:28+0100\n"
+"PO-Revision-Date: 2026-11-11 07:49+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/de/>\n"
 "Language: de\n"
@@ -38,7 +38,7 @@ msgstr "Ersteller"
 
 #: aasrp/admin.py:115 aasrp/admin.py:234
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:13
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:79
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:83
 #: aasrp/templates/aasrp/view-own-requests.html:24
 #: aasrp/templates/aasrp/view-requests.html:41
 msgid "Requestor"
@@ -58,7 +58,7 @@ msgstr "SRP Code"
 #: aasrp/templates/aasrp/dashboard.html:22
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:20
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:22
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:81
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:85
 #: aasrp/templates/aasrp/view-own-requests.html:21
 #: aasrp/templates/aasrp/view-requests.html:35
 msgid "Ship"
@@ -75,7 +75,7 @@ msgstr "Auszahlungsbetrag"
 #: aasrp/admin.py:221 aasrp/helper/srp_data.py:81 aasrp/models.py:337
 #: aasrp/templates/aasrp/dashboard.html:26
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:33
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:97
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:112
 msgid "Request code"
 msgstr "Anfrage Code"
 
@@ -84,7 +84,7 @@ msgstr "Anfrage Code"
 #: aasrp/templates/aasrp/dashboard.html:24
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:9
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:20
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:80
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:84
 #: aasrp/templates/aasrp/view-own-requests.html:23
 #: aasrp/templates/aasrp/view-requests.html:36
 msgid "Character"
@@ -181,7 +181,7 @@ msgstr "Killboard Link"
 
 #: aasrp/form.py:238 aasrp/form.py:247 aasrp/models.py:377 aasrp/models.py:517
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:80
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:93
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:98
 #: aasrp/templates/aasrp/view-own-requests.html:25
 #: aasrp/templates/aasrp/view-requests.html:43
 msgid "Additional information"
@@ -198,7 +198,7 @@ msgstr "Ungültiger Link. Bitte poste einen Link zu einer Killmail."
 
 #: aasrp/form.py:346 aasrp/views/general.py:599
 msgid "There is already an SRP request for this kill mail. Please check if you got the right one."
-msgstr "Es gibt bereits eine SRP Anfrage für diese Killmail. Bitte überprüfe, dass Du die Richtige hast."
+msgstr "Es gibt bereits eine SRP-Anfrage für diese Killmail. Bitte überprüfe, dass Du die Richtige hast."
 
 #: aasrp/form.py:361
 msgid "SRP payout value"
@@ -206,7 +206,7 @@ msgstr "SRP Auszahlungsbetrag"
 
 #: aasrp/form.py:389
 msgid "Please provide the reason this SRP request is rejected."
-msgstr "Bitte gib einen Grund für die Ablehnung der SRP Anfrage an."
+msgstr "Bitte gib einen Grund für die Ablehnung der SRP-Anfrage an."
 
 #: aasrp/form.py:392 aasrp/models.py:401 aasrp/models.py:518
 msgid "Reject reason"
@@ -222,7 +222,7 @@ msgstr "Kommentar (Optional)"
 
 #: aasrp/form.py:471
 msgid "Please provide the reason why this former rejected SRP request is now accepted."
-msgstr "Bitte geben Sie den Grund an, warum diese zuvor abgelehnte SRP Anfrage jetzt akzeptiert wird."
+msgstr "Bitte geben Sie den Grund an, warum diese zuvor abgelehnte SRP-Anfrage jetzt akzeptiert wird."
 
 #: aasrp/form.py:476 aasrp/models.py:515 aasrp/models.py:522
 #: aasrp/models.py:574
@@ -239,85 +239,88 @@ msgid "None"
 msgstr "Keiner"
 
 #: aasrp/helper/character.py:42 aasrp/helper/character.py:45
-#: aasrp/views/ajax.py:131
 msgid "Unknown character"
 msgstr "Unbekannter Charakter"
 
 #: aasrp/helper/character.py:69
+#: aasrp/templates/aasrp/partials/datatables/view-requests/column-character.html:13
 msgid "Copy character name to clipboard"
 msgstr "Charakternamen in die Zwischenablage kopieren"
 
-#: aasrp/helper/icons.py:92 aasrp/templates/aasrp/request-srp.html:6
+#: aasrp/helper/icons.py:93 aasrp/templates/aasrp/request-srp.html:6
 msgid "Request SRP"
 msgstr "SRP anfordern"
 
-#: aasrp/helper/icons.py:107
+#: aasrp/helper/icons.py:108
 msgid "View SRP requests"
-msgstr "SRP Anfragen ansehen"
+msgstr "SRP-Anfragen ansehen"
 
-#: aasrp/helper/icons.py:125
+#: aasrp/helper/icons.py:126
 #: aasrp/templates/aasrp/partials/link-edit/form.html:18
 msgid "Add/Change AAR link"
 msgstr "AAR Link hinzufügen/ändern"
 
-#: aasrp/helper/icons.py:134
+#: aasrp/helper/icons.py:135
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:9
 msgid "Disable SRP link"
-msgstr "SRP Link deaktivieren"
+msgstr "SRP-Link deaktivieren"
 
-#: aasrp/helper/icons.py:148
+#: aasrp/helper/icons.py:149
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:9
 msgid "Enable SRP link"
-msgstr "SRP Link aktivieren"
+msgstr "SRP-Link aktivieren"
 
-#: aasrp/helper/icons.py:158
+#: aasrp/helper/icons.py:159
 msgid "Remove SRP link"
-msgstr "SRP Link entfernen"
+msgstr "SRP-Link entfernen"
 
-#: aasrp/helper/icons.py:185 aasrp/helper/icons.py:200
+#: aasrp/helper/icons.py:186 aasrp/helper/icons.py:201
 #: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-status.html:17
+#: aasrp/templates/aasrp/partials/datatables/view-requests/column-status.html:6
 msgid "SRP request pending"
-msgstr "SRP Anfrage ausstehend"
+msgstr "SRP-Anfrage ausstehend"
 
-#: aasrp/helper/icons.py:189
+#: aasrp/helper/icons.py:190
 #: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-status.html:25
+#: aasrp/templates/aasrp/partials/datatables/view-requests/column-status.html:14
 msgid "SRP request approved"
-msgstr "SRP Anfrage bewilligt"
+msgstr "SRP-Anfrage bewilligt"
 
-#: aasrp/helper/icons.py:194
+#: aasrp/helper/icons.py:195
 #: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-status.html:33
+#: aasrp/templates/aasrp/partials/datatables/view-requests/column-status.html:22
 msgid "SRP request rejected"
-msgstr "SRP Anfrage abgelehnt"
+msgstr "SRP-Anfrage abgelehnt"
 
-#: aasrp/helper/icons.py:243
+#: aasrp/helper/icons.py:244
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
-msgstr "SRP Anfrage Details"
+msgstr "SRP-Anfrage Details"
 
-#: aasrp/helper/icons.py:303
+#: aasrp/helper/icons.py:304
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:9
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:39
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:9
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:39
 #: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:37
 msgid "Accept SRP request"
-msgstr "SRP Anfrage akzeptieren"
+msgstr "SRP-Anfrage akzeptieren"
 
-#: aasrp/helper/icons.py:356
+#: aasrp/helper/icons.py:357
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:9
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:39
 msgid "Reject SRP request"
-msgstr "SRP Anfrage ablehnen"
+msgstr "SRP-Anfrage ablehnen"
 
-#: aasrp/helper/icons.py:401
+#: aasrp/helper/icons.py:402
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:37
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
-msgstr "SRP Anfrage löschen"
+msgstr "SRP-Anfrage löschen"
 
-#: aasrp/helper/icons.py:441
+#: aasrp/helper/icons.py:442
 msgid "Show info in game & copy ISK amount"
 msgstr "Informationsfenster im Spiel anzeigen & ISK-Betrag kopieren"
 
@@ -325,7 +328,7 @@ msgstr "Informationsfenster im Spiel anzeigen & ISK-Betrag kopieren"
 msgid "Copy request code to clipboard"
 msgstr "Anfragecode in die Zwischenablage kopieren"
 
-#: aasrp/helper/srp_data.py:60
+#: aasrp/helper/srp_data.py:60 aasrp/templates/aasrp/view-requests.html:49
 msgid "Copy payout amount to clipboard"
 msgstr "Auszahlungsbetrag in die Zwischenablage kopieren"
 
@@ -387,11 +390,11 @@ msgstr "AAR Link"
 
 #: aasrp/models.py:159
 msgid "Who created the SRP link?"
-msgstr "Wer hat den SRP Link erstellt?"
+msgstr "Wer hat den SRP-Link erstellt?"
 
 #: aasrp/models.py:165
 msgid "The total payout amount for approved SRP requests linked to this SRP link"
-msgstr "Der Gesamtauszahlungsbetrag für genehmigte SRP Anfragen, die mit diesem SRP Link verknüpft sind"
+msgstr "Der Gesamtauszahlungsbetrag für genehmigte SRP-Anfragen, die mit diesem SRP-Link verknüpft sind"
 
 #: aasrp/models.py:167
 msgid "Total cost"
@@ -399,35 +402,35 @@ msgstr "Gesamtkosten"
 
 #: aasrp/models.py:176 aasrp/models.py:392
 msgid "SRP link"
-msgstr "SRP Link"
+msgstr "SRP-Link"
 
 #: aasrp/models.py:177
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:14
 #: aasrp/templates/aasrp/partials/navigation/top-navigation.html:14
 msgid "SRP links"
-msgstr "SRP Links"
+msgstr "SRP-Links"
 
 #: aasrp/models.py:332
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:17
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:38
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:40
 msgid "Pending"
 msgstr "Ausstehend"
 
 #: aasrp/models.py:333
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:18
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:52
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:55
 msgid "Approved"
 msgstr "Genehmigt"
 
 #: aasrp/models.py:334
 #: aasrp/templates/aasrp/partials/view-requests/overview.html:19
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:66
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:70
 msgid "Rejected"
 msgstr "Abgelehnt"
 
 #: aasrp/models.py:346
 msgid "Who created the SRP request?"
-msgstr "Wer hat die SRP Anfrage erstellt?"
+msgstr "Wer hat die SRP-Anfrage erstellt?"
 
 #: aasrp/models.py:374
 msgid "Kill mail ID"
@@ -436,6 +439,7 @@ msgstr "Killmail ID"
 #: aasrp/models.py:383 aasrp/templates/aasrp/dashboard.html:23
 #: aasrp/templates/aasrp/partials/view-own-requests/datatables-filter.html:31
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:34
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:113
 #: aasrp/templates/aasrp/view-own-requests.html:22
 #: aasrp/templates/aasrp/view-requests.html:34
 msgid "Request status"
@@ -443,7 +447,7 @@ msgstr "Anfragestatus"
 
 #: aasrp/models.py:398
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:19
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:78
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:82
 msgid "Request time"
 msgstr "Zeit der Anfrage"
 
@@ -460,11 +464,11 @@ msgstr "Anfragen"
 #: aasrp/models.py:430
 #, python-brace-format
 msgid "{character_name} ({user_name}) SRP request for: {ship} ({request_code})"
-msgstr "{character_name} ({user_name}) SRP Anfrage für: {ship} ({request_code})"
+msgstr "{character_name} ({user_name}) SRP-Anfrage für: {ship} ({request_code})"
 
 #: aasrp/models.py:487 aasrp/models.py:548
 msgid "SRP request"
-msgstr "SRP Anfrage"
+msgstr "SRP-Anfrage"
 
 #: aasrp/models.py:490
 msgid "Insurance level"
@@ -490,7 +494,7 @@ msgstr "Schiffsversicherungen"
 
 #: aasrp/models.py:516
 msgid "SRP request added"
-msgstr "SRP Anfrage hinzugefügt"
+msgstr "SRP-Anfrage hinzugefügt"
 
 #: aasrp/models.py:519
 msgid "Status changed"
@@ -512,7 +516,7 @@ msgstr "Kommentarzeit"
 #. Translators: New SRP request status that might have been set
 #: aasrp/models.py:565
 msgid "New SRP request status"
-msgstr "Neuer SRP Anfragestatus"
+msgstr "Neuer SRP-Anfragestatus"
 
 #: aasrp/models.py:575
 msgid "Comments"
@@ -605,7 +609,7 @@ msgstr "AA-SRP Einstellungen"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:5
 msgid "SRP request status"
-msgstr "SRP Anfragestatus"
+msgstr "SRP-Anfragestatus"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:93
 msgid "Request history"
@@ -617,23 +621,23 @@ msgstr "Aktion"
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:124
 msgid "SRP request has been added."
-msgstr "SRP Anfrage wurde hinzugefügt."
+msgstr "SRP-Anfrage wurde hinzugefügt."
 
 #: aasrp/templates/aasrp/ajax-render/srp-request-additional-information.html:126
 msgid "SRP request status has changed to"
-msgstr "Der SRP Anfragestatus hat sich geändert in"
+msgstr "Der SRP-Anfragestatus hat sich geändert in"
 
 #: aasrp/templates/aasrp/dashboard.html:27
 msgid "Are you sure you want to (re-)activate the following SRP link?"
-msgstr "Bist Du sicher das Du den SRP Link (re-) aktivieren willst?"
+msgstr "Bist Du sicher, dass Du den SRP-Link (re-)aktivieren willst?"
 
 #: aasrp/templates/aasrp/dashboard.html:28
 msgid "Are you sure you want to disable the following SRP link?"
-msgstr "Bist Du sicher das Du den SRP Link deaktivieren möchtest?"
+msgstr "Bist Du sicher, dass Du den SRP-Link deaktivieren möchtest?"
 
 #: aasrp/templates/aasrp/dashboard.html:29
 msgid "Are you sure you want to delete the following SRP link and all SRP requests tied to it?"
-msgstr "Bist Du sicher das Du den SRP Link und alle zugehörigen SRP Anfragen löschen willst?"
+msgstr "Bist Du sicher, dass Du den SRP-Link und alle zugehörigen SRP-Anfragen löschen willst?"
 
 #: aasrp/templates/aasrp/link-add.html:6
 msgid "Create SRP link"
@@ -646,7 +650,7 @@ msgstr "Flottenbericht hinzufügen/bearbeiten"
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:9
 msgid "Delete SRP link"
-msgstr "SRP Link löschen"
+msgstr "SRP-Link löschen"
 
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:12
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:12
@@ -693,35 +697,35 @@ msgstr "Aktivieren"
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:17
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:17
 msgid "Are you sure you want to accept this SRP request?"
-msgstr "Bist Du sicher das Du diese SRP Anfrage akzeptieren willst?"
+msgstr "Bist Du sicher, dass Du diese SRP-Anfrage akzeptieren willst?"
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:9
 msgid "Accept SRP requests"
-msgstr "SRP Anfragen akzeptieren"
+msgstr "SRP-Anfragen akzeptieren"
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:17
 msgid "Are you sure you want to accept these SRP requests?"
-msgstr "Bist Du sicher das Du diese SRP Anfragen akzeptieren willst?"
+msgstr "Bist Du sicher, dass Du diese SRP-Anfragen akzeptieren willst?"
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:21
 msgid "<b>Note:</b><br>Only pending SRP requests will be bulk approved.<br>Denied requests will not be bulk approved, as they need a reason for being approved again. Please review them manually."
-msgstr "<b>Hinweis:</b><br>Nur ausstehende SRP Anfragen werden genehmigt.<br>Abgelehnte Anfragen werden nicht genehmigt, da für eine erneute Genehmigung ein Grund erforderlich ist. Bitte überprüfe diese manuell."
+msgstr "<b>Hinweis:</b><br>Nur ausstehende SRP-Anfragen werden genehmigt.<br>Abgelehnte Anfragen werden nicht genehmigt, da für eine erneute Genehmigung ein Grund erforderlich ist. Bitte überprüfe diese manuell."
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:9
 msgid "Delete SRP requests"
-msgstr "SRP Anfragen löschen"
+msgstr "SRP-Anfragen löschen"
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:17
 msgid "Are you sure you want to delete these SRP requests?"
-msgstr "Bist Du sicher das Du diese SRP Anfragen löschen willst?"
+msgstr "Bist Du sicher, dass Du diese SRP-Anfragen löschen willst?"
 
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:21
 msgid "<b>Note:</b><br>This action is irreversible.<br>All selected SRP requests will be deleted."
-msgstr "<b>Hinweis:</b><br>Diese Aktion kann nicht rückgängig gemacht werden.<br>Alle ausgewählten SRP Anfragen werden gelöscht."
+msgstr "<b>Hinweis:</b><br>Diese Aktion kann nicht rückgängig gemacht werden.<br>Alle ausgewählten SRP-Anfragen werden gelöscht."
 
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:17
 msgid "Are you sure you want to delete this SRP request?"
-msgstr "Bist Du sicher das Du diese SRP Anfrage löschen willst?"
+msgstr "Bist Du sicher, dass Du diese SRP-Anfrage löschen willst?"
 
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:9
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:48
@@ -739,7 +743,7 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                        Bist Du sicher das Du diesen SRP Link als beendet markieren und schließen willst? Sobald dieser geschlossen ist, können keine SRP Anfragen mehr gestellt werden.\n"
+"                        Bist Du sicher, dass Du diesen SRP-Link als beendet markieren und schließen willst? Sobald dieser geschlossen ist, können keine SRP-Anfragen mehr gestellt werden.\n"
 "                    "
 
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:27
@@ -758,34 +762,34 @@ msgid_plural ""
 "                        "
 msgstr[0] ""
 "\n"
-"                            Dieser SRP Link hat noch %(number_pending_requests)s ausstehende SRP Anfrage. Bist Du absolut sicher das Du diesen Link schließen willst?\n"
+"                            Dieser SRP-Link hat noch %(number_pending_requests)s ausstehende SRP-Anfragen. Bist Du absolut sicher, dass Du diesen Link schließen willst?\n"
 "                        "
 msgstr[1] ""
 "\n"
-"                            Dieser SRP Link hat noch %(number_pending_requests)s ausstehende SRP Anfragen. Bist Du absolut sicher das Du diesen Link schließen willst?\n"
+"                            Dieser SRP-Link hat noch %(number_pending_requests)s ausstehende SRP-Anfragen. Bist Du absolut sicher, dass Du diesen Link schließen willst?\n"
 "                        "
 
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:17
 msgid "Are you sure you want to reject this SRP request?"
-msgstr "Bist Du sicher das Du diese SRP Anfrage ablehnen willst?"
+msgstr "Bist Du sicher, dass Du diese SRP-Anfrage ablehnen willst?"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:9
 #: aasrp/templates/aasrp/partials/navigation/top-navigation.html:7
 msgid "SRP links (all)"
-msgstr "SRP Links (alle)"
+msgstr "SRP-Links (alle)"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:11
 #: aasrp/templates/aasrp/partials/navigation/top-navigation.html:10
 msgid "SRP links (active)"
-msgstr "SRP Links (aktiv)"
+msgstr "SRP-Links (aktiv)"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:19
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:21
 msgid "Filter SRP links"
-msgstr "SRP Links filtern"
+msgstr "SRP-Links filtern"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:34
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:24
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:25
 msgid "All"
 msgstr "Alle"
 
@@ -799,7 +803,7 @@ msgstr "Gesamte SRP Kosten"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:68
 msgid "SRP link name"
-msgstr "SRP Link Name"
+msgstr "SRP-Link Name"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:73
 #: aasrp/templates/aasrp/partials/request-srp/fleet-details.html:24
@@ -813,12 +817,12 @@ msgstr "SRP Kosten"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:76
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:25
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:94
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:107
 msgid "Status"
 msgstr "Status"
 
 #: aasrp/templates/aasrp/partials/dashboard/srp-links.html:78
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:95
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:108
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -828,7 +832,7 @@ msgstr "Link"
 
 #: aasrp/templates/aasrp/partials/datatables/dashboard/column-srp-code.html:4
 msgid "Copy SRP link to clipboard"
-msgstr "SRP Link in die Zwischenablage kopieren"
+msgstr "SRP-Link in die Zwischenablage kopieren"
 
 #: aasrp/templates/aasrp/partials/footer/app-translation-footer.html:5
 msgid "Do you want to help translate this app into your language or improve the existing translation?"
@@ -844,7 +848,7 @@ msgstr "Mit einem Sternchen (*) gekennzeichnete Felder sind Pflichtfelder"
 
 #: aasrp/templates/aasrp/partials/link-add/form.html:6
 msgid "SRP link details"
-msgstr "SRP Link Details"
+msgstr "SRP-Link Details"
 
 #: aasrp/templates/aasrp/partials/link-add/form.html:20
 msgid "Create link"
@@ -864,12 +868,12 @@ msgstr "Alle ansehen"
 
 #: aasrp/templates/aasrp/partials/navigation/actions-navigation.html:19
 msgid "Add SRP link"
-msgstr "SRP Link hinzufügen"
+msgstr "SRP-Link hinzufügen"
 
 #: aasrp/templates/aasrp/partials/navigation/top-navigation.html:23
 #: aasrp/templates/aasrp/view-own-requests.html:5
 msgid "My SRP requests"
-msgstr "Meine SRP Anfragen"
+msgstr "Meine SRP-Anfragen"
 
 #: aasrp/templates/aasrp/partials/navigation/top-navigation.html:29
 #: aasrp/templates/aasrp/user-settings.html:6
@@ -886,7 +890,7 @@ msgstr "Hier lesen"
 
 #: aasrp/templates/aasrp/partials/request-srp/form.html:7
 msgid "Your SRP request"
-msgstr "Deine SRP Anfrage"
+msgstr "Deine SRP-Anfrage"
 
 #: aasrp/templates/aasrp/partials/request-srp/form.html:21
 msgid "Submit SRP request"
@@ -945,17 +949,17 @@ msgid "Request details"
 msgstr "Anfrage Details"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:23
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:82
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:86
 msgid "ISK lost"
 msgstr "ISK Verlust"
 
 #: aasrp/templates/aasrp/partials/view-own-requests/user-srp-requests.html:24
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:84
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:88
 msgid "SRP payout"
 msgstr "SRP Auszahlung"
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:7
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:96
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:109
 msgid "Bulk actions"
 msgstr "Massenaktionen"
 
@@ -965,11 +969,11 @@ msgstr "Genehmigung"
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:20
 msgid "Only pending SRP requests will be approved. Denied requests will not be bulk approved, as they need a reason for being approved again."
-msgstr "Es werden nur ausstehende SRP Anfragen genehmigt. Abgelehnte Anfragen werden nicht genehmigt, da für eine erneute Genehmigung ein Grund erforderlich ist."
+msgstr "Es werden nur ausstehende SRP-Anfragen genehmigt. Abgelehnte Anfragen werden nicht genehmigt, da für eine erneute Genehmigung ein Grund erforderlich ist."
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:31
 msgid "Approve selected SRP requests"
-msgstr "Ausgewählte SRP Anfragen genehmigen"
+msgstr "Ausgewählte SRP-Anfragen genehmigen"
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:34
 msgid "Approve"
@@ -985,7 +989,7 @@ msgstr "Bitte beachte, dass die Aktion „Löschen“ unumkehrbar ist."
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:58
 msgid "Delete selected SRP requests"
-msgstr "Ausgewählte SRP Anfragen löschen"
+msgstr "Ausgewählte SRP-Anfragen löschen"
 
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:73
 #: aasrp/templates/aasrp/partials/view-requests/bulk-actions.html:76
@@ -1015,16 +1019,20 @@ msgstr "Zurück zur Übersicht"
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:6
 #: aasrp/templates/aasrp/view-requests.html:6
 msgid "SRP requests"
-msgstr "SRP Anfragen"
+msgstr "SRP-Anfragen"
 
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:9
 #: aasrp/templates/aasrp/partials/view-requests/requests.html:11
 msgid "Filter by request status"
 msgstr "Filter nach Anfragestatus"
 
-#: aasrp/templates/aasrp/partials/view-requests/requests.html:89
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:93
 msgid "Click on the value to edit, Enter to save, ESC to cancel."
 msgstr "Klicke auf den Wert zum Bearbeiten, Enter zum Speichern, ESC zum Abbrechen."
+
+#: aasrp/templates/aasrp/partials/view-requests/requests.html:103
+msgid "Only an excerpt of the first sentence is shown here. To view the full additional information, click on the info icon. This search field searches all comments submitted in response to this SRP request."
+msgstr "Hier wird nur ein Ausschnitt des ersten Satzes angezeigt. Um die vollständigen Zusatzinformationen einzusehen, klicke auf das Info-Symbol. Dieses Suchfeld durchsucht alle Kommentare, die als Reaktion auf diese SRP-Anfrage eingereicht wurden."
 
 #: aasrp/templates/aasrp/view-own-requests.html:26
 #: aasrp/templates/aasrp/view-requests.html:44
@@ -1033,7 +1041,7 @@ msgstr "Ablehnungsinformation"
 
 #: aasrp/templates/aasrp/view-requests.html:37
 msgid "Click here to change the payout amount for this SRP request."
-msgstr "Klicke hier, um den Auszahlungsbetrag für diese SRP Anfrage zu ändern."
+msgstr "Klicke hier, um den Auszahlungsbetrag für diese SRP-Anfrage zu ändern."
 
 #: aasrp/templates/aasrp/view-requests.html:38
 msgid "Enter SRP payout value"
@@ -1063,87 +1071,87 @@ msgstr "Hinweis: Diese Anfrage ist abgelehnt."
 msgid "The request failed. Your session may have expired, please reload the page."
 msgstr "Die Anfrage ist fehlgeschlagen. Möglicherweise ist die Sitzung abgelaufen; bitte lade die Seite neu."
 
-#: aasrp/views/ajax.py:346 aasrp/views/ajax.py:570 aasrp/views/ajax.py:679
-#: aasrp/views/ajax.py:801
+#: aasrp/views/ajax.py:204 aasrp/views/ajax.py:428 aasrp/views/ajax.py:537
+#: aasrp/views/ajax.py:659
 msgid "No matching SRP request found"
-msgstr "Keine passende SRP Anfrage gefunden"
+msgstr "Keine passende SRP-Anfrage gefunden"
 
-#: aasrp/views/ajax.py:365 aasrp/views/ajax.py:462 aasrp/views/ajax.py:581
-#: aasrp/views/ajax.py:716
+#: aasrp/views/ajax.py:223 aasrp/views/ajax.py:320 aasrp/views/ajax.py:439
+#: aasrp/views/ajax.py:574
 msgid "Invalid form data"
 msgstr "Ungültige Formulardaten"
 
-#: aasrp/views/ajax.py:416
+#: aasrp/views/ajax.py:274
 msgid "SRP request has been approved"
-msgstr "SRP Anfrage wurde akzeptiert"
+msgstr "SRP-Anfrage wurde akzeptiert"
 
-#: aasrp/views/ajax.py:426 aasrp/views/ajax.py:536 aasrp/views/ajax.py:637
-#: aasrp/views/ajax.py:754 aasrp/views/ajax.py:930
+#: aasrp/views/ajax.py:284 aasrp/views/ajax.py:394 aasrp/views/ajax.py:495
+#: aasrp/views/ajax.py:612 aasrp/views/ajax.py:788
 msgid "Invalid request method"
 msgstr "Ungültige Anfragemethode"
 
-#: aasrp/views/ajax.py:481 aasrp/views/ajax.py:733
+#: aasrp/views/ajax.py:339 aasrp/views/ajax.py:591
 msgid "No matching SRP requests found"
-msgstr "Keine passenden SRP Anfragen gefunden"
+msgstr "Keine passenden SRP-Anfragen gefunden"
 
-#: aasrp/views/ajax.py:526
+#: aasrp/views/ajax.py:384
 msgid "SRP requests have been approved"
-msgstr "SRP Anfragen wurden akzeptiert"
+msgstr "SRP-Anfragen wurden akzeptiert"
 
-#: aasrp/views/ajax.py:627
+#: aasrp/views/ajax.py:485
 msgid "SRP request has been rejected"
-msgstr "SRP Anfrage wurde abgelehnt"
+msgstr "SRP-Anfrage wurde abgelehnt"
 
-#: aasrp/views/ajax.py:674
+#: aasrp/views/ajax.py:532
 msgid "SRP request has been removed"
-msgstr "SRP Anfrage wurde entfernt"
+msgstr "SRP-Anfrage wurde entfernt"
 
-#: aasrp/views/ajax.py:744
+#: aasrp/views/ajax.py:602
 msgid "SRP requests have been removed"
-msgstr "SRP Anfragen wurden entfernt"
+msgstr "SRP-Anfragen wurden entfernt"
 
-#: aasrp/views/ajax.py:787
+#: aasrp/views/ajax.py:645
 msgid "Permission denied"
 msgstr "Zugriff verweigert"
 
-#: aasrp/views/ajax.py:792
+#: aasrp/views/ajax.py:650
 msgid "Method not allowed"
 msgstr "Methode nicht zulässig"
 
-#: aasrp/views/ajax.py:809
+#: aasrp/views/ajax.py:667
 msgid "This SRP request has no character assigned"
 msgstr "Dieser SRP-Anfrage ist kein Charakter zugewiesen"
 
-#: aasrp/views/ajax.py:820
+#: aasrp/views/ajax.py:678
 msgid "No in-game UI character selected. Please select one in your settings."
 msgstr "Es wurde kein In-Game-UI-Charakter ausgewählt. Bitte wähle einen in deinen Einstellungen aus."
 
-#: aasrp/views/ajax.py:832
+#: aasrp/views/ajax.py:690
 #, python-brace-format
 msgid "No valid ESI token found for {character}. Please add the character again in your settings."
 msgstr "Es wurde kein gültiges ESI-Token für {character} gefunden. Bitte füge den Charakter in deinen Einstellungen erneut hinzu."
 
-#: aasrp/views/ajax.py:863
+#: aasrp/views/ajax.py:721
 #, python-brace-format
 msgid "The information window could not be opened. Is {character} logged in to EVE?"
 msgstr "Das Informationsfenster konnte nicht geöffnet werden. Ist {character} in EVE eingeloggt?"
 
-#: aasrp/views/ajax.py:880
+#: aasrp/views/ajax.py:738
 #, python-brace-format
 msgid "Information window for {character} opened in EVE"
 msgstr "Informationsfenster für {character} in EVE geöffnet"
 
-#: aasrp/views/ajax.py:920
+#: aasrp/views/ajax.py:778
 msgid "Total cost updated successfully"
 msgstr "Gesamtkosten erfolgreich aktualisiert"
 
-#: aasrp/views/ajax.py:925
+#: aasrp/views/ajax.py:783
 msgid "SRP link not found"
-msgstr "SRP Link nicht gefunden"
+msgstr "SRP-Link nicht gefunden"
 
 #: aasrp/views/general.py:73
 msgid "You do not have the needed permissions to view all SRP links"
-msgstr "Du hast nicht die erforderlichen Berechtigungen, um alle SRP Links anzuzeigen"
+msgstr "Du hast nicht die erforderlichen Berechtigungen, um alle SRP-Links anzuzeigen"
 
 #: aasrp/views/general.py:160
 msgid "Settings saved."
@@ -1162,12 +1170,12 @@ msgstr "{character} wird nun für UI-Aktionen im Spiel verwendet."
 #: aasrp/views/general.py:278
 #, python-brace-format
 msgid "SRP link \"{srp_code}\" created"
-msgstr "SRP Link „{srp_code}“ erstellt"
+msgstr "SRP-Link „{srp_code}“ erstellt"
 
 #: aasrp/views/general.py:330
 #, python-brace-format
 msgid "Unable to locate SRP link using SRP code {srp_code}"
-msgstr "SRP Link zu SRP ID {srp_code} konnte nicht gefunden werden"
+msgstr "SRP-Link zu SRP ID {srp_code} konnte nicht gefunden werden"
 
 #: aasrp/views/general.py:345
 msgid "AAR link changed"
@@ -1176,7 +1184,7 @@ msgstr "AAR Link geändert"
 #: aasrp/views/general.py:466
 #, python-brace-format
 msgid "Submitted SRP request for your {ship_name}."
-msgstr "SRP Anfrage für Deine {ship_name} eingereicht."
+msgstr "SRP-Anfrage für Deine {ship_name} eingereicht."
 
 #: aasrp/views/general.py:510
 #, python-brace-format
@@ -1185,7 +1193,7 @@ msgstr "SRP Flotte zur SRP ID {srp_code} konnte nicht gefunden werden"
 
 #: aasrp/views/general.py:522
 msgid "This SRP link is no longer available for SRP requests."
-msgstr "Dieser Link ist nicht länger verfügbar für SRP Anfragen."
+msgstr "Dieser Link ist nicht länger verfügbar für SRP-Anfragen."
 
 #: aasrp/views/general.py:553
 #, python-brace-format
@@ -1199,26 +1207,26 @@ msgstr "Der Charakter {victim_id} gehört nicht zu Deinem Auth Konto. Bitte füg
 
 #: aasrp/views/general.py:661
 msgid "SRP link marked as completed"
-msgstr "SRP Link als beendet markiert"
+msgstr "SRP-Link als beendet markiert"
 
 #: aasrp/views/general.py:670 aasrp/views/general.py:708
 #: aasrp/views/general.py:771 aasrp/views/general.py:819
 #: aasrp/views/general.py:866
 #, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
-msgstr "SRP Link mit ID {srp_code} konnte nicht gefunden werden"
+msgstr "SRP-Link mit ID {srp_code} konnte nicht gefunden werden"
 
 #: aasrp/views/general.py:761
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
-msgstr "SRP Link {srp_code} (re-)aktiviert."
+msgstr "SRP-Link {srp_code} (re-)aktiviert."
 
 #: aasrp/views/general.py:809
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
-msgstr "SRP Link {srp_code} deaktiviert."
+msgstr "SRP-Link {srp_code} deaktiviert."
 
 #: aasrp/views/general.py:856
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
-msgstr "SRP Link {srp_code} gelöscht."
+msgstr "SRP-Link {srp_code} gelöscht."
