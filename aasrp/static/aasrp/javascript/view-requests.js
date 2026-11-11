@@ -244,10 +244,10 @@ $(document).ready(() => {
             $('input[name="srp-request-status-filter"]').on('change', () => dt.draw());
 
             // Show bootstrap tooltips
-            _bootstrapTooltip({selector: '#tab_aasrp_srp_requests'});
+            _bootstrapTooltip({selector: '#table_aasrp_srp_requests'});
 
             dt.on('draw', () => {
-                _bootstrapTooltip({selector: '#tab_aasrp_srp_requests'});
+                _bootstrapTooltip({selector: '#table_aasrp_srp_requests'});
             });
 
             // Make the SRP payout field editable for pending and rejected requests.

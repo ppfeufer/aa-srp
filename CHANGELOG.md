@@ -54,6 +54,10 @@ Section Order:
   that only an excerpt of the additional information is shown, and that the full text
   can be seen in the request detail modal
 
+### Fixed
+
+- Bootstrap tooltips in "View SRP requests" table restored
+
 ### Changed
 
 - Moved "ISK lost" and "SRP payout" to templates for the "My SRP requests" view
