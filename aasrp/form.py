@@ -234,9 +234,7 @@ class SrpRequestForm(ModelForm):
         }
         labels = {
             "killboard_link": get_mandatory_form_label_text(text=_("Killboard link")),
-            "additional_info": get_mandatory_form_label_text(
-                text=_("Additional information")
-            ),
+            "additional_info": _("Additional information"),
         }
         widgets = {
             "killboard_link": forms.URLInput(
