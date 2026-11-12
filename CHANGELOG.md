@@ -48,6 +48,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Killmail ID should be read-only in admin
+
 ### Removed
 
 - Mandatory field marker from the "Additional Information" field in the SRP request

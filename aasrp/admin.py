@@ -97,6 +97,7 @@ class SrpRequestAdmin(admin.ModelAdmin):
         "srp_link__srp_code",
     )
     readonly_fields = (
+        "killmail_id",
         "request_code",
         "_requestor",
         "character",
