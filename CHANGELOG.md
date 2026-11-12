@@ -48,6 +48,11 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Removed
+
+- Mandatory field marker from the "Additional Information" field in the SRP request
+  form, as it is optional and not mandatory
+
 ## [5.9.0] - 2026-11-11
 
 ### Added
