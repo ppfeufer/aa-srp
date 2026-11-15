@@ -48,6 +48,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- `format_lazy` for translations to apply properly in the SRP request form
+
 ## [5.10.0] - 2026-11-15
 
 ### Added

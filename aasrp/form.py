@@ -11,6 +11,7 @@ from django import forms
 from django.forms import ModelForm
 from django.utils.functional import Promise
 from django.utils.safestring import mark_safe
+from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
@@ -194,13 +195,13 @@ class SrpRequestForm(ModelForm):
         model = SrpRequest
         fields = ["killboard_link", "additional_info"]
         help_texts = {
-            "killboard_link": _(
-                "Find your killmail on {zkillboard_base_url}, {evetools_base_url} or "
-                "{eve_kill_base_url} and paste the link here, or paste the external "
-                "link from your in-game kill report."
-            ).format(
+            "killboard_link": format_lazy(
+                _(
+                    "Find your killmail on {zkillboard_base_url}, {evetools_base_url} or "
+                    "{eve_kill_base_url} and paste the link here, or paste the external "
+                    "link from your in-game kill report."
+                ),
                 zkillboard_base_url=zkillboard["base_url"],
-                zkillboard_post_esi_base_url=zkillboard_post_esi["base_url"],
                 evetools_base_url=evetools["base_url"],
                 eve_kill_base_url=eve_kill["base_url"],
             ),
