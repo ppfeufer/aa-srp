@@ -61,7 +61,7 @@ class SrpRequestManager(models.Manager):
         )
 
         if kill_id is None:
-            raise ValueError(_("Invalid link. Please post a link to a kill mail."))
+            raise ValueError(_("Invalid link. Please post a link to a killmail."))
 
         return kill_id
 
@@ -97,8 +97,8 @@ class SrpRequestManager(models.Manager):
             if not result:
                 raise ValueError(
                     _(
-                        "No kill mail information found in zKillboard's API response. "
-                        "Try again in an hour or two, or check the kill mail link."
+                        "No killmail information found in zKillboard's API response. "
+                        "Try again in an hour or two, or check the killmail link."
                     )
                 )
 
@@ -107,8 +107,8 @@ class SrpRequestManager(models.Manager):
             if not killmail_hash:
                 raise ValueError(
                     _(
-                        "No kill mail hash found in zKillboard's API response. "
-                        "Try again in an hour or two, or check the kill mail link."
+                        "No killmail hash found in zKillboard's API response. "
+                        "Try again in an hour or two, or check the killmail link."
                     )
                 )
 
@@ -146,7 +146,7 @@ class SrpRequestManager(models.Manager):
             )
             response.raise_for_status()
         except requests.RequestException as exc:
-            logger.warning(f"Error fetching kill mail details: {exc}", exc_info=True)
+            logger.warning(f"Error fetching killmail details: {exc}", exc_info=True)
             raise ValueError(
                 _(
                     "zKillboard is not responding at the moment. "
@@ -212,9 +212,7 @@ class SrpRequestManager(models.Manager):
                 )
                 response.raise_for_status()
             except requests.RequestException as exc:
-                logger.warning(
-                    f"Error fetching kill mail details: {exc}", exc_info=True
-                )
+                logger.warning(f"Error fetching killmail details: {exc}", exc_info=True)
 
                 raise ValueError(
                     _(
@@ -264,7 +262,7 @@ class SrpRequestManager(models.Manager):
         # ) is None:
         #     raise ValueError(
         #         _(
-        #             "Unable to fetch kill mail details from ESI. "
+        #             "Unable to fetch killmail details from ESI. "
         #             "Please try again in an hour."
         #         )
         #     )

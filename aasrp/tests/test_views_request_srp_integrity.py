@@ -225,13 +225,13 @@ class TestRequestSrpSaveIntegrity(BaseTestCase):
         self.assertEqual(self._requests_for_killmail().count(), 1)
         self.assertNotEqual(response.status_code, HTTPStatus.INTERNAL_SERVER_ERROR)
         self.assertIn(
-            "There is already an SRP request for this kill mail.",
+            "There is already an SRP request for this killmail.",
             [str(message) for message in get_messages(response.wsgi_request)][0],
         )
 
     def test_integrity_error_without_duplicate_is_not_swallowed(self):
         """
-        An IntegrityError not caused by a duplicate kill mail must not be reported as one.
+        An IntegrityError not caused by a duplicate killmail must not be reported as one.
 
         :return:
         :rtype:
@@ -296,7 +296,7 @@ class TestRequestSrpSaveIntegrity(BaseTestCase):
         self.assertEqual(self._requests_for_killmail().count(), 1)
         self.assertNotEqual(response.status_code, HTTPStatus.INTERNAL_SERVER_ERROR)
         self.assertIn(
-            "There is already an SRP request for this kill mail.",
+            "There is already an SRP request for this killmail.",
             [str(message) for message in get_messages(response.wsgi_request)][0],
         )
 
@@ -347,14 +347,14 @@ class TestRequestSrpSaveIntegrity(BaseTestCase):
         self.assertNotEqual(response.status_code, HTTPStatus.INTERNAL_SERVER_ERROR)
         self.assertEqual(mock_get_killmail_id.call_count, 1)
         self.assertIn(
-            "There is already an SRP request for this kill mail.",
+            "There is already an SRP request for this killmail.",
             [str(message) for message in get_messages(response.wsgi_request)][0],
         )
 
 
 class TestKillmailIdBackfillMigration(BaseTestCase):
     """
-    Test the kill mail ID backfill in migration 0004
+    Test the killmail ID backfill in migration 0004
     """
 
     @classmethod
@@ -398,7 +398,7 @@ class TestKillmailIdBackfillMigration(BaseTestCase):
 
     def test_backfills_killmail_id_and_skips_duplicates_and_unparsable_links(self):
         """
-        The oldest request for a kill mail gets the ID, later duplicates and links without an ID stay NULL.
+        The oldest request for a killmail gets the ID, later duplicates and links without an ID stay NULL.
 
         :return:
         :rtype:

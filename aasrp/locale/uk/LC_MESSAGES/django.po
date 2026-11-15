@@ -179,9 +179,9 @@ msgstr "Тип флоту"
 
 #: aasrp/form.py:198
 #, fuzzy, python-brace-format
-#| msgid "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
-msgid "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here, or paste the external link from your in-game kill report."
-msgstr "Знайдіть ваш kill mail на {zkillboard_base_url}, {evetools_base_url} або {eve_kill_base_url} і вставте посилання тут."
+#| msgid "Find your killmail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
+msgid "Find your killmail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here, or paste the external link from your in-game kill report."
+msgstr "Знайдіть ваш killmail на {zkillboard_base_url}, {evetools_base_url} або {eve_kill_base_url} і вставте посилання тут."
 
 #: aasrp/form.py:208
 msgid "Please tell us about the circumstances of your untimely demise. Who was the FC, what doctrine was called, have changes to the fit been requested and so on. Be as detailed as you can."
@@ -207,12 +207,12 @@ msgid "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {e
 msgstr "Не коректне посилання. Будь ласка, використовуйте {zkillboard_base_url}, {evetools_base_url} або {eve_kill_base_url}"
 
 #: aasrp/form.py:308 aasrp/managers.py:64
-msgid "Invalid link. Please post a link to a kill mail."
-msgstr "Невірне посилання. Будь ласка, надайте посилання на kill mail."
+msgid "Invalid link. Please post a link to a killmail."
+msgstr "Невірне посилання. Будь ласка, надайте посилання на killmail."
 
 #: aasrp/form.py:328 aasrp/views/general.py:628
-msgid "There is already an SRP request for this kill mail. Please check if you got the right one."
-msgstr "Для цього kill mail вже є запит на SRP. Будь ласка, перевірте, чи ви використовуєте правильне посилання."
+msgid "There is already an SRP request for this killmail. Please check if you got the right one."
+msgstr "Для цього killmail вже є запит на SRP. Будь ласка, перевірте, чи ви використовуєте правильне посилання."
 
 #: aasrp/form.py:343
 msgid "SRP payout value"
@@ -347,11 +347,11 @@ msgid "Copy payout amount to clipboard"
 msgstr "Скопіювати суму виплати в буфер обміну"
 
 #: aasrp/managers.py:100
-msgid "No kill mail information found in zKillboard's API response. Try again in an hour or two, or check the kill mail link."
+msgid "No killmail information found in zKillboard's API response. Try again in an hour or two, or check the killmail link."
 msgstr ""
 
 #: aasrp/managers.py:110
-msgid "No kill mail hash found in zKillboard's API response. Try again in an hour or two, or check the kill mail link."
+msgid "No killmail hash found in zKillboard's API response. Try again in an hour or two, or check the killmail link."
 msgstr ""
 
 #: aasrp/managers.py:121
@@ -459,7 +459,7 @@ msgid "Who created the SRP request?"
 msgstr "Хто створив запит на SRP?"
 
 #: aasrp/models.py:374
-msgid "Kill mail ID"
+msgid "Killmail ID"
 msgstr "ID кілмила"
 
 #: aasrp/models.py:383 aasrp/templates/aasrp/dashboard.html:23
@@ -946,8 +946,8 @@ msgid "Working on it, please be patient…"
 msgstr "В процесі, будь ласка, зачекайте…"
 
 #: aasrp/templates/aasrp/partials/request-srp/form.html:31
-msgid "Fetching kill mail information, this might take a moment…"
-msgstr "Завантажую kill mail інформацію…"
+msgid "Fetching killmail information, this might take a moment…"
+msgstr "Завантажую killmail інформацію…"
 
 #: aasrp/templates/aasrp/partials/user-settings/form.html:16
 msgid "Add character for in-game UI actions"
@@ -1242,12 +1242,12 @@ msgstr "Це SRP-посилання більше не доступне для SR
 
 #: aasrp/views/general.py:556
 #, python-brace-format
-msgid "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {error}"
-msgstr "Виникла помилка, ваш kill mail ({submitted_killmail_link}) не вдалося розібрати: {error}"
+msgid "Something went wrong, your killmail ({submitted_killmail_link}) could not be parsed: {error}"
+msgstr "Виникла помилка, ваш killmail ({submitted_killmail_link}) не вдалося розібрати: {error}"
 
 #: aasrp/views/general.py:563
 #, python-brace-format
-msgid "Your kill mail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evekb_base_url}, {evekill_base_url} or the external link link from your in-game kill report."
+msgid "Your killmail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evekb_base_url}, {evekill_base_url} or the external link link from your in-game kill report."
 msgstr ""
 
 #: aasrp/views/general.py:641

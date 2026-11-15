@@ -67,7 +67,7 @@ ______________________________________________________________________
 
 - Overview of SRP links
 - Overview of your own SRP requests and their status
-- Accepting kill mails from [zKillboard], [EveTools Killboard], [EVE-Kill] and the
+- Accepting killmails from [zKillboard], [EveTools Killboard], [EVE-Kill] and the
   "External Link" from your in-game kill report
 - SRP Request administration is mostly done via ajax and without page reloads
 - Use modern DataTables with filters where ever they're useful
