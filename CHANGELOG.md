@@ -59,6 +59,11 @@ Section Order:
 
 - Killmail ID should be read-only in admin
 
+### Changed
+
+- The error message when the killmail is not found in zKillboard's API response has
+  been changed to let the user know to try again in an hour or two
+
 ### Removed
 
 - Mandatory field marker from the "Additional Information" field in the SRP request
