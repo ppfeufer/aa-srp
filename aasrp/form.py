@@ -17,6 +17,7 @@ from django.utils.translation import gettext_lazy as _
 from allianceauth.services.hooks import get_extension_logger
 
 # AA SRP
+from aasrp.app_settings import killboard_settings
 from aasrp.constants import KILLBOARD_DATA
 from aasrp.helper.user import get_ui_characters_for_user
 from aasrp.models import (
@@ -29,36 +30,10 @@ from aasrp.models import (
 )
 from aasrp.providers.applogger import AppLogger
 
-# Killboard URLs
-zkillboard_base_url: str = KILLBOARD_DATA["zKillboard"][  # pylint: disable=invalid-name
-    "base_url"
-]
-evetools_base_url: str = KILLBOARD_DATA["EveTools"][  # pylint: disable=invalid-name
-    "base_url"
-]
-eve_kill_base_url: str = KILLBOARD_DATA["EVE-KILL"][  # pylint: disable=invalid-name
-    "base_url"
-]
-
-# Killboard regex
-zkillboard_base_url_regex: str = KILLBOARD_DATA[  # pylint: disable=invalid-name
-    "zKillboard"
-]["base_url_regex"]
-zkillboard_killmail_url_regex: str = KILLBOARD_DATA[  # pylint: disable=invalid-name
-    "zKillboard"
-]["killmail_url_regex"]
-evetools_base_url_regex: str = KILLBOARD_DATA[  # pylint: disable=invalid-name
-    "EveTools"
-]["base_url_regex"]
-evetools_killmail_url_regex: str = KILLBOARD_DATA[  # pylint: disable=invalid-name
-    "EveTools"
-]["killmail_url_regex"]
-eve_kill_base_url_regex: str = KILLBOARD_DATA[  # pylint: disable=invalid-name
-    "EVE-KILL"
-]["base_url_regex"]
-eve_kill_killmail_url_regex: str = KILLBOARD_DATA[  # pylint: disable=invalid-name
-    "EVE-KILL"
-]["killmail_url_regex"]
+zkillboard = killboard_settings("zKillboard")
+zkillboard_post_esi = killboard_settings("zkillboard_post_esi")
+evetools = killboard_settings("EveTools")
+eve_kill = killboard_settings("EVE-KILL")
 
 # Initialize a logger with a custom tag for the AA-SRP module
 logger = AppLogger(my_logger=get_extension_logger(__name__))
@@ -220,11 +195,14 @@ class SrpRequestForm(ModelForm):
         fields = ["killboard_link", "additional_info"]
         help_texts = {
             "killboard_link": _(
-                "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url} and paste the link here."
+                "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or "
+                "{eve_kill_base_url} and paste the link here, or paste the external "
+                "link from your in-game kill report."
             ).format(
-                zkillboard_base_url=zkillboard_base_url,
-                evetools_base_url=evetools_base_url,
-                eve_kill_base_url=eve_kill_base_url,
+                zkillboard_base_url=zkillboard["base_url"],
+                zkillboard_post_esi_base_url=zkillboard_post_esi["base_url"],
+                evetools_base_url=evetools["base_url"],
+                eve_kill_base_url=eve_kill["base_url"],
             ),
             "additional_info": _(
                 "Please tell us about the circumstances of your untimely demise. "
@@ -290,14 +268,16 @@ class SrpRequestForm(ModelForm):
 
         # Define regex patterns for accepted kill boards and killmails
         killboard_patterns = [
-            zkillboard_base_url_regex,
-            evetools_base_url_regex,
-            eve_kill_base_url_regex,
+            zkillboard["base_url_regex"],
+            zkillboard_post_esi["base_url_regex"],
+            evetools["base_url_regex"],
+            eve_kill["base_url_regex"],
         ]
         killmail_patterns = [
-            zkillboard_killmail_url_regex,
-            evetools_killmail_url_regex,
-            eve_kill_killmail_url_regex,
+            zkillboard["killmail_url_regex"],
+            zkillboard_post_esi["killmail_url_regex"],
+            evetools["killmail_url_regex"],
+            eve_kill["killmail_url_regex"],
         ]
 
         # Check if it's a link from one of the accepted kill boards
@@ -308,11 +288,13 @@ class SrpRequestForm(ModelForm):
 
             raise forms.ValidationError(
                 message=_(
-                    "Invalid link. Please use {zkillboard_base_url}, {evetools_base_url} or {eve_kill_base_url}"
+                    "Invalid link. Please use {zkillboard_base_url}, "
+                    "{evetools_base_url} or {eve_kill_base_url}, or the external link "
+                    "from your in-game kill report."
                 ).format(
-                    zkillboard_base_url=zkillboard_base_url,
-                    evetools_base_url=evetools_base_url,
-                    eve_kill_base_url=eve_kill_base_url,
+                    zkillboard_base_url=zkillboard["base_url"],
+                    evetools_base_url=evetools["base_url"],
+                    eve_kill_base_url=eve_kill["base_url"],
                 )
             )
 
@@ -328,7 +310,9 @@ class SrpRequestForm(ModelForm):
 
         # Check if there is already an SRP request for this kill mail
         try:
-            killmail_id = SrpRequest.objects.get_kill_id(killboard_link=killboard_link)
+            killmail_id = SrpRequest.objects.get_killmail_id(
+                killmail_link=killboard_link
+            )
         except ValueError as e:
             raise forms.ValidationError(str(e))
 

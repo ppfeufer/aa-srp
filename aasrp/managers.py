@@ -5,7 +5,9 @@ This module contains custom managers for handling SRP (Ship Replacement Program)
 
 # Standard Library
 import json
+import re
 from typing import Any
+from urllib.parse import urlsplit
 
 # Third Party
 import requests
@@ -19,7 +21,8 @@ from django.utils.translation import gettext as _
 from allianceauth.services.hooks import get_extension_logger
 
 # AA SRP
-from aasrp.constants import KILLBOARD_DATA, UserAgent
+from aasrp.app_settings import killboard_settings
+from aasrp.constants import KILLBOARD_DATA, REQUESTS_TIMEOUT, UserAgent
 from aasrp.providers.applogger import AppLogger
 from aasrp.providers.esi import ESIHandler, esi
 
@@ -34,20 +37,82 @@ class SrpRequestManager(models.Manager):
     """
 
     @staticmethod
-    def get_kill_id(killboard_link: str) -> str:
+    def get_killmail_id(killmail_link: str) -> str:
         """
-        Extract the killmail ID from a killboard link.
+        Extract the killmail ID from a killmail link.
 
-        :param killboard_link: The killboard link containing the killmail ID.
-        :type killboard_link: str
+        :param killmail_link: The killboard link containing the killmail ID.
+        :type killmail_link: str
         :return: The extracted killmail ID.
         :rtype: str
+        :raises ValueError: If the link does not contain a numeric killmail ID.
         """
 
-        num_set = "0123456789"
-        kill_id = "".join(c for c in killboard_link if c in num_set)
+        parts = urlsplit(killmail_link).path.split("/")
+        kill_id = next(
+            (
+                value
+                for segment, value in zip(parts, parts[1:])
+                if segment in ("kill", "killmails")
+                and value.isascii()
+                and value.isdecimal()
+            ),
+            None,
+        )
+
+        if kill_id is None:
+            raise ValueError(_("Invalid link. Please post a link to a kill mail."))
 
         return kill_id
+
+    @staticmethod
+    def _get_killmail_info_from_zkill_json(
+        zkill_json: list[dict[str, Any]], killmail_id: str
+    ) -> dict[str, Any]:
+        """
+        Extract killmail information from zKillboard's JSON response.
+
+        :param zkill_json: The JSON response from zKillboard.
+        :type zkill_json: str
+        :param killmail_id: The ID of the killmail to extract.
+        :type killmail_id: str
+        :return: The killmail information.
+        :rtype: dict
+        """
+
+        logger.debug(
+            f"Extracting killmail info for kill ID {killmail_id} from zKillboard JSON response: {zkill_json}"
+        )
+
+        try:
+            result = next(
+                (
+                    killmail
+                    for killmail in zkill_json
+                    if killmail.get("killmail_id") == int(killmail_id)
+                ),
+                None,
+            )
+
+            if not result:
+                raise ValueError(
+                    _("No kill mail information found in zKillboard's API response.")
+                )
+
+            killmail_hash = result.get("zkb", {}).get("hash")
+
+            if not killmail_hash:
+                raise ValueError(
+                    _("No kill mail hash found in zKillboard's API response.")
+                )
+
+            return result
+        except ValueError:
+            # Propagate ValueError from missing data/hash as-is
+            raise
+        except Exception as exc:
+            # Any other unexpected exception
+            raise ValueError(_("Invalid Kill ID or Hash.")) from exc
 
     @staticmethod
     def get_zkillboard_data(kill_id: str) -> dict | None:
@@ -71,7 +136,7 @@ class SrpRequestManager(models.Manager):
                     "User-Agent": UserAgent.REQUESTS.value,
                     "Content-Type": "application/json",
                 },
-                timeout=5,
+                timeout=REQUESTS_TIMEOUT,
             )
             response.raise_for_status()
         except requests.RequestException as exc:
@@ -90,45 +155,23 @@ class SrpRequestManager(models.Manager):
             logger.warning(
                 f"zKillboard API returned a non-parsable JSON for kill ID {kill_id}: {response.text[:200]}"
             )
-            raise ValueError("zKillboard API returned an unparseable response") from ex
+            raise ValueError(
+                _("zKillboard API returned an unparseable response")
+            ) from ex
 
-        try:
-            result = next(
-                (
-                    killmail
-                    for killmail in result_killmails
-                    if killmail.get("killmail_id") == int(kill_id)
-                ),
-                None,
-            )
-
-            if not result:
-                raise ValueError(
-                    "No kill mail information found in zKillboard's API response."
-                )
-
-            killmail_hash = result.get("zkb", {}).get("hash")
-
-            if not killmail_hash:
-                raise ValueError(
-                    "No kill mail hash found in zKillboard's API response."
-                )
-
-            return result
-        except ValueError:
-            # Propagate ValueError from missing data/hash as-is
-            raise
-        except Exception as exc:
-            # Any other unexpected exception
-            raise ValueError("Invalid Kill ID or Hash.") from exc
+        return SrpRequestManager._get_killmail_info_from_zkill_json(
+            result_killmails, killmail_id=kill_id
+        )
 
     @staticmethod
-    def get_kill_data(killmail_id: str, loss_value_field: str) -> dict[str, int | Any]:
+    def get_killmail_data(
+        killmail_link: str, loss_value_field: str
+    ) -> dict[str, int | Any]:
         """
         Retrieve detailed killmail data, including ship type, loss value, and victim ID.
 
-        :param killmail_id: The ID of the killmail to fetch.
-        :type killmail_id: str
+        :param killmail_link: The link to the killmail, from which the kill ID will be extracted.
+        :type killmail_link: str
         :param loss_value_field: The field name for the loss value in the zKillboard data.
         :type loss_value_field: str
         :return: A tuple containing the ship type ID, loss value, and victim character ID.
@@ -138,33 +181,100 @@ class SrpRequestManager(models.Manager):
         :rtype: dict[str, int | float | None]
         """
 
-        zkillboard_data = SrpRequestManager.get_zkillboard_data(kill_id=killmail_id)
+        killmail_id = SrpRequestManager.get_killmail_id(killmail_link=killmail_link)
+        zkillboard_post_esi = killboard_settings("zkillboard_post_esi")
+        logger.debug("zKillboard Post ESI Settings: %s", zkillboard_post_esi)
 
-        if (
-            esi_killmail := ESIHandler.result(
-                operation=esi.client.Killmails.GetKillmailsKillmailIdKillmailHash(
-                    killmail_id=killmail_id,
-                    killmail_hash=zkillboard_data.get("zkb", {}).get("hash"),
-                ),
-                use_etag=False,
+        base_url_match = re.match(zkillboard_post_esi["base_url_regex"], killmail_link)
+
+        if base_url_match:
+            logger.debug(
+                f"Kill ID {killmail_id}: ESI killmail link. Posting to zKillboard for data retrieval."
             )
-        ) is None:
-            raise ValueError(
-                _(
-                    "Unable to fetch kill mail details from ESI. "
-                    "Please try again in an hour."
+
+            # Remove the regex-matched base URL prefix from the killmail link.
+            zkill_post = killmail_link[base_url_match.end() :]
+
+            try:
+                response = requests.post(
+                    url=zkillboard_post_esi["api_url"] + zkill_post,
+                    headers={
+                        "User-Agent": UserAgent.REQUESTS.value,
+                        "Content-Type": "application/json",
+                    },
+                    timeout=REQUESTS_TIMEOUT,
                 )
+                response.raise_for_status()
+            except requests.RequestException as exc:
+                logger.warning(
+                    f"Error fetching kill mail details: {exc}", exc_info=True
+                )
+
+                raise ValueError(
+                    _(
+                        "zKillboard is not responding at the moment. "
+                        "Please try again in an hour."
+                    )
+                ) from exc
+
+            try:
+                result_killmails = response.json()
+
+                logger.debug(
+                    f"Kill ID {killmail_id}: zKillboard post response: {response.status_code} - {result_killmails.get('package')}"
+                )
+            except json.JSONDecodeError as ex:
+                # Response could not be parsed as JSON
+                logger.warning(
+                    f"zKillboard API returned a non-parsable JSON for kill ID {killmail_id}: {response.text}"
+                )
+
+                raise ValueError(
+                    _("zKillboard API returned an unparseable response")
+                ) from ex
+
+            zkillboard_data = SrpRequestManager._get_killmail_info_from_zkill_json(
+                result_killmails.get("package"), killmail_id
+            )
+        else:
+            logger.debug(
+                f"Kill ID {killmail_id}: Non-ESI killmail link. Fetching data directly from zKillboard."
             )
 
-        ship_type_id = esi_killmail.victim.ship_type_id
-        ship_value = zkillboard_data.get("zkb", {}).get(loss_value_field, 0)
-        victim_id = esi_killmail.victim.character_id
+            zkillboard_data = SrpRequestManager.get_zkillboard_data(kill_id=killmail_id)
 
         logger.debug(
-            f"Kill ID {killmail_id}: Ship type = {ship_type_id}, Loss value = {ship_value}"
+            f"Kill ID {killmail_id}: zKillboard data retrieved: {zkillboard_data}"
+        )
+
+        # if (
+        #     esi_killmail := ESIHandler.result(
+        #         operation=esi.client.Killmails.GetKillmailsKillmailIdKillmailHash(
+        #             killmail_id=killmail_id,
+        #             killmail_hash=zkillboard_data.get("zkb", {}).get("hash"),
+        #         ),
+        #         use_etag=False,
+        #     )
+        # ) is None:
+        #     raise ValueError(
+        #         _(
+        #             "Unable to fetch kill mail details from ESI. "
+        #             "Please try again in an hour."
+        #         )
+        #     )
+
+        # victim_id = esi_killmail.victim.character_id
+        # ship_type_id = esi_killmail.victim.ship_type_id
+        victim_id = zkillboard_data.get("victim", {}).get("character_id")
+        ship_type_id = zkillboard_data.get("victim", {}).get("ship_type_id")
+        ship_value = zkillboard_data.get("zkb", {}).get(loss_value_field, 0)
+
+        logger.debug(
+            f"Kill ID {killmail_id}: Victim ID = {victim_id}, Ship type = {ship_type_id}, Loss value = {ship_value}"
         )
 
         return {
+            "killmail_id": killmail_id,
             "ship_type_id": ship_type_id,
             "ship_value": ship_value,
             "victim_id": victim_id,

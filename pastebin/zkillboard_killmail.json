@@ -1,15 +1,64 @@
 [
     {
-        "killmail_id": 92805575,
+        "attackers": [
+            {
+                "alliance_id": 99010240,
+                "character_id": 1692648515,
+                "corporation_id": 1588647992,
+                "damage_done": 464,
+                "final_blow": true,
+                "security_status": 1.2,
+                "ship_type_id": 642,
+                "weapon_type_id": 2488
+            },
+            {
+                "alliance_id": 99010240,
+                "character_id": 96590003,
+                "corporation_id": 98819796,
+                "damage_done": 0,
+                "faction_id": 500003,
+                "final_blow": false,
+                "security_status": 5,
+                "ship_type_id": 642,
+                "weapon_type_id": 3065
+            }
+        ],
+        "killmail_id": 139797181,
+        "killmail_time": "2026-11-09T19:34:09Z",
+        "solar_system_id": 30003731,
+        "victim": {
+            "alliance_id": 1900696668,
+            "character_id": 90607580,
+            "corporation_id": 98000030,
+            "damage_taken": 464,
+            "items": [],
+            "position": {
+                "x": 1500866976914.7727,
+                "y": -3695876411561.2065,
+                "z": -217333382632.67953
+            },
+            "ship_type_id": 33328
+        },
         "zkb": {
-            "locationID": 50013770,
-            "hash": "79b46dac66cba1ac120ed180e2b371e24c66c21a",
-            "fittedValue": 329185822.77,
-            "totalValue": 349147869.07,
+            "locationID": 50004201,
+            "hash": "acc89db938397301b3bf1205bcfaeee9548971da",
+            "fittedValue": 10000,
+            "droppedValue": 0,
+            "destroyedValue": 10000,
+            "totalValue": 10000,
+            "totalDroppableValue": 0,
             "points": 1,
             "npc": false,
             "solo": false,
-            "awox": false
+            "awox": false,
+            "labels": [
+                "tz:eu",
+                "cat:6",
+                "#:2+",
+                "pvp",
+                "loc:nullsec",
+                "isk:under1b"
+            ]
         }
     }
 ]

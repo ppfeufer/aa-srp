@@ -11,6 +11,7 @@ from aasrp.app_settings import (
     aa_discordnotify_installed,
     allianceauth_discordbot_installed,
     discordproxy_installed,
+    killboard_settings,
 )
 from aasrp.tests import BaseTestCase
 
@@ -133,4 +134,91 @@ class TestDiscordProxyInstalled(BaseTestCase):
         mock_import.side_effect = selective_import
 
         result = discordproxy_installed()
+
         self.assertFalse(result)
+
+
+class TestKillboardSettings(BaseTestCase):
+    """
+    Test killboard_settings function
+    """
+
+    def test_returns_expected_fields_for_known_killboard(self):
+        """
+        Test that the function returns the expected fields for a known killboard.
+
+        :return:
+        """
+
+        with patch(
+            "aasrp.app_settings.KILLBOARD_DATA",
+            {
+                "KnownBoard": {
+                    "base_url": "https://example.invalid/",
+                    "base_url_regex": r"^https://example\\.invalid/",
+                    "killmail_url_regex": r"^https://example\\.invalid/kill/\\d+/$",
+                    "ignored": "value",
+                }
+            },
+        ):
+            result = killboard_settings("KnownBoard")
+
+        self.assertEqual(
+            result,
+            {
+                "base_url": "https://example.invalid/",
+                "base_url_regex": r"^https://example\\.invalid/",
+                "killmail_url_regex": r"^https://example\\.invalid/kill/\\d+/$",
+            },
+        )
+
+    def test_includes_api_url_when_present(self):
+        """
+        Test that the function includes the api_url when it is present in the killboard data.
+
+        :return:
+        """
+
+        source = {
+            "base_url": "https://example.invalid/",
+            "api_url": "https://example.invalid/api/",
+            "base_url_regex": "base pattern",
+            "killmail_url_regex": "killmail pattern",
+            "ignored": "value",
+        }
+
+        with patch("aasrp.app_settings.KILLBOARD_DATA", {"KnownBoard": source}):
+            self.assertEqual(
+                killboard_settings("KnownBoard"),
+                {key: value for key, value in source.items() if key != "ignored"},
+            )
+
+    def test_raises_keyerror_for_unknown_killboard_name(self):
+        """
+        Test that the function raises a KeyError when an unknown killboard name is provided.
+
+        :return:
+        """
+
+        with patch("aasrp.app_settings.KILLBOARD_DATA", {}):
+            with self.assertRaises(KeyError):
+                killboard_settings("MissingBoard")
+
+    def test_raises_keyerror_when_required_setting_key_is_missing(self):
+        """
+        Test that the function raises a KeyError when a required setting key is missing in the killboard data.
+
+        :return:
+        """
+
+        with patch(
+            "aasrp.app_settings.KILLBOARD_DATA",
+            {
+                "KnownBoard": {
+                    "base_url": "https://example.invalid/",
+                    "base_url_regex": r"^https://example\\.invalid/",
+                }
+            },
+        ):
+            with self.assertRaises(KeyError):
+                killboard_settings("KnownBoard")

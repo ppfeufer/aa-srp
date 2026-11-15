@@ -203,8 +203,8 @@ class Command(BaseCommand):
                                     srp_userrequest_killboard_link
                                 )
                                 srp_request.killmail_id = int(
-                                    SrpRequest.objects.get_kill_id(
-                                        killboard_link=srp_userrequest_killboard_link
+                                    SrpRequest.objects.get_killmail_id(
+                                        killmail_link=srp_userrequest_killboard_link
                                     )
                                 )
                                 srp_request.request_status = srp_userrequest_status

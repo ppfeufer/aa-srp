@@ -312,6 +312,81 @@ class TestSrpRequestForm(BaseFormTestCase):
     Test SrpRequestForm
     """
 
+    def test_accepts_supported_links_and_checks_correct_id(self):
+        """
+        Test that the form accepts supported killboard links and checks for the correct killmail ID.
+
+        :return:
+        """
+
+        examples = (
+            (
+                "https://esi.evetech.net/killmails/139797181/"
+                "acc89db938397301b3bf1205bcfaeee9548971da",
+                "139797181",
+                True,
+            ),
+            ("https://zkillboard.com/kill/139917484/", "139917484", False),
+            ("https://kb.evetools.org/kill/139934120", "139934120", False),
+            ("https://eve-kill.com/kill/139934120", "139934120", False),
+        )
+
+        for link, killmail_id, add_slash in examples:
+            with self.subTest(link=link):
+                form = SrpRequestForm(
+                    data={"killboard_link": link, "additional_info": "Details"}
+                )
+                form.cleaned_data = {"killboard_link": link}
+
+                with patch("aasrp.form.SrpRequest.objects.filter") as mock_filter:
+                    mock_filter.return_value.exists.return_value = False
+
+                    self.assertEqual(
+                        form.clean_killboard_link(), link + "/" if add_slash else link
+                    )
+
+                    mock_filter.assert_called_once_with(killmail_id=killmail_id)
+
+    def test_rejects_duplicate_esi_killmail(self):
+        """
+        Test that the form rejects a duplicate ESI killmail link.
+
+        :return:
+        """
+
+        link = (
+            "https://esi.evetech.net/killmails/139797181/"
+            "acc89db938397301b3bf1205bcfaeee9548971da"
+        )
+        form = SrpRequestForm(
+            data={"killboard_link": link, "additional_info": "Details"}
+        )
+        form.cleaned_data = {"killboard_link": link}
+
+        with patch("aasrp.form.SrpRequest.objects.filter") as mock_filter:
+            mock_filter.return_value.exists.return_value = True
+
+            with self.assertRaises(ValidationError):
+                form.clean_killboard_link()
+
+            mock_filter.assert_called_once_with(killmail_id="139797181")
+
+    def test_rejects_esi_killmail_link_with_invalid_hash(self):
+        """
+        Test that the form rejects an ESI killmail link with an invalid hash.
+
+        :return:
+        """
+
+        link = "https://esi.evetech.net/killmails/139797181/not-a-hash"
+        form = SrpRequestForm(
+            data={"killboard_link": link, "additional_info": "Details"}
+        )
+        form.cleaned_data = {"killboard_link": link}
+
+        with self.assertRaises(ValidationError):
+            form.clean_killboard_link()
+
     def test_accepts_valid_killboard_link(self):
         """
         Test that the form accepts a valid killboard link.

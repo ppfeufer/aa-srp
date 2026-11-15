@@ -83,14 +83,14 @@ class TestRequestSrpSaveIntegrity(BaseTestCase):
         self.client.force_login(self.user)
 
         kill_data_patcher = patch(
-            "aasrp.managers.SrpRequestManager.get_kill_data",
+            "aasrp.managers.SrpRequestManager.get_killmail_data",
             return_value={
                 "ship_type_id": self.ship.id,
                 "ship_value": 1000000,
                 "victim_id": self.victim_id,
             },
         )
-        self.mock_get_kill_data = kill_data_patcher.start()
+        self.mock_get_killmail_data = kill_data_patcher.start()
         self.addCleanup(kill_data_patcher.stop)
 
         insurance_patcher = patch(
@@ -110,6 +110,13 @@ class TestRequestSrpSaveIntegrity(BaseTestCase):
         self.addCleanup(notify_patcher.stop)
 
     def _post_killmail(self, client=None):
+        """
+        Post a killmail link to the request SRP view.
+
+        :param client:
+        :return:
+        """
+
         return (client or self.client).post(
             reverse("aasrp:request_srp", args=[self.srp_link.srp_code]),
             data={
@@ -119,6 +126,12 @@ class TestRequestSrpSaveIntegrity(BaseTestCase):
         )
 
     def _requests_for_killmail(self):
+        """
+        Get all SRP requests for the test killmail.
+
+        :return:
+        """
+
         return SrpRequest.objects.filter(
             killboard_link__icontains=f"/kill/{self.KILLMAIL_ID}"
         )
@@ -195,17 +208,17 @@ class TestRequestSrpSaveIntegrity(BaseTestCase):
         :rtype:
         """
 
-        kill_data = self.mock_get_kill_data.return_value
+        kill_data = self.mock_get_killmail_data.return_value
         second_client = Client(raise_request_exception=False)
         second_client.force_login(self.user)
 
         def submit_concurrently(*args, **kwargs):
-            self.mock_get_kill_data.side_effect = None
+            self.mock_get_killmail_data.side_effect = None
             self._post_killmail(client=second_client)
 
             return kill_data
 
-        self.mock_get_kill_data.side_effect = submit_concurrently
+        self.mock_get_killmail_data.side_effect = submit_concurrently
 
         response = self._post_killmail()
 
@@ -237,6 +250,107 @@ class TestRequestSrpSaveIntegrity(BaseTestCase):
         self.assertEqual(response.status_code, HTTPStatus.INTERNAL_SERVER_ERROR)
         self.assertFalse(self._requests_for_killmail().exists())
 
+    def test_duplicate_race_handles_killmail_id_lookup_value_error(self):
+        """
+        Test that when a duplicate race occurs, the fallback killmail ID parser is called and its ValueError is handled gracefully.
+
+        :return:
+        """
+
+        def save_side_effect(*args, **kwargs):
+            """
+            Simulate a duplicate race by creating the request and then raising an IntegrityError.
+
+            :param args:
+            :param kwargs:
+            :return:
+            """
+
+            SrpRequest.objects.create(
+                killboard_link=self.KILLBOARD_LINK,
+                killmail_id=self.KILLMAIL_ID,
+                creator=self.user,
+                character=EveCharacter.objects.get(character_id=self.victim_id),
+                ship=self.ship,
+                srp_link=self.srp_link,
+                loss_amount=1000000,
+                post_time=timezone.now(),
+            )
+
+            raise IntegrityError("duplicate simulated")
+
+        with (
+            patch(
+                "aasrp.views.general._save_srp_request", side_effect=save_side_effect
+            ),
+            patch(
+                "aasrp.managers.SrpRequestManager.get_killmail_id",
+                side_effect=[
+                    str(self.KILLMAIL_ID),
+                    ValueError("cannot parse killmail id"),
+                ],
+            ),
+        ):
+            response = self._post_killmail()
+
+        self.assertEqual(self._requests_for_killmail().count(), 1)
+        self.assertNotEqual(response.status_code, HTTPStatus.INTERNAL_SERVER_ERROR)
+        self.assertIn(
+            "There is already an SRP request for this kill mail.",
+            [str(message) for message in get_messages(response.wsgi_request)][0],
+        )
+
+    def test_duplicate_race_skips_fallback_lookup_when_killmail_id_is_present(self):
+        """
+        Test that when a duplicate race occurs, the fallback killmail ID parser is not called if the killmail ID is already present in the data.
+
+        :return:
+        """
+
+        kill_data_with_id = {
+            **self.mock_get_killmail_data.return_value,
+            "killmail_id": str(self.KILLMAIL_ID),
+        }
+
+        def save_side_effect(*args, **kwargs):
+            SrpRequest.objects.create(
+                killboard_link=self.KILLBOARD_LINK,
+                killmail_id=self.KILLMAIL_ID,
+                creator=self.user,
+                character=EveCharacter.objects.get(character_id=self.victim_id),
+                ship=self.ship,
+                srp_link=self.srp_link,
+                loss_amount=1000000,
+                post_time=timezone.now(),
+            )
+            raise IntegrityError("duplicate simulated")
+
+        with (
+            patch(
+                "aasrp.managers.SrpRequestManager.get_killmail_data",
+                return_value=kill_data_with_id,
+            ),
+            patch(
+                "aasrp.views.general._save_srp_request", side_effect=save_side_effect
+            ),
+            patch(
+                "aasrp.managers.SrpRequestManager.get_killmail_id",
+                side_effect=[
+                    str(self.KILLMAIL_ID),
+                    AssertionError("fallback killmail parser should not be called"),
+                ],
+            ) as mock_get_killmail_id,
+        ):
+            response = self._post_killmail()
+
+        self.assertEqual(self._requests_for_killmail().count(), 1)
+        self.assertNotEqual(response.status_code, HTTPStatus.INTERNAL_SERVER_ERROR)
+        self.assertEqual(mock_get_killmail_id.call_count, 1)
+        self.assertIn(
+            "There is already an SRP request for this kill mail.",
+            [str(message) for message in get_messages(response.wsgi_request)][0],
+        )
+
 
 class TestKillmailIdBackfillMigration(BaseTestCase):
     """
@@ -266,6 +380,13 @@ class TestKillmailIdBackfillMigration(BaseTestCase):
         )
 
     def _create_srp_request(self, killboard_link):
+        """
+        Create an SRP request with the given killboard link.
+
+        :param killboard_link:
+        :return:
+        """
+
         return SrpRequest.objects.create(
             killboard_link=killboard_link,
             creator=self.user,
