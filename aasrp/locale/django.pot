@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-15 12:13+0100\n"
+"POT-Creation-Date: 2026-11-15 13:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -332,23 +332,23 @@ msgstr ""
 msgid "Copy payout amount to clipboard"
 msgstr ""
 
-#: aasrp/managers.py:99
-msgid "No kill mail information found in zKillboard's API response."
+#: aasrp/managers.py:100
+msgid "No kill mail information found in zKillboard's API response. Try again in an hour or two, or check the kill mail link."
 msgstr ""
 
-#: aasrp/managers.py:106
-msgid "No kill mail hash found in zKillboard's API response."
+#: aasrp/managers.py:110
+msgid "No kill mail hash found in zKillboard's API response. Try again in an hour or two, or check the kill mail link."
 msgstr ""
 
-#: aasrp/managers.py:115
+#: aasrp/managers.py:121
 msgid "Invalid Kill ID or Hash."
 msgstr ""
 
-#: aasrp/managers.py:146 aasrp/managers.py:215
+#: aasrp/managers.py:152 aasrp/managers.py:221
 msgid "zKillboard is not responding at the moment. Please try again in an hour."
 msgstr ""
 
-#: aasrp/managers.py:159 aasrp/managers.py:233
+#: aasrp/managers.py:165 aasrp/managers.py:239
 msgid "zKillboard API returned an unparseable response"
 msgstr ""
 

@@ -96,14 +96,20 @@ class SrpRequestManager(models.Manager):
 
             if not result:
                 raise ValueError(
-                    _("No kill mail information found in zKillboard's API response.")
+                    _(
+                        "No kill mail information found in zKillboard's API response. "
+                        "Try again in an hour or two, or check the kill mail link."
+                    )
                 )
 
             killmail_hash = result.get("zkb", {}).get("hash")
 
             if not killmail_hash:
                 raise ValueError(
-                    _("No kill mail hash found in zKillboard's API response.")
+                    _(
+                        "No kill mail hash found in zKillboard's API response. "
+                        "Try again in an hour or two, or check the kill mail link."
+                    )
                 )
 
             return result
