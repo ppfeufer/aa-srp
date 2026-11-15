@@ -9,7 +9,7 @@ def _parse_killmail_id(killboard_link: str) -> int | None:
     """
     Extract the kill mail ID from a killboard link.
 
-    Mirrors SrpRequestManager.get_kill_id() at the time of writing, so existing
+    Mirrors SrpRequestManager.get_killmail_id() at the time of writing, so existing
     requests get the same ID that new submissions are checked against.
 
     :param killboard_link: The killboard link

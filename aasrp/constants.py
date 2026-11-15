@@ -20,6 +20,9 @@ INTERNAL_URL_PREFIX = "-"
 # ESI scope required to open windows in the EVE client
 ESI_SCOPE_UI_OPEN_WINDOW = "esi-ui.open_window.v1"
 
+# Timeout for HTTP requests made by the application (in seconds)
+REQUESTS_TIMEOUT = 5
+
 
 class UserAgent(Enum):
     """
@@ -30,12 +33,6 @@ class UserAgent(Enum):
     REQUESTS = f"{__app_name_useragent__}/{app_version} (+{__github_url__}) requests/{requests_version}"
 
 
-SRP_REQUEST_NOTIFICATION_INQUIRY_NOTE = (
-    "If you have any questions regarding your SRP request, feel free to contact your "
-    "request reviser. Please make sure to always add the SRP code and the "
-    "request code with your inquiry."
-)
-
 # Killboard URLs and regex
 KILLBOARD_DATA = {
     "zKillboard": {
@@ -43,6 +40,13 @@ KILLBOARD_DATA = {
         "api_url": "https://zkillboard.com/api/",
         "base_url_regex": r"^http[s]?:\/\/zkillboard\.com\/",
         "killmail_url_regex": r"^http[s]?:\/\/zkillboard\.com\/kill\/\d+\/",
+        "requires_trailing_slash": True,
+    },
+    "zkillboard_post_esi": {
+        "base_url": "https://zkillboard.com/",
+        "api_url": "https://zkillboard.com/api/killmail/add/",
+        "base_url_regex": r"^http[s]?:\/\/esi\.evetech\.net\/killmails\/",
+        "killmail_url_regex": r"^http[s]?:\/\/esi\.evetech\.net\/killmails\/\d+\/[0-9a-fA-F]{40}\/",
         "requires_trailing_slash": True,
     },
     "EveTools": {

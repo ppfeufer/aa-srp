@@ -48,6 +48,13 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- ESI killmail link support for killmails that are not yet on zKillboard, meaning,
+  pilots can now also post the "external link" from their in-game kill reports to
+  request SRP for their losses, instead of having to wait for zKillboard to process the
+  killmail first
+
 ### Fixed
 
 - Killmail ID should be read-only in admin

@@ -43,7 +43,7 @@ esi = ESIClientProvider(
     ua_url=__github_url__,
     # Specify the ESI operations that this client will support.
     operations=[
-        "GetKillmailsKillmailIdKillmailHash",
+        # "GetKillmailsKillmailIdKillmailHash",
         "GetInsurancePrices",
         "PostUiOpenwindowInformation",
     ],

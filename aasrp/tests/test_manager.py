@@ -14,6 +14,51 @@ from aasrp.managers import SettingManager, SettingQuerySet, SrpRequestManager
 from aasrp.tests import BaseTestCase
 
 
+class TestSrpRequestManagerGetKillId(BaseTestCase):
+    """
+    Test cases for SrpRequestManager.get_killmail_id method.
+    """
+
+    def test_extracts_killmail_id_from_supported_links(self):
+        """
+        Test that get_killmail_id correctly extracts the killmail ID from various supported killboard links.
+
+        :return:
+        """
+
+        examples = (
+            (
+                "https://esi.evetech.net/killmails/139797181/acc89db938397301b3bf1205bcfaeee9548971da",
+                "139797181",
+            ),
+            ("https://zkillboard.com/kill/139917484/", "139917484"),
+            ("https://kb.evetools.org/kill/139934120", "139934120"),
+            ("https://eve-kill.com/kill/139934120", "139934120"),
+            ("https://example2.com:8080/kill/12345/?page=99#123", "12345"),
+            ("https://esi.evetech.net/killmails/12345/1234567890", "12345"),
+        )
+
+        for link, expected in examples:
+            with self.subTest(link=link):
+                self.assertEqual(SrpRequestManager.get_killmail_id(link), expected)
+
+    def test_rejects_links_without_numeric_killmail_id(self):
+        """
+        Test that get_killmail_id raises ValueError for links that do not contain a numeric killmail ID.
+
+        :return:
+        """
+
+        for link in (
+            "https://zkillboard.com/kill/",
+            "https://zkillboard.com/kill/123abc/",
+            "https://zkillboard.com/ship/12345/",
+            "https://zkillboard.com/kill/?id=12345",
+        ):
+            with self.subTest(link=link), self.assertRaises(ValueError):
+                SrpRequestManager.get_killmail_id(link)
+
+
 class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
     """
     Test cases for SrpRequestManager.get_zkillboard_data method.
@@ -297,135 +342,179 @@ class TestSrpRequestManagerGetInsuranceForShipType(BaseTestCase):
         self.assertIsNone(result)
 
 
-class TestSrpRequestManagerKetKillData(BaseTestCase):
+class TestSrpRequestManagerGetKillmailData(BaseTestCase):
     """
-    Test cases for SrpRequestManager.get_kill_data method.
+    Test cases for SrpRequestManager.get_killmail_data method.
     """
 
-    @patch("aasrp.managers.esi")
+    @patch("aasrp.managers.killboard_settings")
     @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
-    @patch("aasrp.managers.ESIHandler.result")
-    def test_returns_correct_kill_data(
-        self, mock_esi_result, mock_get_zkillboard_data, mock_esi
+    def test_returns_expected_data_for_non_esi_killmail_link(
+        self, mock_get_zkillboard_data, mock_killboard_settings
     ):
         """
-        Test that get_kill_data returns correct kill data.
+        Test that get_killmail_data returns the expected data for a non-ESI killmail link.
+
+        :param mock_get_zkillboard_data:
+        :param mock_killboard_settings:
+        :return:
         """
-        mock_get_zkillboard_data.return_value = {
-            "zkb": {"hash": "test_hash", "loss_value": 5000000}
+
+        mock_killboard_settings.return_value = {
+            "base_url_regex": r"^https://esi\.evetech\.net/killmails/",
+            "api_url": "https://zkillboard.com/post/",
         }
-        mock_esi_result.return_value = MagicMock(
-            victim=MagicMock(ship_type_id=123, character_id=456)
-        )
+        mock_get_zkillboard_data.return_value = {
+            "victim": {"character_id": 456, "ship_type_id": 123},
+            "zkb": {"totalValue": 5000000, "hash": "hash123"},
+        }
 
-        mock_operation = MagicMock()
-        mock_esi.client.Killmails.GetKillmailsKillmailIdKillmailHash.return_value = (
-            mock_operation
+        result = SrpRequestManager.get_killmail_data(
+            "https://zkillboard.com/kill/12345/", "totalValue"
         )
-
-        result = SrpRequestManager.get_kill_data("12345", "loss_value")
 
         self.assertEqual(
-            result, {"ship_type_id": 123, "ship_value": 5000000, "victim_id": 456}
+            result,
+            {
+                "killmail_id": "12345",
+                "ship_type_id": 123,
+                "ship_value": 5000000,
+                "victim_id": 456,
+            },
         )
 
-    @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
-    @patch("aasrp.managers.ESIHandler.result")
-    def test_raises_value_error_for_missing_killmail_hash(
-        self, mock_esi_result, mock_get_zkillboard_data
+    @patch("aasrp.managers.killboard_settings")
+    @patch("aasrp.managers.requests.post")
+    def test_returns_expected_data_for_esi_killmail_link(
+        self, mock_post, mock_killboard_settings
     ):
         """
-        Test that get_kill_data raises ValueError when killmail hash is missing.
+        Test that get_killmail_data returns the expected data for an ESI killmail link.
 
-        :param mock_esi_result:
-        :type mock_esi_result:
-        :param mock_get_zkillboard_data:
-        :type mock_get_zkillboard_data:
+        :param mock_post:
+        :param mock_killboard_settings:
         :return:
-        :rtype:
         """
 
-        mock_get_zkillboard_data.side_effect = ValueError("No kill mail hash found")
+        mock_killboard_settings.return_value = {
+            "base_url_regex": r"^https://esi\.evetech\.net/killmails/",
+            "api_url": "https://zkillboard.com/post/",
+        }
 
-        with self.assertRaises(ValueError) as context:
-            SrpRequestManager.get_kill_data("12345", "loss_value")
+        response_mock = MagicMock()
+        response_mock.raise_for_status.return_value = None
+        response_mock.json.return_value = {
+            "package": [
+                {
+                    "killmail_id": 12345,
+                    "victim": {"character_id": 456, "ship_type_id": 123},
+                    "zkb": {"totalValue": 5000000, "hash": "hash123"},
+                }
+            ]
+        }
+        mock_post.return_value = response_mock
 
-        self.assertIn("No kill mail hash found", str(context.exception))
-
-    @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
-    @patch("aasrp.managers.ESIHandler.result")
-    def test_raises_value_error_for_invalid_killmail_id(
-        self, mock_esi_result, mock_get_zkillboard_data
-    ):
-        """
-        Test that get_kill_data raises ValueError for an invalid killmail ID.
-
-        :param mock_esi_result:
-        :type mock_esi_result:
-        :param mock_get_zkillboard_data:
-        :type mock_get_zkillboard_data:
-        :return:
-        :rtype:
-        """
-
-        mock_get_zkillboard_data.side_effect = ValueError("Invalid Kill ID or Hash.")
-
-        with self.assertRaises(ValueError) as context:
-            SrpRequestManager.get_kill_data("invalid_id", "loss_value")
-
-        self.assertIn("Invalid Kill ID or Hash.", str(context.exception))
-
-    @patch("aasrp.managers.esi")
-    @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
-    @patch("aasrp.managers.ESIHandler.result")
-    def test_raises_value_error_when_esi_killmail_unavailable(
-        self, mock_esi_result, mock_get_zkillboard_data, mock_esi
-    ):
-        """
-        Test that get_kill_data raises ValueError when ESI returns no killmail.
-
-        :param mock_esi_result:
-        :type mock_esi_result:
-        :param mock_get_zkillboard_data:
-        :type mock_get_zkillboard_data:
-        :param mock_esi:
-        :type mock_esi:
-        :return:
-        :rtype:
-        """
-
-        mock_get_zkillboard_data.return_value = {"zkb": {"hash": "test_hash"}}
-        mock_esi_result.return_value = None
-
-        with self.assertRaises(ValueError) as context:
-            SrpRequestManager.get_kill_data("12345", "totalValue")
-
-        self.assertIn(
-            "Unable to fetch kill mail details from ESI", str(context.exception)
+        result = SrpRequestManager.get_killmail_data(
+            "https://esi.evetech.net/killmails/12345/hash123", "totalValue"
         )
+
+        self.assertEqual(
+            result,
+            {
+                "killmail_id": "12345",
+                "ship_type_id": 123,
+                "ship_value": 5000000,
+                "victim_id": 456,
+            },
+        )
+
+    @patch("aasrp.managers.killboard_settings")
+    @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
+    def test_defaults_ship_value_to_zero_when_requested_field_is_missing(
+        self, mock_get_zkillboard_data, mock_killboard_settings
+    ):
+        """
+        Test that get_killmail_data defaults ship_value to zero when the requested field is missing.
+
+        :param mock_get_zkillboard_data:
+        :param mock_killboard_settings:
+        :return:
+        """
+
+        mock_killboard_settings.return_value = {
+            "base_url_regex": r"^https://esi\.evetech\.net/killmails/",
+            "api_url": "https://zkillboard.com/post/",
+        }
+        mock_get_zkillboard_data.return_value = {
+            "victim": {"character_id": 456, "ship_type_id": 123},
+            "zkb": {"hash": "hash123"},
+        }
+
+        result = SrpRequestManager.get_killmail_data(
+            "https://zkillboard.com/kill/12345/", "nonexistent_field"
+        )
+
+        self.assertEqual(result["ship_value"], 0)
+        self.assertEqual(result["killmail_id"], "12345")
+
+    @patch("aasrp.managers.killboard_settings")
+    @patch("aasrp.managers.requests.post")
+    def test_raises_value_error_when_post_to_zkillboard_fails(
+        self, mock_post, mock_killboard_settings
+    ):
+        """
+        Test that get_killmail_data raises ValueError when the POST request to zKillboard fails.
+
+        :param mock_post:
+        :param mock_killboard_settings:
+        :return:
+        """
+
+        mock_killboard_settings.return_value = {
+            "base_url_regex": r"^https://esi\.evetech\.net/killmails/",
+            "api_url": "https://zkillboard.com/post/",
+        }
+        mock_post.side_effect = requests.Timeout("Request timed out")
+
+        with self.assertRaises(ValueError) as context:
+            SrpRequestManager.get_killmail_data(
+                "https://esi.evetech.net/killmails/12345/hash123", "totalValue"
+            )
+
         self.assertIn("Please try again in an hour", str(context.exception))
 
-    @patch("aasrp.managers.esi")
-    @patch("aasrp.managers.SrpRequestManager.get_zkillboard_data")
-    @patch("aasrp.managers.ESIHandler.result")
-    def test_handles_missing_loss_value_field(
-        self, mock_esi_result, mock_get_zkillboard_data, mock_esi
+    @patch("aasrp.managers.killboard_settings")
+    @patch("aasrp.managers.requests.post")
+    def test_raises_value_error_when_esi_post_response_is_not_json(
+        self, mock_post, mock_killboard_settings
     ):
-        mock_get_zkillboard_data.return_value = {"zkb": {"hash": "test_hash"}}
-        mock_esi_result.return_value = MagicMock(
-            victim=MagicMock(ship_type_id=123, character_id=456)
-        )
+        """
+        Test that get_killmail_data raises ValueError when the ESI POST response is not valid JSON.
 
-        mock_operation = MagicMock()
-        mock_esi.client.Killmails.GetKillmailsKillmailIdKillmailHash.return_value = (
-            mock_operation
-        )
+        :param mock_post:
+        :param mock_killboard_settings:
+        :return:
+        """
 
-        result = SrpRequestManager.get_kill_data("12345", "nonexistent_field")
+        mock_killboard_settings.return_value = {
+            "base_url_regex": r"^https://esi\.evetech\.net/killmails/",
+            "api_url": "https://zkillboard.com/post/",
+        }
 
-        self.assertEqual(
-            result, {"ship_type_id": 123, "ship_value": 0, "victim_id": 456}
+        response_mock = MagicMock()
+        response_mock.raise_for_status.return_value = None
+        response_mock.text = "not-json"
+        response_mock.json.side_effect = json.JSONDecodeError(
+            "Expecting value", "doc", 0
         )
+        mock_post.return_value = response_mock
+
+        with self.assertRaises(ValueError) as context:
+            SrpRequestManager.get_killmail_data(
+                "https://esi.evetech.net/killmails/12345/hash123", "totalValue"
+            )
+
+        self.assertIn("unparseable response", str(context.exception).lower())
 
 
 class TestSettingQuerySet(BaseTestCase):

@@ -6,6 +6,9 @@ various functionalities such as rendering dashboards, managing SRP links, and
 processing user requests.
 """
 
+# Standard Library
+import re
+
 # Third Party
 from eve_sde.models import ItemType
 
@@ -410,7 +413,7 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
         srp_request = SrpRequest.objects.create(
             killboard_link=killmail_link,
             killmail_id=int(
-                SrpRequest.objects.get_kill_id(killboard_link=killmail_link)
+                SrpRequest.objects.get_killmail_id(killmail_link=killmail_link)
             ),
             creator=creator,
             srp_link=srp_link,
@@ -472,7 +475,9 @@ def _save_srp_request(  # pylint: disable=too-many-arguments, too-many-positiona
 
 
 @permission_required("aasrp.basic_access")
-def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
+def request_srp(  # pylint: disable=too-many-branches
+    request: WSGIRequest, srp_code: str
+) -> HttpResponse:
     """
     Handle the SRP request form.
 
@@ -540,26 +545,26 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
             # Parse killmail
             try:
-                srp_kill_link_id = SrpRequest.objects.get_kill_id(
-                    killboard_link=submitted_killmail_link
-                )
-                killmail_info = SrpRequest.objects.get_kill_data(
-                    killmail_id=srp_kill_link_id, loss_value_field=loss_value_field
+                killmail_info = SrpRequest.objects.get_killmail_data(
+                    killmail_link=submitted_killmail_link,
+                    loss_value_field=loss_value_field,
                 )
             except ValueError as err:
                 # Invalid killmail
                 error_message_text = (
                     _(
-                        "Something went wrong, your kill mail ({submitted_killmail_link}) could not be parsed: {error}"
+                        "Something went wrong, your kill mail "
+                        "({submitted_killmail_link}) could not be parsed: {error}"
                     ).format(  # pylint: disable=consider-using-f-string
                         submitted_killmail_link=submitted_killmail_link, error=str(err)
                     )
                     if str(err)
-                    else (
+                    else _(
                         "Your kill mail link ({submitted_killmail_link}) is invalid or "
                         "the zKillboard API is not answering at the moment. "
                         "Please make sure you are using either {zkillboard_base_url}, "
-                        "{evekb_base_url} or {evekill_base_url}"
+                        "{evekb_base_url}, {evekill_base_url} or the external link "
+                        "link from your in-game kill report."
                     ).format(  # pylint: disable=consider-using-f-string
                         submitted_killmail_link=submitted_killmail_link,
                         zkillboard_base_url=KILLBOARD_DATA["zKillboard"]["base_url"],
@@ -575,6 +580,16 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
             if request.user.character_ownerships.filter(
                 character__character_id=killmail_info["victim_id"]
             ).exists():
+                killmail_id = killmail_info.get("killmail_id")
+
+                if re.match(
+                    KILLBOARD_DATA["zkillboard_post_esi"]["base_url_regex"],
+                    submitted_killmail_link,
+                ):
+                    submitted_killmail_link = (
+                        f"https://zkillboard.com/kill/{killmail_id}/"
+                    )
+
                 # Save the SRP request
                 try:
                     srp_request = _save_srp_request(
@@ -588,9 +603,23 @@ def request_srp(request: WSGIRequest, srp_code: str) -> HttpResponse:
                     )
                 except IntegrityError:
                     # Lost the race against a concurrent submission of the same kill mail
-                    if not SrpRequest.objects.filter(
-                        killmail_id=srp_kill_link_id
-                    ).exists():
+                    if killmail_id is None:
+                        try:
+                            killmail_id = SrpRequest.objects.get_killmail_id(
+                                killmail_link=submitted_killmail_link
+                            )
+                        except ValueError:
+                            killmail_id = None
+
+                    duplicate_exists = (
+                        SrpRequest.objects.filter(killmail_id=killmail_id).exists()
+                        if killmail_id is not None
+                        else SrpRequest.objects.filter(
+                            killboard_link=submitted_killmail_link
+                        ).exists()
+                    )
+
+                    if not duplicate_exists:
                         raise
 
                     messages.error(

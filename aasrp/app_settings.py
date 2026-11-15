@@ -8,6 +8,9 @@ Discord Proxy and checking the installation status of related Alliance Auth apps
 from django.apps import apps
 from django.conf import settings
 
+# AA SRP
+from aasrp.constants import KILLBOARD_DATA
+
 # Port used to communicate with Discord Proxy
 DISCORDPROXY_PORT = getattr(settings, "DISCORDPROXY_PORT", 50051)
 
@@ -56,3 +59,23 @@ def discordproxy_installed() -> bool:
         return False
 
     return True
+
+
+def killboard_settings(name: str) -> dict[str, str]:
+    """
+    Retrieve killboard settings based on the provided name.
+
+    :param name: The name of the killboard.
+    :type name: str
+    :return: The required killboard settings and api_url when present.
+    :rtype: dict[str, str]
+    """
+
+    source = KILLBOARD_DATA[name]
+    keys = ("base_url", "base_url_regex", "killmail_url_regex")
+
+    result = {key: source[key] for key in keys}
+    if "api_url" in source:
+        result["api_url"] = source["api_url"]
+
+    return result
