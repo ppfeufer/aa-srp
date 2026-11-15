@@ -29,6 +29,7 @@ $(document).ready(() => {
             {
                 targets: [
                     dtColumn.fleetTime,
+                    dtColumn.pendingRequests,
                     dtColumn.srpCost
                 ],
                 columnControl: _removeSearchFromColumnControl(aaSrpSettings.dataTables.columnControl, 1)
@@ -37,7 +38,6 @@ $(document).ready(() => {
             {
                 targets: [
                     dtColumn.aarLink,
-                    dtColumn.pendingRequests,
                     dtColumn.actions
                 ],
                 columnControl: [
@@ -49,7 +49,7 @@ $(document).ready(() => {
             {
                 targets: [
                     dtColumn.aarLink,
-                    dtColumn.pendingRequests,
+                    // dtColumn.pendingRequests,
                     dtColumn.actions
                 ],
                 orderable: false

@@ -258,6 +258,62 @@ class TestDashboardSrpLinksView(BaseTestCase):
         with self.assertRaises(PermissionDenied):
             self.view.get_model_qs(self.request)
 
+    def test_orders_links_by_pending_request_count(self):
+        """
+        Test that the view orders SRP links by the count of pending requests.
+
+        :return:
+        """
+
+        SrpLink.objects.create(
+            srp_code="COUNT000", creator=self.user, fleet_time=timezone.now()
+        )
+        link_with_one_pending = SrpLink.objects.create(
+            srp_code="COUNT001", creator=self.user, fleet_time=timezone.now()
+        )
+        link_with_two_pending = SrpLink.objects.create(
+            srp_code="COUNT002", creator=self.user, fleet_time=timezone.now()
+        )
+
+        SrpRequest.objects.create(
+            creator=self.user,
+            srp_link=link_with_one_pending,
+            request_status=SrpRequest.Status.PENDING,
+        )
+        SrpRequest.objects.create(
+            creator=self.user,
+            srp_link=link_with_two_pending,
+            request_status=SrpRequest.Status.PENDING,
+        )
+        SrpRequest.objects.create(
+            creator=self.user,
+            srp_link=link_with_two_pending,
+            request_status=SrpRequest.Status.PENDING,
+        )
+        SrpRequest.objects.create(
+            creator=self.user,
+            srp_link=link_with_two_pending,
+            request_status=SrpRequest.Status.APPROVED,
+        )
+
+        ordering = self.view.get_order(
+            {
+                "columns": {9: {"orderable": True}},
+                "order": {"0": {"column": 9, "dir": "desc"}},
+            }
+        )
+        ordered_codes = (
+            self.view.get_model_qs(self.request)
+            .order_by(*ordering)
+            .values_list("srp_code", flat=True)
+        )
+
+        self.assertEqual(ordering, ["-pending_count"])
+        self.assertListEqual(
+            list(ordered_codes),
+            ["COUNT002", "COUNT001", "COUNT000"],
+        )
+
     def test_returns_only_links_with_pending_requests_when_has_requests_filter_is_true(
         self,
     ):

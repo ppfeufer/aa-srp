@@ -48,6 +48,11 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- The "Requests" column in the dashboard tables is now orderable, so that you can sort
+  the SRP links by the number of pending requests
+
 ### Fixed
 
 - `format_lazy` for translations to apply properly in the SRP request form

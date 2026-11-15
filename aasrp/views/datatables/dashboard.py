@@ -47,7 +47,10 @@ class DashboardSrpLinksView(PermissionRequiredMixin, DataTablesView):
         ("srp_code", "aasrp/partials/datatables/dashboard/column-srp-code.html"),
         ("total_cost", "aasrp/partials/datatables/dashboard/column-total-cost.html"),
         ("srp_status", "aasrp/partials/datatables/dashboard/column-srp-status.html"),
-        ("", "aasrp/partials/datatables/dashboard/column-request-count.html"),
+        (
+            "pending_count",
+            "aasrp/partials/datatables/dashboard/column-request-count.html",
+        ),
         ("", "aasrp/partials/datatables/dashboard/column-actions.html"),
     ]
 
@@ -69,11 +72,20 @@ class DashboardSrpLinksView(PermissionRequiredMixin, DataTablesView):
         :rtype:
         """
 
-        srp_links = self.model.objects.prefetch_related(
-            "creator",
-            "creator__profile__main_character",
-            "srp_requests",
-        ).all()
+        srp_links = (
+            self.model.objects.prefetch_related(
+                "creator",
+                "creator__profile__main_character",
+                "srp_requests",
+            )
+            .all()
+            .annotate(
+                pending_count=Count(
+                    "srp_requests",
+                    filter=Q(srp_requests__request_status=SrpRequest.Status.PENDING),
+                )
+            )
+        )
 
         if self.show_all_links:
             if not (request.user.has_perm("aasrp.manage_srp")):
@@ -90,11 +102,6 @@ class DashboardSrpLinksView(PermissionRequiredMixin, DataTablesView):
         )
 
         if filter_has_requests:
-            srp_links = srp_links.annotate(
-                pending_count=Count(
-                    "srp_requests",
-                    filter=Q(srp_requests__request_status=SrpRequest.Status.PENDING),
-                )
-            ).filter(pending_count__gt=0)
+            srp_links = srp_links.filter(pending_count__gt=0)
 
         return srp_links
