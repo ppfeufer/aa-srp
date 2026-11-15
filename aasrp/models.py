@@ -371,7 +371,7 @@ class SrpRequest(models.Model):
         blank=True,
         default=None,
         unique=True,
-        verbose_name=_("Kill mail ID"),
+        verbose_name=_("Killmail ID"),
     )
     additional_info = models.TextField(
         blank=True, default="", verbose_name=_("Additional information")

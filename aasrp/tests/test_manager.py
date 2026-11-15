@@ -101,7 +101,7 @@ class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
                 SrpRequestManager.get_zkillboard_data("12345")
 
             self.assertIn(
-                "No kill mail information found in zKillboard's API response.",
+                "No killmail information found in zKillboard's API response.",
                 str(cm.exception),
             )
 
@@ -122,7 +122,7 @@ class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
                 SrpRequestManager.get_zkillboard_data("12345")
 
             self.assertIn(
-                "No kill mail hash found in zKillboard's API response.",
+                "No killmail hash found in zKillboard's API response.",
                 str(cm.exception),
             )
 
@@ -150,7 +150,7 @@ class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
         self.assertIn("Please try again in an hour", str(context.exception))
         self.assertNotIn("HTTP error occurred", str(context.exception))
         mock_logger_warning.assert_called_once_with(
-            "Error fetching kill mail details: HTTP error occurred", exc_info=True
+            "Error fetching killmail details: HTTP error occurred", exc_info=True
         )
 
     @patch("aasrp.managers.requests.get")
@@ -177,7 +177,7 @@ class TestSrpRequestManagerGetZkillboardData(BaseTestCase):
         self.assertIn("Please try again in an hour", str(context.exception))
         self.assertNotIn("Request timed out", str(context.exception))
         mock_logger_warning.assert_called_once_with(
-            "Error fetching kill mail details: Request timed out", exc_info=True
+            "Error fetching killmail details: Request timed out", exc_info=True
         )
 
     @patch("aasrp.managers.requests.get")

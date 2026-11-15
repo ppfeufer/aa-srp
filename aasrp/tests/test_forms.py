@@ -484,7 +484,7 @@ class TestSrpRequestForm(BaseFormTestCase):
                 form.clean_killboard_link()
 
             self.assertIn(
-                "Invalid link. Please post a link to a kill mail.", str(cm.exception)
+                "Invalid link. Please post a link to a killmail.", str(cm.exception)
             )
 
     def test_rejects_duplicate_killmail_link(self):
@@ -510,7 +510,7 @@ class TestSrpRequestForm(BaseFormTestCase):
                 form.clean_killboard_link()
 
             self.assertIn(
-                "There is already an SRP request for this kill mail.", str(cm.exception)
+                "There is already an SRP request for this killmail.", str(cm.exception)
             )
 
 

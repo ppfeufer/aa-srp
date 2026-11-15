@@ -7,14 +7,14 @@ MAX_KILLMAIL_ID = 9223372036854775807
 
 def _parse_killmail_id(killboard_link: str) -> int | None:
     """
-    Extract the kill mail ID from a killboard link.
+    Extract the killmail ID from a killboard link.
 
     Mirrors SrpRequestManager.get_killmail_id() at the time of writing, so existing
     requests get the same ID that new submissions are checked against.
 
     :param killboard_link: The killboard link
     :type killboard_link: str
-    :return: The kill mail ID, or None if it can't be determined
+    :return: The killmail ID, or None if it can't be determined
     :rtype: int | None
     """
 
@@ -31,7 +31,7 @@ def _backfill_killmail_id(apps, schema_editor):
     """
     Populate killmail_id for existing SRP requests.
 
-    If a kill mail has more than one SRP request, only the oldest one gets the ID,
+    If a killmail has more than one SRP request, only the oldest one gets the ID,
     so the unique constraint can be added. The others are kept and listed.
 
     :param apps:
@@ -75,7 +75,7 @@ def _backfill_killmail_id(apps, schema_editor):
     if duplicates:
         print(
             f"\n  {len(duplicates)} SRP request(s) are duplicates of an older request "
-            "for the same kill mail and were left without a kill mail ID:"
+            "for the same killmail and were left without a killmail ID:"
         )
 
         for srp_request in duplicates:
@@ -84,7 +84,7 @@ def _backfill_killmail_id(apps, schema_editor):
     # Check for unparsable killboard links and print debug information.
     if unparsable:
         print(
-            f"\n  {len(unparsable)} SRP request(s) have no kill mail ID in their "
+            f"\n  {len(unparsable)} SRP request(s) have no killmail ID in their "
             "killboard link and were left without one:"
         )
 
@@ -103,7 +103,7 @@ class Migration(migrations.Migration):
             model_name="srprequest",
             name="killmail_id",
             field=models.PositiveBigIntegerField(
-                blank=True, default=None, null=True, verbose_name="Kill mail ID"
+                blank=True, default=None, null=True, verbose_name="Killmail ID"
             ),
         ),
         migrations.RunPython(
@@ -118,7 +118,7 @@ class Migration(migrations.Migration):
                 default=None,
                 null=True,
                 unique=True,
-                verbose_name="Kill mail ID",
+                verbose_name="Killmail ID",
             ),
         ),
     ]

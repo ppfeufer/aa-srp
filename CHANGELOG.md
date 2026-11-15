@@ -202,7 +202,7 @@ Section Order:
 ### Fixed
 
 - Unhandled upstream failures potentially cause HTTP 500 on SRP submission (Thanks @ev0ldave)
-- SRP request save is not atomic and allows duplicate requests for the same kill mail (Thanks @ev0ldave)
+- SRP request save is not atomic and allows duplicate requests for the same killmail (Thanks @ev0ldave)
 - Translations updated
 
 ## [5.3.0] - 2026-10-04
@@ -554,7 +554,7 @@ python manage.py collectstatic --noinput
 
 ### Fixed
 
-- Only kill mails from zKillboard need a trailing slash
+- Only killmails from zKillboard need a trailing slash
 
 ## [2.13.1] - 2025-10-07
 
@@ -810,7 +810,7 @@ python manage.py collectstatic --noinput
 
 ### Added
 
-- [EVE-KILL](https://eve-kill.com/) to the list of valid killboards for posting kill mails in SRP requests
+- [EVE-KILL](https://eve-kill.com/) to the list of valid killboards for posting killmails in SRP requests
 
 ### Changed
 
@@ -880,8 +880,8 @@ python manage.py collectstatic --noinput
 
 ### Fixed
 
-- Kill mail detection from zKillboard's API response.\
-  Under certain circumstances, the zKillboard API returns more than one kill mail in
+- Killmail detection from zKillboard's API response.\
+  Under certain circumstances, the zKillboard API returns more than one killmail in
   the response, which caused an error in the SRP request form.
   This has been fixed now.
 
@@ -1556,7 +1556,7 @@ mySQL8**
 
 ### Added
 
-- [EveTools Killboard] as accepted source for SRP request kill mails
+- [EveTools Killboard] as accepted source for SRP request killmails
 
 <!-- Links -->
 
@@ -1595,7 +1595,7 @@ mySQL8**
 
 ### Fixed
 
-- IndexError on invalid kill mail link
+- IndexError on invalid killmail link
 
 ### Changed
 
@@ -1610,7 +1610,7 @@ mySQL8**
 
 ### Changed
 
-- Using regular expression to determine if we're looking at a kill mail link or not
+- Using regular expression to determine if we're looking at a killmail link or not
 
 ## [1.3.2] - 2021-04-06
 

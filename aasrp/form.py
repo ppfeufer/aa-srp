@@ -195,7 +195,7 @@ class SrpRequestForm(ModelForm):
         fields = ["killboard_link", "additional_info"]
         help_texts = {
             "killboard_link": _(
-                "Find your kill mail on {zkillboard_base_url}, {evetools_base_url} or "
+                "Find your killmail on {zkillboard_base_url}, {evetools_base_url} or "
                 "{eve_kill_base_url} and paste the link here, or paste the external "
                 "link from your in-game kill report."
             ).format(
@@ -305,10 +305,10 @@ class SrpRequestForm(ModelForm):
             )
 
             raise forms.ValidationError(
-                message=_("Invalid link. Please post a link to a kill mail.")
+                message=_("Invalid link. Please post a link to a killmail.")
             )
 
-        # Check if there is already an SRP request for this kill mail
+        # Check if there is already an SRP request for this killmail
         try:
             killmail_id = SrpRequest.objects.get_killmail_id(
                 killmail_link=killboard_link
@@ -325,7 +325,7 @@ class SrpRequestForm(ModelForm):
 
             raise forms.ValidationError(
                 message=_(
-                    "There is already an SRP request for this kill mail. "
+                    "There is already an SRP request for this killmail. "
                     "Please check if you got the right one."
                 )
             )
