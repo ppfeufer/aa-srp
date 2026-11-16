@@ -289,6 +289,53 @@ class TestSrpLinkAddView(BaseTestCase):
 
         self.assertNotEqual(response.status_code, 200)
 
+    @patch(MODULE + ".Doctrine.objects.all")
+    @patch(MODULE + ".fittings_installed", return_value=True)
+    def test_srp_link_add_includes_doctrines_when_fittings_is_installed(
+        self, _mock_fittings_installed, mock_doctrine_all
+    ):
+        """
+        Test that doctrines are added to the context when fittings is installed.
+
+        :return:
+        :rtype:
+        """
+
+        expected_doctrines = [{"name": "Alpha Doctrine"}, {"name": "Bravo Doctrine"}]
+
+        mock_queryset = MagicMock()
+        mock_values_qs = MagicMock()
+        mock_values_qs.order_by.return_value = expected_doctrines
+        mock_queryset.values.return_value = mock_values_qs
+        mock_doctrine_all.return_value = mock_queryset
+
+        response = self.client.get(reverse("aasrp:add_srp_link"))
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertIn("doctrines", response.context)
+        self.assertEqual(response.context["doctrines"], expected_doctrines)
+        mock_doctrine_all.assert_called_once_with()
+        mock_queryset.values.assert_called_once_with("name")
+        mock_values_qs.order_by.assert_called_once_with("name")
+
+    @patch(MODULE + ".Doctrine.objects.all")
+    @patch(MODULE + ".fittings_installed", return_value=False)
+    def test_srp_link_add_omits_doctrines_when_fittings_is_not_installed(
+        self, _mock_fittings_installed, mock_doctrine_all
+    ):
+        """
+        Test that doctrines are not added to the context when fittings is not installed.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.get(reverse("aasrp:add_srp_link"))
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertNotIn("doctrines", response.context)
+        mock_doctrine_all.assert_not_called()
+
 
 class TestSrpLinkEditView(BaseTestCase):
     """

@@ -11,6 +11,7 @@ import re
 
 # Third Party
 from eve_sde.models import ItemType
+from fittings.models import Doctrine
 
 # Django
 from django.contrib import messages
@@ -31,6 +32,7 @@ from esi.decorators import token_required
 from esi.models import Token
 
 # AA SRP
+from aasrp.app_settings import fittings_installed
 from aasrp.constants import ESI_SCOPE_UI_OPEN_WINDOW, KILLBOARD_DATA
 from aasrp.form import (
     SrpLinkForm,
@@ -291,6 +293,10 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
 
     # Render the form template with the provided context.
     context = {"form": form}
+
+    # If the fittings app is installed, include doctrines in the context for the template.
+    if fittings_installed():
+        context["doctrines"] = Doctrine.objects.all().values("name").order_by("name")
 
     return render(request=request, template_name="aasrp/link-add.html", context=context)
 

@@ -14,6 +14,14 @@
             <fieldset class="aa-srp-add-link-form col-md-6 col-md-offset-3">
                 {% bootstrap_form form %}
 
+                {% if doctrines|length > 0 %}
+                    <datalist id="aasrp-doctrine-list">
+                        {% for doctrine in doctrines %}
+                            <option value="{{ doctrine.name }}">{{ doctrine.name }}</option>
+                        {% endfor %}
+                    </datalist>
+                {% endif %}
+
                 {% include "aasrp/partials/form/required-field-hint.html" %}
 
                 <div class="form-group aasrp-form-group text-end clearfix">
