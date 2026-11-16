@@ -841,7 +841,7 @@ def get_srp_links(request: WSGIRequest, status: str | None = None) -> JsonRespon
                 F("creator__username"),
                 Value(get_sentinel_user().username),
             ),
-        )
+        ).order_by("srp_name")
 
         return JsonResponse(
             data={"success": True, "srp_links": list(srp_links)}, safe=False
