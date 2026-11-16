@@ -536,7 +536,7 @@ class GetChangeSrpLinkIconTests(BaseTestCase):
         )
 
         self.assertIn(f'data-link="{expected_url}"', result)
-        self.assertIn('data-bs-target="#change-srp-link"', result)
+        self.assertIn('data-bs-target="#srp-request-change-link"', result)
         self.assertIn("fa-solid fa-right-left", result)
         self.assertIn('title="Change SRP link"', result)
 

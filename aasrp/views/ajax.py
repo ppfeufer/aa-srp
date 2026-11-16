@@ -12,14 +12,18 @@ import json
 # Django
 from django.contrib.auth.decorators import permission_required
 from django.core.handlers.wsgi import WSGIRequest
-from django.db.models import Q
+from django.db.models import F, Q, Value
+from django.db.models.functions import Coalesce
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
 from allianceauth.authentication.decorators import permissions_required
-from allianceauth.framework.api.user import get_main_character_name_from_user
+from allianceauth.framework.api.user import (
+    get_main_character_name_from_user,
+    get_sentinel_user,
+)
 from allianceauth.services.hooks import get_extension_logger
 
 # AA SRP
@@ -789,6 +793,66 @@ def srp_link_update_total_cost(request: WSGIRequest, srp_code: str) -> JsonRespo
     )
 
 
+@permission_required("aasrp.basic_access")
+def get_srp_links(request: WSGIRequest, status: str | None = None) -> JsonResponse:
+    """
+    Handle an AJAX request to retrieve a list of SRP (Ship Replacement Program) links.
+
+    This view processes a GET request and returns a JSON response containing the list of SRP links
+    available in the system. Each SRP link includes its unique code and name.
+
+    :param request: The HTTP request object.
+    :type request: WSGIRequest
+    :param status: The status of the SRP links to filter by.
+    :type status: str | None
+    :return: A JSON response containing the list of SRP links.
+    :rtype: JsonResponse
+    """
+
+    if request.method == "GET":
+        status_value = None
+
+        if status is not None:
+            normalized_status = status.strip()
+
+            try:
+                # Accept both enum names (e.g. "active") and enum values (e.g. "Active")
+                status_value = (
+                    SrpLink.Status[normalized_status.upper()].value
+                    if normalized_status.upper() in SrpLink.Status.names
+                    else SrpLink.Status(normalized_status).value
+                )
+            except (KeyError, ValueError):
+                return JsonResponse(
+                    data={"success": False, "message": _("Invalid SRP status")},
+                    status=400,
+                )
+
+        srp_links = (
+            SrpLink.objects.filter(srp_status=status_value)
+            if status_value is not None
+            else SrpLink.objects.filter(srp_status=SrpLink.Status.ACTIVE)
+        )
+        srp_links = srp_links.values(
+            "srp_code",
+            "srp_name",
+            creator_name=Coalesce(
+                F("creator__profile__main_character__character_name"),
+                F("creator__username"),
+                Value(get_sentinel_user().username),
+            ),
+        )
+
+        return JsonResponse(
+            data={"success": True, "srp_links": list(srp_links)}, safe=False
+        )
+
+    # Return a failure response if the request method is not GET
+    return JsonResponse(
+        data={"success": False, "message": _("Invalid request method")}, safe=False
+    )
+
+
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
 def srp_request_change_srp_link(
     request: WSGIRequest, srp_code: str, srp_request_code: str
@@ -810,13 +874,32 @@ def srp_request_change_srp_link(
     """
 
     if request.method == "POST":
-        # Do something to change the SRP link of the request
-        # For example, you might want to retrieve the new SRP link code from the request
+        request_body = json.loads(request.body)
+        new_hash = request_body.get("newSrpLink")
+        new_srp_link = SrpLink.objects.get(srp_code=new_hash)
 
         logger.debug(
-            "Received request to change SRP link for SRP request %s", srp_request_code
+            "Received request to change SRP link for SRP request %s to %s",
+            srp_request_code,
+            new_hash,
         )
-        logger.debug("Old SRP link code: %s", srp_code)
+
+        try:
+            srp_request = SrpRequest.objects.get(
+                request_code=srp_request_code, srp_link__srp_code=srp_code
+            )
+            srp_request.srp_link = new_srp_link
+            srp_request.save()
+        except SrpRequest.DoesNotExist:
+            return JsonResponse(
+                data={"success": False, "message": _("SRP request not found")},
+                safe=False,
+            )
+
+        return JsonResponse(
+            data={"success": True, "message": _("SRP link changed successfully")},
+            safe=False,
+        )
 
     # Return a failure response if the request method is not POST or an error occurs
     return JsonResponse(

@@ -18,6 +18,7 @@
     {% include "aasrp/modals/view-requests/accept-rejected-request.html" %}
     {% include "aasrp/modals/view-requests/reject-request.html" %}
     {% include "aasrp/modals/view-requests/delete-request.html" %}
+    {% include "aasrp/modals/view-requests/change-srp-link.html" %}
     {% include "aasrp/modals/view-requests/bulk-delete-requests.html" %}
 {% endblock aasrp_body %}
 
@@ -59,7 +60,8 @@
                 base: '{% url "aasrp:srp_links" %}',
                 requestsForSrpLink: '{% url "aasrp:ajax_srp_link_view_requests_data" srp_link.srp_code %}',
                 changeSrpAmount: '{% url "aasrp:ajax_srp_request_change_payout" srp_link.srp_code 'SRP_REQUEST_CODE' %}',
-                updateTotalCost: "{% url 'aasrp:ajax_srp_link_update_total_cost' srp_link.srp_code %}"
+                updateTotalCost: '{% url "aasrp:ajax_srp_link_update_total_cost" srp_link.srp_code %}',
+                srpLinks: '{% url "aasrp:ajax_get_srp_links" %}',
             },
             payoutEditableMode: '{{ payout_editable_mode|default:"" }}',
             dataTables: {

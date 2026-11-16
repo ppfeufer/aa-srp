@@ -1,0 +1,42 @@
+{% load django_bootstrap5 i18n %}
+
+<!-- change SRP link modal -->
+<div class="modal fade" id="srp-request-change-link" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title fs-5">
+                    {% translate "Change SRP link" %}
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    {% translate "Moving this SRP request to a different SRP link." %}
+                </p>
+
+                <form autocomplete="off" method="post">
+                    {% csrf_token %}
+
+                    <fieldset class="aa-srp-links-dropdown">
+                        <select name="srp_link" class="form-select form-select-sm" required></select>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button id="modal-button-cancel-change-link" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                    <i class="fa-regular fa-hand"></i>
+                    {% translate "Cancel" %}
+                </button>
+
+                <button id="modal-button-confirm-change-link" type="button" class="btn btn-warning btn-sm">
+                    <i class="fa-solid fa-ban"></i>
+                    {% translate "Change SRP link" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

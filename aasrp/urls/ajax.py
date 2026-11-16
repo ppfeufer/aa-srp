@@ -25,6 +25,16 @@ urls = [
         name="ajax_dashboard_srp_links_all_data",
     ),
     path(
+        "get-srp-links/",
+        ajax.get_srp_links,
+        name="ajax_get_srp_links",
+    ),
+    path(
+        "get-srp-links/<str:status>/",
+        ajax.get_srp_links,
+        name="ajax_get_srp_links",
+    ),
+    path(
         "user-srp-requests-data/",
         view_own_requests.OwnSrpRequestsView.as_view(),
         name="ajax_own_srp_requests_data",

@@ -477,7 +477,8 @@ def get_change_srp_link_icon(
         f'<button data-link="{button_change_srp_link_url}" '
         'data-bs-tooltip="aa-srp" '
         'data-bs-toggle="modal" '
-        'data-bs-target="#change-srp-link" '
+        'data-bs-target="#srp-request-change-link" '
+        f'data-srp-link-code="{srp_request.srp_link.srp_code}" '
         'class="btn btn-info btn-sm btn-icon-aasrp" '
         f'title="{title}">{icon}</button>'
     )
