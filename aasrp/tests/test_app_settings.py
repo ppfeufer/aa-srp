@@ -11,9 +11,13 @@ from aasrp.app_settings import (
     aa_discordnotify_installed,
     allianceauth_discordbot_installed,
     discordproxy_installed,
+    fittings_installed,
     killboard_settings,
 )
 from aasrp.tests import BaseTestCase
+
+MODULE_AppSettings = "aasrp.app_settings"
+MODULE_DjangoApps = "django.apps"
 
 
 class TestAllianceauthDiscordbotInstalled(BaseTestCase):
@@ -30,7 +34,7 @@ class TestAllianceauthDiscordbotInstalled(BaseTestCase):
         """
 
         with patch(
-            "django.apps.apps.is_installed", return_value=True
+            MODULE_DjangoApps + ".apps.is_installed", return_value=True
         ) as mock_is_installed:
 
             self.assertTrue(allianceauth_discordbot_installed())
@@ -45,7 +49,7 @@ class TestAllianceauthDiscordbotInstalled(BaseTestCase):
         """
 
         with patch(
-            "django.apps.apps.is_installed", return_value=False
+            MODULE_DjangoApps + ".apps.is_installed", return_value=False
         ) as mock_is_installed:
             self.assertFalse(allianceauth_discordbot_installed())
             mock_is_installed.assert_called_once_with(app_name="aadiscordbot")
@@ -65,7 +69,7 @@ class TestDiscordnotifyInstalled(BaseTestCase):
         """
 
         with patch(
-            "django.apps.apps.is_installed", return_value=True
+            MODULE_DjangoApps + ".apps.is_installed", return_value=True
         ) as mock_is_installed:
 
             self.assertTrue(aa_discordnotify_installed())
@@ -80,7 +84,7 @@ class TestDiscordnotifyInstalled(BaseTestCase):
         """
 
         with patch(
-            "django.apps.apps.is_installed", return_value=False
+            MODULE_DjangoApps + ".apps.is_installed", return_value=False
         ) as mock_is_installed:
             self.assertFalse(aa_discordnotify_installed())
             mock_is_installed.assert_called_once_with(app_name="discordnotify")
@@ -151,7 +155,7 @@ class TestKillboardSettings(BaseTestCase):
         """
 
         with patch(
-            "aasrp.app_settings.KILLBOARD_DATA",
+            MODULE_AppSettings + ".KILLBOARD_DATA",
             {
                 "KnownBoard": {
                     "base_url": "https://example.invalid/",
@@ -187,7 +191,7 @@ class TestKillboardSettings(BaseTestCase):
             "ignored": "value",
         }
 
-        with patch("aasrp.app_settings.KILLBOARD_DATA", {"KnownBoard": source}):
+        with patch(MODULE_AppSettings + ".KILLBOARD_DATA", {"KnownBoard": source}):
             self.assertEqual(
                 killboard_settings("KnownBoard"),
                 {key: value for key, value in source.items() if key != "ignored"},
@@ -200,7 +204,7 @@ class TestKillboardSettings(BaseTestCase):
         :return:
         """
 
-        with patch("aasrp.app_settings.KILLBOARD_DATA", {}):
+        with patch(MODULE_AppSettings + ".KILLBOARD_DATA", {}):
             with self.assertRaises(KeyError):
                 killboard_settings("MissingBoard")
 
@@ -212,7 +216,7 @@ class TestKillboardSettings(BaseTestCase):
         """
 
         with patch(
-            "aasrp.app_settings.KILLBOARD_DATA",
+            MODULE_AppSettings + ".KILLBOARD_DATA",
             {
                 "KnownBoard": {
                     "base_url": "https://example.invalid/",
@@ -222,3 +226,37 @@ class TestKillboardSettings(BaseTestCase):
         ):
             with self.assertRaises(KeyError):
                 killboard_settings("KnownBoard")
+
+
+class TestFittingsInstalled(BaseTestCase):
+    """
+    Test fittings_installed function
+    """
+
+    def test_returns_true_when_fittings_is_installed(self):
+        """
+        Test returns true when fittings is installed
+
+        :return:
+        :rtype:
+        """
+
+        with patch(
+            MODULE_DjangoApps + ".apps.is_installed", return_value=True
+        ) as mock_is_installed:
+            self.assertTrue(fittings_installed())
+            mock_is_installed.assert_called_once_with(app_name="fittings")
+
+    def test_returns_false_when_fittings_is_not_installed(self):
+        """
+        Test returns false when fittings is not installed
+
+        :return:
+        :rtype:
+        """
+
+        with patch(
+            MODULE_DjangoApps + ".apps.is_installed", return_value=False
+        ) as mock_is_installed:
+            self.assertFalse(fittings_installed())
+            mock_is_installed.assert_called_once_with(app_name="fittings")
