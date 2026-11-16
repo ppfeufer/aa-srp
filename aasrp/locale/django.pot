@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-16 13:35+0100\n"
+"POT-Creation-Date: 2026-11-16 13:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -326,7 +326,7 @@ msgstr ""
 
 #: aasrp/helper/icons.py:473
 #: aasrp/templates/aasrp/modals/view-requests/change-srp-link.html:9
-#: aasrp/templates/aasrp/modals/view-requests/change-srp-link.html:37
+#: aasrp/templates/aasrp/modals/view-requests/change-srp-link.html:38
 msgid "Change SRP link"
 msgstr ""
 
@@ -693,7 +693,7 @@ msgstr ""
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:34
 #: aasrp/templates/aasrp/modals/view-requests/bulk-accept-requests.html:32
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:32
-#: aasrp/templates/aasrp/modals/view-requests/change-srp-link.html:32
+#: aasrp/templates/aasrp/modals/view-requests/change-srp-link.html:33
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:24
 #: aasrp/templates/aasrp/modals/view-requests/mark-complete.html:43
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:34
@@ -744,7 +744,11 @@ msgid "<b>Note:</b><br>This action is irreversible.<br>All selected SRP requests
 msgstr ""
 
 #: aasrp/templates/aasrp/modals/view-requests/change-srp-link.html:17
-msgid "Moving this SRP request to a different SRP link."
+msgid "Move this SRP request to a different SRP link."
+msgstr ""
+
+#: aasrp/templates/aasrp/modals/view-requests/change-srp-link.html:24
+msgid "New SRP link"
 msgstr ""
 
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:17

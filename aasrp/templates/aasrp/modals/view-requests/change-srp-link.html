@@ -14,14 +14,15 @@
 
             <div class="modal-body">
                 <p>
-                    {% translate "Moving this SRP request to a different SRP link." %}
+                    {% translate "Move this SRP request to a different SRP link." %}
                 </p>
 
                 <form autocomplete="off" method="post">
                     {% csrf_token %}
 
                     <fieldset class="aa-srp-links-dropdown">
-                        <select name="srp_link" class="form-select form-select-sm" required></select>
+                        <label class="mb-2" for="srp_link">{% translate "New SRP link" %}</label>
+                        <select id="srp_link" name="srp_link" class="form-select" required></select>
                     </fieldset>
                 </form>
             </div>
