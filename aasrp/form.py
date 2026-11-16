@@ -131,7 +131,13 @@ class SrpLinkForm(ModelForm):
                 attrs={"autocomplete": "off", "placeholder": _("Fleet time")}
             ),
             "fleet_type": forms.Select(attrs={"placeholder": _("Fleet type")}),
-            "fleet_doctrine": forms.TextInput(attrs={"placeholder": _("Doctrine")}),
+            "fleet_doctrine": forms.TextInput(
+                attrs={
+                    "placeholder": _("Doctrine"),
+                    "data-datalist": "aasrp-doctrine-list",
+                    "data-full-width": "true",
+                }
+            ),
             "aar_link": forms.URLInput(
                 attrs={"placeholder": _("After action report link")}
             ),

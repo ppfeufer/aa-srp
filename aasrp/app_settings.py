@@ -61,6 +61,17 @@ def discordproxy_installed() -> bool:
     return True
 
 
+def fittings_installed() -> bool:
+    """
+    Check if the Fittings module is installed
+
+    :return:
+    :rtype:
+    """
+
+    return apps.is_installed(app_name="fittings")
+
+
 def killboard_settings(name: str) -> dict[str, str]:
     """
     Retrieve killboard settings based on the provided name.

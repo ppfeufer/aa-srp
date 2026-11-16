@@ -50,6 +50,8 @@ Section Order:
 
 ### Added
 
+- Doctrines as autosuggest in the "Create SRP Link" form, when the `fittings` app is
+  installed and doctrines are configured
 - Change the SRP link for an existing SRP request in the SRP link view, in case the
   wrong link was selected when creating the request (#451)
 
