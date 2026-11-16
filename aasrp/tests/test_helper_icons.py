@@ -11,6 +11,7 @@ from allianceauth.authentication.models import Permission, User
 from aasrp.helper.icons import (
     copy_to_clipboard_icon,
     dashboard_action_icons,
+    get_change_srp_link_icon,
     get_srp_request_action_icons,
     get_srp_request_status_icon,
 )
@@ -491,6 +492,119 @@ class TestGetSrpRequestActionIcons(BaseTestCase):
         self.assertNotIn("fa-newspaper", result)
         self.assertNotIn("fa-ban", result)
         self.assertNotIn("fa-trash-can", result)
+
+
+class GetChangeSrpLinkIconTests(BaseTestCase):
+    """
+    Test cases for the get_change_srp_link_icon function.
+    """
+
+    def test_returns_button_with_change_link_for_pending_request(self):
+        """
+        Test that the get_change_srp_link_icon function returns a button with the correct link for pending requests.
+
+        :return:
+        """
+
+        user = User.objects.create(username="testuser")
+        self.client.force_login(user)
+
+        srp_link = SrpLink.objects.create(
+            srp_name="Test SRP",
+            srp_status=SrpLink.Status.ACTIVE,
+            fleet_time=timezone.now(),
+            srp_code="test_srp_code",
+        )
+        srp_request = SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.PENDING,
+            request_code="test_srp_request_code",
+        )
+
+        request = self.client.get(
+            reverse("aasrp:view_srp_requests", kwargs={"srp_code": "test_srp_code"})
+        ).wsgi_request
+
+        result = get_change_srp_link_icon(request, srp_request)
+
+        expected_url = reverse(
+            "aasrp:ajax_srp_request_change_srp_link",
+            kwargs={
+                "srp_code": "test_srp_code",
+                "srp_request_code": "test_srp_request_code",
+            },
+        )
+
+        self.assertIn(f'data-link="{expected_url}"', result)
+        self.assertIn('data-bs-target="#srp-request-change-link"', result)
+        self.assertIn("fa-solid fa-right-left", result)
+        self.assertIn('title="Change SRP link"', result)
+
+    def test_returns_empty_string_for_approved_request(self):
+        """
+        Test that the get_change_srp_link_icon function returns an empty string for approved requests.
+
+        :return:
+        """
+
+        user = User.objects.create(username="testuser")
+        self.client.force_login(user)
+
+        srp_link = SrpLink.objects.create(
+            srp_name="Test SRP",
+            srp_status=SrpLink.Status.ACTIVE,
+            fleet_time=timezone.now(),
+            srp_code="tsc_appr",
+        )
+        srp_request = SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.APPROVED,
+            request_code="req_appr",
+        )
+
+        request = self.client.get(
+            reverse(
+                "aasrp:view_srp_requests",
+                kwargs={"srp_code": "tsc_appr"},
+            )
+        ).wsgi_request
+
+        result = get_change_srp_link_icon(request, srp_request)
+
+        self.assertEqual(result, "")
+
+    def test_returns_empty_string_for_rejected_request(self):
+        """
+        Test that the get_change_srp_link_icon function returns an empty string for rejected requests.
+
+        :return:
+        """
+
+        user = User.objects.create(username="testuser")
+        self.client.force_login(user)
+
+        srp_link = SrpLink.objects.create(
+            srp_name="Test SRP",
+            srp_status=SrpLink.Status.ACTIVE,
+            fleet_time=timezone.now(),
+            srp_code="tsc_rej",
+        )
+        srp_request = SrpRequest.objects.create(
+            srp_link=srp_link,
+            request_status=SrpRequest.Status.REJECTED,
+            request_code="req_rej",
+        )
+
+        request = self.client.get(
+            reverse(
+                "aasrp:view_srp_requests",
+                kwargs={"srp_code": "tsc_rej"},
+            )
+        ).wsgi_request
+
+        result = get_change_srp_link_icon(request, srp_request)
+
+        self.assertEqual(result, "")
 
 
 class TestGetSrpRequestStatusIcon(BaseTestCase):

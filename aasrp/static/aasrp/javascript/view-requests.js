@@ -479,6 +479,7 @@ $(document).ready(() => {
     const modalSrpRequestAcceptRejected = $('#srp-request-accept-rejected');
     const modalSrpRequestReject = $('#srp-request-reject');
     const modalSrpRequestRemove = $('#srp-request-remove');
+    const modalSrpChangeLink = $('#srp-request-change-link');
     const modalSrpRequestBulkRemove = $('#srp-request-bulk-remove');
     const modalFormfieldErrorClasses = 'aa-callout aa-callout-danger aasrp-form-field-errors clearfix';
 
@@ -664,6 +665,71 @@ $(document).ready(() => {
             modalSrpRequestRemove.find('textarea[name="comment"]').val('');
 
             _unbindClickEvent($('#modal-button-confirm-remove-request'));
+        });
+
+    /**
+     * Modal: Change SRP Link
+     */
+    modalSrpChangeLink
+        .on('show.bs.modal', (event) => {
+            const button = $(event.relatedTarget);
+            const url = button.data('link');
+            const srpLinkCode = button.data('srp-link-code');
+
+            fetchGet({url: aaSrpSettings.url.srpLinks})
+                .then((data) => {
+                    console.log('SRP Links:', data);
+
+                    if (data.success === true) {
+                        const selectElement = modalSrpChangeLink.find('select[name="srp_link"]');
+                        selectElement.empty();
+
+                        data.srp_links.forEach((link) => {
+                            const option = $('<option></option>')
+                                .attr('value', link.srp_code)
+                                .text(`${link.srp_name} (${link.creator_name})`);
+
+                            if (link.srp_code === srpLinkCode) {
+                                option.attr('selected', 'selected');
+                            }
+
+                            selectElement.append(option);
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error(`Error: ${error.message}`);
+                });
+
+            $('#modal-button-confirm-change-link')
+                .on('click', () => {
+                    const form = modalSrpChangeLink.find('form');
+                    const newSrpLink = form.find('select[name="srp_link"]').val();
+                    const csrfMiddlewareToken = form.find('input[name="csrfmiddlewaretoken"]')
+                        .val();
+
+                    fetchPost({
+                        url: url,
+                        csrfToken: csrfMiddlewareToken,
+                        payload: {
+                            newSrpLink: newSrpLink
+                        },
+                        responseIsJson: true
+                    })
+                        .then((data) => {
+                            _modalConfirmAction(data);
+                        })
+                        .catch((error) => {
+                            console.error(`Error: ${error.message}`);
+                        });
+
+                    modalSrpChangeLink.modal('hide');
+                });
+        })
+        .on('hide.bs.modal', () => {
+            modalSrpChangeLink.find('textarea[name="comment"]').val('');
+
+            _unbindClickEvent($('#modal-button-confirm-change-link'));
         });
 
     /**

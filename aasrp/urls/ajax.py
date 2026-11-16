@@ -25,6 +25,16 @@ urls = [
         name="ajax_dashboard_srp_links_all_data",
     ),
     path(
+        "get-srp-links/",
+        ajax.get_srp_links,
+        name="ajax_get_srp_links",
+    ),
+    path(
+        "get-srp-links/<str:status>/",
+        ajax.get_srp_links,
+        name="ajax_get_srp_links",
+    ),
+    path(
         "user-srp-requests-data/",
         view_own_requests.OwnSrpRequestsView.as_view(),
         name="ajax_own_srp_requests_data",
@@ -73,6 +83,11 @@ urls = [
         "srp-link/<str:srp_code>/srp-request/<str:srp_request_code>/remove/",
         ajax.srp_request_remove,
         name="ajax_srp_request_remove",
+    ),
+    path(
+        "srp-link/<str:srp_code>/srp-request/<str:srp_request_code>/change-srp-link/",
+        ajax.srp_request_change_srp_link,
+        name="ajax_srp_request_change_srp_link",
     ),
     path(
         "srp-link/<str:srp_code>/srp-request/remove/bulk/",

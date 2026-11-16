@@ -15,18 +15,26 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 
+# Alliance Auth
+from allianceauth.authentication.models import User
+
 # AA SRP
 from aasrp.models import RequestComment, SrpLink, SrpRequest
 from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import create_fake_user, random_id
 from aasrp.views.ajax import (
+    get_srp_links,
     srp_link_update_total_cost,
     srp_request_approve,
+    srp_request_change_srp_link,
     srp_request_deny,
     srp_request_remove,
     srp_requests_bulk_approve,
     srp_requests_bulk_remove,
 )
+
+MODEL_SrpRequest = "aasrp.models.SrpRequest"
+MODEL_RequestComment = "aasrp.models.RequestComment"
 
 
 class BaseViewsTestCase(BaseTestCase):
@@ -91,7 +99,7 @@ class TestSrpRequestsBulkRemove(BaseViewsTestCase):
     Tests for the srp_requests_bulk_remove view.
     """
 
-    @patch("aasrp.models.SrpRequest.objects.filter")
+    @patch(MODEL_SrpRequest + ".objects.filter")
     def test_returns_success_when_valid_request_codes_provided(self, mock_filter):
         """
         Test that the view returns success when valid SRP request codes are provided.
@@ -123,7 +131,7 @@ class TestSrpRequestsBulkRemove(BaseViewsTestCase):
             },
         )
 
-    @patch("aasrp.models.SrpRequest.objects.filter")
+    @patch(MODEL_SrpRequest + ".objects.filter")
     def test_returns_error_when_no_matching_requests_found(self, mock_filter):
         """
         Test that the view returns an error when no matching SRP requests are found.
@@ -187,7 +195,7 @@ class TestSrpRequestRemove(BaseViewsTestCase):
     Tests for the srp_request_remove view.
     """
 
-    @patch("aasrp.models.SrpRequest.objects.get")
+    @patch(MODEL_SrpRequest + ".objects.get")
     def test_returns_success_when_request_is_removed(self, mock_get):
         """
         Test that the view returns success when the SRP request is removed.
@@ -213,7 +221,7 @@ class TestSrpRequestRemove(BaseViewsTestCase):
             },
         )
 
-    @patch("aasrp.models.SrpRequest.objects.get")
+    @patch(MODEL_SrpRequest + ".objects.get")
     def test_returns_error_when_request_does_not_exist(self, mock_get):
         mock_get.side_effect = SrpRequest.DoesNotExist
 
@@ -232,7 +240,7 @@ class TestSrpRequestDeny(BaseViewsTestCase):
     Tests for the srp_request_deny view.
     """
 
-    @patch("aasrp.models.SrpRequest.objects.get")
+    @patch(MODEL_SrpRequest + ".objects.get")
     @patch("aasrp.views.ajax.SrpRequestRejectForm")
     @patch("aasrp.views.ajax.get_user_settings")
     @patch("aasrp.views.ajax.notify_requester")
@@ -284,7 +292,7 @@ class TestSrpRequestDeny(BaseViewsTestCase):
         )
         mock_notify.assert_called_once()
 
-    @patch("aasrp.models.SrpRequest.objects.get")
+    @patch(MODEL_SrpRequest + ".objects.get")
     @patch("aasrp.views.ajax.SrpRequestRejectForm")
     @patch("aasrp.views.ajax.get_user_settings")
     @patch("aasrp.views.ajax.notify_requester")
@@ -335,7 +343,7 @@ class TestSrpRequestDeny(BaseViewsTestCase):
         )
         mock_notify.assert_not_called()
 
-    @patch("aasrp.models.SrpRequest.objects.get")
+    @patch(MODEL_SrpRequest + ".objects.get")
     def test_returns_error_when_request_does_not_exist(self, mock_get):
         """
         Test that the view returns an error when the SRP request does not exist.
@@ -359,7 +367,7 @@ class TestSrpRequestDeny(BaseViewsTestCase):
             {"success": False, "message": "No matching SRP request found"},
         )
 
-    @patch("aasrp.models.SrpRequest.objects.get")
+    @patch(MODEL_SrpRequest + ".objects.get")
     @patch("aasrp.views.ajax.SrpRequestRejectForm")
     def test_returns_error_when_form_data_is_invalid(self, mock_form, mock_get):
         """
@@ -385,7 +393,7 @@ class TestSrpRequestDeny(BaseViewsTestCase):
             {"success": False, "message": "Invalid form data"},
         )
 
-    @patch("aasrp.models.SrpRequest.objects.get")
+    @patch(MODEL_SrpRequest + ".objects.get")
     def test_returns_error_when_request_method_is_not_post(self, mock_get):
         """
         Test that the view returns an error when the request method is not POST.
@@ -414,9 +422,9 @@ class TestSrpRequestsBulkApprove(BaseViewsTestCase):
     Tests for the srp_requests_bulk_approve view.
     """
 
-    @patch("aasrp.models.SrpRequest.objects.filter")
-    @patch("aasrp.models.SrpRequest.objects.bulk_update")
-    @patch("aasrp.models.RequestComment.objects.bulk_create")
+    @patch(MODEL_SrpRequest + ".objects.filter")
+    @patch(MODEL_SrpRequest + ".objects.bulk_update")
+    @patch(MODEL_RequestComment + ".objects.bulk_create")
     @patch("aasrp.views.ajax.get_user_settings")
     @patch("aasrp.views.ajax.notify_requester")
     def test_returns_success_when_bulk_approval_is_successful(
@@ -479,9 +487,9 @@ class TestSrpRequestsBulkApprove(BaseViewsTestCase):
         mock_bulk_create.assert_called_once()
         mock_notify.assert_called()
 
-    @patch("aasrp.models.SrpRequest.objects.filter")
-    @patch("aasrp.models.SrpRequest.objects.bulk_update")
-    @patch("aasrp.models.RequestComment.objects.bulk_create")
+    @patch(MODEL_SrpRequest + ".objects.filter")
+    @patch(MODEL_SrpRequest + ".objects.bulk_update")
+    @patch(MODEL_RequestComment + ".objects.bulk_create")
     @patch("aasrp.views.ajax.get_user_settings")
     @patch("aasrp.views.ajax.notify_requester")
     def test_does_not_notify_requesters_with_notifications_disabled(
@@ -550,7 +558,7 @@ class TestSrpRequestsBulkApprove(BaseViewsTestCase):
         mock_bulk_create.assert_called_once()
         mock_notify.assert_not_called()
 
-    @patch("aasrp.models.SrpRequest.objects.filter")
+    @patch(MODEL_SrpRequest + ".objects.filter")
     def test_returns_error_when_no_matching_requests_found(self, mock_filter):
         """
         Test that the view returns an error when no matching SRP requests are found.
@@ -592,7 +600,7 @@ class TestSrpRequestsBulkApprove(BaseViewsTestCase):
             {"success": False, "message": "Invalid request method"},
         )
 
-    @patch("aasrp.models.SrpRequest.objects.filter")
+    @patch(MODEL_SrpRequest + ".objects.filter")
     def test_returns_error_when_invalid_form_data_is_provided(self, mock_filter):
         mock_request = MagicMock(method="POST", body=json.dumps({}))
         mock_filter.return_value.exists.return_value = False
@@ -611,8 +619,8 @@ class TestSrpRequestApprove(BaseViewsTestCase):
     Tests for the srp_request_approve view.
     """
 
-    @patch("aasrp.models.SrpRequest.objects.get")
-    @patch("aasrp.models.RequestComment.objects.bulk_create")
+    @patch(MODEL_SrpRequest + ".objects.get")
+    @patch(MODEL_RequestComment + ".objects.bulk_create")
     @patch("aasrp.views.ajax.get_user_settings")
     @patch("aasrp.views.ajax.notify_requester")
     def test_returns_success_when_request_is_approved(
@@ -658,8 +666,8 @@ class TestSrpRequestApprove(BaseViewsTestCase):
         mock_bulk_create.assert_called_once()
         mock_notify.assert_called_once()
 
-    @patch("aasrp.models.SrpRequest.objects.get")
-    @patch("aasrp.models.RequestComment.objects.bulk_create")
+    @patch(MODEL_SrpRequest + ".objects.get")
+    @patch(MODEL_RequestComment + ".objects.bulk_create")
     @patch("aasrp.views.ajax.get_user_settings")
     @patch("aasrp.views.ajax.notify_requester")
     @patch("aasrp.views.ajax.SrpRequestAcceptForm")
@@ -714,8 +722,8 @@ class TestSrpRequestApprove(BaseViewsTestCase):
         self.assertEqual(comments[0].comment_type, RequestComment.Type.STATUS_CHANGE)
         mock_notify.assert_called_once()
 
-    @patch("aasrp.models.SrpRequest.objects.get")
-    @patch("aasrp.models.RequestComment.objects.bulk_create")
+    @patch(MODEL_SrpRequest + ".objects.get")
+    @patch(MODEL_RequestComment + ".objects.bulk_create")
     @patch("aasrp.views.ajax.get_user_settings")
     @patch("aasrp.views.ajax.notify_requester")
     @patch("aasrp.views.ajax.SrpRequestAcceptForm")
@@ -770,7 +778,7 @@ class TestSrpRequestApprove(BaseViewsTestCase):
         mock_bulk_create.assert_called_once()
         mock_notify.assert_not_called()
 
-    @patch("aasrp.models.SrpRequest.objects.get")
+    @patch(MODEL_SrpRequest + ".objects.get")
     def test_returns_error_when_request_does_not_exist(self, mock_get):
         """
         Test that the view returns an error when the SRP request does not exist.
@@ -794,7 +802,7 @@ class TestSrpRequestApprove(BaseViewsTestCase):
             {"success": False, "message": "No matching SRP request found"},
         )
 
-    @patch("aasrp.models.SrpRequest.objects.get")
+    @patch(MODEL_SrpRequest + ".objects.get")
     def test_returns_error_when_request_method_is_not_post(self, mock_get):
         """
         Test that the view returns an error when the request method is not POST.
@@ -820,7 +828,7 @@ class TestSrpRequestApprove(BaseViewsTestCase):
         )
 
     @patch("aasrp.views.ajax.SrpRequestAcceptForm")
-    @patch("aasrp.models.SrpRequest.objects.get")
+    @patch(MODEL_SrpRequest + ".objects.get")
     def test_returns_error_when_approval_form_data_is_invalid(
         self, mock_get, mock_form
     ):
@@ -1099,4 +1107,223 @@ class TestSrpLinkUpdateTotalCost(BaseViewsTestCase):
         self.assertEqual(
             json.loads(response.content),
             {"success": False, "message": "Invalid request method"},
+        )
+
+
+class TestGetSrpLinks(BaseViewsTestCase):
+    """
+    Tests for the get_srp_links view.
+    """
+
+    def test_returns_only_active_links_when_status_is_not_provided(self):
+        """
+        Test that the view returns only active SRP links when no status is provided.
+
+        :return:
+        """
+
+        self.client.force_login(self.user_jean_luc_picard)
+
+        response = self.client.get(reverse("aasrp:ajax_get_srp_links"))
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        payload = response.json()
+        self.assertTrue(payload["success"])
+        self.assertEqual(len(payload["srp_links"]), 1)
+        self.assertEqual(
+            payload["srp_links"][0]["srp_code"], self.srp_link_active.srp_code
+        )
+
+    def test_returns_links_for_status_name_case_insensitively(self):
+        """
+        Test that the view returns SRP links for a given status name, case-insensitively.
+
+        :return:
+        """
+
+        self.client.force_login(self.user_jean_luc_picard)
+
+        response = self.client.get(reverse("aasrp:ajax_get_srp_links", args=["closed"]))
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        payload = response.json()
+        self.assertTrue(payload["success"])
+        self.assertEqual(len(payload["srp_links"]), 1)
+        self.assertEqual(
+            payload["srp_links"][0]["srp_code"], self.srp_link_closed.srp_code
+        )
+
+    def test_returns_links_for_status_value(self):
+        self.client.force_login(self.user_jean_luc_picard)
+
+        response = self.client.get(reverse("aasrp:ajax_get_srp_links", args=["Closed"]))
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        payload = response.json()
+        self.assertTrue(payload["success"])
+        self.assertEqual(len(payload["srp_links"]), 1)
+        self.assertEqual(
+            payload["srp_links"][0]["srp_code"], self.srp_link_closed.srp_code
+        )
+
+    def test_returns_400_for_invalid_status(self):
+        """
+        Test that the view returns a 400 status code for an invalid SRP status.
+
+        :return:
+        """
+
+        self.client.force_login(self.user_jean_luc_picard)
+
+        response = self.client.get(
+            reverse("aasrp:ajax_get_srp_links", args=["does-not-exist"])
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
+        self.assertEqual(
+            response.json(), {"success": False, "message": "Invalid SRP status"}
+        )
+
+    def test_uses_username_when_main_character_is_missing(self):
+        """
+        Test that the view uses the username when the main character is missing.
+
+        :return:
+        """
+        creator_without_main_character = User.objects.create(username="fallback-user")
+        srp_link = SrpLink.objects.create(
+            srp_name="No Main Character",
+            srp_status=SrpLink.Status.ACTIVE,
+            creator=creator_without_main_character,
+            fleet_time=timezone.now(),
+            srp_code=get_random_string(length=16),
+        )
+        self.client.force_login(self.user_jean_luc_picard)
+
+        response = self.client.get(reverse("aasrp:ajax_get_srp_links"))
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        payload = response.json()
+        result = next(
+            row for row in payload["srp_links"] if row["srp_code"] == srp_link.srp_code
+        )
+        self.assertEqual(result["creator_name"], "fallback-user")
+
+    def test_uses_sentinel_username_when_creator_is_missing(self):
+        """
+        Test that the view uses the sentinel username when the creator is missing.
+
+        :return:
+        """
+        srp_link = SrpLink.objects.create(
+            srp_name="No Creator",
+            srp_status=SrpLink.Status.ACTIVE,
+            creator=None,
+            fleet_time=timezone.now(),
+            srp_code=get_random_string(length=16),
+        )
+        self.client.force_login(self.user_jean_luc_picard)
+
+        response = self.client.get(reverse("aasrp:ajax_get_srp_links"))
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        payload = response.json()
+        result = next(
+            row for row in payload["srp_links"] if row["srp_code"] == srp_link.srp_code
+        )
+        self.assertEqual(result["creator_name"], "deleted")
+
+    def test_returns_error_when_request_method_is_not_get(self):
+        """
+        Test that the view returns an error when the request method is not GET.
+
+        :return:
+        """
+
+        request = MagicMock(method="POST")
+
+        response = get_srp_links(request)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(
+            json.loads(response.content),
+            {"success": False, "message": "Invalid request method"},
+        )
+
+
+class TestSrpRequestChangeSrpLink(BaseViewsTestCase):
+    """
+    Tests for the srp_request_change_srp_link view.
+    """
+
+    def test_changes_srp_link_when_request_and_target_link_exist(self):
+        """
+        Test that the view changes the SRP link of a request when both the request and target link exist.
+
+        :return:
+        """
+
+        request = MagicMock(
+            method="POST",
+            body=json.dumps({"newSrpLink": self.srp_link_closed.srp_code}),
+        )
+
+        response = srp_request_change_srp_link(
+            request,
+            self.srp_link_active.srp_code,
+            self.srp_request_pending.request_code,
+        )
+
+        self.srp_request_pending.refresh_from_db()
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(
+            json.loads(response.content),
+            {"success": True, "message": "SRP link changed successfully"},
+        )
+        self.assertEqual(self.srp_request_pending.srp_link_id, self.srp_link_closed.id)
+
+    def test_returns_error_when_request_method_is_not_post(self):
+        """
+        Test that the view returns an error when the request method is not POST.
+
+        :return:
+        """
+
+        request = MagicMock(method="GET")
+
+        response = srp_request_change_srp_link(
+            request,
+            self.srp_link_active.srp_code,
+            self.srp_request_pending.request_code,
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(
+            json.loads(response.content),
+            {"success": False, "message": "Invalid request method"},
+        )
+
+    def test_returns_error_when_srp_request_does_not_exist(self):
+        """
+        Test that the view returns an error when the SRP request does not exist.
+
+        :return:
+        """
+
+        request = MagicMock(
+            method="POST",
+            body=json.dumps({"newSrpLink": self.srp_link_closed.srp_code}),
+        )
+
+        response = srp_request_change_srp_link(
+            request,
+            self.srp_link_active.srp_code,
+            "missing-request-code",
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(
+            json.loads(response.content),
+            {"success": False, "message": "SRP request not found"},
         )
