@@ -48,6 +48,11 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- Change the SRP link for an existing SRP request in the SRP link view, in case the
+  wrong link was selected when creating the request (#451)
+
 ### Changed
 
 - The "Requests" column in the dashboard tables is now orderable, so that you can sort
