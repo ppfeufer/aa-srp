@@ -197,8 +197,9 @@ def get_srp_request_status_icon(
     }
 
     # Get the button class, icon class, and tooltip for the current status
+    request_status: SrpRequest.Status = srp_request.request_status.value
     btn_class, icon_class, request_status_icon_title = status_icons.get(
-        srp_request.request_status, ("btn-info", "fa-clock", _("SRP request pending"))
+        request_status, ("btn-info", "fa-clock", _("SRP request pending"))
     )
 
     # Generate the HTML for the status icon button
@@ -213,9 +214,7 @@ def get_srp_request_status_icon(
 
 
 def get_srp_request_details_icon(
-    request: WSGIRequest,  # pylint: disable=unused-argument
-    srp_link: SrpLink,
-    srp_request: SrpRequest,
+    request: WSGIRequest, srp_request: SrpRequest  # pylint: disable=unused-argument
 ) -> str:
     """
     Generate an HTML button for viewing SRP request details.
@@ -226,8 +225,6 @@ def get_srp_request_details_icon(
 
     :param request: The HTTP request object (not used in this function).
     :type request: WSGIRequest
-    :param srp_link: The SRP link object associated with the SRP request.
-    :type srp_link: SrpLink
     :param srp_request: The SRP request object containing the request details.
     :type srp_request: SrpRequest
     :return: An HTML string representing the details icon button.
@@ -237,7 +234,7 @@ def get_srp_request_details_icon(
     # Generate the URL for fetching additional information about the SRP request
     button_request_details_url = reverse(
         viewname="aasrp:ajax_srp_request_additional_information",
-        args=[srp_link.srp_code, srp_request.request_code],
+        args=[srp_request.srp_link.srp_code, srp_request.request_code],
     )
 
     # Tooltip title for the button
@@ -257,9 +254,7 @@ def get_srp_request_details_icon(
 
 
 def get_srp_request_accept_icon(
-    request: WSGIRequest,  # pylint: disable=unused-argument
-    srp_link: SrpLink,
-    srp_request: SrpRequest,
+    request: WSGIRequest, srp_request: SrpRequest  # pylint: disable=unused-argument
 ) -> str:
     """
     Generate an HTML button for accepting an SRP request.
@@ -271,8 +266,6 @@ def get_srp_request_accept_icon(
 
     :param request: The HTTP request object (not used in this function).
     :type request: WSGIRequest
-    :param srp_link: The SRP link object associated with the SRP request.
-    :type srp_link: SrpLink
     :param srp_request: The SRP request object containing the request details.
     :type srp_request: SrpRequest
     :return: An HTML string representing the accept icon button.
@@ -282,7 +275,7 @@ def get_srp_request_accept_icon(
     # Generate the URL for approving the SRP request
     button_request_accept_url = reverse(
         viewname="aasrp:ajax_srp_request_approve",
-        args=[srp_link.srp_code, srp_request.request_code],
+        args=[srp_request.srp_link.srp_code, srp_request.request_code],
     )
 
     # Determine if the button should be disabled based on the request status
@@ -317,9 +310,7 @@ def get_srp_request_accept_icon(
 
 
 def get_srp_request_reject_icon(
-    request: WSGIRequest,  # pylint: disable=unused-argument
-    srp_link: SrpLink,
-    srp_request: SrpRequest,
+    request: WSGIRequest, srp_request: SrpRequest  # pylint: disable=unused-argument
 ) -> str:
     """
     Generate an HTML button for rejecting an SRP request.
@@ -331,8 +322,6 @@ def get_srp_request_reject_icon(
 
     :param request: The HTTP request object (not used in this function).
     :type request: WSGIRequest
-    :param srp_link: The SRP link object associated with the SRP request.
-    :type srp_link: SrpLink
     :param srp_request: The SRP request object containing the request details.
     :type srp_request: SrpRequest
     :return: An HTML string representing the reject icon button.
@@ -342,7 +331,7 @@ def get_srp_request_reject_icon(
     # Generate the URL for rejecting the SRP request
     button_request_reject_url = reverse(
         viewname="aasrp:ajax_srp_request_deny",
-        args=[srp_link.srp_code, srp_request.request_code],
+        args=[srp_request.srp_link.srp_code, srp_request.request_code],
     )
 
     # Determine if the button should be disabled based on the request status
@@ -369,11 +358,7 @@ def get_srp_request_reject_icon(
     return srp_request_reject_icon
 
 
-def get_srp_request_delete_icon(
-    request: WSGIRequest,  # pylint: disable=unused-argument
-    srp_link: SrpLink,
-    srp_request: SrpRequest,
-) -> str:
+def get_srp_request_delete_icon(request: WSGIRequest, srp_request: SrpRequest) -> str:
     """
     Generate an HTML button for deleting an SRP request.
 
@@ -383,18 +368,19 @@ def get_srp_request_delete_icon(
 
     :param request: The HTTP request object (not used in this function).
     :type request: WSGIRequest
-    :param srp_link: The SRP link object associated with the SRP request.
-    :type srp_link: SrpLink
     :param srp_request: The SRP request object containing the request details.
     :type srp_request: SrpRequest
     :return: An HTML string representing the delete icon button.
     :rtype: str
     """
 
+    if not request.user.has_perm("aasrp.manage_srp"):
+        return ""
+
     # Generate the URL for deleting the SRP request
     button_request_delete_url = reverse(
         viewname="aasrp:ajax_srp_request_remove",
-        args=[srp_link.srp_code, srp_request.request_code],
+        args=[srp_request.srp_link.srp_code, srp_request.request_code],
     )
 
     # Define the icon and tooltip title for the button
@@ -415,7 +401,7 @@ def get_srp_request_delete_icon(
 
 
 def get_srp_request_open_character_info_icon(
-    srp_link: SrpLink, srp_request: SrpRequest
+    request: WSGIRequest, srp_request: SrpRequest
 ) -> str:
     """
     Generate an HTML button to open the character's information window in game
@@ -425,17 +411,21 @@ def get_srp_request_open_character_info_icon(
     so clicking it never reloads the page. The payout amount is read client side
     at click time, so inline payout edits are respected.
 
-    :param srp_link: The SRP link object associated with the SRP request.
-    :type srp_link: SrpLink
+    :param request: The HTTP request object (not used in this function).
+    :type request: WSGIRequest
     :param srp_request: The SRP request object containing the request details.
     :type srp_request: SrpRequest
     :return: An HTML string representing the button.
     :rtype: str
     """
 
+    has_ui_character = get_user_settings(user=request.user).ui_character_id is not None
+    if not has_ui_character or srp_request.character is None:
+        return ""
+
     button_url = reverse(
         viewname="aasrp:ajax_srp_request_open_character_info",
-        args=[srp_link.srp_code, srp_request.request_code],
+        args=[srp_request.srp_link.srp_code, srp_request.request_code],
     )
 
     icon = '<i class="fa-solid fa-money-bill-1-wave"></i>'
@@ -448,6 +438,51 @@ def get_srp_request_open_character_info_icon(
         'class="btn btn-info btn-sm btn-icon-aasrp srp-request-open-info" '
         f'title="{title}" aria-label="{title}">{icon}</button>'
     )
+
+
+def get_change_srp_link_icon(
+    request: WSGIRequest, srp_request: SrpRequest  # pylint: disable=unused-argument
+) -> str:
+    """
+    Generate an HTML button for changing the SRP link.
+
+    This function creates an HTML button that allows users to change the SRP link.
+    The button includes a tooltip and uses Bootstrap classes for styling. When clicked,
+    it triggers a modal for changing the SRP link.
+
+    :param request: The HTTP request object (not used in this function).
+    :type request: WSGIRequest
+    :param srp_request: The SRP request object containing the request details.
+    :type srp_request: SrpRequest
+    :return: An HTML string representing the change SRP link icon button.
+    :rtype: str
+    """
+
+    # If the SRP request is not pending, we don't allow changing the SRP link
+    if srp_request.request_status != SrpRequest.Status.PENDING:
+        return ""
+
+    # Generate the URL for changing the SRP link
+    button_change_srp_link_url = reverse(
+        viewname="aasrp:ajax_srp_request_change_srp_link",
+        args=[srp_request.srp_link.srp_code, srp_request.request_code],
+    )
+
+    # Define the icon and tooltip title for the button
+    icon = '<i class="fa-solid fa-right-left"></i>'
+    title = _("Change SRP link")
+
+    # Create the HTML for the change SRP link icon button
+    change_srp_link_icon = (
+        f'<button data-link="{button_change_srp_link_url}" '
+        'data-bs-tooltip="aa-srp" '
+        'data-bs-toggle="modal" '
+        'data-bs-target="#change-srp-link" '
+        'class="btn btn-info btn-sm btn-icon-aasrp" '
+        f'title="{title}">{icon}</button>'
+    )
+
+    return change_srp_link_icon
 
 
 @permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
@@ -473,33 +508,29 @@ def get_srp_request_action_icons(
     :rtype: str
     """
 
-    has_ui_character = get_user_settings(user=request.user).ui_character_id is not None
-
     # Generate the details icon for the SRP request
     srp_request_action_icons = get_srp_request_details_icon(
-        request=request, srp_link=srp_link, srp_request=srp_request
+        request=request, srp_request=srp_request
     )
 
-    # Add the "show info in game" button, if the user has a UI character
-    if has_ui_character and srp_request.character is not None:
+    # Add additional action icons if the SRP link is active or closed
+    if srp_link.srp_status != SrpLink.Status.COMPLETED:
+        # Add the "show info in game" button, if the user has a UI character
         srp_request_action_icons += get_srp_request_open_character_info_icon(
-            srp_link=srp_link, srp_request=srp_request
+            request=request, srp_request=srp_request
         )
 
-    # Add additional action icons if the SRP link is active or closed
-    if srp_link.srp_status in (SrpLink.Status.ACTIVE, SrpLink.Status.CLOSED):
         srp_request_action_icons += "<br>"
 
         # Add accept and reject icons for the SRP request
-        for icon_func in [get_srp_request_accept_icon, get_srp_request_reject_icon]:
+        for icon_func in [
+            get_change_srp_link_icon,
+            get_srp_request_accept_icon,
+            get_srp_request_reject_icon,
+            get_srp_request_delete_icon,
+        ]:
             srp_request_action_icons += icon_func(
-                request=request, srp_link=srp_link, srp_request=srp_request
-            )
-
-        # Add delete icon if the user has permission to manage SRP
-        if request.user.has_perm("aasrp.manage_srp"):
-            srp_request_action_icons += get_srp_request_delete_icon(
-                request=request, srp_link=srp_link, srp_request=srp_request
+                request=request, srp_request=srp_request
             )
 
     return srp_request_action_icons

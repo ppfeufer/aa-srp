@@ -75,6 +75,11 @@ urls = [
         name="ajax_srp_request_remove",
     ),
     path(
+        "srp-link/<str:srp_code>/srp-request/<str:srp_request_code>/change-srp-link/",
+        ajax.srp_request_change_srp_link,
+        name="ajax_srp_request_change_srp_link",
+    ),
+    path(
         "srp-link/<str:srp_code>/srp-request/remove/bulk/",
         ajax.srp_requests_bulk_remove,
         name="ajax_srp_requests_bulk_remove",

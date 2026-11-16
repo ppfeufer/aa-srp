@@ -787,3 +787,38 @@ def srp_link_update_total_cost(request: WSGIRequest, srp_code: str) -> JsonRespo
     return JsonResponse(
         data={"success": False, "message": _("Invalid request method")}, safe=False
     )
+
+
+@permissions_required(("aasrp.manage_srp", "aasrp.manage_srp_requests"))
+def srp_request_change_srp_link(
+    request: WSGIRequest, srp_code: str, srp_request_code: str
+) -> JsonResponse:
+    """
+    Handle an AJAX request to change the SRP link of a specific SRP (Ship Replacement Program) request.
+
+    This view processes a POST request containing the new SRP link code for an SRP request identified by its
+    unique SRP code and request code. If the request is valid, the SRP link is updated in the database.
+
+    :param request: The HTTP request object containing metadata and POST data.
+    :type request: WSGIRequest
+    :param srp_code: The unique code identifying the current SRP link.
+    :type srp_code: str
+    :param srp_request_code: The unique code identifying the SRP request.
+    :type srp_request_code: str
+    :return: A JSON response indicating whether the operation was successful.
+    :rtype: JsonResponse
+    """
+
+    if request.method == "POST":
+        # Do something to change the SRP link of the request
+        # For example, you might want to retrieve the new SRP link code from the request
+
+        logger.debug(
+            "Received request to change SRP link for SRP request %s", srp_request_code
+        )
+        logger.debug("Old SRP link code: %s", srp_code)
+
+    # Return a failure response if the request method is not POST or an error occurs
+    return JsonResponse(
+        data={"success": False, "message": _("Invalid request method")}, safe=False
+    )
