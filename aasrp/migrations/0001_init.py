@@ -5,8 +5,8 @@ import django.utils.timezone
 from django.conf import settings
 from django.db import migrations, models
 
-# AA SRP
-import aasrp.models
+# Alliance Auth
+from allianceauth.framework.api.user import get_sentinel_user
 
 
 def on_default_settings_migrate(apps, schema_editor):
@@ -198,7 +198,7 @@ class Migration(migrations.Migration):
                         default=None,
                         help_text="Who created the SRP link?",
                         null=True,
-                        on_delete=models.SET(aasrp.models.get_sentinel_user),
+                        on_delete=models.SET(get_sentinel_user),
                         related_name="+",
                         to=settings.AUTH_USER_MODEL,
                         verbose_name="Creator",
@@ -210,7 +210,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         default=None,
                         null=True,
-                        on_delete=django.db.models.deletion.SET_NULL,
+                        on_delete=models.SET(get_sentinel_user),
                         related_name="+",
                         to="eveonline.evecharacter",
                         verbose_name="Fleet commander",
@@ -223,7 +223,7 @@ class Migration(migrations.Migration):
                         default=None,
                         help_text="The SRP link fleet type, if it's set",
                         null=True,
-                        on_delete=django.db.models.deletion.SET_NULL,
+                        on_delete=models.SET(get_sentinel_user),
                         related_name="+",
                         to="aasrp.fleettype",
                         verbose_name="Fleet type",
@@ -260,7 +260,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         default=None,
                         null=True,
-                        on_delete=models.SET(aasrp.models.get_sentinel_user),
+                        on_delete=models.SET(get_sentinel_user),
                         related_name="+",
                         to=settings.AUTH_USER_MODEL,
                         verbose_name="User",
@@ -366,7 +366,7 @@ class Migration(migrations.Migration):
                         default=None,
                         help_text="Who created the SRP request?",
                         null=True,
-                        on_delete=models.SET(aasrp.models.get_sentinel_user),
+                        on_delete=models.SET(get_sentinel_user),
                         related_name="+",
                         to=settings.AUTH_USER_MODEL,
                         verbose_name="Creator",
@@ -449,7 +449,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         default=None,
                         null=True,
-                        on_delete=models.SET(aasrp.models.get_sentinel_user),
+                        on_delete=models.SET(get_sentinel_user),
                         related_name="+",
                         to=settings.AUTH_USER_MODEL,
                         verbose_name="Creator",

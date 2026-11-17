@@ -9,7 +9,6 @@ from allianceauth.groupmanagement.models import Group
 from aasrp.helper.character import get_formatted_character_name
 from aasrp.helper.eve_images import get_character_portrait_from_evecharacter
 from aasrp.helper.icons import copy_to_clipboard_icon
-from aasrp.models import get_sentinel_user
 from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import (
     add_character_to_user,
@@ -17,24 +16,6 @@ from aasrp.tests.utils import (
     create_fake_user,
     random_id,
 )
-
-
-class TestSentinelUser(BaseTestCase):
-    """
-    Test the sentinel user
-    """
-
-    def test_sentinel_user(self):
-        """
-        Test that we get 'deleted' as username for the sentinel user
-
-        :return:
-        :rtype:
-        """
-
-        sentinel_user = get_sentinel_user()
-
-        self.assertEqual(first=sentinel_user.username, second="deleted")
 
 
 class TestGetFormattedCharacterName(BaseTestCase):

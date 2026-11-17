@@ -10,10 +10,11 @@ from django.template import Context, Template
 from django.test import RequestFactory
 
 # Alliance Auth
+from allianceauth.framework.api.user import get_sentinel_user
 from allianceauth.tests.auth_utils import AuthUtils
 
 # AA SRP
-from aasrp.models import SrpLink, get_sentinel_user
+from aasrp.models import SrpLink
 from aasrp.templatetags.aasrp import srp_request_action_icons
 from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import create_fake_user, random_id
@@ -26,7 +27,14 @@ class TestMainCharacterName(BaseTestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
+        """
+        Set up the test class by initializing the template for main_character_name.
+
+        :return:
+        """
+
         super().setUpClass()
+
         cls.template = Template(
             template_string="{% load aasrp %}{{ user|main_character_name }}"
         )

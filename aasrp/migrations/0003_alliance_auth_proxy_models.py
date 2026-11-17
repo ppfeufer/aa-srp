@@ -3,8 +3,8 @@
 # Django
 from django.db import migrations, models
 
-# AA SRP
-import aasrp.models
+# Alliance Auth
+from allianceauth.framework.api.user import get_sentinel_user
 
 
 class Migration(migrations.Migration):
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 default=None,
                 null=True,
-                on_delete=models.SET(aasrp.models.get_sentinel_user),
+                on_delete=models.SET(get_sentinel_user),
                 related_name="+",
                 to="authentication.user",
                 verbose_name="Creator",
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                 default=None,
                 help_text="Who created the SRP link?",
                 null=True,
-                on_delete=models.SET(aasrp.models.get_sentinel_user),
+                on_delete=models.SET(get_sentinel_user),
                 related_name="+",
                 to="authentication.user",
                 verbose_name="Creator",
@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
                 default=None,
                 help_text="Who created the SRP request?",
                 null=True,
-                on_delete=models.SET(aasrp.models.get_sentinel_user),
+                on_delete=models.SET(get_sentinel_user),
                 related_name="+",
                 to="authentication.user",
                 verbose_name="Creator",
@@ -63,7 +63,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 default=None,
                 null=True,
-                on_delete=models.SET(aasrp.models.get_sentinel_user),
+                on_delete=models.SET(get_sentinel_user),
                 related_name="+",
                 to="authentication.user",
                 verbose_name="User",
