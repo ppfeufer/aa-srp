@@ -57,6 +57,8 @@ Section Order:
 
 ### Changed
 
+- Use the `get_sentinel_user` function from the Alliance Auth API, instead of
+  reinventing the wheel with our own
 - The "Requests" column in the dashboard tables is now orderable, so that you can sort
   the SRP links by the number of pending requests
 
