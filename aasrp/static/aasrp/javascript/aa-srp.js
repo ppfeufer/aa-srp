@@ -4,7 +4,7 @@
 'use strict';
 
 // Build the settings object
-const aaSrpSettings = (typeof aaSrpJsSettingsOverride !== 'undefined') // eslint-disable-line no-unused-vars
+const aaSrpSettings = (typeof aaSrpJsSettingsOverride !== 'undefined')
     ? objectDeepMerge(aaSrpJsSettingsDefaults, aaSrpJsSettingsOverride) // jshint ignore:line
     : aaSrpJsSettingsDefaults;
 
