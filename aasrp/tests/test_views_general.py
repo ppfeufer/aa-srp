@@ -3,6 +3,10 @@ Tests for aasrp/views/general.py
 """
 
 # Standard Library
+import importlib
+import sys
+import types
+from contextlib import ExitStack
 from http import HTTPStatus
 from unittest.mock import MagicMock, patch
 
@@ -29,6 +33,93 @@ from aasrp.tests.utils import create_fake_user, random_id
 from aasrp.views.general import _save_srp_request
 
 MODULE = "aasrp.views.general"
+
+
+class TestGeneralModuleOptionalFittingsImport(BaseTestCase):
+    """
+    Tests for optional Doctrine import in aasrp.views.general.
+    """
+
+    def _import_general_module_with_fittings_state(
+        self, fittings_is_installed: bool, include_fittings_module: bool = False
+    ):
+        """
+        Import aasrp.views.general with a controlled fittings installation state.
+
+        :param fittings_is_installed:
+        :type fittings_is_installed:
+        :param include_fittings_module:
+        :type include_fittings_module:
+        :return:
+        :rtype:
+        """
+
+        original_module = sys.modules.get(MODULE)
+        sys.modules.pop(MODULE, None)
+
+        with ExitStack() as stack:
+            stack.enter_context(
+                patch(
+                    "aasrp.app_settings.fittings_installed",
+                    return_value=fittings_is_installed,
+                )
+            )
+
+            if include_fittings_module:
+                fake_fittings_module = types.ModuleType("fittings")
+                fake_fittings_models_module = types.ModuleType("fittings.models")
+
+                class FakeDoctrine:
+                    pass
+
+                fake_fittings_models_module.Doctrine = FakeDoctrine
+
+                stack.enter_context(
+                    patch.dict(
+                        sys.modules,
+                        {
+                            "fittings": fake_fittings_module,
+                            "fittings.models": fake_fittings_models_module,
+                        },
+                    )
+                )
+
+            imported_module = importlib.import_module(MODULE)
+
+        sys.modules.pop(MODULE, None)
+        if original_module is not None:
+            sys.modules[MODULE] = original_module
+
+        return imported_module
+
+    def test_imports_doctrine_when_fittings_is_installed(self):
+        """
+        Test that Doctrine is imported when fittings is installed.
+
+        :return:
+        :rtype:
+        """
+
+        imported_module = self._import_general_module_with_fittings_state(
+            fittings_is_installed=True, include_fittings_module=True
+        )
+
+        self.assertTrue(hasattr(imported_module, "Doctrine"))
+        self.assertEqual(imported_module.Doctrine.__name__, "FakeDoctrine")
+
+    def test_does_not_import_doctrine_when_fittings_is_not_installed(self):
+        """
+        Test that Doctrine is not imported when fittings is not installed.
+
+        :return:
+        :rtype:
+        """
+
+        imported_module = self._import_general_module_with_fittings_state(
+            fittings_is_installed=False
+        )
+
+        self.assertFalse(hasattr(imported_module, "Doctrine"))
 
 
 class BaseViewsTestCase(BaseTestCase):
