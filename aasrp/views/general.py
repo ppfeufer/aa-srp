@@ -11,7 +11,6 @@ import re
 
 # Third Party
 from eve_sde.models import ItemType
-from fittings.models import Doctrine
 
 # Django
 from django.contrib import messages
@@ -50,6 +49,10 @@ from aasrp.providers.applogger import AppLogger
 
 # Initialize a logger with a custom tag for the AA SRP application
 logger = AppLogger(my_logger=get_extension_logger(__name__))
+
+if fittings_installed():
+    # Third Party
+    from fittings.models import Doctrine
 
 
 @permission_required("aasrp.basic_access")

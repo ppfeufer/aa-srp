@@ -48,6 +48,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- `fittings` was wrongly treated as mandatory module, it's optional again now (#614)
+
 ## [5.11.0] - 2026-11-18
 
 ### Added
