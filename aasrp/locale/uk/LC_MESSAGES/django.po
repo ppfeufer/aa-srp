@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-18 09:22+0100\n"
+"POT-Creation-Date: 2026-11-18 18:39+0100\n"
 "PO-Revision-Date: 2026-11-12 22:41+0000\n"
 "Last-Translator: s0k0l -_- <salarysalo@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/uk/>\n"
@@ -210,7 +210,7 @@ msgstr "Не коректне посилання. Будь ласка, вико�
 msgid "Invalid link. Please post a link to a killmail."
 msgstr "Невірне посилання. Будь ласка, надайте посилання на killmail."
 
-#: aasrp/form.py:335 aasrp/views/general.py:634
+#: aasrp/form.py:335 aasrp/views/general.py:637
 msgid "There is already an SRP request for this killmail. Please check if you got the right one."
 msgstr "Для цього killmail вже є запит на SRP. Будь ласка, перевірте, чи ви використовуєте правильне посилання."
 
@@ -1233,89 +1233,89 @@ msgstr "Статус запиту на SRP"
 msgid "SRP link changed successfully"
 msgstr "Загальна сума оновлена"
 
-#: aasrp/views/general.py:78
+#: aasrp/views/general.py:81
 msgid "You do not have the needed permissions to view all SRP links"
 msgstr "У вас немає необхідних дозволів для перегляду всіх посилань SRP"
 
-#: aasrp/views/general.py:165
+#: aasrp/views/general.py:168
 msgid "Settings saved."
 msgstr "Налаштування збережено."
 
-#: aasrp/views/general.py:214
+#: aasrp/views/general.py:217
 #, python-brace-format
 msgid "{character} is not one of your registered characters. Please add it to Auth first."
 msgstr "{character} не є одним з зареєстрованих персонажів. Додай його спочатку через Auth."
 
-#: aasrp/views/general.py:229
+#: aasrp/views/general.py:232
 #, python-brace-format
 msgid "{character} will now be used for in-game UI actions."
 msgstr "{character} не буде використаний для дій у грі."
 
-#: aasrp/views/general.py:283
+#: aasrp/views/general.py:286
 #, python-brace-format
 msgid "SRP link \"{srp_code}\" created"
 msgstr "Створено SRP-посилання «{srp_code}»"
 
-#: aasrp/views/general.py:339
+#: aasrp/views/general.py:342
 #, python-brace-format
 msgid "Unable to locate SRP link using SRP code {srp_code}"
 msgstr "Не вдалося знайти посилання SRP за кодом SRP {srp_code}"
 
-#: aasrp/views/general.py:354
+#: aasrp/views/general.py:357
 msgid "AAR link changed"
 msgstr "Змінено ARR-посилання"
 
-#: aasrp/views/general.py:475
+#: aasrp/views/general.py:478
 #, python-brace-format
 msgid "Submitted SRP request for your {ship_name}."
 msgstr "Відправлено SRP запит для вашого {ship_name}."
 
-#: aasrp/views/general.py:521
+#: aasrp/views/general.py:524
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr "Не вдалося знайти SRP-флот за SRP-кодом {srp_code}"
 
-#: aasrp/views/general.py:533
+#: aasrp/views/general.py:536
 msgid "This SRP link is no longer available for SRP requests."
 msgstr "Це SRP-посилання більше не доступне для SRP-запитів."
 
-#: aasrp/views/general.py:562
+#: aasrp/views/general.py:565
 #, python-brace-format
 msgid "Something went wrong, your killmail ({submitted_killmail_link}) could not be parsed: {error}"
 msgstr "Виникла помилка, ваш killmail ({submitted_killmail_link}) не вдалося розібрати: {error}"
 
-#: aasrp/views/general.py:569
+#: aasrp/views/general.py:572
 #, python-brace-format
 msgid "Your killmail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evekb_base_url}, {evekill_base_url} or the external link link from your in-game kill report."
 msgstr ""
 
-#: aasrp/views/general.py:647
+#: aasrp/views/general.py:650
 #, python-brace-format
 msgid "Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."
 msgstr "Персонаж {victim_id} не належить вашому обліковому запису Auth. Додайте цього персонажа як альта до вашого основного облікового запису та спробуйте ще раз."
 
-#: aasrp/views/general.py:696
+#: aasrp/views/general.py:699
 msgid "SRP link marked as completed"
 msgstr "Посилання SRP позначено як завершене"
 
-#: aasrp/views/general.py:705 aasrp/views/general.py:743
-#: aasrp/views/general.py:806 aasrp/views/general.py:854
-#: aasrp/views/general.py:901
+#: aasrp/views/general.py:708 aasrp/views/general.py:746
+#: aasrp/views/general.py:809 aasrp/views/general.py:857
+#: aasrp/views/general.py:904
 #, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
 msgstr "Не вдалося знайти код SRP з ID {srp_code}"
 
-#: aasrp/views/general.py:796
+#: aasrp/views/general.py:799
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr "Посилання SRP {srp_code} (знову) активоване."
 
-#: aasrp/views/general.py:844
+#: aasrp/views/general.py:847
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr "Посилання SRP {srp_code} вимкнено."
 
-#: aasrp/views/general.py:891
+#: aasrp/views/general.py:894
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "Посилання SRP {srp_code} видалено."
