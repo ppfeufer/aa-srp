@@ -125,7 +125,7 @@ Make sure you're in the virtual environment (venv) of your Alliance Auth
 installation Then install the latest release directly from PyPi.
 
 ```shell
-pip install aa-srp==5.10.0
+pip install aa-srp==5.11.0
 ```
 
 #### Step 2: Configure Alliance Auth<a name="step-2-configure-alliance-auth"></a>
@@ -188,7 +188,7 @@ Restart your supervisor services for Auth
 Add the app to your `conf/requirements.txt`
 
 ```requirements
-aa-srp==5.10.0
+aa-srp==5.11.0
 ```
 
 #### Step 2: Update Your AA Settings<a name="step-2-update-your-aa-settings"></a>
@@ -314,7 +314,7 @@ To update your existing installation of AA SRP, first enable your virtual enviro
 Then run the following command to update AA SRP to the latest version.
 
 ```shell
-pip install aa-srp==5.10.0
+pip install aa-srp==5.11.0
 
 python manage.py collectstatic
 python manage.py migrate
@@ -330,7 +330,7 @@ To update your existing installation of AA SRP, first update the version in your
 `conf/requirements.txt` to the latest version.
 
 ```requirements
-aa-srp==5.10.0
+aa-srp==5.11.0
 ```
 
 Then build your Auth container and restart your containers.
