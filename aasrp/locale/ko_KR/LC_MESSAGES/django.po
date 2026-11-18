@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-18 09:22+0100\n"
+"POT-Creation-Date: 2026-11-18 18:39+0100\n"
 "PO-Revision-Date: 2026-07-07 08:54+0000\n"
 "Last-Translator: Author50CO <tkddlschry@gmail.com>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/ko/>\n"
@@ -194,7 +194,7 @@ msgstr ""
 msgid "Invalid link. Please post a link to a killmail."
 msgstr "유효하지 않은 링크입니다. 올바른 킬메일 링크를 입력하여 주시기 바랍니다."
 
-#: aasrp/form.py:335 aasrp/views/general.py:634
+#: aasrp/form.py:335 aasrp/views/general.py:637
 msgid "There is already an SRP request for this killmail. Please check if you got the right one."
 msgstr "이미 이 킬메일에 대한 요청이 생성되어 있습니다. 내용을 다시 검토하여 주십시오."
 
@@ -1268,91 +1268,91 @@ msgstr "SRP 요청 상태"
 msgid "SRP link changed successfully"
 msgstr "AAR 링크 변경됨"
 
-#: aasrp/views/general.py:78
+#: aasrp/views/general.py:81
 msgid "You do not have the needed permissions to view all SRP links"
 msgstr "SRP 링크들을 조회하기 위한 권한이 없습니다"
 
-#: aasrp/views/general.py:165
+#: aasrp/views/general.py:168
 msgid "Settings saved."
 msgstr "설정 저장됨."
 
-#: aasrp/views/general.py:214
+#: aasrp/views/general.py:217
 #, python-brace-format
 msgid "{character} is not one of your registered characters. Please add it to Auth first."
 msgstr ""
 
-#: aasrp/views/general.py:229
+#: aasrp/views/general.py:232
 #, python-brace-format
 msgid "{character} will now be used for in-game UI actions."
 msgstr ""
 
-#: aasrp/views/general.py:283
+#: aasrp/views/general.py:286
 #, python-brace-format
 msgid "SRP link \"{srp_code}\" created"
 msgstr "SRP 세션“{srp_code}”이 생성됨"
 
-#: aasrp/views/general.py:339
+#: aasrp/views/general.py:342
 #, fuzzy, python-brace-format
 #| msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgid "Unable to locate SRP link using SRP code {srp_code}"
 msgstr "다음 SRP 코드에 의한 세션 생성이 실패하였습니다. ({srp_code})"
 
-#: aasrp/views/general.py:354
+#: aasrp/views/general.py:357
 msgid "AAR link changed"
 msgstr "AAR 링크 변경됨"
 
-#: aasrp/views/general.py:475
+#: aasrp/views/general.py:478
 #, python-brace-format
 msgid "Submitted SRP request for your {ship_name}."
 msgstr ""
 
-#: aasrp/views/general.py:521
+#: aasrp/views/general.py:524
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr "다음 SRP 코드에 의한 세션 생성이 실패하였습니다. ({srp_code})"
 
-#: aasrp/views/general.py:533
+#: aasrp/views/general.py:536
 msgid "This SRP link is no longer available for SRP requests."
 msgstr "해당 SRP 세션은 더이상 이용할 수 없습니다."
 
-#: aasrp/views/general.py:562
+#: aasrp/views/general.py:565
 #, python-brace-format
 msgid "Something went wrong, your killmail ({submitted_killmail_link}) could not be parsed: {error}"
 msgstr ""
 
-#: aasrp/views/general.py:569
+#: aasrp/views/general.py:572
 #, python-brace-format
 msgid "Your killmail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evekb_base_url}, {evekill_base_url} or the external link link from your in-game kill report."
 msgstr ""
 
-#: aasrp/views/general.py:647
+#: aasrp/views/general.py:650
 #, python-brace-format
 msgid "Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."
 msgstr "{victim_id} 는 사용자의 계정에 속해있지 않습니다. 캐릭터를 추가하거나 오탈자를 확인한 후 다시 시도해 주십시오."
 
-#: aasrp/views/general.py:696
+#: aasrp/views/general.py:699
 msgid "SRP link marked as completed"
 msgstr "종료된 SRP 세션"
 
-#: aasrp/views/general.py:705 aasrp/views/general.py:743
-#: aasrp/views/general.py:806 aasrp/views/general.py:854
-#: aasrp/views/general.py:901
+#: aasrp/views/general.py:708 aasrp/views/general.py:746
+#: aasrp/views/general.py:809 aasrp/views/general.py:857
+#: aasrp/views/general.py:904
 #, fuzzy, python-brace-format
 #| msgid "Unable to locate SRP code with ID {srp_code}"
 msgid "Unable to locate SRP link with ID {srp_code}"
 msgstr "다음 링크의 SRP 세션을 생성할 수 없습니다 ({srp_code})"
 
-#: aasrp/views/general.py:796
+#: aasrp/views/general.py:799
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr "SRP 세션 {srp_code} 이 활성화 되었습니다."
 
-#: aasrp/views/general.py:844
+#: aasrp/views/general.py:847
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr "SRP 세션 {srp_code} 이 비활성화 되었습니다."
 
-#: aasrp/views/general.py:891
+#: aasrp/views/general.py:894
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr "SRP 세션 {srp_code} 이 삭제 되었습니다."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-18 09:22+0100\n"
+"POT-Creation-Date: 2026-11-18 18:39+0100\n"
 "PO-Revision-Date: 2026-07-07 08:54+0000\n"
 "Last-Translator: Mak3rco <depormanuf1@gmail.com>\n"
 "Language-Team: Spanish <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/es/>\n"
@@ -199,7 +199,7 @@ msgstr ""
 msgid "Invalid link. Please post a link to a killmail."
 msgstr ""
 
-#: aasrp/form.py:335 aasrp/views/general.py:634
+#: aasrp/form.py:335 aasrp/views/general.py:637
 msgid "There is already an SRP request for this killmail. Please check if you got the right one."
 msgstr ""
 
@@ -1266,89 +1266,89 @@ msgstr "Solicitante"
 msgid "SRP link changed successfully"
 msgstr ""
 
-#: aasrp/views/general.py:78
+#: aasrp/views/general.py:81
 msgid "You do not have the needed permissions to view all SRP links"
 msgstr ""
 
-#: aasrp/views/general.py:165
+#: aasrp/views/general.py:168
 msgid "Settings saved."
 msgstr ""
 
-#: aasrp/views/general.py:214
+#: aasrp/views/general.py:217
 #, python-brace-format
 msgid "{character} is not one of your registered characters. Please add it to Auth first."
 msgstr ""
 
-#: aasrp/views/general.py:229
+#: aasrp/views/general.py:232
 #, python-brace-format
 msgid "{character} will now be used for in-game UI actions."
 msgstr ""
 
-#: aasrp/views/general.py:283
+#: aasrp/views/general.py:286
 #, python-brace-format
 msgid "SRP link \"{srp_code}\" created"
 msgstr ""
 
-#: aasrp/views/general.py:339
+#: aasrp/views/general.py:342
 #, python-brace-format
 msgid "Unable to locate SRP link using SRP code {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:354
+#: aasrp/views/general.py:357
 msgid "AAR link changed"
 msgstr ""
 
-#: aasrp/views/general.py:475
+#: aasrp/views/general.py:478
 #, python-brace-format
 msgid "Submitted SRP request for your {ship_name}."
 msgstr ""
 
-#: aasrp/views/general.py:521
+#: aasrp/views/general.py:524
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:533
+#: aasrp/views/general.py:536
 msgid "This SRP link is no longer available for SRP requests."
 msgstr ""
 
-#: aasrp/views/general.py:562
+#: aasrp/views/general.py:565
 #, python-brace-format
 msgid "Something went wrong, your killmail ({submitted_killmail_link}) could not be parsed: {error}"
 msgstr ""
 
-#: aasrp/views/general.py:569
+#: aasrp/views/general.py:572
 #, python-brace-format
 msgid "Your killmail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evekb_base_url}, {evekill_base_url} or the external link link from your in-game kill report."
 msgstr ""
 
-#: aasrp/views/general.py:647
+#: aasrp/views/general.py:650
 #, python-brace-format
 msgid "Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."
 msgstr ""
 
-#: aasrp/views/general.py:696
+#: aasrp/views/general.py:699
 msgid "SRP link marked as completed"
 msgstr ""
 
-#: aasrp/views/general.py:705 aasrp/views/general.py:743
-#: aasrp/views/general.py:806 aasrp/views/general.py:854
-#: aasrp/views/general.py:901
+#: aasrp/views/general.py:708 aasrp/views/general.py:746
+#: aasrp/views/general.py:809 aasrp/views/general.py:857
+#: aasrp/views/general.py:904
 #, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:796
+#: aasrp/views/general.py:799
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr ""
 
-#: aasrp/views/general.py:844
+#: aasrp/views/general.py:847
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr ""
 
-#: aasrp/views/general.py:891
+#: aasrp/views/general.py:894
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""
