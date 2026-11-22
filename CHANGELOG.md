@@ -48,6 +48,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Bump `django-eveonline-sde` dependency to >=2.0.0
+
 ## [5.11.1] - 2026-11-18
 
 ### Fixed
