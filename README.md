@@ -150,10 +150,10 @@ Add the following new task to ensure the SDE data is kept up to date:
 
 ```python
 if "eve_sde" in INSTALLED_APPS:
-    # Run at 12:00 each day
+    # Run 30 minutes past the hour UTC
     CELERYBEAT_SCHEDULE["EVE SDE :: Check for SDE Updates"] = {
         "task": "eve_sde.tasks.check_for_sde_updates",
-        "schedule": crontab(minute="0", hour="12"),
+        "schedule": crontab(minute="30"),
     }
 
     # Set the following when you have a bare metal installation, or Docker with a
@@ -211,10 +211,10 @@ Add the following new task to ensure the SDE data is kept up to date:
 
 ```python
 if "eve_sde" in INSTALLED_APPS:
-    # Run at 12:00 each day
+    # Run 30 minutes past the hour UTC
     CELERYBEAT_SCHEDULE["EVE SDE :: Check for SDE Updates"] = {
         "task": "eve_sde.tasks.check_for_sde_updates",
-        "schedule": crontab(minute="0", hour="12"),
+        "schedule": crontab(minute="30"),
     }
 
     # Set the following when you have a bare metal installation, or Docker with a
