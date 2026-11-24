@@ -10,6 +10,7 @@ from solo.admin import SingletonModelAdmin
 from django.contrib import admin, messages
 from django.db.models import QuerySet
 from django.http import HttpRequest
+from django.utils.functional import Promise
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
@@ -19,7 +20,14 @@ from allianceauth.framework.api.user import get_main_character_name_from_user
 # AA SRP
 from aasrp.form import SettingAdminForm
 from aasrp.helper.numbers import l10n_number_format
-from aasrp.models import FleetType, RequestComment, Setting, SrpLink, SrpRequest
+from aasrp.models import (
+    BonusGroup,
+    FleetType,
+    RequestComment,
+    Setting,
+    SrpLink,
+    SrpRequest,
+)
 
 
 @admin.register(SrpLink)
@@ -86,6 +94,7 @@ class SrpRequestAdmin(admin.ModelAdmin):
         "_payout_amount",
         "killboard_link",
         "request_status",
+        "_bonus_srp",
     )
     ordering = ("post_time",)
     list_filter = ("creator", "character", "request_status")
@@ -109,8 +118,16 @@ class SrpRequestAdmin(admin.ModelAdmin):
         "srp_link",
         "_loss_amount",
         "post_time",
+        "_bonus_srp",
     )
-    exclude = ("payout_amount", "loss_amount", "creator", "ship", "reject_info")
+    exclude = (
+        "payout_amount",
+        "loss_amount",
+        "creator",
+        "ship",
+        "reject_info",
+        "bonus_srp",
+    )
 
     @classmethod
     @admin.display(description=_("Requestor"), ordering="creator")
@@ -181,6 +198,22 @@ class SrpRequestAdmin(admin.ModelAdmin):
         localized_amount = l10n_number_format(obj.payout_amount, 2)
 
         return f"{localized_amount} ISK"
+
+    @admin.display(description=_("Bonus SRP"), ordering="bonus_srp__bonus_percentage")
+    def _bonus_srp(self, obj: SrpRequest) -> Promise | str:
+        """
+        Display the bonus SRP amount for the SRP request.
+
+        :param obj: The SrpRequest object.
+        :type obj: SrpRequest
+        :return: The bonus SRP amount formatted as a string.
+        :rtype: str
+        """
+
+        if obj.bonus_srp:
+            return f"{obj.bonus_srp} %"
+
+        return "0.0 %"
 
 
 @admin.register(RequestComment)
@@ -365,3 +398,16 @@ class SettingAdmin(SingletonModelAdmin):
     """
 
     form = SettingAdminForm
+
+
+@admin.register(BonusGroup)
+class BonusGroupAdmin(admin.ModelAdmin):
+    """
+    Admin interface for managing bonus groups.
+    Provides options to view, filter, and search bonus groups.
+    """
+
+    list_display = ("group", "bonus_percentage")
+    ordering = ("group",)
+    list_filter = ("group",)
+    search_fields = ("group__name",)

@@ -55,6 +55,11 @@ class SrpRequestsView(PermissionRequiredMixin, DataTablesView):
             "{{ row.payout_amount }}",
         ),
         (
+            # "bonus_srp__bonus_percentage",
+            "bonus_srp",
+            "aasrp/partials/datatables/view-requests/column-bonus.html",
+        ),
+        (
             "srp_request_comments__comment",
             "aasrp/partials/datatables/view-requests/column-additional-information.html",
         ),

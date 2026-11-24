@@ -20,7 +20,12 @@ from aasrp.admin import (
     SrpLinkAdmin,
     SrpRequestAdmin,
 )
-from aasrp.models import FleetType, RequestComment, SrpLink, SrpRequest
+from aasrp.models import (
+    FleetType,
+    RequestComment,
+    SrpLink,
+    SrpRequest,
+)
 from aasrp.tests import BaseTestCase
 
 
@@ -187,6 +192,46 @@ class TestSrpRequestAdminTests(BaseTestCase):
         payout_amount = SrpRequestAdmin._payout_amount(None, self.srp_request)
 
         self.assertEqual(payout_amount, "500,000.00 ISK")
+
+    def test_displays_bonus_percentage_and_group_name(self):
+        """
+        Tests that the _bonus_srp method returns the correct bonus percentage and group name for the associated SRP request.
+
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.bonus_srp = 17.5
+
+        result = SrpRequestAdmin._bonus_srp(None, self.srp_request)
+
+        self.assertEqual(str(result), "17.5 %")
+
+    def test_displays_zero_bonus_when_no_bonus_group_is_assigned(self):
+        """
+        Tests that the _bonus_srp method returns "0.0 %" when no bonus group is assigned to the SRP request.
+
+        :return:
+        :rtype:
+        """
+
+        self.srp_request.bonus_srp = None
+
+        result = SrpRequestAdmin._bonus_srp(None, self.srp_request)
+
+        self.assertEqual(result, "0.0 %")
+
+    def test_displays_zero_percentage_for_default_bonus_group(self):
+        """
+        Tests that the _bonus_srp method returns "0.0 %" for the default bonus group.
+
+        :return:
+        :rtype:
+        """
+
+        result = SrpRequestAdmin._bonus_srp(None, self.srp_request)
+
+        self.assertEqual(str(result), "0.0 %")
 
 
 class TestRequestCommentAdmin(BaseTestCase):
