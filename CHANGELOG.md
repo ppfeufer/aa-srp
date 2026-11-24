@@ -48,6 +48,11 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- Bonus SRP group support, which allows to set a bonus payout percentage for certain
+  groups
+
 ### Changed
 
 - Bump `django-eveonline-sde` dependency to >=2.0.0

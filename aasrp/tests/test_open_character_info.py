@@ -706,9 +706,9 @@ class TestOpenCharacterInfoButton(BaseOpenCharacterInfoTestCase):
         }
 
         response = self.client.get(url, datatables_query)
-        self.assertNotIn("srp-request-open-info", response.json()["data"][0][8])
+        self.assertNotIn("srp-request-open-info", response.json()["data"][0][9])
 
         self._set_ui_character(self.manager, self.ui_character)
 
         response = self.client.get(url, datatables_query)
-        self.assertIn("srp-request-open-info", response.json()["data"][0][8])
+        self.assertIn("srp-request-open-info", response.json()["data"][0][9])

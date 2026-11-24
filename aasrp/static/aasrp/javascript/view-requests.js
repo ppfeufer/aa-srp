@@ -62,12 +62,13 @@ $(document).ready(() => {
         ship: 3,
         iskLoss: 4,
         srpPayout: 5,
-        additionalInfo: 6,
-        status: 7,
-        actions: 8,
-        bulkActionsCheckbox: 9,
-        requestCode: 10, // Invisible: Request Code (for internal use, not displayed to users)
-        requestStatus: 11 // Invisible: Request Status (for internal use, not displayed to users)
+        bonus: 6,
+        additionalInfo: 7,
+        status: 8,
+        actions: 9,
+        bulkActionsCheckbox: 10,
+        requestCode: 11, // Invisible: Request Code (for internal use, not displayed to users)
+        requestStatus: 12 // Invisible: Request Status (for internal use, not displayed to users)
     };
 
     const columnDefs = [
@@ -75,7 +76,8 @@ $(document).ready(() => {
             targets: [
                 dtColumn.requestTime,
                 dtColumn.iskLoss,
-                dtColumn.srpPayout
+                dtColumn.srpPayout,
+                dtColumn.bonus
             ],
             columnControl: _removeSearchFromColumnControl(
                 aaSrpSettings.dataTables.columnControl,
@@ -145,6 +147,7 @@ $(document).ready(() => {
             render: (data) => {
                 const ctcIcon = `<sup class="copy-to-clipboard-icon"><i class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" data-clipboard-text="${data}" data-bs-tooltip="aa-srp" aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}" title="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"></i></sup>`;
                 const html = `<span class="srp-payout d-flex justify-content-end align-items-baseline"><span class="srp-payout-tooltip"><span class="srp-payout-amount">#payout_amount_localized#</span></span>${ctcIcon}</span>`;
+
                 return html.replace(
                     '#payout_amount_localized#',
                     _formatCurrency(data)
@@ -153,6 +156,12 @@ $(document).ready(() => {
             className: 'srp-request-payout',
             type: 'num',
             ...(payoutEditableMode === 'inline' ? {width: 325} : {})
+        },
+        // Bonus column
+        {
+            target: dtColumn.bonus,
+            className: 'srp-request-bonus',
+            type: 'num'
         },
         // Additional Info column
         {

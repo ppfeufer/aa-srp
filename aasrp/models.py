@@ -22,6 +22,7 @@ from allianceauth.framework.api.user import (
     get_main_character_name_from_user,
     get_sentinel_user,
 )
+from allianceauth.groupmanagement.models import Group
 
 # AA SRP
 from aasrp.managers import SettingManager, SrpRequestManager
@@ -301,6 +302,41 @@ class SrpLink(models.Model):
         )
 
 
+class BonusGroup(models.Model):
+    """
+    Bonus Group model
+    """
+
+    group = models.OneToOneField(
+        to=Group,
+        on_delete=models.CASCADE,
+        related_name="aasrp_bonus_group",
+        verbose_name=_("Group"),
+    )
+    bonus_percentage = models.FloatField(
+        default=0.0, verbose_name=_("Bonus percentage")
+    )
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        Meta options for the BonusGroup model.
+        """
+
+        default_permissions = ()
+        verbose_name = _("Bonus group")
+        verbose_name_plural = _("Bonus groups")
+
+    def __str__(self) -> str:
+        """
+        Return the string representation of the BonusGroup instance.
+
+        :return: The name of the bonus group.
+        :rtype: str
+        """
+
+        return str(self.group)
+
+
 class SrpRequest(models.Model):
     """
     SRP Request model
@@ -382,6 +418,14 @@ class SrpRequest(models.Model):
     reject_info = models.TextField(
         blank=True, default="", verbose_name=_("Reject reason")
     )
+    bonus_srp = models.FloatField(
+        default=0.0,
+        verbose_name=_("Bonus SRP percentage"),
+        help_text=_(
+            "The bonus SRP percentage applied to this request, if any. "
+            "This is determined by the requestor's main character's group membership."
+        ),
+    )
 
     objects: ClassVar[SrpRequestManager] = SrpRequestManager()
 
@@ -431,6 +475,17 @@ class SrpRequest(models.Model):
         if self.request_code == "":
             # Generate a unique request code if it is not already set
             self.request_code = get_random_string(length=16)
+
+        # Get the bonus group for the requestor's main character (When more than one bonus group is eligible, the highest bonus percentage will be used)
+        if self.creator is not None and self.bonus_srp == 0.0:
+            bonus_groups = BonusGroup.objects.filter(
+                group__in=self.creator.groups.all()
+            ).order_by("-bonus_percentage")
+
+            if bonus_groups.exists():
+                applicable_bonus_group = bonus_groups.first()
+
+                self.bonus_srp = applicable_bonus_group.bonus_percentage
 
         # Call the original save method to ensure the SRP request is saved to the database
         super().save(*args, **kwargs)

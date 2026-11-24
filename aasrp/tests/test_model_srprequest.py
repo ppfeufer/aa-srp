@@ -12,8 +12,11 @@ from eve_sde.models import ItemType
 from django.contrib.auth.models import AnonymousUser
 from django.utils import timezone
 
+# Alliance Auth
+from allianceauth.groupmanagement.models import Group
+
 # AA SRP
-from aasrp.models import SrpLink, SrpRequest
+from aasrp.models import BonusGroup, SrpLink, SrpRequest
 from aasrp.tests import BaseTestCase
 from aasrp.tests.utils import create_eve_character, create_fake_user, random_id
 
@@ -267,3 +270,128 @@ class TestSrpRequest(BaseTestCase):
         self.assertNotEqual(srp_request1.request_code, srp_request2.request_code)
         self.assertEqual(len(srp_request1.request_code), 16)
         self.assertEqual(len(srp_request2.request_code), 16)
+
+    def test_assigns_bonus_percentage_from_creator_membership(self):
+        """
+        Test that the bonus percentage is assigned based on the creator's group membership.
+
+        :return:
+        """
+
+        group = Group.objects.create(name="Capital Pilots")
+        BonusGroup.objects.create(group=group, bonus_percentage=15.0)
+        self.user.groups.add(group)
+
+        srp_request = SrpRequest.objects.create(
+            creator=self.user,
+            character=self.character,
+            ship=self.ship_type,
+            srp_link=self.srp_link_1,
+        )
+
+        srp_request.refresh_from_db()
+        self.assertEqual(srp_request.bonus_srp, 15.0)
+
+    def test_assigns_highest_bonus_percentage_for_multiple_matching_groups(self):
+        """
+        Test that the highest bonus percentage is assigned when the creator belongs to multiple groups with different bonus percentages.
+
+        :return:
+        """
+
+        lower_group = Group.objects.create(name="Logistics Pilots")
+        higher_group = Group.objects.create(name="Capital Pilots")
+        BonusGroup.objects.create(group=lower_group, bonus_percentage=10.0)
+        BonusGroup.objects.create(group=higher_group, bonus_percentage=25.0)
+        self.user.groups.add(lower_group, higher_group)
+
+        srp_request = SrpRequest.objects.create(
+            creator=self.user,
+            character=self.character,
+            ship=self.ship_type,
+            srp_link=self.srp_link_1,
+        )
+
+        srp_request.refresh_from_db()
+        self.assertEqual(srp_request.bonus_srp, 25.0)
+
+    def test_leaves_bonus_percentage_zero_when_creator_has_no_bonus_group(self):
+        """
+        Test that the bonus percentage remains zero when the creator does not belong to any bonus group.
+
+        :return:
+        """
+
+        unrelated_group = Group.objects.create(name="Social Members")
+        BonusGroup.objects.create(group=unrelated_group, bonus_percentage=20.0)
+
+        srp_request = SrpRequest.objects.create(
+            creator=self.user,
+            character=self.character,
+            ship=self.ship_type,
+            srp_link=self.srp_link_1,
+        )
+
+        srp_request.refresh_from_db()
+        self.assertEqual(srp_request.bonus_srp, 0.0)
+
+    def test_leaves_bonus_percentage_zero_when_creator_is_not_set(self):
+        """
+        Test that the bonus percentage remains zero when the creator is not set.
+
+        :return:
+        """
+
+        srp_request = SrpRequest.objects.create(
+            creator=None,
+            character=self.character,
+            ship=self.ship_type,
+            srp_link=self.srp_link_1,
+        )
+
+        srp_request.refresh_from_db()
+        self.assertEqual(srp_request.bonus_srp, 0.0)
+
+    def test_preserves_existing_bonus_percentage_on_save(self):
+        """
+        Test that the existing bonus percentage is preserved when saving an SRP request.
+
+        :return:
+        """
+
+        group = Group.objects.create(name="Capital Pilots")
+        BonusGroup.objects.create(group=group, bonus_percentage=25.0)
+        self.user.groups.add(group)
+
+        srp_request = SrpRequest.objects.create(
+            creator=self.user,
+            character=self.character,
+            ship=self.ship_type,
+            srp_link=self.srp_link_1,
+            bonus_srp=10.0,
+        )
+        srp_request.save()
+
+        srp_request.refresh_from_db()
+        self.assertEqual(srp_request.bonus_srp, 10.0)
+
+    def test_assigns_default_bonus_when_saved_request_still_has_zero_percentage(self):
+        """
+        Test that the default bonus percentage is assigned when saving an SRP request with zero percentage.
+
+        :return:
+        """
+
+        group = Group.objects.create(name="Capital Pilots")
+        BonusGroup.objects.create(group=group, bonus_percentage=12.5)
+        self.user.groups.add(group)
+
+        srp_request = SrpRequest.objects.create(
+            creator=self.user,
+            character=self.character,
+            ship=self.ship_type,
+            srp_link=self.srp_link_1,
+        )
+
+        srp_request.refresh_from_db()
+        self.assertEqual(srp_request.bonus_srp, 12.5)
