@@ -26,7 +26,10 @@ class OwnSrpRequestsView(PermissionRequiredMixin, DataTablesView):
     permission_required = "aasrp.basic_access"
     model = SrpRequest
     visible_columns = [
-        ("post_time", "{{ row.post_time.isoformat }}"),
+        (
+            "post_time",
+            "aasrp/partials/datatables/view-own-requests/column-request-time.html",
+        ),
         (
             "character__character_name",
             "aasrp/partials/datatables/view-own-requests/column-character.html",
@@ -44,7 +47,10 @@ class OwnSrpRequestsView(PermissionRequiredMixin, DataTablesView):
             "payout_amount",
             "aasrp/partials/datatables/view-own-requests/column-srp-payout.html",
         ),
-        ("", "aasrp/partials/datatables/view-own-requests/column-status.html"),
+        (
+            "",
+            "aasrp/partials/datatables/view-own-requests/column-request-status-icon.html",
+        ),
     ]
     invisible_columns = [
         ("srp_link__srp_code", "{{ row.srp_link.srp_code }}"),

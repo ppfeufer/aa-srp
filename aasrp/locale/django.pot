@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-24 20:14+0100\n"
+"POT-Creation-Date: 2026-11-26 07:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -281,20 +281,20 @@ msgid "Remove SRP link"
 msgstr ""
 
 #: aasrp/helper/icons.py:186 aasrp/helper/icons.py:202
-#: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-status.html:17
-#: aasrp/templates/aasrp/partials/datatables/view-requests/column-status.html:6
+#: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-request-status-icon.html:17
+#: aasrp/templates/aasrp/partials/datatables/view-requests/column-request-status-icon.html:6
 msgid "SRP request pending"
 msgstr ""
 
 #: aasrp/helper/icons.py:190
-#: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-status.html:25
-#: aasrp/templates/aasrp/partials/datatables/view-requests/column-status.html:14
+#: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-request-status-icon.html:25
+#: aasrp/templates/aasrp/partials/datatables/view-requests/column-request-status-icon.html:14
 msgid "SRP request approved"
 msgstr ""
 
 #: aasrp/helper/icons.py:195
-#: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-status.html:33
-#: aasrp/templates/aasrp/partials/datatables/view-requests/column-status.html:22
+#: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-request-status-icon.html:33
+#: aasrp/templates/aasrp/partials/datatables/view-requests/column-request-status-icon.html:22
 msgid "SRP request rejected"
 msgstr ""
 

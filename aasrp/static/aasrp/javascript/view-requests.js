@@ -116,8 +116,18 @@ $(document).ready(() => {
         // Request time column
         {
             target: dtColumn.requestTime,
-            render: (data) => moment(data).utc().format(aaSrpSettings.datetimeFormat),
-            className: 'srp-request-time'
+            className: 'srp-request-time',
+            /**
+             * Render the request time column with formatted date and time.
+             *
+             * @param {string} data - The raw data for the request time column.
+             * @returns {string} - The formatted request time value.
+             */
+            render: (data) => {
+                const value = data.trim();
+
+                return moment(value).utc().format(aaSrpSettings.datetimeFormat);
+            }
         },
         // Requester column
         {
@@ -137,29 +147,50 @@ $(document).ready(() => {
         // ISK lost column
         {
             target: dtColumn.iskLoss,
-            render: (data) => _formatCurrency(data),
             className: 'srp-request-zkb-loss-amount',
+            /**
+             * Render the ISK lost column with formatted currency.
+             *
+             * @param {int|number} data - The raw data for the ISK lost column.
+             * @returns {string} - The formatted ISK lost value.
+             */
+            render: (data) => {
+                const value = parseInt(data.trim());
+
+                return _formatCurrency(value);
+            },
             type: 'num'
         },
         // SRP payout column
         {
             target: dtColumn.srpPayout,
-            render: (data) => {
-                const ctcIcon = `<sup class="copy-to-clipboard-icon"><i class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" data-clipboard-text="${data}" data-bs-tooltip="aa-srp" aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}" title="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"></i></sup>`;
-                const html = `<span class="srp-payout d-flex justify-content-end align-items-baseline"><span class="srp-payout-tooltip"><span class="srp-payout-amount">#payout_amount_localized#</span></span>${ctcIcon}</span>`;
-
-                return html.replace(
-                    '#payout_amount_localized#',
-                    _formatCurrency(data)
-                );
-            },
             className: 'srp-request-payout',
+            /**
+             * Render the SRP payout column with a copy-to-clipboard icon and formatted currency.
+             *
+             * @param {int|number} data - The raw data for the SRP payout column.
+             * @returns {string} - The formatted SRP payout value with a copy-to-clipboard icon.
+             */
+            render: (data) => {
+                const value = parseInt(data.trim());
+                const formattedValue = _formatCurrency(value);
+                const ctcIcon = `<sup class="copy-to-clipboard-icon"><i class="copy-to-clipboard fa-regular fa-copy ms-2 cursor-pointer" data-clipboard-text="${value}" data-bs-tooltip="aa-srp" aria-label="${aaSrpSettings.translation.copyPayoutAmountToClipboard}" title="${aaSrpSettings.translation.copyPayoutAmountToClipboard}"></i></sup>`;
+
+                return `<span class="srp-payout d-flex justify-content-end align-items-baseline"><span class="srp-payout-tooltip"><span class="srp-payout-amount">${formattedValue}</span></span>${ctcIcon}</span>`;
+            },
             type: 'num',
             ...(payoutEditableMode === 'inline' ? {width: 325} : {})
         },
         // Bonus column
         {
             target: dtColumn.bonus,
+            className: 'srp-request-bonus',
+            /**
+             * Render the bonus column as a percentage with one decimal place.
+             *
+             * @param {float} data - The raw data for the bonus column.
+             * @returns {string} - The formatted bonus value as a percentage with one decimal place, or an empty string if the value is not valid.
+             */
             render: (data) => {
                 const value = parseFloat(data.trim());
 
@@ -175,7 +206,6 @@ $(document).ready(() => {
 
                 return '';
             },
-            className: 'srp-request-bonus',
             type: 'num'
         },
         // Additional Info column
@@ -222,9 +252,9 @@ $(document).ready(() => {
          * @param rowIndex
          */
         createdRow: (row, data, rowIndex) => {
-            const srpRequestCode = data[dtColumn.requestCode];
+            const srpRequestCode = data[dtColumn.requestCode].trim();
             const srpRequestStatus = data[dtColumn.requestStatus].toLowerCase();
-            const srpRequestPayoutAmount = data[dtColumn.srpPayout] === 0 ? null : data[dtColumn.srpPayout];
+            const srpRequestPayoutAmount = data[dtColumn.srpPayout] === 0 ? null : data[dtColumn.srpPayout].trim();
 
             // Row id attr
             $(row)
@@ -232,9 +262,11 @@ $(document).ready(() => {
                 .attr('data-srp-request-code', srpRequestCode)
                 .addClass('srp-request-status-' + srpRequestStatus);
 
-            $(row)
-                .find('span.srp-payout-amount')
-                .attr('data-value', srpRequestPayoutAmount);
+            if (srpRequestPayoutAmount > 0) {
+                $(row)
+                    .find('span.srp-payout-amount')
+                    .attr('data-value', srpRequestPayoutAmount);
+            }
 
             // Add class and data attribute to the payout span
             if (srpRequestStatus === 'pending' || srpRequestStatus === 'rejected') {
