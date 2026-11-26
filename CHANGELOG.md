@@ -50,6 +50,7 @@ Section Order:
 
 ### Added
 
+- Templates for all visible columns in our server-side DataTables
 - Bonus SRP group support, which allows to set a bonus payout percentage for certain
   groups
 

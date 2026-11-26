@@ -58,12 +58,32 @@ $(document).ready(() => {
             {
                 target: dtColumn.fleetTime,
                 className: 'srp-link-fleet-time',
-                render: (data) => moment(data).utc().format(aaSrpSettings.datetimeFormat)
+                /**
+                 * Render the fleet time column with formatted date and time.
+                 *
+                 * @param {string} data - The raw data for the fleet time column.
+                 * @returns {string} - The formatted fleet time value.
+                 */
+                render: (data) => {
+                    const value = data.trim();
+
+                    return moment(value).utc().format(aaSrpSettings.datetimeFormat);
+                }
             },
             {
                 target: dtColumn.srpCost,
                 className: 'srp-link-total-cost',
-                render: (data) => _formatCurrency(data),
+                /**
+                 * Render the SRP cost column with formatted currency.
+                 *
+                 * @param {int|number} data - The raw data for the SRP cost column.
+                 * @returns {string} - The formatted SRP cost value.
+                 */
+                render: (data) => {
+                    const value = parseInt(data.trim());
+
+                    return _formatCurrency(value);
+                },
                 type: 'num'
             },
             {

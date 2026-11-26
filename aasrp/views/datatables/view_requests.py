@@ -33,7 +33,10 @@ class SrpRequestsView(PermissionRequiredMixin, DataTablesView):
     model = SrpRequest
 
     visible_columns = [
-        ("post_time", "{{ row.post_time.isoformat }}"),
+        (
+            "post_time",
+            "aasrp/partials/datatables/view-requests/column-request-time.html",
+        ),
         (
             "creator__profile__main_character__character_name",
             "aasrp/partials/datatables/view-requests/column-requestor.html",
@@ -52,10 +55,9 @@ class SrpRequestsView(PermissionRequiredMixin, DataTablesView):
         ),
         (
             "payout_amount",
-            "{{ row.payout_amount }}",
+            "aasrp/partials/datatables/view-requests/column-srp_payout.html",
         ),
         (
-            # "bonus_srp__bonus_percentage",
             "bonus_srp",
             "aasrp/partials/datatables/view-requests/column-bonus.html",
         ),
@@ -65,16 +67,13 @@ class SrpRequestsView(PermissionRequiredMixin, DataTablesView):
         ),
         (
             "request_status",
-            "aasrp/partials/datatables/view-requests/column-status.html",
+            "aasrp/partials/datatables/view-requests/column-request-status-icon.html",
         ),
         ("", "aasrp/partials/datatables/view-requests/column-actions.html"),
         ("", "aasrp/partials/datatables/view-requests/column-bulk-actions.html"),
     ]
     invisible_columns = [
-        (
-            "request_code",
-            "aasrp/partials/datatables/view-requests/column-request-code.html",
-        ),
+        ("request_code", "{{ row.request_code }}"),
         ("request_status", "{{ row.request_status }}"),
     ]
     columns = visible_columns + invisible_columns

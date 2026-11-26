@@ -69,8 +69,18 @@ $(document).ready(() => {
             // Request time
             {
                 target: dtColumn.requestTime,
-                render: (data) => moment(data).utc().format(aaSrpSettings.datetimeFormat),
-                className: 'srp-request-time'
+                className: 'srp-request-time',
+                /**
+                 * Render the request time column with formatted date and time.
+                 *
+                 * @param {string} data - The raw data for the request time column.
+                 * @returns {string} - The formatted request time value.
+                 */
+                render: (data) => {
+                    const value = data.trim();
+
+                    return moment(value).utc().format(aaSrpSettings.datetimeFormat);
+                }
             },
             // Character
             {
@@ -90,23 +100,43 @@ $(document).ready(() => {
             // ISK lost
             {
                 target: dtColumn.iskLoss,
-                render: (data) => _formatCurrency(data),
                 className: 'srp-request-zkb-loss-amount',
+                /**
+                 * Render the ISK lost column with formatted currency.
+                 *
+                 * @param {int|number} data - The raw data for the ISK lost column.
+                 * @returns {string} - The formatted ISK lost value.
+                 */
+                render: (data) => {
+                    const value = parseInt(data.trim());
+
+                    return _formatCurrency(value);
+                },
                 type: 'num'
             },
             // SRP payout
             {
                 target: dtColumn.srpPayout,
-                render: (data) => _formatCurrency(data),
+                /**
+                 * Render the payout column with formatted currency.
+                 *
+                 * @param {int|number} data - The raw data for the payout column.
+                 * @returns {string} - The formatted payout value.
+                 */
+                render: (data) => {
+                    const value = parseInt(data.trim());
+
+                    return _formatCurrency(value);
+                },
                 className: 'srp-request-payout',
                 type: 'num'
             },
             // Status
             {
                 target: dtColumn.status,
-                render: (data) => data,
                 className: 'srp-request-status text-end',
                 orderable: false,
+                render: (data) => data,
                 width: '90'
             },
             // Invisible columns for internal use (not displayed to users)
