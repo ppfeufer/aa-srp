@@ -50,6 +50,7 @@ class SrpLinkAdmin(admin.ModelAdmin):
     search_fields = ("srp_code", "fleet_doctrine", "srp_name")
     readonly_fields = (
         "aar_link",
+        "debrief_link",
         "_creator",
         "fleet_doctrine",
         "fleet_time",
@@ -57,6 +58,7 @@ class SrpLinkAdmin(admin.ModelAdmin):
         "srp_code",
         "srp_name",
         "srp_status",
+        "total_cost",
     )
     exclude = ("creator",)
 
