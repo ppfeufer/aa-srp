@@ -48,6 +48,8 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [5.12.0] - 2026-11-26
+
 ### Added
 
 - Templates for all visible columns in our server-side DataTables
@@ -2063,6 +2065,7 @@ python manage.py aasrp_update_db_relations
 [5.10.0]: https://github.com/ppfeufer/aa-srp/compare/v5.9.0...v5.10.0 "v5.10.0"
 [5.11.0]: https://github.com/ppfeufer/aa-srp/compare/v5.10.0...v5.11.0 "v5.11.0"
 [5.11.1]: https://github.com/ppfeufer/aa-srp/compare/v5.11.0...v5.11.1 "v5.11.1"
+[5.12.0]: https://github.com/ppfeufer/aa-srp/compare/v5.11.1...v5.12.0 "v5.12.0"
 [5.2.0]: https://github.com/ppfeufer/aa-srp/compare/v5.1.0...v5.2.0 "v5.2.0"
 [5.2.1]: https://github.com/ppfeufer/aa-srp/compare/v5.2.0...v5.2.1 "v5.2.1"
 [5.3.0]: https://github.com/ppfeufer/aa-srp/compare/v5.2.1...v5.3.0 "v5.3.0"
@@ -2078,7 +2081,7 @@ python manage.py aasrp_update_db_relations
 [aa fleet pings]: https://github.com/ppfeufer/aa-fleetpings "AA Fleet Pings"
 [aa-discordbot]: https://github.com/pvyParts/allianceauth-discordbot "AA-Discordbot"
 [evetools killboard]: https://kb.evetools.org/ "EveTools Killboard"
-[in development]: https://github.com/ppfeufer/aa-srp/compare/v5.11.1...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-srp/compare/v5.12.0...HEAD "In Development"
 [keep a changelog]: http://keepachangelog.com/ "Keep a Changelog"
 [semantic versioning]: http://semver.org/ "Semantic Versioning"
 [tooltip: change srp payout amount]: https://raw.githubusercontent.com/ppfeufer/aa-srp/master/docs/images/changelog/tooltip-change-srp-payout-amount.jpg "Tooltip: Change SRP Payout Amount"
