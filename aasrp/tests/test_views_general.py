@@ -342,6 +342,7 @@ class TestSrpLinkAddView(BaseTestCase):
                 "fleet_time": "2024-01-01 12:00:00",
                 "fleet_doctrine": "Test Doctrine",
                 "aar_link": "",
+                "debrief_link": "",
             },
         )
 
@@ -496,9 +497,9 @@ class TestSrpLinkEditView(BaseTestCase):
 
         self.assertRedirects(response, reverse("aasrp:srp_links"))
 
-    def test_srp_link_edit_post_valid(self):
+    def test_srp_link_edit_post_valid_aar_link(self):
         """
-        Test that a valid POST updates the SRP link.
+        Test that a valid POST updates the SRP link's AAR link.
 
         :return:
         :rtype:
@@ -513,9 +514,26 @@ class TestSrpLinkEditView(BaseTestCase):
         self.srp_link.refresh_from_db()
         self.assertEqual(self.srp_link.aar_link, "https://example.com/aar")
 
-    def test_srp_link_edit_post_invalid_re_renders_form(self):
+    def test_srp_link_edit_post_valid_debrief_link(self):
         """
-        Test that an invalid POST does not update the SRP link and re-renders the form.
+        Test that a valid POST updates the SRP link's debrief link.
+
+        :return:
+        :rtype:
+        """
+
+        response = self.client.post(
+            reverse("aasrp:edit_srp_link", args=[self.srp_link.srp_code]),
+            data={"debrief_link": "https://example.com/debrief"},
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+        self.srp_link.refresh_from_db()
+        self.assertEqual(self.srp_link.debrief_link, "https://example.com/debrief")
+
+    def test_srp_link_edit_post_invalid_aar_link_re_renders_form(self):
+        """
+        Test that an invalid POST re-renders the form with errors and does not update the SRP link's AAR link.
 
         :return:
         :rtype:
@@ -534,6 +552,30 @@ class TestSrpLinkEditView(BaseTestCase):
         self.assertIn("aar_link", response.context["form"].errors)
         self.srp_link.refresh_from_db()
         self.assertEqual(self.srp_link.aar_link, "https://example.com/current-aar")
+
+    def test_srp_link_edit_post_invalid_debrief_link_re_renders_form(self):
+        """
+        Test that an invalid POST re-renders the form with errors and does not update the SRP link's debrief link.
+
+        :return:
+        :rtype:
+        """
+
+        self.srp_link.debrief_link = "https://example.com/current-debrief"
+        self.srp_link.save(update_fields=["debrief_link"])
+
+        response = self.client.post(
+            reverse("aasrp:edit_srp_link", args=[self.srp_link.srp_code]),
+            data={"debrief_link": "x" * 255},
+        )
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(response, "aasrp/link-edit.html")
+        self.assertIn("debrief_link", response.context["form"].errors)
+        self.srp_link.refresh_from_db()
+        self.assertEqual(
+            self.srp_link.debrief_link, "https://example.com/current-debrief"
+        )
 
 
 class TestCompleteSrpLinkView(BaseTestCase):

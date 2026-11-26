@@ -51,7 +51,8 @@ class BaseFormTestCase(BaseTestCase):
             fleet_time=timezone.now(),
             fleet_type=FleetType.objects.first(),
             fleet_doctrine="Test Doctrine",
-            aar_link="http://example.com/aar",
+            aar_link="https://example.com/aar",
+            debrief_link="https://example.com/debrief",
         )
 
         cls.user_jean_luc_picard = create_fake_user(
@@ -232,7 +233,8 @@ class TestSrpLinkForm(BaseTestCase):
             "fleet_time": "2023-10-01 12:00:00",
             "fleet_type": FleetType.objects.first().id,
             "fleet_doctrine": "Test Doctrine",
-            "aar_link": "http://example.com/aar",
+            "aar_link": "https://example.com/aar",
+            "debrief_link": "https://example.com/debrief",
         }
         form = SrpLinkForm(data=form_data)
 
@@ -256,6 +258,7 @@ class TestSrpLinkForm(BaseTestCase):
             "fleet_time": "",
             "fleet_doctrine": "",
             "aar_link": "",
+            "debrief_link": "",
         }
         form = SrpLinkForm(data=form_data)
 
@@ -277,7 +280,8 @@ class TestSrpLinkForm(BaseTestCase):
             "fleet_time": "2023-10-01 12:00:00",
             "fleet_type": None,
             "fleet_doctrine": "Test Doctrine",
-            "aar_link": "http://example.com/aar",
+            "aar_link": "https://example.com/aar",
+            "debrief_link": "https://example.com/debrief",
         }
         form = SrpLinkForm(data=form_data)
 
@@ -297,14 +301,33 @@ class TestSrpLinkUpdateForm(BaseFormTestCase):
         :rtype:
         """
 
-        form_data = {"aar_link": "http://updated-example.com/aar"}
+        form_data = {"aar_link": "https://updated-example.com/aar"}
         form = SrpLinkUpdateForm(instance=self.srp_link, data=form_data)
 
         self.assertTrue(form.is_valid())
 
         updated_instance = form.save()
 
-        self.assertEqual(updated_instance.aar_link, "http://updated-example.com/aar")
+        self.assertEqual(updated_instance.aar_link, "https://updated-example.com/aar")
+
+    def test_saves_valid_debrief_link(self):
+        """
+        Test that the form saves a valid debrief_link correctly.
+
+        :return:
+        :rtype:
+        """
+
+        form_data = {"debrief_link": "https://updated-example.com/debrief"}
+        form = SrpLinkUpdateForm(instance=self.srp_link, data=form_data)
+
+        self.assertTrue(form.is_valid())
+
+        updated_instance = form.save()
+
+        self.assertEqual(
+            updated_instance.debrief_link, "https://updated-example.com/debrief"
+        )
 
 
 class TestSrpRequestForm(BaseFormTestCase):
