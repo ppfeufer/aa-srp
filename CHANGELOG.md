@@ -54,6 +54,8 @@ Section Order:
   discussion for the fleet, so that the SRP team can get more information (e.g.,
   potential fitting changes) that might be relevant for their decision on whether to
   approve or deny the SRP request
+- Access to SRP link edit for FCs; FCs can now edit their own SRP links, but not those
+  of other FCs, to update the links to the AAR/BR and internal debrief
 
 ## [5.12.0] - 2026-11-26
 

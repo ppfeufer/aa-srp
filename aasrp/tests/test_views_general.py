@@ -485,6 +485,49 @@ class TestSrpLinkEditView(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "aasrp/link-edit.html")
 
+    def test_srp_link_edit_get_allowed_for_manage_srp_requests_permission(self):
+        """
+        Test that manage_srp_requests permission allows editing a link
+        the user did not create.
+        """
+
+        user = create_fake_user(
+            character_id=random_id(),
+            character_name="SRP Requests Manager",
+            permissions=[
+                "aasrp.basic_access",
+                "aasrp.create_srp",
+                "aasrp.manage_srp_requests",
+            ],
+        )
+        self.client.force_login(user)
+
+        response = self.client.get(
+            reverse("aasrp:edit_srp_link", args=[self.srp_link.srp_code])
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "aasrp/link-edit.html")
+
+    def test_srp_link_edit_get_denied_for_other_create_srp_user(self):
+        """
+        Test that a create_srp user who is neither creator nor request manager
+        cannot edit the link.
+        """
+
+        user = create_fake_user(
+            character_id=random_id(),
+            character_name="Other SRP Creator",
+            permissions=["aasrp.basic_access", "aasrp.create_srp"],
+        )
+        self.client.force_login(user)
+
+        response = self.client.get(
+            reverse("aasrp:edit_srp_link", args=[self.srp_link.srp_code])
+        )
+
+        self.assertRedirects(response, reverse("aasrp:srp_links"))
+
     def test_srp_link_edit_invalid_code_redirects(self):
         """
         Test that an invalid SRP code redirects with an error.

@@ -268,6 +268,8 @@ class TestAccess(BaseTestCase):
         """
 
         # given
+        self.defaul_srp_link.creator = self.user_with_manage_srp
+        self.defaul_srp_link.save(update_fields=["creator"])
         self.client.force_login(user=self.user_with_manage_srp)
 
         # when

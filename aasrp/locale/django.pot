@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA SRP\n"
 "Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-srp/\n"
-"POT-Creation-Date: 2026-11-26 11:20+0100\n"
+"POT-Creation-Date: 2026-11-26 12:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -212,7 +212,7 @@ msgstr ""
 msgid "Invalid link. Please post a link to a killmail."
 msgstr ""
 
-#: aasrp/form.py:344 aasrp/views/general.py:647
+#: aasrp/form.py:344 aasrp/views/general.py:660
 msgid "There is already an SRP request for this killmail. Please check if you got the right one."
 msgstr ""
 
@@ -263,58 +263,58 @@ msgstr ""
 msgid "Copy character name to clipboard"
 msgstr ""
 
-#: aasrp/helper/icons.py:93 aasrp/templates/aasrp/request-srp.html:6
+#: aasrp/helper/icons.py:104 aasrp/templates/aasrp/request-srp.html:6
 msgid "Request SRP"
 msgstr ""
 
-#: aasrp/helper/icons.py:108
+#: aasrp/helper/icons.py:114
 msgid "View SRP requests"
 msgstr ""
 
-#: aasrp/helper/icons.py:126
+#: aasrp/helper/icons.py:129
 msgid "Update AAR/BR and/or debrief link"
 msgstr ""
 
-#: aasrp/helper/icons.py:135
+#: aasrp/helper/icons.py:142
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/disable-srp-link.html:9
 msgid "Disable SRP link"
 msgstr ""
 
-#: aasrp/helper/icons.py:149
+#: aasrp/helper/icons.py:156
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:4
 #: aasrp/templates/aasrp/modals/dashboard/enable-srp-link.html:9
 msgid "Enable SRP link"
 msgstr ""
 
-#: aasrp/helper/icons.py:159
+#: aasrp/helper/icons.py:166
 msgid "Remove SRP link"
 msgstr ""
 
-#: aasrp/helper/icons.py:186 aasrp/helper/icons.py:202
+#: aasrp/helper/icons.py:193 aasrp/helper/icons.py:209
 #: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-request-status-icon.html:17
 #: aasrp/templates/aasrp/partials/datatables/view-requests/column-request-status-icon.html:6
 msgid "SRP request pending"
 msgstr ""
 
-#: aasrp/helper/icons.py:190
+#: aasrp/helper/icons.py:197
 #: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-request-status-icon.html:25
 #: aasrp/templates/aasrp/partials/datatables/view-requests/column-request-status-icon.html:14
 msgid "SRP request approved"
 msgstr ""
 
-#: aasrp/helper/icons.py:195
+#: aasrp/helper/icons.py:202
 #: aasrp/templates/aasrp/partials/datatables/view-own-requests/column-request-status-icon.html:33
 #: aasrp/templates/aasrp/partials/datatables/view-requests/column-request-status-icon.html:22
 msgid "SRP request rejected"
 msgstr ""
 
-#: aasrp/helper/icons.py:241
+#: aasrp/helper/icons.py:248
 #: aasrp/templates/aasrp/modals/view-requests/request-details.html:9
 msgid "SRP request details"
 msgstr ""
 
-#: aasrp/helper/icons.py:297
+#: aasrp/helper/icons.py:304
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:9
 #: aasrp/templates/aasrp/modals/view-requests/accept-rejected-request.html:39
 #: aasrp/templates/aasrp/modals/view-requests/accept-request.html:9
@@ -323,23 +323,23 @@ msgstr ""
 msgid "Accept SRP request"
 msgstr ""
 
-#: aasrp/helper/icons.py:346
+#: aasrp/helper/icons.py:353
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:9
 #: aasrp/templates/aasrp/modals/view-requests/reject-request.html:39
 msgid "Reject SRP request"
 msgstr ""
 
-#: aasrp/helper/icons.py:388
+#: aasrp/helper/icons.py:395
 #: aasrp/templates/aasrp/modals/view-requests/bulk-delete-requests.html:37
 #: aasrp/templates/aasrp/modals/view-requests/delete-request.html:9
 msgid "Delete SRP request"
 msgstr ""
 
-#: aasrp/helper/icons.py:432
+#: aasrp/helper/icons.py:439
 msgid "Show info in game & copy ISK amount"
 msgstr ""
 
-#: aasrp/helper/icons.py:473
+#: aasrp/helper/icons.py:480
 #: aasrp/templates/aasrp/modals/view-requests/change-srp-link.html:9
 #: aasrp/templates/aasrp/modals/view-requests/change-srp-link.html:38
 msgid "Change SRP link"
@@ -709,7 +709,8 @@ msgid "Create SRP link"
 msgstr ""
 
 #: aasrp/templates/aasrp/link-edit.html:6
-msgid "Add/Edit After Action Report Link"
+#: aasrp/templates/aasrp/partials/link-edit/form.html:6
+msgid "Update SRP link"
 msgstr ""
 
 #: aasrp/templates/aasrp/modals/dashboard/delete-srp-link.html:4
@@ -918,10 +919,6 @@ msgstr ""
 
 #: aasrp/templates/aasrp/partials/link-add/form.html:28
 msgid "Create link"
-msgstr ""
-
-#: aasrp/templates/aasrp/partials/link-edit/form.html:6
-msgid "After action report"
 msgstr ""
 
 #: aasrp/templates/aasrp/partials/link-edit/form.html:18
@@ -1288,61 +1285,65 @@ msgstr ""
 msgid "Unable to locate SRP link using SRP code {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:360
+#: aasrp/views/general.py:359
+msgid "You do not have permission to edit this SRP link."
+msgstr ""
+
+#: aasrp/views/general.py:373
 msgid "AAR/BR and/or debrief link updated"
 msgstr ""
 
-#: aasrp/views/general.py:488
+#: aasrp/views/general.py:501
 #, python-brace-format
 msgid "Submitted SRP request for your {ship_name}."
 msgstr ""
 
-#: aasrp/views/general.py:534
+#: aasrp/views/general.py:547
 #, python-brace-format
 msgid "Unable to locate SRP Fleet using SRP code {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:546
+#: aasrp/views/general.py:559
 msgid "This SRP link is no longer available for SRP requests."
 msgstr ""
 
-#: aasrp/views/general.py:575
+#: aasrp/views/general.py:588
 #, python-brace-format
 msgid "Something went wrong, your killmail ({submitted_killmail_link}) could not be parsed: {error}"
 msgstr ""
 
-#: aasrp/views/general.py:582
+#: aasrp/views/general.py:595
 #, python-brace-format
 msgid "Your killmail link ({submitted_killmail_link}) is invalid or the zKillboard API is not answering at the moment. Please make sure you are using either {zkillboard_base_url}, {evekb_base_url}, {evekill_base_url} or the external link link from your in-game kill report."
 msgstr ""
 
-#: aasrp/views/general.py:660
+#: aasrp/views/general.py:673
 #, python-brace-format
 msgid "Character {victim_id} does not belong to your Auth account. Please add this character as an alt to your main and try again."
 msgstr ""
 
-#: aasrp/views/general.py:709
+#: aasrp/views/general.py:722
 msgid "SRP link marked as completed"
 msgstr ""
 
-#: aasrp/views/general.py:718 aasrp/views/general.py:756
-#: aasrp/views/general.py:819 aasrp/views/general.py:867
-#: aasrp/views/general.py:914
+#: aasrp/views/general.py:731 aasrp/views/general.py:769
+#: aasrp/views/general.py:832 aasrp/views/general.py:880
+#: aasrp/views/general.py:927
 #, python-brace-format
 msgid "Unable to locate SRP link with ID {srp_code}"
 msgstr ""
 
-#: aasrp/views/general.py:809
+#: aasrp/views/general.py:822
 #, python-brace-format
 msgid "SRP link {srp_code} (re-)activated."
 msgstr ""
 
-#: aasrp/views/general.py:857
+#: aasrp/views/general.py:870
 #, python-brace-format
 msgid "SRP link {srp_code} disabled."
 msgstr ""
 
-#: aasrp/views/general.py:904
+#: aasrp/views/general.py:917
 #, python-brace-format
 msgid "SRP link {srp_code} deleted."
 msgstr ""
