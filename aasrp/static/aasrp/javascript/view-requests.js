@@ -1,4 +1,4 @@
-/* global _bootstrapTooltip, _copyToClipboard, _formatCurrency, _removeSearchFromColumnControl, _showToast, aaSrpSettings, DataTable, fetchGet, fetchPost, moment */
+/* global _bootstrapTooltip, _copyToClipboard, _formatCurrency, _removeSearchFromColumnControl, _showToast, aaSrpSettings, DataTable, fetchGet, fetchPost, numberFormatter, moment */
 
 $(document).ready(() => {
     'use strict';
@@ -160,6 +160,21 @@ $(document).ready(() => {
         // Bonus column
         {
             target: dtColumn.bonus,
+            render: (data) => {
+                const value = parseFloat(data.trim());
+
+                if (value) {
+                    const formattedValue = numberFormatter({
+                        value: value,
+                        locales: aaSrpSettings.locale,
+                        options: {minimumFractionDigits: 1}
+                    });
+
+                    return `${formattedValue}&nbsp;%`;
+                }
+
+                return '';
+            },
             className: 'srp-request-bonus',
             type: 'num'
         },
