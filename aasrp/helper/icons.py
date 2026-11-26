@@ -123,7 +123,7 @@ def dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
                     ),
                     btn_class="btn btn-info",
                     icon_class="fa-regular fa-newspaper",
-                    title=_("Add/Change AAR link"),
+                    title=_("Update AAR/BR and/or debrief link"),
                 )
                 # Add disable SRP link button
                 actions += _create_button(

@@ -268,6 +268,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
             fleet_type = form.cleaned_data["fleet_type"]
             fleet_doctrine = form.cleaned_data["fleet_doctrine"]
             aar_link = form.cleaned_data["aar_link"]
+            debrief_link = form.cleaned_data["debrief_link"]
 
             # Create and save the new SRP link.
             srp_link = SrpLink(
@@ -276,6 +277,7 @@ def srp_link_add(request: WSGIRequest) -> HttpResponse:
                 fleet_type=fleet_type,
                 fleet_doctrine=fleet_doctrine,
                 aar_link=aar_link,
+                debrief_link=debrief_link,
                 creator=request.user,
             )
             srp_link.save()
@@ -352,9 +354,17 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         if form.is_valid():
             srp_link.aar_link = form.cleaned_data["aar_link"]
+            srp_link.debrief_link = form.cleaned_data["debrief_link"]
             srp_link.save()
 
-            messages.success(request, _("AAR link changed"))
+            messages.success(request, _("AAR/BR and/or debrief link updated"))
+
+            logger.info(
+                msg=(
+                    "AAR/BR and/or debrief link updated: "
+                    f"SRP code: {srp_code} | User: {request_user}"
+                )
+            )
 
             return redirect("aasrp:srp_links")
     else:

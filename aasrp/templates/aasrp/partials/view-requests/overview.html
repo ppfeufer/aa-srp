@@ -56,6 +56,43 @@
                         </sup>
                     </dd>
                 </div>
+
+                {% if srp_link.aar_link or srp_link.debrief_link %}
+                    <div class="card-srp-request-overview-cell">
+                        <dt>{% translate "Links" %}:</dt>
+                        <dd>
+                            {% if srp_link.aar_link %}
+                                <a
+                                    class="external-link"
+                                    href="{{ srp_link.aar_link }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    data-bs-tooltip="aa-srp"
+                                    title="{% translate "Public AAR/BR link (Opens in new tab)" %}"
+                                >
+                                    {% translate "Public AAR/BR" %}
+                                </a>
+                            {% endif %}
+
+                            {% if srp_link.aar_link and srp_link.debrief_link %}
+                                <br>
+                            {% endif %}
+
+                            {% if srp_link.debrief_link %}
+                                <a
+                                    class="external-link"
+                                    href="{{ srp_link.debrief_link }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    data-bs-tooltip="aa-srp"
+                                    title="{% translate "Internal debrief link (Opens in new tab)" %}"
+                                >
+                                    {% translate "Internal debrief" %}
+                                </a>
+                            {% endif %}
+                        </dd>
+                    </div>
+                {% endif %}
             </div>
 
             <!-- right card -->

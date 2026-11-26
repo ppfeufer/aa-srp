@@ -76,6 +76,7 @@ class TestAccess(BaseTestCase):
             fleet_time=timezone.now(),
             fleet_doctrine="Ships",
             aar_link="",
+            debrief_link="",
             srp_code=get_random_string(length=16),
             creator=cls.user_with_create_srp,
         )

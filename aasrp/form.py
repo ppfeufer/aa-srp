@@ -114,13 +114,21 @@ class SrpLinkForm(ModelForm):
         """
 
         model = SrpLink
-        fields = ["srp_name", "fleet_time", "fleet_type", "fleet_doctrine", "aar_link"]
+        fields = [
+            "srp_name",
+            "fleet_time",
+            "fleet_type",
+            "fleet_doctrine",
+            "aar_link",
+            "debrief_link",
+        ]
         labels = {
             "srp_name": get_mandatory_form_label_text(text=_("Fleet name")),
             "fleet_time": get_mandatory_form_label_text(text=_("Fleet time")),
             "fleet_type": _("Fleet type (optional)"),
             "fleet_doctrine": get_mandatory_form_label_text(text=_("Doctrine")),
-            "aar_link": _("After action report link"),
+            "aar_link": _("Public AAR/BR link (optional)"),
+            "debrief_link": _("Internal debrief link (optional)"),
         }
         querysets = {
             "fleet_type": FleetType.objects.filter(is_enabled=True),
@@ -138,9 +146,8 @@ class SrpLinkForm(ModelForm):
                     "data-full-width": "true",
                 }
             ),
-            "aar_link": forms.URLInput(
-                attrs={"placeholder": _("After action report link")}
-            ),
+            "aar_link": forms.URLInput(attrs={"placeholder": _("AAR/BR link")}),
+            "debrief_link": forms.URLInput(attrs={"placeholder": _("Debrief link")}),
         }
 
     def clean(self):
@@ -167,12 +174,14 @@ class SrpLinkUpdateForm(ModelForm):
         """
 
         model = SrpLink
-        fields = ["aar_link"]
-        labels = {"aar_link": _("After action report link")}
+        fields = ["aar_link", "debrief_link"]
+        labels = {
+            "aar_link": _("Public AAR/BR link (optional)"),
+            "debrief_link": _("Internal debrief link (optional)"),
+        }
         widgets = {
-            "aar_link": forms.URLInput(
-                attrs={"placeholder": _("After action report link")}
-            ),
+            "aar_link": forms.URLInput(attrs={"placeholder": _("AAR/BR link")}),
+            "debrief_link": forms.URLInput(attrs={"placeholder": _("Debrief link")}),
         }
 
     def clean(self):

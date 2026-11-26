@@ -130,7 +130,22 @@ class SrpLink(models.Model):
     )
     fleet_time = models.DateTimeField(verbose_name=_("Fleet time"))
     aar_link = models.URLField(
-        max_length=254, blank=True, default="", verbose_name=_("AAR link")
+        max_length=254,
+        blank=True,
+        default="",
+        verbose_name=_("AAR/BR link"),
+        help_text=_(
+            "Link to the public After Action Report or Battle Report. (Anyone with access to the app can see this link)"
+        ),
+    )
+    debrief_link = models.URLField(
+        max_length=254,
+        blank=True,
+        default="",
+        verbose_name=_("Fleet debrief link"),
+        help_text=_(
+            "Link to the internal fleet debrief, if applicable. (Only the SRP team can see this link)"
+        ),
     )
     creator = models.ForeignKey(
         to=User,

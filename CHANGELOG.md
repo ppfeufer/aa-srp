@@ -48,6 +48,13 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- Internal debrief link (optional) to SRP links, which can be used to link to a debrief
+  discussion for the fleet, so that the SRP team can get more information (e.g.,
+  potential fitting changes) that might be relevant for their decision on whether to
+  approve or deny the SRP request
+
 ## [5.12.0] - 2026-11-26
 
 ### Added
