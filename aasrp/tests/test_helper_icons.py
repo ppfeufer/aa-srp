@@ -781,6 +781,53 @@ class TestDashboardActionIcons(BaseTestCase):
         self.assertNotIn("fa-solid fa-ban", result)
         self.assertNotIn("fa-regular fa-trash-can", result)
 
+    def test_dashboard_action_icons_for_active_srp_link_created_by_user(self):
+        """
+        Test that the dashboard_action_icons function returns the correct icons for
+        active SRP links created by the logged-in user.
+
+        :return:
+        """
+
+        user = User.objects.create(username="testcreator")
+        self.client.force_login(user)
+
+        srp_link = SrpLink.objects.create(
+            srp_name="Test SRP",
+            srp_status=SrpLink.Status.ACTIVE,
+            fleet_time=timezone.now(),
+            srp_code="test_srp_code",
+            creator=user,
+        )
+
+        request = self.client.get(reverse("aasrp:srp_links")).wsgi_request
+        result = dashboard_action_icons(request, srp_link)
+
+        self.assertIn("fa-regular fa-newspaper", result)
+
+    def test_dashboard_action_icons_for_closed_srp_link_created_by_user(self):
+        """
+        Test that a closed SRP link creator cannot see the active-only AAR edit action.
+
+        :return:
+        """
+
+        user = User.objects.create(username="testcreator")
+        self.client.force_login(user)
+
+        srp_link = SrpLink.objects.create(
+            srp_name="Test SRP",
+            srp_status=SrpLink.Status.CLOSED,
+            fleet_time=timezone.now(),
+            srp_code="test_srp_code",
+            creator=user,
+        )
+
+        request = self.client.get(reverse("aasrp:srp_links")).wsgi_request
+        result = dashboard_action_icons(request, srp_link)
+
+        self.assertNotIn("fa-regular fa-newspaper", result)
+
     def test_dashboard_action_icons_for_closed_srp_link_with_manage_srp(self):
         """
         Test that the dashboard_action_icons function returns the correct icons for

@@ -16,10 +16,15 @@ from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
 from allianceauth.authentication.decorators import permissions_required
+from allianceauth.services.hooks import get_extension_logger
 
 # AA SRP
 from aasrp.helper.user import get_user_settings
 from aasrp.models import SrpLink, SrpRequest
+from aasrp.providers.applogger import AppLogger
+
+# Initialize a logger with a custom tag for the AA-SRP module
+logger = AppLogger(my_logger=get_extension_logger(__name__))
 
 
 def _create_button(  # pylint: disable=too-many-arguments, too-many-positional-arguments
@@ -81,10 +86,15 @@ def dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
     :rtype: str
     """
 
+    user_can_manage_srp = request.user.has_perm("aasrp.manage_srp")
+    user_can_manage_requests = request.user.has_perm("aasrp.manage_srp_requests")
+    srp_link_is_active = srp_link.srp_status == SrpLink.Status.ACTIVE
+    srp_link_is_closed = srp_link.srp_status == SrpLink.Status.CLOSED
+
     actions = ""
 
     # Active SRP link
-    if srp_link.srp_status == SrpLink.Status.ACTIVE:
+    if srp_link_is_active:
         # Add SRP request button
         actions += _create_button(
             url=reverse(viewname="aasrp:request_srp", args=[srp_link.srp_code]),
@@ -94,37 +104,33 @@ def dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
         )
 
     # Check if the user has permission to manage SRP links or requests
-    if request.user.has_perm(perm="aasrp.manage_srp") or request.user.has_perm(
-        perm="aasrp.manage_srp_requests"
-    ):
+    if user_can_manage_srp or user_can_manage_requests:
         # Add view SRP requests button
-        actions += (
-            _create_button(
-                url=reverse(
-                    viewname="aasrp:view_srp_requests", args=[srp_link.srp_code]
-                ),
-                btn_class="btn btn-primary",
-                icon_class="fa-solid fa-eye",
-                title=_("View SRP requests"),
-            )
-            + "<br>"
+        actions += _create_button(
+            url=reverse(viewname="aasrp:view_srp_requests", args=[srp_link.srp_code]),
+            btn_class="btn btn-primary",
+            icon_class="fa-solid fa-eye",
+            title=_("View SRP requests"),
         )
 
-        # Whether the SRP link is active or closed, we can edit it
-        if srp_link.srp_status != SrpLink.Status.COMPLETED and request.user.has_perm(
-            "aasrp.manage_srp"
+    # Check if the SRP link is not completed in which case we can add administrative actions
+    if srp_link.srp_status != SrpLink.Status.COMPLETED:
+        actions += "<br>"
+
+        if srp_link_is_active and (
+            user_can_manage_srp or request.user == srp_link.creator
         ):
+            # Add AAR link button
+            actions += _create_button(
+                url=reverse(viewname="aasrp:edit_srp_link", args=[srp_link.srp_code]),
+                btn_class="btn btn-info",
+                icon_class="fa-regular fa-newspaper",
+                title=_("Update AAR/BR and/or debrief link"),
+            )
+
+        if user_can_manage_srp:
             # Check if the SRP status is active
-            if srp_link.srp_status == SrpLink.Status.ACTIVE:
-                # Add AAR link button
-                actions += _create_button(
-                    url=reverse(
-                        viewname="aasrp:edit_srp_link", args=[srp_link.srp_code]
-                    ),
-                    btn_class="btn btn-info",
-                    icon_class="fa-regular fa-newspaper",
-                    title=_("Update AAR/BR and/or debrief link"),
-                )
+            if srp_link_is_active:
                 # Add disable SRP link button
                 actions += _create_button(
                     url=reverse(
@@ -138,7 +144,7 @@ def dashboard_action_icons(request: WSGIRequest, srp_link: SrpLink) -> str:
                 )
 
             # Check if the SRP status is closed
-            if srp_link.srp_status == SrpLink.Status.CLOSED:
+            if srp_link_is_closed:
                 # Add enable SRP link button
                 actions += _create_button(
                     url=reverse(

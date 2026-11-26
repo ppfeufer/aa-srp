@@ -348,6 +348,19 @@ def srp_link_edit(request: WSGIRequest, srp_code: str) -> HttpResponse:
 
         return redirect("aasrp:srp_links")
 
+    # Check if the user has permission to edit the SRP link
+    # If the user does not have the "manage_srp_requests" permission and is not the creator of the SRP link, they are denied access.
+    if (
+        not request.user.has_perm("aasrp.manage_srp_requests")
+        and srp_link.creator != request.user
+    ):
+        messages.error(
+            request=request,
+            message=_("You do not have permission to edit this SRP link."),
+        )
+
+        return redirect("aasrp:srp_links")
+
     # If this is a POST request, we need to process the form data.
     if request.method == "POST":
         form = SrpLinkUpdateForm(data=request.POST, instance=srp_link)
